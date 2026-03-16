@@ -5,7 +5,7 @@
   "build": {
     "beforeDevCommand": "bun run dev",
     "beforeBuildCommand": "bun run build",
-    "devUrl": "http://localhost:5173",
+    "devUrl": "http://localhost:5174",
     "frontendDist": "../dist"
   },
   "app": {
@@ -16,8 +16,10 @@
         "height": 900
       }
     ],
-    "security": { "csp": null }
+    "security": { "csp": null },
+    "withGlobalTauri": true
   },
+  "plugins": {},
   "bundle": {
     "active": true,
     "targets": "all",

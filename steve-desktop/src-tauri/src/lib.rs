@@ -1254,6 +1254,13 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
         .manage(Mutex::new(OAuthCallbackState { cancel_tx: None }))
         .manage(CdpPortState { port: cdp_port })
         .setup(|app| {
+            // Set window icon explicitly (required for Linux dev mode)
+            if let Some(window) = app.get_webview_window("main") {
+                if let Some(icon) = app.default_window_icon() {
+                    let _ = window.set_icon(icon.clone());
+                }
+            }
+
             let tray_menu = MenuBuilder::new(app)
                 .item(
                     &MenuItemBuilder::new("Open Dashboard")
@@ -1267,9 +1274,17 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
                 .item(&MenuItemBuilder::new("Quit").id("quit").build(app)?)
                 .build()?;
 
+            let tray_icon = {
+                let icon_bytes = include_bytes!("../icons/128x128.png");
+                let img = image::load_from_memory(icon_bytes).expect("Failed to load tray icon");
+                let rgba = img.to_rgba8();
+                let (w, h) = rgba.dimensions();
+                tauri::image::Image::new_owned(rgba.into_raw(), w, h)
+            };
+
             let _tray = TrayIconBuilder::new()
                 .menu(&tray_menu)
-                .icon(app.default_window_icon().unwrap().clone())
+                .icon(tray_icon)
                 .tooltip("S.T.E.V.E Desktop")
                 .on_menu_event(move |app, event| match event.id().as_ref() {
                     "open-dashboard" => {
