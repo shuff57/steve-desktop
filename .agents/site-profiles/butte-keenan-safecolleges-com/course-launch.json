@@ -1,0 +1,472 @@
+{
+  "interactive": {
+    "buttons": [
+      {
+        "text": "Language (Open a modal)",
+        "selector": "role=button[name=\"Language (Open a modal)\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Language (Open a modal)\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".list-item-inner.",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {}
+      },
+      {
+        "text": "Read More",
+        "selector": "#read-more-button",
+        "candidates": [
+          {
+            "type": "id",
+            "value": "#read-more-button",
+            "score": 90
+          },
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Read More\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".small",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Contact Opens dialog.",
+        "selector": "role=button[name=\"Contact Opens dialog.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Contact Opens dialog.\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "footer"
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "",
+        "selector": "a",
+        "candidates": [],
+        "href": "https://butte-keenan.safecolleges.com/training/home",
+        "context": {}
+      },
+      {
+        "text": "My Assignments",
+        "selector": "role=link[name=\"My Assignments\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"My Assignments\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".list-item-inner.",
+            "score": 40
+          }
+        ],
+        "href": "/training/home",
+        "context": {}
+      },
+      {
+        "text": "Training History",
+        "selector": "role=link[name=\"Training History\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Training History\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".list-item-inner.",
+            "score": 40
+          }
+        ],
+        "href": "/training/hist",
+        "context": {}
+      },
+      {
+        "text": "Extra Training",
+        "selector": "role=link[name=\"Extra Training\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Extra Training\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".list-item-inner.",
+            "score": 40
+          }
+        ],
+        "href": "/training/extra",
+        "context": {}
+      },
+      {
+        "text": "Log Out",
+        "selector": "role=link[name=\"Log Out\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Log Out\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".list-item-inner.",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/login",
+        "context": {}
+      },
+      {
+        "text": "",
+        "selector": ".icon-ring.icon-ring-lg",
+        "candidates": [
+          {
+            "type": "class",
+            "value": ".icon-ring.icon-ring-lg",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/D7862B8E-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Introduction About 1 Minute Required Completed Completed",
+        "selector": "role=link[name=\"Introduction About 1 Minute Required Completed Com\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Introduction About 1 Minute Required Completed Com\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".TOC_item",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/B4B3848A-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Fire Classifications About 4 Minutes Required Completed Completed",
+        "selector": "role=link[name=\"Fire Classifications About 4 Minutes Required Comp\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Fire Classifications About 4 Minutes Required Comp\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".TOC_item",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/BAEF27DC-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Inspection and Use About 2 Minutes Required Completed Completed",
+        "selector": "role=link[name=\"Inspection and Use About 2 Minutes Required Comple\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Inspection and Use About 2 Minutes Required Comple\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".TOC_item",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/CAC1A20C-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "General Fire Safety Rules About 3 Minutes Required",
+        "selector": "role=link[name=\"General Fire Safety Rules About 3 Minutes Required\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"General Fire Safety Rules About 3 Minutes Required\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".TOC_item",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/D7862B8E-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Final Assessment About 2 Minutes 80% required to pass Required Passed Passed",
+        "selector": "role=link[name=\"Final Assessment About 2 Minutes 80% required to p\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Final Assessment About 2 Minutes 80% required to p\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".TOC_item",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/player/BDE73240-7F5D-11F0-ABA9-C93E22542083/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Environmental Opens new window",
+        "selector": "role=link[name=\"Environmental Opens new window\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Environmental Opens new window\"]",
+            "score": 80
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/list?category_id=CAT-GUID-ENVIRO",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "humanre@butte.edu Opens new window",
+        "selector": "role=link[name=\"humanre@butte.edu Opens new window\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"humanre@butte.edu Opens new window\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".",
+            "score": 40
+          }
+        ],
+        "href": "mailto:humanre@butte.edu?subject=I have questions about the Fire Extinguisher Safety Keenan SafeColleges course&body=Hello,%0A%0AYou are my designated instructor for the Fire Extinguisher Safety Keenan SafeColleges course and I have a few questions.",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Sitemap",
+        "selector": "role=link[name=\"Sitemap\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Sitemap\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/sitemap",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Terms of Use",
+        "selector": "role=link[name=\"Terms of Use\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Terms of Use\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/terms",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Privacy Policy",
+        "selector": "role=link[name=\"Privacy PolicyOpens new window.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Privacy PolicyOpens new window.\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/privacy",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Opens new window.",
+        "selector": "role=link[name=\"Opens new window.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Opens new window.\"]",
+            "score": 80
+          }
+        ],
+        "href": "https://www.vectorsolutions.com/",
+        "context": {
+          "landmark": "footer"
+        }
+      }
+    ],
+    "inputs": [],
+    "selects": [],
+    "checkboxes": [],
+    "radios": [],
+    "forms": []
+  },
+  "landmarks": {
+    "banner": [
+      {
+        "selector": "#top-bar-banner",
+        "label": ""
+      }
+    ],
+    "navigation": [
+      {
+        "selector": "role=navigation[name=\"Jump to Main Content\"]",
+        "label": ""
+      }
+    ],
+    "main": [
+      {
+        "selector": "#mainPageContent",
+        "label": ""
+      }
+    ],
+    "contentinfo": [
+      {
+        "selector": "role=footer[name=\"Sitemap Terms of Use Privacy Policy Contact Opens \"]",
+        "label": ""
+      }
+    ]
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Fire Extinguisher Safety"
+    },
+    {
+      "level": 2,
+      "text": "Full Course"
+    },
+    {
+      "level": 2,
+      "text": "Course Sections"
+    },
+    {
+      "level": 3,
+      "text": "Introduction"
+    },
+    {
+      "level": 3,
+      "text": "Fire Classifications"
+    },
+    {
+      "level": 3,
+      "text": "Inspection and Use"
+    },
+    {
+      "level": 3,
+      "text": "General Fire Safety Rules"
+    },
+    {
+      "level": 3,
+      "text": "Final Assessment"
+    },
+    {
+      "level": 2,
+      "text": "Course Requirements"
+    },
+    {
+      "level": 2,
+      "text": "Course Details"
+    },
+    {
+      "level": 2,
+      "text": "Course Coordinator"
+    },
+    {
+      "level": 2,
+      "text": "Authors"
+    }
+  ],
+  "summary": {
+    "buttons": 3,
+    "links": 17,
+    "inputs": 0,
+    "selects": 0,
+    "checkboxes": 0,
+    "radios": 0,
+    "forms": 0,
+    "landmarks": 4,
+    "headings": 12
+  },
+  "url": "https://butte-keenan.safecolleges.com/training/launch/course_work/2B7AB59C-0871-11F1-9282-DAB5308316B2?course_work_after=2026-01-19&course_work_before=9999-12-31",
+  "title": "Keenan SafeColleges Training :: Fire Extinguisher Safety (Full Course) :: Course",
+  "profiledAt": "2026-03-15T21:41:05.169Z",
+  "domain": "butte-keenan.safecolleges.com",
+  "pageName": "course-launch"
+}

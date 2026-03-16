@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+steve-desktop/node_modules/
+
+# Build output
+steve-desktop/dist/
+steve-desktop/src-tauri/target/
+
+# Tauri generated
+steve-desktop/src-tauri/gen/
+
+# Bun
+*.lockb
+
+# Agent memory
+.agents/memory/lightrag_workdir/
+.agents/memory/.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Sisyphus evidence (large, regenerable)
+.sisyphus/evidence/
+
+# Environment
+.env
+.env.local

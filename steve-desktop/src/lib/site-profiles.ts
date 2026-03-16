@@ -1,0 +1,92 @@
+import { invoke } from '@tauri-apps/api/core';
+import { SITE_PROFILES_DIR } from './constants';
+import type { SiteProfile } from './types/site-profile';
+import { isSiteProfile } from './types/site-profile';
+import { domainToPath, slugify } from './utils/index';
+
+export interface StoredProfileInfo {
+  domain: string;
+  pageName: string;
+  path: string;
+}
+
+function pathToDomain(domainPath: string): string {
+  return domainPath.replace(/-/g, '.');
+}
+
+function pageNameFromPath(path: string): string {
+  const fileName = path.split('/').pop() ?? '';
+  return fileName.replace(/\.json$/i, '');
+}
+
+function isNotFoundError(error: unknown): boolean {
+  return error instanceof Error && /not found/i.test(error.message);
+}
+
+export function getProfilePath(domain: string, pageName: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/${slugify(pageName)}.json`;
+}
+
+export function findProfileByUrl(profiles: StoredProfileInfo[], url: string): string | null {
+  try {
+    const hostname = new URL(url).hostname;
+    const match = profiles.find((profile) => profile.domain === hostname);
+    return match?.path ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function saveProfile(profile: SiteProfile): Promise<string> {
+  const path = getProfilePath(profile.domain, profile.pageName);
+  const directory = path.split('/').slice(0, -1).join('/');
+  await invoke('create_dir', { path: directory, recursive: true });
+  await invoke('write_file', { path, contents: JSON.stringify(profile, null, 2) });
+  return path;
+}
+
+export async function loadProfile(domain: string, pageName: string): Promise<SiteProfile | null> {
+  try {
+    const contents = await invoke<string>('read_file', { path: getProfilePath(domain, pageName) });
+    const parsed: unknown = JSON.parse(contents);
+    return isSiteProfile(parsed) ? parsed : null;
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return null;
+    }
+    return null;
+  }
+}
+
+export async function listProfiles(): Promise<StoredProfileInfo[]> {
+  const paths = await invoke<string[]>('list_files', { path: SITE_PROFILES_DIR, recursive: true });
+  const profiles = await Promise.all(
+    paths
+      .filter((path) => path.endsWith('.json'))
+      .map(async (path) => {
+        const contents = await invoke<string>('read_file', { path });
+        const parsed: unknown = JSON.parse(contents);
+        if (isSiteProfile(parsed)) {
+          return {
+            domain: parsed.domain,
+            pageName: parsed.pageName,
+            path,
+          } satisfies StoredProfileInfo;
+        }
+
+        const relative = path.replace(`${SITE_PROFILES_DIR}/`, '');
+        const [domainPath] = relative.split('/');
+        return {
+          domain: pathToDomain(domainPath ?? ''),
+          pageName: pageNameFromPath(path),
+          path,
+        } satisfies StoredProfileInfo;
+      }),
+  );
+
+  return profiles;
+}
+
+export async function deleteProfile(domain: string, pageName: string): Promise<void> {
+  await invoke('delete_file', { path: getProfilePath(domain, pageName) });
+}

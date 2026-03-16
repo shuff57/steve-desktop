@@ -1,0 +1,418 @@
+{
+  "interactive": {
+    "buttons": [
+      {
+        "text": "English English",
+        "selector": "#language_selector",
+        "candidates": [
+          {
+            "type": "id",
+            "value": "#language_selector",
+            "score": 90
+          },
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"English English\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".dropdown-toggle",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "banner"
+        }
+      },
+      {
+        "text": "Go Back Back to Table of Contents",
+        "selector": "role=button[name=\"Go Back Back to Table of Contents\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Go Back Back to Table of Contents\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".hiding-parent.fade-in",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Play (k)",
+        "selector": "role=button[name=\"Play (k)\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Play (k)\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip_control",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Mute (m) ↑ and ↓ for volume control",
+        "selector": "role=button[name=\"Mute (m) ↑ and ↓ for volume control\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Mute (m) ↑ and ↓ for volume control\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip.slip-volume-high",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Previous Learning Object (comma ,) Know Your Escape Route",
+        "selector": "role=button[name=\"Previous Learning Object (comma ,) Know Your Escap\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Previous Learning Object (comma ,) Know Your Escap\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip_control.u_slip_hidden_tiny",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Disable Closed Captions (c)",
+        "selector": "role=button[name=\"Disable Closed Captions (c)\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Disable Closed Captions (c)\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip_control.slip_active",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Open Settings",
+        "selector": "role=button[name=\"Open Settings\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Open Settings\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip.slip-cog",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Full Screen (f)",
+        "selector": "role=button[name=\"Full Screen (f)\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Full Screen (f)\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip_control",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Show Interactive Transcript (t)",
+        "selector": "role=button[name=\"Show Interactive Transcript (t)\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Show Interactive Transcript (t)\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".slip_control.",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Having trouble viewing this course? Troubleshooting Tips",
+        "selector": "role=button[name=\"Having trouble viewing this course? Troubleshootin\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Having trouble viewing this course? Troubleshootin\"]",
+            "score": 80
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Contact Opens dialog.",
+        "selector": "role=button[name=\"Contact Opens dialog.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=button[name=\"Contact Opens dialog.\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "disabled": false,
+        "context": {
+          "landmark": "footer"
+        }
+      }
+    ],
+    "links": [
+      {
+        "text": "",
+        "selector": ".brand-logo",
+        "candidates": [
+          {
+            "type": "class",
+            "value": ".brand-logo",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/training/assignments",
+        "context": {
+          "landmark": "banner"
+        }
+      },
+      {
+        "text": "humanre@butte.edu Opens new window",
+        "selector": "role=link[name=\"humanre@butte.edu Opens new window\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"humanre@butte.edu Opens new window\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".",
+            "score": 40
+          }
+        ],
+        "href": "mailto:humanre@butte.edu?subject=I have questions about the Fire Extinguisher Safety Keenan SafeColleges course&body=Hello,%0A%0AYou are my designated instructor for the Fire Extinguisher Safety Keenan SafeColleges course and I have a few questions.",
+        "context": {
+          "landmark": "main"
+        }
+      },
+      {
+        "text": "Sitemap",
+        "selector": "role=link[name=\"Sitemap\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Sitemap\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/sitemap",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Terms of Use",
+        "selector": "role=link[name=\"Terms of Use\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Terms of Use\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/terms",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Privacy Policy",
+        "selector": "role=link[name=\"Privacy PolicyOpens new window.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Privacy PolicyOpens new window.\"]",
+            "score": 80
+          },
+          {
+            "type": "class",
+            "value": ".btn.btn-subtle",
+            "score": 40
+          }
+        ],
+        "href": "https://butte-keenan.safecolleges.com/privacy",
+        "context": {
+          "landmark": "footer"
+        }
+      },
+      {
+        "text": "Opens new window.",
+        "selector": "role=link[name=\"Opens new window.\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=link[name=\"Opens new window.\"]",
+            "score": 80
+          }
+        ],
+        "href": "https://www.vectorsolutions.com/",
+        "context": {
+          "landmark": "footer"
+        }
+      }
+    ],
+    "inputs": [
+      {
+        "label": "Volume up down",
+        "type": "range",
+        "selector": "role=textbox[name=\"Volume up down\"]",
+        "candidates": [
+          {
+            "type": "role-name",
+            "value": "role=textbox[name=\"Volume up down\"]",
+            "score": 80
+          },
+          {
+            "type": "name",
+            "value": "input[name=\"volume\"]",
+            "score": 70
+          },
+          {
+            "type": "class",
+            "value": ".volume-range",
+            "score": 40
+          }
+        ],
+        "required": false,
+        "context": {
+          "landmark": "main"
+        }
+      }
+    ],
+    "selects": [],
+    "checkboxes": [],
+    "radios": [],
+    "forms": []
+  },
+  "landmarks": {
+    "banner": [
+      {
+        "selector": "#top-bar-banner",
+        "label": ""
+      }
+    ],
+    "navigation": [
+      {
+        "selector": "role=navigation[name=\"Jump to Main Content\"]",
+        "label": ""
+      }
+    ],
+    "main": [
+      {
+        "selector": "#mainPageContent",
+        "label": ""
+      }
+    ],
+    "contentinfo": [
+      {
+        "selector": "role=footer[name=\"Sitemap Terms of Use Privacy Policy Contact Opens \"]",
+        "label": ""
+      }
+    ]
+  },
+  "headings": [
+    {
+      "level": 1,
+      "text": "Fire Extinguisher Safety: General Fire Safety Rules"
+    }
+  ],
+  "summary": {
+    "buttons": 11,
+    "links": 6,
+    "inputs": 1,
+    "selects": 0,
+    "checkboxes": 0,
+    "radios": 0,
+    "forms": 0,
+    "landmarks": 4,
+    "headings": 1
+  },
+  "url": "https://butte-keenan.safecolleges.com/training/player/D7862B8E-2AFA-11E9-A4A1-0054960D9DEB/2B7AB59C-0871-11F1-9282-DAB5308316B2?continue_course=1",
+  "title": "Keenan SafeColleges Training :: Fire Extinguisher Safety Full Course: General Fire Safety Rules",
+  "profiledAt": "2026-03-15T21:45:21.929Z",
+  "domain": "butte-keenan.safecolleges.com",
+  "pageName": "video-player"
+}
