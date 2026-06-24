@@ -5,7 +5,7 @@
   import SkillCard from '../components/skills/SkillCard.svelte';
   import { getSkills, saveSkill, deleteSkill, updateSkillActive, type Skill } from '../lib/db';
   import { parseSkillMarkdown } from '../lib/skill-parser';
-  import { syncLocalSkills, syncSiteProfiles } from '../lib/skills-api';
+  import { syncLocalSkills, syncSiteProfiles, seedSampleWorkflowSkill } from '../lib/skills-api';
 
   let currentView = $state<'my-skills' | 'find-skills' | 'create-skill'>('my-skills');
   let skillCreatorKey = $state(0);
@@ -108,7 +108,7 @@
   }
 
   onMount(() => {
-    loadSkills();
+    seedSampleWorkflowSkill().catch(() => {}).then(loadSkills);
     syncLocalSkills().then(({ imported }) => {
       if (imported > 0) loadSkills();
     }).catch(() => {});
@@ -176,10 +176,10 @@
         {:else}
           <div class="skills-grid">
             {#each skills as skill (skill.id)}
-              <SkillCard 
-                {skill} 
-                onDelete={handleDelete} 
-                onToggle={handleToggle} 
+              <SkillCard
+                {skill}
+                onDelete={handleDelete}
+                onToggle={handleToggle}
               />
             {/each}
           </div>

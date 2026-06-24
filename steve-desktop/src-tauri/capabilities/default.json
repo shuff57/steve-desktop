@@ -6,8 +6,21 @@
   "permissions": [
     "core:default",
     "shell:default",
-    "http:default",
+    "shell:allow-execute",
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://ollama.com/*" },
+        { "url": "https://*.ollama.com/*" },
+        { "url": "http://localhost:11434/*" },
+        { "url": "https://api.anthropic.com/*" },
+        { "url": "https://api.openai.com/*" },
+        { "url": "https://skills.sh/*" },
+        { "url": "https://raw.githubusercontent.com/*" }
+      ]
+    },
     "sql:default",
+    "sql:allow-execute",
     "process:allow-exit"
   ]
 }

@@ -49,3 +49,23 @@ CREATE TABLE IF NOT EXISTS site_profiles (
   updated_at TEXT DEFAULT (datetime('now')),
   UNIQUE(domain, page_name)
 );
+
+-- Migration 6: Saved site credentials for local autofill (never synced to cloud)
+CREATE TABLE IF NOT EXISTS site_credentials (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  site_name TEXT NOT NULL,
+  url_pattern TEXT NOT NULL,
+  username TEXT NOT NULL,
+  password TEXT NOT NULL,
+  notes TEXT,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
+);
+
+-- Migration 7: Saved bookmarks (quick-nav to sites)
+CREATE TABLE IF NOT EXISTS bookmarks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  url TEXT NOT NULL UNIQUE,
+  created_at TEXT DEFAULT (datetime('now'))
+);

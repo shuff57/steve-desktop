@@ -1,13 +1,21 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const mockExecute = vi.fn().mockResolvedValue({ rowsAffected: 1, lastInsertId: 1 });
-const mockSelect = vi.fn().mockResolvedValue([]);
-const mockLoad = vi.fn().mockResolvedValue({ execute: mockExecute, select: mockSelect });
+const { mockExecute, mockSelect, mockLoad, mockInvoke } = vi.hoisted(() => {
+  const mockExecute = vi.fn().mockResolvedValue({ rowsAffected: 1, lastInsertId: 1 });
+  const mockSelect = vi.fn().mockResolvedValue([]);
+  const mockLoad = vi.fn().mockResolvedValue({ execute: mockExecute, select: mockSelect });
+  const mockInvoke = vi.fn().mockResolvedValue(null);
+  return { mockExecute, mockSelect, mockLoad, mockInvoke };
+});
 
 vi.mock('@tauri-apps/plugin-sql', () => ({
   default: {
     load: mockLoad,
   },
+}));
+
+vi.mock('@tauri-apps/api/core', () => ({
+  invoke: mockInvoke,
 }));
 
 import {
@@ -28,6 +36,10 @@ import {
   saveSkill,
   setSetting,
   updateSkillActive,
+  getSiteCredentials,
+  saveSiteCredential,
+  deleteSiteCredential,
+  type SiteCredential,
 } from './db';
 
 describe('db.ts', () => {
@@ -147,7 +159,7 @@ describe('db.ts', () => {
   });
 
   it('exposes provider and site profile APIs for steve schema', async () => {
-    await saveProviderConfig('ollama', 'http://localhost:11434', 'k', 'llama3', 1);
+    await saveProviderConfig({ id: 'ollama', api_url: 'http://localhost:11434', api_key: 'k', model: 'llama3', is_active: 1 });
     expect(mockExecute).toHaveBeenCalledWith(
       expect.stringContaining('INSERT INTO provider_configs'),
       ['ollama', 'http://localhost:11434', 'k', 'llama3', 1],
@@ -190,6 +202,76 @@ describe('db.ts', () => {
   it('deletes oauth token by provider', async () => {
     await deleteOAuthToken('github');
     expect(mockExecute).toHaveBeenCalledWith('DELETE FROM oauth_tokens WHERE provider = $1', ['github']);
+  });
+
+  it('saveSiteCredential inserts metadata (empty DB password) and stores the secret in the keychain', async () => {
+    mockExecute.mockResolvedValueOnce({ rowsAffected: 1, lastInsertId: 42 });
+    await saveSiteCredential({
+      site_name: 'MyOpenMath',
+      url_pattern: 'myopenmath.com',
+      username: 'teacher@example.edu',
+      password: 'hunter2',
+      notes: 'period 1',
+    });
+
+    expect(mockExecute).toHaveBeenCalledWith(
+      expect.stringContaining('INSERT INTO site_credentials'),
+      ['MyOpenMath', 'myopenmath.com', 'teacher@example.edu', 'period 1'], // no password in the DB
+    );
+    expect(mockInvoke).toHaveBeenCalledWith('keyring_set', { key: 'credential:42', secret: 'hunter2' });
+  });
+
+  it('saveSiteCredential updates metadata by id and re-stores the secret in the keychain', async () => {
+    await saveSiteCredential({
+      id: 7,
+      site_name: 'Canvas',
+      url_pattern: 'instructure.com',
+      username: 'u',
+      password: 'p',
+    });
+
+    expect(mockExecute).toHaveBeenCalledWith(
+      expect.stringContaining('UPDATE site_credentials SET'),
+      ['Canvas', 'instructure.com', 'u', null, 7], // no password in the DB
+    );
+    expect(mockInvoke).toHaveBeenCalledWith('keyring_set', { key: 'credential:7', secret: 'p' });
+  });
+
+  it('getSiteCredentials sources the password from the keychain', async () => {
+    const row: SiteCredential = {
+      id: 1,
+      site_name: 'Canvas',
+      url_pattern: 'instructure.com',
+      username: 'u',
+      password: '', // DB column is empty now
+      notes: null,
+    };
+    mockSelect.mockResolvedValueOnce([row]);
+    mockInvoke.mockResolvedValueOnce('secret-from-keychain');
+
+    const creds = await getSiteCredentials();
+
+    expect(mockInvoke).toHaveBeenCalledWith('keyring_get', { key: 'credential:1' });
+    expect(creds).toEqual([{ ...row, password: 'secret-from-keychain' }]);
+  });
+
+  it('getSiteCredentials migrates a legacy DB password into the keychain', async () => {
+    mockSelect.mockResolvedValueOnce([
+      { id: 5, site_name: 'X', url_pattern: 'x.com', username: 'u', password: 'legacy-pw', notes: null },
+    ]);
+    mockInvoke.mockResolvedValueOnce(null); // keyring_get → no entry yet
+
+    const creds = await getSiteCredentials();
+
+    expect(mockInvoke).toHaveBeenCalledWith('keyring_set', { key: 'credential:5', secret: 'legacy-pw' });
+    expect(mockExecute).toHaveBeenCalledWith("UPDATE site_credentials SET password = '' WHERE id = $1", [5]);
+    expect(creds[0].password).toBe('legacy-pw'); // still usable on this call
+  });
+
+  it('deleteSiteCredential removes the row and the keychain entry', async () => {
+    await deleteSiteCredential(3);
+    expect(mockExecute).toHaveBeenCalledWith('DELETE FROM site_credentials WHERE id = $1', [3]);
+    expect(mockInvoke).toHaveBeenCalledWith('keyring_delete', { key: 'credential:3' });
   });
 
   it('does not export grading-related functions', async () => {

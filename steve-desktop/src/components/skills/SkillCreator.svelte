@@ -342,7 +342,7 @@
 
   .message.user {
     align-self: flex-end;
-    background-color: var(--color-primary, #3b82f6);
+    background-color: var(--color-primary);
     color: var(--color-primary-text);
     border-bottom-right-radius: 4px;
   }
@@ -360,9 +360,9 @@
 
   .message.error-msg {
     align-self: center;
-    background-color: rgba(231, 76, 60, 0.1);
-    border: 1px solid var(--color-danger, #e74c3c);
-    color: var(--color-danger, #e74c3c);
+    background-color: var(--color-danger-bg);
+    border: 1px solid var(--color-danger);
+    color: var(--color-danger);
     max-width: 95%;
     font-size: 0.85rem;
   }
@@ -387,7 +387,7 @@
     align-items: center;
     gap: var(--spacing-2);
     padding: var(--spacing-2) var(--spacing-3);
-    background-color: var(rgba(16, 185, 129, 0.1));
+    background-color: var(--color-success-bg);
     border: 1px solid var(--color-success);
     border-radius: var(--radius-md);
     align-self: flex-start;
@@ -494,7 +494,7 @@
     font-weight: 500;
     cursor: pointer;
     border: none;
-    background-color: var(--color-primary, #3b82f6);
+    background-color: var(--color-primary);
     color: var(--color-primary-text);
     transition: opacity 0.15s ease;
   }

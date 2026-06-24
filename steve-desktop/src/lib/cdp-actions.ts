@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
 import { cdp } from './cdp-client';
+import { selectorToElementExpr } from './selector-resolve';
 
 export interface ActionResult {
   success: boolean;
@@ -23,10 +24,6 @@ function checkDangerousPatterns(code: string): string | null {
     if (code.includes(pattern)) return pattern;
   }
   return null;
-}
-
-function escapeSelector(selector: string): string {
-  return selector.replace(/'/g, "\\'");
 }
 
 export async function connectCDP(port?: number): Promise<boolean> {
@@ -115,19 +112,24 @@ export async function cdpScreenshot(): Promise<string> {
 }
 
 export async function pwClick(selector: string): Promise<ActionResult> {
-  const expression = `document.querySelector('${escapeSelector(selector)}')?.click();`;
-  return await evalScript(expression);
+  // Resolves CSS, role=name, and xpath selectors (selector-resolve.ts).
+  const el = selectorToElementExpr(selector);
+  const expression = `(function(){var el=${el}; if(!el) return false; el.click(); return true;})()`;
+  const result = await evalScript(expression);
+  if (result.success && result.data !== true) {
+    return { success: false, error: `Element not found: ${selector}` };
+  }
+  return result;
 }
 
 export async function pwType(selector: string, text: string, clear?: boolean): Promise<ActionResult> {
   try {
     if (!cdp.isConnected()) return { success: false, error: 'Not connected to CDP' };
 
-    const escapedSelector = escapeSelector(selector);
-    const escapedText = JSON.stringify(text);
+    const el = selectorToElementExpr(selector);
     const expression = clear
-      ? `(function(){const el=document.querySelector('${escapedSelector}');if(!el) return false; el.focus(); el.value=''; el.dispatchEvent(new Event('input',{bubbles:true})); return true;})()`
-      : `!!document.querySelector('${escapedSelector}')`;
+      ? `(function(){var el=${el};if(!el) return false; el.focus(); el.value=''; el.dispatchEvent(new Event('input',{bubbles:true})); return true;})()`
+      : `(function(){var el=${el}; if(!el) return false; el.focus(); return true;})()`;
 
     const blocked = checkDangerousPatterns(expression);
     if (blocked) return { success: false, error: `Blocked dangerous pattern: ${blocked}` };
@@ -139,11 +141,7 @@ export async function pwType(selector: string, text: string, clear?: boolean): P
 
     if (!focused.result?.value) return { success: false, error: `Element not found: ${selector}` };
 
-    await cdp.send('Runtime.evaluate', {
-      expression: `(function(){const el=document.querySelector('${escapedSelector}'); if(!el) return false; el.focus(); return true;})()`,
-      returnByValue: true,
-    });
-    await cdp.send('Input.insertText', { text: JSON.parse(escapedText) as string });
+    await cdp.send('Input.insertText', { text });
 
     return { success: true };
   } catch (error: unknown) {
@@ -153,7 +151,7 @@ export async function pwType(selector: string, text: string, clear?: boolean): P
 
 export async function pwGetText(selector?: string): Promise<ActionResult> {
   const expression = selector
-    ? `document.querySelector('${escapeSelector(selector)}')?.textContent ?? ''`
+    ? `(${selectorToElementExpr(selector)})?.textContent ?? ''`
     : `(document.body.innerText || '')`;
   return await evalScript(expression);
 }

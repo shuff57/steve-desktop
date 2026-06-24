@@ -2,6 +2,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { SITE_PROFILES_DIR } from './constants';
 import type { SiteProfile } from './types/site-profile';
 import { isSiteProfile } from './types/site-profile';
+import type { SiteMap } from './site-map';
 import { domainToPath, slugify } from './utils/index';
 
 export interface StoredProfileInfo {
@@ -89,4 +90,33 @@ export async function listProfiles(): Promise<StoredProfileInfo[]> {
 
 export async function deleteProfile(domain: string, pageName: string): Promise<void> {
   await invoke('delete_file', { path: getProfilePath(domain, pageName) });
+}
+
+// Per-domain site map (accumulate / auto-crawl) lives alongside the page profiles.
+export function getSiteMapPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_sitemap.json`;
+}
+
+export async function saveSiteMap(map: SiteMap): Promise<string> {
+  const path = getSiteMapPath(map.domain);
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents: JSON.stringify(map, null, 2) });
+  return path;
+}
+
+export async function loadSiteMap(domain: string): Promise<SiteMap | null> {
+  try {
+    const contents = await invoke<string>('read_file', { path: getSiteMapPath(domain) });
+    return JSON.parse(contents) as SiteMap;
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteSiteMap(domain: string): Promise<void> {
+  try {
+    await invoke('delete_file', { path: getSiteMapPath(domain) });
+  } catch {
+    /* already gone */
+  }
 }

@@ -1,0 +1,108 @@
+import type { Workflow, WorkflowStep } from './types/site-profile';
+import type { SnapshotResult } from './dom-snapshot-types';
+import type { ModelTransport } from './model-gate';
+import { replayWorkflow, modelRelocator, type PageDriver, type ReplaySummary } from './replay';
+import { captureMergedTree } from './merged-tree';
+import { cdp } from './cdp-client';
+import { evalScript as cdpEval, pwClick, pwType, isConnected } from './cdp-actions';
+import { selectorToElementExpr } from './selector-resolve';
+import { navigateEmbedded, getActiveTabId } from './browser';
+
+// Live wiring of the self-heal replay: drive the real embedded browser over CDP and, when the
+// local tiers (recorded → candidates → fuzzy) all miss, escalate to the model via the sidecar
+// with the slot-redacted tree (Tier 3 = modelRelocator). This is the integration point that
+// turns the tested replay/heal libs into something that runs against a live page.
+
+const SIDECAR_BASE = 'http://localhost:3456';
+
+/**
+ * Tier-3 transport: send the (already-redacted, gate-checked) relocate prompt to the local
+ * model sidecar and return its raw reply. callModelTree owns the trust boundary; this only moves
+ * bytes. Throws on a non-200 so the healer falls through to a skip rather than acting on garbage.
+ */
+export function sidecarTransport(opts: { provider?: string; model?: string } = {}): ModelTransport {
+  return async (prompt: string): Promise<string> => {
+    const res = await fetch(`${SIDECAR_BASE}/api/agent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: prompt }],
+        provider: opts.provider,
+        model: opts.model,
+      }),
+    });
+    if (!res.ok) throw new Error(`sidecar relocate failed (HTTP ${res.status})`);
+    const data = await res.json();
+    if (typeof data === 'string') return data;
+    return (data?.content ?? data?.text ?? '') as string;
+  };
+}
+
+/** PageDriver backed by the live embedded browser over CDP (merged tree + selector-resolve). */
+export class BrowserPageDriver implements PageDriver {
+  async exists(selector: string): Promise<boolean> {
+    const res = await cdpEval(`!!(${selectorToElementExpr(selector)})`);
+    return res.success && res.data === true;
+  }
+
+  async snapshot(): Promise<SnapshotResult> {
+    const { snapshot } = await captureMergedTree(cdp);
+    return snapshot;
+  }
+
+  async act(step: WorkflowStep, selector: string): Promise<boolean> {
+    switch (step.action) {
+      case 'click':
+      case 'answer-quiz': // answering is a click on the chosen option in our workflows
+        return (await pwClick(selector)).success;
+
+      case 'fill':
+      case 'select':
+        return (await pwType(selector, step.value ?? '', true)).success;
+
+      case 'navigate': {
+        const tabId = getActiveTabId();
+        if (!tabId) return false;
+        await navigateEmbedded(tabId, step.value ?? selector);
+        return true;
+      }
+
+      case 'keyboard': {
+        const key = step.key ?? '';
+        if (!key) return false;
+        const res = await cdpEval(
+          `(function(){var t=(${selectorToElementExpr(selector)})||document.activeElement||document.body;` +
+            `t.dispatchEvent(new KeyboardEvent('keydown',{key:${JSON.stringify(key)},bubbles:true}));return true;})()`,
+        );
+        return res.success && res.data === true;
+      }
+
+      case 'scroll': {
+        const res = await cdpEval(`(function(){window.scrollBy(0,400);return true;})()`);
+        return res.success && res.data === true;
+      }
+
+      case 'wait-for':
+        return this.exists(selector);
+
+      default:
+        return false; // unsupported action — replay audits this as a skip, never a guess
+    }
+  }
+}
+
+/**
+ * Replay a trained workflow against the live page with Tier-3 model self-heal wired in.
+ * Requires an active CDP connection to the embedded browser.
+ */
+export async function replayLive(
+  workflow: Workflow,
+  opts: { provider?: string; model?: string } = {},
+): Promise<ReplaySummary> {
+  if (!isConnected()) {
+    throw new Error('Replay needs a CDP connection — connect to the embedded browser first.');
+  }
+  const driver = new BrowserPageDriver();
+  const heal = modelRelocator(sidecarTransport(opts));
+  return replayWorkflow(workflow, driver, heal);
+}

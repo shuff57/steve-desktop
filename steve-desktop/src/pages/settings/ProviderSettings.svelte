@@ -1,21 +1,24 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { 
-    listProviderConfigs, 
-    saveProviderConfig, 
-    deleteProviderConfig, 
+  import {
+    listProviderConfigs,
+    saveProviderConfig,
+    deleteProviderConfig,
     getOAuthToken,
+    saveOAuthToken,
   } from '../../lib/db';
+  import { Command } from '@tauri-apps/plugin-shell';
+  import { Activity, Pencil, Trash2, Plus, RefreshCw, Copy } from 'lucide-svelte';
   import type { ProviderConfig } from '../../lib/db';
-  import { 
-    startGitHubDeviceFlow, 
-    startChatGPTDeviceFlow, 
-    startClaudeOAuthFlow, 
-    startGoogleDeviceFlow, 
-    signOut, 
-    fetchAvailableModels 
+  import {
+    startGitHubDeviceFlow,
+    startChatGPTDeviceFlow,
+    startClaudeOAuthFlow,
+    startGoogleDeviceFlow,
+    signOut,
   } from '../../lib/oauth';
   import type { DeviceFlowResult } from '../../lib/oauth';
+  import { listProviderModels, groupModels } from '../../lib/model-list';
 
   let providers: ProviderConfig[] = $state([]);
   let editingProvider: string | null = $state(null);
@@ -41,12 +44,12 @@
   // Buffer for Anthropic copy-paste auth code
   let _anthropicPasteBuffer = $state('');
 
+  // Three supported providers, all API-key auth (the legal, no-OAuth-client path).
+  // keysUrl points at each vendor's own API-keys page.
   const PROVIDER_OPTIONS = [
-    { id: 'ollama', name: 'Ollama', requiresUrl: true, requiresKey: false, defaultUrl: 'http://localhost:11434', canSignIn: false },
-    { id: 'openai', name: 'OpenAI', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: true },
-    { id: 'anthropic', name: 'Anthropic (Claude)', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: true },
-    { id: 'google-gemini', name: 'Google Gemini', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: true },
-    { id: 'github-models', name: 'GitHub Models', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: true },
+    { id: 'anthropic', name: 'Anthropic (Claude)', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: true, keysUrl: 'https://console.anthropic.com/settings/keys' },
+    { id: 'openai', name: 'ChatGPT (OpenAI)', requiresUrl: false, requiresKey: true, defaultUrl: '', canSignIn: false, keysUrl: 'https://platform.openai.com/api-keys' },
+    { id: 'ollama', name: 'Ollama Cloud', requiresUrl: true, requiresKey: true, defaultUrl: 'https://ollama.com', canSignIn: false, keysUrl: 'https://ollama.com/settings/keys' },
   ];
 
   onMount(async () => {
@@ -97,14 +100,31 @@
         const flow = await startGoogleDeviceFlow();
         handleDeviceFlow(providerId, flow);
       } else if (providerId === 'anthropic') {
-        const flow = await startClaudeOAuthFlow();
-        handleDeviceFlow(providerId, flow);
+        await signInWithAnt(providerId);
       }
     } catch (error) {
       authErrors[providerId] = error instanceof Error ? error.message : String(error);
     } finally {
       authLoading[providerId] = false;
     }
+  }
+
+  // Browser login via the Anthropic `ant` CLI: opens a browser and stores an
+  // auto-refreshing OAuth profile locally. The real token is fetched per model
+  // call (ant auth print-credentials); here we just record a presence marker so
+  // the UI shows "Signed in". Throws so startAuth surfaces the error banner.
+  async function signInWithAnt(providerId: string) {
+    let result;
+    try {
+      result = await Command.create('ant', ['auth', 'login']).execute();
+    } catch {
+      throw new Error('Browser sign-in needs the Anthropic `ant` CLI installed. Install it (then `ant auth login`), or use an API key instead.');
+    }
+    if (result.code !== 0) {
+      throw new Error(result.stderr?.trim() || 'ant auth login did not complete.');
+    }
+    await saveOAuthToken(providerId, 'ant-oauth-profile'); // presence marker, not the token
+    oauthStatus[providerId] = true;
   }
 
   async function handleDeviceFlow(providerId: string, flow: DeviceFlowResult) {
@@ -158,13 +178,14 @@
     fetchingModels[providerId] = true;
     modelFetchErrors[providerId] = '';
     try {
-      const providerKey = getProviderKey(providerId);
-      if (!providerKey) throw new Error('Invalid provider for model fetching');
-      
-      const models = await fetchAvailableModels(providerKey);
-      fetchedModels[providerId] = models;
-      
       const provider = providers.find(p => p.id === providerId);
+      // Same source as the embedded browser's ProviderSelector, so the dropdown matches.
+      const models = await listProviderModels(providerId, {
+        url: provider?.api_url,
+        apiKey: provider?.api_key,
+      });
+      fetchedModels[providerId] = models;
+
       if (provider && !provider.model && models.length > 0) {
         provider.model = models[0];
       }
@@ -260,7 +281,7 @@
   {#if providers.length === 0 && !showAddForm}
     <div class="empty-state">
       <p>No providers configured yet.</p>
-      <button class="primary" onclick={() => showAddForm = true}>Add Your First Provider</button>
+      <button class="primary" onclick={() => showAddForm = true}><Plus size={16} /> Add Your First Provider</button>
     </div>
   {/if}
 
@@ -272,9 +293,9 @@
           <h4>{option?.name || provider.id}</h4>
           {#if editingProvider !== provider.id}
             <div class="actions">
-              <button class="secondary small" onclick={() => testConnection(provider)}>Test</button>
-              <button class="secondary small" onclick={() => editingProvider = provider.id}>Edit</button>
-              <button class="danger small" onclick={() => deleteProvider(provider.id)}>Delete</button>
+              <button class="icon-btn" title="Test connection" aria-label="Test connection" onclick={() => testConnection(provider)}><Activity size={16} /></button>
+              <button class="icon-btn" title="Edit" aria-label="Edit provider" onclick={() => editingProvider = provider.id}><Pencil size={16} /></button>
+              <button class="icon-btn danger" title="Delete" aria-label="Delete provider" onclick={() => deleteProvider(provider.id)}><Trash2 size={16} /></button>
             </div>
           {/if}
         </div>
@@ -289,11 +310,11 @@
               {#if provider.id === 'ollama'}
                 <div class="url-presets">
                   <span class="preset-label">Quick presets:</span>
+                  <button type="button" class="preset-btn" onclick={() => provider.api_url = 'https://ollama.com'}>
+                    Cloud (ollama.com)
+                  </button>
                   <button type="button" class="preset-btn" onclick={() => provider.api_url = 'http://localhost:11434'}>
                     Local (localhost:11434)
-                  </button>
-                  <button type="button" class="preset-btn" onclick={() => provider.api_url = 'https://ollama.com/api'}>
-                    Cloud (ollama.com/api)
                   </button>
                 </div>
               {/if}
@@ -330,7 +351,7 @@
                          <p class="instructions">2. Enter code:</p>
                          <div class="code-display">
                             {deviceFlows[provider.id].userCode}
-                            <button class="ghost small" title="Copy" onclick={() => navigator.clipboard.writeText(deviceFlows[provider.id].userCode)}>📋</button>
+                            <button class="icon-btn" title="Copy" aria-label="Copy code" onclick={() => navigator.clipboard.writeText(deviceFlows[provider.id].userCode)}><Copy size={14} /></button>
                          </div>
                        {/if}
                        <div class="polling-indicator">
@@ -376,6 +397,11 @@
                   API Key
                   <input type="password" bind:value={provider.api_key} placeholder="sk-..." />
                 </label>
+                {#if option.keysUrl}
+                  <a class="keys-link" href={option.keysUrl} target="_blank" rel="noopener noreferrer">
+                    Get your {option.name} API key ↗
+                  </a>
+                {/if}
               {/if}
             {:else if provider.id === 'ollama'}
               <label>
@@ -397,15 +423,22 @@
                         </div>
                         <input type="text" bind:value={provider.model} placeholder={provider.id === 'ollama' ? 'llama2:latest' : 'gpt-4o'} />
                     {:else if fetchedModels[provider.id]?.length > 0}
+                        {@const choices = provider.model && !fetchedModels[provider.id].includes(provider.model) ? [provider.model, ...fetchedModels[provider.id]] : fetchedModels[provider.id]}
                         <div class="select-wrapper">
                             <select bind:value={provider.model}>
                                 <option value="" disabled>Select a model</option>
-                                {#each fetchedModels[provider.id] as modelId}
-                                    <option value={modelId}>{modelId}</option>
+                                {#each groupModels(choices) as g}
+                                    {#if g.label}
+                                        <optgroup label={g.label}>
+                                            {#each g.models as m}<option value={m}>{m}</option>{/each}
+                                        </optgroup>
+                                    {:else}
+                                        {#each g.models as m}<option value={m}>{m}</option>{/each}
+                                    {/if}
                                 {/each}
                             </select>
-                            <button class="secondary" title="Refresh Models" onclick={() => fetchModels(provider.id)}>
-                                🔄
+                            <button class="icon-btn" title="Refresh Models" aria-label="Refresh Models" onclick={() => fetchModels(provider.id)}>
+                                <RefreshCw size={16} />
                             </button>
                         </div>
                     {:else}
@@ -467,7 +500,7 @@
 
   {#if !showAddForm && providers.length > 0}
     <button class="add-btn" onclick={() => showAddForm = true}>
-      + Add Another Provider
+      <Plus size={16} /> Add Another Provider
     </button>
   {/if}
 
@@ -496,11 +529,11 @@
             {#if newProviderId === 'ollama'}
               <div class="url-presets">
                 <span class="preset-label">Quick presets:</span>
+                <button type="button" class="preset-btn" onclick={() => newProviderUrl = 'https://ollama.com'}>
+                  Cloud (ollama.com)
+                </button>
                 <button type="button" class="preset-btn" onclick={() => newProviderUrl = 'http://localhost:11434'}>
                   Local (localhost:11434)
-                </button>
-                <button type="button" class="preset-btn" onclick={() => newProviderUrl = 'https://ollama.com/api'}>
-                  Cloud (ollama.com/api)
                 </button>
               </div>
             {/if}
@@ -518,6 +551,11 @@
                   API Key
                   <input type="password" bind:value={newProviderKey} placeholder="sk-..." />
                 </label>
+                {#if newOption.keysUrl}
+                  <a class="keys-link" href={newOption.keysUrl} target="_blank" rel="noopener noreferrer">
+                    Get your {newOption.name} API key ↗
+                  </a>
+                {/if}
              {/if}
           {:else if newProviderId === 'ollama'}
             <label>
@@ -586,11 +624,77 @@
 
   .actions {
     display: flex;
-    gap: var(--spacing-2);
+    gap: var(--spacing-1);
+    align-items: center;
   }
 
-  button.small {
-    padding: 0.25rem 0.5rem;
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .icon-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .icon-btn.danger:hover {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+  }
+
+  /* Button variants — these classes were used in markup but never defined,
+     so buttons fell back to the browser default. Themed here. */
+  .primary, .secondary, .ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+  }
+
+  .primary {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+  .primary:hover:not(:disabled) { background: var(--color-primary-hover); }
+
+  .secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+  .secondary:hover:not(:disabled) { background: var(--bg-hover); }
+
+  .ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+  }
+  .ghost:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-primary); }
+
+  .primary:disabled, .secondary:disabled, .ghost:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .small {
+    padding: 0.25rem 0.6rem;
     font-size: var(--font-size-xs);
   }
 
@@ -628,9 +732,9 @@
   }
 
   .badge.active {
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--color-success-bg);
     color: var(--color-success);
-    border-color: rgba(16, 185, 129, 0.2);
+    border-color: var(--color-success-border);
   }
 
   .edit-form {
@@ -661,7 +765,10 @@
   }
 
   .add-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
     width: 100%;
     padding: var(--spacing-4);
     background: transparent;
@@ -755,6 +862,17 @@
     margin: 0 0 var(--spacing-2) 0;
   }
 
+  .keys-link {
+    font-size: var(--font-size-xs);
+    color: var(--color-primary);
+    text-decoration: underline;
+    width: fit-content;
+  }
+
+  .keys-link:hover {
+    color: var(--color-primary-hover);
+  }
+
   .model-select-container {
     display: flex;
     flex-direction: column;
@@ -781,12 +899,12 @@
   }
 
   .error-banner {
-    background: rgba(239, 68, 68, 0.1);
-    color: var(--color-error);
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
     padding: var(--spacing-2);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-sm);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    border: 1px solid var(--color-danger-border);
   }
 
   /* Device Flow */
@@ -851,6 +969,7 @@
     font-size: var(--font-size-xs);
     padding: 0.125rem 0.5rem;
     background: var(--bg-hover);
+    color: var(--text-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-full);
     cursor: pointer;
@@ -858,6 +977,7 @@
   }
 
   .preset-btn:hover {
+    color: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-primary);
   }

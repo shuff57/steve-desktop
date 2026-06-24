@@ -15,15 +15,19 @@
     listenBrowserPageLoaded,
     listenBrowserStatus,
     setActiveTabId,
+    injectScript,
+    evalScript as webviewEval,
     type BrowserEventPayload,
   } from '../lib/browser';
+  import { matchCredentialsToUrl, generateAutoFillScript, loginFieldSelectors } from '../lib/autofill';
+  import { connectCDP, isConnected, evalScript as cdpEval } from '../lib/cdp-actions';
   import { calculateWebviewBounds } from '../lib/webview-layout';
   import {
     shouldTriggerSidebarAnimation,
     scheduleBoundsUpdateAfterAnimation,
     createDestroyGuard,
   } from '../lib/webview-lifecycle';
-  import { getSetting, setSetting } from '../lib/db';
+  import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
   import ActionPanel from './ActionPanel.svelte';
 
@@ -58,6 +62,139 @@
   let isLoading = $derived(currentTab?.isLoading ?? false);
   let browserCreated = $derived(currentTab?.browserCreated ?? false);
   let pageLoadedUrl = $derived(currentTab?.url ?? '');
+
+  let bookmarks = $state<Bookmark[]>([]);
+  let showBookmarks = $state(false);
+  // Star reflects the whole SITE: lit on any page whose host matches a bookmarked host.
+  let isBookmarked = $derived(!!pageLoadedUrl && bookmarks.some((b) => hostOf(b.url) === hostOf(pageLoadedUrl)));
+
+  function hostOf(url: string): string {
+    try { return new URL(url).hostname; } catch { return ''; }
+  }
+
+  async function loadBookmarks() {
+    try {
+      bookmarks = await getBookmarks();
+    } catch (e) {
+      // Most likely the bookmarks table isn't there yet — needs an app restart so migration 7 runs.
+      bookmarks = [];
+      console.error('loadBookmarks failed', e);
+    }
+  }
+
+  // The embedded browser is a native webview that paints over the HTML UI, so a popover can't
+  // overlay it. Instead, show a bookmarks BAR in HTML space below the toolbar and push the
+  // webview down by the bar's height (extraTopOffset) — the page stays visible, just shorter.
+  async function setBookmarksOpen(open: boolean) {
+    showBookmarks = open;
+    await tick();
+    updateWebviewBounds();
+  }
+
+  async function toggleBookmark() {
+    // Resolve the URL live — pageLoadedUrl can lag if the page-loaded event hasn't fired.
+    let url = pageLoadedUrl;
+    if (!url && activeTabId) {
+      try { url = await getEmbeddedUrl(activeTabId); } catch { /* ignore */ }
+    }
+    if (!url) {
+      showToast('Open a page first, then bookmark it.');
+      return;
+    }
+    const host = hostOf(url);
+    try {
+      const onThisSite = bookmarks.filter((b) => hostOf(b.url) === host);
+      if (onThisSite.length) {
+        for (const b of onThisSite) await deleteBookmark(b.id); // unstar the whole site
+        showToast('Bookmark removed');
+      } else {
+        await addBookmark(currentTab?.title || host, url);
+        showToast('Bookmarked ★');
+      }
+      await loadBookmarks();
+    } catch (e) {
+      showToast('Bookmark failed: ' + (e instanceof Error ? e.message : String(e)));
+      console.error('toggleBookmark failed', e);
+    }
+  }
+
+  async function openBookmark(url: string) {
+    await setBookmarksOpen(false);
+    urlInput = url;
+    await handleNavigate();
+  }
+
+  async function removeBookmark(id: number) {
+    await deleteBookmark(id);
+    await loadBookmarks();
+  }
+
+  // ── Passwords bar: capture a login off the live page, and review saved logins ──────────────
+  let showPasswords = $state(false);
+  let credentials = $state<SiteCredential[]>([]);
+  let revealed = $state<Set<number>>(new Set());
+  let autoSubmit = $state(false); // after autofilling a saved login, submit the form too
+
+  async function loadCredentials() {
+    try { credentials = await getSiteCredentials(); } catch { credentials = []; }
+  }
+
+  async function toggleAutoSubmit() {
+    autoSubmit = !autoSubmit;
+    await setSetting('autoSubmitLogin', autoSubmit ? 'true' : 'false');
+  }
+
+  async function togglePasswords(open: boolean) {
+    showPasswords = open;
+    if (open) await loadCredentials();
+    await tick();
+    updateWebviewBounds();
+  }
+
+  function toggleReveal(id: number) {
+    const next = new Set(revealed);
+    next.has(id) ? next.delete(id) : next.add(id);
+    revealed = next;
+  }
+
+  // Read the username/password the user typed into the embedded page (over CDP) and save them.
+  async function saveCurrentLogin() {
+    let url = pageLoadedUrl;
+    if (!url && activeTabId) { try { url = await getEmbeddedUrl(activeTabId); } catch { /* ignore */ } }
+    if (!url) { showToast('Open the login page first.'); return; }
+    try {
+      if (!isConnected() && !(await connectCDP())) {
+        showToast('Could not read the page — is it loaded?');
+        return;
+      }
+      const sel = loginFieldSelectors(url);
+      const script =
+        `(function(){var u=document.querySelector(${JSON.stringify(sel.usernameSelector)});` +
+        `var p=document.querySelector(${JSON.stringify(sel.passwordSelector)});` +
+        `return JSON.stringify({username:u?u.value:'',password:p?p.value:''});})()`;
+      const res = await cdpEval(script);
+      const got = res.success && typeof res.data === 'string' ? JSON.parse(res.data) : { username: '', password: '' };
+      if (!got.password) { showToast('No filled password field found on this page.'); return; }
+      const host = hostOf(url);
+      await saveSiteCredential({
+        site_name: currentTab?.title || host,
+        url_pattern: `https://${host}/%`,
+        username: got.username || '',
+        password: got.password,
+      });
+      showToast(`Login saved for ${host}`);
+      await loadCredentials();
+    } catch (e) {
+      showToast('Save login failed: ' + (e instanceof Error ? e.message : String(e)));
+      console.error('saveCurrentLogin failed', e);
+    }
+  }
+
+  onMount(async () => {
+    loadBookmarks();
+    loadCredentials();
+    try { autoSubmit = (await getSetting('autoSubmitLogin')) === 'true'; } catch { /* default off */ }
+  });
 
   function showToast(message: string, durationMs = 3000) {
     if (toastTimer) clearTimeout(toastTimer);
@@ -134,18 +271,22 @@
 
     const tabBarEl = document.querySelector('.tab-bar');
     const tabBarHeight = tabBarEl ? tabBarEl.getBoundingClientRect().height : 0;
-    
+
+    // Any open aux bar (bookmarks / passwords) occupies HTML space above the webview.
+    let barHeight = 0;
+    document.querySelectorAll('.aux-bar').forEach((el) => { barHeight += el.getBoundingClientRect().height; });
+
     const drawerWidth = showActionPanel
       ? (actionPanelCollapsed ? ICON_STRIP_WIDTH : actionPanelWidth)
       : 0;
-    
+
     const bounds = calculateWebviewBounds({
       sidebarWidth,
       navBarHeight,
       panelWidth: drawerWidth,
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
-      extraTopOffset: tabBarHeight,
+      extraTopOffset: tabBarHeight + barHeight,
     });
     
     if (bounds.width > 0 && bounds.height > 0) {
@@ -228,6 +369,9 @@
     unlistenLoaded = await listenBrowserPageLoaded(async ({ tabId, url }: BrowserEventPayload) => {
       tabs = tabs.map(t => t.id === tabId ? { ...t, isLoading: false, url } : t);
       if (tabId === activeTabId) urlInput = url;
+      await maybeAutofill(tabId, url);
+      await checkPendingLogin(url);                       // offer to save a just-submitted login
+      await injectScript(LOGIN_CAPTURE_SCRIPT, tabId).catch(() => {}); // arm capture on this page
     });
     if (guard.destroyed) { unlistenUrl(); unlistenLoaded(); return; }
 
@@ -276,6 +420,79 @@
       () => { window.removeEventListener('steve:sidebar-changed', handleSidebarChanged); },
     ]);
   });
+
+  // On page load, fill saved credentials for a matching site. Local only:
+  // creds come from the local DB, the fill script never auto-submits, and
+  // nothing is sent anywhere but the matched page in the embedded browser.
+  async function maybeAutofill(tabId: string, url: string) {
+    try {
+      const match = matchCredentialsToUrl(url, await getSiteCredentials());
+      if (match) {
+        await injectScript(generateAutoFillScript(match.username, match.password, autoSubmit), tabId);
+      }
+    } catch {
+      // never surface credential errors to the page or logs
+    }
+  }
+
+  // Captures a login on SUBMIT into localStorage; read+cleared on the next page load (below).
+  // Stays in the embedded page; nothing is sent anywhere. Same-origin only (localStorage scope).
+  const LOGIN_CAPTURE_SCRIPT = `(function(){
+    if (window.__steveLoginHook) return; window.__steveLoginHook = true;
+    document.addEventListener('submit', function(e){
+      try {
+        var form = e.target; if(!form || !form.querySelectorAll) return;
+        var p = form.querySelector('input[type=password]'); if(!p || !p.value) return;
+        var u = '', ins = form.querySelectorAll('input');
+        for (var i=0;i<ins.length;i++){ var t=(ins[i].type||'').toLowerCase();
+          if ((t==='text'||t==='email'||t==='tel'||t==='') && ins[i].value){ u=ins[i].value; break; } }
+        localStorage.setItem('__steve_pending_login', JSON.stringify({username:u, password:p.value, host:location.hostname}));
+      } catch(_){}
+    }, true);
+  })();`;
+
+  let pendingLogin = $state<{ username: string; password: string; host: string } | null>(null);
+
+  // After a login redirect, read the captured creds and offer to save them — unless this site
+  // already has a saved credential. The prompt is the "auto-login" save bar.
+  async function checkPendingLogin(url: string) {
+    try {
+      const raw = await webviewEval(
+        "(function(){var k='__steve_pending_login';var v=localStorage.getItem(k);if(v)localStorage.removeItem(k);return v;})()",
+      );
+      if (!raw || raw === 'null') return;
+      const got = JSON.parse(raw) as { username: string; password: string; host: string };
+      if (!got?.password) return;
+      if (matchCredentialsToUrl(url, credentials)) return; // already saved → nothing to offer
+      pendingLogin = got;
+      await tick();
+      updateWebviewBounds();
+    } catch { /* ignore — capture is best-effort */ }
+  }
+
+  async function clearPrompt() {
+    pendingLogin = null;
+    await tick();
+    updateWebviewBounds();
+  }
+
+  async function savePendingLogin() {
+    if (!pendingLogin) return;
+    const { username, password, host } = pendingLogin;
+    try {
+      await saveSiteCredential({
+        site_name: currentTab?.title || host,
+        url_pattern: `https://${host}/%`,
+        username,
+        password,
+      });
+      showToast(`Login saved for ${host}`);
+      await loadCredentials();
+    } catch (e) {
+      showToast('Save failed: ' + (e instanceof Error ? e.message : String(e)));
+    }
+    await clearPrompt();
+  }
 
   async function handleNavigate() {
     if (!urlInput.trim() || !activeTabId) return;
@@ -355,21 +572,82 @@
     </div>
 
     <div class="url-input-container">
-      <input 
-        type="text" 
-        bind:value={urlInput} 
+      <input
+        type="text"
+        bind:value={urlInput}
         onkeydown={handleKeydown}
-        placeholder="Enter URL..." 
+        placeholder="Enter URL..."
       />
       {#if isLoading}
         <div class="spinner"></div>
       {/if}
     </div>
 
+    <button class="icon-btn star" class:active={isBookmarked} onclick={toggleBookmark} disabled={!activeTabId}
+      title={isBookmarked ? 'Remove bookmark' : 'Bookmark this page'}>
+      {isBookmarked ? '★' : '☆'}
+    </button>
+
+    <button class="icon-btn" class:active={showBookmarks} onclick={() => setBookmarksOpen(!showBookmarks)} title="Show bookmarks bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    </button>
+
+    <button class="icon-btn" class:active={showPasswords} onclick={() => togglePasswords(!showPasswords)} title="Passwords — save & view logins">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+    </button>
+
     <button class="toggle-btn" onclick={toggleDrawer} title="Toggle Action Panel" class:active={showActionPanel}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
     </button>
   </div>
+
+  {#if showBookmarks}
+    <div class="bookmarks-bar aux-bar">
+      {#if bookmarks.length === 0}
+        <span class="bm-empty">No bookmarks yet — ☆ a page to save it.</span>
+      {:else}
+        {#each bookmarks as b (b.id)}
+          <div class="bm-chip">
+            <button class="bm-open" onclick={() => openBookmark(b.url)} title={b.url}>{b.title}</button>
+            <button class="bm-x" onclick={() => removeBookmark(b.id)} title="Remove">×</button>
+          </div>
+        {/each}
+      {/if}
+    </div>
+  {/if}
+
+  {#if showPasswords}
+    <div class="passwords-bar aux-bar">
+      <button class="pw-save" onclick={saveCurrentLogin} title="Read the username/password from this page and save it">
+        🔑 Save this login
+      </button>
+      <label class="pw-toggle" title="After autofilling a saved login, submit the form automatically">
+        <input type="checkbox" checked={autoSubmit} onchange={toggleAutoSubmit} /> Auto-submit
+      </label>
+      {#if credentials.length === 0}
+        <span class="bm-empty">No saved logins yet — fill a login form, then “Save this login”.</span>
+      {:else}
+        {#each credentials as c (c.id)}
+          <div class="pw-chip">
+            <span class="pw-site" title={c.url_pattern}>{c.site_name}</span>
+            <span class="pw-user">{c.username}</span>
+            <span class="pw-pass">{revealed.has(c.id) ? c.password : '••••••••'}</span>
+            <button class="pw-eye" onclick={() => toggleReveal(c.id)} title={revealed.has(c.id) ? 'Hide' : 'Show'}>
+              {revealed.has(c.id) ? '🙈' : '👁'}
+            </button>
+          </div>
+        {/each}
+      {/if}
+    </div>
+  {/if}
+
+  {#if pendingLogin}
+    <div class="login-prompt aux-bar">
+      <span class="lp-text">🔑 Save login for <b>{pendingLogin.host}</b>{pendingLogin.username ? ` — ${pendingLogin.username}` : ''}?</span>
+      <button class="pw-save" onclick={savePendingLogin}>Save login</button>
+      <button class="lp-no" onclick={clearPrompt}>Not now</button>
+    </div>
+  {/if}
 
   <div class="browser-content">
     <div class="webview-area">
@@ -391,9 +669,29 @@
       />
     {/if}
   </div>
+
+  {#if toastMessage}
+    <div class="toast" role="status">{toastMessage}</div>
+  {/if}
 </div>
 
 <style>
+  /* Top-center so it sits over the HTML toolbar, not behind the native embedded webview. */
+  .toast {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    pointer-events: none;
+  }
   .browser-container {
     display: flex;
     flex-direction: column;
@@ -441,6 +739,81 @@
     background: var(--bg-hover);
   }
 
+  .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .icon-btn.active { color: var(--color-primary); }
+
+  /* Bookmarks bar — a horizontal strip below the toolbar; the webview is pushed down to fit it. */
+  .bookmarks-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    overflow-x: auto;
+    background: var(--bg-sidebar, var(--bg-input));
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .bm-empty { font-size: 0.8rem; color: var(--text-secondary); padding: 2px 4px; }
+  .bm-chip {
+    display: inline-flex; align-items: center; flex-shrink: 0;
+    background: var(--bg-card, var(--bg-input));
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    max-width: 220px;
+  }
+  .bm-open {
+    background: transparent; border: none; color: var(--text-primary);
+    padding: 4px 8px; cursor: pointer; font-size: 0.8rem;
+    max-width: 190px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .bm-open:hover { color: var(--color-primary); }
+  .bm-x {
+    background: transparent; border: none; color: var(--text-secondary);
+    cursor: pointer; padding: 4px 6px; border-radius: 0 6px 6px 0; flex-shrink: 0; font-size: 0.9rem;
+  }
+  .bm-x:hover { background: var(--color-danger-bg); color: var(--color-danger); }
+
+  /* Passwords bar — same strip pattern as bookmarks. */
+  .passwords-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 8px; overflow-x: auto;
+    background: var(--bg-sidebar, var(--bg-input));
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0; white-space: nowrap;
+  }
+  .pw-save {
+    flex-shrink: 0; background: transparent; border: 1px solid var(--color-primary);
+    color: var(--color-primary); border-radius: 6px; padding: 4px 10px;
+    cursor: pointer; font-size: 0.8rem;
+  }
+  .pw-save:hover { background: var(--color-primary-bg); }
+  .pw-toggle { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; }
+  .pw-toggle input { cursor: pointer; }
+  .pw-chip {
+    display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
+    background: var(--bg-card, var(--bg-input)); border: 1px solid var(--border-color);
+    border-radius: 6px; padding: 4px 8px; font-size: 0.8rem;
+  }
+  .pw-site { color: var(--text-primary); font-weight: 600; }
+  .pw-user { color: var(--text-secondary); }
+  .pw-pass { color: var(--text-primary); font-family: var(--font-family-mono, monospace); }
+  .pw-eye { background: transparent; border: none; cursor: pointer; padding: 0 2px; font-size: 0.9rem; }
+
+  /* Auto-login save prompt — appears after a login submit is detected. */
+  .login-prompt {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 10px; flex-shrink: 0;
+    background: var(--bg-active, rgba(59,130,246,0.12));
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lp-text { font-size: 0.85rem; color: var(--text-primary); }
+  .lp-no {
+    background: transparent; border: none; color: var(--text-secondary);
+    cursor: pointer; font-size: 0.8rem; padding: 4px 8px; border-radius: 6px;
+  }
+  .lp-no:hover { background: var(--bg-hover); color: var(--text-primary); }
+
   .url-input-container {
     flex: 1;
     position: relative;
@@ -463,7 +836,7 @@
   input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 2px var(--color-primary-bg);
   }
 
   .spinner {

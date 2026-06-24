@@ -1,4 +1,5 @@
 import Database from '@tauri-apps/plugin-sql';
+import { invoke } from '@tauri-apps/api/core';
 import { DB_NAME } from './constants';
 
 export interface OAuthToken {
@@ -31,6 +32,18 @@ export interface SiteProfile {
   domain: string;
   page_name: string;
   profile_json: string;
+}
+
+// Credential passwords live in the OS keychain (Windows Credential Manager / macOS Keychain),
+// encrypted at rest — only non-secret metadata is in steve.db. The DB `password` column is kept
+// as a legacy read-fallback for rows saved before this change. Never synced to any cloud (design).
+export interface SiteCredential {
+  id: number;
+  site_name: string;
+  url_pattern: string;
+  username: string;
+  password: string;
+  notes: string | null;
 }
 
 type SqlDb = Awaited<ReturnType<typeof Database.load>>;
@@ -79,13 +92,13 @@ export async function deleteOAuthToken(provider: string): Promise<void> {
   await database.execute('DELETE FROM oauth_tokens WHERE provider = $1', [provider]);
 }
 
-export async function saveProviderConfig(
-  id: string,
-  api_url?: string | null,
-  api_key?: string | null,
-  model?: string | null,
-  is_active?: number,
-): Promise<void> {
+export async function saveProviderConfig(config: {
+  id: string;
+  api_url?: string | null;
+  api_key?: string | null;
+  model?: string | null;
+  is_active?: number;
+}): Promise<void> {
   const database = await initDB();
   await database.execute(
     `INSERT INTO provider_configs (id, api_url, api_key, model, is_active, created_at, updated_at)
@@ -96,7 +109,7 @@ export async function saveProviderConfig(
        model = $4,
        is_active = $5,
        updated_at = datetime('now')`,
-    [id, api_url ?? null, api_key ?? null, model ?? null, is_active ?? 0],
+    [config.id, config.api_url ?? null, config.api_key ?? null, config.model ?? null, config.is_active ?? 0],
   );
 }
 
@@ -236,4 +249,92 @@ export async function getProviderConfigs() { return []; }
 export async function deleteProviderConfig(id: string): Promise<void> {
   const database = await initDB();
   await database.execute('DELETE FROM provider_configs WHERE id = $1', [id]);
+}
+
+// One keychain entry per credential id. Helpers swallow nothing — callers decide.
+const credKey = (id: number) => `credential:${id}`;
+const keyringSet = (key: string, secret: string) => invoke<void>('keyring_set', { key, secret });
+const keyringGet = (key: string) => invoke<string | null>('keyring_get', { key });
+const keyringDelete = (key: string) => invoke<void>('keyring_delete', { key });
+
+export async function getSiteCredentials(): Promise<SiteCredential[]> {
+  const database = await initDB();
+  const rows = await database.select<SiteCredential[]>(
+    'SELECT id, site_name, url_pattern, username, password, notes FROM site_credentials ORDER BY site_name',
+  );
+  // Source each password from the keychain. For rows saved before this change (secret absent,
+  // legacy plaintext still in the DB), migrate it into the keychain and blank the column.
+  return Promise.all(
+    rows.map(async (r) => {
+      const secret = await keyringGet(credKey(r.id)).catch(() => null);
+      if (secret == null && r.password) {
+        await keyringSet(credKey(r.id), r.password).catch(() => {});
+        await database.execute("UPDATE site_credentials SET password = '' WHERE id = $1", [r.id]).catch(() => {});
+        return { ...r }; // keep the real password for this call; next read comes from the keychain
+      }
+      return { ...r, password: secret ?? r.password };
+    }),
+  );
+}
+
+export async function saveSiteCredential(cred: {
+  id?: number;
+  site_name: string;
+  url_pattern: string;
+  username: string;
+  password: string;
+  notes?: string | null;
+}): Promise<void> {
+  const database = await initDB();
+  // The DB password column is written empty — the secret only goes to the keychain.
+  if (cred.id) {
+    await database.execute(
+      `UPDATE site_credentials SET
+         site_name = $1, url_pattern = $2, username = $3, password = '', notes = $4,
+         updated_at = datetime('now')
+       WHERE id = $5`,
+      [cred.site_name, cred.url_pattern, cred.username, cred.notes ?? null, cred.id],
+    );
+    await keyringSet(credKey(cred.id), cred.password);
+  } else {
+    const res = await database.execute(
+      `INSERT INTO site_credentials (site_name, url_pattern, username, password, notes)
+       VALUES ($1, $2, $3, '', $4)`,
+      [cred.site_name, cred.url_pattern, cred.username, cred.notes ?? null],
+    );
+    if (res.lastInsertId != null) await keyringSet(credKey(Number(res.lastInsertId)), cred.password);
+  }
+}
+
+export async function deleteSiteCredential(id: number): Promise<void> {
+  const database = await initDB();
+  await database.execute('DELETE FROM site_credentials WHERE id = $1', [id]);
+  await keyringDelete(credKey(id)).catch(() => {});
+}
+
+export interface Bookmark {
+  id: number;
+  title: string;
+  url: string;
+}
+
+export async function getBookmarks(): Promise<Bookmark[]> {
+  const database = await initDB();
+  return database.select<Bookmark[]>('SELECT id, title, url FROM bookmarks ORDER BY title');
+}
+
+// url is UNIQUE — INSERT OR IGNORE makes "bookmark this page" idempotent.
+export async function addBookmark(title: string, url: string): Promise<void> {
+  const database = await initDB();
+  await database.execute('INSERT OR IGNORE INTO bookmarks (title, url) VALUES ($1, $2)', [title, url]);
+}
+
+export async function deleteBookmark(id: number): Promise<void> {
+  const database = await initDB();
+  await database.execute('DELETE FROM bookmarks WHERE id = $1', [id]);
+}
+
+export async function deleteBookmarkByUrl(url: string): Promise<void> {
+  const database = await initDB();
+  await database.execute('DELETE FROM bookmarks WHERE url = $1', [url]);
 }

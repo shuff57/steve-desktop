@@ -9,6 +9,7 @@ import {
   type Skill,
 } from './db';
 import { parseSkillMarkdown } from './skill-parser';
+import { workflowToSkill } from './workflow-skill';
 
 export const SKILLS_SH_SEARCH_URL = 'https://skills.sh/api/search';
 
@@ -252,4 +253,40 @@ export async function syncSiteProfiles(profiles: string[] = BUNDLED_PROFILES): P
 
 export async function syncLocalSkills(): Promise<SyncLocalSkillsResult> {
   return { imported: 0, skipped: 0 };
+}
+
+export const SAMPLE_WORKFLOW_SKILL_ID = 'sample:enter-grades-demo';
+
+/**
+ * Seed one captured-workflow skill (idempotent, inactive) so the ▶ Run button has something to
+ * attach to out of the box. Built via workflowToSkill so it round-trips through skillToWorkflow.
+ * Skipped if the id already exists, so a user edit/delete sticks.
+ */
+export async function seedSampleWorkflowSkill(): Promise<void> {
+  if (await getDbSkill(SAMPLE_WORKFLOW_SKILL_ID)) return;
+
+  const name = 'Sample · Enter Grades (demo)';
+  const description = 'Demo captured workflow — open a page in the browser, then click ▶ to replay these steps (self-heals via the model when selectors drift).';
+  const content = workflowToSkill(
+    {
+      name,
+      trigger: 'demo workflow replay',
+      steps: [
+        { action: 'fill', selector: '#studentName', value: 'Jane Doe', description: 'student name field', candidates: ['role=textbox[name="Student Name"]', '#student_name'] },
+        { action: 'fill', selector: '#grade', value: 'A', description: 'grade field' },
+        { action: 'click', selector: '#submit', description: 'submit button', candidates: ['role=button[name="Submit"]'] },
+      ],
+    },
+    { description, urlPattern: 'sis.example.edu' },
+  );
+
+  await saveDbSkill({
+    id: SAMPLE_WORKFLOW_SKILL_ID,
+    name,
+    description,
+    content,
+    source: 'local',
+    is_active: 0, // demo only — don't inject into the agent prompt
+    url_pattern: 'sis.example.edu',
+  });
 }

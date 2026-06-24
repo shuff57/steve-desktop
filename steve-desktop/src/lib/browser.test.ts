@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const invokeMock = vi.fn();
-const listenMock = vi.fn();
+const { invokeMock, listenMock } = vi.hoisted(() => ({ invokeMock: vi.fn(), listenMock: vi.fn() }));
 
 vi.mock('@tauri-apps/api/core', () => ({
   invoke: invokeMock,

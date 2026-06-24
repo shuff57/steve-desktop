@@ -4,7 +4,7 @@
    * Controls the browser agent loop with action proposals and approvals.
    */
   import { createAgentController } from '../../lib/agent-loop';
-  import type { AgentEvent, AgentController } from '../../lib/agent-loop';
+  import type { AgentController } from '../../lib/agent-loop';
   import type { AgentMode, AgentState } from '../../lib/agent-types';
   import ProviderSelector from './ProviderSelector.svelte';
 
@@ -61,7 +61,7 @@
   let errorText: string = $state('');
   let pendingAction: PendingAction | null = $state(null);
   let chatContainer: HTMLElement | undefined = $state(undefined);
-  let controller: AgentController = $state(createAgentController());
+  let controller: AgentController = $state(makeController());
 
   // ============================================================================
   // Helpers
@@ -101,79 +101,55 @@
   // Event Handlers
   // ============================================================================
 
-  /** Handle events from the agent loop. */
-  function handleEvent(event: AgentEvent) {
-    switch (event.type) {
-      case 'thinking':
-        agentState = 'thinking';
-        break;
+  /** Create a controller and subscribe the UI to its events (one wiring per controller). */
+  function makeController(): AgentController {
+    const c = createAgentController();
 
-      case 'propose':
-        agentState = 'proposing';
-        messages = [...messages, {
-          type: 'action',
-          action: event.action,
-          params: event.params,
-          reasoning: event.reasoning,
-          status: 'proposing',
-        }];
-        pendingAction = { action: event.action, params: event.params, reasoning: event.reasoning };
-        // In auto mode (and not runJS), auto-approve after short render delay
-        if (mode === 'auto' && event.action !== 'runJS') {
-          setTimeout(() => { controller.approve(); }, 300);
-        }
-        break;
+    c.on('thinking', () => { agentState = 'thinking'; });
 
-      case 'executing':
-        agentState = 'executing';
-        // Update the last action message to 'executing'
-        messages = messages.map((m, i) =>
-          i === messages.length - 1 && m.type === 'action'
-            ? { ...m, status: 'executing' as const }
-            : m
-        );
-        pendingAction = null;
-        break;
+    c.on('proposing', ({ action }) => {
+      agentState = 'proposing';
+      const { type, ...params } = action;
+      messages = [...messages, { type: 'action', action: type, params, reasoning: '', status: 'proposing' }];
+      pendingAction = { action: type, params, reasoning: '' };
+      scrollToBottom();
+    });
 
-      case 'result':
-        // Update the last action message with the result
-        messages = messages.map((m, i) =>
-          i === messages.length - 1 && m.type === 'action'
-            ? { ...m, status: 'done' as const, result: event.result }
-            : m
-        );
-        break;
+    c.on('executing', () => {
+      agentState = 'executing';
+      messages = messages.map((m, i) =>
+        i === messages.length - 1 && m.type === 'action' ? { ...m, status: 'executing' as const } : m
+      );
+      pendingAction = null;
+    });
 
-      case 'text':
-        agentState = 'idle';
-        messages = [...messages, { type: 'text', role: 'assistant', content: event.content }];
-        break;
+    c.on('result', ({ result }) => {
+      messages = messages.map((m, i) =>
+        i === messages.length - 1 && m.type === 'action' ? { ...m, status: 'done' as const, result } : m
+      );
+      scrollToBottom();
+    });
 
-      case 'done':
-        agentState = 'idle';
-        messages = [...messages, { type: 'system', content: event.message, variant: 'done' }];
-        pendingAction = null;
-        break;
+    c.on('text', ({ content }) => {
+      agentState = 'idle';
+      messages = [...messages, { type: 'text', role: 'assistant', content }];
+      scrollToBottom();
+    });
 
-      case 'error':
-        agentState = 'idle';
-        errorText = event.message;
-        pendingAction = null;
-        break;
+    c.on('done', ({ message }) => {
+      agentState = 'idle';
+      messages = [...messages, { type: 'system', content: message, variant: 'done' }];
+      pendingAction = null;
+      scrollToBottom();
+    });
 
-      case 'context':
-        contextPercent = event.percent;
-        contextUsed = event.usedTokens;
-        break;
+    c.on('error', ({ message }) => {
+      agentState = 'idle';
+      errorText = message;
+      pendingAction = null;
+    });
 
-      case 'compacted':
-        messages = [...messages, {
-          type: 'system',
-          content: `🗜 Context freed · trimmed ${event.droppedMessages} old turn${event.droppedMessages !== 1 ? 's' : ''}`,
-          variant: 'compact',
-        }];
-        break;
-    }
+    return c;
   }
 
   /** Scroll chat to the bottom after new messages. */
@@ -196,12 +172,7 @@
     agentState = 'thinking';
     scrollToBottom();
 
-    const gen = controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, compact: compactMode });
-
-    for await (const event of gen) {
-      handleEvent(event);
-      scrollToBottom();
-    }
+    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel });
 
     agentState = 'idle';
   }
@@ -245,7 +216,7 @@
     errorText = '';
     agentState = 'idle';
     pendingAction = null;
-    controller = createAgentController(); // fresh controller
+    controller = makeController(); // fresh controller, re-wired to the UI
   }
 
   /** Handle Enter key (send) and Shift+Enter (newline). */
@@ -449,7 +420,7 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--color-primary, #3b82f6);
+    background: var(--color-primary);
     animation: pulse-dot 1.1s ease-in-out infinite;
     flex-shrink: 0;
   }
@@ -465,26 +436,26 @@
     border-radius: 10px;
     font-size: 0.72rem;
     font-family: var(--font-mono, monospace);
-    background: rgba(34, 197, 94, 0.1);
-    color: #22c55e;
-    border: 1px solid rgba(34, 197, 94, 0.25);
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
     transition: background 0.3s, color 0.3s, border-color 0.3s;
     white-space: nowrap;
   }
   .ctx-pill.ctx-mid {
-    background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
-    border-color: rgba(245, 158, 11, 0.25);
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+    border-color: var(--color-warning-border);
   }
   .ctx-pill.ctx-high {
-    background: rgba(249, 115, 22, 0.1);
-    color: #f97316;
-    border-color: rgba(249, 115, 22, 0.25);
+    background: var(--color-running-bg);
+    color: var(--color-running);
+    border-color: var(--color-running-border);
   }
   .ctx-pill.ctx-crit {
-    background: rgba(239, 68, 68, 0.12);
-    color: #ef4444;
-    border-color: rgba(239, 68, 68, 0.3);
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    border-color: var(--color-danger-border);
     animation: ctx-warn 0.8s ease-in-out infinite alternate;
   }
   @keyframes ctx-warn {
@@ -521,8 +492,8 @@
   }
 
   .btn-ghost.danger:hover:not(:disabled) {
-    border-color: var(--color-error, #e74c3c);
-    color: var(--color-error, #e74c3c);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
   }
 
   .chat-interface {
@@ -557,7 +528,7 @@
 
   .message.user {
     align-self: flex-end;
-    background-color: var(--color-primary, #3b82f6);
+    background-color: var(--color-primary);
     color: var(--color-primary-text);
     border-bottom-right-radius: 4px;
   }
@@ -576,9 +547,9 @@
 
   .message.error-msg {
     align-self: center;
-    background-color: rgba(231, 76, 60, 0.1);
-    border: 1px solid var(--color-error, #e74c3c);
-    color: var(--color-error, #e74c3c);
+    background-color: var(--color-danger-bg);
+    border: 1px solid var(--color-danger);
+    color: var(--color-danger);
     max-width: 95%;
     font-size: 0.85rem;
   }
@@ -675,7 +646,7 @@
     font-weight: 500;
     cursor: pointer;
     border: none;
-    background-color: var(--color-primary, #3b82f6);
+    background-color: var(--color-primary);
     color: var(--color-primary-text);
     transition: opacity 0.15s ease;
   }
@@ -708,7 +679,7 @@
   }
 
   .mode-btn.active {
-    background: var(--color-primary, #3b82f6);
+    background: var(--color-primary);
     color: var(--color-primary-text);
   }
 
@@ -730,9 +701,9 @@
   }
 
   .compact-toggle.active {
-    background: var(--color-primary, #3b82f6);
+    background: var(--color-primary);
     color: var(--color-primary-text);
-    border-color: var(--color-primary, #3b82f6);
+    border-color: var(--color-primary);
   }
 
   /* ── Compact action badges ── */
@@ -757,20 +728,20 @@
   }
 
   .compact-badge.badge-proposing {
-    border-left-color: #f59e0b;
+    border-left-color: var(--color-warning);
   }
 
   .compact-badge.badge-executing {
-    border-left-color: var(--color-primary, #3b82f6);
+    border-left-color: var(--color-primary);
     opacity: 0.8;
   }
 
   .compact-badge.badge-success {
-    border-left-color: #22c55e;
+    border-left-color: var(--color-success);
   }
 
   .compact-badge.badge-failure {
-    border-left-color: var(--color-error, #e74c3c);
+    border-left-color: var(--color-danger);
   }
 
   .compact-badge.badge-skipped {
@@ -783,24 +754,24 @@
     align-self: stretch;
     background-color: var(--color-bg-sidebar);
     border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-primary, #3b82f6);
+    border-left: 3px solid var(--color-primary);
     max-width: 100%;
   }
 
   .message.action.proposing {
-    border-left-color: #f59e0b; /* amber — awaiting approval */
+    border-left-color: var(--color-warning); /* amber — awaiting approval */
   }
 
   .message.action.executing {
-    border-left-color: var(--color-primary, #3b82f6);
+    border-left-color: var(--color-primary);
   }
 
   .message.action.done {
-    border-left-color: #22c55e; /* green — success */
+    border-left-color: var(--color-success); /* green — success */
   }
 
   .message.action.failed {
-    border-left-color: var(--color-error, #e74c3c);
+    border-left-color: var(--color-danger);
   }
 
   .message.action.skipped {
@@ -824,31 +795,31 @@
   .btn-approve {
     padding: 4px 12px;
     border-radius: var(--radius-sm);
-    border: 1px solid #22c55e;
+    border: 1px solid var(--color-success);
     background: transparent;
-    color: #22c55e;
+    color: var(--color-success);
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .btn-approve:hover {
-    background: rgba(34, 197, 94, 0.1);
+    background: var(--color-success-bg);
   }
 
   .btn-skip {
     padding: 4px 12px;
     border-radius: var(--radius-sm);
-    border: 1px solid var(--color-error, #e74c3c);
+    border: 1px solid var(--color-danger);
     background: transparent;
-    color: var(--color-error, #e74c3c);
+    color: var(--color-danger);
     font-size: 0.8rem;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .btn-skip:hover {
-    background: rgba(231, 76, 60, 0.1);
+    background: var(--color-danger-bg);
   }
 
   .action-status {
@@ -857,15 +828,15 @@
   }
 
   .action-status.executing {
-    color: var(--color-primary, #3b82f6);
+    color: var(--color-primary);
   }
 
   .action-status.success {
-    color: #22c55e;
+    color: var(--color-success);
   }
 
   .action-status.failed {
-    color: var(--color-error, #e74c3c);
+    color: var(--color-danger);
   }
 
   .action-status.skipped {
@@ -883,28 +854,28 @@
   }
 
   .message.system.done {
-    background: rgba(34, 197, 94, 0.08);
-    border-color: #22c55e;
-    color: #22c55e;
+    background: var(--color-success-bg);
+    border-color: var(--color-success);
+    color: var(--color-success);
   }
 
   .message.system.info {
-    background: rgba(59, 130, 246, 0.08);
-    border-color: var(--color-primary, #3b82f6);
-    color: var(--color-primary, #3b82f6);
+    background: var(--color-primary-bg);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .message.system.error {
-    background: rgba(231, 76, 60, 0.08);
-    border-color: var(--color-error, #e74c3c);
-    color: var(--color-error, #e74c3c);
+    background: var(--color-danger-bg);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
   }
 
   /* Compaction notice — purple/violet, smaller than standard system messages */
   .message.system.compact {
-    background: rgba(139, 92, 246, 0.06);
-    border-color: rgba(139, 92, 246, 0.4);
-    color: #8b5cf6;
+    background: var(--color-accent-bg);
+    border-color: var(--color-accent-border);
+    color: var(--color-accent);
     font-size: 0.76rem;
     padding: 4px 10px;
     font-family: var(--font-mono, monospace);

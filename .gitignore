@@ -16,6 +16,10 @@ steve-desktop/src-tauri/gen/
 .agents/memory/lightrag_workdir/
 .agents/memory/.venv/
 
+# Captured site profiles — LOCAL working artifacts that contain raw page text
+# (rosters, message senders → student names / PII). Never commit these.
+.agents/site-profiles/
+
 # OS
 .DS_Store
 Thumbs.db

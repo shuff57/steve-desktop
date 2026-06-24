@@ -5,6 +5,7 @@
     saveSiteCredential,
     deleteSiteCredential
   } from '../../lib/db';
+  import { Plus, Pencil, Trash2 } from 'lucide-svelte';
   import type { SiteCredential } from '../../lib/db';
 
   let credentials: SiteCredential[] = $state([]);
@@ -92,7 +93,7 @@
     <h3>Site Credentials</h3>
     {#if !showAddCredentialForm}
       <button class="primary small" onclick={() => { resetCredentialForm(); showAddCredentialForm = true; }}>
-        + Add Credential
+        <Plus size={16} /> Add Credential
       </button>
     {/if}
   </div>
@@ -157,8 +158,8 @@
           <div class="provider-header">
             <h4>{cred.site_name}</h4>
             <div class="actions">
-              <button class="secondary small" onclick={() => editCredential(cred)}>Edit</button>
-              <button class="danger small" onclick={() => cred.id !== undefined && deleteCredential(cred.id, cred.site_name)}>Delete</button>
+              <button class="icon-btn" title="Edit" aria-label="Edit credential" onclick={() => editCredential(cred)}><Pencil size={16} /></button>
+              <button class="icon-btn danger" title="Delete" aria-label="Delete credential" onclick={() => cred.id !== undefined && deleteCredential(cred.id, cred.site_name)}><Trash2 size={16} /></button>
             </div>
           </div>
           
@@ -239,11 +240,50 @@
 
   .actions {
     display: flex;
-    gap: var(--spacing-2);
+    gap: var(--spacing-1);
+    align-items: center;
   }
 
-  button.small {
-    padding: 0.25rem 0.5rem;
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .icon-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .icon-btn.danger:hover { background: var(--color-danger-bg); color: var(--color-danger); }
+
+  /* Button variants — used in markup but otherwise undefined (browser default). */
+  .primary, .secondary, .ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+  }
+  .primary { background: var(--color-primary); color: var(--color-primary-text); }
+  .primary:hover:not(:disabled) { background: var(--color-primary-hover); }
+  .secondary { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color); }
+  .secondary:hover:not(:disabled) { background: var(--bg-hover); }
+  .ghost { background: transparent; color: var(--text-secondary); border-color: var(--border-color); }
+  .ghost:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-primary); }
+  .primary:disabled, .secondary:disabled, .ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .small {
+    padding: 0.25rem 0.6rem;
     font-size: var(--font-size-xs);
   }
 

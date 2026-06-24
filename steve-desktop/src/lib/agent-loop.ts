@@ -2,6 +2,11 @@ import { captureWebviewScreenshot, evalScript, getActiveTabId, navigateEmbedded 
 import { sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
 import { captureInteractiveDom, findFuzzyMatch, formatDomForPrompt, fuzzyMatchReason } from './agent-dom';
+import { cdp } from './cdp-client';
+import { isConnected } from './cdp-actions';
+import { captureMergedTree } from './merged-tree';
+import { redactTree } from './redact-tree';
+import { selectorToElementExpr } from './selector-resolve';
 import type {
   ActionResult,
   AgentApiResponse,
@@ -12,6 +17,7 @@ import type {
   BrowserAction,
 } from './agent-types';
 import { DEFAULT_AGENT_CONFIG } from './agent-types';
+import type { Redactor } from './redact';
 
 type AgentEventPayloads = {
   state: AgentState;
@@ -30,6 +36,8 @@ export interface AgentStartConfig {
   provider?: string;
   model?: string;
   config?: Partial<AgentConfig>;
+  /** When set, every model call is redacted/rehydrated at the trust boundary. */
+  redactor?: Redactor;
 }
 
 export interface AgentController {
@@ -85,6 +93,13 @@ function toBrowserAction(action: string, params: Record<string, unknown>): Brows
   return null;
 }
 
+/** Restore slot-redaction tokens to real values in selector/value, in place. */
+function rehydrateAction(action: BrowserAction, rehydrate: (t: string) => string): void {
+  if ('selector' in action) action.selector = rehydrate(action.selector);
+  if (action.type === 'fill') action.value = rehydrate(action.value);
+  if (action.type === 'iframe_interact') rehydrateAction(action.action, rehydrate);
+}
+
 async function executeAction(action: BrowserAction): Promise<ActionResult> {
   try {
     if (action.type === 'navigate') {
@@ -95,14 +110,17 @@ async function executeAction(action: BrowserAction): Promise<ActionResult> {
     }
 
     if (action.type === 'click') {
-      const exists = await evalScript(`!!document.querySelector(${JSON.stringify(action.selector)})`);
-      if (exists !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
-      await evalScript(`document.querySelector(${JSON.stringify(action.selector)})?.click();`);
+      // selectorToElementExpr resolves css, role=name, and xpath= so role-name anchors
+      // from the merged AX tree are clickable (raw querySelector can't run role=…).
+      const el = selectorToElementExpr(action.selector);
+      const clicked = await evalScript(`(function(){var el=${el};if(!el)return false;el.click();return true;})()`);
+      if (clicked !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
       return { success: true };
     }
 
     if (action.type === 'fill') {
-      const script = `(function(){const el=document.querySelector(${JSON.stringify(action.selector)});if(!el)return false;el.focus();if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}el.textContent=${JSON.stringify(action.value)};return true;})()`;
+      const el = selectorToElementExpr(action.selector);
+      const script = `(function(){var el=${el};if(!el)return false;el.focus();if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}el.textContent=${JSON.stringify(action.value)};return true;})()`;
       const wrote = await evalScript(script);
       if (wrote !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
       return { success: true };
@@ -217,10 +235,31 @@ export function createAgentController(): AgentController {
 
         let dom = '';
         let screenshot: string | undefined;
+        // Local-only rehydration for the slot-redacted tree: a token (⟦D1⟧) the model
+        // echoes into a fill value is restored to the real value HERE, on-device, and
+        // typed into the page — the raw PII never leaves the machine.
+        let rehydrate: ((t: string) => string) | undefined;
         try {
-          const elements = await captureInteractiveDom();
-          dom = formatDomForPrompt(elements);
+          if (isConnected()) {
+            // Phase 1 representation: DOM⨝AX merged tree, slot-redacted (Phase 0) before it
+            // can reach the model. It carries computed AX names, so deny-by-default slot
+            // redaction is mandatory here — the value dictionary alone would leak them.
+            const { snapshot } = await captureMergedTree(cdp);
+            const red = redactTree(snapshot);
+            dom = red.redactedText;
+            rehydrate = red.rehydrate;
+          } else {
+            const elements = await captureInteractiveDom();
+            dom = formatDomForPrompt(elements);
+          }
         } catch {
+          // CDP capture failed mid-loop — fall back to injected-JS capture so the app
+          // keeps working rather than stalling the agent.
+          try {
+            const elements = await captureInteractiveDom();
+            dom = formatDomForPrompt(elements);
+          } catch {
+          }
         }
 
         try {
@@ -236,7 +275,7 @@ export function createAgentController(): AgentController {
             screenshot,
             provider: config.provider,
             model: config.model,
-          });
+          }, config.redactor);
         } catch (error: unknown) {
           setState('error');
           emit('error', { message: error instanceof Error ? error.message : String(error) });
@@ -264,6 +303,7 @@ export function createAgentController(): AgentController {
           emit('error', { message: `Invalid agent action: ${response.action}` });
           break;
         }
+        if (rehydrate) rehydrateAction(action, rehydrate);
 
         const actionKey = JSON.stringify(action);
         if (actionKey === lastActionKey) {

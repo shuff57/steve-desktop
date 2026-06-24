@@ -1,8 +1,12 @@
 <script lang="ts">
   /**
-   * ProviderSelector - Compact inline provider + model dropdowns.
-   * Static list for STEVE.
+   * ProviderSelector - Compact inline provider + model dropdowns, driven by the providers the
+   * user actually configured/logged into (Settings → Providers). Defaults to the active one;
+   * model options come live from Ollama or a known cloud list (model-list.ts).
    */
+  import { onMount } from 'svelte';
+  import { getActiveProvider, listProviderConfigs, type ProviderConfig } from '../../lib/db';
+  import { listProviderModels, providerLabel, groupModels } from '../../lib/model-list';
 
   interface Props {
     provider?: string;
@@ -20,45 +24,50 @@
     onModelChange,
   }: Props = $props();
 
-  // ── Static Providers & Models ──────────────────────────────────────
-
-  const PROVIDERS = [
-    { id: 'ollama', label: 'Ollama (Local)', models: ['llama3.2', 'qwen2.5', 'llama3.1', 'phi4', 'mistral'] },
-    { id: 'openai', label: 'OpenAI', models: ['gpt-4o', 'gpt-4o-mini', 'o1', 'o3-mini'] },
-    { id: 'anthropic', label: 'Anthropic', models: ['claude-3-5-sonnet-latest', 'claude-3-5-haiku-latest', 'claude-3-opus-latest'] },
-    { id: 'google-gemini', label: 'Google Gemini', models: ['gemini-2.5-pro', 'gemini-2.5-flash'] },
-  ];
-
-  // ── Reactive state ──────────────────────────────────────────────────
-
+  let providers: ProviderConfig[] = $state([]);
   let models: string[] = $state([]);
 
-  // ── Lifecycle ───────────────────────────────────────────────────────
+  // Model choices always include the currently-selected model, so a configured model that
+  // isn't in the fetched/static list still shows as selected.
+  const modelChoices = $derived(
+    model && !models.includes(model) ? [model, ...models] : models,
+  );
+  const modelGroups = $derived(groupModels(modelChoices));
 
-  $effect(() => {
-    if (!provider) {
-      provider = PROVIDERS[0].id;
+  onMount(async () => {
+    try {
+      providers = await listProviderConfigs();
+      if (!provider) {
+        const active = (await getActiveProvider()) ?? providers[0] ?? null;
+        if (active) {
+          provider = active.id;
+          if (!model && active.model) model = active.model;
+        }
+      }
+    } catch {
+      providers = [];
     }
   });
 
   let prevProvider = '';
   $effect(() => {
     const p = provider;
-    if (p && p !== prevProvider) {
-      prevProvider = p;
-      const found = PROVIDERS.find((x) => x.id === p);
-      models = found ? found.models : [];
-      if (!model || !models.includes(model)) {
-        model = models[0] || '';
-      }
-    }
+    if (!p || p === prevProvider) return;
+    prevProvider = p;
+    const cfg = providers.find((x) => x.id === p);
+    if (cfg?.model && !model) model = cfg.model;
+    listProviderModels(p, { url: cfg?.api_url, apiKey: cfg?.api_key })
+      .then((m) => {
+        models = m;
+        if (!model && m.length > 0) model = m[0];
+      })
+      .catch(() => { models = []; });
   });
-
-  // ── Event handlers ────────────────────────────────────────────────
 
   function handleProviderChange(e: Event) {
     const value = (e.target as HTMLSelectElement).value;
     provider = value;
+    model = ''; // let the effect repopulate from the new provider's config/list
     onProviderChange?.(value);
   }
 
@@ -71,31 +80,41 @@
 
 <section class="provider-selector">
   <div class="selector-row">
-    <select
-      class="provider-select"
-      value={provider}
-      onchange={handleProviderChange}
-      disabled={disabled}
-    >
-      {#each PROVIDERS as p}
-        <option value={p.id}>{p.label}</option>
-      {/each}
-    </select>
-
-    <select
-      class="model-select"
-      value={model}
-      onchange={handleModelChange}
-      disabled={disabled || models.length === 0}
-    >
-      {#if models.length === 0}
-        <option value="" disabled selected>No models available</option>
-      {:else}
-        {#each models as m}
-          <option value={m}>{m}</option>
+    {#if providers.length === 0}
+      <span class="provider-empty">No AI provider configured — add one in Settings → Providers.</span>
+    {:else}
+      <select
+        class="provider-select"
+        value={provider}
+        onchange={handleProviderChange}
+        disabled={disabled}
+      >
+        {#each providers as p}
+          <option value={p.id}>{providerLabel(p.id)}{p.is_active ? ' ✓' : ''}</option>
         {/each}
-      {/if}
-    </select>
+      </select>
+
+      <select
+        class="model-select"
+        value={model}
+        onchange={handleModelChange}
+        disabled={disabled || modelChoices.length === 0}
+      >
+        {#if modelChoices.length === 0}
+          <option value="" disabled selected>No models available</option>
+        {:else}
+          {#each modelGroups as g}
+            {#if g.label}
+              <optgroup label={g.label}>
+                {#each g.models as m}<option value={m}>{m}</option>{/each}
+              </optgroup>
+            {:else}
+              {#each g.models as m}<option value={m}>{m}</option>{/each}
+            {/if}
+          {/each}
+        {/if}
+      </select>
+    {/if}
   </div>
 </section>
 
@@ -134,5 +153,11 @@
   .model-select:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  .provider-empty {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary, var(--text-secondary));
+    line-height: 1.4;
   }
 </style>

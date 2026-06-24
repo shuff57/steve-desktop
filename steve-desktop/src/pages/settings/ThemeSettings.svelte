@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { Moon, Sun, Check } from 'lucide-svelte';
   import { getSetting, setSetting } from '../../lib/db';
 
   let currentTheme = 'dark';
@@ -31,13 +32,13 @@
       class="theme-btn {currentTheme === 'dark' ? 'active' : ''}" 
       onclick={() => setTheme('dark')}
     >
-      <span class="icon">🌙</span>
+      <span class="icon"><Moon size={20} /></span>
       <div class="theme-info">
         <span class="name">Dark Mode</span>
         <span class="desc">Technical & Precise</span>
       </div>
       {#if currentTheme === 'dark'}
-        <span class="check">✓</span>
+        <span class="check"><Check size={18} /></span>
       {/if}
     </button>
 
@@ -45,13 +46,13 @@
       class="theme-btn {currentTheme === 'light' ? 'active' : ''}" 
       onclick={() => setTheme('light')}
     >
-      <span class="icon">☀️</span>
+      <span class="icon"><Sun size={20} /></span>
       <div class="theme-info">
         <span class="name">Light Mode</span>
         <span class="desc">Playful & Friendly</span>
       </div>
       {#if currentTheme === 'light'}
-        <span class="check">✓</span>
+        <span class="check"><Check size={18} /></span>
       {/if}
     </button>
   </div>
@@ -69,7 +70,7 @@
     align-items: center;
     gap: var(--spacing-4);
     padding: var(--spacing-4);
-    background: var(--color-bg-main);
+    background: var(--color-bg-card-hover);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -87,7 +88,7 @@
 
   .theme-btn.active {
     border-color: var(--color-primary);
-    background: var(--color-bg-card-hover);
+    background: var(--color-primary-bg);
     box-shadow: 0 0 0 1px var(--color-primary);
   }
 
@@ -98,14 +99,16 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    background: var(--color-bg-sidebar);
+    background: var(--color-bg-card);
+    color: var(--color-text-secondary);
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border);
   }
 
   .theme-btn.active .icon {
-    background: var(--color-primary-bg);
+    background: var(--color-bg-card);
     border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .theme-info {

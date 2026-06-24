@@ -903,6 +903,119 @@ async fn scan_local_skills(app: tauri::AppHandle) -> Result<Vec<LocalSkillFile>,
     Ok(results)
 }
 
+// ── Minimal project-scoped filesystem commands ─────────────────────────────
+// site-profiles.ts persists SiteProfile JSON under `.agents/site-profiles/...`. These resolve
+// such relative paths against the project root (first ancestor of CWD holding a `.git`), so
+// they land next to the existing `.agents/` fixtures regardless of the dev CWD (src-tauri).
+fn project_root() -> std::path::PathBuf {
+    let cwd = std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from("."));
+    let mut dir: &std::path::Path = &cwd;
+    loop {
+        if dir.join(".git").exists() {
+            return dir.to_path_buf();
+        }
+        match dir.parent() {
+            Some(p) => dir = p,
+            None => return cwd,
+        }
+    }
+}
+
+// Trust boundary: only relative, non-traversing paths — never absolute or `..`.
+fn resolve_project_path(rel: &str) -> Result<std::path::PathBuf, String> {
+    if std::path::Path::new(rel).is_absolute() || rel.split(['/', '\\']).any(|s| s == "..") {
+        return Err(format!("invalid path: {}", rel));
+    }
+    Ok(project_root().join(rel))
+}
+
+#[tauri::command]
+fn create_dir(path: String, recursive: bool) -> Result<(), String> {
+    let target = resolve_project_path(&path)?;
+    if recursive {
+        std::fs::create_dir_all(&target).map_err(|e| e.to_string())
+    } else {
+        std::fs::create_dir(&target).map_err(|e| e.to_string())
+    }
+}
+
+#[tauri::command]
+fn write_file(path: String, contents: String) -> Result<(), String> {
+    let target = resolve_project_path(&path)?;
+    if let Some(parent) = target.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    std::fs::write(&target, contents).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn read_file(path: String) -> Result<String, String> {
+    let target = resolve_project_path(&path)?;
+    std::fs::read_to_string(&target).map_err(|e| format!("not found: {}", e))
+}
+
+#[tauri::command]
+fn delete_file(path: String) -> Result<(), String> {
+    let target = resolve_project_path(&path)?;
+    std::fs::remove_file(&target).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn list_files(path: String, recursive: bool) -> Result<Vec<String>, String> {
+    fn walk(dir: &std::path::Path, root: &std::path::Path, recursive: bool, out: &mut Vec<String>) {
+        let Ok(entries) = std::fs::read_dir(dir) else {
+            return;
+        };
+        for entry in entries.flatten() {
+            let p = entry.path();
+            if p.is_dir() {
+                if recursive {
+                    walk(&p, root, recursive, out);
+                }
+            } else if let Ok(rel) = p.strip_prefix(root) {
+                out.push(rel.to_string_lossy().replace('\\', "/"));
+            }
+        }
+    }
+    let base = resolve_project_path(&path)?;
+    let mut out = Vec::new();
+    if base.exists() {
+        walk(&base, &project_root(), recursive, &mut out);
+    }
+    Ok(out)
+}
+
+// ── OS keychain (Windows Credential Manager / macOS Keychain) ──────────────
+// Secrets (site-credential passwords) live here, encrypted at rest by the OS, instead of
+// plaintext in steve.db. Keyed by an arbitrary string from the TS layer (e.g. "credential:7").
+const KEYRING_SERVICE: &str = "steve-desktop";
+
+#[tauri::command]
+fn keyring_set(key: String, secret: String) -> Result<(), String> {
+    keyring::Entry::new(KEYRING_SERVICE, &key)
+        .and_then(|e| e.set_password(&secret))
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn keyring_get(key: String) -> Result<Option<String>, String> {
+    let entry = keyring::Entry::new(KEYRING_SERVICE, &key).map_err(|e| e.to_string())?;
+    match entry.get_password() {
+        Ok(p) => Ok(Some(p)),
+        Err(keyring::Error::NoEntry) => Ok(None),
+        Err(e) => Err(e.to_string()),
+    }
+}
+
+#[tauri::command]
+fn keyring_delete(key: String) -> Result<(), String> {
+    let entry = keyring::Entry::new(KEYRING_SERVICE, &key).map_err(|e| e.to_string())?;
+    match entry.delete_credential() {
+        Ok(()) | Err(keyring::Error::NoEntry) => Ok(()),
+        Err(e) => Err(e.to_string()),
+    }
+}
+
 #[cfg(not(target_os = "linux"))]
 #[tauri::command]
 async fn _eval_callback(
@@ -1214,6 +1327,32 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
 );",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 6,
+            description: "create_site_credentials",
+            sql: "CREATE TABLE IF NOT EXISTS site_credentials (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    site_name TEXT NOT NULL,
+    url_pattern TEXT NOT NULL,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    notes TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now'))
+);",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 7,
+            description: "create_bookmarks",
+            sql: "CREATE TABLE IF NOT EXISTS bookmarks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL UNIQUE,
+    created_at TEXT DEFAULT (datetime('now'))
+);",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
@@ -1238,6 +1377,14 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             stop_oauth_callback_server,
             get_cdp_port,
             discover_cdp_target,
+            create_dir,
+            write_file,
+            read_file,
+            delete_file,
+            list_files,
+            keyring_set,
+            keyring_get,
+            keyring_delete,
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())

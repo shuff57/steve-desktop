@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { MousePointerClick, Brain, Settings } from 'lucide-svelte';
   import { listProviderConfigs } from '../lib/db';
 
   let { onnavigate = (_page: string) => {} }: {
@@ -37,17 +38,17 @@
     <h2>Get Started</h2>
     <div class="actions-grid">
       <button class="action-card primary" onclick={() => onnavigate('browser')}>
-        <span class="action-icon">📺</span>
-        <span class="action-title">Watch Videos</span>
-        <span class="action-desc">Open the browser and start watching</span>
+        <span class="action-icon"><MousePointerClick size={28} /></span>
+        <span class="action-title">Start a Task</span>
+        <span class="action-desc">Open the browser and let STEVE work</span>
       </button>
       <button class="action-card" onclick={() => onnavigate('skills')}>
-        <span class="action-icon">🧠</span>
+        <span class="action-icon"><Brain size={28} /></span>
         <span class="action-title">Manage Skills</span>
         <span class="action-desc">Review and configure skills</span>
       </button>
       <button class="action-card" onclick={() => onnavigate('settings')}>
-        <span class="action-icon">⚙️</span>
+        <span class="action-icon"><Settings size={28} /></span>
         <span class="action-title">Configure Settings</span>
         <span class="action-desc">Set up your AI provider and preferences</span>
       </button>
@@ -144,6 +145,8 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
+    /* <button> doesn't inherit color — set it so .action-title (color: inherit) isn't UA-default black */
+    color: var(--color-text-primary);
     cursor: pointer;
     text-align: left;
     display: flex;
@@ -161,9 +164,15 @@
   }
 
   .action-card.primary {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    /* primary-hover bumps the blue/text contrast to WCAG AA in both themes. */
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
     color: var(--color-primary-text);
+  }
+
+  .action-card.primary .action-desc {
+    color: var(--color-primary-text);
+    opacity: 0.92;
   }
 
   .action-card.primary:hover {
@@ -185,8 +194,7 @@
 
   .action-desc {
     font-size: 0.82rem;
-    color: inherit;
-    opacity: 0.75;
+    color: var(--text-secondary);
     line-height: 1.4;
   }
 </style>

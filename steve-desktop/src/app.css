@@ -46,6 +46,70 @@
 
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', monospace;
+
+  /* Sidebar palette — sidebar is dark navy in BOTH themes, so it needs its
+     own colors (the canonical text/hover tokens are light-theme values and
+     vanish on dark navy). Defined once; not overridden per theme. */
+  --sidebar-text: #cbd5e1;
+  --sidebar-text-active: #ffffff;
+  --sidebar-text-muted: #94a3b8;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+  --sidebar-active-bg: rgba(96, 165, 250, 0.22);
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+
+  /* Semantic aliases — several components use a --color-* naming scheme.
+     Map them to the canonical tokens above so they theme automatically. */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-tertiary);
+  --color-bg-main: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-hover);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-border: var(--border-color);
+  --color-border-hover: var(--text-tertiary);
+  --color-error: var(--color-danger);
+  --font-body: var(--font-sans);
+  --font-family-mono: var(--font-mono);
+
+  /* Status palette — saturated hues read on both light and dark; translucent
+     bg/border tints work over either theme. One source of truth for the
+     green/amber/orange/red/purple that components had hardcoded. */
+  --color-primary-bg: rgba(59, 130, 246, 0.12);
+  --color-success: #22c55e;
+  --color-success-bg: rgba(34, 197, 94, 0.1);
+  --color-success-border: rgba(34, 197, 94, 0.25);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.25);
+  --color-running: #f97316;
+  --color-running-bg: rgba(249, 115, 22, 0.1);
+  --color-running-border: rgba(249, 115, 22, 0.25);
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-danger-bg: rgba(239, 68, 68, 0.1);
+  --color-danger-border: rgba(239, 68, 68, 0.25);
+  --color-accent: #8b5cf6;
+  --color-accent-bg: rgba(139, 92, 246, 0.1);
+  --color-accent-border: rgba(139, 92, 246, 0.4);
+
+  /* Named spacing aliases onto the numeric scale */
+  --spacing-sm: var(--spacing-2);
+  --spacing-md: var(--spacing-3);
+  --spacing-lg: var(--spacing-6);
+  --spacing-xl: var(--spacing-8);
+  --spacing-12: 48px;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --transition-fast: 0.15s;
+  --header-height: 64px;
+  --sidebar-width-expanded: 250px;
+  --sidebar-width-collapsed: 60px;
+  --sidebar-transition: 0.3s;
 }
 
 [data-theme="dark"] {
@@ -74,6 +138,7 @@
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 *, *::before, *::after {
@@ -175,6 +240,22 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
+
+/* Utility classes — referenced across pages (card, mb-*, text-muted) but were
+   never defined, so cards rendered with no background/padding. Defined once. */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.text-muted { color: var(--text-tertiary); }
+
+.mb-2 { margin-bottom: var(--spacing-2); }
+.mb-4 { margin-bottom: var(--spacing-4); }
+.mb-6 { margin-bottom: var(--spacing-6); }
 
 /* Scrollbar theme */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

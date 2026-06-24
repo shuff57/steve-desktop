@@ -2,8 +2,60 @@ import { describe, it, expect } from 'vitest';
 import {
   generateAutoFillScript,
   matchCredentialsToUrl,
+  credentialSecrets,
+  loginFieldSelectors,
   LMS_LOGIN_SELECTORS,
+  type SiteCredential,
 } from './autofill';
+import { Redactor } from './redact';
+
+describe('generateAutoFillScript — auto-submit option', () => {
+  it('does not submit by default', () => {
+    const s = generateAutoFillScript('u', 'p');
+    expect(s).toContain('var AUTO_SUBMIT = false;');
+  });
+  it('submits once per page when enabled, guarded against loops', () => {
+    const s = generateAutoFillScript('u', 'p', true);
+    expect(s).toContain('var AUTO_SUBMIT = true;');
+    expect(s).toContain('__steveAutoSubmitted');
+    expect(s).toContain('requestSubmit');
+  });
+});
+
+describe('loginFieldSelectors — pick the right login fields to capture a password', () => {
+  it('uses LMS-specific selectors for a known site', () => {
+    const sel = loginFieldSelectors('https://www.myopenmath.com/index.php');
+    expect(sel.usernameSelector).toBe('input[name="username"]');
+    expect(sel.passwordSelector).toBe('input[name="password"]');
+  });
+  it('falls back to generic selectors for an unknown site', () => {
+    const sel = loginFieldSelectors('https://some-sis.example.edu/login');
+    expect(sel.passwordSelector).toBe('input[type="password"]');
+    expect(sel.usernameSelector).toContain('email');
+  });
+});
+
+describe('credentialSecrets — keep saved logins out of any model payload', () => {
+  const creds: SiteCredential[] = [
+    { id: 1, site_name: 'Canvas', url_pattern: 'instructure.com', username: 'teacher@example.edu', password: 'hunter2' },
+    { id: 2, site_name: 'MOM', url_pattern: 'myopenmath.com', username: 'mr_t', password: '' },
+  ];
+
+  it('collects every non-empty username and password', () => {
+    const secrets = credentialSecrets(creds);
+    expect(secrets).toContain('teacher@example.edu');
+    expect(secrets).toContain('hunter2');
+    expect(secrets).toContain('mr_t');
+    expect(secrets).not.toContain(''); // empty password dropped
+  });
+
+  it('seeds a Redactor that strips credentials from an outbound payload', () => {
+    const redactor = new Redactor(credentialSecrets(creds));
+    const out = redactor.redact('login as teacher@example.edu / hunter2');
+    expect(out.text).not.toContain('teacher@example.edu');
+    expect(out.text).not.toContain('hunter2');
+  });
+});
 
 describe('generateAutoFillScript', () => {
   it('returns a script string', () => {
@@ -61,9 +113,9 @@ describe('generateAutoFillScript', () => {
     expect(script).toContain('change');
   });
 
-  it('does not auto-submit the form', () => {
+  it('does not auto-submit by default (submit path gated off)', () => {
     const script = generateAutoFillScript('user', 'pass');
-    expect(script).not.toContain('submit()');
+    expect(script).toContain('var AUTO_SUBMIT = false;');
   });
 
   it('handles empty credentials', () => {

@@ -34,6 +34,8 @@ export interface InputElement {
   selector: string;
   type?: string;
   required?: boolean;
+  /** Discovery flags fields that look like a person identifier (name/ID/SSN/DOB…). */
+  identifier?: boolean;
   candidates?: SelectorCandidate[];
   context?: ElementContext;
 }
@@ -53,6 +55,8 @@ export type WorkflowAction = 'click' | 'fill' | 'select' | 'wait-for' | 'answer-
 export interface WorkflowStep {
   action: WorkflowAction;
   selector?: string;
+  /** Ranked alternate anchors (role=name, #id, data-testid, …) tried in order on self-heal. */
+  candidates?: string[];
   value?: string;
   key?: string;
   frame?: string;

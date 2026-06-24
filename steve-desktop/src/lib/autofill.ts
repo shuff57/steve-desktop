@@ -58,6 +58,29 @@ export const LMS_LOGIN_SELECTORS: LmsLoginSelectors[] = [
   },
 ];
 
+// ── Login field discovery (for capturing a password off the live page) ──────
+
+export interface LoginFieldSelectors {
+  usernameSelector: string;
+  passwordSelector: string;
+}
+
+// Generic fallback when the site isn't a known LMS: first password input + a likely username.
+const GENERIC_LOGIN: LoginFieldSelectors = {
+  usernameSelector:
+    'input[type="email"], input[name*="user" i], input[name*="email" i], input[type="text"]',
+  passwordSelector: 'input[type="password"]',
+};
+
+/** CSS selectors for the username/password fields on the page — LMS-specific when known. */
+export function loginFieldSelectors(url: string): LoginFieldSelectors {
+  const u = (url || '').toLowerCase();
+  const lms = LMS_LOGIN_SELECTORS.find((s) => u.includes(s.urlPattern));
+  return lms
+    ? { usernameSelector: lms.usernameSelector, passwordSelector: lms.passwordSelector }
+    : GENERIC_LOGIN;
+}
+
 // ── Auto-Fill Script Generator ──────────────────────────────────────────
 
 /**
@@ -75,7 +98,7 @@ export const LMS_LOGIN_SELECTORS: LmsLoginSelectors[] = [
  * @param password - The password to fill
  * @returns JavaScript code string ready for webview injection
  */
-export function generateAutoFillScript(username: string, password: string): string {
+export function generateAutoFillScript(username: string, password: string, autoSubmit = false): string {
   // Escape special characters for safe embedding in JS string literals
   const safeUsername = escapeJsString(username);
   const safePassword = escapeJsString(password);
@@ -90,6 +113,7 @@ export function generateAutoFillScript(username: string, password: string): stri
   var SELECTORS = ${selectorsJson};
   var MAX_RETRIES = 3;
   var RETRY_DELAYS = [1000, 2000, 4000];
+  var AUTO_SUBMIT = ${autoSubmit ? 'true' : 'false'};
 
   /**
    * Find the matching LMS config for the current page URL.
@@ -137,6 +161,20 @@ export function generateAutoFillScript(username: string, password: string): stri
 
     setInputValue(userEl, '${safeUsername}');
     setInputValue(passEl, '${safePassword}');
+
+    // Optionally submit — once per page load, so a failed login can't loop.
+    if (AUTO_SUBMIT && !window.__steveAutoSubmitted) {
+      window.__steveAutoSubmitted = true;
+      var form = passEl.form || userEl.form;
+      if (form) {
+        setTimeout(function() {
+          var btn = form.querySelector('button[type=submit], input[type=submit]');
+          if (btn) { btn.click(); }
+          else if (form.requestSubmit) { form.requestSubmit(); }
+          else { form.submit(); }
+        }, 400);
+      }
+    }
     return true;
   }
 
@@ -231,6 +269,22 @@ export function matchCredentialsToUrl(
   }
 
   return null;
+}
+
+// ── Redactor registration ───────────────────────────────────────────────
+
+/**
+ * Every saved username and password, so they can be registered as redactor
+ * secrets. AGENTS.md trust-boundary rule: credentials must never reach a model.
+ * Seed a Redactor with these and any outbound payload has them stripped.
+ */
+export function credentialSecrets(credentials: SiteCredential[]): string[] {
+  const secrets: string[] = [];
+  for (const cred of credentials) {
+    if (cred.username) secrets.push(cred.username);
+    if (cred.password) secrets.push(cred.password);
+  }
+  return secrets;
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────

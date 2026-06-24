@@ -4,7 +4,7 @@ import { slugify, truncate, domainFromUrl, domainToPath, pageNameFromUrl } from 
 describe('constants', () => {
   it('has S.T.E.V.E app name', () => {
     expect(APP_NAME).toBe('S.T.E.V.E Desktop');
-    expect(APP_SUBTITLE).toContain('Every Video');
+    expect(APP_SUBTITLE).toBe('Smart Task Execution & Verification Engine');
   });
 
   it('uses steve.db', () => {

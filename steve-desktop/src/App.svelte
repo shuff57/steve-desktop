@@ -15,6 +15,7 @@
     SkillsIcon,
     SettingsIcon,
   } from './components/icons/index';
+  import { Sun, Moon } from 'lucide-svelte';
   import { getSetting } from './lib/db';
 
   let currentPage = $state('dashboard');
@@ -140,7 +141,7 @@
       
       <div class="sidebar-footer">
         <button class="nav-item theme-toggle" onclick={toggleTheme} title="Toggle Theme">
-          <span class="icon">{theme === 'dark' ? '☀️' : '🌙'}</span>
+          <span class="icon">{#if theme === 'dark'}<Sun />{:else}<Moon />{/if}</span>
           <span class="label">Theme</span>
         </button>
       </div>
@@ -245,7 +246,7 @@
   .toggle-btn {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--sidebar-text);
     cursor: pointer;
     padding: 4px;
     display: flex;
@@ -257,8 +258,8 @@
   }
 
   .toggle-btn:hover {
-    background-color: var(--bg-hover);
-    color: var(--text-primary);
+    background-color: var(--sidebar-hover-bg);
+    color: var(--sidebar-text-active);
   }
   
   .sidebar.collapsed .toggle-btn {
@@ -287,7 +288,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-tertiary);
+    color: var(--sidebar-text-muted);
     padding: 0.25rem 1rem 0.1rem;
     white-space: nowrap;
     overflow: hidden;
@@ -303,7 +304,7 @@
   .nav-item {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--sidebar-text);
     text-align: left;
     padding: 0.75rem 1rem;
     cursor: pointer;
@@ -341,13 +342,13 @@
   }
 
   .nav-item:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+    background: var(--sidebar-hover-bg);
+    color: var(--sidebar-text-active);
   }
 
   .nav-item.active {
-    background: var(--bg-active);
-    color: var(--text-primary);
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-text-active);
     font-weight: 500;
   }
   
@@ -358,7 +359,7 @@
   .sidebar-footer {
     margin-top: auto;
     padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--sidebar-border);
   }
 
   .content {

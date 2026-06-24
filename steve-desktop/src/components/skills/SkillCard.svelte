@@ -137,22 +137,22 @@
 
   .badge-local {
     color: var(--text-secondary);
-    background-color: rgba(210, 168, 255, 0.1);
+    background-color: var(--color-accent-bg);
   }
 
   .badge-created {
     color: var(--color-success);
-    background-color: var(rgba(16, 185, 129, 0.1));
+    background-color: var(--color-success-bg);
   }
 
   .badge-marketplace {
     color: var(--color-primary);
-    background-color: var(rgba(59, 130, 246, 0.1));
+    background-color: var(--color-primary-bg);
   }
 
   .badge-url {
     color: var(--text-secondary);
-    background-color: rgba(210, 168, 255, 0.1);
+    background-color: var(--color-accent-bg);
     font-size: 0.65rem;
   }
 
@@ -234,7 +234,7 @@
   }
 
   input:checked + .slider {
-    background-color: var(rgba(16, 185, 129, 0.1));
+    background-color: var(--color-success-bg);
     border-color: var(--color-success);
   }
 
@@ -262,7 +262,7 @@
 
   .delete-btn:hover {
     color: var(--color-danger);
-    background-color: var(rgba(239, 68, 68, 0.1));
+    background-color: var(--color-danger-bg);
   }
 
   /* Markdown Content Styles */

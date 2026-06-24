@@ -27,63 +27,46 @@
   let authLoading = $state<Record<string, boolean>>({});
   let authErrors = $state<Record<string, string>>({});
 
+  // All three use API-key auth (oauth disabled — the legal, no-OAuth-client path).
   let providers = $state([
     {
-      id: 'ollama',
-      name: 'Ollama',
+      id: 'anthropic',
+      name: 'Anthropic (Claude)',
       enabled: false,
       apiKey: '',
-      apiUrl: 'http://localhost:11434',
+      apiUrl: '',
       model: '',
-      keyUrl: '',
-      placeholderKey: 'Optional (only for cloud)',
-      placeholderUrl: 'http://localhost:11434 or https://your-cloud-instance.com'
+      keyUrl: 'https://console.anthropic.com/settings/keys',
+      placeholderKey: 'sk-ant-...',
+      placeholderUrl: '',
+      oauth: false,
+      useApiKey: true
     },
     {
       id: 'openai',
-      name: 'OpenAI',
+      name: 'ChatGPT (OpenAI)',
       enabled: false,
       apiKey: '',
       apiUrl: '',
       model: '',
       keyUrl: 'https://platform.openai.com/api-keys',
-      placeholderKey: 'sk-...'
+      placeholderKey: 'sk-...',
+      placeholderUrl: '',
+      oauth: false,
+      useApiKey: true
     },
     {
-      id: 'anthropic',
-      name: 'Anthropic',
+      id: 'ollama',
+      name: 'Ollama Cloud',
       enabled: false,
       apiKey: '',
-      apiUrl: '',
+      apiUrl: 'https://ollama.com',
       model: '',
-      keyUrl: 'https://console.anthropic.com/',
-      placeholderKey: 'sk-ant-...',
-      oauth: true,
-      useApiKey: false
-    },
-    {
-      id: 'google-gemini',
-      name: 'Google Gemini',
-      enabled: false,
-      apiKey: '',
-      apiUrl: '',
-      model: '',
-      keyUrl: 'https://aistudio.google.com/apikey',
-      placeholderKey: 'AIza...',
-      oauth: true,
-      useApiKey: false
-    },
-    {
-      id: 'github-models',
-      name: 'GitHub Models',
-      enabled: false,
-      apiKey: '',
-      apiUrl: '',
-      model: '',
-      keyUrl: 'https://github.com/settings/tokens',
-      placeholderKey: 'ghp_...',
-      oauth: true,
-      useApiKey: false
+      keyUrl: 'https://ollama.com/settings/keys',
+      placeholderKey: 'Required for Ollama Cloud',
+      placeholderUrl: 'https://ollama.com',
+      oauth: false,
+      useApiKey: true
     }
   ]);
 
@@ -291,8 +274,11 @@
       }
 
       await setSetting('setup_complete', 'true');
-    } catch {
-      // DB save may fail in browser preview (no Tauri invoke)
+    } catch (e) {
+      // Surface the failure instead of sending the user into a "no provider" state
+      error = 'Failed to save provider: ' + (e instanceof Error ? e.message : String(e));
+      loading = false;
+      return;
     }
     oncomplete?.();
     loading = false;

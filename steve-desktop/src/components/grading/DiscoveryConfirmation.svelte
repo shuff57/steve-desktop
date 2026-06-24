@@ -136,8 +136,8 @@
   .confirm-match-count {
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--color-success, #22c55e);
-    background: rgba(34, 197, 94, 0.1);
+    color: var(--color-success);
+    background: var(--color-success-bg);
     padding: 2px 6px;
     border-radius: var(--radius-sm);
   }

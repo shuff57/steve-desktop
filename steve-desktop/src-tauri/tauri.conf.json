@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "S.T.E.V.E - Sitting Through Every Video Entirely",
+        "title": "S.T.E.V.E - Smart Task Execution & Verification Engine",
         "width": 1280,
         "height": 900
       }

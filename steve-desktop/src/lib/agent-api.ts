@@ -5,6 +5,8 @@ import type {
   AgentTextResponse,
 } from './agent-types';
 import { parseAgentResponse } from './agent-prompt';
+import type { Redactor } from './redact';
+import { redactRequest, rehydrateResponse } from './agent-redact';
 
 const SERVER_BASE = 'http://localhost:3456';
 
@@ -22,11 +24,19 @@ interface SendAgentMessageHandlers {
   onError?: (data: { message: string }) => void;
 }
 
-export async function sendAgentRequest(request: AgentApiRequest): Promise<AgentApiResponse> {
+export async function sendAgentRequest(
+  request: AgentApiRequest,
+  redactor?: Redactor,
+): Promise<AgentApiResponse> {
+  // Trust boundary: when a redactor is present, no identifier leaves the machine.
+  // redactRequest strips messages/dom/snapshot and refuses to send if any known
+  // identifier would still leak; the response is rehydrated locally below.
+  const outbound = redactor ? redactRequest(request, redactor) : request;
+
   const response = await fetch(`${SERVER_BASE}/api/agent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(request),
+    body: JSON.stringify(outbound),
   });
 
   if (!response.ok) {
@@ -41,26 +51,19 @@ export async function sendAgentRequest(request: AgentApiRequest): Promise<AgentA
 
   const data = await response.json();
 
-  if (data && typeof data === 'object') {
-    if ('action' in data && typeof data.action === 'string') {
-      return data as AgentActionResponse;
+  const parse = (): AgentApiResponse => {
+    if (data && typeof data === 'object') {
+      if ('action' in data && typeof data.action === 'string') return data as AgentActionResponse;
+      if ('text' in data && typeof data.text === 'string') return data as AgentTextResponse;
+      if ('content' in data && typeof data.content === 'string') return parseAgentResponse(data.content);
+      if ('response' in data && typeof data.response === 'string') return parseAgentResponse(data.response);
     }
-    if ('text' in data && typeof data.text === 'string') {
-      return data as AgentTextResponse;
-    }
-    if ('content' in data && typeof data.content === 'string') {
-      return parseAgentResponse(data.content);
-    }
-    if ('response' in data && typeof data.response === 'string') {
-      return parseAgentResponse(data.response);
-    }
-  }
+    if (typeof data === 'string') return parseAgentResponse(data);
+    return { text: JSON.stringify(data) };
+  };
 
-  if (typeof data === 'string') {
-    return parseAgentResponse(data);
-  }
-
-  return { text: JSON.stringify(data) };
+  const result = parse();
+  return redactor ? rehydrateResponse(result, redactor) : result;
 }
 
 export async function sendAgentMessage(
