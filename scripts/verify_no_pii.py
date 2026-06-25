@@ -13,15 +13,25 @@ import re
 import sys
 from pathlib import Path
 
+# Windows consoles default to cp1252 and choke on → / … / ⟦⟧. Force UTF-8.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 TOKEN = re.compile(r"⟦D\d+⟧")  # redacted slot — allowed (forward-compat)
 
 # Hard fails: unambiguous identifiers.
+# NOTE: a bare long-digit rule floods on course/assignment IDs in URLs (cid=, aid=,
+# qid=) which are NOT PII. Only person-scoped identifier params are flagged.
 HARD = {
     "email": re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.-]+\b"),
     "phone": re.compile(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b"),
     "ssn": re.compile(r"\b\d{3}-\d{2}-\d{4}\b"),
     "dob": re.compile(r"\b(0?[1-9]|1[0-2])/(0?[1-9]|[12]\d|3[01])/(19|20)\d\d\b"),
-    "id": re.compile(r"\b\d{6,}\b"),  # student/parent ID run
+    "student_id": re.compile(r"\b(?:stu(?:dent)?id|userid|uid|sid|personid)=\d{2,}", re.I),
+    # Roster names render as "Lastname, Firstname" on gradebook checkboxes/labels.
+    "roster_name": re.compile(r"\b[A-Z][a-z]+,\s+[A-Z][a-z]+\b"),
 }
 # Soft: two Capitalized words = name-shaped. Heuristic -> warn, don't fail.
 # ponytail: regex + chrome-word stoplist; swap for an NER pass only if false
@@ -88,6 +98,9 @@ def main(argv):
         assert scan_text("call 555-123-4567")[0][0] == "phone"
         assert scan_text("ssn 123-45-6789")[0][0] == "ssn"
         assert scan_text("dob 03/14/2008")[0][0] == "dob"
+        assert scan_text("moddataset.php?stuid=4821")[0][0] == "student_id"
+        assert scan_text("course.php?cid=306621") == []  # course id -> not PII
+        assert scan_text('checkbox[name="De Jesus, Angel"]')[0][0] == "roster_name"
         assert scan_text("⟦D1⟧") == []  # tokenized -> allowed
         assert scan_text("Save") == []  # chrome -> clean
         assert name_hits("Jane Doe") and not name_hits("Save Question")
