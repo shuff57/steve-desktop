@@ -92,19 +92,20 @@ Authoring loop (reuses the existing `mom/` stack — `/mom-section-to-questions`
   disk. The script becomes a backstop, not the only defense. Small scoped change
   to `mapHere` in `SiteMapper.svelte`.
 
-### D. Gmail / Google — `page`
-- VERIFY: compose flow — Compose → To / Subject / Body → Send, each by stable
-  selector.
+### D. Outlook (PVHS) — `page`
+- Target: PVHS Office 365 webmail (`outlook.office.com` / `outlook.office365.com`).
+- VERIFY: compose flow — New mail → To / Subject / Body → Send, each by stable
+  selector. (Outlook web is a heavy SPA — prefer role=name anchors over CSS.)
 - PII: standard — map compose chrome only; do not capture inbox contents.
 - This is the target half of "email this parent": Ares supplies the address
-  (selector → on-device value), Gmail supplies the compose surface.
+  (selector → on-device value), Outlook supplies the compose surface.
 
 ## "Email this parent" chain (enabled by the maps)
 
 ```
 You: "email {student}'s parent"
   → open Ares → locate email by structural selector (on-device only)
-  → open Gmail compose → fill To + Subject/Body from you
+  → open Outlook (PVHS) compose → fill To + Subject/Body from you
   → you approve → Send
 ```
 

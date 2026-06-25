@@ -34,11 +34,11 @@ REPORT
 
 ## Per-site slots
 
-| Slot | Keenan SafeSchool | MyOpenMath | Ares LMS | Gmail |
-|------|-------------------|------------|----------|-------|
+| Slot | Keenan SafeSchool | MyOpenMath | Ares LMS | Outlook (PVHS) |
+|------|-------------------|------------|----------|----------------|
 | MODE | site | generalize | site | page |
 | INSTANCE_NOTE | — | map one course; re-prove on a second (cid differs) | — | — |
-| VERIFY_CHECKS | dashboard → My Assignments → course player; steve anchors resolve | editor + testquestion2 preview; CC/QT/Answer fields locatable | parent-email by structural selector, never value | Compose → To/Subject/Body → Send |
+| VERIFY_CHECKS | dashboard → My Assignments → course player; steve anchors resolve | editor + testquestion2 preview; CC/QT/Answer fields locatable | parent-email by structural selector, never value | New mail → To/Subject/Body → Send (outlook.office.com; role=name anchors) |
 | PII_RULE | standard | standard (rosters) | **HARD — must pass** | standard (compose chrome only) |
 
 ## Notes
