@@ -24,6 +24,12 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     description: 'Write a previously read slot value into an element, on-device. The value is never exposed to you.',
     params: { selector: 'CSS selector to write into', from: 'Slot name to read the value from (e.g. p1)' },
   },
+  {
+    name: 'login',
+    description:
+      'Log in to the CURRENT page using the saved credentials for this site. Username and password are filled on-device and submitted — you never see them. Use this when a page shows a login form.',
+    params: { site: 'Optional site name hint; usually omit and it matches by URL' },
+  },
   { name: 'navigate', description: 'Navigate browser to URL', params: { url: 'Absolute URL' } },
   {
     name: 'wait',
@@ -68,6 +74,7 @@ Allowed action names:
 - fill
 - read
 - paste
+- login
 - navigate
 - wait
 - keyboard
@@ -80,6 +87,7 @@ Action parameter shapes:
 - fill: {"selector":"...","value":"..."}
 - read: {"selector":"...","into":"p1"}
 - paste: {"selector":"...","from":"p1"}
+- login: {} or {"site":"..."}
 - navigate: {"url":"https://..."}
 - wait: {"condition":"...","timeout":5000}
 - keyboard: {"key":"Enter"}
@@ -95,7 +103,9 @@ Rules:
 5. Avoid repeating the same failed selector; adapt based on error feedback.
 6. Use done when the user goal is complete or blocked.
 7. To move sensitive data (emails, IDs) between pages, use read then paste by slot
-   name — never ask to see the value or put it in a fill. read returns only a length.`;
+   name — never ask to see the value or put it in a fill. read returns only a length.
+8. If a page shows a login form, use the login action — never type a password into a
+   fill. Credentials are filled on-device and never shown to you.`;
 
 export function parseAgentResponse(rawText: string): AgentApiResponse {
   let text = rawText.trim();

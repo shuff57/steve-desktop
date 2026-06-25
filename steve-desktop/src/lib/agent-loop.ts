@@ -1,4 +1,5 @@
-import { captureWebviewScreenshot, evalScript, getActiveTabId, navigateEmbedded } from './browser';
+import { captureWebviewScreenshot, evalScript, getActiveTabId, getEmbeddedUrl, navigateEmbedded } from './browser';
+import { matchCredentialsToUrl, loginFieldSelectors, type SiteCredential } from './autofill';
 import { sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
 import { captureInteractiveDom, findFuzzyMatch, formatDomForPrompt, fuzzyMatchReason } from './agent-dom';
@@ -50,6 +51,8 @@ export interface AgentStartConfig {
   skills?: MatchableSkill[];
   /** Current page URL, used to match skills by url_pattern. */
   pageUrl?: string;
+  /** Saved credentials, used by the login action to auth on-device. */
+  credentials?: SiteCredential[];
   /** Rehearse without performing destructive actions. Also auto-on if the goal says "dry run". */
   dryRun?: boolean;
 }
@@ -79,6 +82,9 @@ function toBrowserAction(action: string, params: Record<string, unknown>): Brows
   }
   if (action === 'paste' && typeof params.selector === 'string' && typeof params.from === 'string') {
     return { type: 'paste', selector: params.selector, from: params.from };
+  }
+  if (action === 'login') {
+    return { type: 'login', ...(typeof params.site === 'string' ? { site: params.site } : {}) };
   }
   if (action === 'navigate' && typeof params.url === 'string') {
     return { type: 'navigate', url: params.url };
@@ -120,8 +126,28 @@ function rehydrateAction(action: BrowserAction, rehydrate: (t: string) => string
   if (action.type === 'iframe_interact') rehydrateAction(action.action, rehydrate);
 }
 
-async function executeAction(action: BrowserAction, register: Map<string, string>, dryRun = false): Promise<ActionResult> {
+async function executeAction(
+  action: BrowserAction,
+  register: Map<string, string>,
+  dryRun = false,
+  credentials: SiteCredential[] = [],
+): Promise<ActionResult> {
   try {
+    // Log in with saved credentials, filled on-device. The username/password are
+    // embedded only in the injected script (local) and the page — never returned.
+    if (action.type === 'login') {
+      if (!credentials.length) return { success: false, error: 'No saved credentials configured' };
+      const url = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
+      const cred = matchCredentialsToUrl(url, credentials);
+      if (!cred) return { success: false, error: `No saved credential matches ${url || 'this page'}` };
+      if (dryRun) return { success: true, data: { dryRun: true, would: 'login', site: cred.site_name } };
+      const sel = loginFieldSelectors(url);
+      const script = `(function(){var u=document.querySelector(${JSON.stringify(sel.usernameSelector)});var p=document.querySelector(${JSON.stringify(sel.passwordSelector)});if(!p)return 'no-form';function setv(el,v){var n=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value');if(n&&n.set)n.set.call(el,v);else el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}if(u)setv(u,${JSON.stringify(cred.username)});setv(p,${JSON.stringify(cred.password)});var f=p.form||(u&&u.form);if(f){var b=f.querySelector('button[type=submit],input[type=submit]');if(b)b.click();else if(f.requestSubmit)f.requestSubmit();else f.submit();}return 'filled';})()`;
+      const r = await evalScript(script);
+      if (r === 'no-form') return { success: false, error: 'No login form found on this page' };
+      return { success: true, data: { site: cred.site_name } };
+    }
+
     // PII-safe transfer. The value is read into / written from `register`, which
     // lives in the loop (not the page, not the model). It survives tab switches,
     // so a value read on page A pastes into page B. The model only ever sees the
@@ -405,7 +431,7 @@ export function createAgentController(): AgentController {
         setState('executing');
         emit('executing', { action });
 
-        let result = await executeAction(action, register, dryRun);
+        let result = await executeAction(action, register, dryRun, config.credentials ?? []);
 
         if (!result.success && (action.type === 'click' || action.type === 'fill')) {
           try {
@@ -417,7 +443,7 @@ export function createAgentController(): AgentController {
                 action.type === 'click'
                   ? { type: 'click', selector: match.selector }
                   : { type: 'fill', selector: match.selector, value: action.value };
-              result = await executeAction(retryAction, register, dryRun);
+              result = await executeAction(retryAction, register, dryRun, config.credentials ?? []);
               if (result.success) {
                 const reason = fuzzyMatchReason(failedSelector, match);
                 result = { success: true, data: { matchedSelector: match.selector, reason } };

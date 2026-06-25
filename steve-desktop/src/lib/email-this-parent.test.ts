@@ -20,6 +20,7 @@ vi.mock('./browser', () => ({
   captureWebviewScreenshot: vi.fn(async () => undefined),
   evalScript: mockEvalScript,
   getActiveTabId: vi.fn(() => 'tab-1'),
+  getEmbeddedUrl: vi.fn(async () => ''),
   navigateEmbedded: vi.fn(async () => undefined),
 }));
 vi.mock('./agent-api', () => ({ sendAgentRequest: mockSendAgentRequest }));

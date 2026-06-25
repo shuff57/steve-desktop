@@ -7,7 +7,7 @@
   import { createAgentController } from '../../lib/agent-loop';
   import type { AgentController } from '../../lib/agent-loop';
   import type { AgentMode, AgentState } from '../../lib/agent-types';
-  import { getSkills, type Skill } from '../../lib/db';
+  import { getSkills, getSiteCredentials, type Skill, type SiteCredential } from '../../lib/db';
   import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
   import ProviderSelector from './ProviderSelector.svelte';
 
@@ -67,7 +67,12 @@
   let controller: AgentController = $state(makeController());
   // Saved skills — relevant ones are auto-injected into the agent's context per goal/page.
   let skills: Skill[] = $state([]);
-  onMount(async () => { try { skills = await getSkills(); } catch { skills = []; } });
+  // Saved credentials — used by the login action to auth on-device (never sent to the model).
+  let credentials: SiteCredential[] = $state([]);
+  onMount(async () => {
+    try { skills = await getSkills(); } catch { skills = []; }
+    try { credentials = await getSiteCredentials(); } catch { credentials = []; }
+  });
 
   // ============================================================================
   // Helpers
@@ -180,7 +185,7 @@
 
     // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
     const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
-    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl });
+    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl, credentials });
 
     agentState = 'idle';
   }

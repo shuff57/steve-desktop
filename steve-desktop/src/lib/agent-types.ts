@@ -8,6 +8,9 @@ export type BrowserAction =
   // slot name. The value moves device-locally and is NEVER returned to the model.
   | { type: 'read'; selector: string; into: string; description?: string }
   | { type: 'paste'; selector: string; from: string; description?: string }
+  // Log in to the current site with saved credentials, filled on-device. The
+  // username/password are NEVER returned to the model.
+  | { type: 'login'; site?: string; description?: string }
   | { type: 'navigate'; url: string; description?: string }
   | { type: 'wait'; condition: string; timeout?: number; description?: string }
   | { type: 'keyboard'; key: string; description?: string }

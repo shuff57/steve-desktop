@@ -22,30 +22,38 @@ put in a `fill`, never shown to the model, never sent to any provider. That is
 what keeps it FERPA-safe regardless of which model (including hosted/Ollama
 Cloud) is selected.
 
-## Before running
-- Open the **student in Aeries** on `EmergencyContacts.aspx` (the student whose
-  parent you want to email must be the one in context).
-- Be logged into **Outlook** in another tab.
+This skill is **autonomous**: it opens the pages it needs, logs itself in with
+saved credentials (filled on-device via `login`), and navigates by the known
+selectors below — no manual setup. The only thing it will not do without you is
+click **Send**.
 
 > **Dry run first.** Prefix your goal with **"dry run"** (e.g. "dry run: email
-> this parent") to rehearse the whole flow safely — the agent reads, opens
-> compose, and fills the draft, but the final **Send** is only *verified* (located,
-> not clicked). Drop the prefix to run for real.
+> this parent") to rehearse safely — the agent opens pages, verifies a login
+> credential matches (without submitting), and drafts the message, but the final
+> **Send** is only *verified* (located, not clicked). Drop the prefix to run for real.
 
 ## Steps for the agent
-1. On the Aeries Emergency Contacts page, copy the **parent** email into slot `p1`:
-   - `read` selector `#ctl00_MainContent_subStuTopEmail_lblPEM` into `p1`
+1. Go to the Aeries student's contacts:
+   - `navigate` to `https://chicousd.aeries.net/teacher/EmergencyContacts.aspx`.
+   - If a login form appears, use `login` (it fills saved credentials on-device),
+     then `navigate` to `EmergencyContacts.aspx` again.
+   - The student in context is the one to email. If you need a different student,
+     ask the user to select them in Aeries first.
+2. Copy the **parent** email into slot `p1`:
+   - `read` selector `#ctl00_MainContent_subStuTopEmail_lblPEM` into `p1`.
    - (Student email, if ever needed, is `#ctl00_MainContent_subStuTopEmail_lblSEM`.)
    - The result reports only a length — that is expected. Do not try to view the value.
-2. `navigate` to `https://outlook.office.com/mail/`.
-3. `click` the compose button: selector `role=button[name="New mail"]`.
-4. Put the address into the recipient field, then commit it as a recipient:
-   - `paste` selector `[aria-label="To"]` from `p1`
-   - `keyboard` key `Enter`  (Outlook's To is a people-picker; Enter commits the pill)
-5. Fill the message the user asked for:
+   - If the length is 0, there is no parent email on file — stop and tell the user.
+3. `navigate` to `https://outlook.office.com/mail/`.
+   - If a Microsoft login form appears, use `login`, then continue.
+4. `click` the compose button: selector `role=button[name="New mail"]`.
+5. Put the address into the recipient field, then commit it as a recipient:
+   - `paste` selector `[aria-label="To"]` from `p1`.
+   - `keyboard` key `Enter`  (Outlook's To is a people-picker; Enter commits the pill).
+6. Fill the message the user asked for:
    - `fill` selector `input[aria-label="Subject"]` with the subject the user gave you.
    - `fill` selector `[aria-label="Message body"]` with the body the user gave you.
-6. **STOP. Do not send.** Respond asking the user to review the drafted message
+7. **STOP. Do not send.** Respond asking the user to review the drafted message
    and confirm. Only after the user explicitly says to send:
    - `click` selector `role=button[name="Send"]`.
 

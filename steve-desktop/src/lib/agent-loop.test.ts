@@ -9,6 +9,7 @@ const {
   mockIsConnected,
   mockCaptureMergedTree,
   mockEvalScript,
+  mockGetEmbeddedUrl,
 } = vi.hoisted(() => ({
   mockCaptureInteractiveDom: vi.fn(),
   mockFormatDomForPrompt: vi.fn(),
@@ -17,6 +18,7 @@ const {
   mockIsConnected: vi.fn(),
   mockCaptureMergedTree: vi.fn(),
   mockEvalScript: vi.fn(),
+  mockGetEmbeddedUrl: vi.fn(),
 }));
 
 vi.mock('./agent-dom', () => ({
@@ -28,6 +30,7 @@ vi.mock('./browser', () => ({
   captureWebviewScreenshot: mockCaptureWebviewScreenshot,
   evalScript: mockEvalScript,
   getActiveTabId: vi.fn(() => 'tab-1'),
+  getEmbeddedUrl: mockGetEmbeddedUrl,
   navigateEmbedded: vi.fn(),
 }));
 
@@ -51,6 +54,7 @@ describe('agent-loop', () => {
     mockCaptureWebviewScreenshot.mockResolvedValue(undefined);
     mockIsConnected.mockReturnValue(false); // default: injected-JS fallback path
     mockEvalScript.mockResolvedValue('true');
+    mockGetEmbeddedUrl.mockResolvedValue('');
   });
 
   it('starts in idle state', () => {
@@ -195,6 +199,51 @@ describe('agent-loop', () => {
 
     const performedClick = mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('.click()'));
     expect(performedClick).toBe(true); // New mail WAS clicked
+  });
+
+  it('login fills saved credentials on-device and never exposes them to the model', async () => {
+    mockGetEmbeddedUrl.mockResolvedValue('https://chicousd.aeries.net/teacher/Login.aspx');
+    mockEvalScript.mockResolvedValue('filled');
+    const credentials = [{ id: 1, site_name: 'Aeries', username: 'teacher1', password: 's3cret!', url_pattern: 'aeries.net' }];
+
+    const controller = createAgentController();
+    const results: Array<{ data?: unknown }> = [];
+    controller.on('result', ({ result }) => results.push({ data: result.data }));
+
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'login', params: {}, reasoning: 'log in' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'log in to aeries', credentials });
+
+    // Credentials reached the page via evalScript (on-device)…
+    expect(mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('s3cret!'))).toBe(true);
+    // …but NEVER appear in anything sent to the model.
+    for (const call of mockSendAgentRequest.mock.calls) {
+      const blob = JSON.stringify(call[0]);
+      expect(blob).not.toContain('s3cret!');
+      expect(blob).not.toContain('teacher1');
+    }
+    // The result reports only the site name.
+    expect(results[0].data).toEqual({ site: 'Aeries' });
+  });
+
+  it('dry run login verifies a credential match but does not submit it', async () => {
+    mockGetEmbeddedUrl.mockResolvedValue('https://chicousd.aeries.net/teacher/Login.aspx');
+    const credentials = [{ id: 1, site_name: 'Aeries', username: 'teacher1', password: 's3cret!', url_pattern: 'aeries.net' }];
+
+    const controller = createAgentController();
+    const results: Array<{ data?: unknown }> = [];
+    controller.on('result', ({ result }) => results.push({ data: result.data }));
+
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'login', params: {}, reasoning: 'log in' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'dry run', credentials, dryRun: true });
+
+    expect(mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('s3cret!'))).toBe(false);
+    expect(results[0].data).toMatchObject({ dryRun: true, would: 'login', site: 'Aeries' });
   });
 
   it('auto-detects dry run from the goal text', async () => {
