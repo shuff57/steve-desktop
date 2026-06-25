@@ -13,6 +13,17 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     description: 'Fill an input, textarea, or editable field with text',
     params: { selector: 'CSS selector to fill', value: 'Text value to enter' },
   },
+  {
+    name: 'read',
+    description:
+      'Read a value from an element into a named on-device slot, WITHOUT seeing the value. Use to move sensitive data (e.g. a contact email) between pages. You get back only the length, never the value.',
+    params: { selector: 'CSS selector to read from', into: 'Slot name to store the value in (e.g. p1)' },
+  },
+  {
+    name: 'paste',
+    description: 'Write a previously read slot value into an element, on-device. The value is never exposed to you.',
+    params: { selector: 'CSS selector to write into', from: 'Slot name to read the value from (e.g. p1)' },
+  },
   { name: 'navigate', description: 'Navigate browser to URL', params: { url: 'Absolute URL' } },
   {
     name: 'wait',
@@ -55,6 +66,8 @@ Respond with EXACTLY ONE JSON object in one of these forms:
 Allowed action names:
 - click
 - fill
+- read
+- paste
 - navigate
 - wait
 - keyboard
@@ -65,6 +78,8 @@ Allowed action names:
 Action parameter shapes:
 - click: {"selector":"..."}
 - fill: {"selector":"...","value":"..."}
+- read: {"selector":"...","into":"p1"}
+- paste: {"selector":"...","from":"p1"}
 - navigate: {"url":"https://..."}
 - wait: {"condition":"...","timeout":5000}
 - keyboard: {"key":"Enter"}
@@ -78,7 +93,9 @@ Rules:
 3. If uncertain, gather context first via wait, scroll, or a precise text response.
 4. Handle iframe content explicitly with iframe_interact.
 5. Avoid repeating the same failed selector; adapt based on error feedback.
-6. Use done when the user goal is complete or blocked.`;
+6. Use done when the user goal is complete or blocked.
+7. To move sensitive data (emails, IDs) between pages, use read then paste by slot
+   name — never ask to see the value or put it in a fill. read returns only a length.`;
 
 export function parseAgentResponse(rawText: string): AgentApiResponse {
   let text = rawText.trim();

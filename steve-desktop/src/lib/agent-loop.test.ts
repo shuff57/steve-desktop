@@ -8,6 +8,7 @@ const {
   mockSendAgentRequest,
   mockIsConnected,
   mockCaptureMergedTree,
+  mockEvalScript,
 } = vi.hoisted(() => ({
   mockCaptureInteractiveDom: vi.fn(),
   mockFormatDomForPrompt: vi.fn(),
@@ -15,6 +16,7 @@ const {
   mockSendAgentRequest: vi.fn(),
   mockIsConnected: vi.fn(),
   mockCaptureMergedTree: vi.fn(),
+  mockEvalScript: vi.fn(),
 }));
 
 vi.mock('./agent-dom', () => ({
@@ -24,7 +26,7 @@ vi.mock('./agent-dom', () => ({
 
 vi.mock('./browser', () => ({
   captureWebviewScreenshot: mockCaptureWebviewScreenshot,
-  evalScript: vi.fn(),
+  evalScript: mockEvalScript,
   getActiveTabId: vi.fn(() => 'tab-1'),
   navigateEmbedded: vi.fn(),
 }));
@@ -48,6 +50,7 @@ describe('agent-loop', () => {
     mockFormatDomForPrompt.mockReturnValue('No interactive elements found.');
     mockCaptureWebviewScreenshot.mockResolvedValue(undefined);
     mockIsConnected.mockReturnValue(false); // default: injected-JS fallback path
+    mockEvalScript.mockResolvedValue('true');
   });
 
   it('starts in idle state', () => {
@@ -125,5 +128,35 @@ describe('agent-loop', () => {
 
     // The token is restored on-device before it's typed into the page.
     expect(executed[0]).toEqual({ type: 'fill', selector: '#name', value: 'Jane Doe' });
+  });
+
+  it('read→paste moves a value on-device without ever exposing it to the model', async () => {
+    // read returns the value over evalScript (on-device); paste writes it back.
+    mockEvalScript
+      .mockResolvedValueOnce(JSON.stringify({ f: true, v: 'parent@example.com' })) // read
+      .mockResolvedValueOnce('true'); // paste
+
+    const controller = createAgentController();
+    const results: Array<{ ok: boolean; data?: unknown }> = [];
+    controller.on('result', ({ result }) => results.push({ ok: result.success, data: result.data }));
+
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'read', params: { selector: '#lblPEM', into: 'p1' }, reasoning: 'grab email' })
+      .mockResolvedValueOnce({ action: 'paste', params: { selector: '#to', from: 'p1' }, reasoning: 'fill recipient' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'sent' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'email the parent' });
+
+    // read reported only the length back to the loop — never the value.
+    expect(results[0]).toEqual({ ok: true, data: { stored: 'p1', length: 'parent@example.com'.length } });
+
+    // paste wrote the real value into the page (on-device evalScript), proving the slot survived.
+    const pasteScript = mockEvalScript.mock.calls[1][0] as string;
+    expect(pasteScript).toContain('parent@example.com');
+
+    // The email NEVER appears in anything sent to the model across all turns.
+    for (const call of mockSendAgentRequest.mock.calls) {
+      expect(JSON.stringify(call[0])).not.toContain('parent@example.com');
+    }
   });
 });

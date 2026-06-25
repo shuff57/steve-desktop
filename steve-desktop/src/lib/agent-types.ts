@@ -4,6 +4,10 @@ import type { SiteProfile } from './types/site-profile';
 export type BrowserAction =
   | { type: 'click'; selector: string; description?: string }
   | { type: 'fill'; selector: string; value: string; description?: string }
+  // PII-safe transfer: read a value into an on-device slot, paste it elsewhere by
+  // slot name. The value moves device-locally and is NEVER returned to the model.
+  | { type: 'read'; selector: string; into: string; description?: string }
+  | { type: 'paste'; selector: string; from: string; description?: string }
   | { type: 'navigate'; url: string; description?: string }
   | { type: 'wait'; condition: string; timeout?: number; description?: string }
   | { type: 'keyboard'; key: string; description?: string }

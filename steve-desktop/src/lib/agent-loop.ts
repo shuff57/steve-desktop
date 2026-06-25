@@ -60,6 +60,12 @@ function toBrowserAction(action: string, params: Record<string, unknown>): Brows
     const value = typeof params.value === 'string' ? params.value : typeof params.text === 'string' ? params.text : '';
     return { type: 'fill', selector: params.selector, value };
   }
+  if (action === 'read' && typeof params.selector === 'string' && typeof params.into === 'string') {
+    return { type: 'read', selector: params.selector, into: params.into };
+  }
+  if (action === 'paste' && typeof params.selector === 'string' && typeof params.from === 'string') {
+    return { type: 'paste', selector: params.selector, from: params.from };
+  }
   if (action === 'navigate' && typeof params.url === 'string') {
     return { type: 'navigate', url: params.url };
   }
@@ -100,8 +106,39 @@ function rehydrateAction(action: BrowserAction, rehydrate: (t: string) => string
   if (action.type === 'iframe_interact') rehydrateAction(action.action, rehydrate);
 }
 
-async function executeAction(action: BrowserAction): Promise<ActionResult> {
+async function executeAction(action: BrowserAction, register: Map<string, string>): Promise<ActionResult> {
   try {
+    // PII-safe transfer. The value is read into / written from `register`, which
+    // lives in the loop (not the page, not the model). It survives tab switches,
+    // so a value read on page A pastes into page B. The model only ever sees the
+    // slot name and, for read, the value's LENGTH — never the value itself.
+    if (action.type === 'read') {
+      const el = selectorToElementExpr(action.selector);
+      const raw = await evalScript(
+        `(function(){var el=${el};if(!el)return JSON.stringify({f:false});var v=('value'in el&&el.value!=null)?String(el.value):(el.textContent||'');return JSON.stringify({f:true,v:v});})()`,
+      );
+      let parsed: { f: boolean; v?: string };
+      try {
+        parsed = JSON.parse(typeof raw === 'string' ? raw : String(raw));
+      } catch {
+        return { success: false, error: `Could not read: ${action.selector}` };
+      }
+      if (!parsed.f) return { success: false, error: `Element not found: ${action.selector}` };
+      const value = parsed.v ?? '';
+      register.set(action.into, value);
+      return { success: true, data: { stored: action.into, length: value.length } };
+    }
+
+    if (action.type === 'paste') {
+      if (!register.has(action.from)) return { success: false, error: `No stored value in slot "${action.from}"` };
+      const value = register.get(action.from)!;
+      const el = selectorToElementExpr(action.selector);
+      const script = `(function(){var el=${el};if(!el)return false;el.focus();if('value'in el){el.value=${JSON.stringify(value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}el.textContent=${JSON.stringify(value)};return true;})()`;
+      const wrote = await evalScript(script);
+      if (wrote !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
+      return { success: true };
+    }
+
     if (action.type === 'navigate') {
       const tabId = getActiveTabId();
       if (!tabId) return { success: false, error: 'No active tab' };
@@ -223,6 +260,9 @@ export function createAgentController(): AgentController {
       let consecutiveFailures = 0;
       let lastActionKey = '';
       let repeatCount = 0;
+      // On-device slot store for PII-safe read→paste. Holds raw values transiently;
+      // wiped when the run ends so nothing lingers in memory.
+      const register = new Map<string, string>();
 
       while (!stopped) {
         if (steps >= loopConfig.maxSteps) {
@@ -334,7 +374,7 @@ export function createAgentController(): AgentController {
         setState('executing');
         emit('executing', { action });
 
-        let result = await executeAction(action);
+        let result = await executeAction(action, register);
 
         if (!result.success && (action.type === 'click' || action.type === 'fill')) {
           try {
@@ -346,7 +386,7 @@ export function createAgentController(): AgentController {
                 action.type === 'click'
                   ? { type: 'click', selector: match.selector }
                   : { type: 'fill', selector: match.selector, value: action.value };
-              result = await executeAction(retryAction);
+              result = await executeAction(retryAction, register);
               if (result.success) {
                 const reason = fuzzyMatchReason(failedSelector, match);
                 result = { success: true, data: { matchedSelector: match.selector, reason } };
@@ -381,6 +421,7 @@ export function createAgentController(): AgentController {
 
       running = false;
       decisionResolver = null;
+      register.clear(); // wipe any transferred PII when the run ends
       if (state !== 'done' && state !== 'error' && stopped) {
         setState('idle');
       }
