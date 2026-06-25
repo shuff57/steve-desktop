@@ -3,9 +3,12 @@
    * AgentChat - Browser agent chat UI with review/auto modes.
    * Controls the browser agent loop with action proposals and approvals.
    */
+  import { onMount } from 'svelte';
   import { createAgentController } from '../../lib/agent-loop';
   import type { AgentController } from '../../lib/agent-loop';
   import type { AgentMode, AgentState } from '../../lib/agent-types';
+  import { getSkills, type Skill } from '../../lib/db';
+  import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
   import ProviderSelector from './ProviderSelector.svelte';
 
   // ============================================================================
@@ -62,6 +65,9 @@
   let pendingAction: PendingAction | null = $state(null);
   let chatContainer: HTMLElement | undefined = $state(undefined);
   let controller: AgentController = $state(makeController());
+  // Saved skills — relevant ones are auto-injected into the agent's context per goal/page.
+  let skills: Skill[] = $state([]);
+  onMount(async () => { try { skills = await getSkills(); } catch { skills = []; } });
 
   // ============================================================================
   // Helpers
@@ -172,7 +178,9 @@
     agentState = 'thinking';
     scrollToBottom();
 
-    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel });
+    // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
+    const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
+    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl });
 
     agentState = 'idle';
   }

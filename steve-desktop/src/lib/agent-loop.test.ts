@@ -159,4 +159,57 @@ describe('agent-loop', () => {
       expect(JSON.stringify(call[0])).not.toContain('parent@example.com');
     }
   });
+
+  it('dry run verifies a destructive click (Send) but never performs it', async () => {
+    // The probe (no .click()) reports the button exists; the click script must never run.
+    mockEvalScript.mockImplementation(async (script: string) =>
+      script.includes('.click()') ? 'true' : JSON.stringify({ f: true, t: 'Send' }),
+    );
+
+    const controller = createAgentController();
+    const results: Array<{ data?: unknown }> = [];
+    controller.on('result', ({ result }) => results.push({ data: result.data }));
+
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'click', params: { selector: 'role=button[name="Send"]' }, reasoning: 'send it' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'dry run: email the parent', dryRun: true });
+
+    const performedClick = mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('.click()'));
+    expect(performedClick).toBe(false); // Send was NOT clicked
+    expect(results[0].data).toMatchObject({ dryRun: true, blocked: true });
+  });
+
+  it('dry run still performs a non-destructive click (New mail)', async () => {
+    mockEvalScript.mockImplementation(async (script: string) =>
+      script.includes('.click()') ? 'true' : JSON.stringify({ f: true, t: 'New mail' }),
+    );
+
+    const controller = createAgentController();
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'click', params: { selector: 'role=button[name="New mail"]' }, reasoning: 'compose' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'dry run', dryRun: true });
+
+    const performedClick = mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('.click()'));
+    expect(performedClick).toBe(true); // New mail WAS clicked
+  });
+
+  it('auto-detects dry run from the goal text', async () => {
+    mockEvalScript.mockImplementation(async (script: string) =>
+      script.includes('.click()') ? 'true' : JSON.stringify({ f: true, t: 'Submit' }),
+    );
+    const controller = createAgentController();
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'click', params: { selector: '#submit' }, reasoning: 'submit' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    // No dryRun flag — only the words "dry run" in the goal.
+    await controller.start({ mode: 'auto', initialMessage: 'Dry-run the submit flow' });
+
+    const performedClick = mockEvalScript.mock.calls.some(([s]) => typeof s === 'string' && s.includes('.click()'));
+    expect(performedClick).toBe(false);
+  });
 });

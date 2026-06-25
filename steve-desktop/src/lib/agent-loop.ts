@@ -18,6 +18,14 @@ import type {
 } from './agent-types';
 import { DEFAULT_AGENT_CONFIG } from './agent-types';
 import type { Redactor } from './redact';
+import { selectSkills, skillsToPrompt, type MatchableSkill } from './skill-match';
+
+// Dry-run guard: irreversible/outward actions are verified but never performed.
+const DESTRUCTIVE_TARGET = /\b(send|submit|delete|remove|discard|destroy|pay|purchase|place\s*order|confirm)\b/i;
+const DRY_RUN_NOTE =
+  '\n\nDRY RUN MODE: this is a rehearsal. Walk the entire flow so every step can be ' +
+  'checked, but know that destructive actions (send, submit, delete) will be VERIFIED ' +
+  '(the target is located) and NOT actually performed. Do not treat a blocked send as failure.';
 
 type AgentEventPayloads = {
   state: AgentState;
@@ -38,6 +46,12 @@ export interface AgentStartConfig {
   config?: Partial<AgentConfig>;
   /** When set, every model call is redacted/rehydrated at the trust boundary. */
   redactor?: Redactor;
+  /** Saved skills to consider; relevant ones are injected into the system prompt. */
+  skills?: MatchableSkill[];
+  /** Current page URL, used to match skills by url_pattern. */
+  pageUrl?: string;
+  /** Rehearse without performing destructive actions. Also auto-on if the goal says "dry run". */
+  dryRun?: boolean;
 }
 
 export interface AgentController {
@@ -106,7 +120,7 @@ function rehydrateAction(action: BrowserAction, rehydrate: (t: string) => string
   if (action.type === 'iframe_interact') rehydrateAction(action.action, rehydrate);
 }
 
-async function executeAction(action: BrowserAction, register: Map<string, string>): Promise<ActionResult> {
+async function executeAction(action: BrowserAction, register: Map<string, string>, dryRun = false): Promise<ActionResult> {
   try {
     // PII-safe transfer. The value is read into / written from `register`, which
     // lives in the loop (not the page, not the model). It survives tab switches,
@@ -150,6 +164,18 @@ async function executeAction(action: BrowserAction, register: Map<string, string
       // selectorToElementExpr resolves css, role=name, and xpath= so role-name anchors
       // from the merged AX tree are clickable (raw querySelector can't run role=…).
       const el = selectorToElementExpr(action.selector);
+      // Dry run: a destructive click is verified (located + labelled) but NOT performed.
+      if (dryRun) {
+        const probe = await evalScript(
+          `(function(){var el=${el};if(!el)return JSON.stringify({f:false});var t=(el.innerText||el.getAttribute('aria-label')||'').trim();return JSON.stringify({f:true,t:t});})()`,
+        );
+        let info: { f: boolean; t?: string } = { f: false };
+        try { info = JSON.parse(typeof probe === 'string' ? probe : String(probe)); } catch { /* keep default */ }
+        const destructive = DESTRUCTIVE_TARGET.test(action.selector) || (!!info.t && DESTRUCTIVE_TARGET.test(info.t));
+        if (destructive) {
+          return { success: true, data: { dryRun: true, blocked: true, would: 'click', resolved: info.f, target: (info.t ?? action.selector).slice(0, 40) } };
+        }
+      }
       const clicked = await evalScript(`(function(){var el=${el};if(!el)return false;el.click();return true;})()`);
       if (clicked !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
       return { success: true };
@@ -251,8 +277,13 @@ export function createAgentController(): AgentController {
       stopped = false;
 
       const loopConfig: AgentConfig = { ...DEFAULT_AGENT_CONFIG, ...(config.config ?? {}) };
+      // Dry run is explicit (config) or requested in the goal ("dry run …").
+      const dryRun = config.dryRun ?? /\bdry[\s-]?run\b/i.test(config.initialMessage);
+      // Inject any saved skill relevant to this goal/page into the system prompt.
+      const matched = config.skills ? selectSkills(config.skills, { url: config.pageUrl, message: config.initialMessage }) : [];
+      const systemContent = AGENT_SYSTEM_PROMPT + skillsToPrompt(matched) + (dryRun ? DRY_RUN_NOTE : '');
       const history: AgentMessage[] = [
-        { role: 'system', content: AGENT_SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         { role: 'user', content: config.initialMessage },
       ];
 
@@ -374,7 +405,7 @@ export function createAgentController(): AgentController {
         setState('executing');
         emit('executing', { action });
 
-        let result = await executeAction(action, register);
+        let result = await executeAction(action, register, dryRun);
 
         if (!result.success && (action.type === 'click' || action.type === 'fill')) {
           try {
@@ -386,7 +417,7 @@ export function createAgentController(): AgentController {
                 action.type === 'click'
                   ? { type: 'click', selector: match.selector }
                   : { type: 'fill', selector: match.selector, value: action.value };
-              result = await executeAction(retryAction, register);
+              result = await executeAction(retryAction, register, dryRun);
               if (result.success) {
                 const reason = fuzzyMatchReason(failedSelector, match);
                 result = { success: true, data: { matchedSelector: match.selector, reason } };

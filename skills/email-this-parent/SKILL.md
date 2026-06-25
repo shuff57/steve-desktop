@@ -27,6 +27,11 @@ Cloud) is selected.
   parent you want to email must be the one in context).
 - Be logged into **Outlook** in another tab.
 
+> **Dry run first.** Prefix your goal with **"dry run"** (e.g. "dry run: email
+> this parent") to rehearse the whole flow safely — the agent reads, opens
+> compose, and fills the draft, but the final **Send** is only *verified* (located,
+> not clicked). Drop the prefix to run for real.
+
 ## Steps for the agent
 1. On the Aeries Emergency Contacts page, copy the **parent** email into slot `p1`:
    - `read` selector `#ctl00_MainContent_subStuTopEmail_lblPEM` into `p1`
