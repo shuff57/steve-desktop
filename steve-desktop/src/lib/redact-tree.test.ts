@@ -29,6 +29,27 @@ describe('isChromeNode (allow-list of labels/controls)', () => {
   });
 });
 
+describe('redact() — apply the value dictionary to arbitrary text (redact-before-save)', () => {
+  it('tokenizes a roster name embedded in a profile selector, so saved JSON holds no name', () => {
+    // A gradebook page where the student name is a data cell.
+    const out = redactTree(snap([node('td', 'De Jesus, Angel', { 'data-field': 'studentName' })]));
+    // mergedToProfile would persist the name inside a selector like role=…[name="…"].
+    const profileJson = JSON.stringify({
+      interactive: { inputs: [{ label: 'De Jesus, Angel', selector: 'role=checkbox[name="De Jesus, Angel"]' }] },
+    });
+    const safe = out.redact(profileJson);
+    expect(safe).not.toContain('De Jesus, Angel');
+    expect(JSON.parse(safe).interactive.inputs[0].label).toMatch(/⟦D\d+⟧/);
+    // Round-trips back on-device if ever needed.
+    expect(out.rehydrate(safe)).toContain('De Jesus, Angel');
+  });
+
+  it('leaves chrome labels untouched (no known value to swap)', () => {
+    const out = redactTree(snap([node('button', 'Save Question')]));
+    expect(out.redact('{"text":"Save Question"}')).toBe('{"text":"Save Question"}');
+  });
+});
+
 describe('redactTree — slot-level, deny-by-default', () => {
   it('redacts a data cell even though its value is in NO secret list (the dictionary would miss it)', () => {
     const out = redactTree(snap([node('td', 'Jane Doe', { 'data-field': 'studentName' })]));

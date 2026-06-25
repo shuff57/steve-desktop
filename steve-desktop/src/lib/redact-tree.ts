@@ -33,6 +33,9 @@ export interface TreeRedaction {
   /** token -> original value (local only, for rehydration). */
   map: Record<string, string>;
   rehydrate(text: string): string;
+  /** Apply the value->token dictionary to arbitrary text (e.g. a profile JSON
+   *  before it's saved), so persisted artifacts hold tokens, not raw PII. */
+  redact(text: string): string;
 }
 
 export interface RedactTreeOptions {
@@ -92,17 +95,23 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
   // 3) Defense-in-depth sweep: replace any remaining raw occurrence of a known value with
   //    its token — one token per value (longest-first so "Jane Doe" wins over "Doe").
   const byLongest = Array.from(valueToToken.entries()).sort((a, b) => b[0].length - a[0].length);
-  for (const [value, token] of byLongest) {
-    // ponytail: skip <3-char values in the global sweep so a grade "A" doesn't nuke every
-    // "a" in chrome text — the slot pass already tokenized their specific data cells.
-    if (value.trim().length < 3) continue;
-    redactedText = redactedText.replace(new RegExp(escapeRegExp(value), 'gi'), token);
-  }
+  // ponytail: skip <3-char values in the global sweep so a grade "A" doesn't nuke every
+  // "a" in chrome text — the slot pass already tokenized their specific data cells.
+  const redact = (text: string): string => {
+    let out = text;
+    for (const [value, token] of byLongest) {
+      if (value.trim().length < 3) continue;
+      out = out.replace(new RegExp(escapeRegExp(value), 'gi'), token);
+    }
+    return out;
+  };
+  redactedText = redact(redactedText);
 
   const map = Object.fromEntries(tokenToValue);
   return {
     redactedText,
     map,
+    redact,
     rehydrate(text: string): string {
       let out = text;
       for (const [token, value] of tokenToValue) out = out.split(token).join(value);
