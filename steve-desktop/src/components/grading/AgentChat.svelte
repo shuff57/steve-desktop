@@ -69,10 +69,12 @@
   let skills: Skill[] = $state([]);
   // Saved credentials — used by the login action to auth on-device (never sent to the model).
   let credentials: SiteCredential[] = $state([]);
-  onMount(async () => {
+  // Reload before each run too, so skills/credentials added while the app is open are picked up.
+  async function loadContext() {
     try { skills = await getSkills(); } catch { skills = []; }
     try { credentials = await getSiteCredentials(); } catch { credentials = []; }
-  });
+  }
+  onMount(loadContext);
 
   // ============================================================================
   // Helpers
@@ -184,6 +186,7 @@
     scrollToBottom();
 
     // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
+    await loadContext(); // pick up skills/credentials added since mount
     const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
     await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl, credentials });
 
