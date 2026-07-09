@@ -228,6 +228,34 @@ describe('agent-loop', () => {
     expect(results[0].data).toEqual({ site: 'Aeries' });
   });
 
+  it('pauses for a Duo push after login and resumes when approved', async () => {
+    mockGetEmbeddedUrl.mockResolvedValue('https://chicousd.aeries.net/teacher/Login.aspx');
+    // Login script returns 'filled'; the Duo-detection script (contains "duosecurity.com") returns 'y'.
+    mockEvalScript.mockImplementation(async (s: string) =>
+      typeof s === 'string' && s.includes('duosecurity.com') ? 'y' : 'filled',
+    );
+    const credentials = [{ id: 1, site_name: 'Aeries', username: 'teacher1', password: 's3cret!', url_pattern: 'aeries.net' }];
+
+    const controller = createAgentController();
+    const needs: Array<{ site?: string }> = [];
+    const dones: boolean[] = [];
+    controller.on('needsApproval', (p) => {
+      needs.push(p);
+      // Simulate the human tapping Approve on the next tick (fallback button path).
+      setTimeout(() => controller.continueApproval(), 0);
+    });
+    controller.on('approvalDone', ({ approved }) => dones.push(approved));
+
+    mockSendAgentRequest
+      .mockResolvedValueOnce({ action: 'login', params: {}, reasoning: 'log in' })
+      .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'done' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'log in to aeries', credentials });
+
+    expect(needs).toEqual([{ site: 'Aeries' }]); // paused, naming the site
+    expect(dones).toEqual([true]); // resumed after approval
+  });
+
   it('dry run login verifies a credential match but does not submit it', async () => {
     mockGetEmbeddedUrl.mockResolvedValue('https://chicousd.aeries.net/teacher/Login.aspx');
     const credentials = [{ id: 1, site_name: 'Aeries', username: 'teacher1', password: 's3cret!', url_pattern: 'aeries.net' }];

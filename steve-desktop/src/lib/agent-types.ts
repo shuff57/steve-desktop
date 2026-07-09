@@ -23,7 +23,7 @@ export type BrowserAction =
     };
 
 export type AgentMode = 'review' | 'auto';
-export type AgentState = 'idle' | 'thinking' | 'proposing' | 'executing' | 'done' | 'error';
+export type AgentState = 'idle' | 'thinking' | 'proposing' | 'executing' | 'awaiting-approval' | 'done' | 'error';
 
 export interface ActionResult {
   success: boolean;

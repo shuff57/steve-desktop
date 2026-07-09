@@ -1,5 +1,6 @@
 import { captureWebviewScreenshot, evalScript, getActiveTabId, getEmbeddedUrl, navigateEmbedded } from './browser';
 import { matchCredentialsToUrl, loginFieldSelectors, type SiteCredential } from './autofill';
+import { totpNow } from './totp';
 import { sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
 import { captureInteractiveDom, findFuzzyMatch, formatDomForPrompt, fuzzyMatchReason } from './agent-dom';
@@ -34,10 +35,34 @@ type AgentEventPayloads = {
   proposing: { action: BrowserAction };
   executing: { action: BrowserAction };
   result: { action: BrowserAction; result: ActionResult };
+  needsApproval: { site?: string };
+  approvalDone: { approved: boolean };
   done: { message: string };
   error: { message: string };
   text: { content: string };
 };
+
+// How long the agent waits at a Duo/2FA push before giving up (per user choice).
+const APPROVAL_TIMEOUT_MS = 3 * 60 * 1000;
+
+/**
+ * Is the embedded page currently on a Duo 2FA challenge? Used to gate the
+ * agent after login: if a Duo push is required, the loop pauses for a human tap.
+ * Covers the Universal Prompt (full-page redirect to *.duosecurity.com), an
+ * embedded Duo iframe, and text-based prompts as a fallback.
+ */
+async function isDuoChallenge(): Promise<boolean> {
+  const url = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
+  if (/duosecurity\.com/i.test(url)) return true;
+  const r = await evalScript(
+    `(function(){try{if(/duosecurity\\.com/i.test(location.href))return 'y';` +
+      `if(document.querySelector('iframe[src*="duosecurity.com"]'))return 'y';` +
+      `var t=(document.body&&document.body.innerText)||'';` +
+      `if(/Send Me a Push|Duo Push|Approve.*Duo|Waiting for.*Duo|Check for a Duo Push/i.test(t))return 'y';` +
+      `return 'n';}catch(e){return 'n';}})()`,
+  ).catch(() => 'n');
+  return r === 'y';
+}
 
 export interface AgentStartConfig {
   mode: AgentMode;
@@ -66,6 +91,8 @@ export interface AgentController {
   stop(): void;
   approve(): void;
   skip(): void;
+  /** Manually resume after a Duo/2FA push once the user has tapped Approve. */
+  continueApproval(): void;
   getState(): AgentState;
 }
 
@@ -142,7 +169,13 @@ async function executeAction(
       if (!cred) return { success: false, error: `No saved credential matches ${url || 'this page'}` };
       if (dryRun) return { success: true, data: { dryRun: true, would: 'login', site: cred.site_name } };
       const sel = loginFieldSelectors(url);
-      const script = `(function(){var u=document.querySelector(${JSON.stringify(sel.usernameSelector)});var p=document.querySelector(${JSON.stringify(sel.passwordSelector)});if(!p)return 'no-form';function setv(el,v){var n=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value');if(n&&n.set)n.set.call(el,v);else el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}if(u)setv(u,${JSON.stringify(cred.username)});setv(p,${JSON.stringify(cred.password)});var f=p.form||(u&&u.form);if(f){var b=f.querySelector('button[type=submit],input[type=submit]');if(b)b.click();else if(f.requestSubmit)f.requestSubmit();else f.submit();}return 'filled';})()`;
+      // Current 2FA code, generated on-device from the saved seed. Empty if none.
+      const otp = cred.totp_secret ? await totpNow(cred.totp_secret).catch(() => '') : '';
+      const otpSel =
+        'input[autocomplete="one-time-code"], input[name*="otp" i], input[name*="totp" i], input[id*="otp" i], input[name*="2fa" i], input[name*="verification" i]';
+      // Fill username/password when present; on a follow-up 2FA page only the
+      // one-time-code field exists, so we submit off whichever field we found.
+      const script = `(function(){var u=document.querySelector(${JSON.stringify(sel.usernameSelector)});var p=document.querySelector(${JSON.stringify(sel.passwordSelector)});var o=document.querySelector(${JSON.stringify(otpSel)});if(!p&&!o)return 'no-form';function setv(el,v){var n=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value');if(n&&n.set)n.set.call(el,v);else el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}if(u&&p)setv(u,${JSON.stringify(cred.username)});if(p)setv(p,${JSON.stringify(cred.password)});var code=${JSON.stringify(otp)};if(o&&code)setv(o,code);var anchor=p||o;var f=anchor.form||(u&&u.form);if(f){var b=f.querySelector('button[type=submit],input[type=submit]');if(b)b.click();else if(f.requestSubmit)f.requestSubmit();else f.submit();}return 'filled';})()`;
       const r = await evalScript(script);
       if (r === 'no-form') return { success: false, error: 'No login form found on this page' };
       return { success: true, data: { site: cred.site_name } };
@@ -263,6 +296,42 @@ export function createAgentController(): AgentController {
   let running = false;
   let stopped = false;
   let decisionResolver: ((decision: 'approve' | 'skip') => void) | null = null;
+  // Duo/2FA push gate: resolves true when the page leaves the Duo challenge
+  // (auto-detected) or the user clicks Continue; false on stop/timeout.
+  let approvalResolve: ((approved: boolean) => void) | null = null;
+  let approvalTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const settleApproval = (approved: boolean) => {
+    if (!approvalResolve) return;
+    const resolve = approvalResolve;
+    approvalResolve = null;
+    if (approvalTimer) {
+      clearTimeout(approvalTimer);
+      approvalTimer = null;
+    }
+    resolve(approved);
+  };
+
+  // Poll every 2s until the Duo screen clears, the user taps Continue, or we time out.
+  const awaitDuoApproval = (): Promise<boolean> =>
+    new Promise<boolean>((resolve) => {
+      approvalResolve = resolve;
+      const deadline = Date.now() + APPROVAL_TIMEOUT_MS;
+      const poll = async () => {
+        if (!approvalResolve) return; // already settled (Continue / stop)
+        if (stopped) return settleApproval(false);
+        let cleared = false;
+        try {
+          cleared = !(await isDuoChallenge());
+        } catch {
+          cleared = false;
+        }
+        if (cleared) return settleApproval(true);
+        if (Date.now() >= deadline) return settleApproval(false);
+        approvalTimer = setTimeout(poll, 2000);
+      };
+      approvalTimer = setTimeout(poll, 1500);
+    });
 
   const listeners: { [K in keyof AgentEventPayloads]?: Array<(payload: AgentEventPayloads[K]) => void> } = {};
 
@@ -453,6 +522,26 @@ export function createAgentController(): AgentController {
           }
         }
 
+        // 2FA gate: if login landed on a Duo push, pause for the human tap.
+        // (Passcode/TOTP sites fill + submit in the login action and clear on their own.)
+        if (action.type === 'login' && result.success && !dryRun) {
+          try {
+            if (await isDuoChallenge()) {
+              setState('awaiting-approval');
+              emit('needsApproval', { site: (result.data as { site?: string } | undefined)?.site });
+              const approved = await awaitDuoApproval();
+              emit('approvalDone', { approved });
+              if (!approved) {
+                result = { success: false, error: 'Duo approval not received (timed out or cancelled)' };
+              } else if (!stopped) {
+                setState('executing');
+              }
+            }
+          } catch {
+            // detection/gate failure must not crash the run; fall through with the login result
+          }
+        }
+
         emit('result', { action, result });
 
         history.push({ role: 'assistant', content: JSON.stringify({ action: action.type, params: action, reasoning: response.reasoning ?? '' }) });
@@ -490,9 +579,14 @@ export function createAgentController(): AgentController {
         decisionResolver('skip');
         decisionResolver = null;
       }
+      settleApproval(false); // release a pending Duo gate so the run can unwind
       if (state !== 'done' && state !== 'error') {
         setState('idle');
       }
+    },
+
+    continueApproval() {
+      settleApproval(true);
     },
 
     approve() {

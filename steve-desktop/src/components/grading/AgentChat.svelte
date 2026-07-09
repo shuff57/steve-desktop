@@ -50,6 +50,8 @@
 
   let mode: AgentMode = $state('review');
   let agentState: AgentState = $state('idle');
+  /** Site name shown in the Duo-approval banner while paused for a push tap. */
+  let approvalSite: string | null = $state(null);
   let activeProvider: string = $state('');
   let activeModel: string = $state('');
   let compactMode: boolean = $state(true);
@@ -143,6 +145,20 @@
       scrollToBottom();
     });
 
+    c.on('needsApproval', ({ site }) => {
+      agentState = 'awaiting-approval';
+      approvalSite = site ?? null;
+      messages = [...messages, { type: 'system', content: `📱 2FA required${site ? ` for ${site}` : ''} — approve the Duo push on your phone. It continues automatically once approved.`, variant: 'done' }];
+      scrollToBottom();
+    });
+
+    c.on('approvalDone', ({ approved }) => {
+      approvalSite = null;
+      if (approved) agentState = 'executing';
+      messages = [...messages, { type: 'system', content: approved ? '✓ Duo approved — continuing.' : '✗ Duo not approved (timed out or cancelled).', variant: 'done' }];
+      scrollToBottom();
+    });
+
     c.on('text', ({ content }) => {
       agentState = 'idle';
       messages = [...messages, { type: 'text', role: 'assistant', content }];
@@ -217,10 +233,17 @@
     pendingAction = null;
   }
 
+  /** Manually resume after approving a Duo push (fallback if auto-detect misses). */
+  function handleContinueApproval() {
+    controller.continueApproval();
+    approvalSite = null;
+  }
+
   /** Stop the agent loop. */
   function handleStop() {
     controller.stop();
     agentState = 'idle';
+    approvalSite = null;
     pendingAction = null;
   }
 
@@ -230,6 +253,7 @@
     messages = [{ type: 'text', role: 'assistant', content: 'Hello! I can control the browser for you. Describe what you want me to do.' }];
     inputValue = '';
     errorText = '';
+    approvalSite = null;
     agentState = 'idle';
     pendingAction = null;
     controller = makeController(); // fresh controller, re-wired to the UI
@@ -314,6 +338,13 @@
       </button>
     </div>
   </div>
+
+  {#if agentState === 'awaiting-approval'}
+    <div class="approval-banner">
+      <span class="approval-text">📱 Approve the Duo push{approvalSite ? ` for ${approvalSite}` : ''} on your phone — resumes automatically.</span>
+      <button class="btn-approve" onclick={handleContinueApproval}>I approved — continue</button>
+    </div>
+  {/if}
 
   <div class="chat-interface">
     <div class="chat-messages" bind:this={chatContainer}>
@@ -763,6 +794,24 @@
   .compact-badge.badge-skipped {
     border-left-color: var(--color-text-secondary);
     opacity: 0.6;
+  }
+
+  /* Duo/2FA approval banner */
+  .approval-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+    margin: var(--spacing-2) 0;
+    padding: var(--spacing-3);
+    background: var(--color-warning-bg, rgba(245, 158, 11, 0.12));
+    border: 1px solid var(--color-warning, #f59e0b);
+    border-radius: var(--radius-md);
+  }
+  .approval-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
   }
 
   /* Action messages (verbose mode) */
