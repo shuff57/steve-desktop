@@ -44,6 +44,7 @@ export interface SiteCredential {
   username: string;
   password: string;
   notes: string | null;
+  totp_secret?: string; // base32 2FA seed; kept in the keychain, never in the DB
 }
 
 type SqlDb = Awaited<ReturnType<typeof Database.load>>;
@@ -253,6 +254,7 @@ export async function deleteProviderConfig(id: string): Promise<void> {
 
 // One keychain entry per credential id. Helpers swallow nothing — callers decide.
 const credKey = (id: number) => `credential:${id}`;
+const totpKey = (id: number) => `credential:${id}:totp`;
 const keyringSet = (key: string, secret: string) => invoke<void>('keyring_set', { key, secret });
 const keyringGet = (key: string) => invoke<string | null>('keyring_get', { key });
 const keyringDelete = (key: string) => invoke<void>('keyring_delete', { key });
@@ -267,12 +269,13 @@ export async function getSiteCredentials(): Promise<SiteCredential[]> {
   return Promise.all(
     rows.map(async (r) => {
       const secret = await keyringGet(credKey(r.id)).catch(() => null);
+      const totp_secret = (await keyringGet(totpKey(r.id)).catch(() => null)) ?? undefined;
       if (secret == null && r.password) {
         await keyringSet(credKey(r.id), r.password).catch(() => {});
         await database.execute("UPDATE site_credentials SET password = '' WHERE id = $1", [r.id]).catch(() => {});
-        return { ...r }; // keep the real password for this call; next read comes from the keychain
+        return { ...r, totp_secret }; // keep the real password for this call; next read comes from the keychain
       }
-      return { ...r, password: secret ?? r.password };
+      return { ...r, password: secret ?? r.password, totp_secret };
     }),
   );
 }
@@ -284,9 +287,15 @@ export async function saveSiteCredential(cred: {
   username: string;
   password: string;
   notes?: string | null;
+  totp_secret?: string | null;
 }): Promise<void> {
   const database = await initDB();
-  // The DB password column is written empty — the secret only goes to the keychain.
+  // Both password and 2FA seed go only to the keychain, never the DB.
+  const setTotp = async (id: number) => {
+    const seed = cred.totp_secret?.replace(/\s/g, '');
+    if (seed) await keyringSet(totpKey(id), seed);
+    else await keyringDelete(totpKey(id)).catch(() => {});
+  };
   if (cred.id) {
     await database.execute(
       `UPDATE site_credentials SET
@@ -296,13 +305,17 @@ export async function saveSiteCredential(cred: {
       [cred.site_name, cred.url_pattern, cred.username, cred.notes ?? null, cred.id],
     );
     await keyringSet(credKey(cred.id), cred.password);
+    await setTotp(cred.id);
   } else {
     const res = await database.execute(
       `INSERT INTO site_credentials (site_name, url_pattern, username, password, notes)
        VALUES ($1, $2, $3, '', $4)`,
       [cred.site_name, cred.url_pattern, cred.username, cred.notes ?? null],
     );
-    if (res.lastInsertId != null) await keyringSet(credKey(Number(res.lastInsertId)), cred.password);
+    if (res.lastInsertId != null) {
+      await keyringSet(credKey(Number(res.lastInsertId)), cred.password);
+      await setTotp(Number(res.lastInsertId));
+    }
   }
 }
 
@@ -310,6 +323,7 @@ export async function deleteSiteCredential(id: number): Promise<void> {
   const database = await initDB();
   await database.execute('DELETE FROM site_credentials WHERE id = $1', [id]);
   await keyringDelete(credKey(id)).catch(() => {});
+  await keyringDelete(totpKey(id)).catch(() => {});
 }
 
 export interface Bookmark {

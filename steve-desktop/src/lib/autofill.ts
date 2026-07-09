@@ -9,6 +9,7 @@ export interface SiteCredential {
   username: string;
   password: string;
   url_pattern: string;
+  totp_secret?: string; // base32 2FA seed (from the keychain); absent if the site has no 2FA
 }
 
 // ── LMS Login Form Selectors ────────────────────────────────────────────
@@ -98,10 +99,11 @@ export function loginFieldSelectors(url: string): LoginFieldSelectors {
  * @param password - The password to fill
  * @returns JavaScript code string ready for webview injection
  */
-export function generateAutoFillScript(username: string, password: string, autoSubmit = false): string {
+export function generateAutoFillScript(username: string, password: string, autoSubmit = false, otp = ''): string {
   // Escape special characters for safe embedding in JS string literals
   const safeUsername = escapeJsString(username);
   const safePassword = escapeJsString(password);
+  const safeOtp = escapeJsString(otp);
 
   // Serialize the selector map into the injected script
   const selectorsJson = JSON.stringify(LMS_LOGIN_SELECTORS);
@@ -114,6 +116,9 @@ export function generateAutoFillScript(username: string, password: string, autoS
   var MAX_RETRIES = 3;
   var RETRY_DELAYS = [1000, 2000, 4000];
   var AUTO_SUBMIT = ${autoSubmit ? 'true' : 'false'};
+  var OTP = '${safeOtp}';
+  // Generic 2FA / one-time-code field, filled independently of the LMS login form.
+  var OTP_SELECTOR = 'input[autocomplete="one-time-code"], input[name*="otp" i], input[name*="totp" i], input[id*="otp" i], input[name*="2fa" i], input[name*="verification" i]';
 
   /**
    * Find the matching LMS config for the current page URL.
@@ -181,7 +186,19 @@ export function generateAutoFillScript(username: string, password: string, autoS
   /**
    * Main entry: match LMS, then try fill with retries.
    */
+  // Fill a one-time-code field with the current TOTP code, if one was supplied
+  // and such a field is on the page. Runs on its own retry schedule because the
+  // 2FA step often lands after the username/password page.
+  function fillOtp() {
+    if (!OTP) return;
+    var el = document.querySelector(OTP_SELECTOR);
+    if (el && !el.value) { setInputValue(el, OTP); }
+  }
+
   function main() {
+    fillOtp();
+    RETRY_DELAYS.forEach(function(d) { setTimeout(fillOtp, d); });
+
     var lms = findMatchingLms();
     if (!lms) {
       return;
@@ -283,6 +300,7 @@ export function credentialSecrets(credentials: SiteCredential[]): string[] {
   for (const cred of credentials) {
     if (cred.username) secrets.push(cred.username);
     if (cred.password) secrets.push(cred.password);
+    if (cred.totp_secret) secrets.push(cred.totp_secret);
   }
   return secrets;
 }

@@ -17,6 +17,7 @@
     url_pattern: '',
     username: '',
     password: '',
+    totp_secret: '',
     notes: ''
   });
 
@@ -41,6 +42,7 @@
         url_pattern: credentialForm.url_pattern,
         username: credentialForm.username,
         password: credentialForm.password,
+        totp_secret: credentialForm.totp_secret,
         notes: credentialForm.notes
       });
       
@@ -68,6 +70,7 @@
       url_pattern: cred.url_pattern,
       username: cred.username,
       password: cred.password,
+      totp_secret: cred.totp_secret || '',
       notes: cred.notes || ''
     };
     showAddCredentialForm = true;
@@ -80,6 +83,7 @@
       url_pattern: '',
       username: '',
       password: '',
+      totp_secret: '',
       notes: ''
     };
     showAddCredentialForm = false;
@@ -135,6 +139,12 @@
         </label>
 
         <label>
+          2FA Secret (Optional)
+          <input type="text" bind:value={credentialForm.totp_secret} placeholder="e.g. JBSWY3DPEHPK3PXP" autocomplete="off" spellcheck="false" />
+          <p class="hint">The authenticator "can't scan? enter this key" code. Agent generates the 6-digit login code from it. Leave blank if the site has no 2FA.</p>
+        </label>
+
+        <label>
           Notes (Optional)
           <textarea bind:value={credentialForm.notes} rows="2" placeholder="Additional notes..."></textarea>
         </label>
@@ -175,6 +185,10 @@
             <div class="info-row">
               <span class="label">Password:</span>
               <span class="value">********</span>
+            </div>
+            <div class="info-row">
+              <span class="label">2FA:</span>
+              <span class="value">{cred.totp_secret ? 'enabled' : 'off'}</span>
             </div>
             {#if cred.notes}
               <div class="info-row">

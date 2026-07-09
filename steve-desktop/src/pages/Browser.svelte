@@ -20,6 +20,7 @@
     type BrowserEventPayload,
   } from '../lib/browser';
   import { matchCredentialsToUrl, generateAutoFillScript, loginFieldSelectors } from '../lib/autofill';
+  import { totpNow } from '../lib/totp';
   import { connectCDP, isConnected, evalScript as cdpEval } from '../lib/cdp-actions';
   import { calculateWebviewBounds } from '../lib/webview-layout';
   import {
@@ -428,7 +429,8 @@
     try {
       const match = matchCredentialsToUrl(url, await getSiteCredentials());
       if (match) {
-        await injectScript(generateAutoFillScript(match.username, match.password, autoSubmit), tabId);
+        const otp = match.totp_secret ? await totpNow(match.totp_secret).catch(() => '') : '';
+        await injectScript(generateAutoFillScript(match.username, match.password, autoSubmit, otp), tabId);
       }
     } catch {
       // never surface credential errors to the page or logs
