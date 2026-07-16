@@ -47,6 +47,7 @@
         const parsed = parseSkillMarkdown(content);
         
         await saveSkill({
+          id: crypto.randomUUID(),
           name: parsed.name || file.name.replace(/\.md$/, ''),
           description: parsed.description || '',
           content: content,
@@ -150,7 +151,7 @@
           <button class="btn-secondary" onclick={handleSyncLocal} disabled={syncing}>
             {syncing ? 'Syncing...' : 'Sync Local Skills'}
           </button>
-          <button class="btn-primary" onclick={() => fileInput.click()}>
+          <button class="btn-primary" onclick={() => fileInput?.click()}>
             Import Skill (.md)
           </button>
           <input 

@@ -19,10 +19,10 @@ import type {
 } from './agent-types';
 import { DEFAULT_AGENT_CONFIG } from './agent-types';
 
-type AgentEventPayloads = {
+export type AgentEventPayloads = {
   state: AgentState;
   thinking: undefined;
-  proposing: { action: BrowserAction };
+  proposing: { action: BrowserAction; reasoning: string };
   executing: { action: BrowserAction };
   result: { action: BrowserAction; result: ActionResult };
   done: { message: string };
@@ -310,7 +310,7 @@ export function createAgentController(): AgentController {
         }
 
         setState('proposing');
-        emit('proposing', { action });
+        emit('proposing', { action, reasoning: response.reasoning ?? '' });
 
         if (config.mode === 'review') {
           const decision = await waitForDecision();

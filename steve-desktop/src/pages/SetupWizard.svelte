@@ -4,7 +4,7 @@
     fetchAvailableModels,
     startGitHubDeviceFlow,
     startChatGPTDeviceFlow,
-    startClaudeOAuthFlow,
+    startAnthropicDeviceFlow,
     startGoogleDeviceFlow
   } from '../lib/oauth';
   import type { DeviceFlowResult } from '../lib/oauth';
@@ -122,7 +122,7 @@
         const flow = await startGoogleDeviceFlow();
         handleDeviceFlow(providerId, flow);
       } else if (providerId === 'anthropic') {
-        const flow = await startClaudeOAuthFlow();
+        const flow = await startAnthropicDeviceFlow();
         handleDeviceFlow(providerId, flow);
       }
     } catch (err: any) {
@@ -281,13 +281,7 @@
     try {
       const enabledProviders = providers.filter(p => p.enabled);
       for (const provider of enabledProviders) {
-        await saveProviderConfig({
-          id: provider.id,
-          api_url: provider.apiUrl,
-          api_key: provider.apiKey,
-          model: provider.model,
-          is_active: 1
-        });
+        await saveProviderConfig(provider.id, provider.apiUrl, provider.apiKey, provider.model, 1);
       }
 
       await setSetting('setup_complete', 'true');
