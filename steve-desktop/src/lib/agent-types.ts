@@ -1,9 +1,13 @@
 import type { SnapshotResult } from './dom-snapshot-types';
 import type { SiteProfile } from './types/site-profile';
 
+// click/fill carry either a ref (preferred — resolved against the page-side registry
+// built by the last capture) or a selector. toBrowserAction rejects actions with neither.
+// ponytail: both optional rather than a target union, so stored site-profiles keep
+// replaying by selector. Collapse to a union once profiles are migrated to refs.
 export type BrowserAction =
-  | { type: 'click'; selector: string; description?: string }
-  | { type: 'fill'; selector: string; value: string; description?: string }
+  | { type: 'click'; ref?: string; selector?: string; description?: string }
+  | { type: 'fill'; ref?: string; selector?: string; value: string; description?: string }
   | { type: 'navigate'; url: string; description?: string }
   | { type: 'wait'; condition: string; timeout?: number; description?: string }
   | { type: 'keyboard'; key: string; description?: string }
@@ -49,7 +53,7 @@ export const DEFAULT_AGENT_CONFIG: AgentConfig = {
 };
 
 export interface InteractiveElement {
-  index: number;
+  ref: string;
   tag: string;
   type?: string;
   id?: string;
@@ -60,7 +64,6 @@ export interface InteractiveElement {
   href?: string;
   disabled: boolean;
   visible: boolean;
-  selector: string;
 }
 
 export interface AgentApiRequest {
