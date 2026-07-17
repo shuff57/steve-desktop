@@ -42,7 +42,7 @@ const INTERACTIVE_DOM_SCRIPT = `(function(){
     });
   }
   window.__steveRefs = refs;
-  return JSON.stringify(out);
+  return out;
 })()`;
 
 export { INTERACTIVE_DOM_SCRIPT };

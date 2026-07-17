@@ -16,8 +16,10 @@ beforeEach(() => {
 
 // The capture and ref-action scripts ship as strings for injection into the page, so
 // eval is the only way to exercise them here. Inputs are the literals in this file.
+// The script returns a live array; eval_webview_script is what JSON-encodes it in the
+// real app, so there is exactly one encode and captureInteractiveDom parses once.
 function runCapture(): InteractiveElement[] {
-  return JSON.parse(eval(INTERACTIVE_DOM_SCRIPT) as string) as InteractiveElement[];
+  return eval(INTERACTIVE_DOM_SCRIPT) as InteractiveElement[];
 }
 
 function resolve(ref: string): string {
@@ -70,6 +72,24 @@ describe('assessment options are reachable and unambiguous', () => {
       });
     });
   }
+});
+
+describe('capture survives the eval_webview_script round trip', () => {
+  // lib.rs wraps every eval in JSON.stringify(__result). captureInteractiveDom parses
+  // once, so the script must return a value that survives exactly one encode. When the
+  // script stringified its own output the result was double-encoded, the parse yielded a
+  // string, Array.isArray failed, and capture silently returned [] — a blind agent.
+  it('single JSON encode round-trips to the same elements', () => {
+    document.body.innerHTML = OPTIONS.map((t) => `<label class="question_btn">${t}</label>`).join('');
+    const captured = runCapture();
+
+    const overTheWire = JSON.stringify(captured); // what lib.rs sends back
+    const parsed = JSON.parse(overTheWire);
+
+    expect(Array.isArray(parsed)).toBe(true);
+    expect(parsed).toEqual(captured);
+    expect(parsed.map((e: InteractiveElement) => e.ref)).toEqual(captured.map((e) => e.ref));
+  });
 });
 
 describe('buildRefActionScript', () => {
