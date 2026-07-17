@@ -78,18 +78,48 @@ export async function captureInteractiveDom(): Promise<InteractiveElement[]> {
   }
 }
 
-export function formatDomForPrompt(elements: InteractiveElement[]): string {
-  if (!elements.length) return 'No interactive elements found.';
-  return elements
-    .map((el) => {
-      const parts: string[] = [`[${el.ref}]`, el.tag];
-      if (el.type && el.type !== 'text') parts[1] += `[${el.type}]`;
-      if (el.text) parts.push(`"${el.text}"`);
-      if (el.placeholder) parts.push(`placeholder="${el.placeholder}"`);
-      if (el.disabled) parts.push('(disabled)');
-      return parts.join(' ');
-    })
-    .join('\n');
+/**
+ * Reads the page's visible text.
+ *
+ * The element capture is interactive-only, which leaves the model able to see a quiz's
+ * answer options but not the question they answer — it then replies with prose instead of
+ * an action and the run ends. sc.py sends both for the same reason.
+ */
+export async function capturePageText(maxChars = 4000): Promise<string> {
+  const raw = await evalScript(
+    `((document.body && document.body.innerText) || '').replace(/\\n{3,}/g, '\\n\\n').trim().slice(0, ${maxChars})`,
+  );
+  try {
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'string' ? parsed : '';
+  } catch {
+    return '';
+  }
+}
+
+export function formatDomForPrompt(elements: InteractiveElement[], pageText?: string): string {
+  const lines: string[] = [];
+
+  if (pageText?.trim()) {
+    lines.push('PAGE TEXT:', pageText.trim(), '');
+  }
+
+  lines.push('INTERACTIVE ELEMENTS (act on these by ref):');
+  if (!elements.length) {
+    lines.push('No interactive elements found.');
+    return lines.join('\n');
+  }
+
+  for (const el of elements) {
+    const parts: string[] = [`[${el.ref}]`, el.tag];
+    if (el.type && el.type !== 'text') parts[1] += `[${el.type}]`;
+    if (el.text) parts.push(`"${el.text}"`);
+    if (el.placeholder) parts.push(`placeholder="${el.placeholder}"`);
+    if (el.disabled) parts.push('(disabled)');
+    lines.push(parts.join(' '));
+  }
+
+  return lines.join('\n');
 }
 
 function extractTextFromSelector(selector: string): string | null {

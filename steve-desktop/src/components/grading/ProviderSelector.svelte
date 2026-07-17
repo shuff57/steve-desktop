@@ -22,10 +22,14 @@
 
   // ── Static Providers & Models ──────────────────────────────────────
 
+  // Model ids are passed straight to the agent CLI's --model flag, so a stale id is not a
+  // cosmetic problem: the CLI exits with "model may not exist or you may not have access".
+  // The previous claude-3-* ids had all been retired (Oct 2025 - Feb 2026) and every
+  // Anthropic run failed. The ids below were verified against the installed CLI.
   const PROVIDERS = [
     { id: 'ollama', label: 'Ollama (Local)', models: ['llama3.2', 'qwen2.5', 'llama3.1', 'phi4', 'mistral'] },
     { id: 'openai', label: 'OpenAI', models: ['gpt-4o', 'gpt-4o-mini', 'o1', 'o3-mini'] },
-    { id: 'anthropic', label: 'Anthropic', models: ['claude-3-5-sonnet-latest', 'claude-3-5-haiku-latest', 'claude-3-opus-latest'] },
+    { id: 'anthropic', label: 'Anthropic', models: ['claude-opus-4-8', 'claude-sonnet-5', 'claude-haiku-4-5'] },
     { id: 'google-gemini', label: 'Google Gemini', models: ['gemini-2.5-pro', 'gemini-2.5-flash'] },
   ];
 

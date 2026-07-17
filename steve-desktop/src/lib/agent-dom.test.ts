@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { describe, expect, it, beforeEach } from 'vitest';
-import { INTERACTIVE_DOM_SCRIPT, buildRefActionScript } from './agent-dom';
+import { INTERACTIVE_DOM_SCRIPT, buildRefActionScript, formatDomForPrompt } from './agent-dom';
 import type { InteractiveElement } from './agent-types';
 
 // jsdom has no layout engine, so getBoundingClientRect returns all zeros and the
@@ -89,6 +89,26 @@ describe('capture survives the eval_webview_script round trip', () => {
     expect(Array.isArray(parsed)).toBe(true);
     expect(parsed).toEqual(captured);
     expect(parsed.map((e: InteractiveElement) => e.ref)).toEqual(captured.map((e) => e.ref));
+  });
+});
+
+describe('formatDomForPrompt', () => {
+  // The element capture is interactive-only. Without the page text the model can see a
+  // quiz's options but not the question, and answers with prose instead of an action.
+  it('includes the page text alongside the refs', () => {
+    document.body.innerHTML = OPTIONS.map((t) => `<label class="question_btn">${t}</label>`).join('');
+    const prompt = formatDomForPrompt(runCapture(), 'QUESTION 1 OF 2\nA coworker props open a secure door.');
+
+    expect(prompt).toContain('A coworker props open a secure door.');
+    expect(prompt).toMatch(/\[e\d+\] label "A\. Report it immediately"/);
+  });
+
+  it('still lists refs when there is no page text', () => {
+    document.body.innerHTML = '<button id="go">Next</button>';
+    const prompt = formatDomForPrompt(runCapture());
+
+    expect(prompt).toContain('[e1] button');
+    expect(prompt).not.toContain('PAGE TEXT');
   });
 });
 

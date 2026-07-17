@@ -29,12 +29,23 @@ vi.mock('./browser', () => ({
 
 vi.mock('./agent-api', () => ({
   sendAgentRequest: mockSendAgentRequest,
+  forgetAgentSession: vi.fn(),
 }));
 
 import { createAgentController } from './agent-loop';
 
 function element(overrides: Partial<InteractiveElement> = {}): InteractiveElement {
   return { ref: 'e1', tag: 'label', text: 'A. Report it', disabled: false, visible: true, ...overrides };
+}
+
+/**
+ * The scripts evalScript was asked to run, action-first. Each turn also captures page
+ * text through evalScript, so indexing the raw call list by position is not stable.
+ */
+function actionScripts(): string[] {
+  return mockEvalScript.mock.calls
+    .map((call) => call[0] as string)
+    .filter((script) => script.includes('__steveRefs') || script.includes('querySelector'));
 }
 
 /** Runs one action, then lets the loop finish. */
@@ -94,7 +105,7 @@ describe('agent-loop', () => {
     expect(results[0].result.success).toBe(true);
 
     // Resolves via the page-side registry, never querySelector.
-    const script = mockEvalScript.mock.calls[0][0] as string;
+    const script = actionScripts()[0];
     expect(script).toContain('__steveRefs');
     expect(script).toContain('[6]');
     expect(script).not.toContain('querySelector');
@@ -110,7 +121,7 @@ describe('agent-loop', () => {
     expect(results[0].result.error).toMatch(/stale/i);
     // A fuzzy retry would issue a second action script; a stale ref must just report and
     // let the next turn re-capture. (Capture count can't tell: the loop captures per turn.)
-    expect(mockEvalScript).toHaveBeenCalledTimes(1);
+    expect(actionScripts()).toHaveLength(1);
   });
 
   it('reports a missing registry rather than clicking blindly', async () => {
@@ -135,7 +146,7 @@ describe('agent-loop', () => {
     const { executed } = await runOnce({ action: 'click', params: { selector: '#start' } });
 
     expect(executed[0]).toEqual({ type: 'click', selector: '#start' });
-    expect(mockEvalScript.mock.calls[0][0]).toContain('querySelector');
+    expect(actionScripts()[0]).toContain('querySelector');
   });
 
   it('fills by ref', async () => {
@@ -143,6 +154,6 @@ describe('agent-loop', () => {
 
     expect(executed[0]).toEqual({ type: 'fill', ref: 'e3', value: 'hello' });
     expect(results[0].result.success).toBe(true);
-    expect(mockEvalScript.mock.calls[0][0]).toContain('__steveRefs');
+    expect(actionScripts()[0]).toContain('__steveRefs');
   });
 });

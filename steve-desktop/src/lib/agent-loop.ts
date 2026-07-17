@@ -1,9 +1,10 @@
 import { captureWebviewScreenshot, evalScript, getActiveTabId, navigateEmbedded } from './browser';
-import { sendAgentRequest } from './agent-api';
+import { forgetAgentSession, sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
 import {
   buildRefActionScript,
   captureInteractiveDom,
+  capturePageText,
   findFuzzyMatch,
   formatDomForPrompt,
   fuzzyMatchReason,
@@ -231,6 +232,9 @@ export function createAgentController(): AgentController {
         { role: 'system', content: AGENT_SYSTEM_PROMPT },
         { role: 'user', content: config.initialMessage },
       ];
+      // One CLI session per run: turn 1 opens it, the rest resume it so the model keeps
+      // the conversation and its prompt cache stays warm.
+      const sessionId = crypto.randomUUID();
 
       let steps = 0;
       let consecutiveFailures = 0;
@@ -250,7 +254,8 @@ export function createAgentController(): AgentController {
         let screenshot: string | undefined;
         try {
           const elements = await captureInteractiveDom();
-          dom = formatDomForPrompt(elements);
+          const pageText = await capturePageText().catch(() => '');
+          dom = formatDomForPrompt(elements, pageText);
         } catch {
         }
 
@@ -267,6 +272,7 @@ export function createAgentController(): AgentController {
             screenshot,
             provider: config.provider,
             model: config.model,
+            sessionId,
           });
         } catch (error: unknown) {
           setState('error');
@@ -372,6 +378,7 @@ export function createAgentController(): AgentController {
         }
       }
 
+      forgetAgentSession(sessionId);
       running = false;
       decisionResolver = null;
       if (state !== 'done' && state !== 'error' && stopped) {

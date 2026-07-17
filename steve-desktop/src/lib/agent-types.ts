@@ -74,6 +74,12 @@ export interface AgentApiRequest {
   model?: string;
   snapshot?: SnapshotResult;
   profile?: SiteProfile;
+  /**
+   * Identifies the CLI session for this agent run. The first request opens the session
+   * and later ones resume it, which is what keeps the CLI's prompt cache warm — a fresh
+   * session re-creates ~20k tokens of cache, a resumed one reads it (~10x cheaper).
+   */
+  sessionId?: string;
 }
 
 export interface AgentActionResponse {
