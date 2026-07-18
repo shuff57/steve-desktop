@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildTurnPrompt, engineForProvider, extractCliText } from './agent-cli';
+import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText } from './agent-cli';
 import type { AgentMessage } from './agent-types';
 
 describe('engineForProvider', () => {
@@ -8,8 +8,24 @@ describe('engineForProvider', () => {
   });
 
   it('routes everything else to opencode', () => {
-    expect(engineForProvider('ollama')).toBe('opencode');
+    expect(engineForProvider('opencode')).toBe('opencode');
     expect(engineForProvider(undefined)).toBe('opencode');
+  });
+});
+
+describe('cliModelArg', () => {
+  it('prefixes bare ollama.com cloud ids for opencode', () => {
+    expect(cliModelArg('opencode', 'kimi-k2.6:cloud')).toBe('ollama/kimi-k2.6:cloud');
+  });
+
+  it('leaves provider-qualified ids and claude ids alone', () => {
+    expect(cliModelArg('opencode', 'anthropic/claude-sonnet-5')).toBe('anthropic/claude-sonnet-5');
+    expect(cliModelArg('claude', 'claude-sonnet-5')).toBe('claude-sonnet-5');
+  });
+
+  it('returns null for empty ids so no --model flag is sent', () => {
+    expect(cliModelArg('claude', undefined)).toBeNull();
+    expect(cliModelArg('opencode', '  ')).toBeNull();
   });
 });
 

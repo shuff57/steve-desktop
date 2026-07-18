@@ -4,7 +4,7 @@ import type {
   AgentApiResponse,
 } from './agent-types';
 import { AGENT_SYSTEM_PROMPT, parseAgentResponse } from './agent-prompt';
-import { buildTurnPrompt, engineForProvider, extractCliText } from './agent-cli';
+import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText } from './agent-cli';
 import { getActiveProvider } from './db';
 
 /**
@@ -51,7 +51,7 @@ export async function sendAgentRequest(request: AgentApiRequest): Promise<AgentA
     prompt: buildTurnPrompt(request.messages, request.dom, isFirstTurn),
     sessionId,
     resume: !isFirstTurn,
-    model: request.model || null,
+    model: cliModelArg(engine, request.model),
     systemPrompt: isFirstTurn ? AGENT_SYSTEM_PROMPT : null,
   });
 

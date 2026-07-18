@@ -12,6 +12,20 @@ export function engineForProvider(providerId?: string): AgentEngine {
 }
 
 /**
+ * Normalises a model id for the CLI's --model/-m flag.
+ *
+ * opencode expects `provider/model`; the UI lets the user type a bare ollama.com cloud
+ * model (e.g. `kimi-k2.6:cloud`), so a bare id gets the `ollama/` prefix. Ids that
+ * already carry a provider pass through, as does everything for claude.
+ */
+export function cliModelArg(engine: AgentEngine, model?: string): string | null {
+  const m = model?.trim();
+  if (!m) return null;
+  if (engine === 'opencode' && !m.includes('/')) return `ollama/${m}`;
+  return m;
+}
+
+/**
  * Renders the newest turn for a resumed CLI session.
  *
  * Only the delta is sent: the CLI already holds the conversation, so replaying the
