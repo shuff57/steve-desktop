@@ -105,7 +105,11 @@ export function parseAgentResponse(rawText: string): AgentApiResponse {
     try {
       const parsed = JSON.parse(candidate);
       if (parsed.action && typeof parsed.action === 'string') {
-        return parsed as AgentActionResponse;
+        // Models sometimes flatten params to the top level ({"action":"done","success":true}
+        // — the prompt's own done example reads that way). Fold strays into params so the
+        // loop never dereferences a missing params object.
+        const { action, params, reasoning, ...rest } = parsed as AgentActionResponse & Record<string, unknown>;
+        return { action, reasoning, params: { ...rest, ...(params ?? {}) } };
       }
       if (parsed.text && typeof parsed.text === 'string') {
         return parsed as AgentTextResponse;

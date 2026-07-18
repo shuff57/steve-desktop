@@ -288,10 +288,15 @@ export function createAgentController(): AgentController {
           break;
         }
 
-        if (response.action === 'done') {
+        // Models signal completion as "none" often enough (seen live from sonnet-5,
+        // meaning "no further action needed") that rejecting it just ends good runs
+        // with a spurious error.
+        if (response.action === 'done' || response.action === 'none') {
           const success = response.params.success !== false;
           setState(success ? 'done' : 'error');
-          emit('done', { message: (response.params.message as string | undefined) ?? 'Task completed' });
+          emit('done', {
+            message: (response.params.message as string | undefined) ?? response.reasoning ?? 'Task completed',
+          });
           break;
         }
 

@@ -82,6 +82,22 @@ describe('agent-loop', () => {
     expect(createAgentController().getState()).toBe('idle');
   });
 
+  it('treats action "none" as a successful done, using reasoning as the message', async () => {
+    const controller = createAgentController();
+    const done: string[] = [];
+    const errors: string[] = [];
+    controller.on('done', ({ message }) => done.push(message));
+    controller.on('error', ({ message }) => errors.push(message));
+
+    mockSendAgentRequest.mockResolvedValue({ action: 'none', params: {}, reasoning: 'task is complete' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'finish task' });
+
+    expect(errors).toEqual([]);
+    expect(done).toEqual(['task is complete']);
+    expect(controller.getState()).toBe('done');
+  });
+
   it('moves to thinking when started', async () => {
     const controller = createAgentController();
     const states: AgentState[] = [];
