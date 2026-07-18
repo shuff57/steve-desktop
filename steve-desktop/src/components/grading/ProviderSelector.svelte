@@ -22,21 +22,37 @@
 
   // ── Static Providers & Models ──────────────────────────────────────
 
+  // Each entry is a CLI engine, not an HTTP provider: anthropic runs through the claude
+  // CLI, opencode fronts ollama.com cloud models. Model ids feed the CLI's --model/-m
+  // flag, so a stale id is not a cosmetic problem: the CLI exits with "model may not
+  // exist or you may not have access". Claude ids were verified against the installed
+  // CLI; opencode models are free-form (typed bare, `ollama/` is prefixed on send) with
+  // the datalist offering known ollama.com cloud ids.
   const PROVIDERS = [
-    { id: 'ollama', label: 'Ollama (Local)', models: ['llama3.2', 'qwen2.5', 'llama3.1', 'phi4', 'mistral'] },
-    { id: 'openai', label: 'OpenAI', models: ['gpt-4o', 'gpt-4o-mini', 'o1', 'o3-mini'] },
-    { id: 'anthropic', label: 'Anthropic', models: ['claude-3-5-sonnet-latest', 'claude-3-5-haiku-latest', 'claude-3-opus-latest'] },
-    { id: 'google-gemini', label: 'Google Gemini', models: ['gemini-2.5-pro', 'gemini-2.5-flash'] },
+    {
+      id: 'opencode',
+      label: 'OpenCode (Ollama Cloud)',
+      freeform: true,
+      models: ['kimi-k2.6:cloud', 'glm-5.1:cloud', 'qwen3-coder-next:cloud', 'deepseek-v4-pro:cloud', 'minimax-m2.7:cloud'],
+    },
+    {
+      id: 'anthropic',
+      label: 'Claude CLI',
+      freeform: false,
+      models: ['claude-opus-4-8', 'claude-sonnet-5', 'claude-haiku-4-5'],
+    },
   ];
 
   // ── Reactive state ──────────────────────────────────────────────────
 
   let models: string[] = $state([]);
+  let freeform = $state(false);
 
   // ── Lifecycle ───────────────────────────────────────────────────────
 
   $effect(() => {
-    if (!provider) {
+    // Coerce unknown ids too: older sessions stored retired ids (ollama, openai, ...).
+    if (!provider || !PROVIDERS.some((x) => x.id === provider)) {
       provider = PROVIDERS[0].id;
     }
   });
@@ -48,7 +64,8 @@
       prevProvider = p;
       const found = PROVIDERS.find((x) => x.id === p);
       models = found ? found.models : [];
-      if (!model || !models.includes(model)) {
+      freeform = found?.freeform ?? false;
+      if (!model || (!freeform && !models.includes(model))) {
         model = models[0] || '';
       }
     }
@@ -63,7 +80,7 @@
   }
 
   function handleModelChange(e: Event) {
-    const value = (e.target as HTMLSelectElement).value;
+    const value = (e.target as HTMLSelectElement | HTMLInputElement).value;
     model = value;
     onModelChange?.(value);
   }
@@ -82,20 +99,37 @@
       {/each}
     </select>
 
-    <select
-      class="model-select"
-      value={model}
-      onchange={handleModelChange}
-      disabled={disabled || models.length === 0}
-    >
-      {#if models.length === 0}
-        <option value="" disabled selected>No models available</option>
-      {:else}
+    {#if freeform}
+      <input
+        class="model-select"
+        type="text"
+        list="ollama-cloud-models"
+        value={model}
+        oninput={handleModelChange}
+        placeholder="e.g. kimi-k2.6:cloud"
+        disabled={disabled}
+      />
+      <datalist id="ollama-cloud-models">
         {#each models as m}
-          <option value={m}>{m}</option>
+          <option value={m}></option>
         {/each}
-      {/if}
-    </select>
+      </datalist>
+    {:else}
+      <select
+        class="model-select"
+        value={model}
+        onchange={handleModelChange}
+        disabled={disabled || models.length === 0}
+      >
+        {#if models.length === 0}
+          <option value="" disabled selected>No models available</option>
+        {:else}
+          {#each models as m}
+            <option value={m}>{m}</option>
+          {/each}
+        {/if}
+      </select>
+    {/if}
   </div>
 </section>
 

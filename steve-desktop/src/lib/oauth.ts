@@ -349,6 +349,6 @@ export async function validateOllamaConnection(apiUrl: string, apiKey?: string):
     return false;
   }
 }
-export async function startClaudeOAuthFlow() {}
-export async function signOut() {}
+// TODO: unimplemented. Callers get an empty model list, so provider model dropdowns are
+// always empty. Typechecks cleanly, so nothing flags it — see ProviderSettings/SetupWizard.
 export async function fetchAvailableModels(providerKey: string): Promise<string[]> { return []; }

@@ -11,8 +11,6 @@
   } = $props();
   
   let activeMode = $state('agent');  // 'agent' | 'discovery'
-  let activeProvider = $state('ollama-local');
-  let activeModel = $state('');
 
   // Resize logic
   let isResizing = $state(false);
@@ -128,15 +126,6 @@
   </div>
   
   {#if !isCollapsed}
-    <div class="provider-row">
-      <select bind:value={activeProvider}>
-        <option value="ollama-local">Ollama Local</option>
-        <option value="openai">OpenAI</option>
-        <option value="anthropic">Anthropic</option>
-      </select>
-      <input type="text" bind:value={activeModel} placeholder="Model name..." />
-    </div>
-    
     <div class="panel-content">
       {#if activeMode === 'agent'}
         <AgentChat />

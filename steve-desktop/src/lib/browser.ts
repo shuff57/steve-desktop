@@ -88,8 +88,15 @@ export async function destroyWebview(tabId: string): Promise<void> {
   await invoke('destroy_webview', { tabId });
 }
 
+/**
+ * Runs `script` in the active tab's embedded webview and returns the JSON text of its
+ * result (the Rust side JSON.stringify's it — see eval_webview_script in lib.rs). A
+ * script returning true yields "true"; one returning a string yields a quoted "…".
+ */
 export async function evalScript(script: string): Promise<string> {
-  return await invoke('eval_webview_script', { script });
+  const tabId = getActiveTabId();
+  if (!tabId) throw new Error('No active browser tab to evaluate script in');
+  return await invoke('eval_webview_script', { tabId, script });
 }
 
 export async function captureWebviewScreenshot(): Promise<string> {

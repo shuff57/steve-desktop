@@ -140,11 +140,11 @@
       const name = parsed.name || "Untitled Skill";
 
       await saveSkill({
+        id: crypto.randomUUID(),
         name,
         description: parsed.description || "",
         content: extracted,
         source: "created",
-        source_id: null,
         is_active: 0,
       });
 

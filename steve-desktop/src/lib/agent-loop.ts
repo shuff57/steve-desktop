@@ -1,7 +1,14 @@
 import { captureWebviewScreenshot, evalScript, getActiveTabId, navigateEmbedded } from './browser';
-import { sendAgentRequest } from './agent-api';
+import { forgetAgentSession, sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
-import { captureInteractiveDom, findFuzzyMatch, formatDomForPrompt, fuzzyMatchReason } from './agent-dom';
+import {
+  buildRefActionScript,
+  captureInteractiveDom,
+  capturePageText,
+  findFuzzyMatch,
+  formatDomForPrompt,
+  fuzzyMatchReason,
+} from './agent-dom';
 import type {
   ActionResult,
   AgentApiResponse,
@@ -13,10 +20,10 @@ import type {
 } from './agent-types';
 import { DEFAULT_AGENT_CONFIG } from './agent-types';
 
-type AgentEventPayloads = {
+export type AgentEventPayloads = {
   state: AgentState;
   thinking: undefined;
-  proposing: { action: BrowserAction };
+  proposing: { action: BrowserAction; reasoning: string };
   executing: { action: BrowserAction };
   result: { action: BrowserAction; result: ActionResult };
   done: { message: string };
@@ -44,13 +51,23 @@ export interface AgentController {
   getState(): AgentState;
 }
 
+function toTarget(params: Record<string, unknown>): { ref?: string; selector?: string } | null {
+  const ref = typeof params.ref === 'string' && params.ref ? params.ref : undefined;
+  const selector = typeof params.selector === 'string' && params.selector ? params.selector : undefined;
+  if (!ref && !selector) return null;
+  return { ...(ref ? { ref } : {}), ...(selector ? { selector } : {}) };
+}
+
 function toBrowserAction(action: string, params: Record<string, unknown>): BrowserAction | null {
-  if (action === 'click' && typeof params.selector === 'string') {
-    return { type: 'click', selector: params.selector };
+  if (action === 'click') {
+    const target = toTarget(params);
+    return target ? { type: 'click', ...target } : null;
   }
-  if ((action === 'fill' || action === 'type') && typeof params.selector === 'string') {
+  if (action === 'fill' || action === 'type') {
+    const target = toTarget(params);
+    if (!target) return null;
     const value = typeof params.value === 'string' ? params.value : typeof params.text === 'string' ? params.text : '';
-    return { type: 'fill', selector: params.selector, value };
+    return { type: 'fill', ...target, value };
   }
   if (action === 'navigate' && typeof params.url === 'string') {
     return { type: 'navigate', url: params.url };
@@ -85,6 +102,18 @@ function toBrowserAction(action: string, params: Record<string, unknown>): Brows
   return null;
 }
 
+const REF_ERRORS: Record<string, string> = {
+  stale: 'Element is stale — the page re-rendered. Re-read the DOM and use a fresh ref.',
+  norefs: 'No element registry on the page. Re-read the DOM to get fresh refs.',
+};
+
+async function runRefAction(ref: string, op: string): Promise<ActionResult> {
+  const status = await evalScript(buildRefActionScript(ref, op));
+  const normalized = status.replace(/^"|"$/g, '');
+  if (normalized === 'ok') return { success: true };
+  return { success: false, error: REF_ERRORS[normalized] ?? `Ref action failed (${normalized}): ${ref}` };
+}
+
 async function executeAction(action: BrowserAction): Promise<ActionResult> {
   try {
     if (action.type === 'navigate') {
@@ -95,6 +124,7 @@ async function executeAction(action: BrowserAction): Promise<ActionResult> {
     }
 
     if (action.type === 'click') {
+      if (action.ref) return await runRefAction(action.ref, 'el.click();');
       const exists = await evalScript(`!!document.querySelector(${JSON.stringify(action.selector)})`);
       if (exists !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
       await evalScript(`document.querySelector(${JSON.stringify(action.selector)})?.click();`);
@@ -102,6 +132,8 @@ async function executeAction(action: BrowserAction): Promise<ActionResult> {
     }
 
     if (action.type === 'fill') {
+      const write = `if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}else{el.textContent=${JSON.stringify(action.value)};}`;
+      if (action.ref) return await runRefAction(action.ref, `el.focus();${write}`);
       const script = `(function(){const el=document.querySelector(${JSON.stringify(action.selector)});if(!el)return false;el.focus();if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}el.textContent=${JSON.stringify(action.value)};return true;})()`;
       const wrote = await evalScript(script);
       if (wrote !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
@@ -200,6 +232,9 @@ export function createAgentController(): AgentController {
         { role: 'system', content: AGENT_SYSTEM_PROMPT },
         { role: 'user', content: config.initialMessage },
       ];
+      // One CLI session per run: turn 1 opens it, the rest resume it so the model keeps
+      // the conversation and its prompt cache stays warm.
+      const sessionId = crypto.randomUUID();
 
       let steps = 0;
       let consecutiveFailures = 0;
@@ -219,7 +254,8 @@ export function createAgentController(): AgentController {
         let screenshot: string | undefined;
         try {
           const elements = await captureInteractiveDom();
-          dom = formatDomForPrompt(elements);
+          const pageText = await capturePageText().catch(() => '');
+          dom = formatDomForPrompt(elements, pageText);
         } catch {
         }
 
@@ -236,6 +272,7 @@ export function createAgentController(): AgentController {
             screenshot,
             provider: config.provider,
             model: config.model,
+            sessionId,
           });
         } catch (error: unknown) {
           setState('error');
@@ -251,10 +288,15 @@ export function createAgentController(): AgentController {
           break;
         }
 
-        if (response.action === 'done') {
+        // Models signal completion as "none" often enough (seen live from sonnet-5,
+        // meaning "no further action needed") that rejecting it just ends good runs
+        // with a spurious error.
+        if (response.action === 'done' || response.action === 'none') {
           const success = response.params.success !== false;
           setState(success ? 'done' : 'error');
-          emit('done', { message: (response.params.message as string | undefined) ?? 'Task completed' });
+          emit('done', {
+            message: (response.params.message as string | undefined) ?? response.reasoning ?? 'Task completed',
+          });
           break;
         }
 
@@ -279,7 +321,7 @@ export function createAgentController(): AgentController {
         }
 
         setState('proposing');
-        emit('proposing', { action });
+        emit('proposing', { action, reasoning: response.reasoning ?? '' });
 
         if (config.mode === 'review') {
           const decision = await waitForDecision();
@@ -296,20 +338,22 @@ export function createAgentController(): AgentController {
 
         let result = await executeAction(action);
 
-        if (!result.success && (action.type === 'click' || action.type === 'fill')) {
+        // Only the selector path needs fuzzy recovery. A failed ref means stale/missing
+        // registry, and the next loop iteration re-captures and re-refs anyway.
+        if (!result.success && (action.type === 'click' || action.type === 'fill') && !action.ref) {
           try {
             const elements = await captureInteractiveDom();
-            const failedSelector = action.selector;
+            const failedSelector = action.selector ?? '';
             const match = findFuzzyMatch(failedSelector, elements);
             if (match) {
               const retryAction: BrowserAction =
                 action.type === 'click'
-                  ? { type: 'click', selector: match.selector }
-                  : { type: 'fill', selector: match.selector, value: action.value };
+                  ? { type: 'click', ref: match.ref }
+                  : { type: 'fill', ref: match.ref, value: action.value };
               result = await executeAction(retryAction);
               if (result.success) {
                 const reason = fuzzyMatchReason(failedSelector, match);
-                result = { success: true, data: { matchedSelector: match.selector, reason } };
+                result = { success: true, data: { matchedRef: match.ref, reason } };
               }
             }
           } catch {
@@ -339,6 +383,7 @@ export function createAgentController(): AgentController {
         }
       }
 
+      forgetAgentSession(sessionId);
       running = false;
       decisionResolver = null;
       if (state !== 'done' && state !== 'error' && stopped) {

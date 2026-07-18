@@ -3,9 +3,10 @@
    * AgentChat - Browser agent chat UI with review/auto modes.
    * Controls the browser agent loop with action proposals and approvals.
    */
+  import { onMount } from 'svelte';
   import { createAgentController } from '../../lib/agent-loop';
-  import type { AgentEvent, AgentController } from '../../lib/agent-loop';
-  import type { AgentMode, AgentState } from '../../lib/agent-types';
+  import type { AgentController } from '../../lib/agent-loop';
+  import type { AgentMode, AgentState, BrowserAction } from '../../lib/agent-types';
   import ProviderSelector from './ProviderSelector.svelte';
 
   // ============================================================================
@@ -67,8 +68,15 @@
   // Helpers
   // ============================================================================
 
+  /** Split a BrowserAction into the {action, params} pair the message list renders. */
+  function splitAction(action: BrowserAction): { action: string; params: Record<string, unknown> } {
+    const { type, description, ...params } = action;
+    return { action: type, params: params as Record<string, unknown> };
+  }
+
   /** Extract a short target label from action params for compact badge display. */
   function getBadgeTarget(action: string, params: Record<string, unknown>): string {
+    if (typeof params.ref === 'string' && params.ref) return params.ref;
     if (typeof params.selector === 'string' && params.selector) return params.selector;
     if (typeof params.url === 'string' && params.url) {
       // Trim long URLs
@@ -101,80 +109,63 @@
   // Event Handlers
   // ============================================================================
 
-  /** Handle events from the agent loop. */
-  function handleEvent(event: AgentEvent) {
-    switch (event.type) {
-      case 'thinking':
-        agentState = 'thinking';
-        break;
-
-      case 'propose':
-        agentState = 'proposing';
-        messages = [...messages, {
-          type: 'action',
-          action: event.action,
-          params: event.params,
-          reasoning: event.reasoning,
-          status: 'proposing',
-        }];
-        pendingAction = { action: event.action, params: event.params, reasoning: event.reasoning };
-        // In auto mode (and not runJS), auto-approve after short render delay
-        if (mode === 'auto' && event.action !== 'runJS') {
-          setTimeout(() => { controller.approve(); }, 300);
-        }
-        break;
-
-      case 'executing':
-        agentState = 'executing';
-        // Update the last action message to 'executing'
-        messages = messages.map((m, i) =>
-          i === messages.length - 1 && m.type === 'action'
-            ? { ...m, status: 'executing' as const }
-            : m
-        );
-        pendingAction = null;
-        break;
-
-      case 'result':
-        // Update the last action message with the result
-        messages = messages.map((m, i) =>
-          i === messages.length - 1 && m.type === 'action'
-            ? { ...m, status: 'done' as const, result: event.result }
-            : m
-        );
-        break;
-
-      case 'text':
-        agentState = 'idle';
-        messages = [...messages, { type: 'text', role: 'assistant', content: event.content }];
-        break;
-
-      case 'done':
-        agentState = 'idle';
-        messages = [...messages, { type: 'system', content: event.message, variant: 'done' }];
-        pendingAction = null;
-        break;
-
-      case 'error':
-        agentState = 'idle';
-        errorText = event.message;
-        pendingAction = null;
-        break;
-
-      case 'context':
-        contextPercent = event.percent;
-        contextUsed = event.usedTokens;
-        break;
-
-      case 'compacted':
-        messages = [...messages, {
-          type: 'system',
-          content: `🗜 Context freed · trimmed ${event.droppedMessages} old turn${event.droppedMessages !== 1 ? 's' : ''}`,
-          variant: 'compact',
-        }];
-        break;
-    }
+  /** Update the trailing action message, which is the one currently in flight. */
+  function patchLastAction(patch: Partial<ActionMessage>) {
+    messages = messages.map((m, i) =>
+      i === messages.length - 1 && m.type === 'action' ? { ...m, ...patch } : m
+    );
   }
+
+  // The controller pushes through per-event callbacks, not an async iterator. It is created
+  // once for the component's lifetime, so subscribe once and drop the handles on teardown.
+  onMount(() => {
+    const unsubscribes = [
+      controller.on('thinking', () => {
+        agentState = 'thinking';
+      }),
+
+      controller.on('proposing', ({ action, reasoning }) => {
+        agentState = 'proposing';
+        const { action: name, params } = splitAction(action);
+        messages = [...messages, { type: 'action', action: name, params, reasoning, status: 'proposing' }];
+        // Auto mode never blocks on a decision, so only review mode needs an approval prompt.
+        pendingAction = mode === 'review' ? { action: name, params, reasoning } : null;
+        scrollToBottom();
+      }),
+
+      controller.on('executing', () => {
+        agentState = 'executing';
+        patchLastAction({ status: 'executing' });
+        pendingAction = null;
+      }),
+
+      controller.on('result', ({ result }) => {
+        patchLastAction({ status: 'done', result });
+        scrollToBottom();
+      }),
+
+      controller.on('text', ({ content }) => {
+        agentState = 'idle';
+        messages = [...messages, { type: 'text', role: 'assistant', content }];
+        scrollToBottom();
+      }),
+
+      controller.on('done', ({ message }) => {
+        agentState = 'idle';
+        messages = [...messages, { type: 'system', content: message, variant: 'done' }];
+        pendingAction = null;
+        scrollToBottom();
+      }),
+
+      controller.on('error', ({ message }) => {
+        agentState = 'idle';
+        errorText = message;
+        pendingAction = null;
+      }),
+    ];
+
+    return () => unsubscribes.forEach((off) => off());
+  });
 
   /** Scroll chat to the bottom after new messages. */
   function scrollToBottom() {
@@ -196,14 +187,15 @@
     agentState = 'thinking';
     scrollToBottom();
 
-    const gen = controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, compact: compactMode });
-
-    for await (const event of gen) {
-      handleEvent(event);
+    try {
+      await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel });
+    } catch (error) {
+      errorText = error instanceof Error ? error.message : String(error);
+    } finally {
+      agentState = 'idle';
+      pendingAction = null;
       scrollToBottom();
     }
-
-    agentState = 'idle';
   }
 
   /** Approve the current proposed action. */

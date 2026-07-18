@@ -1120,6 +1120,177 @@ async fn discover_cdp_target(port: u16) -> Result<Option<String>, String> {
     Ok(target.and_then(|t| t.ws_debugger_url.clone()))
 }
 
+/// Locate `binary` on PATH, honouring PATHEXT on Windows.
+///
+/// Needed because CreateProcess cannot run a .cmd/.bat shim directly, and an
+/// npm-installed `claude` is exactly that. Returns the resolved full path.
+fn resolve_on_path(binary: &str) -> Option<std::path::PathBuf> {
+    let exts: Vec<String> = if cfg!(windows) {
+        std::env::var("PATHEXT")
+            .unwrap_or_else(|_| ".COM;.EXE;.BAT;.CMD".into())
+            .split(';')
+            .filter(|e| !e.is_empty())
+            .map(|e| e.to_lowercase())
+            .collect()
+    } else {
+        vec![String::new()]
+    };
+
+    let path = std::env::var_os("PATH")?;
+    for dir in std::env::split_paths(&path) {
+        let direct = dir.join(binary);
+        if direct.is_file() {
+            return Some(direct);
+        }
+        for ext in &exts {
+            let candidate = dir.join(format!("{}{}", binary, ext));
+            if candidate.is_file() {
+                return Some(candidate);
+            }
+        }
+    }
+    None
+}
+
+/// Run a local coding-agent CLI headlessly and return its stdout.
+///
+/// The prompt goes in on stdin, never argv: a DOM snapshot runs to tens of KB and
+/// Windows caps a command line at ~32K. It also keeps page text out of the process
+/// table and away from any shell quoting.
+///
+/// Tools are disabled (`--allowed-tools ""`). The agent's whole job is to answer with
+/// one JSON action, so it has no business touching the filesystem, and a page it just
+/// scraped is untrusted input.
+#[tauri::command]
+async fn run_agent_cli(
+    engine: String,
+    prompt: String,
+    session_id: String,
+    resume: bool,
+    model: Option<String>,
+    system_prompt: Option<String>,
+) -> Result<String, String> {
+    let bin = resolve_on_path(&engine).ok_or_else(|| {
+        format!(
+            "{} not found on PATH. Install it, or pick a different engine in Settings.",
+            engine
+        )
+    })?;
+
+    let mut args: Vec<String> = Vec::new();
+    match engine.as_str() {
+        "claude" => {
+            args.push("-p".into());
+            args.extend(["--output-format".into(), "json".into()]);
+            args.extend(["--allowed-tools".into(), String::new()]);
+            args.push("--strict-mcp-config".into());
+            if resume {
+                args.extend(["--resume".into(), session_id.clone()]);
+            } else {
+                args.extend(["--session-id".into(), session_id.clone()]);
+                if let Some(sp) = system_prompt.filter(|s| !s.trim().is_empty()) {
+                    args.extend(["--system-prompt".into(), sp]);
+                }
+            }
+            if let Some(m) = model.filter(|s| !s.trim().is_empty()) {
+                args.extend(["--model".into(), m]);
+            }
+        }
+        "opencode" => {
+            // UNTESTED: opencode is not installed here, so this path has never run.
+            args.push("run".into());
+            if resume {
+                args.push("--continue".into());
+            }
+            if let Some(m) = model.filter(|s| !s.trim().is_empty()) {
+                args.extend(["-m".into(), m]);
+            }
+        }
+        other => return Err(format!("Unknown agent engine: {}", other)),
+    }
+
+    // A .cmd/.bat shim has to go through cmd.exe; a real .exe must not.
+    let is_shim = bin
+        .extension()
+        .and_then(|e| e.to_str())
+        .map(|e| {
+            let e = e.to_lowercase();
+            e == "cmd" || e == "bat"
+        })
+        .unwrap_or(false);
+
+    let mut command = if is_shim {
+        let sysroot = std::env::var("SystemRoot").unwrap_or_else(|_| "C:\\Windows".into());
+        let mut c = tokio::process::Command::new(format!("{}\\System32\\cmd.exe", sysroot));
+        c.arg("/c").arg(&bin).args(&args);
+        c
+    } else {
+        let mut c = tokio::process::Command::new(&bin);
+        c.args(&args);
+        c
+    };
+
+    // Neutral cwd: the CLI picks up CLAUDE.md/AGENTS.md from wherever it runs, and the
+    // agent must not inherit this repo's instructions.
+    command
+        .current_dir(std::env::temp_dir())
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped());
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+    }
+
+    let mut child = command
+        .spawn()
+        .map_err(|e| format!("Failed to spawn {}: {}", engine, e))?;
+
+    {
+        use tokio::io::AsyncWriteExt;
+        let mut stdin = child
+            .stdin
+            .take()
+            .ok_or_else(|| "Failed to open stdin".to_string())?;
+        stdin
+            .write_all(prompt.as_bytes())
+            .await
+            .map_err(|e| format!("Failed to write prompt: {}", e))?;
+        stdin
+            .shutdown()
+            .await
+            .map_err(|e| format!("Failed to close stdin: {}", e))?;
+    }
+
+    let out = tokio::time::timeout(
+        tokio::time::Duration::from_secs(180),
+        child.wait_with_output(),
+    )
+    .await
+    .map_err(|_| format!("{} timed out after 180s", engine))?
+    .map_err(|e| format!("Failed to read {} output: {}", engine, e))?;
+
+    let stdout = String::from_utf8_lossy(&out.stdout).to_string();
+
+    // A non-zero exit is not always fatal: claude reports a bad model or a hit limit by
+    // exiting 1 while printing a usable {"is_error":true,...} envelope on stdout and
+    // leaving stderr empty. Hand any stdout back so the caller can surface the real
+    // message; only a genuinely silent failure becomes an error here.
+    if !out.status.success() && stdout.trim().is_empty() {
+        let stderr = String::from_utf8_lossy(&out.stderr);
+        return Err(format!(
+            "{} exited with {} and no output: {}",
+            engine,
+            out.status,
+            stderr.trim().chars().take(400).collect::<String>()
+        ));
+    }
+
+    Ok(stdout)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let cdp_port: Option<u16> = {
@@ -1238,6 +1409,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             stop_oauth_callback_server,
             get_cdp_port,
             discover_cdp_target,
+            run_agent_cli,
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
