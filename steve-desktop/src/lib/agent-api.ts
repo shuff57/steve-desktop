@@ -64,6 +64,10 @@ export async function sendAgentRequest(
   // messages. Sending the bare constant would silently lose both.
   const systemPrompt = outbound.messages.find((m) => m.role === 'system')?.content ?? AGENT_SYSTEM_PROMPT;
 
+  // Full-shell autonomous mode, driven by the caller's Auto/Review toggle. Only the claude
+  // engine honours it (see run_agent_cli); opencode is left as-is.
+  const bypassPermissions = engine === 'claude' && outbound.bypassPermissions === true;
+
   const stdout = await invoke<string>('run_agent_cli', {
     engine,
     prompt: buildTurnPrompt(outbound.messages, outbound.dom, isFirstTurn),
@@ -71,6 +75,7 @@ export async function sendAgentRequest(
     resume: !isFirstTurn,
     model: cliModelArg(engine, outbound.model),
     systemPrompt: isFirstTurn ? systemPrompt : null,
+    bypassPermissions,
   });
 
   // Only mark it open once a turn has actually landed, or a failed first turn would

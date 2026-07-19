@@ -503,6 +503,8 @@ export function createAgentController(): AgentController {
             provider: config.provider,
             model: config.model,
             sessionId,
+            // Auto ⇒ autonomous: the spawned claude gets a shell. Review stays sandboxed.
+            bypassPermissions: config.mode === 'auto',
           }, config.redactor);
         } catch (error: unknown) {
           setState('error');

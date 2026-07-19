@@ -78,6 +78,9 @@
   }
   onMount(loadContext);
 
+  // Autonomous mode (full shell for the spawned claude) is driven by the Auto/Review toggle:
+  // Auto ⇒ the loop passes bypassPermissions, Review ⇒ sandboxed. No separate control.
+
   // ============================================================================
   // Helpers
   // ============================================================================

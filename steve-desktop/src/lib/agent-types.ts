@@ -89,6 +89,12 @@ export interface AgentApiRequest {
    * session re-creates ~20k tokens of cache, a resumed one reads it (~10x cheaper).
    */
   sessionId?: string;
+  /**
+   * Autonomous mode: grant the spawned claude CLI its own tools (shell/read/write) with
+   * permissions auto-approved. Driven by the agent's Auto/Review toggle — Auto ⇒ true.
+   * Claude engine only; ignored for opencode. Off ⇒ the CLI is a sandboxed reasoning engine.
+   */
+  bypassPermissions?: boolean;
 }
 
 export interface AgentActionResponse {

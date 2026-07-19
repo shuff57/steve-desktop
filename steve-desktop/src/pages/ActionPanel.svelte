@@ -1,12 +1,9 @@
 <script lang="ts">
   /* biome-ignore-all lint/correctness/noUnusedImports: Svelte template uses imported components */
   /* biome-ignore-all lint/correctness/noUnusedVariables: Svelte template uses script bindings */
-  import { onMount } from 'svelte';
   import AgentChat from '../components/grading/AgentChat.svelte';
   import SkillRunner from '../components/grading/SkillRunner.svelte';
   import SiteMapper from '../components/grading/SiteMapper.svelte';
-  import { listProviderModels, providerLabel, groupModels } from '../lib/model-list';
-  import { getActiveProvider, listProviderConfigs, type ProviderConfig } from '../lib/db';
 
   let {
     isCollapsed = $bindable(false),
@@ -15,49 +12,9 @@
     tabId = '',
   } = $props();
 
+  // Engine selection now lives inside AgentChat and SkillRunner (each renders its own
+  // ProviderSelector — claude / opencode), so the panel no longer owns a provider picker.
   let activeMode = $state('agent');  // 'agent' | 'discovery' | 'skills'
-  // Providers the user actually configured/logged into (Settings → Providers). The picker
-  // reflects these instead of a hardcoded list, defaulting to the active one.
-  let providers = $state<ProviderConfig[]>([]);
-  let activeProvider = $state('');
-  let activeModel = $state('');
-  /** Dropdown options for the model field — live from Ollama, static for cloud. */
-  let modelOptions = $state<string[]>([]);
-  // Always include the selected model, so a configured model not in the fetched list still shows.
-  const modelChoices = $derived(
-    activeModel && !modelOptions.includes(activeModel) ? [activeModel, ...modelOptions] : modelOptions,
-  );
-  const modelGroups = $derived(groupModels(modelChoices));
-
-  onMount(async () => {
-    try {
-      providers = await listProviderConfigs();
-      const active = (await getActiveProvider()) ?? providers[0] ?? null;
-      if (active) {
-        activeProvider = active.id;
-        activeModel = active.model ?? '';
-      }
-    } catch {
-      providers = [];
-    }
-  });
-
-  // Reload the model list when the provider changes. Ollama is fetched live (may be offline →
-  // empty list); the field stays free-text so a manual model name still works.
-  let lastProvider = '';
-  $effect(() => {
-    const id = activeProvider;
-    if (!id || id === lastProvider) return;
-    lastProvider = id;
-    const cfg = providers.find((p) => p.id === id);
-    if (cfg?.model && !activeModel) activeModel = cfg.model;
-    listProviderModels(id, { url: cfg?.api_url, apiKey: cfg?.api_key })
-      .then((m) => {
-        modelOptions = m;
-        if (!activeModel && m.length > 0) activeModel = m[0];
-      })
-      .catch(() => { modelOptions = []; });
-  });
 
   // Resize logic
   let isResizing = $state(false);
@@ -177,38 +134,11 @@
   </div>
   
   {#if !isCollapsed}
-    <div class="provider-row">
-      {#if providers.length === 0}
-        <span class="provider-empty">No AI provider configured — add one in Settings → Providers.</span>
-      {:else}
-        <select bind:value={activeProvider}>
-          {#each providers as p}
-            <option value={p.id}>{providerLabel(p.id)}{p.is_active ? ' ✓' : ''}</option>
-          {/each}
-        </select>
-        <select bind:value={activeModel} disabled={modelChoices.length === 0}>
-          {#if modelChoices.length === 0}
-            <option value="" disabled selected>No models</option>
-          {:else}
-            {#each modelGroups as g}
-              {#if g.label}
-                <optgroup label={g.label}>
-                  {#each g.models as m}<option value={m}>{m}</option>{/each}
-                </optgroup>
-              {:else}
-                {#each g.models as m}<option value={m}>{m}</option>{/each}
-              {/if}
-            {/each}
-          {/if}
-        </select>
-      {/if}
-    </div>
-    
     <div class="panel-content">
       {#if activeMode === 'agent'}
         <AgentChat />
       {:else if activeMode === 'skills'}
-        <SkillRunner provider={activeProvider} model={activeModel} />
+        <SkillRunner />
       {:else}
         <SiteMapper {pageUrl} />
       {/if}
@@ -296,19 +226,6 @@
   .action-panel.collapsed .mode-icon { font-size: 1.2rem; }
   .mode-tab:hover { background-color: var(--bg-hover); color: var(--text-primary); }
   .mode-tab.active { background-color: var(--bg-active); color: var(--color-primary); font-weight: 600; }
-
-  .provider-row {
-    display: flex; gap: var(--spacing-2); padding: var(--spacing-4);
-    border-bottom: 1px solid var(--border-color);
-  }
-  .provider-row select {
-    flex: 1; padding: var(--spacing-2);
-    background: var(--bg-input); border: 1px solid var(--border-color);
-    color: var(--text-primary); border-radius: var(--radius-sm);
-  }
-  .provider-empty {
-    font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;
-  }
 
   .panel-content {
     flex: 1; overflow-y: auto;

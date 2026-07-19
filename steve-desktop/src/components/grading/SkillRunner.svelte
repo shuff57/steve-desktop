@@ -9,8 +9,11 @@
   import { skillToWorkflow } from '../../lib/workflow-skill';
   import { replayLive } from '../../lib/replay-live';
   import { connectCDP, isConnected } from '../../lib/cdp-actions';
+  import ProviderSelector from './ProviderSelector.svelte';
 
-  let { provider = '', model = '' } = $props<{ provider?: string; model?: string }>();
+  // Owns its own engine selection (claude / opencode), same picker as the Agent tab.
+  let provider = $state('');
+  let model = $state('');
 
   let skills = $state<Skill[]>([]);
   let loading = $state(true);
@@ -59,6 +62,8 @@
 </script>
 
 <div class="skill-runner">
+  <ProviderSelector bind:provider bind:model disabled={runningId !== null} />
+
   <div class="runner-head">
     <span class="hdr">Replayable skills</span>
     <button class="refresh" onclick={load} title="Reload skills">↻</button>

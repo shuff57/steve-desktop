@@ -31,7 +31,7 @@
   const PROVIDERS = [
     {
       id: 'opencode',
-      label: 'OpenCode (Ollama Cloud)',
+      label: 'OpenCode',
       freeform: true,
       models: ['kimi-k2.6:cloud', 'glm-5.1:cloud', 'qwen3-coder-next:cloud', 'deepseek-v4-pro:cloud', 'minimax-m2.7:cloud'],
     },

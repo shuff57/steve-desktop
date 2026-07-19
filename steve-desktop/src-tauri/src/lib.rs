@@ -1282,6 +1282,7 @@ async fn run_agent_cli(
     resume: bool,
     model: Option<String>,
     system_prompt: Option<String>,
+    bypass_permissions: bool,
 ) -> Result<String, String> {
     let bin = resolve_on_path(&engine).ok_or_else(|| {
         format!(
@@ -1295,7 +1296,17 @@ async fn run_agent_cli(
         "claude" => {
             args.push("-p".into());
             args.extend(["--output-format".into(), "json".into()]);
-            args.extend(["--allowed-tools".into(), String::new()]);
+            // Default: NO tools — the CLI is a pure reasoning engine that emits one JSON
+            // action, and the TS loop performs every browser action. `--disallowed-tools "*"`
+            // is what actually sandboxes it: an empty `--allowed-tools ""` is a no-op (the
+            // spawned CLI still inherits the user's global settings and can run Bash), verified
+            // live. Bypass mode instead grants the CLI its own tools and auto-approves them, so
+            // it can act autonomously on the machine.
+            if bypass_permissions {
+                args.push("--dangerously-skip-permissions".into());
+            } else {
+                args.extend(["--disallowed-tools".into(), "*".into()]);
+            }
             args.push("--strict-mcp-config".into());
             if resume {
                 args.extend(["--resume".into(), session_id.clone()]);
