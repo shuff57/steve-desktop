@@ -1,12 +1,8 @@
 <script lang="ts">
   /**
-   * ProviderSelector - Compact inline provider + model dropdowns, driven by the providers the
-   * user actually configured/logged into (Settings → Providers). Defaults to the active one;
-   * model options come live from Ollama or a known cloud list (model-list.ts).
+   * ProviderSelector - Compact inline provider + model dropdowns.
+   * Static list for STEVE.
    */
-  import { onMount } from 'svelte';
-  import { getActiveProvider, listProviderConfigs, type ProviderConfig } from '../../lib/db';
-  import { listProviderModels, providerLabel, groupModels } from '../../lib/model-list';
 
   interface Props {
     provider?: string;
@@ -24,55 +20,67 @@
     onModelChange,
   }: Props = $props();
 
-  let providers: ProviderConfig[] = $state([]);
+  // ── Static Providers & Models ──────────────────────────────────────
+
+  // Each entry is a CLI engine, not an HTTP provider: anthropic runs through the claude
+  // CLI, opencode fronts ollama.com cloud models. Model ids feed the CLI's --model/-m
+  // flag, so a stale id is not a cosmetic problem: the CLI exits with "model may not
+  // exist or you may not have access". Claude ids were verified against the installed
+  // CLI; opencode models are free-form (typed bare, `ollama/` is prefixed on send) with
+  // the datalist offering known ollama.com cloud ids.
+  const PROVIDERS = [
+    {
+      id: 'opencode',
+      label: 'OpenCode (Ollama Cloud)',
+      freeform: true,
+      models: ['kimi-k2.6:cloud', 'glm-5.1:cloud', 'qwen3-coder-next:cloud', 'deepseek-v4-pro:cloud', 'minimax-m2.7:cloud'],
+    },
+    {
+      id: 'anthropic',
+      label: 'Claude CLI',
+      freeform: false,
+      models: ['claude-opus-4-8', 'claude-sonnet-5', 'claude-haiku-4-5'],
+    },
+  ];
+
+  // ── Reactive state ──────────────────────────────────────────────────
+
   let models: string[] = $state([]);
+  let freeform = $state(false);
 
-  // Model choices always include the currently-selected model, so a configured model that
-  // isn't in the fetched/static list still shows as selected.
-  const modelChoices = $derived(
-    model && !models.includes(model) ? [model, ...models] : models,
-  );
-  const modelGroups = $derived(groupModels(modelChoices));
+  // ── Lifecycle ───────────────────────────────────────────────────────
 
-  onMount(async () => {
-    try {
-      providers = await listProviderConfigs();
-      if (!provider) {
-        const active = (await getActiveProvider()) ?? providers[0] ?? null;
-        if (active) {
-          provider = active.id;
-          if (!model && active.model) model = active.model;
-        }
-      }
-    } catch {
-      providers = [];
+  $effect(() => {
+    // Coerce unknown ids too: older sessions stored retired ids (ollama, openai, ...).
+    if (!provider || !PROVIDERS.some((x) => x.id === provider)) {
+      provider = PROVIDERS[0].id;
     }
   });
 
   let prevProvider = '';
   $effect(() => {
     const p = provider;
-    if (!p || p === prevProvider) return;
-    prevProvider = p;
-    const cfg = providers.find((x) => x.id === p);
-    if (cfg?.model && !model) model = cfg.model;
-    listProviderModels(p, { url: cfg?.api_url, apiKey: cfg?.api_key })
-      .then((m) => {
-        models = m;
-        if (!model && m.length > 0) model = m[0];
-      })
-      .catch(() => { models = []; });
+    if (p && p !== prevProvider) {
+      prevProvider = p;
+      const found = PROVIDERS.find((x) => x.id === p);
+      models = found ? found.models : [];
+      freeform = found?.freeform ?? false;
+      if (!model || (!freeform && !models.includes(model))) {
+        model = models[0] || '';
+      }
+    }
   });
+
+  // ── Event handlers ────────────────────────────────────────────────
 
   function handleProviderChange(e: Event) {
     const value = (e.target as HTMLSelectElement).value;
     provider = value;
-    model = ''; // let the effect repopulate from the new provider's config/list
     onProviderChange?.(value);
   }
 
   function handleModelChange(e: Event) {
-    const value = (e.target as HTMLSelectElement).value;
+    const value = (e.target as HTMLSelectElement | HTMLInputElement).value;
     model = value;
     onModelChange?.(value);
   }
@@ -80,37 +88,44 @@
 
 <section class="provider-selector">
   <div class="selector-row">
-    {#if providers.length === 0}
-      <span class="provider-empty">No AI provider configured — add one in Settings → Providers.</span>
-    {:else}
-      <select
-        class="provider-select"
-        value={provider}
-        onchange={handleProviderChange}
-        disabled={disabled}
-      >
-        {#each providers as p}
-          <option value={p.id}>{providerLabel(p.id)}{p.is_active ? ' ✓' : ''}</option>
-        {/each}
-      </select>
+    <select
+      class="provider-select"
+      value={provider}
+      onchange={handleProviderChange}
+      disabled={disabled}
+    >
+      {#each PROVIDERS as p}
+        <option value={p.id}>{p.label}</option>
+      {/each}
+    </select>
 
+    {#if freeform}
+      <input
+        class="model-select"
+        type="text"
+        list="ollama-cloud-models"
+        value={model}
+        oninput={handleModelChange}
+        placeholder="e.g. kimi-k2.6:cloud"
+        disabled={disabled}
+      />
+      <datalist id="ollama-cloud-models">
+        {#each models as m}
+          <option value={m}></option>
+        {/each}
+      </datalist>
+    {:else}
       <select
         class="model-select"
         value={model}
         onchange={handleModelChange}
-        disabled={disabled || modelChoices.length === 0}
+        disabled={disabled || models.length === 0}
       >
-        {#if modelChoices.length === 0}
+        {#if models.length === 0}
           <option value="" disabled selected>No models available</option>
         {:else}
-          {#each modelGroups as g}
-            {#if g.label}
-              <optgroup label={g.label}>
-                {#each g.models as m}<option value={m}>{m}</option>{/each}
-              </optgroup>
-            {:else}
-              {#each g.models as m}<option value={m}>{m}</option>{/each}
-            {/if}
+          {#each models as m}
+            <option value={m}>{m}</option>
           {/each}
         {/if}
       </select>
@@ -153,11 +168,5 @@
   .model-select:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-
-  .provider-empty {
-    font-size: 0.8rem;
-    color: var(--color-text-secondary, var(--text-secondary));
-    line-height: 1.4;
   }
 </style>

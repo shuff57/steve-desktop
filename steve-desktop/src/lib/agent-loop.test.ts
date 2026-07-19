@@ -1,6 +1,8 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import type { AgentState, BrowserAction } from './agent-types';
+import type { AgentState, BrowserAction, InteractiveElement } from './agent-types';
 
+// vi.mock factories are hoisted above the module body, so the mocks they close over have
+// to be hoisted too — plain top-level consts throw "cannot access before initialization".
 const {
   mockCaptureInteractiveDom,
   mockFormatDomForPrompt,
@@ -21,7 +23,10 @@ const {
   mockGetEmbeddedUrl: vi.fn(),
 }));
 
-vi.mock('./agent-dom', () => ({
+// Only stub what reaches the browser. buildRefActionScript and findFuzzyMatch stay real
+// so the ref plumbing is exercised end to end rather than asserted against a stub.
+vi.mock('./agent-dom', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('./agent-dom')>()),
   captureInteractiveDom: mockCaptureInteractiveDom,
   formatDomForPrompt: mockFormatDomForPrompt,
 }));
@@ -36,6 +41,7 @@ vi.mock('./browser', () => ({
 
 vi.mock('./agent-api', () => ({
   sendAgentRequest: mockSendAgentRequest,
+  forgetAgentSession: vi.fn(),
 }));
 
 vi.mock('./cdp-client', () => ({ cdp: {} }));
@@ -46,20 +52,74 @@ vi.mock('./merged-tree', () => ({ captureMergedTree: mockCaptureMergedTree }));
 import { createAgentController } from './agent-loop';
 import type { SnapshotResult } from './dom-snapshot-types';
 
+function element(overrides: Partial<InteractiveElement> = {}): InteractiveElement {
+  return { ref: 'e1', tag: 'label', text: 'A. Report it', disabled: false, visible: true, ...overrides };
+}
+
+/**
+ * The scripts evalScript was asked to run, action-first. Each turn also captures page
+ * text through evalScript, so indexing the raw call list by position is not stable.
+ */
+function actionScripts(): string[] {
+  return mockEvalScript.mock.calls
+    .map((call) => call[0] as string)
+    .filter((script) => script.includes('__steveRefs') || script.includes('querySelector'));
+}
+
+/** Runs one action, then lets the loop finish. */
+async function runOnce(action: { action: string; params: Record<string, unknown> }) {
+  const controller = createAgentController();
+  const executed: BrowserAction[] = [];
+  const results: Array<{ action: BrowserAction; result: { success: boolean; error?: string } }> = [];
+  const errors: string[] = [];
+
+  controller.on('executing', ({ action: a }) => executed.push(a));
+  controller.on('result', (payload) => results.push(payload as (typeof results)[number]));
+  controller.on('error', ({ message }) => errors.push(message));
+
+  mockSendAgentRequest
+    .mockResolvedValueOnce({ ...action, reasoning: 'step' })
+    .mockResolvedValueOnce({ action: 'done', params: { success: true, message: 'done' }, reasoning: 'complete' });
+
+  await controller.start({ mode: 'auto', initialMessage: 'go' });
+  return { executed, results, errors };
+}
+
 describe('agent-loop', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    // reset, not clear: tests that end the loop early leave unconsumed
+    // mockResolvedValueOnce entries, and clearAllMocks does not drain that queue.
+    vi.resetAllMocks();
     mockCaptureInteractiveDom.mockResolvedValue([]);
     mockFormatDomForPrompt.mockReturnValue('No interactive elements found.');
     mockCaptureWebviewScreenshot.mockResolvedValue(undefined);
     mockIsConnected.mockReturnValue(false); // default: injected-JS fallback path
-    mockEvalScript.mockResolvedValue('true');
+    // Ref-registry scripts answer 'ok'; the selector path answers 'true'. Both target
+    // modes are live post-merge, so the default stub dispatches instead of picking one.
+    mockEvalScript.mockImplementation(async (script: string) =>
+      typeof script === 'string' && script.includes('__steveRefs') ? 'ok' : 'true',
+    );
     mockGetEmbeddedUrl.mockResolvedValue('');
   });
 
   it('starts in idle state', () => {
+    expect(createAgentController().getState()).toBe('idle');
+  });
+
+  it('treats action "none" as a successful done, using reasoning as the message', async () => {
     const controller = createAgentController();
-    expect(controller.getState()).toBe('idle');
+    const done: string[] = [];
+    const errors: string[] = [];
+    controller.on('done', ({ message }) => done.push(message));
+    controller.on('error', ({ message }) => errors.push(message));
+
+    mockSendAgentRequest.mockResolvedValue({ action: 'none', params: {}, reasoning: 'task is complete' });
+
+    await controller.start({ mode: 'auto', initialMessage: 'finish task' });
+
+    expect(errors).toEqual([]);
+    expect(done).toEqual(['task is complete']);
+    expect(controller.getState()).toBe('done');
   });
 
   it('moves to thinking when started', async () => {
@@ -78,28 +138,63 @@ describe('agent-loop', () => {
     expect(states).toContain('thinking');
   });
 
-  it('executes browser action in auto mode', async () => {
-    const controller = createAgentController();
-    const executed: BrowserAction[] = [];
+  it('executes a ref-targeted click through the registry', async () => {
+    const { executed, results } = await runOnce({ action: 'click', params: { ref: 'e6' } });
 
-    controller.on('executing', ({ action }) => executed.push(action));
+    expect(executed[0]).toEqual({ type: 'click', ref: 'e6' });
+    expect(results[0].result.success).toBe(true);
 
-    mockSendAgentRequest
-      .mockResolvedValueOnce({
-        action: 'click',
-        params: { selector: '#start' },
-        reasoning: 'click start button',
-      })
-      .mockResolvedValueOnce({
-        action: 'done',
-        params: { success: true, message: 'done' },
-        reasoning: 'task complete',
-      });
+    // Resolves via the page-side registry, never querySelector.
+    const script = actionScripts()[0];
+    expect(script).toContain('__steveRefs');
+    expect(script).toContain('[6]');
+    expect(script).not.toContain('querySelector');
+  });
 
-    await controller.start({ mode: 'auto', initialMessage: 'start video' });
+  it('surfaces a stale ref and does not fuzzy-retry it', async () => {
+    mockEvalScript.mockResolvedValue('stale');
+    mockCaptureInteractiveDom.mockResolvedValue([element({ ref: 'e9' })]);
 
-    expect(executed).toHaveLength(1);
+    const { results } = await runOnce({ action: 'click', params: { ref: 'e6' } });
+
+    expect(results[0].result.success).toBe(false);
+    expect(results[0].result.error).toMatch(/stale/i);
+    // A fuzzy retry would issue a second action script; a stale ref must just report and
+    // let the next turn re-capture. (Capture count can't tell: the loop captures per turn.)
+    expect(actionScripts()).toHaveLength(1);
+  });
+
+  it('reports a missing registry rather than clicking blindly', async () => {
+    mockEvalScript.mockResolvedValue('norefs');
+
+    const { results } = await runOnce({ action: 'click', params: { ref: 'e6' } });
+
+    expect(results[0].result.success).toBe(false);
+    expect(results[0].result.error).toMatch(/registry/i);
+  });
+
+  it('rejects a click that carries neither ref nor selector', async () => {
+    const { executed, errors } = await runOnce({ action: 'click', params: {} });
+
+    expect(executed).toHaveLength(0);
+    expect(errors[0]).toMatch(/invalid agent action/i);
+  });
+
+  it('still honours a selector for stored profile replay', async () => {
+    mockEvalScript.mockResolvedValue('true');
+
+    const { executed } = await runOnce({ action: 'click', params: { selector: '#start' } });
+
     expect(executed[0]).toEqual({ type: 'click', selector: '#start' });
+    expect(actionScripts()[0]).toContain('querySelector');
+  });
+
+  it('fills by ref', async () => {
+    const { executed, results } = await runOnce({ action: 'fill', params: { ref: 'e3', value: 'hello' } });
+
+    expect(executed[0]).toEqual({ type: 'fill', ref: 'e3', value: 'hello' });
+    expect(results[0].result.success).toBe(true);
+    expect(actionScripts()[0]).toContain('__steveRefs');
   });
 
   it('redacts PII out of the merged-tree DOM and rehydrates a token locally before typing', async () => {
@@ -135,10 +230,11 @@ describe('agent-loop', () => {
   });
 
   it('read→paste moves a value on-device without ever exposing it to the model', async () => {
-    // read returns the value over evalScript (on-device); paste writes it back.
-    mockEvalScript
-      .mockResolvedValueOnce(JSON.stringify({ f: true, v: 'parent@example.com' })) // read
-      .mockResolvedValueOnce('true'); // paste
+    // read returns the value over evalScript (on-device); paste writes it back. Keyed by
+    // script content, not call order: each turn also captures page text through evalScript.
+    mockEvalScript.mockImplementation(async (script: string) =>
+      script.includes('#lblPEM') ? JSON.stringify({ f: true, v: 'parent@example.com' }) : 'true',
+    );
 
     const controller = createAgentController();
     const results: Array<{ ok: boolean; data?: unknown }> = [];
@@ -155,7 +251,7 @@ describe('agent-loop', () => {
     expect(results[0]).toEqual({ ok: true, data: { stored: 'p1', length: 'parent@example.com'.length } });
 
     // paste wrote the real value into the page (on-device evalScript), proving the slot survived.
-    const pasteScript = mockEvalScript.mock.calls[1][0] as string;
+    const pasteScript = actionScripts().find((s) => s.includes('#to'));
     expect(pasteScript).toContain('parent@example.com');
 
     // The email NEVER appears in anything sent to the model across all turns.

@@ -1,9 +1,16 @@
 import { captureWebviewScreenshot, evalScript, getActiveTabId, getEmbeddedUrl, navigateEmbedded } from './browser';
 import { matchCredentialsToUrl, loginFieldSelectors, type SiteCredential } from './autofill';
 import { totpNow } from './totp';
-import { sendAgentRequest } from './agent-api';
+import { forgetAgentSession, sendAgentRequest } from './agent-api';
 import { AGENT_SYSTEM_PROMPT } from './agent-prompt';
-import { captureInteractiveDom, findFuzzyMatch, formatDomForPrompt, fuzzyMatchReason } from './agent-dom';
+import {
+  buildRefActionScript,
+  captureInteractiveDom,
+  capturePageText,
+  findFuzzyMatch,
+  formatDomForPrompt,
+  fuzzyMatchReason,
+} from './agent-dom';
 import { cdp } from './cdp-client';
 import { isConnected } from './cdp-actions';
 import { captureMergedTree } from './merged-tree';
@@ -29,10 +36,10 @@ const DRY_RUN_NOTE =
   'checked, but know that destructive actions (send, submit, delete) will be VERIFIED ' +
   '(the target is located) and NOT actually performed. Do not treat a blocked send as failure.';
 
-type AgentEventPayloads = {
+export type AgentEventPayloads = {
   state: AgentState;
   thinking: undefined;
-  proposing: { action: BrowserAction };
+  proposing: { action: BrowserAction; reasoning: string };
   executing: { action: BrowserAction };
   result: { action: BrowserAction; result: ActionResult };
   needsApproval: { site?: string };
@@ -96,13 +103,23 @@ export interface AgentController {
   getState(): AgentState;
 }
 
+function toTarget(params: Record<string, unknown>): { ref?: string; selector?: string } | null {
+  const ref = typeof params.ref === 'string' && params.ref ? params.ref : undefined;
+  const selector = typeof params.selector === 'string' && params.selector ? params.selector : undefined;
+  if (!ref && !selector) return null;
+  return { ...(ref ? { ref } : {}), ...(selector ? { selector } : {}) };
+}
+
 function toBrowserAction(action: string, params: Record<string, unknown>): BrowserAction | null {
-  if (action === 'click' && typeof params.selector === 'string') {
-    return { type: 'click', selector: params.selector };
+  if (action === 'click') {
+    const target = toTarget(params);
+    return target ? { type: 'click', ...target } : null;
   }
-  if ((action === 'fill' || action === 'type') && typeof params.selector === 'string') {
+  if (action === 'fill' || action === 'type') {
+    const target = toTarget(params);
+    if (!target) return null;
     const value = typeof params.value === 'string' ? params.value : typeof params.text === 'string' ? params.text : '';
-    return { type: 'fill', selector: params.selector, value };
+    return { type: 'fill', ...target, value };
   }
   if (action === 'read' && typeof params.selector === 'string' && typeof params.into === 'string') {
     return { type: 'read', selector: params.selector, into: params.into };
@@ -148,9 +165,32 @@ function toBrowserAction(action: string, params: Record<string, unknown>): Brows
 
 /** Restore slot-redaction tokens to real values in selector/value, in place. */
 function rehydrateAction(action: BrowserAction, rehydrate: (t: string) => string): void {
-  if ('selector' in action) action.selector = rehydrate(action.selector);
+  if ('selector' in action && action.selector) action.selector = rehydrate(action.selector);
   if (action.type === 'fill') action.value = rehydrate(action.value);
   if (action.type === 'iframe_interact') rehydrateAction(action.action, rehydrate);
+}
+
+const REF_ERRORS: Record<string, string> = {
+  stale: 'Element is stale — the page re-rendered. Re-read the DOM and use a fresh ref.',
+  norefs: 'No element registry on the page. Re-read the DOM to get fresh refs.',
+};
+
+async function runRefAction(ref: string, op: string): Promise<ActionResult> {
+  const status = await evalScript(buildRefActionScript(ref, op));
+  const normalized = status.replace(/^"|"$/g, '');
+  if (normalized === 'ok') return { success: true };
+  return { success: false, error: REF_ERRORS[normalized] ?? `Ref action failed (${normalized}): ${ref}` };
+}
+
+/**
+ * Read a ref'd element's label WITHOUT acting on it — the dry-run probe for the ref path.
+ * `op` is injected ahead of `return 'ok'`, so returning from inside it short-circuits.
+ * Resolves to null when the ref is stale/missing (caller treats that as unresolved).
+ */
+async function probeRefLabel(ref: string): Promise<string | null> {
+  const op = `var t=(el.innerText||el.getAttribute('aria-label')||'').trim();return 'T:'+t;`;
+  const raw = (await evalScript(buildRefActionScript(ref, op))).replace(/^"|"$/g, '');
+  return raw.startsWith('T:') ? raw.slice(2) : null;
 }
 
 async function executeAction(
@@ -220,9 +260,21 @@ async function executeAction(
     }
 
     if (action.type === 'click') {
+      // Ref path (preferred): resolved against the page-side registry from the last capture.
+      if (action.ref) {
+        // Dry run: probe the ref for its label and block a destructive click without firing it.
+        if (dryRun) {
+          const label = await probeRefLabel(action.ref);
+          if (label !== null && DESTRUCTIVE_TARGET.test(label)) {
+            return { success: true, data: { dryRun: true, blocked: true, would: 'click', resolved: true, target: label.slice(0, 40) } };
+          }
+        }
+        return await runRefAction(action.ref, 'el.click();');
+      }
       // selectorToElementExpr resolves css, role=name, and xpath= so role-name anchors
       // from the merged AX tree are clickable (raw querySelector can't run role=…).
-      const el = selectorToElementExpr(action.selector);
+      const selector = action.selector ?? '';
+      const el = selectorToElementExpr(selector);
       // Dry run: a destructive click is verified (located + labelled) but NOT performed.
       if (dryRun) {
         const probe = await evalScript(
@@ -230,21 +282,24 @@ async function executeAction(
         );
         let info: { f: boolean; t?: string } = { f: false };
         try { info = JSON.parse(typeof probe === 'string' ? probe : String(probe)); } catch { /* keep default */ }
-        const destructive = DESTRUCTIVE_TARGET.test(action.selector) || (!!info.t && DESTRUCTIVE_TARGET.test(info.t));
+        const destructive = DESTRUCTIVE_TARGET.test(selector) || (!!info.t && DESTRUCTIVE_TARGET.test(info.t));
         if (destructive) {
-          return { success: true, data: { dryRun: true, blocked: true, would: 'click', resolved: info.f, target: (info.t ?? action.selector).slice(0, 40) } };
+          return { success: true, data: { dryRun: true, blocked: true, would: 'click', resolved: info.f, target: (info.t ?? selector).slice(0, 40) } };
         }
       }
       const clicked = await evalScript(`(function(){var el=${el};if(!el)return false;el.click();return true;})()`);
-      if (clicked !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
+      if (clicked !== 'true') return { success: false, error: `Element not found: ${selector}` };
       return { success: true };
     }
 
     if (action.type === 'fill') {
-      const el = selectorToElementExpr(action.selector);
+      const write = `if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));}else{el.textContent=${JSON.stringify(action.value)};}`;
+      if (action.ref) return await runRefAction(action.ref, `el.focus();${write}`);
+      const fillSelector = action.selector ?? '';
+      const el = selectorToElementExpr(fillSelector);
       const script = `(function(){var el=${el};if(!el)return false;el.focus();if('value'in el){el.value=${JSON.stringify(action.value)};el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}el.textContent=${JSON.stringify(action.value)};return true;})()`;
       const wrote = await evalScript(script);
-      if (wrote !== 'true') return { success: false, error: `Element not found: ${action.selector}` };
+      if (wrote !== 'true') return { success: false, error: `Element not found: ${fillSelector}` };
       return { success: true };
     }
 
@@ -381,6 +436,9 @@ export function createAgentController(): AgentController {
         { role: 'system', content: systemContent },
         { role: 'user', content: config.initialMessage },
       ];
+      // One CLI session per run: turn 1 opens it, the rest resume it so the model keeps
+      // the conversation and its prompt cache stays warm.
+      const sessionId = crypto.randomUUID();
 
       let steps = 0;
       let consecutiveFailures = 0;
@@ -410,13 +468,16 @@ export function createAgentController(): AgentController {
             // Phase 1 representation: DOM⨝AX merged tree, slot-redacted (Phase 0) before it
             // can reach the model. It carries computed AX names, so deny-by-default slot
             // redaction is mandatory here — the value dictionary alone would leak them.
+            // ponytail: this path targets by role=/xpath selector, not ref — the page-side
+            // ref registry is only built by captureInteractiveDom below.
             const { snapshot } = await captureMergedTree(cdp);
             const red = redactTree(snapshot);
             dom = red.redactedText;
             rehydrate = red.rehydrate;
           } else {
             const elements = await captureInteractiveDom();
-            dom = formatDomForPrompt(elements);
+            const pageText = await capturePageText().catch(() => '');
+            dom = formatDomForPrompt(elements, pageText);
           }
         } catch {
           // CDP capture failed mid-loop — fall back to injected-JS capture so the app
@@ -441,6 +502,7 @@ export function createAgentController(): AgentController {
             screenshot,
             provider: config.provider,
             model: config.model,
+            sessionId,
           }, config.redactor);
         } catch (error: unknown) {
           setState('error');
@@ -456,10 +518,15 @@ export function createAgentController(): AgentController {
           break;
         }
 
-        if (response.action === 'done') {
+        // Models signal completion as "none" often enough (seen live from sonnet-5,
+        // meaning "no further action needed") that rejecting it just ends good runs
+        // with a spurious error.
+        if (response.action === 'done' || response.action === 'none') {
           const success = response.params.success !== false;
           setState(success ? 'done' : 'error');
-          emit('done', { message: (response.params.message as string | undefined) ?? 'Task completed' });
+          emit('done', {
+            message: (response.params.message as string | undefined) ?? response.reasoning ?? 'Task completed',
+          });
           break;
         }
 
@@ -485,7 +552,7 @@ export function createAgentController(): AgentController {
         }
 
         setState('proposing');
-        emit('proposing', { action });
+        emit('proposing', { action, reasoning: response.reasoning ?? '' });
 
         if (config.mode === 'review') {
           const decision = await waitForDecision();
@@ -502,20 +569,22 @@ export function createAgentController(): AgentController {
 
         let result = await executeAction(action, register, dryRun, config.credentials ?? []);
 
-        if (!result.success && (action.type === 'click' || action.type === 'fill')) {
+        // Only the selector path needs fuzzy recovery. A failed ref means stale/missing
+        // registry, and the next loop iteration re-captures and re-refs anyway.
+        if (!result.success && (action.type === 'click' || action.type === 'fill') && !action.ref) {
           try {
             const elements = await captureInteractiveDom();
-            const failedSelector = action.selector;
+            const failedSelector = action.selector ?? '';
             const match = findFuzzyMatch(failedSelector, elements);
             if (match) {
               const retryAction: BrowserAction =
                 action.type === 'click'
-                  ? { type: 'click', selector: match.selector }
-                  : { type: 'fill', selector: match.selector, value: action.value };
+                  ? { type: 'click', ref: match.ref }
+                  : { type: 'fill', ref: match.ref, value: action.value };
               result = await executeAction(retryAction, register, dryRun, config.credentials ?? []);
               if (result.success) {
                 const reason = fuzzyMatchReason(failedSelector, match);
-                result = { success: true, data: { matchedSelector: match.selector, reason } };
+                result = { success: true, data: { matchedRef: match.ref, reason } };
               }
             }
           } catch {
@@ -565,6 +634,7 @@ export function createAgentController(): AgentController {
         }
       }
 
+      forgetAgentSession(sessionId);
       running = false;
       decisionResolver = null;
       register.clear(); // wipe any transferred PII when the run ends

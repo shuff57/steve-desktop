@@ -7,11 +7,11 @@ export interface ToolDefinition {
 }
 
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
-  { name: 'click', description: 'Click an element on the page', params: { selector: 'CSS selector to click' } },
+  { name: 'click', description: 'Click an element on the page', params: { ref: 'Element ref from the DOM snapshot (e.g. e12)' } },
   {
     name: 'fill',
     description: 'Fill an input, textarea, or editable field with text',
-    params: { selector: 'CSS selector to fill', value: 'Text value to enter' },
+    params: { ref: 'Element ref from the DOM snapshot (e.g. e12)', value: 'Text value to enter' },
   },
   {
     name: 'read',
@@ -83,8 +83,8 @@ Allowed action names:
 - done
 
 Action parameter shapes:
-- click: {"selector":"..."}
-- fill: {"selector":"...","value":"..."}
+- click: {"ref":"e12"} — or {"selector":"..."} when the snapshot has no refs
+- fill: {"ref":"e12","value":"..."} — or {"selector":"...","value":"..."} when the snapshot has no refs
 - read: {"selector":"...","into":"p1"}
 - paste: {"selector":"...","from":"p1"}
 - login: {} or {"site":"..."}
@@ -95,17 +95,26 @@ Action parameter shapes:
 - iframe_interact: {"frameSelector":"...","action":{"type":"click","selector":"..."}}
 - done: {"success":true,"message":"..."}
 
+The DOM snapshot lists elements as: [e12] button "Next"
+The bracketed value is that element's ref. Pass it back verbatim as "ref".
+
 Rules:
 1. Always output valid JSON only, no markdown.
-2. Choose selectors grounded in the provided DOM snapshot.
-3. If uncertain, gather context first via wait, scroll, or a precise text response.
-4. Handle iframe content explicitly with iframe_interact.
-5. Avoid repeating the same failed selector; adapt based on error feedback.
-6. Use done when the user goal is complete or blocked.
-7. To move sensitive data (emails, IDs) between pages, use read then paste by slot
+2. Target elements by their ref whenever the snapshot shows bracketed refs. Never invent a
+   ref, and never substitute a CSS selector for one that was offered — many elements on a
+   page share the same selector, so a selector can silently act on the wrong one.
+3. Some snapshots have no refs and list elements by role and name instead. Only then,
+   target click/fill with the "selector" shown in the snapshot.
+4. Refs are only valid for the snapshot they came from. If an action reports the element
+   is stale, re-read the snapshot and use the new ref; do not retry the old one.
+5. If uncertain, gather context first via wait, scroll, or a precise text response.
+6. Handle iframe content explicitly with iframe_interact.
+7. Avoid repeating the same failed target; adapt based on error feedback.
+8. Use done when the user goal is complete or blocked.
+9. To move sensitive data (emails, IDs) between pages, use read then paste by slot
    name — never ask to see the value or put it in a fill. read returns only a length.
-8. If a page shows a login form, use the login action — never type a password into a
-   fill. Credentials are filled on-device and never shown to you.`;
+10. If a page shows a login form, use the login action — never type a password into a
+    fill. Credentials are filled on-device and never shown to you.`;
 
 export function parseAgentResponse(rawText: string): AgentApiResponse {
   let text = rawText.trim();
@@ -126,7 +135,11 @@ export function parseAgentResponse(rawText: string): AgentApiResponse {
     try {
       const parsed = JSON.parse(candidate);
       if (parsed.action && typeof parsed.action === 'string') {
-        return parsed as AgentActionResponse;
+        // Models sometimes flatten params to the top level ({"action":"done","success":true}
+        // — the prompt's own done example reads that way). Fold strays into params so the
+        // loop never dereferences a missing params object.
+        const { action, params, reasoning, ...rest } = parsed as AgentActionResponse & Record<string, unknown>;
+        return { action, reasoning, params: { ...rest, ...(params ?? {}) } };
       }
       if (parsed.text && typeof parsed.text === 'string') {
         return parsed as AgentTextResponse;

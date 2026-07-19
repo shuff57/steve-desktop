@@ -23,7 +23,7 @@ vi.mock('./browser', () => ({
   getEmbeddedUrl: vi.fn(async () => ''),
   navigateEmbedded: vi.fn(async () => undefined),
 }));
-vi.mock('./agent-api', () => ({ sendAgentRequest: mockSendAgentRequest }));
+vi.mock('./agent-api', () => ({ sendAgentRequest: mockSendAgentRequest, forgetAgentSession: vi.fn() }));
 vi.mock('./cdp-client', () => ({ cdp: {} }));
 vi.mock('./cdp-actions', () => ({ isConnected: mockIsConnected }));
 vi.mock('./merged-tree', () => ({ captureMergedTree: vi.fn() }));

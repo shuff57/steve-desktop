@@ -1,11 +1,17 @@
 import type { SnapshotResult } from './dom-snapshot-types';
 import type { SiteProfile } from './types/site-profile';
 
+// click/fill carry either a ref (preferred — resolved against the page-side registry
+// built by the last capture) or a selector. toBrowserAction rejects actions with neither.
+// ponytail: both optional rather than a target union, so stored site-profiles keep
+// replaying by selector. Collapse to a union once profiles are migrated to refs.
 export type BrowserAction =
-  | { type: 'click'; selector: string; description?: string }
-  | { type: 'fill'; selector: string; value: string; description?: string }
+  | { type: 'click'; ref?: string; selector?: string; description?: string }
+  | { type: 'fill'; ref?: string; selector?: string; value: string; description?: string }
   // PII-safe transfer: read a value into an on-device slot, paste it elsewhere by
   // slot name. The value moves device-locally and is NEVER returned to the model.
+  // ponytail: selector-only — the CDP merged-tree path these run under has no ref
+  // registry. Add ref? here if read/paste ever run off a captureInteractiveDom pass.
   | { type: 'read'; selector: string; into: string; description?: string }
   | { type: 'paste'; selector: string; from: string; description?: string }
   // Log in to the current site with saved credentials, filled on-device. The
@@ -56,7 +62,7 @@ export const DEFAULT_AGENT_CONFIG: AgentConfig = {
 };
 
 export interface InteractiveElement {
-  index: number;
+  ref: string;
   tag: string;
   type?: string;
   id?: string;
@@ -67,7 +73,6 @@ export interface InteractiveElement {
   href?: string;
   disabled: boolean;
   visible: boolean;
-  selector: string;
 }
 
 export interface AgentApiRequest {
@@ -78,6 +83,12 @@ export interface AgentApiRequest {
   model?: string;
   snapshot?: SnapshotResult;
   profile?: SiteProfile;
+  /**
+   * Identifies the CLI session for this agent run. The first request opens the session
+   * and later ones resume it, which is what keeps the CLI's prompt cache warm — a fresh
+   * session re-creates ~20k tokens of cache, a resumed one reads it (~10x cheaper).
+   */
+  sessionId?: string;
 }
 
 export interface AgentActionResponse {

@@ -6,6 +6,7 @@
     deleteProviderConfig,
     getOAuthToken,
     saveOAuthToken,
+    deleteOAuthToken,
   } from '../../lib/db';
   import { Command } from '@tauri-apps/plugin-shell';
   import { Activity, Pencil, Trash2, Plus, RefreshCw, Copy } from 'lucide-svelte';
@@ -13,9 +14,7 @@
   import {
     startGitHubDeviceFlow,
     startChatGPTDeviceFlow,
-    startClaudeOAuthFlow,
     startGoogleDeviceFlow,
-    signOut,
   } from '../../lib/oauth';
   import type { DeviceFlowResult } from '../../lib/oauth';
   import { listProviderModels, groupModels } from '../../lib/model-list';
@@ -165,7 +164,7 @@
     try {
       const providerKey = getProviderKey(providerId);
       if (providerKey) {
-        await signOut(providerKey);
+        await deleteOAuthToken(providerKey);
         oauthStatus[providerId] = false;
         fetchedModels[providerId] = [];
       }
@@ -197,13 +196,7 @@
   }
 
   async function saveProvider(config: ProviderConfig) {
-    await saveProviderConfig({
-      id: config.id,
-      api_url: config.api_url,
-      api_key: config.api_key,
-      model: config.model,
-      is_active: config.is_active
-    });
+    await saveProviderConfig(config.id, config.api_url, config.api_key, config.model, config.is_active);
     await loadProviders();
     editingProvider = null;
   }
@@ -253,13 +246,7 @@
   async function addNewProvider() {
     if (!newProviderId) return;
     
-    await saveProviderConfig({
-      id: newProviderId,
-      api_url: newProviderUrl,
-      api_key: newProviderKey,
-      model: newProviderModel,
-      is_active: 1
-    });
+    await saveProviderConfig(newProviderId, newProviderUrl, newProviderKey, newProviderModel, 1);
 
     await loadProviders();
     showAddForm = false;

@@ -112,13 +112,20 @@ describe('browser API', () => {
     expect(invokeMock).toHaveBeenNthCalledWith(3, 'destroy_webview', { tabId: 'tab-6' });
   });
 
-  it('evalScript invokes eval_webview_script', async () => {
+  it('evalScript invokes eval_webview_script against the active tab', async () => {
+    setActiveTabId('tab-active');
     invokeMock.mockResolvedValue('{"ok":true}');
     const result = await evalScript('JSON.stringify({ ok: true })');
     expect(result).toBe('{"ok":true}');
     expect(invokeMock).toHaveBeenCalledWith('eval_webview_script', {
+      tabId: 'tab-active',
       script: 'JSON.stringify({ ok: true })',
     });
+  });
+
+  it('evalScript refuses to run with no active tab', async () => {
+    setActiveTabId('');
+    await expect(evalScript('1+1')).rejects.toThrow('No active browser tab');
   });
 
   it('captureWebviewScreenshot invokes tauri command', async () => {

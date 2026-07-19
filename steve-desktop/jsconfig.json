@@ -16,7 +16,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["vitest/globals", "node"]
   },
-  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte", "src/**/*.ts"]
+  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte", "src/**/*.ts", "*.config.ts"]
 }

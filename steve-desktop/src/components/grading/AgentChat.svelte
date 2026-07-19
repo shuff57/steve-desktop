@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
   import { createAgentController } from '../../lib/agent-loop';
   import type { AgentController } from '../../lib/agent-loop';
-  import type { AgentMode, AgentState } from '../../lib/agent-types';
+  import type { AgentMode, AgentState, BrowserAction } from '../../lib/agent-types';
   import { getSkills, getSiteCredentials, type Skill, type SiteCredential } from '../../lib/db';
   import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
   import ProviderSelector from './ProviderSelector.svelte';
@@ -82,8 +82,15 @@
   // Helpers
   // ============================================================================
 
+  /** Split a BrowserAction into the {action, params} pair the message list renders. */
+  function splitAction(action: BrowserAction): { action: string; params: Record<string, unknown> } {
+    const { type, description, ...params } = action;
+    return { action: type, params: params as Record<string, unknown> };
+  }
+
   /** Extract a short target label from action params for compact badge display. */
   function getBadgeTarget(action: string, params: Record<string, unknown>): string {
+    if (typeof params.ref === 'string' && params.ref) return params.ref;
     if (typeof params.selector === 'string' && params.selector) return params.selector;
     if (typeof params.url === 'string' && params.url) {
       // Trim long URLs
@@ -116,32 +123,40 @@
   // Event Handlers
   // ============================================================================
 
-  /** Create a controller and subscribe the UI to its events (one wiring per controller). */
+  /** Update the trailing action message, which is the one currently in flight. */
+  function patchLastAction(patch: Partial<ActionMessage>) {
+    messages = messages.map((m, i) =>
+      i === messages.length - 1 && m.type === 'action' ? { ...m, ...patch } : m
+    );
+  }
+
+  /**
+   * Create a controller and subscribe the UI to its events (one wiring per controller).
+   * Wiring lives here rather than in onMount because handleReset swaps in a fresh
+   * controller — subscriptions made once at mount would be left on the dead one.
+   */
   function makeController(): AgentController {
     const c = createAgentController();
 
     c.on('thinking', () => { agentState = 'thinking'; });
 
-    c.on('proposing', ({ action }) => {
+    c.on('proposing', ({ action, reasoning }) => {
       agentState = 'proposing';
-      const { type, ...params } = action;
-      messages = [...messages, { type: 'action', action: type, params, reasoning: '', status: 'proposing' }];
-      pendingAction = { action: type, params, reasoning: '' };
+      const { action: name, params } = splitAction(action);
+      messages = [...messages, { type: 'action', action: name, params, reasoning, status: 'proposing' }];
+      // Auto mode never blocks on a decision, so only review mode needs an approval prompt.
+      pendingAction = mode === 'review' ? { action: name, params, reasoning } : null;
       scrollToBottom();
     });
 
     c.on('executing', () => {
       agentState = 'executing';
-      messages = messages.map((m, i) =>
-        i === messages.length - 1 && m.type === 'action' ? { ...m, status: 'executing' as const } : m
-      );
+      patchLastAction({ status: 'executing' });
       pendingAction = null;
     });
 
     c.on('result', ({ result }) => {
-      messages = messages.map((m, i) =>
-        i === messages.length - 1 && m.type === 'action' ? { ...m, status: 'done' as const, result } : m
-      );
+      patchLastAction({ status: 'done', result });
       scrollToBottom();
     });
 
@@ -201,12 +216,18 @@
     agentState = 'thinking';
     scrollToBottom();
 
-    // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
-    await loadContext(); // pick up skills/credentials added since mount
-    const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
-    await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl, credentials });
-
-    agentState = 'idle';
+    try {
+      // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
+      await loadContext(); // pick up skills/credentials added since mount
+      const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
+      await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl, credentials });
+    } catch (error) {
+      errorText = error instanceof Error ? error.message : String(error);
+    } finally {
+      agentState = 'idle';
+      pendingAction = null;
+      scrollToBottom();
+    }
   }
 
   /** Approve the current proposed action. */
