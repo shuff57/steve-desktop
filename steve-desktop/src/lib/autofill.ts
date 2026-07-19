@@ -164,6 +164,14 @@ export function generateAutoFillScript(username: string, password: string, autoS
       return false;
     }
 
+    // Yield to the user: if either field already holds a value — because you typed it,
+    // or the page pre-populated it — do NOT overwrite it. This is what lets you log out
+    // and sign in with a DIFFERENT account without autofill fighting you back to the
+    // saved one. Treat it as done so the retry loop stops too.
+    if (userEl.value || passEl.value) {
+      return true;
+    }
+
     setInputValue(userEl, '${safeUsername}');
     setInputValue(passEl, '${safePassword}');
 

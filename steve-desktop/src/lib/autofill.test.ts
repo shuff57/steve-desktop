@@ -20,6 +20,12 @@ describe('generateAutoFillScript — auto-submit option', () => {
     expect(s).toContain('__steveAutoSubmitted');
     expect(s).toContain('requestSubmit');
   });
+  it('yields to the user: never overwrites an already-filled field (account switch)', () => {
+    // The guard returns before setInputValue when either field already has a value,
+    // so logging out to sign in with a different account is not fought back.
+    const s = generateAutoFillScript('u', 'p');
+    expect(s).toContain('if (userEl.value || passEl.value)');
+  });
 });
 
 describe('loginFieldSelectors — pick the right login fields to capture a password', () => {
