@@ -5,16 +5,16 @@
    * no raw page text / PII would reach the model. DOM-only by design: nothing here is sent
    * anywhere — the model path stays the redacted tree from replay-live.
    */
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { cdp } from '../../lib/cdp-client';
-  import { connectCDP, isConnected, evalScript, pwClick } from '../../lib/cdp-actions';
+  import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
   import { captureMergedTree, mergedToProfile, summarizeMerged, type CaptureStats } from '../../lib/merged-tree';
   import { redactTree } from '../../lib/redact-tree';
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, type SiteMap, type SitePageNode } from '../../lib/site-map';
-  import { getActiveTabId, getEmbeddedUrl, goBack, listenBrowserPageLoaded } from '../../lib/browser';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import type { SiteProfile } from '../../lib/types/site-profile';
 
@@ -26,7 +26,9 @@
     if (domain) siteMap = await loadSiteMap(domain);
   });
 
-  const MAX_CRAWL_PAGES = 20; // ponytail: hard cap so the crawl can't run away; raise if needed
+  // ponytail: no page cap — crawl the whole reachable site, then suggest pages to trim. SAFETY is
+  // only a backstop against a pathological infinite frontier; Stop is the real control.
+  const SAFETY_MAX = 1000;
 
   let mapping = $state(false);
   let message = $state<string | null>(null);
@@ -42,6 +44,7 @@
   let crawling = $state(false);
   let siteMsg = $state<string | null>(null);
   let stopRequested = false;
+  let trimSuggestions = $state<TrimSuggestion[]>([]);
 
   function flattenInteractive(p: SiteProfile) {
     const rows: { kind: string; label: string; selector: string }[] = [];
@@ -51,8 +54,9 @@
     return rows.slice(0, 20);
   }
 
-  /** Capture the current page over CDP → profile (+ refresh the single-page display). */
-  async function captureCurrent(url: string): Promise<SiteProfile> {
+  /** Capture the current page over CDP → profile (+ refresh the single-page display).
+   * Returns the redactor too, so the profile can be redacted before it's persisted. */
+  async function captureCurrent(url: string): Promise<{ profile: SiteProfile; redact: (t: string) => string }> {
     if (!isConnected() && !(await connectCDP())) {
       throw new Error('Could not connect to the browser — open a page in the browser first.');
     }
@@ -64,7 +68,14 @@
     redactedSize = red.redactedText.length;
     redactedTokens = Object.keys(red.map).length;
     redactedSample = red.redactedText.slice(0, 1200);
-    return profile;
+    return { profile, redact: red.redact };
+  }
+
+  /** Tokenize any PII in the profile BEFORE it's written to disk. mergedToProfile keeps
+   * raw labels/selectors (e.g. a roster name in role=…[name="Doe, Jane"]); this swaps the
+   * value dictionary over the whole JSON so the saved artifact holds ⟦D…⟧, never names. */
+  function redactProfile(p: SiteProfile, redact: (t: string) => string): SiteProfile {
+    return JSON.parse(redact(JSON.stringify(p)));
   }
 
   async function map() {
@@ -74,8 +85,8 @@
     stats = null;
     savedPath = null;
     try {
-      const profile = await captureCurrent(pageUrl);
-      savedPath = await saveProfile(profile);
+      const { profile, redact } = await captureCurrent(pageUrl);
+      savedPath = await saveProfile(redactProfile(profile, redact));
       message = `Mapped ${profile.domain} · saved profile`;
     } catch (e) {
       message = `Map failed: ${e instanceof Error ? e.message : String(e)}`;
@@ -114,64 +125,71 @@
 
   /** Capture the current page, save its profile, and fold it into the per-domain site map. */
   async function mapHere(url: string, visited: Set<string>): Promise<SiteProfile> {
-    const profile = await captureCurrent(url);
+    const { profile, redact } = await captureCurrent(url);
     visited.add(url);
     const domain = profile.domain;
-    await saveProfile(profile); // per-page JSON — feeds replay/skills and the review panel
+    // Redact before persisting: both the per-page profile and the site-map node are
+    // built from the safe profile, so neither holds raw PII.
+    const safe = redactProfile(profile, redact);
+    await saveProfile(safe); // per-page JSON — feeds replay/skills and the review panel
     let map = siteMap && siteMap.domain === domain ? siteMap : (await loadSiteMap(domain)) ?? emptySiteMap(domain, new Date().toISOString());
-    map = upsertPage(map, profileToNode(profile));
+    map = upsertPage(map, profileToNode(safe));
     siteMap = map;
     await saveSiteMap(map);
+    // Return the RAW profile: the crawler reads its links to navigate the frontier,
+    // and a tokenized href would break that. Only persisted artifacts are redacted.
     return profile;
   }
 
-  // Auto-crawl: click through the site's links (depth-first), lazy-loading and mapping each page,
-  // then go back to keep clicking the rest. Guardrailed: same-origin only, skips logout/submit/
-  // destructive links, dedupes by URL, hard page cap.
+  // Auto-crawl, breadth-first: map the start page, queue its links, then navigate to each in turn,
+  // mapping and queueing as we go. Breadth-first reaches the start page's links (e.g. each class)
+  // before tunnelling deep into any one branch. Guardrailed: same-origin only, skips
+  // logout/submit/destructive links and same-page anchors, dedupes by normalized URL. No page cap.
   async function crawl() {
     if (crawling) return;
     crawling = true;
     stopRequested = false;
+    trimSuggestions = [];
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
-
     const tabId = getActiveTabId();
 
-    async function visit(url: string): Promise<void> {
-      const map0 = siteMap;
-      if (stopRequested || (map0 && map0.pages.length >= MAX_CRAWL_PAGES)) return;
-      const profile = await mapHere(url, visited);
-      siteMsg = `Crawling — ${siteMap?.pages.length ?? 0}/${MAX_CRAWL_PAGES} pages mapped.`;
-
-      for (const link of profile.interactive.links) {
-        if (stopRequested || (siteMap && siteMap.pages.length >= MAX_CRAWL_PAGES)) return;
-        if (!link.href) continue;
-        let abs: string;
-        try { abs = new URL(link.href, url).toString(); } catch { continue; }
-        if (visited.has(abs) || !isCrawlableLink(abs, url)) continue;
-
-        const clicked = await pwClick(link.selector);
-        if (!clicked.success) continue;
-        await settle();
-        if (stopRequested) return;    // bail before navigating further
-        const landed = await getEmbeddedUrl(tabId).catch(() => abs);
-        if (visited.has(landed)) {
-          await goBack(tabId).catch(() => {});
-          await settle();
-          continue;
-        }
-        await visit(landed);          // descend into the page we clicked into
-        if (stopRequested) return;    // unwind immediately — no goBack/settle cascade on Stop
-        await goBack(tabId).catch(() => {}); // …then return to keep clicking this page's links
-        await settle();
-      }
-    }
-
     try {
-      await visit(pageUrl);
-      siteMsg = stopRequested
-        ? `Stopped — ${siteMap?.pages.length ?? 0} pages mapped.`
-        : `Crawl done — ${siteMap?.pages.length ?? 0} pages mapped${(siteMap?.pages.length ?? 0) >= MAX_CRAWL_PAGES ? ' (hit cap)' : ''}.`;
+      const start = normalizeUrl(pageUrl);
+      const queue: string[] = [start];
+      const queued = new Set<string>([start]);
+      let first = true;
+
+      while (queue.length && !stopRequested && visited.size < SAFETY_MAX) {
+        const target = queue.shift()!;
+        if (!first) {
+          await navigateEmbedded(tabId, target);
+          await settle();
+          if (stopRequested) break;
+        }
+        first = false;
+
+        const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
+        if (visited.has(landed)) continue;
+        const profile = await mapHere(landed, visited);
+        siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`;
+
+        for (const link of profile.interactive.links) {
+          if (!link.href) continue;
+          let abs: string;
+          try { abs = normalizeUrl(new URL(link.href, landed).toString()); } catch { continue; }
+          // Skip same-page anchors (popovers), already-seen pages, and unsafe links.
+          if (abs === landed || queued.has(abs) || !isCrawlableLink(abs, landed)) continue;
+          queued.add(abs);
+          queue.push(abs);
+        }
+      }
+
+      await navigateEmbedded(tabId, start).catch(() => {}); // return you to where you started
+      if (siteMap) trimSuggestions = suggestTrim(siteMap);
+      const n = siteMap?.pages.length ?? 0;
+      siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
+        + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
     } catch (e) {
       siteMsg = `Crawl failed: ${e instanceof Error ? e.message : String(e)}`;
     } finally {
@@ -181,6 +199,24 @@
 
   function stopCrawl() {
     stopRequested = true;
+  }
+
+  // If the panel is collapsed or you switch tabs, this component unmounts — halt any running
+  // crawl so it can't keep navigating your browser headlessly with no UI/Stop button.
+  onDestroy(() => { stopRequested = true; });
+
+  async function trimOne(s: TrimSuggestion) {
+    const page = siteMap?.pages.find((p) => p.url === s.url);
+    if (page) await clearPage(page);
+    trimSuggestions = trimSuggestions.filter((t) => t.url !== s.url);
+  }
+
+  async function trimAll() {
+    for (const s of [...trimSuggestions]) {
+      const page = siteMap?.pages.find((p) => p.url === s.url);
+      if (page) await clearPage(page);
+    }
+    trimSuggestions = [];
   }
 
   // Review a saved page: load its profile JSON and show its interactive elements. (The redacted
@@ -249,7 +285,7 @@
       <span class="hdr">Map this site</span>
       <div class="site-btns">
         <button class="map" disabled={crawling} onclick={crawl}
-          title="Click through the site's links, lazy-load each page, and map them">
+          title="Visit the site's links breadth-first, lazy-load each page, and map them">
           {crawling ? '⏳ Crawling…' : '🕸 Map this site'}
         </button>
         {#if crawling}
@@ -257,8 +293,23 @@
         {/if}
       </div>
     </div>
-    <p class="muted">Auto-crawls from the current page: clicks through links itself, lets each page lazy-load, and maps it. Same-origin only; skips logout/submit/destructive links; max {MAX_CRAWL_PAGES} pages. It drives your browser tab.</p>
+    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout/submit/destructive links and same-page popovers. No page limit — it suggests pages to trim when done. Drives your browser tab; use Stop to halt.</p>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
+
+    {#if trimSuggestions.length}
+      <div class="head">
+        <span class="hdr">Suggested to trim ({trimSuggestions.length})</span>
+        <button class="link-btn" onclick={trimAll} title="Remove all suggested pages">Trim all</button>
+      </div>
+      <ul class="list">
+        {#each trimSuggestions as s (s.url)}
+          <li class="row site-row">
+            <span class="label" title={s.url}>{s.pageName} — <span class="kind">{s.reason}</span></span>
+            <button class="x" onclick={() => trimOne(s)} title="Trim this page">✕</button>
+          </li>
+        {/each}
+      </ul>
+    {/if}
     {#if siteMap && siteMap.pages.length}
       <div class="head">
         <span class="hdr">{siteMap.domain} — {siteMap.pages.length} pages</span>

@@ -1,5 +1,36 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, profileToNode, upsertPage, emptySiteMap } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim } from './site-map';
+
+describe('suggestTrim — post-crawl cleanup hints', () => {
+  const node = (url: string, pageName: string, buttons: number, inputs: number, links: number) => ({
+    url, pageName, links: Array.from({ length: links }, (_, i) => ({ label: 'l', href: `/l${i}` })),
+    counts: { buttons, inputs, links },
+  });
+  it('flags structural duplicates (keeping the first) and dead-ends', () => {
+    let map = emptySiteMap('x.com', '2026-06-24T00:00:00Z');
+    map.pages.push(node('https://x.com/a', 'a', 3, 1, 5)); // template original
+    map.pages.push(node('https://x.com/b', 'b', 3, 1, 5)); // dup layout → trim
+    map.pages.push(node('https://x.com/help', 'help', 0, 0, 4)); // dead-end → trim
+    map.pages.push(node('https://x.com/form', 'form', 2, 4, 9)); // keep
+    const sug = suggestTrim(map);
+    const urls = sug.map((s) => s.url);
+    expect(urls).toContain('https://x.com/b');
+    expect(urls).toContain('https://x.com/help');
+    expect(urls).not.toContain('https://x.com/a');
+    expect(urls).not.toContain('https://x.com/form');
+  });
+});
+
+describe('normalizeUrl — collapse anchor/popover URLs to the same page', () => {
+  it('drops the #fragment but keeps the query', () => {
+    expect(normalizeUrl('https://x.com/index.php#modal')).toBe('https://x.com/index.php');
+    expect(normalizeUrl('https://x.com/index.php?cid=2#tab')).toBe('https://x.com/index.php?cid=2');
+  });
+  it('leaves a fragmentless URL unchanged and is idempotent', () => {
+    expect(normalizeUrl('https://x.com/a')).toBe('https://x.com/a');
+    expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
+  });
+});
 import type { SiteProfile } from './types/site-profile';
 
 describe('isCrawlableLink — crawl frontier trust boundary', () => {
@@ -13,6 +44,13 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
     expect(isCrawlableLink('/account/sign-out', base)).toBe(false);
     expect(isCrawlableLink('/assess?action=submit', base)).toBe(false);
     expect(isCrawlableLink('/items/5/delete', base)).toBe(false);
+  });
+  it('rejects role/view switches that would drop a teacher into student preview', () => {
+    expect(isCrawlableLink('/course/course.php?cid=1&stuview=on', base)).toBe(false);
+    expect(isCrawlableLink('/admin?impersonate=42', base)).toBe(false);
+    expect(isCrawlableLink('/u?view_as=student', base)).toBe(false);
+    // the way BACK to teacher view stays allowed
+    expect(isCrawlableLink('/course/course.php?cid=1&teachview=1', base)).toBe(true);
   });
   it('rejects cross-origin and non-http schemes', () => {
     expect(isCrawlableLink('https://evil.com/x', base)).toBe(false);
