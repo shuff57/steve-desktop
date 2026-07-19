@@ -9,7 +9,6 @@
   import type { AgentMode, AgentState, BrowserAction } from '../../lib/agent-types';
   import { getSkills, getSiteCredentials, type Skill, type SiteCredential } from '../../lib/db';
   import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
-  import ProviderSelector from './ProviderSelector.svelte';
 
   // ============================================================================
   // Message Types
@@ -48,12 +47,13 @@
   // State (Svelte 5 runes)
   // ============================================================================
 
+  // Engine selection is owned by the panel (shared across tabs) and passed in.
+  let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
+
   let mode: AgentMode = $state('review');
   let agentState: AgentState = $state('idle');
   /** Site name shown in the Duo-approval banner while paused for a push tap. */
   let approvalSite: string | null = $state(null);
-  let activeProvider: string = $state('');
-  let activeModel: string = $state('');
   let compactMode: boolean = $state(true);
   /** Estimated context usage percentage (0–100). Updated each agent loop iteration. */
   let contextPercent: number = $state(0);
@@ -223,7 +223,7 @@
       // Pass current page URL so skills can match by url_pattern; "dry run …" auto-detects in the loop.
       await loadContext(); // pick up skills/credentials added since mount
       const pageUrl = await getEmbeddedUrl(getActiveTabId()).catch(() => '');
-      await controller.start({ mode, initialMessage: text, provider: activeProvider, model: activeModel, skills, pageUrl, credentials });
+      await controller.start({ mode, initialMessage: text, provider, model, skills, pageUrl, credentials });
     } catch (error) {
       errorText = error instanceof Error ? error.message : String(error);
     } finally {
@@ -293,12 +293,6 @@
 </script>
 
 <section class="agent-chat">
-  <ProviderSelector
-    bind:provider={activeProvider}
-    bind:model={activeModel}
-    disabled={agentState !== 'idle'}
-  />
-
   <div class="chat-header">
     <div class="chat-title-row">
       <span class="chat-title">Agent</span>

@@ -4,6 +4,7 @@
   import AgentChat from '../components/grading/AgentChat.svelte';
   import SkillRunner from '../components/grading/SkillRunner.svelte';
   import SiteMapper from '../components/grading/SiteMapper.svelte';
+  import ProviderSelector from '../components/grading/ProviderSelector.svelte';
 
   let {
     isCollapsed = $bindable(false),
@@ -12,9 +13,11 @@
     tabId = '',
   } = $props();
 
-  // Engine selection now lives inside AgentChat and SkillRunner (each renders its own
-  // ProviderSelector — claude / opencode), so the panel no longer owns a provider picker.
+  // One engine selection for the whole panel — shared across the Agent, Discovery, and
+  // Skills tabs so switching tabs never changes the AI engine. Passed down as props.
   let activeMode = $state('agent');  // 'agent' | 'discovery' | 'skills'
+  let activeProvider = $state('');
+  let activeModel = $state('');
 
   // Resize logic
   let isResizing = $state(false);
@@ -134,11 +137,14 @@
   </div>
   
   {#if !isCollapsed}
+    <div class="panel-engine">
+      <ProviderSelector bind:provider={activeProvider} bind:model={activeModel} />
+    </div>
     <div class="panel-content">
       {#if activeMode === 'agent'}
-        <AgentChat />
+        <AgentChat provider={activeProvider} model={activeModel} />
       {:else if activeMode === 'skills'}
-        <SkillRunner />
+        <SkillRunner provider={activeProvider} model={activeModel} />
       {:else}
         <SiteMapper {pageUrl} />
       {/if}
@@ -226,6 +232,10 @@
   .action-panel.collapsed .mode-icon { font-size: 1.2rem; }
   .mode-tab:hover { background-color: var(--bg-hover); color: var(--text-primary); }
   .mode-tab.active { background-color: var(--bg-active); color: var(--color-primary); font-weight: 600; }
+
+  .panel-engine {
+    padding: var(--spacing-2) var(--spacing-4) 0;
+  }
 
   .panel-content {
     flex: 1; overflow-y: auto;
