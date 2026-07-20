@@ -22,9 +22,9 @@ const CHROME_TAGS = new Set([
 const CHROME_ROLES = new Set(['button', 'link', 'heading', 'tab', 'menuitem']);
 
 export function isChromeNode(node: SnapshotNode): boolean {
-  const role = (node.attrs['role'] ?? '').toLowerCase();
+  const role = (node.attrs?.['role'] ?? '').toLowerCase();
   if (CHROME_ROLES.has(role)) return true;
-  return CHROME_TAGS.has(node.tag.toLowerCase());
+  return CHROME_TAGS.has((node.tag ?? '').toLowerCase());
 }
 
 export interface TreeRedaction {
@@ -77,7 +77,7 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
       if (text?.trim()) text = tokenFor(text);
       // computed name / tooltip on a data container can carry PII — but NOT on a form
       // control, where aria-label is the field's label and the model needs it.
-      if (!FORM_TAGS.has(node.tag.toLowerCase())) {
+      if (!FORM_TAGS.has((node.tag ?? '').toLowerCase())) {
         for (const a of DATA_ATTRS) {
           if (attrs[a]?.trim()) attrs[a] = tokenFor(attrs[a]);
         }

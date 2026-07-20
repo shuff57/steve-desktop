@@ -45,6 +45,8 @@
   let siteMsg = $state<string | null>(null);
   let stopRequested = false;
   let trimSuggestions = $state<TrimSuggestion[]>([]);
+  /** Pages that threw during capture — surfaced so a skip is diagnosable, not silent. */
+  let failures = $state<{ url: string; error: string }[]>([]);
 
   function flattenInteractive(p: SiteProfile) {
     const rows: { kind: string; label: string; selector: string }[] = [];
@@ -150,6 +152,7 @@
     crawling = true;
     stopRequested = false;
     trimSuggestions = [];
+    failures = [];
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
     const tabId = getActiveTabId();
@@ -171,7 +174,18 @@
 
         const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
         if (visited.has(landed)) continue;
-        const profile = await mapHere(landed, visited);
+
+        // One malformed page must not kill the whole crawl. Capture the failure, mark the
+        // page visited so we don't retry it forever, and keep going with the queue.
+        let profile: SiteProfile;
+        try {
+          profile = await mapHere(landed, visited);
+        } catch (e) {
+          visited.add(landed);
+          failures.push({ url: landed, error: e instanceof Error ? e.message : String(e) });
+          siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${failures.length} skipped · ${queue.length} queued…`;
+          continue;
+        }
         siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`;
 
         for (const link of profile.interactive.links) {
@@ -189,6 +203,7 @@
       if (siteMap) trimSuggestions = suggestTrim(siteMap);
       const n = siteMap?.pages.length ?? 0;
       siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
+        + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
         + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
     } catch (e) {
       siteMsg = `Crawl failed: ${e instanceof Error ? e.message : String(e)}`;
@@ -295,6 +310,19 @@
     </div>
     <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout/submit/destructive links and same-page popovers. No page limit — it suggests pages to trim when done. Drives your browser tab; use Stop to halt.</p>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
+
+    {#if failures.length}
+      <div class="head">
+        <span class="hdr">Skipped — capture failed ({failures.length})</span>
+      </div>
+      <ul class="list">
+        {#each failures as f (f.url)}
+          <li class="row site-row">
+            <span class="label" title={f.url}>{f.url} — <span class="kind">{f.error}</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
 
     {#if trimSuggestions.length}
       <div class="head">

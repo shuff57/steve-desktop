@@ -36,6 +36,13 @@ describe('getProfilePath', () => {
     expect(path).toBe('.agents/site-profiles/butte-keenan-safecolleges-com/video-player.json');
   });
 
+  it('falls back to "page" when the name is missing or unslugifiable', () => {
+    // Real sites hand back undefined/punctuation-only page names; never write "/.json".
+    expect(getProfilePath('example.com', undefined as unknown as string))
+      .toBe('.agents/site-profiles/example-com/page.json');
+    expect(getProfilePath('example.com', '???')).toBe('.agents/site-profiles/example-com/page.json');
+  });
+
   it('slugifies page names', () => {
     const path = getProfilePath('example.com', 'Video Player');
     expect(path).toBe('.agents/site-profiles/example-com/video-player.json');

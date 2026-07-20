@@ -25,7 +25,9 @@ function isNotFoundError(error: unknown): boolean {
 }
 
 export function getProfilePath(domain: string, pageName: string): string {
-  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/${slugify(pageName)}.json`;
+  // slugify can legitimately return '' (missing or punctuation-only page name); fall back
+  // so we never write a dotfile like "/.json" that later reads back as a different page.
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/${slugify(pageName) || 'page'}.json`;
 }
 
 export function findProfileByUrl(profiles: StoredProfileInfo[], url: string): string | null {

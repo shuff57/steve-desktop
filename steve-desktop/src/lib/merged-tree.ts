@@ -100,7 +100,9 @@ export function mergeAxIntoDom(domNodes: RawDomNode[], axNodes: RawAxNode[]): Me
     return {
       frameId: d.frameId,
       backendNodeId: d.backendNodeId,
-      tag: d.nodeName.toLowerCase(),
+      // Defensive: external page DOM is untrusted input — a node without a nodeName
+      // must not throw and kill the capture (and with it the whole crawl).
+      tag: (d.nodeName ?? '').toLowerCase(),
       attrs: d.attributes,
       text: d.text,
       ...(a ? { role: a.role, name: a.name } : {}),

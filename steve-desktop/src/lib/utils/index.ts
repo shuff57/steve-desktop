@@ -1,4 +1,7 @@
 export function slugify(text: string): string {
+  // Tolerate a missing/non-string value: callers feed this from page titles and URL
+  // segments scraped off arbitrary sites, where either can come back undefined.
+  if (typeof text !== 'string') return '';
   return text
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
