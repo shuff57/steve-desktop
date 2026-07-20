@@ -13,7 +13,7 @@
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
   import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import type { SiteProfile } from '../../lib/types/site-profile';
@@ -49,6 +49,12 @@
   let failures = $state<{ url: string; error: string }[]>([]);
   /** URL families collapsed after their shape repeated — never a silent truncation. */
   let collapsed = $state<{ template: string; skipped: number }[]>([]);
+  /** Keep the crawl inside the course/section you started in. */
+  let stayInScope = $state(true);
+  /** The scope detected on the start page, shown so you know what you're confined to. */
+  let activeScope = $state<{ key: string; value: string } | null>(null);
+  /** Links dropped for belonging to another course. */
+  let outOfScope = $state(0);
 
   // How many pages of one URL family to map before trusting it's a template. Two, not one:
   // a single sample can't tell a template from a coincidence.
@@ -206,6 +212,8 @@
     trimSuggestions = [];
     failures = [];
     collapsed = [];
+    outOfScope = 0;
+    activeScope = scopeOf(pageUrl);
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
     const tabId = getActiveTabId();
@@ -272,6 +280,14 @@
           // Skip same-page anchors (popovers), already-seen pages, and unsafe links.
           if (abs === landed || queued.has(abs) || !isCrawlableLink(abs, landed)) continue;
 
+          // Stay in the course you started in. Without this the crawl reaches your home
+          // page and follows it into every other course on the account.
+          if (stayInScope && !withinScope(abs, start)) {
+            queued.add(abs);
+            outOfScope += 1;
+            continue;
+          }
+
           // Already know this family's shape? Don't spend a page visit re-learning it.
           const tpl = urlTemplate(abs);
           if (isSaturated(tpl)) {
@@ -292,6 +308,7 @@
       const n = siteMap?.pages.length ?? 0;
       const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
       siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
+        + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope?.key}=${activeScope?.value} not followed.` : '')
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
         + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
@@ -398,7 +415,15 @@
         {/if}
       </div>
     </div>
-    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout/submit/destructive links and same-page popovers. No page limit — it suggests pages to trim when done. Drives your browser tab; use Stop to halt.</p>
+    <label class="scope-row" title="Only follow links belonging to the same course/section as the page you start on. Without this, the crawl reaches your home page and follows it into every other course.">
+      <input type="checkbox" bind:checked={stayInScope} disabled={crawling} />
+      <span>
+        Stay in this course
+        {#if scopeOf(pageUrl)}<span class="kind">({scopeOf(pageUrl)?.key}={scopeOf(pageUrl)?.value})</span>
+        {:else}<span class="kind">(no course id on this page — whole site)</span>{/if}
+      </span>
+    </label>
+    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout, admin, and anything that reads as a write (add/change/remove/copy/transfer, ?action=). Repeating templates (a roster of students) are sampled twice then skipped. Drives your browser tab; use Stop to halt.</p>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
 
     {#if collapsed.length}
@@ -524,6 +549,11 @@
   .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 240px; overflow-y: auto; }
   .row { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: var(--spacing-2); padding: 4px var(--spacing-2); background: var(--bg-card); border-radius: var(--radius-sm); }
   .kind { font-size: 0.65rem; text-transform: uppercase; color: var(--text-tertiary); }
+  .scope-row {
+    display: flex; align-items: center; gap: var(--spacing-1);
+    font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; user-select: none;
+  }
+  .scope-row input { cursor: pointer; }
   .label { font-size: 0.8rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sel { grid-column: 1 / -1; font-size: 0.7rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sample { font-size: 0.7rem; color: var(--text-secondary); background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: var(--spacing-2); max-height: 220px; overflow: auto; white-space: pre-wrap; word-break: break-all; margin: 0; }

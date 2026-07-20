@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope } from './site-map';
 
 describe('urlTemplate — collapse a URL family so a roster is not crawled per-student', () => {
   it('treats differing ids as one family', () => {
@@ -14,6 +14,34 @@ describe('urlTemplate — collapse a URL family so a roster is not crawled per-s
   it('is order-insensitive on query keys and survives a bad URL', () => {
     expect(urlTemplate('https://x.com/p?b=1&a=2')).toBe(urlTemplate('https://x.com/p?a=9&b=8'));
     expect(urlTemplate('not a url')).toBe('not a url');
+  });
+});
+
+describe('withinScope — keep the crawl inside one course', () => {
+  const start = 'https://www.myopenmath.com/course/course.php?cid=301265';
+  it('rejects a link belonging to another course', () => {
+    // This is how one course became four: home lists every course, each with its own cid.
+    expect(withinScope('https://www.myopenmath.com/course/course.php?cid=301417', start)).toBe(false);
+    expect(withinScope('https://www.myopenmath.com/admin/teacherauditlog.php?cid=304240', start)).toBe(false);
+  });
+  it('allows the same course and shared, scope-less navigation', () => {
+    expect(withinScope('https://www.myopenmath.com/course/gradebook.php?cid=301265&stu=5', start)).toBe(true);
+    expect(withinScope('https://www.myopenmath.com/index.php', start)).toBe(true); // no cid = shared nav
+  });
+  it('enforces nothing when the start page has no course id', () => {
+    expect(withinScope('https://x.com/a?cid=9', 'https://x.com/home')).toBe(true);
+  });
+});
+
+describe('urlTemplate — different courses must not collapse together', () => {
+  it('keeps the scope value so two courses stay distinct', () => {
+    // Courses are organised differently; collapsing them would skip a third course's layout.
+    expect(urlTemplate('https://x.com/course.php?cid=301265'))
+      .not.toBe(urlTemplate('https://x.com/course.php?cid=301417'));
+  });
+  it('still collapses students WITHIN one course', () => {
+    expect(urlTemplate('https://x.com/gradebook.php?cid=301265&stu=41'))
+      .toBe(urlTemplate('https://x.com/gradebook.php?cid=301265&stu=42'));
   });
 });
 

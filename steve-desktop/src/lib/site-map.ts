@@ -80,15 +80,60 @@ export function structuralSignature(p: SiteProfile): string {
 }
 
 /**
- * Collapse a URL to the family it belongs to: numeric path segments and query VALUES are
+ * Query params that identify WHICH course/section a page belongs to. Used both to keep the
+ * crawl inside the course you started in, and to stop two different courses collapsing into
+ * one template.
+ */
+const SCOPE_PARAMS = ['cid', 'courseid', 'course_id', 'classid', 'class_id', 'sectionid', 'section_id'];
+
+/** The course/section this URL belongs to, if the site identifies one. */
+export function scopeOf(url: string): { key: string; value: string } | null {
+  try {
+    const p = new URL(url).searchParams;
+    for (const k of SCOPE_PARAMS) {
+      const v = p.get(k);
+      if (v) return { key: k, value: v };
+    }
+  } catch {
+    /* not a URL */
+  }
+  return null;
+}
+
+/**
+ * Is this link inside the same course as the page we started from? A link carrying no scope
+ * param is shared navigation (home, help) and stays allowed — it's a DIFFERENT value for the
+ * same key that means we've wandered into another course.
+ */
+export function withinScope(href: string, startUrl: string): boolean {
+  const s = scopeOf(startUrl);
+  if (!s) return true; // nothing to enforce
+  try {
+    const v = new URL(href).searchParams.get(s.key);
+    return v === null || v === s.value;
+  } catch {
+    return true;
+  }
+}
+
+/**
+ * Collapse a URL to the family it belongs to: numeric path segments and query VALUES become
  * placeholders, query keys are kept (sorted). So student.php?uid=41 and student.php?uid=42
  * share a template, while student.php?uid=41 and grades.php?uid=41 do not.
+ *
+ * The scope param keeps its VALUE: two courses are organised differently, so
+ * course.php?cid=301265 and course.php?cid=301417 must NOT collapse together — otherwise
+ * sampling two similar courses would skip a third that is laid out differently.
  */
 export function urlTemplate(url: string): string {
   try {
     const u = new URL(url);
     const path = u.pathname.replace(/\d+/g, '#');
-    const keys = [...u.searchParams.keys()].sort().join(',');
+    const scope = scopeOf(url);
+    const keys = [...u.searchParams.keys()]
+      .sort()
+      .map((k) => (scope && k === scope.key ? `${k}=${scope.value}` : k))
+      .join(',');
     return `${u.origin}${path}${keys ? `?${keys}` : ''}`;
   } catch {
     return url;
