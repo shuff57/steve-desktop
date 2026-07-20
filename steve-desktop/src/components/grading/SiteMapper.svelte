@@ -99,30 +99,76 @@
 
   const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-  /** Resolve on the next page-loaded event, on Stop, or after a timeout. */
-  function waitForLoad(timeoutMs = 12000): Promise<void> {
-    return new Promise((resolve) => {
-      let done = false;
-      let off: (() => void) | null = null;
-      const finish = () => { if (!done) { done = true; off?.(); clearTimeout(timer); clearInterval(poll); resolve(); } };
-      const timer = setTimeout(finish, timeoutMs);
-      const poll = setInterval(() => { if (stopRequested) finish(); }, 150); // Stop interrupts the wait
-      listenBrowserPageLoaded(() => finish()).then((fn) => { off = fn; if (done) fn(); });
-    });
+  /**
+   * Arm a page-load waiter BEFORE navigating, then await the returned function after.
+   * Registering the listener up front closes a real race: listenBrowserPageLoaded is
+   * itself async, so a fast/cached page could fire page-loaded before we were listening,
+   * and every such page then ate the full timeout instead of resolving on load.
+   */
+  async function armPageLoad(timeoutMs = 12000): Promise<() => Promise<void>> {
+    let fired = false;
+    let onFire: (() => void) | null = null;
+    const off = await listenBrowserPageLoaded(() => { fired = true; onFire?.(); });
+    return () =>
+      new Promise<void>((resolve) => {
+        let done = false;
+        const finish = () => {
+          if (done) return;
+          done = true;
+          off();
+          clearTimeout(timer);
+          clearInterval(poll);
+          resolve();
+        };
+        const timer = setTimeout(finish, timeoutMs);
+        const poll = setInterval(() => { if (stopRequested) finish(); }, 150); // Stop interrupts
+        if (fired) return finish(); // already loaded while we were setting up
+        onFire = finish;
+      });
   }
 
-  /** Lazy-loading settle: let the page load, scroll it to trigger lazy content, return to top.
-   * Bails fast once Stop is pressed so the crawl doesn't keep settling on the way out. */
+  /**
+   * Wait until the DOM stops growing, instead of guessing with a fixed delay. Adaptive:
+   * a static page settles in ~300ms, a JS-heavy one gets up to maxMs. Never throws —
+   * eval failures mid-navigation just end the wait.
+   */
+  async function waitForDomStable(maxMs = 2500, quietMs = 350): Promise<void> {
+    const started = Date.now();
+    let last = -1;
+    let stableAt = 0;
+    while (Date.now() - started < maxMs) {
+      if (stopRequested) return;
+      // cdp-actions' evalScript resolves to an ActionResult ({success, data}) — NOT a raw
+      // value. Reading it as a string yields "[object Object]" → NaN → 0, which never looks
+      // stable and silently burns the whole budget on every page.
+      const res = await evalScript('document.getElementsByTagName("*").length').catch(() => null);
+      const count = Number(res?.data) || 0;
+      if (count === last && count > 0) {
+        if (!stableAt) stableAt = Date.now();
+        else if (Date.now() - stableAt >= quietMs) return;
+      } else {
+        last = count;
+        stableAt = 0;
+      }
+      await delay(120);
+    }
+  }
+
+  /**
+   * Lazy-loading settle: scroll to trigger lazy content, wait for the DOM to stop changing,
+   * return to top. Assumes the page-load wait already happened (see armPageLoad).
+   * Deliberately never throws — a settle failure must not abort the crawl, and `document.body`
+   * is null on PDF/frameset pages.
+   */
   async function settle(): Promise<void> {
-    await waitForLoad();
     if (stopRequested) return;
-    await delay(400);
+    const scroll = (y: string) =>
+      evalScript(`window.scrollTo(0, ${y})`).catch(() => undefined);
+    await scroll('(document.body && document.body.scrollHeight) || 0');
+    await waitForDomStable();
     if (stopRequested) return;
-    await evalScript('window.scrollTo(0, document.body.scrollHeight)');
-    await delay(700); // give lazy/infinite-scroll content time to render
-    if (stopRequested) return;
-    await evalScript('window.scrollTo(0, 0)');
-    await delay(200);
+    await scroll('0');
+    await delay(150);
   }
 
   /** Capture the current page, save its profile, and fold it into the per-domain site map. */
@@ -165,20 +211,25 @@
 
       while (queue.length && !stopRequested && visited.size < SAFETY_MAX) {
         const target = queue.shift()!;
-        if (!first) {
-          await navigateEmbedded(tabId, target);
-          await settle();
-          if (stopRequested) break;
-        }
-        first = false;
 
-        const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
-        if (visited.has(landed)) continue;
-
-        // One malformed page must not kill the whole crawl. Capture the failure, mark the
-        // page visited so we don't retry it forever, and keep going with the queue.
+        // One bad page must not kill the whole crawl — navigation, settling AND capture
+        // are all inside the guard. The page is marked visited so it isn't retried forever,
+        // and the error is recorded against its URL so a skip is diagnosable.
         let profile: SiteProfile;
+        let landed = target;
         try {
+          if (!first) {
+            // Arm the load listener BEFORE navigating so a fast load can't be missed.
+            const loaded = await armPageLoad();
+            await navigateEmbedded(tabId, target);
+            await loaded();
+            await settle();
+            if (stopRequested) break;
+          }
+          first = false;
+
+          landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
+          if (visited.has(landed)) continue;
           profile = await mapHere(landed, visited);
         } catch (e) {
           visited.add(landed);
