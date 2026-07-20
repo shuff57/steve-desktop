@@ -1,5 +1,51 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate } from './site-map';
+
+describe('urlTemplate — collapse a URL family so a roster is not crawled per-student', () => {
+  it('treats differing ids as one family', () => {
+    expect(urlTemplate('https://x.com/student.php?uid=41')).toBe(urlTemplate('https://x.com/student.php?uid=42'));
+    expect(urlTemplate('https://x.com/course/12/roster')).toBe(urlTemplate('https://x.com/course/99/roster'));
+  });
+  it('keeps genuinely different pages apart', () => {
+    expect(urlTemplate('https://x.com/student.php?uid=41')).not.toBe(urlTemplate('https://x.com/grades.php?uid=41'));
+    // different query KEYS are a different family, even with the same value
+    expect(urlTemplate('https://x.com/p?uid=1')).not.toBe(urlTemplate('https://x.com/p?cid=1'));
+  });
+  it('is order-insensitive on query keys and survives a bad URL', () => {
+    expect(urlTemplate('https://x.com/p?b=1&a=2')).toBe(urlTemplate('https://x.com/p?a=9&b=8'));
+    expect(urlTemplate('not a url')).toBe('not a url');
+  });
+});
+
+describe('structuralSignature — same template, different data', () => {
+  const page = (name: string, id: number) => ({
+    domain: 'x.com', pageName: 'p', url: 'u', profiledAt: '', summary: {},
+    interactive: {
+      buttons: [{ text: 'Save', selector: `#save-${id}` }],
+      inputs: [{ label: 'Grade', selector: `#grade-${id}` }],
+      links: [{ text: name, href: `/student.php?uid=${id}` }],
+      selects: [], checkboxes: [], radios: [], forms: [],
+    },
+  }) as never;
+
+  it('matches two student pages that differ only by name and id', () => {
+    // Raw names differ and are NOT redacted here — link text must still not split them.
+    expect(structuralSignature(page('Doe, Jane', 41))).toBe(structuralSignature(page('Roe, Rick', 42)));
+  });
+  it('treats redaction tokens as data too', () => {
+    expect(structuralSignature(page('⟦D1⟧', 41))).toBe(structuralSignature(page('⟦D7⟧', 42)));
+  });
+  it('still splits on a differing button label (real template change)', () => {
+    const a = page('Doe, Jane', 41) as { interactive: { buttons: { text: string; selector: string }[] } };
+    a.interactive.buttons = [{ text: 'Unenroll', selector: '#save-41' }];
+    expect(structuralSignature(a as never)).not.toBe(structuralSignature(page('Roe, Rick', 42)));
+  });
+  it('differs when the page really has a different shape', () => {
+    const extra = page('Doe, Jane', 41) as { interactive: { buttons: unknown[] } };
+    extra.interactive.buttons = [...extra.interactive.buttons, { text: 'Delete', selector: '#del' }];
+    expect(structuralSignature(extra as never)).not.toBe(structuralSignature(page('Roe, Rick', 42)));
+  });
+});
 
 describe('suggestTrim — post-crawl cleanup hints', () => {
   const node = (url: string, pageName: string, buttons: number, inputs: number, links: number) => ({
@@ -45,6 +91,36 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
     expect(isCrawlableLink('/assess?action=submit', base)).toBe(false);
     expect(isCrawlableLink('/items/5/delete', base)).toBe(false);
   });
+  it('rejects concatenated mutation endpoints a \\b guard missed (real crawl escapes)', () => {
+    // Every one of these was actually visited during a live MyOpenMath crawl because
+    // /\bremove\b/ does not match "addremoveteachers". Substring matching now catches them.
+    expect(isCrawlableLink('/admin/addremoveteachers.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/admin/transfercourse.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/admin/unhidefromcourselist.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/admin/modcourseorder.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/course/chgassessments2.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/course/copyoneitem.php?cid=1&copyid=0-7-3', base)).toBe(false);
+    expect(isCrawlableLink('/course/addblock.php?cid=1&id=0-3', base)).toBe(false);
+    expect(isCrawlableLink('/course/enrollfromothercourse.php?cid=1', base)).toBe(false);
+    expect(isCrawlableLink('/course/listusers.php?cid=1&chgstuinfo=true&uid=2', base)).toBe(false);
+  });
+
+  it('rejects the whole admin surface and GET-triggered actions', () => {
+    expect(isCrawlableLink('/admin/teacherauditlog.php', base)).toBe(false);
+    expect(isCrawlableLink('/admin/forms.php?action=edit&id=3', base)).toBe(false);
+    expect(isCrawlableLink('/course/anything.php?do=wipe', base)).toBe(false);
+    expect(isCrawlableLink('/course/anything.php?op=merge', base)).toBe(false);
+  });
+
+  it('still allows the read-only pages worth mapping', () => {
+    expect(isCrawlableLink('/course/gradebook.php?cid=1&stu=5', base)).toBe(true);
+    expect(isCrawlableLink('/course/viewactionlog.php?cid=1&uid=2', base)).toBe(true);
+    expect(isCrawlableLink('/course/viewloginlog.php?cid=1&uid=2', base)).toBe(true);
+    expect(isCrawlableLink('/course/course.php?cid=1', base)).toBe(true);
+    // 'address' must not trip the 'add' verb
+    expect(isCrawlableLink('/user/editaddress.php?uid=2', base)).toBe(true);
+  });
+
   it('rejects role/view switches that would drop a teacher into student preview', () => {
     expect(isCrawlableLink('/course/course.php?cid=1&stuview=on', base)).toBe(false);
     expect(isCrawlableLink('/admin?impersonate=42', base)).toBe(false);

@@ -13,7 +13,7 @@
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
   import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import type { SiteProfile } from '../../lib/types/site-profile';
@@ -47,6 +47,12 @@
   let trimSuggestions = $state<TrimSuggestion[]>([]);
   /** Pages that threw during capture — surfaced so a skip is diagnosable, not silent. */
   let failures = $state<{ url: string; error: string }[]>([]);
+  /** URL families collapsed after their shape repeated — never a silent truncation. */
+  let collapsed = $state<{ template: string; skipped: number }[]>([]);
+
+  // How many pages of one URL family to map before trusting it's a template. Two, not one:
+  // a single sample can't tell a template from a coincidence.
+  const SAMPLES_PER_TEMPLATE = 2;
 
   function flattenInteractive(p: SiteProfile) {
     const rows: { kind: string; label: string; selector: string }[] = [];
@@ -199,6 +205,7 @@
     stopRequested = false;
     trimSuggestions = [];
     failures = [];
+    collapsed = [];
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
     const tabId = getActiveTabId();
@@ -208,6 +215,16 @@
       const queue: string[] = [start];
       const queued = new Set<string>([start]);
       let first = true;
+
+      // Template collapsing: a roster of 200 students is 200 pages of ONE template. Once
+      // we've mapped SAMPLES_PER_TEMPLATE pages of a URL family AND they came back
+      // structurally identical, stop enqueueing more of that family — the shape is known
+      // and every further visit only differs by data. Their links are the same shape too,
+      // so the first samples already queued whatever they reach: coverage is preserved.
+      const tplSigs = new Map<string, Set<string>>(); // template -> distinct shapes seen
+      const tplMapped = new Map<string, number>(); // template -> pages actually mapped
+      const isSaturated = (t: string) =>
+        (tplMapped.get(t) ?? 0) >= SAMPLES_PER_TEMPLATE && (tplSigs.get(t)?.size ?? 0) === 1;
 
       while (queue.length && !stopRequested && visited.size < SAFETY_MAX) {
         const target = queue.shift()!;
@@ -237,7 +254,16 @@
           siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${failures.length} skipped · ${queue.length} queued…`;
           continue;
         }
-        siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`;
+        // Record this page's shape against its URL family, so a repeating template is
+        // recognised after SAMPLES_PER_TEMPLATE consistent samples.
+        const landedTpl = urlTemplate(landed);
+        tplMapped.set(landedTpl, (tplMapped.get(landedTpl) ?? 0) + 1);
+        const sigs = tplSigs.get(landedTpl) ?? new Set<string>();
+        sigs.add(structuralSignature(profile));
+        tplSigs.set(landedTpl, sigs);
+
+        siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`
+          + (collapsed.length ? ` · ${collapsed.reduce((n, c) => n + c.skipped, 0)} repeats skipped` : '');
 
         for (const link of profile.interactive.links) {
           if (!link.href) continue;
@@ -245,6 +271,17 @@
           try { abs = normalizeUrl(new URL(link.href, landed).toString()); } catch { continue; }
           // Skip same-page anchors (popovers), already-seen pages, and unsafe links.
           if (abs === landed || queued.has(abs) || !isCrawlableLink(abs, landed)) continue;
+
+          // Already know this family's shape? Don't spend a page visit re-learning it.
+          const tpl = urlTemplate(abs);
+          if (isSaturated(tpl)) {
+            queued.add(abs); // mark handled so we don't re-evaluate it from another page
+            const hit = collapsed.find((c) => c.template === tpl);
+            if (hit) hit.skipped += 1;
+            else collapsed.push({ template: tpl, skipped: 1 });
+            continue;
+          }
+
           queued.add(abs);
           queue.push(abs);
         }
@@ -253,7 +290,9 @@
       await navigateEmbedded(tabId, start).catch(() => {}); // return you to where you started
       if (siteMap) trimSuggestions = suggestTrim(siteMap);
       const n = siteMap?.pages.length ?? 0;
+      const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
       siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
+        + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
         + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
     } catch (e) {
@@ -361,6 +400,19 @@
     </div>
     <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout/submit/destructive links and same-page popovers. No page limit — it suggests pages to trim when done. Drives your browser tab; use Stop to halt.</p>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
+
+    {#if collapsed.length}
+      <div class="head">
+        <span class="hdr">Repeating templates collapsed ({collapsed.length})</span>
+      </div>
+      <ul class="list">
+        {#each collapsed as c (c.template)}
+          <li class="row site-row">
+            <span class="label" title={c.template}>{c.template} — <span class="kind">{c.skipped} repeat page(s) skipped, shape already mapped</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
 
     {#if failures.length}
       <div class="head">

@@ -23,7 +23,77 @@ export interface SiteMap {
 // on the crawl frontier is the trust boundary — accumulate mode never navigates, so this only
 // gates crawl.
 const DENY_LINK =
-  /(log[\s_-]?out|sign[\s_-]?out|log[\s_-]?off|logon|sign[\s_-]?in|\bdelete\b|\bremove\b|\bsubmit\b|\bdestroy\b|stuview|studentview|view[_-]?as|viewas|impersonate|masquerade|loginas|become[_-]?user)/i;
+  /(log[\s_-]?out|sign[\s_-]?out|log[\s_-]?off|logon|sign[\s_-]?in|stuview|studentview|view[_-]?as|viewas|impersonate|masquerade|loginas|become[_-]?user)/i;
+
+/**
+ * Verbs that mark a URL as potentially state-changing. Matched as SUBSTRINGS, deliberately
+ * without \b word boundaries: real endpoints concatenate their verbs
+ * (addremoveteachers.php, unhidefromcourselist.php, chgstuinfo, modcourseorder.php) and a
+ * \bremove\b style guard never matched any of them — that gap let a live-gradebook crawl walk
+ * straight into /admin/addremoveteachers.php.
+ *
+ * This is a read-only mapper against someone's live gradebook, so the asymmetry is stark:
+ * over-blocking costs a few unmapped pages, under-blocking can mutate real student data.
+ * Deny aggressively. 'address' is the one carve-out, since it is a common benign noun.
+ */
+const MUTATING_VERB =
+  /(delete|destroy|remove|discard|submit|drop|unenroll|enroll|transfer|archive|restore|merge|import|reset|revoke|grant|promote|demote|assign|copy|duplicate|unhide|hide|reorder|modcourse|chg|change|add(?!ress))/i;
+
+/** The admin surface is never needed to map a course for automation — and is all mutation. */
+const ADMIN_PATH = /\/admin\//i;
+
+/**
+ * Verb-carrying query params. Plenty of PHP apps perform the action on GET when one of
+ * these is present (…/forms.php?action=…), so a bare navigation is already a write.
+ */
+const ACTION_PARAM = /[?&](action|act|do|op|cmd|task|mode|delete|remove)=/i;
+
+/**
+ * Strip the data out of a string so two pages of the same template compare equal:
+ * redaction tokens (⟦D1⟧) and digit runs both become placeholders.
+ */
+function dataFree(s: string): string {
+  return (s ?? '')
+    .replace(/⟦[^⟧]*⟧/g, '*')
+    .replace(/\d+/g, '#')
+    .trim()
+    .toLowerCase();
+}
+
+/**
+ * A page's shape, ignoring its data. Two roster/student pages built from one template
+ * produce the same signature even though every name, id and href differs.
+ * Sorted so DOM ordering jitter doesn't split a template into two.
+ *
+ * Link TEXT is deliberately excluded: on a roster it is the row's data (the student's
+ * name) and would make every otherwise-identical page look unique — the exact case this
+ * exists to collapse. The href shape carries the structure instead. Button text and input
+ * labels ARE kept: those are static UI chrome ("Save", "Grade") that distinguishes a real
+ * template change.
+ */
+export function structuralSignature(p: SiteProfile): string {
+  const parts: string[] = [];
+  for (const b of p.interactive.buttons) parts.push(`b:${dataFree(b.text)}|${dataFree(b.selector)}`);
+  for (const i of p.interactive.inputs) parts.push(`i:${dataFree(i.label)}|${dataFree(i.selector)}|${i.type ?? ''}`);
+  for (const l of p.interactive.links) parts.push(`l:${dataFree(l.href ?? '')}`);
+  return parts.sort().join('\n');
+}
+
+/**
+ * Collapse a URL to the family it belongs to: numeric path segments and query VALUES are
+ * placeholders, query keys are kept (sorted). So student.php?uid=41 and student.php?uid=42
+ * share a template, while student.php?uid=41 and grades.php?uid=41 do not.
+ */
+export function urlTemplate(url: string): string {
+  try {
+    const u = new URL(url);
+    const path = u.pathname.replace(/\d+/g, '#');
+    const keys = [...u.searchParams.keys()].sort().join(',');
+    return `${u.origin}${path}${keys ? `?${keys}` : ''}`;
+  } catch {
+    return url;
+  }
+}
 
 /** Strip the #fragment so anchor/popover links (index.php#x) dedupe to the same page. */
 export function normalizeUrl(url: string): string {
@@ -48,7 +118,11 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   }
   if (u.protocol !== 'http:' && u.protocol !== 'https:') return false;
   if (u.host !== base.host) return false; // same-origin only
-  if (DENY_LINK.test(u.pathname + u.search)) return false;
+  const target = u.pathname + u.search;
+  if (DENY_LINK.test(target)) return false; // session / role-switch
+  if (ADMIN_PATH.test(u.pathname)) return false; // admin surface
+  if (ACTION_PARAM.test(u.search)) return false; // GET-triggered action
+  if (MUTATING_VERB.test(target)) return false; // anything that reads as a write
   return true;
 }
 
