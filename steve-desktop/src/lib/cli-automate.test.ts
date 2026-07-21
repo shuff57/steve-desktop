@@ -48,9 +48,9 @@ describe('buildAutomateExecPrompt', () => {
     const pm = buildAutomateExecPrompt({ ...base, approvedPlan: '1. submit', marker: 'steve-tab-9' });
     expect(pm).toContain('window.name === "steve-tab-9"');
   });
-  it('tells the agent to drive the app-provided cursor so the user can track clicks', () => {
-    expect(p).toContain('SHOW YOUR CLICKS');
-    expect(p).toContain('__steveCursorMove');
+  it('tells the agent the cursor is shown + tracked automatically (no cursor management)', () => {
+    expect(p).toContain('tracks your mouse');
+    expect(p).toContain('do not need to manage any cursor');
   });
 });
 

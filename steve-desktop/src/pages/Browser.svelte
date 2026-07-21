@@ -1020,13 +1020,13 @@
     color: var(--text-primary);
   }
 
-  /* A tab an agent is currently driving — red glow + pulsing dot, matching the in-page overlay. */
+  /* A tab an agent is currently driving — pastel-green glow + pulsing dot, matching the overlay. */
   .tab.agent-driving {
-    border-color: #e5484d;
-    box-shadow: 0 0 0 1px #e5484d, 0 0 8px rgba(229, 72, 77, 0.5);
+    border-color: #34d399;
+    box-shadow: 0 0 0 1px #34d399, 0 0 8px rgba(52, 211, 153, 0.55);
   }
   .agent-dot {
-    color: #e5484d;
+    color: #10b981;
     font-size: 0.7rem;
     animation: agentPulse 1.1s ease-in-out infinite;
   }
