@@ -15,7 +15,7 @@ export const AGENT_OVERLAY_SCRIPT = `(function(){
   st.textContent='@keyframes steveHalo{0%,100%{transform:scale(.8);opacity:.45}50%{transform:scale(1.15);opacity:.9}}';
   document.documentElement.appendChild(st);
   var tag=document.createElement('div'); tag.id='__steveAgentTag'; tag.textContent='\\u25CF agent connected';
-  tag.style.cssText='position:fixed;top:12px;right:12px;background:#a7f3d0;color:#065f46;font:600 12px sans-serif;padding:7px 13px;border-radius:30% / 45%;pointer-events:none;z-index:2147483647;box-shadow:0 2px 7px rgba(0,0,0,.22)';
+  tag.style.cssText='position:fixed;top:12px;right:12px;background:#a7f3d0;color:#065f46;font:600 12px sans-serif;padding:7px 13px;border-radius:11px;pointer-events:none;z-index:2147483647;box-shadow:0 2px 7px rgba(0,0,0,.22)';
   var cur=document.createElement('div'); cur.id='__steveAgentCursor';
   cur.style.cssText='position:fixed;left:50%;top:50%;pointer-events:none;z-index:2147483647';
   cur.innerHTML='<div style="position:absolute;left:-19px;top:-19px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(52,211,153,.55),rgba(52,211,153,0) 68%);animation:steveHalo 1.1s ease-in-out infinite"></div>'+
@@ -24,25 +24,40 @@ export const AGENT_OVERLAY_SCRIPT = `(function(){
   function mv(x,y){cur.style.left=x+'px';cur.style.top=y+'px';}
   function ripple(x,y){var r=document.createElement('div');r.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#34d399;pointer-events:none;z-index:2147483646;opacity:.85;transition:all .5s';document.documentElement.appendChild(r);requestAnimationFrame(function(){r.style.width='46px';r.style.height='46px';r.style.margin='-23px 0 0 -23px';r.style.opacity='0';});setTimeout(function(){r.remove();},520);}
   window.__steveCursorMove=function(x,y){mv(x,y);ripple(x,y);};
-  // AUTOMATIC: follow the agent's CDP-driven mouse events — no need to tell the agent to do
-  // anything. mousemove tracks motion; a click adds a ripple. el.click() reports 0,0 → fall back
-  // to the target's centre. The overlay only exists while an agent is connected (the user watches,
-  // not drives), so it reflects the agent's pointer, not the OS cursor.
-  document.addEventListener('mousemove',function(e){mv(e.clientX,e.clientY);},true);
+  // AUTOMATIC but does NOT follow the user's mouse: track the agent's CLICKS only (no mousemove
+  // listener), so moving your real cursor over the tab never moves the agent cursor. el.click()
+  // reports 0,0 → fall back to the target's centre. The cursor jumps to each agent click + ripples.
   ['mousedown','click'].forEach(function(t){document.addEventListener(t,function(e){var x=e.clientX,y=e.clientY;if(!x&&!y&&e.target&&e.target.getBoundingClientRect){var b=e.target.getBoundingClientRect();x=b.left+b.width/2;y=b.top+b.height/2;}mv(x,y);ripple(x,y);},true);});
 })();`;
 
 export const AGENT_OVERLAY_REMOVE = `(function(){['__steveAgentTag','__steveAgentCursor','__steveAgentStyle'].forEach(function(id){var e=document.getElementById(id);if(e)e.remove();});window.__steveCursor=0;})();`;
 
+// ROOT-CAUSE FIX for the CDP "wedge": a single unhandled alert()/confirm()/beforeunload on the
+// embedded webview blocks the page's message loop, so the agent's CDP commands hang (reproduced:
+// 1ms → 4s+ hang after one alert). The embedded WebView2 has no dialog handler. While an agent is
+// driving, neutralize page dialogs so nothing can block it: alert/prompt become no-ops, confirm
+// returns true (the agent's plan is already human-approved, so proceed), and beforeunload is
+// cleared so navigating away from a form never nags. Injected ONLY during agent runs — manual
+// browsing keeps normal dialog behavior.
+export const DIALOG_SUPPRESS_SCRIPT = `(function(){
+  if(window.__steveDialogSuppressed) return; window.__steveDialogSuppressed=1;
+  try{window.alert=function(){};window.confirm=function(){return true;};window.prompt=function(){return null;};}catch(_){}
+  try{window.onbeforeunload=null;}catch(_){}
+  try{window.addEventListener('beforeunload',function(e){e.stopImmediatePropagation();delete e['returnValue'];},true);}catch(_){}
+})();`;
+
 /** Dispatched so Browser.svelte can highlight the active tab and re-inject the overlay on nav. */
 export interface AgentActiveDetail { active: boolean; tabId: string }
 
-/** Show the connection overlay on a tab and announce it (call when a spawn starts). */
+/** Show the connection overlay + suppress dialogs on a tab and announce it (call when a spawn starts). */
 export async function showAgentConnected(tabId: string): Promise<void> {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('steve:agent-active', { detail: { active: true, tabId } satisfies AgentActiveDetail }));
   }
-  if (tabId) { try { await injectScript(AGENT_OVERLAY_SCRIPT, tabId); } catch { /* best-effort */ } }
+  if (tabId) {
+    try { await injectScript(DIALOG_SUPPRESS_SCRIPT, tabId); } catch { /* best-effort */ }
+    try { await injectScript(AGENT_OVERLAY_SCRIPT, tabId); } catch { /* best-effort */ }
+  }
 }
 
 /** Remove the overlay and announce disconnect (call when a spawn ends). */

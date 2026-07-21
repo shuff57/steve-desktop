@@ -31,7 +31,7 @@
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
   import { tabMarker, markerScript, type TabInfo } from '../lib/tab-control';
-  import { AGENT_OVERLAY_SCRIPT, type AgentActiveDetail } from '../lib/agent-overlay';
+  import { AGENT_OVERLAY_SCRIPT, DIALOG_SUPPRESS_SCRIPT, type AgentActiveDetail } from '../lib/agent-overlay';
   import ActionPanel from './ActionPanel.svelte';
 
   // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
@@ -402,8 +402,13 @@
       await checkPendingLogin(url);                       // offer to save a just-submitted login
       await injectScript(LOGIN_CAPTURE_SCRIPT, tabId).catch(() => {}); // arm capture on this page
       await injectScript(markerScript(tabId), tabId).catch(() => {}); // re-stamp window.name (resets cross-origin)
-      // If an agent is driving this tab, re-show the connection overlay — a page load cleared it.
-      if (agentActiveTabId === tabId) await injectScript(AGENT_OVERLAY_SCRIPT, tabId).catch(() => {});
+      // If an agent is driving this tab, re-show the connection overlay AND neutralize JS dialogs
+      // (a page load cleared both). An unhandled alert/confirm/beforeunload blocks the page's
+      // message loop → the agent's CDP hangs; suppressing them keeps the agent from wedging.
+      if (agentActiveTabId === tabId) {
+        await injectScript(DIALOG_SUPPRESS_SCRIPT, tabId).catch(() => {});
+        await injectScript(AGENT_OVERLAY_SCRIPT, tabId).catch(() => {});
+      }
     });
     if (guard.destroyed) { unlistenUrl(); unlistenLoaded(); return; }
 
