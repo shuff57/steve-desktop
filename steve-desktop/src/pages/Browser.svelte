@@ -31,6 +31,7 @@
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
   import { tabMarker, markerScript, type TabInfo } from '../lib/tab-control';
+  import { AGENT_OVERLAY_SCRIPT, type AgentActiveDetail } from '../lib/agent-overlay';
   import ActionPanel from './ActionPanel.svelte';
 
   // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
@@ -51,6 +52,9 @@
   const steveWindow = window as Window & { __steveControl?: SteveControl };
 
   let urlInput = $state('');
+  // The tab an agent is currently driving — highlights its tab and keeps the connection overlay
+  // (border ring + arrow cursor) re-injected across the agent's navigations.
+  let agentActiveTabId = $state('');
   let showActionPanel = $state(false);
   let actionPanelCollapsed = $state(false);
   let actionPanelWidth = $state(400);
@@ -341,6 +345,12 @@
     resizeTimeout = setTimeout(() => updateWebviewBounds(), 100);
   }
 
+  /** A spawn signals it is (dis)connecting from a tab — track it so the tab is highlighted and the
+   *  overlay is re-injected across the agent's navigations (see the page-loaded handler). */
+  function handleAgentActive(e: CustomEvent<AgentActiveDetail>) {
+    agentActiveTabId = e.detail?.active ? e.detail.tabId : '';
+  }
+
   function handleSidebarChanged() {
     if (sidebarAnimationId) cancelAnimationFrame(sidebarAnimationId);
 
@@ -392,6 +402,8 @@
       await checkPendingLogin(url);                       // offer to save a just-submitted login
       await injectScript(LOGIN_CAPTURE_SCRIPT, tabId).catch(() => {}); // arm capture on this page
       await injectScript(markerScript(tabId), tabId).catch(() => {}); // re-stamp window.name (resets cross-origin)
+      // If an agent is driving this tab, re-show the connection overlay — a page load cleared it.
+      if (agentActiveTabId === tabId) await injectScript(AGENT_OVERLAY_SCRIPT, tabId).catch(() => {});
     });
     if (guard.destroyed) { unlistenUrl(); unlistenLoaded(); return; }
 
@@ -417,6 +429,7 @@
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('steve:sidebar-changed', handleSidebarChanged);
+    window.addEventListener('steve:agent-active', handleAgentActive as EventListener);
 
     steveWindow.__steveControl = {
       listTabs: (): TabInfo[] => tabs.map(t => ({
@@ -468,6 +481,7 @@
       () => { if (cancelScheduledBoundsUpdate) cancelScheduledBoundsUpdate(); },
       () => { window.removeEventListener('resize', handleResize); },
       () => { window.removeEventListener('steve:sidebar-changed', handleSidebarChanged); },
+      () => { window.removeEventListener('steve:agent-active', handleAgentActive as EventListener); },
     ]);
   });
 
@@ -595,11 +609,14 @@
       <div
         class="tab"
         class:active={tab.id === activeTabId}
+        class:agent-driving={tab.id === agentActiveTabId}
         onclick={() => switchTab(tab.id)}
         onkeydown={(e) => e.key === 'Enter' && switchTab(tab.id)}
         role="tab"
         tabindex="0"
+        title={tab.id === agentActiveTabId ? 'An agent is driving this tab' : ''}
       >
+        {#if tab.id === agentActiveTabId}<span class="agent-dot" aria-label="agent connected">●</span>{/if}
         <span class="tab-title">{tab.title || getTabDisplayTitle(tab)}</span>
         {#if tabs.length > 1}
           <button class="tab-close" onclick={(e) => { e.stopPropagation(); closeTab(tab.id); }}>×</button>
@@ -1002,6 +1019,18 @@
     border-color: var(--border-color);
     color: var(--text-primary);
   }
+
+  /* A tab an agent is currently driving — red glow + pulsing dot, matching the in-page overlay. */
+  .tab.agent-driving {
+    border-color: #e5484d;
+    box-shadow: 0 0 0 1px #e5484d, 0 0 8px rgba(229, 72, 77, 0.5);
+  }
+  .agent-dot {
+    color: #e5484d;
+    font-size: 0.7rem;
+    animation: agentPulse 1.1s ease-in-out infinite;
+  }
+  @keyframes agentPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
   .tab-title {
     flex: 1;

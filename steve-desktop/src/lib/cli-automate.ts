@@ -65,20 +65,6 @@ export interface AutomateExecOptions extends AutomatePlanOptions {
   approvedPlan: string;
 }
 
-// A self-contained overlay the agent injects so the user can SEE its clicks: a red cursor dot
-// that jumps to each click with a ripple. Listens in the capture phase so it catches both real
-// CDP Input clicks (correct coords) and el.click() (coords 0,0 → falls back to the target's
-// rect centre). Idempotent; exposes window.__steveCursorMove(x,y) for an explicit pre-click move.
-export const CURSOR_OVERLAY_SCRIPT =
-  "(function(){if(window.__steveCursor)return;window.__steveCursor=1;" +
-  "var c=document.createElement('div');" +
-  "c.style.cssText='position:fixed;z-index:2147483647;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:2px solid #e5484d;background:rgba(229,72,77,.25);pointer-events:none;transition:left .12s,top .12s;left:-100px;top:-100px;box-shadow:0 0 8px rgba(229,72,77,.6)';" +
-  "document.documentElement.appendChild(c);" +
-  "function rip(x,y){var r=document.createElement('div');r.style.cssText='position:fixed;z-index:2147483647;left:'+x+'px;top:'+y+'px;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#e5484d;pointer-events:none;opacity:.8;transition:all .5s';document.documentElement.appendChild(r);requestAnimationFrame(function(){r.style.width='40px';r.style.height='40px';r.style.margin='-20px 0 0 -20px';r.style.opacity='0';});setTimeout(function(){r.remove();},520);}" +
-  "function mv(x,y){c.style.left=x+'px';c.style.top=y+'px';rip(x,y);}" +
-  "window.__steveCursorMove=mv;" +
-  "['mousedown','click'].forEach(function(t){document.addEventListener(t,function(e){var x=e.clientX,y=e.clientY;if(!x&&!y&&e.target&&e.target.getBoundingClientRect){var b=e.target.getBoundingClientRect();x=b.left+b.width/2;y=b.top+b.height/2;}mv(x,y);},true);});})();";
-
 export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
   const host = hostOf(o.startUrl);
   return [
@@ -94,13 +80,10 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     'The user watches it happen in the app.',
     'You MAY now click, fill, select, and submit — but ONLY to perform the approved steps.',
     '',
-    'SHOW YOUR CLICKS — the user is watching. Install this cursor overlay so every click is',
-    'visible as a red marker. Register it with Page.addScriptToEvaluateOnNewDocument so it',
-    'survives your navigations, AND run it once on the current page. Re-run it if a page reload',
-    'clears it. Prefer real CDP Input mouse clicks at the element centre (so the marker lands on',
-    'the target) over el.click(); you may also call window.__steveCursorMove(x,y) right before a',
-    'click. The overlay script:',
-    CURSOR_OVERLAY_SCRIPT,
+    'SHOW YOUR CLICKS — the user is watching. The app already displays a live cursor overlay on',
+    'this tab (a red arrow + "agent connected" border). To keep it tracking you, prefer real CDP',
+    'Input mouse events at the element centre over el.click(), and call window.__steveCursorMove(x, y)',
+    'right before each click so the cursor jumps to exactly where you are about to click.',
     '',
     'HARD RULES:',
     '- Do NOT take any mutating action that is not in the approved plan. If the page differs from',

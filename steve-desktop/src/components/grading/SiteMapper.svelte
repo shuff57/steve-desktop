@@ -18,6 +18,7 @@
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { tabMarker } from '../../lib/tab-control';
+  import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
@@ -520,6 +521,7 @@
         marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined,
       });
       siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} — it is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
+      await showAgentConnected(getActiveTabId()); // connection overlay (border + cursor) on the driven tab
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
         prompt,
@@ -530,7 +532,7 @@
         bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
         timeoutSecs: 900,
         stream: true, // NDJSON progress events → aiProgress
-      });
+      }).finally(() => hideAgentConnected(getActiveTabId()));
       const { doc, pages } = parseCliCrawlOutput(extractCliText(engine, stdout));
       if (!doc) throw new Error(`${engine} returned an empty mapping`);
       aiDoc = doc;
@@ -602,6 +604,7 @@
       });
       const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
       siteMsg = `Spawned ${engine} to verify its own mapping — re-reading ${aiPages.length} page(s) over CDP…`;
+      await showAgentConnected(getActiveTabId()); // connection overlay on the driven tab
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
         prompt,
@@ -612,7 +615,7 @@
         bypassPermissions: true,
         timeoutSecs: 900,
         stream: true,
-      });
+      }).finally(() => hideAgentConnected(getActiveTabId()));
       const { report, healedDoc, recapture } = parseCliVerifyOutput(extractCliText(engine, stdout));
       if (!report) throw new Error(`${engine} returned an empty verification report`);
       aiVerifyReport = report;

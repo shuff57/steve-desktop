@@ -48,10 +48,9 @@ describe('buildAutomateExecPrompt', () => {
     const pm = buildAutomateExecPrompt({ ...base, approvedPlan: '1. submit', marker: 'steve-tab-9' });
     expect(pm).toContain('window.name === "steve-tab-9"');
   });
-  it('injects the click-cursor overlay so the user can track clicks', () => {
+  it('tells the agent to drive the app-provided cursor so the user can track clicks', () => {
     expect(p).toContain('SHOW YOUR CLICKS');
     expect(p).toContain('__steveCursorMove');
-    expect(p).toContain('addScriptToEvaluateOnNewDocument');
   });
 });
 

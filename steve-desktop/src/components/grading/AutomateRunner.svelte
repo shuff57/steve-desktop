@@ -21,6 +21,7 @@
   import { loadMappingDoc, saveMappingDoc } from '../../lib/site-profiles';
   import { tabMarker } from '../../lib/tab-control';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
+  import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
 
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
 
@@ -63,6 +64,9 @@
       onWedge: () => { msg = '⚠ Browser debug endpoint stopped responding (wedged). This run may fail — a restart may be needed.'; },
     });
     watchdog.start();
+    // Show the "agent connected" overlay (border ring + arrow cursor) on the driven tab.
+    const drivenTab = getActiveTabId();
+    await showAgentConnected(drivenTab);
     try {
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -78,6 +82,7 @@
       return extractCliText(engine, stdout);
     } finally {
       watchdog.stop();
+      await hideAgentConnected(drivenTab);
       unlisten();
     }
   }
