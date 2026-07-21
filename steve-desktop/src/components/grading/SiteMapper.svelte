@@ -19,6 +19,7 @@
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { tabMarker } from '../../lib/tab-control';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
+  import { createThrottledBuffer } from '../../lib/throttle-buffer';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
@@ -502,16 +503,20 @@
     const tabId = getActiveTabId();
     const sessionId = crypto.randomUUID();
     let unlisten: (() => void) | undefined;
+    let progressBuf: ReturnType<typeof createThrottledBuffer<string>> | undefined;
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       const engine = engineForProvider(provider);
 
       // Subscribe BEFORE spawning so no early event is missed. Only this run's lines.
+      // Batch updates (~150ms) so a burst of stream events doesn't re-render per line and starve
+      // the main thread (the confirmed cause of the CDP wedge).
+      progressBuf = createThrottledBuffer<string>((lines) => { aiProgress = [...aiProgress, ...lines].slice(-40); });
       unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
         if (ev.payload.sessionId !== sessionId) return;
         const summary = summarizeCliLine(ev.payload.line);
-        if (summary) aiProgress = [...aiProgress, summary].slice(-40);
+        if (summary) progressBuf!.push(summary);
       });
 
       const prompt = buildCliCrawlPrompt({
@@ -570,6 +575,7 @@
     } catch (e) {
       siteMsg = `Agent crawl failed: ${e instanceof Error ? e.message : String(e)}`;
     } finally {
+      progressBuf?.flush();
       unlisten?.();
       aiDriving = false;
     }
@@ -593,14 +599,16 @@
     const tabId = getActiveTabId();
     const sessionId = crypto.randomUUID();
     let unlisten: (() => void) | undefined;
+    let progressBuf: ReturnType<typeof createThrottledBuffer<string>> | undefined;
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       const engine = engineForProvider(provider);
+      progressBuf = createThrottledBuffer<string>((lines) => { aiProgress = [...aiProgress, ...lines].slice(-40); });
       unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
         if (ev.payload.sessionId !== sessionId) return;
         const summary = summarizeCliLine(ev.payload.line);
-        if (summary) aiProgress = [...aiProgress, summary].slice(-40);
+        if (summary) progressBuf!.push(summary);
       });
       const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
       siteMsg = `Spawned ${engine} to verify its own mapping — re-reading ${aiPages.length} page(s) over CDP…`;
@@ -661,6 +669,7 @@
     } catch (e) {
       siteMsg = `Agent verification failed: ${e instanceof Error ? e.message : String(e)}`;
     } finally {
+      progressBuf?.flush();
       unlisten?.();
       aiVerifying = false;
     }

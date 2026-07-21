@@ -73,7 +73,19 @@ export async function injectAutofill(tabId: string, username: string, password: 
 }
 
 export async function getEmbeddedUrl(tabId?: string): Promise<string> {
-  return await invoke('get_embedded_url', { tabId: tabId ?? activeTabId });
+  const id = tabId ?? activeTabId;
+  try {
+    return await invoke('get_embedded_url', { tabId: id });
+  } catch (e) {
+    // Under a transient main-thread CPU-starvation spike, Tauri's wv.url() fails with
+    // "failed to receive" (the marshaling channel times out). The main thread usually recovers in
+    // 1–2s, so retry once after a short delay before surfacing the error.
+    if (String(e).includes('failed to receive')) {
+      await new Promise((r) => setTimeout(r, 400));
+      return await invoke('get_embedded_url', { tabId: id });
+    }
+    throw e;
+  }
 }
 
 export async function hideWebview(tabId: string): Promise<void> {

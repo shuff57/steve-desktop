@@ -29,8 +29,11 @@ export interface HealthState {
 }
 
 const DEFAULT_INTERVAL_MS = 5000;
-const DEFAULT_TIMEOUT_MS = 3000;
-const DEFAULT_FAILURES_TO_TRIP = 2;
+// The wedge is main-thread CPU starvation, which is often TRANSIENT (recovers in 1–2s once load
+// drops). A generous per-check timeout tolerates those spikes, and requiring 3 consecutive
+// failures (~15s of sustained unresponsiveness) before tripping avoids false alarms on a blip.
+const DEFAULT_TIMEOUT_MS = 4000;
+const DEFAULT_FAILURES_TO_TRIP = 3;
 
 export function initHealthState(): HealthState {
   return { consecutiveFailures: 0, tripped: false };

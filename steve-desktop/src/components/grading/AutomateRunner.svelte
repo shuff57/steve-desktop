@@ -22,6 +22,7 @@
   import { tabMarker } from '../../lib/tab-control';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
+  import { createThrottledBuffer } from '../../lib/throttle-buffer';
 
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
 
@@ -52,16 +53,19 @@
     if (!port) throw new Error('CDP debug port unavailable — restart the app.');
     const engine = engineForProvider(provider);
     const sessionId = crypto.randomUUID();
+    // Batch progress updates (~150ms) so a burst of stream events doesn't re-render per line and
+    // starve the main thread — the confirmed cause of the WebView2 CDP wedge.
+    const progressBuf = createThrottledBuffer<string>((lines) => { progress = [...progress, ...lines].slice(-40); });
     const unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
       if (ev.payload.sessionId !== sessionId) return;
       const s = summarizeCliLine(ev.payload.line);
-      if (s) progress = [...progress, s].slice(-40);
+      if (s) progressBuf.push(s);
     });
     // Watch the WebView2 debug endpoint: it has wedged under load, and a wedged endpoint means
     // the agent's CDP calls hang. Surface it so a stuck run is diagnosable, not silent.
     const watchdog = createCdpWatchdog({
       port,
-      onWedge: () => { msg = '⚠ Browser debug endpoint stopped responding (wedged). This run may fail — a restart may be needed.'; },
+      onWedge: () => { msg = '⚠ Browser debug endpoint slow/unresponsive for ~15s — likely heavy CPU load. The run may still recover; restart the app only if it stays stuck.'; },
     });
     watchdog.start();
     // Show the "agent connected" overlay (border ring + arrow cursor) on the driven tab.
@@ -81,6 +85,7 @@
       });
       return extractCliText(engine, stdout);
     } finally {
+      progressBuf.flush(); // emit any buffered progress lines
       watchdog.stop();
       await hideAgentConnected(drivenTab);
       unlisten();
