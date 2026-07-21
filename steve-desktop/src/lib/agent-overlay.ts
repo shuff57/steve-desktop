@@ -15,7 +15,7 @@ export const AGENT_OVERLAY_SCRIPT = `(function(){
   st.textContent='@keyframes steveHalo{0%,100%{transform:scale(.8);opacity:.45}50%{transform:scale(1.15);opacity:.9}}';
   document.documentElement.appendChild(st);
   var tag=document.createElement('div'); tag.id='__steveAgentTag'; tag.textContent='\\u25CF agent connected';
-  tag.style.cssText='position:fixed;top:12px;right:12px;background:#a7f3d0;color:#065f46;font:600 12px sans-serif;padding:7px 13px;border-radius:11px;pointer-events:none;z-index:2147483647;box-shadow:0 2px 7px rgba(0,0,0,.22)';
+  tag.style.cssText='position:fixed;top:12px;right:12px;background:#a7f3d0;color:#065f46;font:600 12px sans-serif;padding:6px 12px;border-radius:4px;pointer-events:none;z-index:2147483647;box-shadow:0 2px 7px rgba(0,0,0,.22)';
   var cur=document.createElement('div'); cur.id='__steveAgentCursor';
   cur.style.cssText='position:fixed;left:50%;top:50%;pointer-events:none;z-index:2147483647';
   cur.innerHTML='<div style="position:absolute;left:-19px;top:-19px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(52,211,153,.55),rgba(52,211,153,0) 68%);animation:steveHalo 1.1s ease-in-out infinite"></div>'+
@@ -24,10 +24,11 @@ export const AGENT_OVERLAY_SCRIPT = `(function(){
   function mv(x,y){cur.style.left=x+'px';cur.style.top=y+'px';}
   function ripple(x,y){var r=document.createElement('div');r.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#34d399;pointer-events:none;z-index:2147483646;opacity:.85;transition:all .5s';document.documentElement.appendChild(r);requestAnimationFrame(function(){r.style.width='46px';r.style.height='46px';r.style.margin='-23px 0 0 -23px';r.style.opacity='0';});setTimeout(function(){r.remove();},520);}
   window.__steveCursorMove=function(x,y){mv(x,y);ripple(x,y);};
-  // AUTOMATIC but does NOT follow the user's mouse: track the agent's CLICKS only (no mousemove
-  // listener), so moving your real cursor over the tab never moves the agent cursor. el.click()
-  // reports 0,0 → fall back to the target's centre. The cursor jumps to each agent click + ripples.
-  ['mousedown','click'].forEach(function(t){document.addEventListener(t,function(e){var x=e.clientX,y=e.clientY;if(!x&&!y&&e.target&&e.target.getBoundingClientRect){var b=e.target.getBoundingClientRect();x=b.left+b.width/2;y=b.top+b.height/2;}mv(x,y);ripple(x,y);},true);});
+  // The cursor moves ONLY when the agent calls window.__steveCursorMove(x,y). There are NO DOM
+  // mouse listeners at all, so it can never follow the USER's mouse OR clicks — the two are
+  // indistinguishable in-page (both are trusted events), so the only way to be independent is to
+  // be driven solely by the agent. The agent calls it before each click (see the exec prompt);
+  // during read-only phases the cursor simply rests where it was.
 })();`;
 
 export const AGENT_OVERLAY_REMOVE = `(function(){['__steveAgentTag','__steveAgentCursor','__steveAgentStyle'].forEach(function(id){var e=document.getElementById(id);if(e)e.remove();});window.__steveCursor=0;})();`;
