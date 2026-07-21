@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText } from './agent-cli';
+import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText, summarizeCliLine } from './agent-cli';
 import type { AgentMessage } from './agent-types';
 
 describe('engineForProvider', () => {
@@ -10,6 +10,39 @@ describe('engineForProvider', () => {
   it('routes everything else to opencode', () => {
     expect(engineForProvider('opencode')).toBe('opencode');
     expect(engineForProvider(undefined)).toBe('opencode');
+  });
+});
+
+describe('extractCliText stream-json', () => {
+  const ndjson = [
+    '{"type":"system","subtype":"init"}',
+    '{"type":"assistant","message":{"content":[{"type":"text","text":"mapping"}]}}',
+    '{"type":"result","subtype":"success","result":"# Site map\\nbody"}',
+  ].join('\n');
+
+  it('pulls the final result event out of NDJSON', () => {
+    expect(extractCliText('claude', ndjson)).toBe('# Site map\nbody');
+  });
+
+  it('still handles the single json envelope', () => {
+    expect(extractCliText('claude', '{"result":"hi","is_error":false}')).toBe('hi');
+  });
+
+  it('throws on a stream error result', () => {
+    expect(() => extractCliText('claude', '{"type":"result","is_error":true,"subtype":"max_turns"}')).toThrow(/max_turns/);
+  });
+});
+
+describe('summarizeCliLine', () => {
+  it('summarizes bash tool-use as the command', () => {
+    const line = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Bash","input":{"command":"curl -s http://127.0.0.1:9223/json/list"}}]}}';
+    expect(summarizeCliLine(line)).toBe('$ curl -s http://127.0.0.1:9223/json/list');
+  });
+  it('maps lifecycle events and ignores noise', () => {
+    expect(summarizeCliLine('{"type":"system"}')).toBe('session started');
+    expect(summarizeCliLine('{"type":"result","is_error":false}')).toBe('writing site map');
+    expect(summarizeCliLine('not json')).toBeNull();
+    expect(summarizeCliLine('{"type":"assistant","message":{"content":[]}}')).toBeNull();
   });
 });
 

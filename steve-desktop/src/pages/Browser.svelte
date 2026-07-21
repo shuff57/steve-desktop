@@ -663,12 +663,19 @@
     </div>
 
     {#if showActionPanel}
-      <ActionPanel 
-        bind:isCollapsed={actionPanelCollapsed} 
-        bind:width={actionPanelWidth}
-        pageUrl={pageLoadedUrl}
-        tabId={activeTabId}
-      />
+      <!-- One panel instance per tab so each tab keeps its own chat/discovery/skills state.
+           Inactive panels stay mounted but hidden (display:none) — state survives tab switches. -->
+      {#each tabs as tab (tab.id)}
+        <div class="panel-slot" style:display={tab.id === activeTabId ? 'contents' : 'none'}>
+          <ActionPanel
+            bind:isCollapsed={actionPanelCollapsed}
+            bind:width={actionPanelWidth}
+            pageUrl={tab.url}
+            tabId={tab.id}
+            active={tab.id === activeTabId}
+          />
+        </div>
+      {/each}
     {/if}
   </div>
 

@@ -1276,6 +1276,7 @@ fn resolve_on_path(binary: &str) -> Option<std::path::PathBuf> {
 /// scraped is untrusted input.
 #[tauri::command]
 async fn run_agent_cli(
+    app: tauri::AppHandle,
     engine: String,
     prompt: String,
     session_id: String,
@@ -1283,7 +1284,10 @@ async fn run_agent_cli(
     model: Option<String>,
     system_prompt: Option<String>,
     bypass_permissions: bool,
+    timeout_secs: Option<u64>,
+    stream: Option<bool>,
 ) -> Result<String, String> {
+    let streaming = stream == Some(true);
     let bin = resolve_on_path(&engine).ok_or_else(|| {
         format!(
             "{} not found on PATH. Install it, or pick a different engine in Settings.",
@@ -1295,7 +1299,14 @@ async fn run_agent_cli(
     match engine.as_str() {
         "claude" => {
             args.push("-p".into());
-            args.extend(["--output-format".into(), "json".into()]);
+            // stream-json emits one NDJSON event per turn/tool-use so the UI can show live
+            // progress; --verbose is required to pair with it under --print. The plain json
+            // envelope (single blob at the end) is kept for the non-streaming single-action path.
+            if streaming {
+                args.extend(["--output-format".into(), "stream-json".into(), "--verbose".into()]);
+            } else {
+                args.extend(["--output-format".into(), "json".into()]);
+            }
             // Default: NO tools — the CLI is a pure reasoning engine that emits one JSON
             // action, and the TS loop performs every browser action. `--disallowed-tools "*"`
             // is what actually sandboxes it: an empty `--allowed-tools ""` is a no-op (the
@@ -1388,12 +1399,55 @@ async fn run_agent_cli(
             .map_err(|e| format!("Failed to close stdin: {}", e))?;
     }
 
+    // Single-action turns keep the 180s default; an autonomous crawl passes its own budget.
+    let secs = timeout_secs.unwrap_or(180);
+
+    // Streaming path: read stdout line-by-line, emit each NDJSON event to the UI as it
+    // arrives, and accumulate the whole thing for the return value. stderr is drained by a
+    // detached task so a full stderr pipe can never deadlock the read.
+    if streaming {
+        use tokio::io::{AsyncBufReadExt, AsyncReadExt, BufReader};
+        if let Some(mut se) = child.stderr.take() {
+            tokio::spawn(async move {
+                let mut sink = Vec::new();
+                let _ = se.read_to_end(&mut sink).await;
+            });
+        }
+        let stdout_pipe = child
+            .stdout
+            .take()
+            .ok_or_else(|| "Failed to open stdout".to_string())?;
+        let sid = session_id.clone();
+        let read = async {
+            let mut lines = BufReader::new(stdout_pipe).lines();
+            let mut acc = String::new();
+            while let Some(line) = lines.next_line().await.map_err(|e| e.to_string())? {
+                let _ = app.emit(
+                    "agent-cli-progress",
+                    serde_json::json!({ "sessionId": sid, "line": line }),
+                );
+                acc.push_str(&line);
+                acc.push('\n');
+            }
+            let status = child.wait().await.map_err(|e| e.to_string())?;
+            Ok::<(String, std::process::ExitStatus), String>((acc, status))
+        };
+        let (stdout, status) = tokio::time::timeout(tokio::time::Duration::from_secs(secs), read)
+            .await
+            .map_err(|_| format!("{} timed out after {}s", engine, secs))?
+            .map_err(|e| format!("Failed to read {} output: {}", engine, e))?;
+        if !status.success() && stdout.trim().is_empty() {
+            return Err(format!("{} exited with {} and no output", engine, status));
+        }
+        return Ok(stdout);
+    }
+
     let out = tokio::time::timeout(
-        tokio::time::Duration::from_secs(180),
+        tokio::time::Duration::from_secs(secs),
         child.wait_with_output(),
     )
     .await
-    .map_err(|_| format!("{} timed out after 180s", engine))?
+    .map_err(|_| format!("{} timed out after {}s", engine, secs))?
     .map_err(|e| format!("Failed to read {} output: {}", engine, e))?;
 
     let stdout = String::from_utf8_lossy(&out.stdout).to_string();

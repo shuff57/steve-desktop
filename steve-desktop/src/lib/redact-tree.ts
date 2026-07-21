@@ -119,3 +119,67 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
     },
   };
 }
+
+/**
+ * Redact a captured profile for storage, WITHOUT letting the redactor rewrite the fields that
+ * identify where the profile belongs.
+ *
+ * The redactor is a case-insensitive substring swap with no word boundaries (see redact.ts), so
+ * a page value that happens to appear inside the hostname rewrites the hostname too. This is not
+ * hypothetical: a course named "Math 12" made every capture of www.myopenmath.com save itself as
+ * "www.⟦D15⟧.com". Profiles scattered into one bogus directory per token index and the site map
+ * became unfindable, so the panel reported nothing to clear while ~50 files sat on disk.
+ *
+ * `domain` is restored because it is a public hostname — routing information, not user data.
+ * `url` and `pageName` stay redacted: a URL carries uid=/stu= student identifiers and a page
+ * title can carry a name, and neither is worth un-redacting to tidy a filename.
+ */
+export function redactProfileForStorage<T extends { domain: string; url?: string; pageName?: string }>(
+  profile: T,
+  redact: (t: string) => string,
+): T {
+  const safe = { ...(JSON.parse(redact(JSON.stringify(profile))) as T), domain: profile.domain };
+  if (profile.url) {
+    const r = redactUrlForStorage(profile.url, redact);
+    safe.url = r.url;
+    // Name the page after its legible URL, not a bare token, so profiles save under readable,
+    // DISTINCT filenames (a token index used to disambiguate `course.php?folder=0` from
+    // `…folder=0-9-1` by accident; the query does it on purpose here).
+    safe.pageName = r.pageName;
+  }
+  return safe;
+}
+
+/**
+ * Redact a URL for storage while keeping it legible and navigable, and derive a matching page
+ * name. Scheme+host+PATH are kept intact (structural navigation — directories and filenames
+ * like `course.php`), and only the QUERY is redacted, where identifiers live (uid=, stu=). A
+ * captured secret in the query stays a token, so that page fails to navigate and is reported
+ * honestly rather than writing a student id to disk.
+ *
+ * The path is trusted as structural: this assumes identifiers live in query params (true on
+ * MyOpenMath). A site that put a raw student id in a PATH segment would have it written to the
+ * local map; same-origin, own-session capture bounds that exposure. Widen to per-segment
+ * redaction if a target site is found that puts ids in the path.
+ */
+export function redactUrlForStorage(
+  rawUrl: string,
+  redact: (t: string) => string,
+): { url: string; pageName: string } {
+  // Split on the raw string, not new URL().search, so the query redaction matches the dictionary
+  // (which holds decoded values) instead of a re-encoded %20 form.
+  const qIdx = rawUrl.indexOf('?');
+  const pathPart = qIdx === -1 ? rawUrl : rawUrl.slice(0, qIdx);
+  const rawQuery = qIdx === -1 ? '' : rawUrl.slice(qIdx);
+  try {
+    const u = new URL(pathPart);
+    const redQuery = rawQuery ? redact(rawQuery) : '';
+    const file = decodeURIComponent(u.pathname.split('/').filter(Boolean).pop() ?? 'home');
+    // pageName = filename + the ALREADY-redacted query, so a secret in the query stays a token
+    // in the name too, while the query still disambiguates same-filename pages.
+    return { url: u.origin + u.pathname + redQuery, pageName: file + redQuery };
+  } catch {
+    const red = redact(rawUrl); // not a parseable URL — leave it fully redacted
+    return { url: red, pageName: red };
+  }
+}

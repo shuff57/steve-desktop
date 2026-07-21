@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { redactTree, isChromeNode } from './redact-tree';
+import { redactTree, isChromeNode, redactProfileForStorage, redactUrlForStorage } from './redact-tree';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
 function node(tag: string, text: string, attrs: Record<string, string> = {}): SnapshotNode {
@@ -105,5 +105,86 @@ describe('redactTree — slot-level, deny-by-default', () => {
   it('second-pass dictionary strips a KNOWN identifier even if it appears inside a chrome node', () => {
     const out = redactTree(snap([node('h2', 'Welcome back, Jane Doe')]), { extraSecrets: ['Jane Doe'] });
     expect(out.redactedText).not.toContain('Jane Doe');
+  });
+});
+
+describe('redactProfileForStorage — the hostname must survive redaction', () => {
+  // The real incident: a course named "Math 12" put "Math" in the redactor's value list, and
+  // the swap is a case-insensitive substring with no word boundary, so it rewrote the "math"
+  // inside myopenmath.com. Every capture saved to a different bogus directory (one per token
+  // index) and no site map was ever written where anything could find it.
+  const redact = (t: string) => t.replace(/math/gi, '⟦D15⟧').replace(/Jane Doe/g, '⟦D2⟧');
+
+  it('keeps the domain intact even when a page value appears inside it', () => {
+    const profile = {
+      url: 'https://www.myopenmath.com/course/gradebook.php?cid=306621&uid=7158619',
+      domain: 'www.myopenmath.com',
+      pageName: 'gradebook.php',
+      student: 'Jane Doe',
+    };
+    const safe = redactProfileForStorage(profile, redact);
+    expect(safe.domain).toBe('www.myopenmath.com');
+  });
+
+  it('still redacts page content, so nothing is un-redacted to save a filename', () => {
+    const profile = { domain: 'www.myopenmath.com', student: 'Jane Doe', note: 'Math 12 roster' };
+    const safe = redactProfileForStorage(profile, redact);
+    expect(safe.student).not.toContain('Jane');
+    expect(safe.note).not.toContain('Math');
+  });
+
+  it('keeps the url navigable while still redacting its query', () => {
+    // The host lives inside the url string too, so the same swap corrupted it: the site map
+    // ended up full of https://www.⟦D15⟧.com/... which resolves to nothing.
+    const profile = {
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/course/gradebook.php?stu=Jane Doe',
+    };
+    const safe = redactProfileForStorage(profile, redact);
+    expect(safe.url).toContain('https://www.myopenmath.com/course/gradebook.php');
+    expect(safe.url).not.toContain('Jane');  // query still scrubbed
+  });
+
+  it('keeps a structural filename legible even when it was tokenized as content, and names the page after it', () => {
+    // The reported bug: `course.php` appeared as data on the page, so the value→token swap
+    // rewrote it everywhere — url AND pageName — and the profile saved as d61.json.
+    const withFile = (t: string) => redact(t).replace(/course\.php/g, '⟦D61⟧');
+    const profile = {
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/course/course.php?cid=316341&folder=0',
+      pageName: 'course.php',
+    };
+    const safe = redactProfileForStorage(profile, withFile);
+    expect(safe.url).toBe('https://www.myopenmath.com/course/course.php?cid=316341&folder=0');
+    expect(safe.pageName).toBe('course.php?cid=316341&folder=0'); // legible AND query-disambiguated
+  });
+
+  it('two same-filename pages get distinct names (no collision into one file)', () => {
+    const p = (folder: string) =>
+      redactProfileForStorage(
+        { domain: 'www.myopenmath.com', url: `https://www.myopenmath.com/course/course.php?cid=316341&folder=${folder}`, pageName: 'course.php' },
+        redact,
+      ).pageName;
+    expect(p('0')).not.toBe(p('0-9-1'));
+  });
+});
+
+describe('redactUrlForStorage', () => {
+  const redact = (t: string) => t.replace(/math/gi, '⟦D15⟧').replace(/Jane Doe/g, '⟦D2⟧');
+
+  it('restores scheme+host+path and redacts only the query', () => {
+    const r = redactUrlForStorage('https://www.myopenmath.com/course/math.php?a=Jane Doe', redact);
+    expect(r.url).toBe('https://www.myopenmath.com/course/math.php?a=⟦D2⟧'); // math.php legible, query scrubbed
+    expect(r.pageName).toBe('math.php?a=⟦D2⟧');
+  });
+
+  it('a query-less url stays fully legible', () => {
+    const r = redactUrlForStorage('https://x.edu/a/b/gradebook.php', redact);
+    expect(r.url).toBe('https://x.edu/a/b/gradebook.php');
+    expect(r.pageName).toBe('gradebook.php');
+  });
+
+  it('falls back to a fully redacted string when the url will not parse', () => {
+    expect(redactUrlForStorage('not a url with Jane Doe', redact).url).not.toContain('Jane');
   });
 });

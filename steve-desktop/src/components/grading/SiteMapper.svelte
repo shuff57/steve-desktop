@@ -9,16 +9,28 @@
   import { cdp } from '../../lib/cdp-client';
   import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
   import { captureMergedTree, mergedToProfile, summarizeMerged, type CaptureStats } from '../../lib/merged-tree';
-  import { redactTree } from '../../lib/redact-tree';
+  import { redactTree, redactProfileForStorage } from '../../lib/redact-tree';
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
+    saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
+  import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
+  import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
+  import { invoke } from '@tauri-apps/api/core';
+  import { listen } from '@tauri-apps/api/event';
+  import { planFrontier, fetchTemplateTiebreak, type FrontierCandidate } from '../../lib/crawl-planner';
+  import { fetchMapSynthesis, type MapSynthesis } from '../../lib/map-synthesis';
+  import { sidecarTransport } from '../../lib/replay-live';
+  import type { ModelTransport } from '../../lib/model-gate';
+  import { gradePage, selectorsToProbe, summarize, type PageVerdict, type VerifySummary } from '../../lib/crawl-verify';
+  import { selectorToCountExpr } from '../../lib/selector-resolve';
   import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import type { SiteProfile } from '../../lib/types/site-profile';
 
-  let { pageUrl = '' } = $props<{ pageUrl?: string }>();
+  let { pageUrl = '', provider = '', model = '' } = $props<{ pageUrl?: string; provider?: string; model?: string }>();
 
   // Reopening the panel restores the saved site map for whatever domain you're on.
   onMount(async () => {
@@ -56,9 +68,33 @@
   /** Links dropped for belonging to another course. */
   let outOfScope = $state(0);
 
-  // How many pages of one URL family to map before trusting it's a template. Two, not one:
-  // a single sample can't tell a template from a coincidence.
-  const SAMPLES_PER_TEMPLATE = 2;
+  // AI-guided crawl: the model prioritizes the frontier, digests each new template into a
+  // PageCard, breaks template ties, and names the finished map. Every call is gated
+  // (callModelTree leak check) and every failure falls back to the deterministic path.
+  let aiGuided = $state(false);
+  /** Frontier links the model chose not to visit — a decision, never a silent gap. */
+  let aiSkips = $state<{ url: string; reason: string }[]>([]);
+  let synthesis = $state<MapSynthesis | null>(null);
+
+  // Claude-driven crawl: the model picks every hop and writes the mapping doc itself.
+  let aiDriving = $state(false);
+  let aiDoc = $state<string | null>(null);
+  let aiDocPath = $state<string | null>(null);
+  /** Live progress lines streamed from the spawned agent while it crawls. */
+  let aiProgress = $state<string[]>([]);
+  /** Second-pass: the agent's own verification report of its mapping doc. */
+  let aiVerifying = $state(false);
+  let aiVerifyReport = $state<string | null>(null);
+  /** Page list from the last agent crawl, reused by the agent-verify pass. */
+  let aiPages = $state<{ name: string; url: string }[]>([]);
+
+  // Post-crawl verification: re-visit each mapped page and check the agent could actually act
+  // on it. Read-only — resolves selectors and compares shape, never clicks. Clicking to prove
+  // reachability would be a write against a live course.
+  let verifying = $state(false);
+  let verdicts = $state<PageVerdict[]>([]);
+  let verifySummary = $state<VerifySummary | null>(null);
+  let verifyMsg = $state<string | null>(null);
 
   function flattenInteractive(p: SiteProfile) {
     const rows: { kind: string; label: string; selector: string }[] = [];
@@ -70,7 +106,7 @@
 
   /** Capture the current page over CDP → profile (+ refresh the single-page display).
    * Returns the redactor too, so the profile can be redacted before it's persisted. */
-  async function captureCurrent(url: string): Promise<{ profile: SiteProfile; redact: (t: string) => string }> {
+  async function captureCurrent(url: string): Promise<{ profile: SiteProfile; redact: (t: string) => string; secrets: Record<string, string> }> {
     if (!isConnected() && !(await connectCDP())) {
       throw new Error('Could not connect to the browser — open a page in the browser first.');
     }
@@ -82,15 +118,16 @@
     redactedSize = red.redactedText.length;
     redactedTokens = Object.keys(red.map).length;
     redactedSample = red.redactedText.slice(0, 1200);
-    return { profile, redact: red.redact };
+    // secrets = token → original value; the AI calls use it as the gate's leak dictionary.
+    return { profile, redact: red.redact, secrets: red.map };
   }
 
   /** Tokenize any PII in the profile BEFORE it's written to disk. mergedToProfile keeps
    * raw labels/selectors (e.g. a roster name in role=…[name="Doe, Jane"]); this swaps the
    * value dictionary over the whole JSON so the saved artifact holds ⟦D…⟧, never names. */
-  function redactProfile(p: SiteProfile, redact: (t: string) => string): SiteProfile {
-    return JSON.parse(redact(JSON.stringify(p)));
-  }
+  // Keeps the hostname intact through redaction — see redactProfileForStorage.
+  const redactProfile = (p: SiteProfile, redact: (t: string) => string): SiteProfile =>
+    redactProfileForStorage(p, redact);
 
   async function map() {
     if (mapping) return;
@@ -184,21 +221,37 @@
   }
 
   /** Capture the current page, save its profile, and fold it into the per-domain site map. */
-  async function mapHere(url: string, visited: Set<string>): Promise<SiteProfile> {
-    const { profile, redact } = await captureCurrent(url);
+  async function mapHere(url: string, visited: Set<string>): Promise<{ profile: SiteProfile; safe: SiteProfile; secrets: Record<string, string> }> {
+    const { profile, redact, secrets } = await captureCurrent(url);
     visited.add(url);
     const domain = profile.domain;
     // Redact before persisting: both the per-page profile and the site-map node are
     // built from the safe profile, so neither holds raw PII.
     const safe = redactProfile(profile, redact);
-    await saveProfile(safe); // per-page JSON — feeds replay/skills and the review panel
+    // Map entry FIRST, then the per-page JSON. The reverse order orphans a profile file if the
+    // map write fails: nothing references it, so "Clear all" (which iterates the map) can never
+    // delete it. This way a failure leaves a mapped page whose JSON is missing instead — visible
+    // in the panel, and every reader already handles a null profile.
     let map = siteMap && siteMap.domain === domain ? siteMap : (await loadSiteMap(domain)) ?? emptySiteMap(domain, new Date().toISOString());
     map = upsertPage(map, profileToNode(safe));
     siteMap = map;
     await saveSiteMap(map);
+    await saveProfile(safe); // per-page JSON — feeds replay/skills and the review panel
     // Return the RAW profile: the crawler reads its links to navigate the frontier,
     // and a tokenized href would break that. Only persisted artifacts are redacted.
-    return profile;
+    // `safe` + `secrets` feed the AI layer: safe is what the model may see, secrets is
+    // the gate's leak dictionary.
+    return { profile, safe, secrets };
+  }
+
+  /** Short context for the frontier planner: what's mapped, so "already represented" is decidable. */
+  function mapSummaryFor(cards: PageCardCache): string {
+    const pages = siteMap?.pages ?? [];
+    const recent = pages.slice(-15).map((p) => {
+      const card = cards.get(p.url);
+      return `- ${p.pageName}${card ? ` [${card.pageType}]` : ''}`;
+    });
+    return pages.length ? `${pages.length} pages mapped, most recent:\n${recent.join('\n')}` : '';
   }
 
   // Auto-crawl, breadth-first: map the start page, queue its links, then navigate to each in turn,
@@ -213,10 +266,24 @@
     failures = [];
     collapsed = [];
     outOfScope = 0;
+    aiSkips = [];
+    synthesis = null;
     activeScope = scopeOf(pageUrl);
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
     const tabId = getActiveTabId();
+
+    // AI layer — null when off, and every helper degrades to the deterministic path on
+    // its own (fallback plan / null card / null verdict), so the crawl never depends on it.
+    const ai: ModelTransport | null = aiGuided && provider ? sidecarTransport({ provider, model }) : null;
+    const cardCache = new PageCardCache();
+    /** template → model tie-break verdict ("same template despite differing signatures"). */
+    const tiebreak = new Map<string, boolean>();
+    /** token → value across ALL captured pages: the leak dictionary only ever grows. */
+    const allSecrets: Record<string, string> = {};
+    const crawlGoal =
+      'Map this course site for a teacher-automation agent: gradebook, assignments, rosters, ' +
+      'settings. Skip redundant instances of repeating rows/lists already represented.';
 
     try {
       const start = normalizeUrl(pageUrl);
@@ -231,19 +298,47 @@
       // so the first samples already queued whatever they reach: coverage is preserved.
       const tplSigs = new Map<string, Set<string>>(); // template -> distinct shapes seen
       const tplMapped = new Map<string, number>(); // template -> pages actually mapped
+      // AI tie-break: a family whose signatures never converge (per-row input labels) still
+      // saturates once the model says the shapes are one template — after the same minimum
+      // sample count the deterministic rule uses.
       const isSaturated = (t: string) =>
-        (tplMapped.get(t) ?? 0) >= SAMPLES_PER_TEMPLATE && (tplSigs.get(t)?.size ?? 0) === 1;
+        isTemplateSaturated(tplMapped.get(t) ?? 0, tplSigs.get(t)?.size ?? 0) ||
+        (tiebreak.get(t) === true && (tplMapped.get(t) ?? 0) >= SAMPLES_PER_TEMPLATE);
+
+      /** Note a page we chose not to visit, so a collapsed family is always visible in the UI. */
+      const noteCollapsed = (tpl: string) => {
+        const hit = collapsed.find((c) => c.template === tpl);
+        if (hit) hit.skipped += 1;
+        else collapsed.push({ template: tpl, skipped: 1 });
+      };
 
       while (queue.length && !stopRequested && visited.size < SAFETY_MAX) {
         const target = queue.shift()!;
+
+        // Re-check saturation HERE, not just at enqueue. A listing page fans out its whole
+        // family in one burst — one gradebook lists 12 students, one course page lists 26
+        // assessments — so every link is queued before any of them has been mapped and
+        // tplMapped is still 0. The enqueue-time check cannot bound that; by the time the
+        // count is meaningful the queue is already full. Checking again on dequeue, when the
+        // counts are current, is what actually caps the family.
+        const queuedTpl = urlTemplate(target);
+        if (isSaturated(queuedTpl)) {
+          noteCollapsed(queuedTpl);
+          continue;
+        }
 
         // One bad page must not kill the whole crawl — navigation, settling AND capture
         // are all inside the guard. The page is marked visited so it isn't retried forever,
         // and the error is recorded against its URL so a skip is diagnosable.
         let profile: SiteProfile;
+        let safe: SiteProfile;
+        let secrets: Record<string, string>;
         let landed = target;
         try {
           if (!first) {
+            // Belt and suspenders: the queue only ever holds gate-passed links, but the
+            // navigator re-checks anyway — no code path may navigate an unsafe URL.
+            if (!isCrawlableLink(target, start)) continue;
             // Arm the load listener BEFORE navigating so a fast load can't be missed.
             const loaded = await armPageLoad();
             await navigateEmbedded(tabId, target);
@@ -255,9 +350,16 @@
 
           landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
           if (visited.has(landed)) continue;
-          profile = await mapHere(landed, visited);
+          ({ profile, safe, secrets } = await mapHere(landed, visited));
         } catch (e) {
           visited.add(landed);
+          // Count the attempt against its template even though it failed. Otherwise a family
+          // whose pages all error never accrues samples, never saturates, and every one of its
+          // links is tried — one run spent 35 navigations on chrome-error://chromewebdata that
+          // way. A page that cannot be captured teaches us as much about the family as one that
+          // can: stop after the ceiling either way.
+          const failedTpl = urlTemplate(landed);
+          tplMapped.set(failedTpl, (tplMapped.get(failedTpl) ?? 0) + 1);
           failures.push({ url: landed, error: e instanceof Error ? e.message : String(e) });
           siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${failures.length} skipped · ${queue.length} queued…`;
           continue;
@@ -270,15 +372,39 @@
         sigs.add(structuralSignature(profile));
         tplSigs.set(landedTpl, sigs);
 
+        if (ai) {
+          Object.assign(allSecrets, secrets);
+          // One card per template family — a null (gate refusal, bad reply) just means no card.
+          if (!cardCache.has(landed)) {
+            const card = await fetchPageCard(safe, allSecrets, ai);
+            if (card) {
+              cardCache.set(landed, card);
+              if (siteMap) {
+                siteMap = { ...siteMap, pages: siteMap.pages.map((p) => (p.url === landed ? { ...p, card } : p)) };
+                await saveSiteMap(siteMap);
+              }
+            }
+          }
+          // Signatures disagree within the family → ask once whether it's one template anyway.
+          if (sigs.size > 1 && !tiebreak.has(landedTpl)) {
+            const two = [...sigs];
+            const verdict = await fetchTemplateTiebreak(two[0], two[1], allSecrets, ai);
+            if (verdict !== null) tiebreak.set(landedTpl, verdict);
+          }
+        }
+
         siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`
           + (collapsed.length ? ` · ${collapsed.reduce((n, c) => n + c.skipped, 0)} repeats skipped` : '');
 
+        // Deterministic filters first (gate, scope, saturation) — the AI planner only ever
+        // sees links that already passed every one of them.
+        const fresh: FrontierCandidate[] = [];
         for (const link of profile.interactive.links) {
           if (!link.href) continue;
           let abs: string;
           try { abs = normalizeUrl(new URL(link.href, landed).toString()); } catch { continue; }
           // Skip same-page anchors (popovers), already-seen pages, and unsafe links.
-          if (abs === landed || queued.has(abs) || !isCrawlableLink(abs, landed)) continue;
+          if (abs === landed || queued.has(abs) || fresh.some((c) => c.url === abs) || !isCrawlableLink(abs, landed)) continue;
 
           // Stay in the course you started in. Without this the crawl reaches your home
           // page and follows it into every other course on the account.
@@ -292,24 +418,56 @@
           const tpl = urlTemplate(abs);
           if (isSaturated(tpl)) {
             queued.add(abs); // mark handled so we don't re-evaluate it from another page
-            const hit = collapsed.find((c) => c.template === tpl);
-            if (hit) hit.skipped += 1;
-            else collapsed.push({ template: tpl, skipped: 1 });
+            noteCollapsed(tpl);
             continue;
           }
 
-          queued.add(abs);
-          queue.push(abs);
+          fresh.push({ url: abs, label: link.text || '(no label)' });
+        }
+
+        if (ai && fresh.length > 1 && !stopRequested) {
+          // The model reorders/skips within the safe set; it cannot add (indices only),
+          // and any failure returns the fallback plan = exactly the deterministic order.
+          const plan = await planFrontier(fresh, { goal: crawlGoal, mapSummary: mapSummaryFor(cardCache), secrets: allSecrets, transport: ai });
+          for (const s of plan.skip) {
+            queued.add(s.url); // a deliberate skip is handled — not re-evaluated from another page
+            aiSkips = [...aiSkips, s];
+          }
+          for (const u of plan.follow) {
+            queued.add(u);
+            queue.push(u);
+          }
+        } else {
+          for (const c of fresh) {
+            queued.add(c.url);
+            queue.push(c.url);
+          }
         }
       }
 
       await navigateEmbedded(tabId, start).catch(() => {}); // return you to where you started
-      if (siteMap) trimSuggestions = suggestTrim(siteMap);
+
+      // Synthesis first (it can only add), then the deterministic trim as the floor.
+      if (ai && siteMap && !stopRequested) {
+        siteMsg = 'Crawl done — synthesizing site map…';
+        const cards: Record<string, PageCard | undefined> = {};
+        for (const p of siteMap.pages) cards[p.url] = p.card ?? cardCache.get(p.url);
+        synthesis = await fetchMapSynthesis(siteMap, cards, allSecrets, ai);
+      }
+      if (siteMap) {
+        trimSuggestions = suggestTrim(siteMap);
+        for (const t of synthesis?.trim ?? []) {
+          if (trimSuggestions.some((s) => s.url === t.url)) continue;
+          const page = siteMap.pages.find((p) => p.url === t.url);
+          if (page) trimSuggestions = [...trimSuggestions, { url: t.url, pageName: page.pageName, reason: `AI: ${t.reason}` }];
+        }
+      }
       const n = siteMap?.pages.length ?? 0;
       const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
       siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
         + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope?.key}=${activeScope?.value} not followed.` : '')
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
+        + (aiSkips.length ? ` ${aiSkips.length} link(s) skipped by AI — see below.` : '')
         + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
         + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
     } catch (e) {
@@ -321,6 +479,279 @@
 
   function stopCrawl() {
     stopRequested = true;
+  }
+
+  // ── Spawned-agent crawl ──────────────────────────────────────────────────────────────
+  // The chosen engine CLI is spawned full-shell and handed the app's CDP debug port: the
+  // crawl runs INSIDE the agent against the already-logged-in webview, and its final
+  // stdout IS the mapping document. Safety here is prompt-level (the deny regexes are
+  // spelled out verbatim in the prompt) — the CLI has its own tools, so unlike the BFS
+  // crawl there is no hard gate between the model and the browser. The stop button
+  // cannot kill a spawned CLI; the Rust-side timeout is the backstop.
+  async function aiDriveCrawl() {
+    if (crawling || aiDriving) return;
+    if (!provider) { siteMsg = 'Pick an engine above first.'; return; }
+    aiDriving = true;
+    aiDoc = null;
+    aiDocPath = null;
+    aiProgress = [];
+    failures = [];
+    activeScope = scopeOf(pageUrl);
+    const tabId = getActiveTabId();
+    const sessionId = crypto.randomUUID();
+    let unlisten: (() => void) | undefined;
+    try {
+      const port = await invoke<number | null>('get_cdp_port');
+      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
+      const engine = engineForProvider(provider);
+
+      // Subscribe BEFORE spawning so no early event is missed. Only this run's lines.
+      unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
+        if (ev.payload.sessionId !== sessionId) return;
+        const summary = summarizeCliLine(ev.payload.line);
+        if (summary) aiProgress = [...aiProgress, summary].slice(-40);
+      });
+
+      const prompt = buildCliCrawlPrompt({
+        cdpPort: port,
+        startUrl: normalizeUrl(pageUrl),
+        scope: stayInScope ? activeScope : null,
+      });
+      siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} — it is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt,
+        sessionId,
+        resume: false,
+        model: cliModelArg(engine, model),
+        systemPrompt: null,
+        bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
+        timeoutSecs: 900,
+        stream: true, // NDJSON progress events → aiProgress
+      });
+      const { doc, pages } = parseCliCrawlOutput(extractCliText(engine, stdout));
+      if (!doc) throw new Error(`${engine} returned an empty mapping`);
+      aiDoc = doc;
+      aiPages = pages;
+      aiVerifyReport = null;
+      const domain = domainFromUrl(pageUrl);
+      if (domain) aiDocPath = await saveMappingDoc(domain, doc).catch(() => null);
+
+      // Capture pass: re-visit each page the agent reported through the app's OWN pipeline,
+      // so we get app-native profiles (buttons/inputs/selectors) + a real SiteMap. This is
+      // what makes the deterministic "Verify map" button work against an agent-driven crawl.
+      // Every URL is re-gated here — the agent's list is not trusted to be safe.
+      if (pages.length) {
+        const start = normalizeUrl(pageUrl);
+        const visited = new Set<string>();
+        for (const [i, p] of pages.entries()) {
+          const u = normalizeUrl(p.url);
+          if (visited.has(u) || !isCrawlableLink(u, start)) continue;
+          siteMsg = `Capturing page ${i + 1}/${pages.length} for verification — ${p.name}…`;
+          try {
+            const loaded = await armPageLoad();
+            await navigateEmbedded(activeTabIdOr(tabId), u);
+            await loaded();
+            await settle();
+            await mapHere(u, visited); // writes profile JSON + folds into siteMap
+          } catch (e) {
+            failures.push({ url: u, error: e instanceof Error ? e.message : String(e) });
+          }
+        }
+        await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
+      }
+      siteMsg = `Agent crawl done — ${aiProgress.length} step(s), ${siteMap?.pages.length ?? 0} page(s) captured for verification.`
+        + (pages.length ? '' : ' (agent returned no page list — doc only, nothing to verify.)')
+        + (failures.length ? ` ${failures.length} capture(s) failed.` : '');
+    } catch (e) {
+      siteMsg = `Agent crawl failed: ${e instanceof Error ? e.message : String(e)}`;
+    } finally {
+      unlisten?.();
+      aiDriving = false;
+    }
+  }
+
+  /** getActiveTabId can momentarily return '' during capture; fall back to the id we started with. */
+  function activeTabIdOr(fallback: string): string {
+    return getActiveTabId() || fallback;
+  }
+
+  // Agent-driven verification: spawn the CLI again with its own doc + the page list, have it
+  // re-read the live pages and report whether the document holds up. Read-only, same rails as
+  // the crawl; the streamed progress reuses the same live log.
+  async function aiVerifyDoc() {
+    if (aiDriving || aiVerifying || !aiDoc) return;
+    if (!provider) { siteMsg = 'Pick an engine above first.'; return; }
+    aiVerifying = true;
+    aiVerifyReport = null;
+    aiProgress = [];
+    failures = [];
+    const tabId = getActiveTabId();
+    const sessionId = crypto.randomUUID();
+    let unlisten: (() => void) | undefined;
+    try {
+      const port = await invoke<number | null>('get_cdp_port');
+      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
+      const engine = engineForProvider(provider);
+      unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
+        if (ev.payload.sessionId !== sessionId) return;
+        const summary = summarizeCliLine(ev.payload.line);
+        if (summary) aiProgress = [...aiProgress, summary].slice(-40);
+      });
+      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages });
+      siteMsg = `Spawned ${engine} to verify its own mapping — re-reading ${aiPages.length} page(s) over CDP…`;
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt,
+        sessionId,
+        resume: false,
+        model: cliModelArg(engine, model),
+        systemPrompt: null,
+        bypassPermissions: true,
+        timeoutSecs: 900,
+        stream: true,
+      });
+      const { report, healedDoc, recapture } = parseCliVerifyOutput(extractCliText(engine, stdout));
+      if (!report) throw new Error(`${engine} returned an empty verification report`);
+      aiVerifyReport = report;
+      const domain = domainFromUrl(pageUrl);
+      if (domain) await saveVerifyReport(domain, report).catch(() => {});
+
+      // Heal the doc: overwrite _sitemap-ai.md with the corrected version (prior kept as .prev.md).
+      let healed = false;
+      if (domain && healedDoc && healedDoc.trim() !== aiDoc.trim()) {
+        aiDoc = healedDoc;
+        aiDocPath = await healMappingDoc(domain, healedDoc).catch(() => aiDocPath);
+        healed = true;
+      }
+
+      // Heal the profiles: re-capture the pages verify flagged, at their corrected URLs, through
+      // the app's own pipeline. Every URL is re-gated — the agent's list is not trusted to be safe.
+      let recaptured = 0;
+      if (recapture.length) {
+        const start = normalizeUrl(pageUrl);
+        const visited = new Set<string>();
+        for (const [i, p] of recapture.entries()) {
+          const u = normalizeUrl(p.url);
+          if (visited.has(u) || !isCrawlableLink(u, start)) continue;
+          siteMsg = `Healing profile ${i + 1}/${recapture.length} — ${p.name}…`;
+          try {
+            const loaded = await armPageLoad();
+            await navigateEmbedded(activeTabIdOr(tabId), u);
+            await loaded();
+            await settle();
+            await mapHere(u, visited);
+            recaptured += 1;
+          } catch (e) {
+            failures.push({ url: u, error: e instanceof Error ? e.message : String(e) });
+          }
+        }
+        await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
+      }
+
+      siteMsg = `Agent verification done — report below.`
+        + (healed ? ' Doc healed (prior saved as _sitemap-ai.prev.md).' : ' Doc unchanged.')
+        + (recaptured ? ` ${recaptured} profile(s) re-captured.` : '')
+        + (failures.length ? ` ${failures.length} re-capture(s) failed.` : '');
+    } catch (e) {
+      siteMsg = `Agent verification failed: ${e instanceof Error ? e.message : String(e)}`;
+    } finally {
+      unlisten?.();
+      aiVerifying = false;
+    }
+  }
+
+  /**
+   * How many elements each selector matches, resolved in ONE page-side pass. Doing this per
+   * selector would be a CDP round trip per control — hundreds per page. An invalid selector
+   * throws inside querySelectorAll and is recorded as -1, which grades as broken (correct: the
+   * agent cannot use it either).
+   */
+  async function probeSelectors(selectors: string[]): Promise<Record<string, number>> {
+    if (!selectors.length) return {};
+    // Must go through selectorToCountExpr, NOT querySelectorAll: 69% of stored selectors are
+    // role=button[name="…"] accessibility anchors, which are not valid CSS. Probing them as CSS
+    // throws on every one — that is what made the first verify run report 10,991 "broken"
+    // selectors, measuring the probe's own wrong assumption rather than the site.
+    const body = selectors
+      .map((s) => {
+        const key = JSON.stringify(s);
+        return `try{o[${key}]=${selectorToCountExpr(s)}}catch(e){o[${key}]=-1}`;
+      })
+      .join(';');
+    const js = `(function(){var o={};${body};return JSON.stringify(o)})()`;
+    try {
+      return JSON.parse(await evalScript(js)) as Record<string, number>;
+    } catch {
+      return {};
+    }
+  }
+
+  /**
+   * Walk every mapped page and verify the agent could act on it: navigate there, re-capture, and
+   * check each control's selector resolves to exactly one element. Ambiguous selectors (one
+   * selector matching 24 roster rows) are the point — they pass a naive check and then click the
+   * wrong student's row.
+   */
+  async function verifyMap() {
+    if (!siteMap || verifying) return;
+    verifying = true;
+    stopRequested = false;
+    verdicts = [];
+    verifySummary = null;
+    const tabId = getActiveTabId();
+    const start = normalizeUrl(pageUrl);
+    const pages = siteMap.pages;
+
+    try {
+      for (const [i, node] of pages.entries()) {
+        if (stopRequested) break;
+        verifyMsg = `Verifying ${i + 1}/${pages.length} — ${node.pageName}…`;
+
+        // Same guard as the crawl: one unreachable page must not end the pass.
+        try {
+          const loaded = await armPageLoad();
+          await navigateEmbedded(tabId, node.url);
+          await loaded();
+          await settle();
+          if (stopRequested) break;
+
+          const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => node.url));
+          const { profile: fresh } = await captureCurrent(landed);
+          const baseline = await loadProfile(fresh.domain, node.pageName).catch(() => null);
+          const counts = await probeSelectors(selectorsToProbe(fresh));
+          verdicts = [...verdicts, gradePage(fresh, baseline, counts, landed)];
+        } catch (e) {
+          verdicts = [
+            ...verdicts,
+            {
+              url: node.url,
+              pageName: node.pageName,
+              status: 'unreachable',
+              signatureMatch: false,
+              checks: [],
+              error: e instanceof Error ? e.message : String(e),
+            },
+          ];
+        }
+      }
+
+      await navigateEmbedded(tabId, start).catch(() => {}); // put you back where you started
+      const s = summarize(verdicts);
+      verifySummary = s;
+      verifyMsg =
+        (stopRequested ? `Stopped — ${s.pages} of ${pages.length} verified.` : `Verified ${s.pages} page(s).`) +
+        ` ${s.ok} ok` +
+        (s.drifted ? ` · ${s.drifted} drifted` : '') +
+        (s.unreachable ? ` · ${s.unreachable} unreachable` : '') +
+        (s.ambiguous ? ` · ${s.ambiguous} ambiguous selector(s)` : '') +
+        (s.broken ? ` · ${s.broken} broken` : '') +
+        (s.healed ? ` · ${s.healed} need self-heal` : '');
+    } catch (e) {
+      verifyMsg = `Verify failed: ${e instanceof Error ? e.message : String(e)}`;
+    } finally {
+      verifying = false;
+    }
   }
 
   // If the panel is collapsed or you switch tabs, this component unmounts — halt any running
@@ -406,11 +837,26 @@
     <div class="head">
       <span class="hdr">Map this site</span>
       <div class="site-btns">
-        <button class="map" disabled={crawling} onclick={crawl}
-          title="Visit the site's links breadth-first, lazy-load each page, and map them">
-          {crawling ? '⏳ Crawling…' : '🕸 Map this site'}
+        <!-- On this branch, Map this site IS the agent-driven mapping: it spawns the chosen
+             engine CLI with the CDP debug port. The BFS crawl() machinery stays for the
+             deterministic path but has no button here. -->
+        <button class="map" disabled={crawling || aiDriving || aiVerifying || !provider} onclick={aiDriveCrawl}
+          title="Spawns the chosen engine CLI full-shell with the app's CDP debug port: the agent drives the logged-in browser itself (read-only rules + deny-list in its prompt, max {CLI_CRAWL_MAX_PAGES} pages), writes the mapping document, and reports the pages it visited so the app can capture their selectors for verification. Cannot be stopped mid-run — bounded by a 15 min timeout. Needs an engine selected above.">
+          {aiDriving ? '🤖 Agent crawling…' : '🕸 Map this site'}
         </button>
-        {#if crawling}
+        {#if aiDoc && !aiDriving}
+          <button class="map" disabled={aiVerifying || !provider} onclick={aiVerifyDoc}
+            title="Spawns the agent again to re-read the pages it mapped and check its own document against the live site (read-only browsing). Produces a verification report, then heals: rewrites the mapping doc with its corrections (prior kept as .prev.md) and re-captures any pages whose URL it corrected.">
+            {aiVerifying ? '🔎 Verifying & healing…' : '🔎 Agent verify + heal'}
+          </button>
+        {/if}
+        {#if siteMap?.pages.length && !crawling && !aiDriving && !aiVerifying}
+          <button class="map" disabled={verifying} onclick={verifyMap}
+            title="Re-visit every mapped page and check the agent could act on it (selectors resolve to one element). Read-only — resolves selectors, never clicks. Works for the agent-driven map too, since its pages are captured into profiles.">
+            {verifying ? '⏳ Verifying…' : '✅ Verify map'}
+          </button>
+        {/if}
+        {#if crawling || verifying}
           <button class="map stop" onclick={stopCrawl} title="Stop after the current page">⏹ Stop</button>
         {/if}
       </div>
@@ -423,7 +869,8 @@
         {:else}<span class="kind">(no course id on this page — whole site)</span>{/if}
       </span>
     </label>
-    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout, admin, and anything that reads as a write (add/change/remove/copy/transfer, ?action=). Repeating templates (a roster of students) are sampled twice then skipped. Drives your browser tab; use Stop to halt.</p>
+    <!-- AI-guided BFS toggle hidden with the BFS button on this branch; state + crawl() kept. -->
+    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout, admin, and anything that reads as a write (add/change/remove/copy/transfer, ?action=). Repeating templates (a roster of students, a bank of questions) are sampled twice then skipped — or at most {MAX_SAMPLES_PER_TEMPLATE} times if their shape keeps changing. Drives your browser tab; use Stop to halt.</p>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
 
     {#if collapsed.length}
@@ -434,6 +881,89 @@
         {#each collapsed as c (c.template)}
           <li class="row site-row">
             <span class="label" title={c.template}>{c.template} — <span class="kind">{c.skipped} repeat page(s) skipped, shape already mapped</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+
+    {#if aiProgress.length}
+      <div class="head">
+        <span class="hdr">Agent activity {#if aiDriving || aiVerifying}(live){/if}</span>
+      </div>
+      <ul class="list progress-log">
+        {#each aiProgress.slice(-12) as line, i (i + line)}
+          <li class="row site-row"><code class="sel">{line}</code></li>
+        {/each}
+      </ul>
+    {/if}
+
+    {#if aiDoc}
+      <div class="head">
+        <span class="hdr">Mapping document (written by the model)</span>
+      </div>
+      {#if aiDocPath}<div class="msg">Saved → <code>{aiDocPath}</code></div>{/if}
+      <pre class="sample">{aiDoc}</pre>
+    {/if}
+
+    {#if aiVerifyReport}
+      <div class="head">
+        <span class="hdr">Agent verification report</span>
+      </div>
+      <pre class="sample">{aiVerifyReport}</pre>
+    {/if}
+
+    {#if aiSkips.length}
+      <div class="head">
+        <span class="hdr">Skipped by AI ({aiSkips.length})</span>
+      </div>
+      <ul class="list">
+        {#each aiSkips as s (s.url)}
+          <li class="row site-row">
+            <span class="label" title={s.url}>{s.url} — <span class="kind">{s.reason}</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+
+    {#if synthesis}
+      <div class="head">
+        <span class="hdr">AI site map</span>
+      </div>
+      <ul class="list">
+        {#each synthesis.sections as sec (sec.name)}
+          <li class="row site-row">
+            <span class="label">{sec.name} — <span class="kind">{sec.urls.map((u) => siteMap?.pages.find((p) => p.url === u)?.pageName ?? u).join(' · ')}</span></span>
+          </li>
+        {/each}
+      </ul>
+      {#if synthesis.workflows.length}
+        <p class="muted">Suggested workflows: {synthesis.workflows.join(' · ')}</p>
+      {/if}
+    {/if}
+
+    {#if verifyMsg}<div class="msg">{verifyMsg}</div>{/if}
+
+    {#if verifySummary && !verifySummary.clean}
+      <div class="head">
+        <span class="hdr">Pages the agent may not act on correctly</span>
+      </div>
+      <p class="muted">Only problem pages are listed. <strong>Ambiguous</strong> is the one to fix first: the selector matches several elements, so a click silently hits the first — on a roster that is the wrong student.</p>
+      <ul class="list">
+        {#each verdicts.filter((v) => v.status !== 'ok') as v (v.url)}
+          <li class="row site-row">
+            <span class="label" title={v.url}>
+              {v.pageName}
+              {#if v.status === 'unreachable'}
+                — <span class="kind">unreachable: {v.error}</span>
+              {:else}
+                — <span class="kind">
+                  {v.checks.filter((c) => c.status === 'ambiguous').length} ambiguous ·
+                  {v.checks.filter((c) => c.status === 'broken').length} broken ·
+                  {v.checks.filter((c) => c.status === 'healed').length} self-heal
+                  {#if !v.signatureMatch}· shape changed since crawl{/if}
+                </span>
+              {/if}
+            </span>
           </li>
         {/each}
       </ul>
@@ -475,8 +1005,8 @@
         {#each siteMap.pages as p}
           <li class="row site-row">
             <button class="rowmain" onclick={() => reviewPage(p)} title="Review this saved page">
-              <span class="label" title={p.url}>{p.pageName}</span>
-              <span class="kind">{p.links.length} links · {p.counts.buttons} btn · {p.counts.inputs} in</span>
+              <span class="label" title={p.card ? `${p.url}\n${p.card.purpose}` : p.url}>{p.pageName}</span>
+              <span class="kind">{#if p.card}{p.card.pageType} · {/if}{p.links.length} links · {p.counts.buttons} btn · {p.counts.inputs} in</span>
             </button>
             <button class="x" onclick={() => clearPage(p)} title="Clear this page">✕</button>
           </li>

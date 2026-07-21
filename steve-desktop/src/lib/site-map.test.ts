@@ -1,5 +1,70 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+
+describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
+  it('collapses a family once its shape repeats', () => {
+    expect(isTemplateSaturated(SAMPLES_PER_TEMPLATE, 1)).toBe(true);
+  });
+  it('will not collapse on a single sample — one page cannot prove a template', () => {
+    expect(isTemplateSaturated(1, 1)).toBe(false);
+  });
+  it('keeps sampling while the shape is still changing, below the ceiling', () => {
+    expect(isTemplateSaturated(SAMPLES_PER_TEMPLATE, 2)).toBe(false);
+  });
+  it('stops at the hard ceiling even when every sample looks unique', () => {
+    // The real case: moddataset.php names each question's variables in its input labels, so
+    // no two samples ever match and the signature rule alone never fires. One crawl spent 277
+    // of 505 visits on this family. The ceiling is what bounds it.
+    expect(isTemplateSaturated(MAX_SAMPLES_PER_TEMPLATE, 99)).toBe(true);
+    expect(isTemplateSaturated(MAX_SAMPLES_PER_TEMPLATE - 1, 99)).toBe(false);
+  });
+});
+
+describe('template saturation under fan-out — where the check has to happen', () => {
+  // A listing page enqueues its whole family at once: one gradebook lists 12 students, one
+  // course page lists 26 assessments. This models that burst to prove WHY checking only at
+  // enqueue time cannot bound it — every link is queued while tplMapped is still 0.
+  function runCrawl(links: string[], checkOnDequeue: boolean): number {
+    const queue: string[] = [];
+    const queued = new Set<string>();
+    const mapped = new Map<string, number>();
+    const shapes = new Map<string, Set<string>>();
+    const saturated = (t: string) => isTemplateSaturated(mapped.get(t) ?? 0, shapes.get(t)?.size ?? 0);
+
+    for (const l of links) {
+      // the fan-out: every link discovered from ONE page, before any has been visited
+      if (queued.has(l) || saturated(urlTemplate(l))) continue;
+      queued.add(l);
+      queue.push(l);
+    }
+
+    let visits = 0;
+    while (queue.length) {
+      const target = queue.shift()!;
+      if (checkOnDequeue && saturated(urlTemplate(target))) continue;
+      visits += 1;
+      const t = urlTemplate(target);
+      mapped.set(t, (mapped.get(t) ?? 0) + 1);
+      // each page's shape differs (per-student data in the labels), so the signature rule
+      // never fires and only the hard ceiling can stop this family
+      const s = shapes.get(t) ?? new Set<string>();
+      s.add(`shape-${visits}`);
+      shapes.set(t, s);
+    }
+    return visits;
+  }
+
+  const students = Array.from({ length: 12 }, (_, i) =>
+    `https://www.myopenmath.com/course/viewactionlog.php?cid=306621&uid=${1000 + i}`);
+
+  it('enqueue-time checking alone visits every student — the bug', () => {
+    expect(runCrawl(students, false)).toBe(12);
+  });
+
+  it('re-checking on dequeue caps the family at the ceiling', () => {
+    expect(runCrawl(students, true)).toBe(MAX_SAMPLES_PER_TEMPLATE);
+  });
+});
 
 describe('urlTemplate — collapse a URL family so a roster is not crawled per-student', () => {
   it('treats differing ids as one family', () => {

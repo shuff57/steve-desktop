@@ -67,18 +67,68 @@ export function extractCliText(engine: AgentEngine, stdout: string): string {
   if (!raw) throw new Error(`${engine} returned no output`);
 
   if (engine === 'claude') {
-    let parsed: ClaudeCliResult;
+    // Single json envelope (--output-format json): one object holding the result.
+    let parsed: ClaudeCliResult | null = null;
     try {
       parsed = JSON.parse(raw) as ClaudeCliResult;
     } catch {
+      parsed = null;
+    }
+    if (parsed) {
+      if (parsed.is_error) {
+        throw new Error(`claude reported an error (${parsed.subtype ?? 'unknown'}): ${parsed.result ?? ''}`.trim());
+      }
+      if (typeof parsed.result === 'string') return parsed.result;
       return raw;
     }
-    if (parsed.is_error) {
-      throw new Error(`claude reported an error (${parsed.subtype ?? 'unknown'}): ${parsed.result ?? ''}`.trim());
+    // stream-json (--output-format stream-json): NDJSON, one event per line; the terminal
+    // {"type":"result",...} event carries the final text. Scan from the end for it.
+    const lines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
+    for (let i = lines.length - 1; i >= 0; i--) {
+      let ev: (ClaudeCliResult & { type?: string }) | null = null;
+      try {
+        ev = JSON.parse(lines[i]);
+      } catch {
+        continue;
+      }
+      if (ev?.type === 'result') {
+        if (ev.is_error) {
+          throw new Error(`claude reported an error (${ev.subtype ?? 'unknown'}): ${ev.result ?? ''}`.trim());
+        }
+        if (typeof ev.result === 'string') return ev.result;
+      }
     }
-    if (typeof parsed.result === 'string') return parsed.result;
     return raw;
   }
 
   return raw;
+}
+
+/**
+ * Compress one stream-json NDJSON line into a short human progress string for the UI, or
+ * null for lines not worth showing. Kept here so it's unit-testable off the live stream.
+ */
+export function summarizeCliLine(line: string): string | null {
+  let ev: {
+    type?: string;
+    message?: { content?: { type?: string; name?: string; text?: string; input?: { command?: string } }[] };
+    is_error?: boolean;
+  };
+  try {
+    ev = JSON.parse(line);
+  } catch {
+    return null;
+  }
+  if (ev.type === 'system') return 'session started';
+  if (ev.type === 'result') return ev.is_error ? 'agent reported an error' : 'writing site map';
+  if (ev.type === 'assistant' && Array.isArray(ev.message?.content)) {
+    for (const c of ev.message.content) {
+      if (c.type === 'tool_use') {
+        if (c.name === 'Bash' && c.input?.command) return `$ ${c.input.command.replace(/\s+/g, ' ').slice(0, 90)}`;
+        return c.name ? `tool: ${c.name}` : null;
+      }
+      if (c.type === 'text' && c.text?.trim()) return c.text.trim().replace(/\s+/g, ' ').slice(0, 110);
+    }
+  }
+  return null;
 }

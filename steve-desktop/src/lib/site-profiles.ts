@@ -106,6 +106,48 @@ export async function saveSiteMap(map: SiteMap): Promise<string> {
   return path;
 }
 
+// Model-authored mapping document from the Claude-driven crawl, beside the JSON map.
+export function getMappingDocPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_sitemap-ai.md`;
+}
+
+export async function saveMappingDoc(domain: string, contents: string): Promise<string> {
+  const path = getMappingDocPath(domain);
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents });
+  return path;
+}
+
+// Agent verification report, beside the mapping doc.
+export function getVerifyReportPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_sitemap-verify.md`;
+}
+
+export async function saveVerifyReport(domain: string, contents: string): Promise<string> {
+  const path = getVerifyReportPath(domain);
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents });
+  return path;
+}
+
+/**
+ * Overwrite the mapping doc with a corrected version, keeping the prior one as `_sitemap-ai.prev.md`
+ * so a heal is reversible. Returns the healed doc's path.
+ */
+export async function healMappingDoc(domain: string, corrected: string): Promise<string> {
+  const path = getMappingDocPath(domain);
+  try {
+    const prior = await invoke<string>('read_file', { path });
+    if (prior?.trim()) {
+      await invoke('write_file', { path: path.replace(/\.md$/, '.prev.md'), contents: prior });
+    }
+  } catch {
+    /* no prior doc — nothing to back up */
+  }
+  await invoke('write_file', { path, contents: corrected });
+  return path;
+}
+
 export async function loadSiteMap(domain: string): Promise<SiteMap | null> {
   try {
     const contents = await invoke<string>('read_file', { path: getSiteMapPath(domain) });

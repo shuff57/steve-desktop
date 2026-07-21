@@ -19,6 +19,12 @@ steve-desktop/src-tauri/gen/
 # Captured site profiles — LOCAL working artifacts that contain raw page text
 # (rosters, message senders → student names / PII). Never commit these.
 .agents/site-profiles/
+# Archived copies of the above — same real student data, keep local only.
+.agents/site-profiles-archive/
+
+# Local spikes (throwaway experiments + their virtualenvs)
+spikes/
+**/.venv/
 
 # OS
 .DS_Store

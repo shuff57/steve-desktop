@@ -52,3 +52,36 @@ export function selectorToElementExpr(selector: string): string {
 
   return `document.querySelector(${JSON.stringify(p.raw)})`;
 }
+
+/**
+ * A JS expression (string) evaluating to HOW MANY elements a selector matches.
+ *
+ * Mirrors selectorToElementExpr's matching rules exactly, because the point is to measure what
+ * the action layer would really hit. selectorToElementExpr returns the FIRST match and stops —
+ * which is precisely why a count matters: a selector matching 24 roster rows resolves happily
+ * and silently acts on row 1. Counting is the only way to tell "works" from "works by luck".
+ *
+ * Note the role matcher accepts a substring name match, so short names are inherently prone to
+ * matching several elements. That is a property of the resolver, not of this counter.
+ */
+export function selectorToCountExpr(selector: string): string {
+  const p = parseSelector(selector);
+
+  if (p.kind === 'xpath') {
+    return `(document.evaluate(${JSON.stringify(p.xpath)}, document, null, 7, null).snapshotLength)`;
+  }
+
+  if (p.kind === 'role') {
+    const implicit = JSON.stringify(IMPLICIT_ROLE);
+    return (
+      `(function(){var role=${JSON.stringify(p.role)},name=${JSON.stringify(p.name)},` +
+      `IMP=${implicit},els=document.querySelectorAll('*'),n=0;` +
+      `for(var i=0;i<els.length;i++){var el=els[i];` +
+      `var r=el.getAttribute('role')||IMP[el.tagName]||'';if(r!==role)continue;` +
+      `var t=(el.getAttribute('aria-label')||el.textContent||'').trim();` +
+      `if(t===name||t.indexOf(name)!==-1)n++;}return n;})()`
+    );
+  }
+
+  return `document.querySelectorAll(${JSON.stringify(p.raw)}).length`;
+}

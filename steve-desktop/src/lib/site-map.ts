@@ -9,6 +9,8 @@ export interface SitePageNode {
   pageName: string;
   links: { label: string; href: string }[]; // absolute, deduped outbound links
   counts: { buttons: number; links: number; inputs: number };
+  /** AI page digest (structurally = PageCard; inlined to avoid an import cycle with page-card.ts). */
+  card?: { pageType: string; purpose: string; keyActions: string[]; automationValue: 'high' | 'medium' | 'low' };
 }
 
 export interface SiteMap {
@@ -22,7 +24,7 @@ export interface SiteMap {
 // preview, after which every teacher-only page 403s with "you must be a teacher". Deny-by-default
 // on the crawl frontier is the trust boundary — accumulate mode never navigates, so this only
 // gates crawl.
-const DENY_LINK =
+export const DENY_LINK =
   /(log[\s_-]?out|sign[\s_-]?out|log[\s_-]?off|logon|sign[\s_-]?in|stuview|studentview|view[_-]?as|viewas|impersonate|masquerade|loginas|become[_-]?user)/i;
 
 /**
@@ -36,17 +38,17 @@ const DENY_LINK =
  * over-blocking costs a few unmapped pages, under-blocking can mutate real student data.
  * Deny aggressively. 'address' is the one carve-out, since it is a common benign noun.
  */
-const MUTATING_VERB =
+export const MUTATING_VERB =
   /(delete|destroy|remove|discard|submit|drop|unenroll|enroll|transfer|archive|restore|merge|import|reset|revoke|grant|promote|demote|assign|copy|duplicate|unhide|hide|reorder|modcourse|chg|change|add(?!ress))/i;
 
 /** The admin surface is never needed to map a course for automation — and is all mutation. */
-const ADMIN_PATH = /\/admin\//i;
+export const ADMIN_PATH = /\/admin\//i;
 
 /**
  * Verb-carrying query params. Plenty of PHP apps perform the action on GET when one of
  * these is present (…/forms.php?action=…), so a bare navigation is already a write.
  */
-const ACTION_PARAM = /[?&](action|act|do|op|cmd|task|mode|delete|remove)=/i;
+export const ACTION_PARAM = /[?&](action|act|do|op|cmd|task|mode|delete|remove)=/i;
 
 /**
  * Strip the data out of a string so two pages of the same template compare equal:
@@ -239,6 +241,38 @@ export function suggestTrim(map: SiteMap): TrimSuggestion[] {
     }
   }
   return out;
+}
+
+/**
+ * How many pages of one URL family to map before trusting it's a template. Two, not one:
+ * a single sample can't tell a template from a coincidence.
+ */
+export const SAMPLES_PER_TEMPLATE = 2;
+
+/**
+ * Hard ceiling per URL family, however unstable its shape looks.
+ *
+ * The signature rule below only collapses a family once its samples come back byte-identical,
+ * and some families never do: MyOpenMath's moddataset.php names each question's variables in
+ * its input labels, so every question is "structurally unique" and the family never saturates.
+ * One real crawl spent 277 of 505 page visits there — 55% of the crawl re-learning one page.
+ *
+ * Above this count the shape has been sampled enough to be useful whether or not the samples
+ * agree, so stop paying a page visit per row of data.
+ */
+export const MAX_SAMPLES_PER_TEMPLATE = 3;
+
+/**
+ * Has this URL family been sampled enough to stop enqueueing more of it? Either the shape
+ * repeated and is therefore known, or we've hit the ceiling and further samples aren't earning
+ * their page visit.
+ *
+ * Skipped pages are never silently dropped — the caller records them per template and the panel
+ * shows the count, so a collapsed family is always visible as a decision, not a gap.
+ */
+export function isTemplateSaturated(mapped: number, distinctShapes: number): boolean {
+  if (mapped >= MAX_SAMPLES_PER_TEMPLATE) return true;
+  return mapped >= SAMPLES_PER_TEMPLATE && distinctShapes === 1;
 }
 
 /** Fold a page into the map, replacing any existing entry for the same URL. */

@@ -11,6 +11,9 @@
     width = $bindable(400),
     pageUrl = '',
     tabId = '',
+    // With one panel mounted per browser tab, only the active one may handle
+    // global keyboard shortcuts — otherwise Ctrl+B toggles once per instance.
+    active = true,
   } = $props();
 
   // One engine selection for the whole panel — shared across the Agent, Discovery, and
@@ -146,13 +149,14 @@
       {:else if activeMode === 'skills'}
         <SkillRunner provider={activeProvider} model={activeModel} />
       {:else}
-        <SiteMapper {pageUrl} />
+        <SiteMapper {pageUrl} provider={activeProvider} model={activeModel} />
       {/if}
     </div>
   {/if}
 </div>
 
 <svelte:window onkeydown={(e) => {
+  if (!active) return;
   const target = e.target as HTMLElement;
   if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
     if (e.key !== 'Escape') return;
