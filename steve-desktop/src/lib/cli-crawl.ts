@@ -9,11 +9,38 @@ import { DENY_LINK, MUTATING_VERB, ADMIN_PATH, ACTION_PARAM } from './site-map';
 
 export const CLI_CRAWL_MAX_PAGES = 30;
 
+/**
+ * The CDP target-selection instruction. When a `marker` is present (the app stamps the driven
+ * tab's window.name — see tab-control.ts), pin to it: this is unambiguous even when the shared
+ * debug port has several identical-URL targets, which is what let earlier runs grab an orphan
+ * window. Without a marker, fall back to matching the host.
+ */
+export function cdpTargetInstruction(host: string, marker?: string): string {
+  if (marker) {
+    return [
+      `- GET /json/list — the tab you must drive is stamped with window.name === "${marker}".`,
+      '  For each candidate page target, connect and evaluate `window.name` via Runtime.evaluate;',
+      `  drive ONLY the target whose window.name === "${marker}". Ignore the localhost app UI and`,
+      '  every other tab. Do NOT open a new window/tab, call Target.createTarget/window.open, or',
+      '  launch your own browser (no playwright/puppeteer.launch) — act IN PLACE on the marked target.',
+    ].join('\n');
+  }
+  return [
+    `- GET /json/list — pick the EXISTING page target whose url is on ${host} (NOT the localhost app UI).`,
+    '- Talk to its webSocketDebuggerUrl (write a small Bash/node/bun script; you have shell access).',
+    '- Drive THAT target IN PLACE. Do NOT open a new window or tab, do NOT call Target.createTarget',
+    '  or window.open, and do NOT launch your own browser (no playwright/puppeteer.launch) — every',
+    "  action must happen in the app's embedded browser the user is watching, on the existing target.",
+  ].join('\n');
+}
+
 export interface CliCrawlOptions {
   cdpPort: number;
   startUrl: string;
   scope: { key: string; value: string } | null;
   maxPages?: number;
+  /** window.name marker of the tab to drive; pins the agent to the exact tab when present. */
+  marker?: string;
 }
 
 export function buildCliCrawlPrompt(o: CliCrawlOptions): string {
@@ -30,8 +57,7 @@ export function buildCliCrawlPrompt(o: CliCrawlOptions): string {
     'store, LMS, docs). Discover its structure; do not assume a domain.',
     '',
     `A browser is ALREADY RUNNING and LOGGED IN. Drive it over the Chrome DevTools Protocol at http://127.0.0.1:${o.cdpPort} :`,
-    `- GET /json/list — pick the page target whose url is on ${host} (NOT the localhost app UI).`,
-    '- Talk to its webSocketDebuggerUrl (write a small Bash/node/bun script; you have shell access).',
+    cdpTargetInstruction(host, o.marker),
     '- Navigate with Page.navigate, read with Runtime.evaluate. Wait for load between pages.',
     '',
     'HARD SAFETY RULES — assume this is a LIVE, logged-in account with real data:',
@@ -113,6 +139,8 @@ export interface CliVerifyOptions {
   startUrl: string;
   doc: string;
   pages: { name: string; url: string }[];
+  /** window.name marker of the tab to drive; pins the agent to the exact tab when present. */
+  marker?: string;
 }
 
 /**
@@ -133,7 +161,7 @@ export function buildCliVerifyPrompt(o: CliVerifyOptions): string {
     'live site — check whether what you claimed is actually true.',
     '',
     `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :`,
-    `- GET /json/list — pick the page target on ${host} (NOT the localhost app UI).`,
+    cdpTargetInstruction(host, o.marker),
     '- Navigate with Page.navigate, read with Runtime.evaluate. READ-ONLY: never click, submit,',
     '  POST, or change state. Same-origin only.',
     '',

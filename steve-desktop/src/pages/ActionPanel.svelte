@@ -2,6 +2,7 @@
   /* biome-ignore-all lint/correctness/noUnusedImports: Svelte template uses imported components */
   /* biome-ignore-all lint/correctness/noUnusedVariables: Svelte template uses script bindings */
   import AgentChat from '../components/grading/AgentChat.svelte';
+  import AutomateRunner from '../components/grading/AutomateRunner.svelte';
   import SkillRunner from '../components/grading/SkillRunner.svelte';
   import SiteMapper from '../components/grading/SiteMapper.svelte';
   import ProviderSelector from '../components/grading/ProviderSelector.svelte';
@@ -21,6 +22,8 @@
   let activeMode = $state('agent');  // 'agent' | 'discovery' | 'skills'
   let activeProvider = $state('');
   let activeModel = $state('');
+  // Within the Agent tab: 'automate' (map-aware, review-gated CLI over CDP) or 'chat' (legacy loop).
+  let agentKind = $state<'automate' | 'chat'>('automate');
 
   // Resize logic
   let isResizing = $state(false);
@@ -145,7 +148,15 @@
     </div>
     <div class="panel-content">
       {#if activeMode === 'agent'}
-        <AgentChat provider={activeProvider} model={activeModel} />
+        <div class="agent-kind">
+          <button class:active={agentKind === 'automate'} onclick={() => agentKind = 'automate'}>Automate</button>
+          <button class:active={agentKind === 'chat'} onclick={() => agentKind = 'chat'}>Classic chat</button>
+        </div>
+        {#if agentKind === 'automate'}
+          <AutomateRunner provider={activeProvider} model={activeModel} />
+        {:else}
+          <AgentChat provider={activeProvider} model={activeModel} />
+        {/if}
       {:else if activeMode === 'skills'}
         <SkillRunner provider={activeProvider} model={activeModel} />
       {:else}
@@ -246,6 +257,14 @@
     display: flex; flex-direction: column;
     padding: var(--spacing-4); gap: var(--spacing-4);
   }
+
+  .agent-kind { display: flex; gap: var(--spacing-1); }
+  .agent-kind button {
+    flex: 1; background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-secondary); border-radius: var(--radius-md);
+    padding: 4px 8px; cursor: pointer; font-size: 0.8rem;
+  }
+  .agent-kind button.active { background: var(--bg-active); color: var(--color-primary); border-color: var(--color-primary); }
   
   .resize-handle {
     position: absolute;

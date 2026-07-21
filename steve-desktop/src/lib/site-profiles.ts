@@ -123,6 +123,15 @@ export function getVerifyReportPath(domain: string): string {
   return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_sitemap-verify.md`;
 }
 
+export async function loadMappingDoc(domain: string): Promise<string | null> {
+  try {
+    const contents = await invoke<string>('read_file', { path: getMappingDocPath(domain) });
+    return contents?.trim() ? contents : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function saveVerifyReport(domain: string, contents: string): Promise<string> {
   const path = getVerifyReportPath(domain);
   await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });

@@ -17,6 +17,7 @@
   import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
+  import { tabMarker } from '../../lib/tab-control';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
@@ -516,6 +517,7 @@
         cdpPort: port,
         startUrl: normalizeUrl(pageUrl),
         scope: stayInScope ? activeScope : null,
+        marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined,
       });
       siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} — it is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
       const stdout = await invoke<string>('run_agent_cli', {
@@ -598,7 +600,7 @@
         const summary = summarizeCliLine(ev.payload.line);
         if (summary) aiProgress = [...aiProgress, summary].slice(-40);
       });
-      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages });
+      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
       siteMsg = `Spawned ${engine} to verify its own mapping — re-reading ${aiPages.length} page(s) over CDP…`;
       const stdout = await invoke<string>('run_agent_cli', {
         engine,

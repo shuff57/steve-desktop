@@ -1,5 +1,19 @@
 import { describe, it, expect } from 'vitest';
-import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput } from './cli-crawl';
+import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, cdpTargetInstruction } from './cli-crawl';
+
+describe('cdpTargetInstruction', () => {
+  it('pins by window.name marker when present (unambiguous with duplicate tabs)', () => {
+    const s = cdpTargetInstruction('x.edu', 'steve-tab-abc');
+    expect(s).toContain('window.name === "steve-tab-abc"');
+    expect(s).toContain('Target.createTarget');
+    expect(s).not.toContain('url is on x.edu');
+  });
+  it('falls back to host matching without a marker', () => {
+    const s = cdpTargetInstruction('x.edu', undefined);
+    expect(s).toContain('EXISTING page target whose url is on x.edu');
+    expect(s).toContain('Target.createTarget');
+  });
+});
 
 describe('buildCliCrawlPrompt', () => {
   const p = buildCliCrawlPrompt({
@@ -24,6 +38,21 @@ describe('buildCliCrawlPrompt', () => {
     expect(p).toContain('cid param is absent or equals 316341');
     expect(p).toContain('READ-ONLY');
     expect(p).toContain('at most 30 pages');
+  });
+
+  it('pins the crawl to the existing embedded target (no new window)', () => {
+    expect(p).toContain('EXISTING page target');
+    expect(p).toContain('Target.createTarget');
+  });
+
+  it('threads a marker into the crawl prompt when given', () => {
+    const pm = buildCliCrawlPrompt({
+      cdpPort: 9223,
+      startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
+      scope: { key: 'cid', value: '316341' },
+      marker: 'steve-tab-xyz',
+    });
+    expect(pm).toContain('window.name === "steve-tab-xyz"');
   });
 });
 

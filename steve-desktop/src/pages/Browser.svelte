@@ -30,7 +30,22 @@
   } from '../lib/webview-lifecycle';
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
+  import { tabMarker, markerScript, type TabInfo } from '../lib/tab-control';
   import ActionPanel from './ActionPanel.svelte';
+
+  // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
+  // guessing from the CDP target list. Wraps the existing tab functions below — no separate
+  // tab-management logic lives here.
+  // (svelte-check rejects a top-level `declare global` inside a component script, so the
+  // shape is a local type and `window` is cast at the use sites instead.)
+  interface SteveControl {
+    listTabs: () => TabInfo[];
+    newTab: (url?: string) => Promise<string>;
+    closeTab: (id: string) => Promise<void>;
+    navigate: (id: string, url: string) => Promise<void>;
+    activate: (id: string) => Promise<void>;
+  }
+  const steveWindow = window as Window & { __steveControl?: SteveControl };
 
   let urlInput = $state('');
   let showActionPanel = $state(false);
@@ -373,6 +388,7 @@
       await maybeAutofill(tabId, url);
       await checkPendingLogin(url);                       // offer to save a just-submitted login
       await injectScript(LOGIN_CAPTURE_SCRIPT, tabId).catch(() => {}); // arm capture on this page
+      await injectScript(markerScript(tabId), tabId).catch(() => {}); // re-stamp window.name (resets cross-origin)
     });
     if (guard.destroyed) { unlistenUrl(); unlistenLoaded(); return; }
 
@@ -399,10 +415,27 @@
     window.addEventListener('resize', handleResize);
     window.addEventListener('steve:sidebar-changed', handleSidebarChanged);
 
+    steveWindow.__steveControl = {
+      listTabs: (): TabInfo[] => tabs.map(t => ({
+        id: t.id,
+        url: t.url,
+        title: t.title,
+        active: t.id === activeTabId,
+        ready: t.browserCreated,
+        marker: tabMarker(t.id),
+      })),
+      newTab: async (url?: string) => { await openNewTab(url); return activeTabId; },
+      closeTab: async (id: string) => { await closeTab(id); },
+      navigate: async (id: string, url: string) => { await switchTab(id); urlInput = url; await handleNavigate(); },
+      activate: async (id: string) => { await switchTab(id); },
+    };
+
     await openNewTab();
   });
 
   onDestroy(() => {
+    delete steveWindow.__steveControl;
+
     tabs.forEach(tab => {
       if (tab.browserCreated) {
         destroyWebview(tab.id).catch(() => {});
