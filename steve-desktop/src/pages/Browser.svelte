@@ -44,6 +44,9 @@
     closeTab: (id: string) => Promise<void>;
     navigate: (id: string, url: string) => Promise<void>;
     activate: (id: string) => Promise<void>;
+    /** Fill + submit the login form on a tab using saved creds. Returns true if a credential
+     *  matched the tab's URL (creds stay on-device — never sent to the model). */
+    login: (id?: string) => Promise<boolean>;
   }
   const steveWindow = window as Window & { __steveControl?: SteveControl };
 
@@ -428,6 +431,19 @@
       closeTab: async (id: string) => { await closeTab(id); },
       navigate: async (id: string, url: string) => { await switchTab(id); urlInput = url; await handleNavigate(); },
       activate: async (id: string) => { await switchTab(id); },
+      login: async (id?: string) => {
+        const tabId = id ?? activeTabId;
+        if (!tabId) return false;
+        let url = '';
+        try { url = await getEmbeddedUrl(tabId); } catch { /* ignore */ }
+        if (!url) return false;
+        const match = matchCredentialsToUrl(url, await getSiteCredentials());
+        if (!match) return false;
+        // force submit=true so it fills AND clicks login (maybeAutofill obeys the global toggle).
+        const otp = match.totp_secret ? await totpNow(match.totp_secret).catch(() => '') : '';
+        await injectScript(generateAutoFillScript(match.username, match.password, true, otp), tabId);
+        return true;
+      },
     };
 
     await openNewTab();
