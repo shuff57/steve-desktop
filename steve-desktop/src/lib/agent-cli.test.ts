@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText, summarizeCliLine } from './agent-cli';
+import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText, summarizeCliLine, describeBrowserCommand } from './agent-cli';
 import type { AgentMessage } from './agent-types';
 
 describe('engineForProvider', () => {
@@ -34,15 +34,29 @@ describe('extractCliText stream-json', () => {
 });
 
 describe('summarizeCliLine', () => {
-  it('summarizes bash tool-use as the command', () => {
-    const line = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Bash","input":{"command":"curl -s http://127.0.0.1:9223/json/list"}}]}}';
-    expect(summarizeCliLine(line)).toBe('$ curl -s http://127.0.0.1:9223/json/list');
+  it('summarizes a browser-driving bash command as a plain-English action', () => {
+    const line = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Bash","input":{"command":"python /tmp/cdp.py ws://x \\"Page.navigate https://www.myopenmath.com/course/course.php?cid=316341\\""}}]}}';
+    expect(summarizeCliLine(line)).toBe('navigating to www.myopenmath.com/course/course.php?cid=316341');
+    const read = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Bash","input":{"command":"python /tmp/cdp.py ws://x \\"document.body.innerText\\""}}]}}';
+    expect(summarizeCliLine(read)).toBe('reading the page');
   });
-  it('maps lifecycle events and ignores noise', () => {
-    expect(summarizeCliLine('{"type":"system"}')).toBe('session started');
-    expect(summarizeCliLine('{"type":"result","is_error":false}')).toBe('writing site map');
+  it('drops session/success noise and plan markdown, keeps errors', () => {
+    expect(summarizeCliLine('{"type":"system"}')).toBeNull();
+    expect(summarizeCliLine('{"type":"result","is_error":false}')).toBeNull();
+    expect(summarizeCliLine('{"type":"result","is_error":true}')).toBe('agent reported an error');
+    expect(summarizeCliLine('{"type":"assistant","message":{"content":[{"type":"text","text":"# Plan\\n1. Navigate"}]}}')).toBeNull();
     expect(summarizeCliLine('not json')).toBeNull();
     expect(summarizeCliLine('{"type":"assistant","message":{"content":[]}}')).toBeNull();
+  });
+  it('describeBrowserCommand maps common CDP calls', () => {
+    expect(describeBrowserCommand('Page.captureScreenshot')).toBe('taking a screenshot');
+    expect(describeBrowserCommand('el.dispatchMouseEvent click')).toBe('clicking');
+    expect(describeBrowserCommand('something obscure')).toBe('running a command');
+  });
+  it('names multi-tab bridge calls (they ride Runtime.evaluate)', () => {
+    expect(describeBrowserCommand('await __steveControl.newTab("https://x")')).toBe('opening a new tab');
+    expect(describeBrowserCommand('Runtime.evaluate __steveControl.login(id)')).toBe('logging in');
+    expect(describeBrowserCommand('__steveControl.activate(id)')).toBe('switching tabs');
   });
 });
 

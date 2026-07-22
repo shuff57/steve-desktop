@@ -6,6 +6,8 @@
   import Dashboard from './pages/Dashboard.svelte';
   import Browser from './pages/Browser.svelte';
   import Skills from './pages/Skills.svelte';
+  import Artifacts from './pages/Artifacts.svelte';
+  import SiteProfiles from './pages/SiteProfiles.svelte';
   import Settings from './pages/settings/Settings.svelte';
   import SetupWizard from './pages/SetupWizard.svelte';
   import {
@@ -13,6 +15,8 @@
     DashboardIcon,
     BrowserIcon,
     SkillsIcon,
+    ArtifactsIcon,
+    SiteProfilesIcon,
     SettingsIcon,
   } from './components/icons/index';
   import { Sun, Moon } from 'lucide-svelte';
@@ -125,6 +129,14 @@
             <span class="icon"><SkillsIcon /></span>
             <span class="label">AI Skills</span>
           </button>
+          <button class="nav-item" class:active={currentPage === 'artifacts'} onclick={() => navigate('artifacts')} title="Artifacts">
+            <span class="icon"><ArtifactsIcon /></span>
+            <span class="label">Artifacts</span>
+          </button>
+          <button class="nav-item" class:active={currentPage === 'profiles'} onclick={() => navigate('profiles')} title="Site Profiles">
+            <span class="icon"><SiteProfilesIcon /></span>
+            <span class="label">Site Profiles</span>
+          </button>
         </div>
 
         <!-- System group -->
@@ -154,6 +166,10 @@
         <Browser />
       {:else if currentPage === 'skills'}
         <Skills />
+      {:else if currentPage === 'artifacts'}
+        <Artifacts />
+      {:else if currentPage === 'profiles'}
+        <SiteProfiles />
       {:else if currentPage === 'settings'}
         <Settings />
       {:else}

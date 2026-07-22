@@ -8,6 +8,7 @@ import {
   captureMergedTree,
   summarizeMerged,
   type RawAxNode,
+  type MergedNode,
 } from './merged-tree';
 import { redactTree } from './redact-tree';
 import { isSiteProfile } from './types/site-profile';
@@ -132,7 +133,7 @@ describe('captureMergedTree — per-frame AX over CDP (mocked)', () => {
 });
 
 describe('mergedToProfile — unify into a persistable SiteProfile with candidates + identifier flags', () => {
-  const merged = [
+  const merged: MergedNode[] = [
     { frameId: 'f', backendNodeId: 1, tag: 'button', attrs: { id: 'submit' }, text: 'Submit', role: 'button', name: 'Submit' },
     { frameId: 'f', backendNodeId: 2, tag: 'a', attrs: { href: '/home' }, text: 'Home', role: 'link', name: 'Home' },
     { frameId: 'f', backendNodeId: 3, tag: 'input', attrs: { name: 'studentName', type: 'text' }, text: '', role: 'textbox', name: 'Student Name' },
@@ -155,7 +156,7 @@ describe('mergedToProfile — unify into a persistable SiteProfile with candidat
 
 describe('summarizeMerged — coverage stats for the mapper UI', () => {
   it('counts frames, role coverage, and interactive role-name anchors', () => {
-    const merged = [
+    const merged: MergedNode[] = [
       { frameId: 'frameA', backendNodeId: 1, tag: 'button', attrs: { id: 'go' }, text: 'Go', role: 'button', name: 'Go' },
       { frameId: 'frameB', backendNodeId: 2, tag: 'a', attrs: { href: '/x' }, text: 'X', role: 'link', name: 'X' },
       { frameId: 'frameB', backendNodeId: 3, tag: 'input', attrs: { type: 'text' }, text: '' }, // no role/name

@@ -21,6 +21,7 @@
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
+  import { getClaudeApiKey } from '../../lib/db';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
   import { planFrontier, fetchTemplateTiebreak, type FrontierCandidate } from '../../lib/crawl-planner';
@@ -533,6 +534,7 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
+        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
         timeoutSecs: 900,
@@ -619,6 +621,7 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
+        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true,
         timeoutSecs: 900,
@@ -695,7 +698,9 @@
       .join(';');
     const js = `(function(){var o={};${body};return JSON.stringify(o)})()`;
     try {
-      return JSON.parse(await evalScript(js)) as Record<string, number>;
+      // evalScript resolves to an ActionResult ({success, data}); the script returns a JSON string.
+      const res = await evalScript(js);
+      return JSON.parse(String(res.data ?? '{}')) as Record<string, number>;
     } catch {
       return {};
     }

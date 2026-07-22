@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cleanAutomateOutput, parsePlan } from './cli-automate';
+import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cleanAutomateOutput, parsePlan, buildEnhancePrompt } from './cli-automate';
 
 const base = {
   cdpPort: 9223,
@@ -24,6 +24,11 @@ describe('buildAutomatePlanPrompt', () => {
   });
   it('handles a missing map', () => {
     expect(buildAutomatePlanPrompt({ ...base, map: '' })).toContain('No site map is available yet');
+  });
+  it('tells the agent to scout visibly — navigate + move the cursor over each target', () => {
+    expect(p).toContain('SCOUT IT VISIBLY');
+    expect(p).toContain('__steveCursorMove');
+    expect(p).toContain('Do NOT plan from memory');
   });
 });
 
@@ -51,6 +56,57 @@ describe('buildAutomateExecPrompt', () => {
   it('tells the agent to drive the cursor via __steveCursorMove (never follows the user)', () => {
     expect(p).toContain('__steveCursorMove');
     expect(p).toContain('never follows the user');
+  });
+  it('tells the agent to flash before screenshots', () => {
+    expect(p).toContain('__steveScreenshotFlash');
+  });
+  it('attaches files (image or video) in-browser via DOM.setFileInputFiles, not the OS picker', () => {
+    expect(p).toContain('DOM.setFileInputFiles');
+    expect(p).toContain('.png and .mp4 identically');
+  });
+
+  describe('multi-tab exec', () => {
+    const m = buildAutomateExecPrompt({ ...base, approvedPlan: '1. open tab B\n2. [MUTATES] submit', multiTab: true });
+    it('swaps the single-tab pin for the __steveControl bridge', () => {
+      expect(m).toContain('__steveControl.newTab');
+      expect(m).toContain('__steveControl.login');
+      expect(m).not.toContain('act IN PLACE on the marked target');
+      expect(m).not.toContain('Do NOT open a new window or tab');
+    });
+    it('relaxes global same-origin to per-tab but keeps the no-logout guard', () => {
+      expect(m).toContain('Each tab stays on its own site');
+      expect(m).not.toContain('Same-origin only (www.myopenmath.com)');
+      expect(m).toContain('log[\\s_-]?out'); // DENY_LINK still inlined
+    });
+    it('still bounds the agent to the approved plan and asks for the audit report', () => {
+      expect(m).toContain('ONLY these steps');
+      expect(m).toContain('# Result');
+      expect(m).toContain('## Changed');
+    });
+  });
+
+  describe('multi-tab plan (read-only with a login carve-out)', () => {
+    const p2 = buildAutomatePlanPrompt({ ...base, multiTab: true });
+    it('lets the plan open tabs and log in to reach a second site, nothing else stateful', () => {
+      expect(p2).toContain('__steveControl.newTab');
+      expect(p2).toContain('only authenticates');
+      expect(p2).toContain('Do NOT click, submit, POST'); // read-only rule survives
+      expect(p2).not.toContain('Same-origin only: stay on www.myopenmath.com');
+    });
+  });
+
+  describe('no page open (empty start URL)', () => {
+    it('plan tells the agent to open the site itself instead of a fixed START', () => {
+      const p = buildAutomatePlanPrompt({ ...base, startUrl: '', multiTab: true });
+      expect(p).toContain('No page is open yet');
+      expect(p).toContain('__steveControl.newTab');
+      expect(p).not.toContain('START at .');
+    });
+    it('exec drops the "navigate back" when there is nowhere to return to', () => {
+      const e = buildAutomateExecPrompt({ ...base, startUrl: '', approvedPlan: '1. do it', multiTab: true });
+      expect(e).toContain('When done, output ONLY a markdown result report');
+      expect(e).not.toContain('navigate back to ');
+    });
   });
 
   describe('direct run (no approved plan)', () => {
@@ -105,5 +161,17 @@ describe('parsePlan', () => {
 describe('cleanAutomateOutput', () => {
   it('strips a wrapping fence', () => {
     expect(cleanAutomateOutput('```markdown\n# Result\nok\n```')).toBe('# Result\nok');
+  });
+});
+
+describe('buildEnhancePrompt', () => {
+  const p = buildEnhancePrompt('record a clip and email it to sam@x.com');
+  it('embeds the task and the real app capabilities, and asks for steps only', () => {
+    expect(p).toContain('record a clip and email it to sam@x.com');
+    expect(p).toContain('__steveControl.startRecording');
+    expect(p).toContain('__steveScreenshotFlash');
+    expect(p).toContain('DOM.setFileInputFiles');
+    expect(p).toContain("Keep the user's intent EXACTLY");
+    expect(p).toContain('Output ONLY the rewritten task prompt');
   });
 });

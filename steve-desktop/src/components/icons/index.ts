@@ -4,6 +4,8 @@ export {
   LayoutDashboard as DashboardIcon,
   Globe as BrowserIcon,
   Brain as SkillsIcon,
+  Images as ArtifactsIcon,
+  Map as SiteProfilesIcon,
   Settings as SettingsIcon,
 } from 'lucide-svelte';
 

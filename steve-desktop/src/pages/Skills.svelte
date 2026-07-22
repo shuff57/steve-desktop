@@ -6,6 +6,16 @@
   import { getSkills, saveSkill, deleteSkill, updateSkillActive, type Skill } from '../lib/db';
   import { parseSkillMarkdown } from '../lib/skill-parser';
   import { syncLocalSkills, syncSiteProfiles, seedSampleWorkflowSkill } from '../lib/skills-api';
+  import { skillToTask } from '../lib/agent-skill';
+
+  /** Run a saved agent-task skill: hand its task to the browser Agent panel and switch to it. */
+  function handleRun(skill: Skill) {
+    const t = skillToTask(skill.content);
+    if (!t) return;
+    sessionStorage.setItem('steve:pending-task', t.task); // AutomateRunner reads this on mount
+    window.dispatchEvent(new CustomEvent('steve:load-task', { detail: { task: t.task } })); // if already mounted
+    window.dispatchEvent(new CustomEvent('steve:navigate', { detail: 'browser' }));
+  }
 
   let currentView = $state<'my-skills' | 'find-skills' | 'create-skill'>('my-skills');
   let skillCreatorKey = $state(0);
@@ -181,6 +191,7 @@
                 {skill}
                 onDelete={handleDelete}
                 onToggle={handleToggle}
+                onRun={handleRun}
               />
             {/each}
           </div>

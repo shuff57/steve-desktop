@@ -44,7 +44,9 @@ export async function totpNow(
 
   const key = await crypto.subtle.importKey(
     'raw',
-    base32Decode(secret),
+    // Cast: lib.dom types Uint8Array's backing buffer as ArrayBufferLike (could be SharedArrayBuffer),
+    // which no longer satisfies BufferSource under TS 5.7. The decode always yields a plain ArrayBuffer.
+    base32Decode(secret) as BufferSource,
     { name: 'HMAC', hash: 'SHA-1' },
     false,
     ['sign'],

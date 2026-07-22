@@ -46,6 +46,22 @@ struct CdpPortState {
     port: Option<u16>,
 }
 
+/// Live CDP-screencast recording. The capture runs in a background tokio task (connects to the
+/// browser debug endpoint, screencasts the driven tab, pipes frames to ffmpeg); `stop` signals it
+/// to finish and `handle` yields the finished mp4 path. One recording at a time.
+struct RecordingState {
+    stop: Option<std::sync::Arc<std::sync::atomic::AtomicBool>>,
+    handle: Option<tokio::task::JoinHandle<Result<String, String>>>,
+}
+
+/// Live agent-CLI runs, keyed by the frontend's per-run session id → the spawned engine's OS pid,
+/// so the UI can terminate a run in progress. Stop kills the WHOLE tree of that one pid (on Windows
+/// the pid is a cmd.exe/node subtree), never a blanket claude.exe sweep — only the app-spawned run
+/// dies, not the user's own Claude session. Entries auto-remove when a run ends (RAII guard in
+/// run_agent_cli), so a stale/reused pid is never targeted.
+#[derive(Default)]
+struct AgentProcs(Mutex<HashMap<String, u32>>);
+
 #[derive(serde::Deserialize)]
 #[allow(dead_code)]
 struct CdpTarget {
@@ -985,6 +1001,405 @@ fn list_files(path: String, recursive: bool) -> Result<Vec<String>, String> {
     Ok(out)
 }
 
+// ── Artifacts: agent captures (screenshots + screen recordings) ────────────
+// Live-account screenshots can hold student data, so they live under the OS app-data dir
+// (OUTSIDE the git repo) — never in project_root where they could be committed. The agent saves
+// screenshots here (told the absolute path via the exec prompt) and drives recording via the
+// __steveControl bridge → start/stop_recording below.
+
+fn now_ms() -> u128 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_millis())
+        .unwrap_or(0)
+}
+
+fn artifacts_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> {
+    let dir = app
+        .path()
+        .app_data_dir()
+        .map_err(|e| e.to_string())?
+        .join("artifacts");
+    std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    Ok(dir)
+}
+
+/// Reject anything that could escape the artifacts dir — the name must be a bare filename.
+fn safe_artifact_name(name: &str) -> Result<(), String> {
+    if name.is_empty() || name.contains('/') || name.contains('\\') || name.contains("..") {
+        return Err(format!("invalid artifact name: {}", name));
+    }
+    Ok(())
+}
+
+#[derive(serde::Serialize)]
+struct ArtifactMeta {
+    name: String,
+    kind: String, // "image" | "video" | "other"
+    size: u64,
+    mtime: u64, // ms since epoch
+    /// data: URL for image tiles; None for video/other (the frontend shows a placeholder + opens externally).
+    thumb: Option<String>,
+}
+
+#[tauri::command]
+fn artifacts_dir(app: tauri::AppHandle) -> Result<String, String> {
+    Ok(artifacts_path(&app)?.to_string_lossy().to_string())
+}
+
+#[tauri::command]
+fn list_artifacts(app: tauri::AppHandle) -> Result<Vec<ArtifactMeta>, String> {
+    use base64::Engine;
+    let dir = artifacts_path(&app)?;
+    let mut items: Vec<ArtifactMeta> = Vec::new();
+    for entry in std::fs::read_dir(&dir).map_err(|e| e.to_string())?.flatten() {
+        let p = entry.path();
+        if !p.is_file() {
+            continue;
+        }
+        let name = entry.file_name().to_string_lossy().to_string();
+        let ext = p
+            .extension()
+            .and_then(|e| e.to_str())
+            .unwrap_or("")
+            .to_lowercase();
+        let (kind, mime): (&str, &str) = match ext.as_str() {
+            "png" => ("image", "image/png"),
+            "jpg" | "jpeg" => ("image", "image/jpeg"),
+            "webp" => ("image", "image/webp"),
+            "gif" => ("image", "image/gif"),
+            "mp4" => ("video", "video/mp4"),
+            "webm" => ("video", "video/webm"),
+            _ => ("other", ""),
+        };
+        let meta = match entry.metadata() {
+            Ok(m) => m,
+            Err(_) => continue,
+        };
+        let mtime = meta
+            .modified()
+            .ok()
+            .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+            .map(|d| d.as_millis() as u64)
+            .unwrap_or(0);
+        // ponytail: images embed full base64 (screenshots are small; a few MB total is fine). Add a
+        // downscale via the `image` crate only if a big gallery makes the IPC payload sluggish.
+        let thumb = if kind == "image" {
+            std::fs::read(&p)
+                .ok()
+                .map(|b| format!("data:{};base64,{}", mime, base64::engine::general_purpose::STANDARD.encode(b)))
+        } else {
+            None
+        };
+        items.push(ArtifactMeta {
+            name,
+            kind: kind.to_string(),
+            size: meta.len(),
+            mtime,
+            thumb,
+        });
+    }
+    items.sort_by(|a, b| b.mtime.cmp(&a.mtime)); // newest first
+    Ok(items)
+}
+
+#[tauri::command]
+fn delete_artifact(app: tauri::AppHandle, name: String) -> Result<(), String> {
+    safe_artifact_name(&name)?;
+    let p = artifacts_path(&app)?.join(&name);
+    std::fs::remove_file(&p).map_err(|e| e.to_string())
+}
+
+/// Read an artifact as a data: URL so the app can show it INLINE (image tag / video element).
+/// Binary-safe (read_file is read_to_string and corrupts PNG/mp4 bytes), so this is its own command.
+#[tauri::command]
+fn read_artifact(app: tauri::AppHandle, name: String) -> Result<String, String> {
+    use base64::Engine;
+    safe_artifact_name(&name)?;
+    let p = artifacts_path(&app)?.join(&name);
+    let ext = p
+        .extension()
+        .and_then(|e| e.to_str())
+        .unwrap_or("")
+        .to_lowercase();
+    let mime = match ext.as_str() {
+        "png" => "image/png",
+        "jpg" | "jpeg" => "image/jpeg",
+        "webp" => "image/webp",
+        "gif" => "image/gif",
+        "mp4" => "video/mp4",
+        "webm" => "video/webm",
+        _ => "application/octet-stream",
+    };
+    let bytes = std::fs::read(&p).map_err(|e| e.to_string())?;
+    Ok(format!(
+        "data:{};base64,{}",
+        mime,
+        base64::engine::general_purpose::STANDARD.encode(bytes)
+    ))
+}
+
+#[tauri::command]
+fn open_artifact(app: tauri::AppHandle, name: String) -> Result<(), String> {
+    safe_artifact_name(&name)?;
+    let p = artifacts_path(&app)?.join(&name);
+    if !p.exists() {
+        return Err("not found".into());
+    }
+    let s = p.to_string_lossy().to_string();
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        std::process::Command::new("cmd")
+            .args(["/c", "start", "", &s])
+            .creation_flags(0x0800_0000)
+            .spawn()
+            .map_err(|e| e.to_string())?;
+    }
+    #[cfg(target_os = "macos")]
+    {
+        std::process::Command::new("open").arg(&s).spawn().map_err(|e| e.to_string())?;
+    }
+    #[cfg(target_os = "linux")]
+    {
+        std::process::Command::new("xdg-open").arg(&s).spawn().map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
+
+/// Resolve the browser-level CDP ws endpoint and the target id of the tab to record. Recording the
+/// TAB (not the OS window) means we capture only the embedded webview — never other, occluding
+/// windows. `target_url` disambiguates when several tabs are open; without it, the first embedded
+/// (non-app-UI) page target is used.
+async fn resolve_browser_and_target(
+    port: u16,
+    target_url: Option<&str>,
+) -> Result<(String, String), String> {
+    let ver: serde_json::Value = reqwest::get(format!("http://127.0.0.1:{}/json/version", port))
+        .await
+        .map_err(|e| e.to_string())?
+        .json()
+        .await
+        .map_err(|e| e.to_string())?;
+    let browser_ws = ver["webSocketDebuggerUrl"]
+        .as_str()
+        .ok_or("no browser ws endpoint")?
+        .to_string();
+
+    let list: serde_json::Value = reqwest::get(format!("http://127.0.0.1:{}/json/list", port))
+        .await
+        .map_err(|e| e.to_string())?
+        .json()
+        .await
+        .map_err(|e| e.to_string())?;
+    let arr = list.as_array().ok_or("bad /json/list")?;
+    let is_embedded = |u: &str| u.starts_with("http") && !u.starts_with("http://localhost:5174");
+    let pick = arr
+        .iter()
+        .find(|t| t["type"] == "page" && target_url.is_some() && t["url"].as_str() == target_url)
+        .or_else(|| {
+            arr.iter()
+                .find(|t| t["type"] == "page" && t["url"].as_str().map(is_embedded).unwrap_or(false))
+        });
+    let target_id = pick
+        .and_then(|t| t["id"].as_str())
+        .ok_or("no embedded tab target to record")?
+        .to_string();
+    Ok((browser_ws, target_id))
+}
+
+/// The background capture: attach to the target (flatten session, so it coexists with the agent's
+/// own CDP connection), start a jpeg screencast, and pipe each frame to ffmpeg (image2pipe) until
+/// `stop` is set. Returns the finalized mp4 path.
+async fn record_screencast(
+    browser_ws: String,
+    target_id: String,
+    out_path: String,
+    stop: std::sync::Arc<std::sync::atomic::AtomicBool>,
+) -> Result<String, String> {
+    use base64::Engine;
+    use futures_util::{SinkExt, StreamExt};
+    use tokio::io::AsyncWriteExt;
+    use tokio_tungstenite::tungstenite::Message;
+
+    let mut cmd = tokio::process::Command::new("ffmpeg");
+    cmd.args([
+        "-f", "image2pipe", "-framerate", "10", "-i", "-", "-pix_fmt", "yuv420p", "-y", &out_path,
+    ])
+    .stdin(std::process::Stdio::piped())
+    .stdout(std::process::Stdio::null())
+    .stderr(std::process::Stdio::null());
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+    }
+    let mut ff = cmd
+        .spawn()
+        .map_err(|e| format!("ffmpeg failed to start (is it on PATH?): {}", e))?;
+    let mut ff_stdin = ff.stdin.take().ok_or("no ffmpeg stdin")?;
+
+    let (ws, _) = tokio_tungstenite::connect_async(browser_ws.as_str())
+        .await
+        .map_err(|e| format!("CDP ws connect failed: {}", e))?;
+    let (mut write, mut read) = ws.split();
+
+    // Attach to the target with a flattened session — multiple attachments to one target are
+    // allowed, so this does not fight the agent's own connection.
+    write
+        .send(Message::Text(format!(
+            r#"{{"id":1,"method":"Target.attachToTarget","params":{{"targetId":"{}","flatten":true}}}}"#,
+            target_id
+        )))
+        .await
+        .ok();
+
+    let mut session = String::new();
+    while session.is_empty() {
+        match tokio::time::timeout(std::time::Duration::from_secs(3), read.next()).await {
+            Ok(Some(Ok(Message::Text(t)))) => {
+                let v: serde_json::Value = serde_json::from_str(&t).unwrap_or_default();
+                if v["id"] == 1 {
+                    if let Some(s) = v["result"]["sessionId"].as_str() {
+                        session = s.to_string();
+                    } else {
+                        return Err("attachToTarget failed".into());
+                    }
+                } else if v["method"] == "Target.attachedToTarget" {
+                    if let Some(s) = v["params"]["sessionId"].as_str() {
+                        session = s.to_string();
+                    }
+                }
+            }
+            Ok(Some(Ok(_))) => {}
+            Ok(Some(Err(e))) => return Err(e.to_string()),
+            Ok(None) => return Err("ws closed before attach".into()),
+            Err(_) => return Err("timed out attaching to the tab".into()),
+        }
+    }
+
+    write
+        .send(Message::Text(format!(
+            r#"{{"id":2,"sessionId":"{}","method":"Page.enable"}}"#,
+            session
+        )))
+        .await
+        .ok();
+    write
+        .send(Message::Text(format!(
+            r#"{{"id":3,"sessionId":"{}","method":"Page.startScreencast","params":{{"format":"jpeg","quality":60,"everyNthFrame":1}}}}"#,
+            session
+        )))
+        .await
+        .ok();
+
+    let mut frames: u64 = 0;
+    while !stop.load(std::sync::atomic::Ordering::Relaxed) {
+        match tokio::time::timeout(std::time::Duration::from_millis(400), read.next()).await {
+            Ok(Some(Ok(Message::Text(t)))) => {
+                let v: serde_json::Value = match serde_json::from_str(&t) {
+                    Ok(v) => v,
+                    Err(_) => continue,
+                };
+                if v["method"] == "Page.screencastFrame" {
+                    if let Some(data) = v["params"]["data"].as_str() {
+                        if let Ok(bytes) = base64::engine::general_purpose::STANDARD.decode(data) {
+                            if ff_stdin.write_all(&bytes).await.is_ok() {
+                                frames += 1;
+                            }
+                        }
+                    }
+                    let frame_sid = v["params"]["sessionId"].as_i64().unwrap_or(0);
+                    write
+                        .send(Message::Text(format!(
+                            r#"{{"id":4,"sessionId":"{}","method":"Page.screencastFrameAck","params":{{"sessionId":{}}}}}"#,
+                            session, frame_sid
+                        )))
+                        .await
+                        .ok();
+                }
+            }
+            Ok(Some(Ok(_))) => {}
+            Ok(Some(Err(_))) | Ok(None) => break, // ws closed
+            Err(_) => {}                           // timeout → re-check stop
+        }
+    }
+
+    write
+        .send(Message::Text(format!(
+            r#"{{"id":5,"sessionId":"{}","method":"Page.stopScreencast"}}"#,
+            session
+        )))
+        .await
+        .ok();
+    drop(ff_stdin); // EOF → ffmpeg writes the trailer and exits
+    let _ = ff.wait().await;
+    if frames == 0 {
+        return Err("no frames captured".into());
+    }
+    Ok(out_path)
+}
+
+/// Start recording the DRIVEN TAB (the embedded webview) via CDP screencast → ffmpeg. Captures the
+/// page the agent is on — cursor glide, flash, everything injected into it — and never any other
+/// window. Agent-invokable via the __steveControl bridge. One recording at a time.
+#[tauri::command]
+async fn start_recording(
+    app: tauri::AppHandle,
+    target_url: Option<String>,
+    state: tauri::State<'_, Mutex<RecordingState>>,
+) -> Result<String, String> {
+    {
+        let rec = state.lock().map_err(|e| e.to_string())?;
+        if rec.handle.is_some() {
+            return Err("already recording".into());
+        }
+    }
+    let port = app
+        .state::<CdpPortState>()
+        .port
+        .ok_or("CDP debug port unavailable")?;
+    let (browser_ws, target_id) = resolve_browser_and_target(port, target_url.as_deref()).await?;
+    let out = artifacts_path(&app)?.join(format!("recording-{}.mp4", now_ms()));
+    let out_s = out.to_string_lossy().to_string();
+
+    let stop = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+    let handle = tokio::spawn(record_screencast(
+        browser_ws,
+        target_id,
+        out_s.clone(),
+        stop.clone(),
+    ));
+
+    let mut rec = state.lock().map_err(|e| e.to_string())?;
+    rec.stop = Some(stop);
+    rec.handle = Some(handle);
+    Ok(out_s)
+}
+
+/// Stop the recording: signal the capture task, wait for ffmpeg to finalize, return the mp4 path.
+#[tauri::command]
+async fn stop_recording(
+    state: tauri::State<'_, Mutex<RecordingState>>,
+) -> Result<Option<String>, String> {
+    let (stop, handle) = {
+        let mut rec = state.lock().map_err(|e| e.to_string())?;
+        (rec.stop.take(), rec.handle.take())
+    };
+    let Some(stop) = stop else {
+        return Ok(None);
+    };
+    stop.store(true, std::sync::atomic::Ordering::Relaxed);
+    match handle {
+        Some(h) => match h.await {
+            Ok(Ok(path)) => Ok(Some(path)),
+            Ok(Err(e)) => Err(e),
+            Err(e) => Err(format!("recording task failed: {}", e)),
+        },
+        None => Ok(None),
+    }
+}
+
 // ── OS keychain (Windows Credential Manager / macOS Keychain) ──────────────
 // Secrets (site-credential passwords) live here, encrypted at rest by the OS, instead of
 // plaintext in steve.db. Keyed by an arbitrary string from the TS layer (e.g. "credential:7").
@@ -1265,6 +1680,209 @@ fn resolve_on_path(binary: &str) -> Option<std::path::PathBuf> {
     None
 }
 
+/// Whether the `claude` agent CLI is resolvable on PATH — the real readiness signal the Dashboard
+/// shows. The app spawns `claude` itself, so PATH presence is what it can actually verify.
+#[tauri::command]
+fn claude_cli_available() -> bool {
+    resolve_on_path("claude").is_some()
+}
+
+/// Build a `claude …` command with the given args, resolving the binary on PATH and routing a
+/// .cmd/.bat shim through cmd.exe (CreateProcess can't run a shim directly). Windows spawns are
+/// windowless — the user sees the app's own UI and their browser, never a console.
+fn claude_command(args: &[&str]) -> Result<tokio::process::Command, String> {
+    let bin = resolve_on_path("claude").ok_or_else(|| {
+        "Claude Code CLI (`claude`) not found on PATH. Install it, then try again.".to_string()
+    })?;
+    let is_shim = bin
+        .extension()
+        .and_then(|e| e.to_str())
+        .map(|e| {
+            let e = e.to_lowercase();
+            e == "cmd" || e == "bat"
+        })
+        .unwrap_or(false);
+    let mut cmd = if is_shim {
+        let sysroot = std::env::var("SystemRoot").unwrap_or_else(|_| "C:\\Windows".into());
+        let mut c = tokio::process::Command::new(format!("{}\\System32\\cmd.exe", sysroot));
+        c.arg("/c").arg(&bin).args(args);
+        c
+    } else {
+        let mut c = tokio::process::Command::new(&bin);
+        c.args(args);
+        c
+    };
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+    }
+    Ok(cmd)
+}
+
+/// An in-flight `claude auth login` process, held between start (which returns the sign-in URL) and
+/// submit (which feeds back the pasted code). One login at a time.
+struct LoginChild {
+    child: tokio::process::Child,
+    stdin: tokio::process::ChildStdin,
+}
+
+#[derive(Default)]
+struct LoginProc(Mutex<Option<LoginChild>>);
+
+/// Current Claude auth as reported by `claude auth status` (JSON: loggedIn, email,
+/// subscriptionType, …). Non-JSON / error output is normalised to `{ loggedIn: false }` so the UI
+/// always gets a shape it can read.
+#[tauri::command]
+async fn claude_auth_status() -> Result<serde_json::Value, String> {
+    let out = claude_command(&["auth", "status"])?
+        .output()
+        .await
+        .map_err(|e| format!("Failed to run claude auth status: {}", e))?;
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    if let Ok(v) = serde_json::from_str::<serde_json::Value>(stdout.trim()) {
+        return Ok(v);
+    }
+    Ok(serde_json::json!({ "loggedIn": false }))
+}
+
+/// Start the browser sign-in: spawn `claude auth login --claudeai` (subscription login, no method
+/// picker), read its stdout until it prints the OAuth URL, and keep the process alive with stdin
+/// open. The CLI opens the browser itself; the user approves, copies the code claude.com shows, and
+/// pastes it back via `claude_login_submit`. Returns the URL so the UI can also offer it as a link.
+#[tauri::command]
+async fn claude_login_start(state: tauri::State<'_, LoginProc>) -> Result<String, String> {
+    use tokio::io::{AsyncBufReadExt, BufReader};
+
+    // Drop any prior in-flight login before starting a new one.
+    {
+        let prev = state.0.lock().unwrap().take();
+        if let Some(mut l) = prev {
+            let _ = l.child.start_kill();
+        }
+    }
+
+    let mut cmd = claude_command(&["auth", "login", "--claudeai"])?;
+    cmd.stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped());
+    let mut child = cmd
+        .spawn()
+        .map_err(|e| format!("Failed to start claude auth login: {}", e))?;
+    let stdout = child.stdout.take().ok_or("no stdout from claude login")?;
+    let stdin = child.stdin.take().ok_or("no stdin for claude login")?;
+
+    // The URL is printed immediately; bound the wait so a hung login can't wedge the UI.
+    let mut lines = BufReader::new(stdout).lines();
+    let found = tokio::time::timeout(std::time::Duration::from_secs(20), async {
+        while let Ok(Some(line)) = lines.next_line().await {
+            if let Some(idx) = line.find("https://") {
+                let u = line[idx..].trim().to_string();
+                if u.contains("oauth") {
+                    return Some(u);
+                }
+            }
+        }
+        None
+    })
+    .await
+    .map_err(|_| "Timed out waiting for the Claude sign-in link.".to_string())?;
+    let url = found.ok_or("Claude login exited before returning a sign-in link.".to_string())?;
+
+    // Keep draining stdout so the CLI's pipe never blocks while it waits for the pasted code.
+    tokio::spawn(async move { while let Ok(Some(_)) = lines.next_line().await {} });
+
+    *state.0.lock().unwrap() = Some(LoginChild { child, stdin });
+    Ok(url)
+}
+
+/// Finish sign-in: write the pasted code to the waiting `claude auth login` process, close its
+/// stdin so it finalises the token, and return the resulting `claude auth status`.
+#[tauri::command]
+async fn claude_login_submit(
+    state: tauri::State<'_, LoginProc>,
+    code: String,
+) -> Result<serde_json::Value, String> {
+    use tokio::io::AsyncWriteExt;
+
+    let login = state.0.lock().unwrap().take();
+    let mut login = login.ok_or("No sign-in is in progress — start again.".to_string())?;
+    let line = format!("{}\n", code.trim());
+    login
+        .stdin
+        .write_all(line.as_bytes())
+        .await
+        .map_err(|e| format!("Failed to send the code: {}", e))?;
+    let _ = login.stdin.flush().await;
+    drop(login.stdin); // EOF → the CLI stops waiting and stores the token
+    let _ = tokio::time::timeout(std::time::Duration::from_secs(25), login.child.wait()).await;
+    claude_auth_status().await
+}
+
+/// Abort an in-flight sign-in (user cancelled).
+#[tauri::command]
+async fn claude_login_cancel(state: tauri::State<'_, LoginProc>) -> Result<(), String> {
+    let login = state.0.lock().unwrap().take();
+    if let Some(mut l) = login {
+        let _ = l.child.start_kill();
+        let _ = l.child.wait().await;
+    }
+    Ok(())
+}
+
+/// Sign out (`claude auth logout`) and return the refreshed status.
+#[tauri::command]
+async fn claude_auth_logout() -> Result<serde_json::Value, String> {
+    let _ = claude_command(&["auth", "logout"])?
+        .output()
+        .await
+        .map_err(|e| format!("Failed to run claude auth logout: {}", e))?;
+    claude_auth_status().await
+}
+
+/// Terminate a running agent CLI by its frontend session id. Kills only that one spawned pid's
+/// tree — on Windows `taskkill /T /F`, elsewhere the pid — so the user's own Claude session and
+/// other work are untouched. No-op (Ok) if the session already finished.
+#[tauri::command]
+async fn stop_agent_cli(app: tauri::AppHandle, session_id: String) -> Result<bool, String> {
+    let pid = {
+        let st = app
+            .try_state::<AgentProcs>()
+            .ok_or_else(|| "agent process registry unavailable".to_string())?;
+        let m = st.0.lock().map_err(|e| e.to_string())?;
+        m.get(&session_id).copied()
+    };
+    let Some(pid) = pid else { return Ok(false) };
+
+    #[cfg(windows)]
+    {
+        let sysroot = std::env::var("SystemRoot").unwrap_or_else(|_| "C:\\Windows".into());
+        let status = tokio::process::Command::new(format!("{}\\System32\\taskkill.exe", sysroot))
+            .args(["/PID", &pid.to_string(), "/T", "/F"])
+            .creation_flags(0x0800_0000) // CREATE_NO_WINDOW
+            .status()
+            .await
+            .map_err(|e| format!("taskkill failed: {}", e))?;
+        // Not fatal if the tree already exited between lookup and kill.
+        let _ = status;
+    }
+    #[cfg(not(windows))]
+    {
+        let _ = tokio::process::Command::new("kill")
+            .args(["-TERM", &pid.to_string()])
+            .status()
+            .await;
+    }
+    // The run's own RAII guard removes the registry entry when its process dies; drop it here too
+    // so a repeated Stop is an immediate no-op.
+    if let Some(st) = app.try_state::<AgentProcs>() {
+        if let Ok(mut m) = st.0.lock() {
+            m.remove(&session_id);
+        }
+    }
+    Ok(true)
+}
+
 /// Run a local coding-agent CLI headlessly and return its stdout.
 ///
 /// The prompt goes in on stdin, never argv: a DOM snapshot runs to tens of KB and
@@ -1382,6 +2000,30 @@ async fn run_agent_cli(
     let mut child = command
         .spawn()
         .map_err(|e| format!("Failed to spawn {}: {}", engine, e))?;
+
+    // Register this run's pid so the UI can stop it; the guard removes it on every exit path
+    // (normal, error, or timeout `?`), so the registry only ever holds genuinely-live runs.
+    struct DeregGuard<'a> {
+        app: &'a tauri::AppHandle,
+        sid: &'a str,
+    }
+    impl Drop for DeregGuard<'_> {
+        fn drop(&mut self) {
+            if let Some(st) = self.app.try_state::<AgentProcs>() {
+                if let Ok(mut m) = st.0.lock() {
+                    m.remove(self.sid);
+                }
+            }
+        }
+    }
+    if let Some(pid) = child.id() {
+        if let Some(st) = app.try_state::<AgentProcs>() {
+            if let Ok(mut m) = st.0.lock() {
+                m.insert(session_id.clone(), pid);
+            }
+        }
+    }
+    let _dereg = DeregGuard { app: &app, sid: &session_id };
 
     {
         use tokio::io::AsyncWriteExt;
@@ -1622,6 +2264,20 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             keyring_get,
             keyring_delete,
             run_agent_cli,
+            stop_agent_cli,
+            claude_cli_available,
+            claude_auth_status,
+            claude_login_start,
+            claude_login_submit,
+            claude_login_cancel,
+            claude_auth_logout,
+            artifacts_dir,
+            list_artifacts,
+            delete_artifact,
+            read_artifact,
+            open_artifact,
+            start_recording,
+            stop_recording,
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
@@ -1637,6 +2293,9 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
         .manage(EvalRegistry::new(Mutex::new(HashMap::new())))
         .manage(Mutex::new(OAuthCallbackState { cancel_tx: None }))
         .manage(CdpPortState { port: cdp_port })
+        .manage(Mutex::new(RecordingState { stop: None, handle: None }))
+        .manage(AgentProcs::default())
+        .manage(LoginProc::default())
         .setup(|app| {
             // Set window icon explicitly (required for Linux dev mode)
             if let Some(window) = app.get_webview_window("main") {

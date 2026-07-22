@@ -34,6 +34,41 @@ export function cdpTargetInstruction(host: string, marker?: string): string {
   ].join('\n');
 }
 
+/**
+ * Multi-tab target instruction. The opposite contract to cdpTargetInstruction: instead of pinning
+ * the agent to ONE tab and banning new ones, it hands over the app's own tab-control bridge
+ * (window.__steveControl, exposed on the localhost app-UI target — see Browser.svelte) so the agent
+ * can open, log into, activate, and switch between several tabs — the sanctioned way to span sites
+ * in one run. Tabs are still made ONLY through the bridge; raw Target.createTarget / window.open /
+ * self-launched browsers stay banned. `primaryHost` is the host the run starts on and returns to.
+ */
+export function cdpMultiTabInstruction(primaryHost: string): string {
+  return [
+    '- Two kinds of target share this debug port:',
+    '  1. The APP UI window (its url starts with http://localhost) exposes window.__steveControl —',
+    '     your ONLY sanctioned way to manage tabs and log in. Reach it with Runtime.evaluate on that',
+    '     target; never use it to act on a site. Its methods (all async — await them):',
+    '       - __steveControl.listTabs() -> [{id,url,title,active,ready,marker}]',
+    '       - __steveControl.newTab(url) -> opens a tab, returns its id',
+    "       - __steveControl.login(id) -> submits the SAVED on-device credentials for that tab's site",
+    '         and returns true if one matched. Credentials never leave the machine, you never see',
+    '         them, and no MFA is expected. Always log in this way — never type a password yourself.',
+    '       - __steveControl.activate(id) -> bring tab id to the front (what the user sees)',
+    '       - __steveControl.navigate(id, url), __steveControl.closeTab(id)',
+    '  2. One PAGE target per tab, each stamped window.name === "steve-tab-<id>". Do ALL reading,',
+    '     clicking, and filling on the page target whose window.name matches the tab you are on',
+    '     (evaluate window.name over each candidate target to find it).',
+    '- Make tabs ONLY via __steveControl.newTab. Never call Target.createTarget / window.open or',
+    '  launch your own browser (no playwright/puppeteer.launch).',
+    '- Before each visible action, __steveControl.activate(id) the tab you are working so the user',
+    "  follows along. Carry anything you retrieve in your OWN working notes — never write one tab's",
+    "  data into another tab's page except where the task's final action requires it.",
+    primaryHost ? `- The run starts on ${primaryHost}; return there when finished.` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
 export interface CliCrawlOptions {
   cdpPort: number;
   startUrl: string;

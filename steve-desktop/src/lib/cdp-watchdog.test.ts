@@ -195,6 +195,48 @@ describe('createCdpWatchdog.checkNow', () => {
     expect(onHealthy).not.toHaveBeenCalled();
   });
 
+  test('warmup window suppresses trips until it elapses (after start)', async () => {
+    let t = 1000;
+    const onWedge = vi.fn();
+    const watchdog = createCdpWatchdog({
+      port: 9222,
+      failuresToTrip: 2,
+      warmupMs: 20000,
+      nowFn: () => t,
+      onWedge,
+      fetchFn: unhealthyFetch() as unknown as typeof fetch,
+    });
+    watchdog.start(); // arms warmup at t=1000
+    watchdog.stop(); // clear the interval; startedAt stays set so checkNow() sees the warmup
+
+    // Inside warmup: repeated failures must not trip.
+    t = 5000;
+    await watchdog.checkNow();
+    await watchdog.checkNow();
+    await watchdog.checkNow();
+    expect(onWedge).not.toHaveBeenCalled();
+
+    // Past warmup: failures trip normally.
+    t = 30000;
+    await watchdog.checkNow(); // fail 1
+    await watchdog.checkNow(); // fail 2 -> trips
+    expect(onWedge).toHaveBeenCalledTimes(1);
+  });
+
+  test('checkNow without start() ignores warmup (direct-call path unaffected)', async () => {
+    const onWedge = vi.fn();
+    const watchdog = createCdpWatchdog({
+      port: 9222,
+      failuresToTrip: 2,
+      warmupMs: 999999,
+      onWedge,
+      fetchFn: unhealthyFetch() as unknown as typeof fetch,
+    });
+    await watchdog.checkNow();
+    await watchdog.checkNow();
+    expect(onWedge).toHaveBeenCalledTimes(1);
+  });
+
   test('onHealthy fires once when a healthy check follows a tripped watchdog', async () => {
     let healthy = false;
     const fetchFn = vi.fn().mockImplementation(async () => ({

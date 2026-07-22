@@ -10,14 +10,17 @@
    * The approval is the safety gate between read-only planning and live mutation, so nothing that
    * changes the site happens until you approve a plan you can read.
    */
+  import { onMount, onDestroy } from 'svelte';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
+  import { upsertInstalledSkill } from '../../lib/skills-api';
+  import { taskToSkill } from '../../lib/agent-skill';
   import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import { scopeOf, normalizeUrl } from '../../lib/site-map';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { buildCliCrawlPrompt, parseCliCrawlOutput } from '../../lib/cli-crawl';
-  import { buildAutomatePlanPrompt, buildAutomateExecPrompt, cleanAutomateOutput, planHasMutations, parsePlan } from '../../lib/cli-automate';
+  import { buildAutomatePlanPrompt, buildAutomateExecPrompt, cleanAutomateOutput, planHasMutations, parsePlan, buildEnhancePrompt } from '../../lib/cli-automate';
   import { loadMappingDoc, saveMappingDoc } from '../../lib/site-profiles';
   import { tabMarker } from '../../lib/tab-control';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
@@ -27,7 +30,13 @@
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
 
   let task = $state('');
+  // "✨ Enhance" rewrites the typed task into a detailed, capability-aware prompt via the engine.
+  let enhancing = $state(false);
+  let taskBeforeEnhance = $state<string | null>(null); // kept so an enhance can be reverted
   let stayInScope = $state(true);
+  // Multi-tab facilitation: let the agent open, log into, and switch between tabs to span sites in
+  // one run. Off by default — most tasks are single-tab. Note "stay in this course" is per-tab scope.
+  let multiTab = $state(false);
   type Phase = 'idle' | 'mapping' | 'planning' | 'awaiting-approval' | 'executing' | 'done';
   let phase = $state<Phase>('idle');
   let msg = $state<string | null>(null);
@@ -47,6 +56,123 @@
 
   const busy = $derived(phase === 'mapping' || phase === 'planning' || phase === 'executing');
 
+  // Session id of the run currently in flight, so the Stop button can terminate its spawned CLI.
+  let currentSessionId = $state<string | null>(null);
+  let stopping = $state(false);
+  async function stopRun() {
+    if (!currentSessionId || stopping) return;
+    stopping = true;
+    try {
+      await invoke('stop_agent_cli', { sessionId: currentSessionId });
+      msg = 'Stopped by you.';
+    } catch (e) {
+      msg = `Stop failed: ${e instanceof Error ? e.message : String(e)}`;
+    } finally {
+      stopping = false;
+    }
+  }
+
+  // Elapsed-time ticker so a long run visibly progresses — reassures the user it's working, not stuck
+  // (the CDP watchdog can false-alarm under heavy load while the run is actually fine).
+  let elapsed = $state(0);
+  $effect(() => {
+    if (!busy) { elapsed = 0; return; }
+    const start = Date.now();
+    elapsed = 0;
+    const id = setInterval(() => { elapsed = Math.floor((Date.now() - start) / 1000); }, 1000);
+    return () => clearInterval(id);
+  });
+  function fmtElapsed(s: number): string {
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  }
+
+  /** Rewrite the typed task into a detailed, capability-aware prompt. A one-shot text call — no
+   *  browser, watchdog, or overlay (unlike a real run), so it stays fast and side-effect-free. */
+  async function enhanceTask() {
+    if (busy || enhancing || !task.trim()) return;
+    if (!provider) { msg = 'Pick an engine above first.'; return; }
+    const engine = engineForProvider(provider);
+    const original = task;
+    enhancing = true;
+    msg = 'Enhancing your task with AI…';
+    try {
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt: buildEnhancePrompt(original),
+        sessionId: crypto.randomUUID(),
+        resume: false,
+        model: cliModelArg(engine, model),
+        systemPrompt: null,
+        bypassPermissions: false, // a pure text rewrite — it needs no tools
+        timeoutSecs: 120,
+        stream: false,
+      });
+      const enhanced = cleanAutomateOutput(extractCliText(engine, stdout)).trim();
+      if (enhanced) {
+        taskBeforeEnhance = original;
+        task = enhanced;
+        msg = 'Task enhanced — review it, then Plan or Run.';
+      } else {
+        msg = 'Enhance returned nothing — task left unchanged.';
+      }
+    } catch (e) {
+      msg = `Enhance failed: ${e instanceof Error ? e.message : String(e)}`;
+    } finally {
+      enhancing = false;
+    }
+  }
+
+  function revertEnhance() {
+    if (taskBeforeEnhance !== null) { task = taskBeforeEnhance; taskBeforeEnhance = null; }
+  }
+
+  // Save a finished run as a re-runnable skill, and load one back in (fired by the Skills page).
+  let savedSkillMsg = $state('');
+
+  function deriveSkillName(t: string): string {
+    const s = t.replace(/\s+/g, ' ').trim();
+    return (s.length > 48 ? s.slice(0, 45) + '…' : s) || 'Agent task';
+  }
+
+  async function saveAsSkill() {
+    if (!lastRun) return;
+    const name = deriveSkillName(lastRun.task);
+    try {
+      await upsertInstalledSkill({
+        name,
+        description: lastRun.task.replace(/\s+/g, ' ').slice(0, 140),
+        content: taskToSkill(name, { task: lastRun.task, plan: plan ?? undefined }),
+        source: 'local',
+        isActive: 0,
+      });
+      savedSkillMsg = `Saved "${name}" to Skills — run it again anytime from the Skills tab.`;
+    } catch (e) {
+      savedSkillMsg = `Couldn't save skill: ${e instanceof Error ? e.message : String(e)}`;
+    }
+  }
+
+  function handleLoadTask(e: Event) {
+    const detail = (e as CustomEvent<{ task?: string }>).detail;
+    if (!detail?.task) return;
+    lastRun = null;
+    plan = null;
+    result = null;
+    savedSkillMsg = '';
+    task = detail.task;
+    msg = 'Loaded a saved skill — review it, then Plan or Run.';
+  }
+  onMount(() => {
+    window.addEventListener('steve:load-task', handleLoadTask);
+    // The Skills page navigates here THEN hands over the task; a live event would fire before this
+    // component mounts, so it stashes the task and we pick it up on mount.
+    const pending = sessionStorage.getItem('steve:pending-task');
+    if (pending) {
+      sessionStorage.removeItem('steve:pending-task');
+      handleLoadTask(new CustomEvent('steve:load-task', { detail: { task: pending } }));
+    }
+  });
+  onDestroy(() => window.removeEventListener('steve:load-task', handleLoadTask));
+
   async function currentUrl(): Promise<string> {
     const tabId = getActiveTabId();
     if (!tabId) return '';
@@ -62,6 +188,7 @@
     if (!port) throw new Error('CDP debug port unavailable — restart the app.');
     const engine = engineForProvider(provider);
     const sessionId = crypto.randomUUID();
+    currentSessionId = sessionId; // expose it so Stop can terminate this run
     // Batch progress updates (~150ms) so a burst of stream events doesn't re-render per line and
     // starve the main thread — the confirmed cause of the WebView2 CDP wedge.
     const progressBuf = createThrottledBuffer<string>((lines) => {
@@ -92,6 +219,7 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
+        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
         timeoutSecs: 900,
@@ -103,6 +231,7 @@
       watchdog.stop();
       await hideAgentConnected(drivenTab);
       unlisten();
+      currentSessionId = null;
     }
   }
 
@@ -113,9 +242,12 @@
     result = null;
     progress = [];
     const startUrl = normalizeUrl(await currentUrl());
-    if (!startUrl) { msg = 'Open a page in the browser first.'; return; }
-    const domain = domainFromUrl(startUrl);
-    const scope = stayInScope ? scopeOf(startUrl) : null;
+    // No page open is fine — the agent opens the site the task needs via the tab bridge, so force
+    // multi-tab (bridge access) and drop the host/scope confinement there is nothing to anchor to.
+    const noPage = !startUrl;
+    const effMultiTab = multiTab || noPage;
+    const domain = noPage ? null : domainFromUrl(startUrl);
+    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
@@ -135,7 +267,7 @@
       phase = 'planning';
       msg = 'Planning (read-only)…';
       progress = [];
-      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow() }), 'plan');
+      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab }), 'plan');
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -160,18 +292,22 @@
     result = null;
     progress = [];
     const startUrl = normalizeUrl(await currentUrl());
-    if (!startUrl) { msg = 'Open a page in the browser first.'; return; }
-    const domain = domainFromUrl(startUrl);
-    const scope = stayInScope ? scopeOf(startUrl) : null;
+    // No page open is fine — the agent opens the site the task needs via the tab bridge, so force
+    // multi-tab (bridge access) and drop the host/scope confinement there is nothing to anchor to.
+    const noPage = !startUrl;
+    const effMultiTab = multiTab || noPage;
+    const domain = noPage ? null : domainFromUrl(startUrl);
+    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       const map = domain ? await loadMappingDoc(domain) : null;
       mapUsed = map ? 'existing' : 'none';
+      const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       phase = 'executing';
       msg = 'Running the task directly — no plan was reviewed.';
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow() }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
         'exec',
       );
       result = cleanAutomateOutput(raw);
@@ -189,16 +325,19 @@
     if (phase !== 'awaiting-approval' || !plan) return;
     progress = [];
     const startUrl = normalizeUrl(await currentUrl());
-    const domain = domainFromUrl(startUrl);
-    const scope = stayInScope ? scopeOf(startUrl) : null;
+    const noPage = !startUrl;
+    const effMultiTab = multiTab || noPage;
+    const domain = noPage ? null : domainFromUrl(startUrl);
+    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       phase = 'executing';
       msg = 'Executing the approved plan…';
       const map = domain ? await loadMappingDoc(domain) : null;
+      const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, approvedPlan: plan, marker: markerNow() }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
         'exec',
       );
       result = cleanAutomateOutput(raw);
@@ -243,32 +382,64 @@
       ? "Follow-up — e.g. now do the same for period 3"
       : "e.g. Post an announcement in the forum titled 'Welcome to class'"}
     rows="3"
-    disabled={busy}
+    disabled={busy || enhancing}
   ></textarea>
+
+  <div class="enhance-row">
+    <button
+      class="enhance"
+      onclick={enhanceTask}
+      disabled={busy || enhancing || !task.trim() || !provider}
+      title="Rewrite your task into a detailed, step-by-step prompt that uses the app's capabilities (cursor, screenshots, recording, multi-tab)."
+    >
+      {enhancing ? '✨ Enhancing…' : '✨ Enhance with AI'}
+    </button>
+    {#if taskBeforeEnhance !== null}
+      <button class="link" onclick={revertEnhance} disabled={busy || enhancing}>revert</button>
+    {/if}
+  </div>
 
   <label class="scope-row" title="Keep the agent within the course/section of the page you start on.">
     <input type="checkbox" bind:checked={stayInScope} disabled={busy} />
     <span>Stay in this course{#if scopeOf('')}{/if}</span>
   </label>
 
+  <label class="scope-row" title="Let the agent open, log into, and switch between multiple tabs to pull information from more than one site in one run.">
+    <input type="checkbox" bind:checked={multiTab} disabled={busy} />
+    <span>Allow multiple tabs (cross-site)</span>
+  </label>
+
   <div class="btns">
     {#if phase === 'idle' || phase === 'done'}
       <button class="go" disabled={!task.trim() || !provider} onclick={startPlan} title="Map + plan read-only, then you approve before anything changes. Use for work you'll repeat.">
-        🧭 Plan task
+        {lastRun ? '🧭 Plan follow-up' : '🧭 Plan task'}
       </button>
       <button class="go direct" disabled={!task.trim() || !provider} onclick={runDirect} title="Skip planning and approval — the agent starts changing the site straight away. Use for quick one-offs.">
-        ⚡ Run now
+        {lastRun ? '⚡ Send follow-up' : '⚡ Run now'}
       </button>
+      {#if lastRun}
+        <button class="go save-skill" onclick={saveAsSkill} title="Save this task (and its approved plan) as a reusable skill you can run again from the Skills tab.">
+          ➕ Save as Skill
+        </button>
+      {/if}
     {/if}
     {#if phase === 'awaiting-approval'}
       <button class="go approve" onclick={approveAndRun}>✅ Approve &amp; run</button>
       <button class="cancel" onclick={cancel}>Cancel</button>
     {/if}
     {#if busy}
-      <span class="running">{phase === 'mapping' ? '🕸 Mapping…' : phase === 'planning' ? '🧭 Planning…' : '⚙ Executing…'}</span>
+      <span class="running">
+        {phase === 'mapping' ? '🕸 Mapping…' : phase === 'planning' ? '🧭 Planning…' : '⚙ Executing…'}
+        <span class="elapsed" title="Elapsed time — it's still working">⏱ {fmtElapsed(elapsed)}</span>
+      </span>
+      <button class="cancel stop" onclick={stopRun} disabled={!currentSessionId || stopping}
+        title="Terminate the running agent now — kills only this run's process, nothing else.">
+        {stopping ? 'Stopping…' : '⏹ Stop'}
+      </button>
     {/if}
   </div>
 
+  {#if savedSkillMsg}<div class="msg saved">{savedSkillMsg}</div>{/if}
   {#if msg}<div class="msg" class:warn={phase === 'awaiting-approval' && plan && planHasMutations(plan)}>{msg}</div>{/if}
   {#if mapUsed !== 'none' && phase !== 'idle'}<div class="muted small">Map: {mapUsed === 'existing' ? 'used existing site map' : 'built a new site map first'}</div>{/if}
 
@@ -326,6 +497,12 @@
   .link { background: none; border: none; padding: 0; color: var(--color-primary); cursor: pointer; font-size: 0.8rem; text-decoration: underline; }
   .link:disabled { opacity: 0.5; cursor: not-allowed; }
   .scope-row { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-secondary); }
+  .enhance-row { display: flex; align-items: center; gap: 10px; margin: 6px 0 2px; }
+  .enhance {
+    background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);
+    border-radius: var(--radius-md); padding: 4px 12px; cursor: pointer; font-size: 0.82rem;
+  }
+  .enhance:disabled { opacity: 0.5; cursor: not-allowed; }
   .btns { display: flex; align-items: center; gap: var(--spacing-2); flex-wrap: wrap; }
   .go {
     background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);
@@ -333,8 +510,13 @@
   }
   .go:disabled { opacity: 0.5; cursor: not-allowed; }
   .go.approve, .go.direct { border-color: var(--color-danger, #e5484d); color: var(--color-danger, #e5484d); }
+  .go.save-skill { border-color: var(--color-success, #30a46c); color: var(--color-success, #30a46c); }
+  .msg.saved { color: var(--color-success, #30a46c); }
   .cancel { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.85rem; }
-  .running { font-size: 0.85rem; color: var(--text-secondary); }
+  .stop { color: #ef4444; font-weight: 600; }
+  .stop:disabled { opacity: 0.5; cursor: default; }
+  .running { font-size: 0.85rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 8px; }
+  .elapsed { font-variant-numeric: tabular-nums; font-size: 0.8rem; color: var(--text-tertiary); }
   .msg {
     font-size: 0.85rem; color: var(--text-primary); background: var(--bg-card, var(--bg-input));
     border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 6px 10px;

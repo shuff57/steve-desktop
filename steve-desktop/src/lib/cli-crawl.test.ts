@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, cdpTargetInstruction } from './cli-crawl';
+import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, cdpTargetInstruction, cdpMultiTabInstruction } from './cli-crawl';
 
 describe('cdpTargetInstruction', () => {
   it('pins by window.name marker when present (unambiguous with duplicate tabs)', () => {
@@ -12,6 +12,24 @@ describe('cdpTargetInstruction', () => {
     const s = cdpTargetInstruction('x.edu', undefined);
     expect(s).toContain('EXISTING page target whose url is on x.edu');
     expect(s).toContain('Target.createTarget');
+  });
+});
+
+describe('cdpMultiTabInstruction', () => {
+  const s = cdpMultiTabInstruction('www.safecolleges.com');
+  it('hands over the __steveControl bridge (open/login/activate) as the only way to make tabs', () => {
+    expect(s).toContain('__steveControl.newTab');
+    expect(s).toContain('__steveControl.login');
+    expect(s).toContain('__steveControl.activate');
+    expect(s).toContain('steve-tab-<id>'); // page targets identified by their marker
+  });
+  it('still bans self-opened tabs/browsers and keeps creds off the model', () => {
+    expect(s).toContain('Never call Target.createTarget');
+    expect(s).toContain('never type a password yourself');
+  });
+  it('tells the agent to carry cross-tab data in its own notes and return to the start host', () => {
+    expect(s).toContain('OWN working notes');
+    expect(s).toContain('www.safecolleges.com');
   });
 });
 

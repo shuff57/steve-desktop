@@ -31,7 +31,8 @@
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
   import { tabMarker, markerScript, type TabInfo } from '../lib/tab-control';
-  import { AGENT_OVERLAY_SCRIPT, DIALOG_SUPPRESS_SCRIPT, type AgentActiveDetail } from '../lib/agent-overlay';
+  import { agentOverlayScript, AGENT_OVERLAY_REMOVE, DIALOG_SUPPRESS_SCRIPT, SESSION_COLORS, type AgentActiveDetail } from '../lib/agent-overlay';
+  import { startRecording, stopRecording } from '../lib/artifacts-api';
   import ActionPanel from './ActionPanel.svelte';
 
   // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
@@ -48,13 +49,27 @@
     /** Fill + submit the login form on a tab using saved creds. Returns true if a credential
      *  matched the tab's URL (creds stay on-device — never sent to the model). */
     login: (id?: string) => Promise<boolean>;
+    /** Start/stop an app-window screen recording (ffmpeg) — saved to the Artifacts gallery. */
+    startRecording: () => Promise<string>;
+    stopRecording: () => Promise<string | null>;
   }
   const steveWindow = window as Window & { __steveControl?: SteveControl };
 
   let urlInput = $state('');
   // The tab an agent is currently driving — highlights its tab and keeps the connection overlay
   // (border ring + arrow cursor) re-injected across the agent's navigations.
-  let agentActiveTabId = $state('');
+  // Concurrent agent sessions, each colour-coded so two running at once are distinguishable. A session
+  // is owned by the tab that started the run; it grows as the agent opens/switches tabs (each new tab
+  // inherits the session of the tab the agent came from).
+  interface AgentSession { owner: string; tabs: string[]; color: string; activeTab: string; }
+  let sessions = $state<AgentSession[]>([]);
+  function sessionOf(tabId: string): AgentSession | undefined {
+    return sessions.find((s) => s.tabs.includes(tabId));
+  }
+  function nextSessionColor(): string {
+    const used = new Set(sessions.map((s) => s.color));
+    return SESSION_COLORS.find((c) => !used.has(c)) ?? SESSION_COLORS[sessions.length % SESSION_COLORS.length];
+  }
   let showActionPanel = $state(false);
   let actionPanelCollapsed = $state(false);
   let actionPanelWidth = $state(400);
@@ -82,6 +97,11 @@
   let creatingTabId = $state('');
 
   let currentTab = $derived(tabs.find(t => t.id === activeTabId));
+  // Which tab's ActionPanel to show. Normally the active tab's own panel — but if the active tab
+  // belongs to an agent SESSION, show the SESSION OWNER's panel (where the run + its live feedback
+  // live), so the agent's progress is shared across the controlled session instead of the agent's
+  // newly-opened tab showing its own blank panel.
+  let panelTabId = $derived(sessionOf(activeTabId)?.owner ?? activeTabId);
   let isLoading = $derived(currentTab?.isLoading ?? false);
   let browserCreated = $derived(currentTab?.browserCreated ?? false);
   let pageLoadedUrl = $derived(currentTab?.url ?? '');
@@ -369,7 +389,39 @@
   /** A spawn signals it is (dis)connecting from a tab — track it so the tab is highlighted and the
    *  overlay is re-injected across the agent's navigations (see the page-loaded handler). */
   function handleAgentActive(e: CustomEvent<AgentActiveDetail>) {
-    agentActiveTabId = e.detail?.active ? e.detail.tabId : '';
+    const detail = e.detail;
+    if (detail?.active) {
+      const owner = detail.tabId;
+      if (owner && !sessions.some((s) => s.owner === owner)) {
+        const color = nextSessionColor();
+        sessions = [...sessions, { owner, tabs: [owner], color, activeTab: owner }];
+        injectScript(DIALOG_SUPPRESS_SCRIPT, owner).catch(() => {});
+        injectScript(agentOverlayScript(color), owner).catch(() => {});
+      }
+    } else {
+      // Run ended — end the session owned by this tab and strip its overlay from every tab it touched.
+      const s = sessions.find((x) => x.owner === detail?.tabId) ?? sessionOf(detail?.tabId ?? '');
+      if (s) {
+        for (const t of s.tabs) injectScript(AGENT_OVERLAY_REMOVE, t).catch(() => {});
+        sessions = sessions.filter((x) => x !== s);
+        // Return focus to the tab that started the run so its panel (the plan / result) is visible
+        // again — the agent may have left a different session tab active mid-run, which hid it.
+        if (activeTabId !== s.owner && tabs.some((t) => t.id === s.owner)) void switchTab(s.owner);
+      }
+    }
+  }
+
+  /** The agent moved from `fromTabId` to `toTabId`. The new tab inherits the session of the tab the
+   *  agent came from — so concurrent sessions never bleed colours — and gets that session's coloured
+   *  overlay. A racing inject on a freshly-opened tab is harmless; the page-loaded handler re-injects. */
+  async function followAgentTo(fromTabId: string, toTabId: string) {
+    if (!toTabId) return;
+    const s = sessionOf(fromTabId) ?? sessionOf(toTabId);
+    if (!s) return;
+    if (!s.tabs.includes(toTabId)) s.tabs = [...s.tabs, toTabId]; // grow this session
+    s.activeTab = toTabId;
+    await injectScript(DIALOG_SUPPRESS_SCRIPT, toTabId).catch(() => {});
+    await injectScript(agentOverlayScript(s.color), toTabId).catch(() => {});
   }
 
   function handleSidebarChanged() {
@@ -423,12 +475,13 @@
       await checkPendingLogin(url);                       // offer to save a just-submitted login
       await injectScript(LOGIN_CAPTURE_SCRIPT, tabId).catch(() => {}); // arm capture on this page
       await injectScript(markerScript(tabId), tabId).catch(() => {}); // re-stamp window.name (resets cross-origin)
-      // If an agent is driving this tab, re-show the connection overlay AND neutralize JS dialogs
-      // (a page load cleared both). An unhandled alert/confirm/beforeunload blocks the page's
-      // message loop → the agent's CDP hangs; suppressing them keeps the agent from wedging.
-      if (agentActiveTabId === tabId) {
+      // If this tab belongs to an agent session, re-show its (session-coloured) overlay AND neutralize
+      // JS dialogs (a page load cleared both). An unhandled alert/confirm/beforeunload blocks the
+      // page's message loop → the agent's CDP hangs; suppressing them keeps the agent from wedging.
+      const loadedSession = sessionOf(tabId);
+      if (loadedSession) {
         await injectScript(DIALOG_SUPPRESS_SCRIPT, tabId).catch(() => {});
-        await injectScript(AGENT_OVERLAY_SCRIPT, tabId).catch(() => {});
+        await injectScript(agentOverlayScript(loadedSession.color), tabId).catch(() => {});
       }
     });
     if (guard.destroyed) { unlistenUrl(); unlistenLoaded(); return; }
@@ -466,11 +519,17 @@
         ready: t.browserCreated,
         marker: tabMarker(t.id),
       })),
-      newTab: async (url?: string) => { await openNewTab(url); return activeTabId; },
+      // When a session is active, the coloured overlay follows the agent onto the tab it opens/
+      // switches to. Capture the CURRENT tab first (the agent came from it) so the new tab inherits
+      // that tab's session — this is how concurrent sessions keep their tabs (and colours) separate.
+      newTab: async (url?: string) => { const from = activeTabId; await openNewTab(url); if (sessions.length) await followAgentTo(from, activeTabId); return activeTabId; },
       closeTab: async (id: string) => { await closeTab(id); },
-      navigate: async (id: string, url: string) => { await switchTab(id); urlInput = url; await handleNavigate(); },
-      activate: async (id: string) => { await switchTab(id); },
+      navigate: async (id: string, url: string) => { const from = activeTabId; await switchTab(id); urlInput = url; await handleNavigate(); if (sessions.length) await followAgentTo(from, id); },
+      activate: async (id: string) => { const from = activeTabId; await switchTab(id); if (sessions.length) await followAgentTo(from, id); },
       login: (id?: string) => loginNow(id),
+      // Record the tab the agent is on — pass its URL so the right target is captured with several open.
+      startRecording: () => startRecording(tabs.find(t => t.id === activeTabId)?.url),
+      stopRecording: () => stopRecording(),
     };
 
     await openNewTab();
@@ -620,17 +679,20 @@
 <div class="browser-container">
   <div class="tab-bar">
     {#each tabs as tab (tab.id)}
+      {@const s = sessionOf(tab.id)}
       <div
         class="tab"
         class:active={tab.id === activeTabId}
-        class:agent-driving={tab.id === agentActiveTabId}
+        class:agent-driving={s?.activeTab === tab.id}
+        class:agent-group={!!s}
+        style:--agent-color={s?.color ?? ''}
         onclick={() => switchTab(tab.id)}
         onkeydown={(e) => e.key === 'Enter' && switchTab(tab.id)}
         role="tab"
         tabindex="0"
-        title={tab.id === agentActiveTabId ? 'An agent is driving this tab' : ''}
+        title={s?.activeTab === tab.id ? 'An agent is driving this tab' : s ? 'Part of an agent session' : ''}
       >
-        {#if tab.id === agentActiveTabId}<span class="agent-dot" aria-label="agent connected">●</span>{/if}
+        {#if s?.activeTab === tab.id}<span class="agent-dot" aria-label="agent connected">●</span>{/if}
         <span class="tab-title">{tab.title || getTabDisplayTitle(tab)}</span>
         {#if tabs.length > 1}
           <button class="tab-close" onclick={(e) => { e.stopPropagation(); closeTab(tab.id); }}>×</button>
@@ -749,7 +811,7 @@
       <!-- One panel instance per tab so each tab keeps its own chat/discovery/skills state.
            Inactive panels stay mounted but hidden (display:none) — state survives tab switches. -->
       {#each tabs as tab (tab.id)}
-        <div class="panel-slot" style:display={tab.id === activeTabId ? 'contents' : 'none'}>
+        <div class="panel-slot" style:display={tab.id === panelTabId ? 'contents' : 'none'}>
           <ActionPanel
             bind:isCollapsed={actionPanelCollapsed}
             bind:width={actionPanelWidth}
@@ -1037,13 +1099,20 @@
     color: var(--text-primary);
   }
 
-  /* A tab an agent is currently driving — pastel-green glow + pulsing dot, matching the overlay. */
+  /* A tab an agent is currently driving — glow + pulsing dot in the SESSION's colour (--agent-color),
+     matching that session's in-page overlay so you can tell concurrent sessions apart. */
   .tab.agent-driving {
-    border-color: #34d399;
-    box-shadow: 0 0 0 1px #34d399, 0 0 8px rgba(52, 211, 153, 0.55);
+    border-color: var(--agent-color, #34d399);
+    box-shadow: 0 0 0 1px var(--agent-color, #34d399), 0 0 8px var(--agent-color, #34d399);
+  }
+  /* Every tab in a session: a top accent + faint tint in the session colour, so the whole session
+     reads as one coloured group. The driving tab additionally gets the stronger glow + ● dot above. */
+  .tab.agent-group {
+    border-top: 2px solid var(--agent-color, #34d399);
+    background: color-mix(in srgb, var(--agent-color, #34d399) 8%, transparent);
   }
   .agent-dot {
-    color: #10b981;
+    color: var(--agent-color, #10b981);
     font-size: 0.7rem;
     animation: agentPulse 1.1s ease-in-out infinite;
   }

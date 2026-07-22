@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { redactRequest, rehydrateResponse } from './agent-redact';
 import { Redactor } from './redact';
-import type { AgentApiRequest, AgentApiResponse } from './agent-types';
+import type { AgentApiRequest, AgentActionResponse } from './agent-types';
 
 describe('redactRequest — gate on the live model-call path', () => {
   const redactor = new Redactor(['Jane Doe', '4471']);
@@ -30,11 +30,11 @@ describe('redactRequest — gate on the live model-call path', () => {
   });
 
   it('rehydrates token references in the model response back to real values', () => {
-    const response: AgentApiResponse = {
+    const response: AgentActionResponse = {
       action: 'fill',
       params: { selector: '#studentName', value: '⟦S1⟧' },
       reasoning: 'fill the name field for ⟦S1⟧',
-    } as AgentApiResponse;
+    };
     const out = rehydrateResponse(response, redactor) as typeof response;
     expect(out.params.value).toBe('Jane Doe');
     expect(out.reasoning).toContain('Jane Doe');

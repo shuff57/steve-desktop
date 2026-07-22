@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { MousePointerClick, Brain, Settings } from 'lucide-svelte';
-  import { listProviderConfigs } from '../lib/db';
+  import { invoke } from '@tauri-apps/api/core';
+  import { getClaudeApiKey } from '../lib/db';
 
   let { onnavigate = (_page: string) => {} }: {
     onnavigate?: (page: string) => void;
@@ -10,13 +11,14 @@
   let providerStatus = $state('checking...');
 
   onMount(async () => {
-    // Check provider status
-    const providers = await listProviderConfigs();
-    const activeProvider = providers.find((p: any) => p.is_active === 1);
-    if (activeProvider) {
-      providerStatus = `connected (${activeProvider.id})`;
+    // The real gate is the `claude` CLI the app spawns, not a DB row. If it's on PATH the agent can
+    // run; auth is either a pasted API key (injected into the spawn) or the CLI's own login.
+    const onPath = await invoke<boolean>('claude_cli_available').catch(() => false);
+    if (!onPath) {
+      providerStatus = 'claude CLI not found';
     } else {
-      providerStatus = 'not configured';
+      const key = await getClaudeApiKey().catch(() => null);
+      providerStatus = key ? 'ready (API key)' : 'ready (claude login)';
     }
   });
 </script>
@@ -28,7 +30,7 @@
   </header>
 
   <section class="health-indicators">
-    <div class="indicator provider" class:ok={providerStatus.startsWith('connected')} class:warn={providerStatus === 'checking...'}>
+    <div class="indicator provider" class:ok={providerStatus.startsWith('ready')} class:warn={providerStatus === 'checking...'}>
       <span class="status-dot"></span>
       <span>Provider: {providerStatus}</span>
     </div>

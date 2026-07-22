@@ -1,14 +1,17 @@
 <script lang="ts">
   import type { Skill } from '../../lib/db';
   import { renderSkillPreview } from '../../lib/skill-parser';
+  import { isAgentTaskSkill } from '../../lib/agent-skill';
 
-  let { skill, onDelete, onToggle } = $props<{
+  let { skill, onDelete, onToggle, onRun } = $props<{
     skill: Skill;
     onDelete: (id: string) => void;
     onToggle: (id: string, isActive: number) => void;
+    onRun?: (skill: Skill) => void;
   }>();
 
   let expanded = $state(false);
+  const runnable = $derived(!!onRun && isAgentTaskSkill(skill.content));
 
   function getSourceLabel(skill: Skill): string {
     if (skill.source === 'local') return 'Local';
@@ -51,6 +54,9 @@
       {/if}
     </div>
     <div class="actions">
+      {#if runnable}
+        <button class="run-btn" onclick={(e) => { e.stopPropagation(); onRun?.(skill); }} title="Run this task in the browser Agent">▶ Run</button>
+      {/if}
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <label class="switch" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Enter' && e.stopPropagation()}>
         <input 
@@ -245,6 +251,16 @@
 
   .slider.round {
     border-radius: 20px;
+  }
+
+  .run-btn {
+    background: transparent;
+    border: 1px solid var(--color-success, #30a46c);
+    color: var(--color-success, #30a46c);
+    border-radius: var(--radius-md);
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    cursor: pointer;
   }
 
   .delete-btn {

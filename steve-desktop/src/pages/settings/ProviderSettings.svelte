@@ -8,7 +8,7 @@
     saveOAuthToken,
     deleteOAuthToken,
   } from '../../lib/db';
-  import { Command } from '@tauri-apps/plugin-shell';
+  import { invoke } from '@tauri-apps/api/core';
   import { Activity, Pencil, Trash2, Plus, RefreshCw, Copy } from 'lucide-svelte';
   import type { ProviderConfig } from '../../lib/db';
   import {
@@ -99,7 +99,7 @@
         const flow = await startGoogleDeviceFlow();
         handleDeviceFlow(providerId, flow);
       } else if (providerId === 'anthropic') {
-        await signInWithAnt(providerId);
+        await signInWithClaude(providerId);
       }
     } catch (error) {
       authErrors[providerId] = error instanceof Error ? error.message : String(error);
@@ -108,21 +108,15 @@
     }
   }
 
-  // Browser login via the Anthropic `ant` CLI: opens a browser and stores an
-  // auto-refreshing OAuth profile locally. The real token is fetched per model
-  // call (ant auth print-credentials); here we just record a presence marker so
-  // the UI shows "Signed in". Throws so startAuth surfaces the error banner.
-  async function signInWithAnt(providerId: string) {
-    let result;
-    try {
-      result = await Command.create('ant', ['auth', 'login']).execute();
-    } catch {
-      throw new Error('Browser sign-in needs the Anthropic `ant` CLI installed. Install it (then `ant auth login`), or use an API key instead.');
-    }
-    if (result.code !== 0) {
-      throw new Error(result.stderr?.trim() || 'ant auth login did not complete.');
-    }
-    await saveOAuthToken(providerId, 'ant-oauth-profile'); // presence marker, not the token
+  // Browser login via the Claude Code `claude` CLI — the SAME binary the agent spawns, so the
+  // stored credentials line up with the runs (the old `ant` path logged in a different tool).
+  // `claude setup-token` opens a browser, completes OAuth, and stores a long-lived token where
+  // `claude -p` reads it. We keep a presence marker so the UI shows "Signed in". Throws so
+  // startAuth surfaces the error banner. If it can't complete, the API-key path below is the
+  // reliable fallback.
+  async function signInWithClaude(providerId: string) {
+    await invoke<string>('claude_setup_token'); // rejects with a message on failure
+    await saveOAuthToken(providerId, 'claude-oauth-token'); // presence marker, not the token
     oauthStatus[providerId] = true;
   }
 
@@ -196,7 +190,7 @@
   }
 
   async function saveProvider(config: ProviderConfig) {
-    await saveProviderConfig(config.id, config.api_url, config.api_key, config.model, config.is_active);
+    await saveProviderConfig({ id: config.id, api_url: config.api_url, api_key: config.api_key, model: config.model, is_active: config.is_active });
     await loadProviders();
     editingProvider = null;
   }
@@ -246,7 +240,7 @@
   async function addNewProvider() {
     if (!newProviderId) return;
     
-    await saveProviderConfig(newProviderId, newProviderUrl, newProviderKey, newProviderModel, 1);
+    await saveProviderConfig({ id: newProviderId, api_url: newProviderUrl, api_key: newProviderKey, model: newProviderModel, is_active: 1 });
 
     await loadProviders();
     showAddForm = false;

@@ -108,6 +108,37 @@ export function extractCliText(engine: AgentEngine, stdout: string): string {
  * Compress one stream-json NDJSON line into a short human progress string for the UI, or
  * null for lines not worth showing. Kept here so it's unit-testable off the live stream.
  */
+/** Turn a raw browser-driving Bash command (usually a CDP call) into a plain-English snapshot of
+ *  what the agent is doing, instead of dumping the raw command. Returns a short verb phrase. */
+export function describeBrowserCommand(command: string): string {
+  const c = command.toLowerCase();
+  // Multi-tab bridge calls (__steveControl.*) ride Runtime.evaluate, so name them before the
+  // generic evaluate → "reading the page" catch-all below would swallow them.
+  if (c.includes('__stevecontrol.newtab')) return 'opening a new tab';
+  if (c.includes('__stevecontrol.login')) return 'logging in';
+  if (c.includes('__stevecontrol.activate')) return 'switching tabs';
+  if (c.includes('__stevecontrol.listtabs')) return 'checking open tabs';
+  if (c.includes('__stevecontrol.closetab')) return 'closing a tab';
+  if (c.includes('__stevecontrol.startrecording')) return 'starting a recording';
+  if (c.includes('__stevecontrol.stoprecording')) return 'stopping the recording';
+  if (c.includes('setfileinputfiles')) return 'attaching a file';
+  if (c.includes('page.navigate') || /\bnavigate\b|\bgoto\b/.test(c)) {
+    const url = command.match(/https?:\/\/[^\s"'`)]+/);
+    return url ? `navigating to ${url[0].replace(/^https?:\/\//, '').slice(0, 48)}` : 'navigating';
+  }
+  if (c.includes('capturescreenshot')) return 'taking a screenshot';
+  if (c.includes('page.reload')) return 'reloading the page';
+  if (c.includes('dispatchmouseevent') || c.includes('.click(') || /\bclick\b/.test(c)) return 'clicking';
+  if (c.includes('inserttext') || c.includes('dispatchkeyevent') || /\bfill\b|\.value\s*=/.test(c)) return 'filling a field';
+  if (c.includes('runtime.evaluate') || c.includes('document.') || c.includes('json/list') || c.includes('innertext')) return 'reading the page';
+  if (c.includes('cdp') || c.includes('websocket') || c.includes('devtools')) return 'driving the browser';
+  return 'running a command';
+}
+
+// Distil one stream-json event into a short, human snapshot for the live activity feed — or null to
+// drop it. We deliberately skip session/system events and successful-completion events (the phase
+// label already conveys those) and never echo the plan/result markdown here (it is rendered on its
+// own), so the feed shows what the agent is DOING, not raw command spam.
 export function summarizeCliLine(line: string): string | null {
   let ev: {
     type?: string;
@@ -119,15 +150,19 @@ export function summarizeCliLine(line: string): string | null {
   } catch {
     return null;
   }
-  if (ev.type === 'system') return 'session started';
-  if (ev.type === 'result') return ev.is_error ? 'agent reported an error' : 'writing site map';
+  if (ev.type === 'system') return null; // "session started" noise
+  if (ev.type === 'result') return ev.is_error ? 'agent reported an error' : null;
   if (ev.type === 'assistant' && Array.isArray(ev.message?.content)) {
     for (const c of ev.message.content) {
       if (c.type === 'tool_use') {
-        if (c.name === 'Bash' && c.input?.command) return `$ ${c.input.command.replace(/\s+/g, ' ').slice(0, 90)}`;
-        return c.name ? `tool: ${c.name}` : null;
+        if (c.name === 'Bash' && c.input?.command) return describeBrowserCommand(c.input.command);
+        return c.name ? `using ${c.name}` : null;
       }
-      if (c.type === 'text' && c.text?.trim()) return c.text.trim().replace(/\s+/g, ' ').slice(0, 110);
+      if (c.type === 'text' && c.text?.trim()) {
+        const t = c.text.trim();
+        if (/^#{1,6}\s|^\d+\.\s+\*\*\[MUTATES\]/.test(t)) return null; // plan/result markdown, shown separately
+        return t.replace(/\s+/g, ' ').slice(0, 110);
+      }
     }
   }
   return null;
