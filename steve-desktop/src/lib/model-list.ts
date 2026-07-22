@@ -14,6 +14,23 @@ const STATIC_MODELS: Record<string, string[]> = {
   anthropic: ['claude-opus-4-8', 'claude-sonnet-4-6', 'claude-haiku-4-5-20251001'],
 };
 
+// Ollama Cloud models that support BOTH tool-calling AND vision, as the ids opencode runs
+// (`ollama-cloud/<name>`, verified against `opencode models`). ollama.com's API does NOT reliably
+// report cloud capabilities — its /api/show returns empty caps for almost every cloud model — so
+// this is curated from the capability badges on each model's library page
+// (https://ollama.com/search?c=cloud). Verified 2026-07-22.
+// ponytail: hand-curated — refresh when the cloud catalog moves (re-scrape the `bg-indigo-50`
+// capability badges, keep only models whose badges include both `tools` and `vision`).
+export const OLLAMA_CLOUD_TOOLS_VISION = [
+  'ollama-cloud/kimi-k2.6',
+  'ollama-cloud/qwen3.5:397b',
+  'ollama-cloud/minimax-m3',
+  'ollama-cloud/mistral-large-3:675b',
+  'ollama-cloud/gemma4:31b',
+  'ollama-cloud/kimi-k2.5',
+  'ollama-cloud/kimi-k2.7-code',
+];
+
 const PROVIDER_LABELS: Record<string, string> = {
   ollama: 'Ollama', openai: 'OpenAI', anthropic: 'Anthropic (Claude)',
   'github-models': 'GitHub Models', 'google-gemini': 'Google Gemini',

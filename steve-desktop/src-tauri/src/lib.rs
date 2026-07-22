@@ -1666,15 +1666,19 @@ fn resolve_on_path(binary: &str) -> Option<std::path::PathBuf> {
 
     let path = std::env::var_os("PATH")?;
     for dir in std::env::split_paths(&path) {
-        let direct = dir.join(binary);
-        if direct.is_file() {
-            return Some(direct);
-        }
+        // Prefer an executable extension over a bare, extensionless file. npm installs a POSIX
+        // shell script named `opencode` (which CreateProcess can't run — os error 193) right next
+        // to the real `opencode.cmd`; taking the bare name first is exactly that bug. On Unix
+        // `exts` is [""], so this still matches the bare binary.
         for ext in &exts {
             let candidate = dir.join(format!("{}{}", binary, ext));
             if candidate.is_file() {
                 return Some(candidate);
             }
+        }
+        let direct = dir.join(binary);
+        if direct.is_file() {
+            return Some(direct);
         }
     }
     None
@@ -1840,6 +1844,75 @@ async fn claude_auth_logout() -> Result<serde_json::Value, String> {
     claude_auth_status().await
 }
 
+/// Path to opencode's credential store — the same `auth.json` opencode's own `auth login` writes
+/// (`$XDG_DATA_HOME/opencode` or `~/.local/share/opencode`). We read/write it directly so a
+/// non-technical user can add a cloud provider key from the app without opencode's terminal picker.
+fn opencode_auth_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> {
+    let base = if let Ok(x) = std::env::var("XDG_DATA_HOME") {
+        std::path::PathBuf::from(x)
+    } else {
+        app.path()
+            .home_dir()
+            .map_err(|e| format!("Failed to get home dir: {}", e))?
+            .join(".local")
+            .join("share")
+    };
+    Ok(base.join("opencode").join("auth.json"))
+}
+
+fn read_opencode_auth(
+    app: &tauri::AppHandle,
+) -> Result<serde_json::Map<String, serde_json::Value>, String> {
+    let path = opencode_auth_path(app)?;
+    if !path.exists() {
+        return Ok(serde_json::Map::new());
+    }
+    let raw = std::fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read {}: {}", path.display(), e))?;
+    let v: serde_json::Value =
+        serde_json::from_str(&raw).map_err(|e| format!("opencode auth.json is not valid JSON: {}", e))?;
+    Ok(v.as_object().cloned().unwrap_or_default())
+}
+
+/// Whether opencode has a credential for the given provider (e.g. "ollama-cloud"). Gates the
+/// run-time model picker — no key means no models to choose.
+#[tauri::command]
+async fn opencode_has_credential(app: tauri::AppHandle, provider: String) -> Result<bool, String> {
+    Ok(read_opencode_auth(&app)?.contains_key(provider.trim()))
+}
+
+/// Save an API-key credential for an opencode provider (e.g. "ollama-cloud"), merged into the same
+/// auth.json opencode reads at run time. Other providers already there are preserved.
+#[tauri::command]
+async fn opencode_save_key(
+    app: tauri::AppHandle,
+    provider: String,
+    key: String,
+) -> Result<(), String> {
+    let provider = provider.trim();
+    let key = key.trim();
+    if provider.is_empty() {
+        return Err("Pick a provider first.".into());
+    }
+    if key.is_empty() {
+        return Err("Enter the API key.".into());
+    }
+    let path = opencode_auth_path(&app)?;
+    let mut map = read_opencode_auth(&app)?;
+    map.insert(
+        provider.to_string(),
+        serde_json::json!({ "type": "api", "key": key }),
+    );
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)
+            .map_err(|e| format!("Failed to create {}: {}", parent.display(), e))?;
+    }
+    let out = serde_json::to_string_pretty(&serde_json::Value::Object(map))
+        .map_err(|e| e.to_string())?;
+    std::fs::write(&path, out).map_err(|e| format!("Failed to write {}: {}", path.display(), e))?;
+    Ok(())
+}
+
 /// Terminate a running agent CLI by its frontend session id. Kills only that one spawned pid's
 /// tree — on Windows `taskkill /T /F`, elsewhere the pid — so the user's own Claude session and
 /// other work are untouched. No-op (Ok) if the session already finished.
@@ -1950,8 +2023,19 @@ async fn run_agent_cli(
             }
         }
         "opencode" => {
-            // UNTESTED: opencode is not installed here, so this path has never run.
+            // The prompt goes in on stdin (opencode run reads it), same as claude.
             args.push("run".into());
+            // Raw JSON events on stdout, one per line — for both live progress and final-text
+            // parsing. opencode has no separate stream flag: `--format json` IS the event stream
+            // (verified against the installed CLI: step_start / tool_use / text / step_finish).
+            args.extend(["--format".into(), "json".into()]);
+            // Full-shell autonomous mode: auto-approve tool use so the agent can drive the browser
+            // over CDP without a permission prompt (there is no interactive stdin to answer one).
+            if bypass_permissions {
+                args.push("--auto".into());
+            }
+            // We can't impose our own session id on opencode (it mints `ses_…` itself), so resume
+            // continues its last session rather than one keyed by our uuid.
             if resume {
                 args.push("--continue".into());
             }
@@ -2271,6 +2355,8 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             claude_login_submit,
             claude_login_cancel,
             claude_auth_logout,
+            opencode_save_key,
+            opencode_has_credential,
             artifacts_dir,
             list_artifacts,
             delete_artifact,

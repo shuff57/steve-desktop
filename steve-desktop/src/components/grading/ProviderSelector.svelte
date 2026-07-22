@@ -4,6 +4,11 @@
    * Static list for STEVE.
    */
 
+  import { onMount } from 'svelte';
+  import { invoke } from '@tauri-apps/api/core';
+  import { getSetting, setSetting } from '../../lib/db';
+  import { OLLAMA_CLOUD_TOOLS_VISION } from '../../lib/model-list';
+
   interface Props {
     provider?: string;
     model?: string;
@@ -22,33 +27,68 @@
 
   // ── Static Providers & Models ──────────────────────────────────────
 
-  // Each entry is a CLI engine, not an HTTP provider: anthropic runs through the claude
-  // CLI, opencode fronts ollama.com cloud models. Model ids feed the CLI's --model/-m
-  // flag, so a stale id is not a cosmetic problem: the CLI exits with "model may not
-  // exist or you may not have access". Claude ids were verified against the installed
-  // CLI; opencode models are free-form (typed bare, `ollama/` is prefixed on send) with
-  // the datalist offering known ollama.com cloud ids.
-  const PROVIDERS = [
+  // Each entry is a CLI engine, not an HTTP provider: anthropic runs through the claude CLI,
+  // opencode fronts Ollama Cloud. Each model is [value, label]: value feeds the CLI's --model/-m
+  // flag (a stale value makes the CLI exit "model may not exist"), label is what's shown. Claude
+  // uses the same models the bookshelf studio lists — CLI aliases, default = the 1M-context tier
+  // `opus[1m]` (verified accepted by `claude --model`). opencode uses the Ollama Cloud tool+vision
+  // ids from model-list.ts.
+  type ModelOpt = readonly [value: string, label: string];
+  const PROVIDERS: ReadonlyArray<{ id: string; label: string; models: ReadonlyArray<ModelOpt> }> = [
     {
       id: 'opencode',
       label: 'OpenCode',
-      freeform: true,
-      models: ['kimi-k2.6:cloud', 'glm-5.1:cloud', 'qwen3-coder-next:cloud', 'deepseek-v4-pro:cloud', 'minimax-m2.7:cloud'],
+      models: OLLAMA_CLOUD_TOOLS_VISION.map((id) => [id, id.replace(/^ollama-cloud\//, '')] as const),
     },
     {
       id: 'anthropic',
       label: 'Claude CLI',
-      freeform: false,
-      models: ['claude-opus-4-8', 'claude-sonnet-5', 'claude-haiku-4-5'],
+      models: [
+        ['opus[1m]', 'Opus 4.8 · 1M ctx (default)'],
+        ['opus', 'Opus 4.8 · 200K session'],
+        ['fable', 'Fable 5 · 1M ctx'],
+        ['sonnet', 'Sonnet 5 · 1M ctx'],
+        ['haiku', 'Haiku 4.5 · 200K ctx'],
+      ],
     },
   ];
 
   // ── Reactive state ──────────────────────────────────────────────────
 
-  let models: string[] = $state([]);
-  let freeform = $state(false);
+  // OpenCode's models only apply once a key is configured for that provider — re-checked whenever
+  // OpenCode is the engine, so a key added in Settings shows up on returning here.
+  let hasOllamaCloud = $state(false);
+  $effect(() => {
+    if (provider !== 'opencode') return;
+    invoke<boolean>('opencode_has_credential', { provider: 'ollama-cloud' })
+      .then((v) => (hasOllamaCloud = v))
+      .catch(() => (hasOllamaCloud = false));
+  });
+
+  const current = $derived(PROVIDERS.find((x) => x.id === provider));
+  const models = $derived(
+    current ? (current.id === 'opencode' && !hasOllamaCloud ? [] : current.models) : [],
+  );
+  const modelValues = $derived(models.map(([v]) => v));
 
   // ── Lifecycle ───────────────────────────────────────────────────────
+
+  // Remember the last engine + model across sessions. Restore before persisting so the saved
+  // choice isn't clobbered by the defaults that run on first paint.
+  let restored = $state(false);
+  onMount(async () => {
+    const [p, m] = await Promise.all([getSetting('agent_provider'), getSetting('agent_model')]);
+    if (p && PROVIDERS.some((x) => x.id === p)) provider = p;
+    if (m) model = m;
+    restored = true;
+  });
+
+  $effect(() => {
+    if (restored && provider) setSetting('agent_provider', provider);
+  });
+  $effect(() => {
+    if (restored && model) setSetting('agent_model', model);
+  });
 
   $effect(() => {
     // Coerce unknown ids too: older sessions stored retired ids (ollama, openai, ...).
@@ -57,18 +97,10 @@
     }
   });
 
-  let prevProvider = '';
+  // Keep the selected model valid — but only against a populated list, so a restored model isn't
+  // wiped while the OpenCode key check is still resolving (models briefly empty).
   $effect(() => {
-    const p = provider;
-    if (p && p !== prevProvider) {
-      prevProvider = p;
-      const found = PROVIDERS.find((x) => x.id === p);
-      models = found ? found.models : [];
-      freeform = found?.freeform ?? false;
-      if (!model || (!freeform && !models.includes(model))) {
-        model = models[0] || '';
-      }
-    }
+    if (models.length && !modelValues.includes(model)) model = models[0][0];
   });
 
   // ── Event handlers ────────────────────────────────────────────────
@@ -99,37 +131,20 @@
       {/each}
     </select>
 
-    {#if freeform}
-      <input
-        class="model-select"
-        type="text"
-        list="ollama-cloud-models"
-        value={model}
-        oninput={handleModelChange}
-        placeholder="e.g. kimi-k2.6:cloud"
-        disabled={disabled}
-      />
-      <datalist id="ollama-cloud-models">
-        {#each models as m}
-          <option value={m}></option>
+    <select
+      class="model-select"
+      value={model}
+      onchange={handleModelChange}
+      disabled={disabled || models.length === 0}
+    >
+      {#if models.length === 0}
+        <option value="" disabled selected>No models available</option>
+      {:else}
+        {#each models as [v, l]}
+          <option value={v}>{l}</option>
         {/each}
-      </datalist>
-    {:else}
-      <select
-        class="model-select"
-        value={model}
-        onchange={handleModelChange}
-        disabled={disabled || models.length === 0}
-      >
-        {#if models.length === 0}
-          <option value="" disabled selected>No models available</option>
-        {:else}
-          {#each models as m}
-            <option value={m}>{m}</option>
-          {/each}
-        {/if}
-      </select>
-    {/if}
+      {/if}
+    </select>
   </div>
 </section>
 

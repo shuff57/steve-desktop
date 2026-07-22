@@ -58,6 +58,14 @@ describe('summarizeCliLine', () => {
     expect(describeBrowserCommand('Runtime.evaluate __steveControl.login(id)')).toBe('logging in');
     expect(describeBrowserCommand('__steveControl.activate(id)')).toBe('switching tabs');
   });
+  it('summarizes opencode flat events (tool_use/bash, text, step noise)', () => {
+    const tool = '{"type":"tool_use","part":{"type":"tool","tool":"bash","state":{"input":{"command":"python cdp.py ws://x \\"Page.navigate https://www.myopenmath.com/x\\""}}}}';
+    expect(summarizeCliLine(tool)).toBe('navigating to www.myopenmath.com/x');
+    expect(summarizeCliLine('{"type":"tool_use","part":{"type":"tool","tool":"read"}}')).toBe('using read');
+    expect(summarizeCliLine('{"type":"text","part":{"type":"text","text":"working on it"}}')).toBe('working on it');
+    expect(summarizeCliLine('{"type":"step_start","part":{}}')).toBeNull();
+    expect(summarizeCliLine('{"type":"step_finish","part":{}}')).toBeNull();
+  });
 });
 
 describe('cliModelArg', () => {
@@ -126,8 +134,20 @@ describe('extractCliText', () => {
     expect(() => extractCliText('claude', stdout)).toThrow(/error_max_turns/);
   });
 
-  it('passes opencode stdout through untouched', () => {
+  it('passes non-event opencode stdout through untouched', () => {
+    // A bare JSON action (no opencode "text" events) is returned as-is for parseAgentResponse.
     expect(extractCliText('opencode', '  {"action":"done"}  ')).toBe('{"action":"done"}');
+  });
+
+  it('concatenates the text parts out of opencode --format json NDJSON', () => {
+    const ndjson = [
+      '{"type":"step_start","part":{"type":"step-start"}}',
+      '{"type":"tool_use","part":{"type":"tool","tool":"bash","state":{"input":{"command":"echo hi"}}}}',
+      '{"type":"text","part":{"type":"text","text":"{\\"action\\":"}}',
+      '{"type":"text","part":{"type":"text","text":"\\"done\\"}"}}',
+      '{"type":"step_finish","part":{"type":"step-finish","reason":"stop"}}',
+    ].join('\n');
+    expect(extractCliText('opencode', ndjson)).toBe('{"action":"done"}');
   });
 
   it('falls back to raw text when the envelope is not JSON', () => {

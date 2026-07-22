@@ -156,6 +156,20 @@ describe('parsePlan', () => {
   it('returns no steps for an unnumbered plan', () => {
     expect(parsePlan('just some prose').steps).toHaveLength(0);
   });
+
+  it('strips technical noise (code calls, arrows, Why clauses, scouting asides)', () => {
+    const noisy = '# Plan\n1. Navigate — __steveControl.newTab("https://mail.google.com") → returns tab id. Why: sanctioned way to open a site. *(Already done during scouting — tab 84fcc302 exists; reuse via __steveControl.activate.)*';
+    const t = parsePlan(noisy).steps[0].text;
+    expect(t).not.toMatch(/__steveControl|Why:|→|84fcc302|newTab/);
+    expect(t).toBe('Navigate');
+  });
+
+  it('keeps only the first sentence and drops parenthetical padding', () => {
+    const wordy = '# Plan\n1. Bring the Gmail tab to the front. (Scouting found it signed in as x@y.com with 1,431 unread.)\n2. Confirm the inbox is visible. No sign-in is needed — the account is already logged in. Nothing is changed.';
+    const steps = parsePlan(wordy).steps;
+    expect(steps[0].text).toBe('Bring the Gmail tab to the front.');
+    expect(steps[1].text).toBe('Confirm the inbox is visible.');
+  });
 });
 
 describe('cleanAutomateOutput', () => {

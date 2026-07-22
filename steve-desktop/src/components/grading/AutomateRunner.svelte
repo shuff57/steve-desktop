@@ -11,6 +11,11 @@
    * changes the site happens until you approve a plan you can read.
    */
   import { onMount, onDestroy } from 'svelte';
+  import {
+    Sparkles, Globe, MousePointerClick, Keyboard, Camera, Eye, LogIn,
+    AppWindow, Video, Paperclip, RotateCw, Terminal, MessageSquare,
+    CheckCircle2, AlertTriangle,
+  } from 'lucide-svelte';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
   import { upsertInstalledSkill } from '../../lib/skills-api';
@@ -33,10 +38,8 @@
   // "✨ Enhance" rewrites the typed task into a detailed, capability-aware prompt via the engine.
   let enhancing = $state(false);
   let taskBeforeEnhance = $state<string | null>(null); // kept so an enhance can be reverted
-  let stayInScope = $state(true);
-  // Multi-tab facilitation: let the agent open, log into, and switch between tabs to span sites in
-  // one run. Off by default — most tasks are single-tab. Note "stay in this course" is per-tab scope.
-  let multiTab = $state(false);
+  // Both always on, no toggle: confine each tab to the course/section it starts in, and let the
+  // agent span tabs/sites in one run. Multi-tab is per-tab scoped, so the two compose.
   type Phase = 'idle' | 'mapping' | 'planning' | 'awaiting-approval' | 'executing' | 'done';
   let phase = $state<Phase>('idle');
   let msg = $state<string | null>(null);
@@ -85,6 +88,24 @@
   function fmtElapsed(s: number): string {
     return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
   }
+
+  /** Pick a plain-language icon for a live activity line (verb phrases from summarizeCliLine). */
+  function activityIcon(line: string) {
+    const l = line.toLowerCase();
+    if (l.startsWith('navigating')) return Globe;
+    if (l.startsWith('clicking')) return MousePointerClick;
+    if (l.startsWith('filling')) return Keyboard;
+    if (l.includes('screenshot')) return Camera;
+    if (l.startsWith('reading')) return Eye;
+    if (l.startsWith('logging in')) return LogIn;
+    if (l.includes('tab')) return AppWindow;
+    if (l.includes('recording')) return Video;
+    if (l.startsWith('attaching')) return Paperclip;
+    if (l.startsWith('reloading')) return RotateCw;
+    if (l.startsWith('driving') || l.startsWith('running a command') || l.startsWith('using ')) return Terminal;
+    return MessageSquare; // agent narration
+  }
+  const prettyActivity = (l: string) => l.charAt(0).toUpperCase() + l.slice(1);
 
   /** Rewrite the typed task into a detailed, capability-aware prompt. A one-shot text call — no
    *  browser, watchdog, or overlay (unlike a real run), so it stays fast and side-effect-free. */
@@ -219,7 +240,6 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
-        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
         timeoutSecs: 900,
@@ -245,9 +265,9 @@
     // No page open is fine — the agent opens the site the task needs via the tab bridge, so force
     // multi-tab (bridge access) and drop the host/scope confinement there is nothing to anchor to.
     const noPage = !startUrl;
-    const effMultiTab = multiTab || noPage;
+    const effMultiTab = true; // always allow cross-site tab spanning
     const domain = noPage ? null : domainFromUrl(startUrl);
-    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
+    const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
@@ -295,9 +315,9 @@
     // No page open is fine — the agent opens the site the task needs via the tab bridge, so force
     // multi-tab (bridge access) and drop the host/scope confinement there is nothing to anchor to.
     const noPage = !startUrl;
-    const effMultiTab = multiTab || noPage;
+    const effMultiTab = true; // always allow cross-site tab spanning
     const domain = noPage ? null : domainFromUrl(startUrl);
-    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
+    const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
@@ -326,9 +346,9 @@
     progress = [];
     const startUrl = normalizeUrl(await currentUrl());
     const noPage = !startUrl;
-    const effMultiTab = multiTab || noPage;
+    const effMultiTab = true; // always allow cross-site tab spanning
     const domain = noPage ? null : domainFromUrl(startUrl);
-    const scope = noPage ? null : (stayInScope ? scopeOf(startUrl) : null);
+    const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
     try {
       const port = await invoke<number | null>('get_cdp_port');
       if (!port) throw new Error('CDP debug port unavailable — restart the app.');
@@ -375,48 +395,41 @@
     </div>
   {/if}
 
-  <textarea
-    class="task"
-    bind:value={task}
-    placeholder={lastRun
-      ? "Follow-up — e.g. now do the same for period 3"
-      : "e.g. Post an announcement in the forum titled 'Welcome to class'"}
-    rows="3"
-    disabled={busy || enhancing}
-  ></textarea>
-
-  <div class="enhance-row">
+  <div class="task-wrap">
+    <textarea
+      class="task"
+      bind:value={task}
+      placeholder={lastRun
+        ? "Follow-up — e.g. now do the same for period 3"
+        : "e.g. Post an announcement in the forum titled 'Welcome to class'"}
+      rows="3"
+      disabled={busy || enhancing}
+    ></textarea>
     <button
-      class="enhance"
+      class="refine-chip"
+      class:spinning={enhancing}
       onclick={enhanceTask}
       disabled={busy || enhancing || !task.trim() || !provider}
-      title="Rewrite your task into a detailed, step-by-step prompt that uses the app's capabilities (cursor, screenshots, recording, multi-tab)."
+      title="Refine — rewrite your task into a detailed, step-by-step prompt that uses the app's capabilities (cursor, screenshots, recording, multi-tab)."
+      aria-label={enhancing ? 'Refining…' : 'Refine prompt'}
     >
-      {enhancing ? '✨ Enhancing…' : '✨ Enhance with AI'}
+      <Sparkles size={15} strokeWidth={2} />
     </button>
     {#if taskBeforeEnhance !== null}
-      <button class="link" onclick={revertEnhance} disabled={busy || enhancing}>revert</button>
+      <button class="revert-chip" onclick={revertEnhance} disabled={busy || enhancing} title="Undo the refine">revert</button>
     {/if}
   </div>
 
-  <label class="scope-row" title="Keep the agent within the course/section of the page you start on.">
-    <input type="checkbox" bind:checked={stayInScope} disabled={busy} />
-    <span>Stay in this course{#if scopeOf('')}{/if}</span>
-  </label>
-
-  <label class="scope-row" title="Let the agent open, log into, and switch between multiple tabs to pull information from more than one site in one run.">
-    <input type="checkbox" bind:checked={multiTab} disabled={busy} />
-    <span>Allow multiple tabs (cross-site)</span>
-  </label>
-
   <div class="btns">
     {#if phase === 'idle' || phase === 'done'}
-      <button class="go" disabled={!task.trim() || !provider} onclick={startPlan} title="Map + plan read-only, then you approve before anything changes. Use for work you'll repeat.">
-        {lastRun ? '🧭 Plan follow-up' : '🧭 Plan task'}
-      </button>
-      <button class="go direct" disabled={!task.trim() || !provider} onclick={runDirect} title="Skip planning and approval — the agent starts changing the site straight away. Use for quick one-offs.">
-        {lastRun ? '⚡ Send follow-up' : '⚡ Run now'}
-      </button>
+      <div class="rocker" role="group" aria-label="Plan or run">
+        <button class="seg plan" disabled={!task.trim() || !provider} onclick={startPlan} title="Map + plan read-only, then you approve before anything changes. Use for work you'll repeat.">
+          {lastRun ? 'Plan follow-up' : 'Plan task'}
+        </button>
+        <button class="seg run" disabled={!task.trim() || !provider} onclick={runDirect} title="Skip planning and approval — the agent starts changing the site straight away. Use for quick one-offs.">
+          {lastRun ? 'Send follow-up' : 'Run now'}
+        </button>
+      </div>
       {#if lastRun}
         <button class="go save-skill" onclick={saveAsSkill} title="Save this task (and its approved plan) as a reusable skill you can run again from the Skills tab.">
           ➕ Save as Skill
@@ -428,14 +441,16 @@
       <button class="cancel" onclick={cancel}>Cancel</button>
     {/if}
     {#if busy}
-      <span class="running">
-        {phase === 'mapping' ? '🕸 Mapping…' : phase === 'planning' ? '🧭 Planning…' : '⚙ Executing…'}
-        <span class="elapsed" title="Elapsed time — it's still working">⏱ {fmtElapsed(elapsed)}</span>
-      </span>
-      <button class="cancel stop" onclick={stopRun} disabled={!currentSessionId || stopping}
-        title="Terminate the running agent now — kills only this run's process, nothing else.">
-        {stopping ? 'Stopping…' : '⏹ Stop'}
-      </button>
+      <div class="run-row">
+        <span class="running">
+          {phase === 'mapping' ? '🕸 Mapping…' : phase === 'planning' ? '🧭 Planning…' : '⚙ Executing…'}
+          <span class="elapsed" title="Elapsed time — it's still working">⏱ {fmtElapsed(elapsed)}</span>
+        </span>
+        <button class="cancel stop" onclick={stopRun} disabled={!currentSessionId || stopping}
+          title="Terminate the running agent now — kills only this run's process, nothing else.">
+          {stopping ? 'Stopping…' : '⏹ Stop'}
+        </button>
+      </div>
     {/if}
   </div>
 
@@ -444,37 +459,70 @@
   {#if mapUsed !== 'none' && phase !== 'idle'}<div class="muted small">Map: {mapUsed === 'existing' ? 'used existing site map' : 'built a new site map first'}</div>{/if}
 
   {#if progress.length}
-    <div class="hdr">Agent activity {#if busy}(live){/if}</div>
-    <ul class="log">
-      {#each progress.slice(-12) as line, i (i + line)}<li><code>{line}</code></li>{/each}
-    </ul>
+    {@const recent = progress.slice(-8)}
+    <div class="feed" class:live={busy}>
+      <div class="feed-hdr">
+        <span class="feed-title">{busy ? 'Working on it' : 'What the agent did'}</span>
+        {#if busy}<span class="live-dot" aria-hidden="true"></span>{/if}
+      </div>
+      <ul class="steps">
+        {#each recent as line, i (i + line)}
+          {@const Icon = activityIcon(line)}
+          <li class="step" class:current={busy && i === recent.length - 1}>
+            <span class="step-ic"><Icon size={14} strokeWidth={2} /></span>
+            <span class="step-lbl">{prettyActivity(line)}</span>
+          </li>
+        {/each}
+      </ul>
+    </div>
   {/if}
 
   {#if plan}
     {@const parsed = parsePlan(plan)}
-    <div class="hdr">Plan{#if phase === 'awaiting-approval'} — awaiting your approval{/if}</div>
-    {#if parsed.steps.length}
-      <ol class="plan-steps">
-        {#each parsed.steps as s (s.n)}
-          <li class:mutates={s.mutates}>
-            <span class="step-n">{s.n}</span>
-            <span class="step-text">
-              {#if s.mutates}<span class="mut-badge">changes site</span>{/if}{s.text}
-            </span>
-          </li>
-        {/each}
-      </ol>
-      {#if parsed.risk}
-        <div class="risk"><span class="risk-hdr">⚠ Risk</span> {parsed.risk}</div>
+    {@const mutCount = parsed.steps.filter((s) => s.mutates).length}
+    <div class="panel plan-panel" class:pending={phase === 'awaiting-approval'}>
+      <div class="panel-top">
+        <span class="panel-title">Here's the plan</span>
+        {#if phase === 'awaiting-approval'}<span class="pill pill-wait">Needs your OK</span>{/if}
+      </div>
+      {#if parsed.steps.length}
+        <p class="plan-sub">
+          {parsed.steps.length} step{parsed.steps.length === 1 ? '' : 's'} ·
+          {#if mutCount > 0}
+            <span class="danger-txt">{mutCount} {mutCount === 1 ? 'changes' : 'change'} the site</span>
+          {:else}
+            read-only — nothing on the site is changed
+          {/if}
+        </p>
+        <ol class="steps-list">
+          {#each parsed.steps as s (s.n)}
+            <li class="pstep" class:mutates={s.mutates}>
+              <span class="pnum">{s.n}</span>
+              <span class="ptext">{s.text}</span>
+              {#if s.mutates}<span class="pill pill-danger" title="This step changes the site">changes site</span>{/if}
+            </li>
+          {/each}
+        </ol>
+        {#if parsed.risk}
+          <div class="risk">
+            <span class="risk-ic"><AlertTriangle size={15} strokeWidth={2.2} /></span>
+            <div><span class="risk-hdr">Heads up</span> {parsed.risk}</div>
+          </div>
+        {/if}
+      {:else}
+        <pre class="doc">{plan}</pre>
       {/if}
-    {:else}
-      <pre class="doc">{plan}</pre>
-    {/if}
+    </div>
   {/if}
 
   {#if result}
-    <div class="hdr">Result</div>
-    <pre class="doc">{result}</pre>
+    <div class="panel result-panel">
+      <div class="panel-top">
+        <span class="result-ic"><CheckCircle2 size={16} strokeWidth={2.2} /></span>
+        <span class="panel-title">Done</span>
+      </div>
+      <div class="result-body">{result}</div>
+    </div>
   {/if}
 </div>
 
@@ -482,12 +530,35 @@
   .automate { display: flex; flex-direction: column; gap: var(--spacing-3); }
   .muted { color: var(--text-secondary); font-size: 0.85rem; margin: 0; }
   .small { font-size: 0.78rem; }
+  .task-wrap { position: relative; }
   .task {
-    width: 100%; box-sizing: border-box; resize: vertical;
+    width: 100%; box-sizing: border-box; resize: none;
     background: var(--bg-input); color: var(--text-primary);
     border: 1px solid var(--border-color); border-radius: var(--radius-md);
     padding: var(--spacing-2); font-size: 0.9rem;
+    /* leave a chin clear of the text for the floating refine chip */
+    padding-bottom: 34px;
   }
+  /* Floating sparkles chip sitting in the textarea's chin. */
+  .refine-chip {
+    position: absolute; right: 8px; bottom: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--bg-card, var(--bg-input)); color: var(--color-primary);
+    border: 1px solid var(--border-color); cursor: pointer; padding: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: color .12s ease, border-color .12s ease, transform .1s ease;
+  }
+  .refine-chip:hover:not(:disabled) { border-color: var(--color-primary); transform: translateY(-1px); }
+  .refine-chip:disabled { opacity: 0.45; cursor: not-allowed; }
+  .refine-chip.spinning :global(svg) { animation: refine-spin 0.9s linear infinite; }
+  @keyframes refine-spin { to { transform: rotate(360deg); } }
+  .revert-chip {
+    position: absolute; right: 42px; bottom: 10px;
+    background: none; border: none; padding: 0; cursor: pointer;
+    font-size: 0.76rem; color: var(--text-secondary); text-decoration: underline;
+  }
+  .revert-chip:disabled { opacity: 0.5; cursor: not-allowed; }
   .followup {
     display: flex; align-items: baseline; gap: var(--spacing-2); flex-wrap: wrap;
     font-size: 0.8rem; color: var(--text-secondary);
@@ -496,67 +567,155 @@
   .followup em { color: var(--text-primary); font-style: normal; }
   .link { background: none; border: none; padding: 0; color: var(--color-primary); cursor: pointer; font-size: 0.8rem; text-decoration: underline; }
   .link:disabled { opacity: 0.5; cursor: not-allowed; }
-  .scope-row { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-secondary); }
-  .enhance-row { display: flex; align-items: center; gap: 10px; margin: 6px 0 2px; }
-  .enhance {
-    background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);
-    border-radius: var(--radius-md); padding: 4px 12px; cursor: pointer; font-size: 0.82rem;
+  /* Full-width stacked actions — each button/group spans the sidebar. */
+  .btns { display: flex; flex-direction: column; align-items: stretch; gap: var(--spacing-2); }
+  /* Rocker switch: Plan (left) and Run (right) as two joined segments filling the sidebar. */
+  .rocker {
+    display: flex; width: 100%;
+    border: 1px solid var(--border-color); border-radius: var(--radius-md);
+    overflow: hidden; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
   }
-  .enhance:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btns { display: flex; align-items: center; gap: var(--spacing-2); flex-wrap: wrap; }
+  .seg {
+    flex: 1 1 0; min-width: 0; box-sizing: border-box; text-align: center;
+    background: var(--bg-input); color: var(--text-secondary);
+    border: none; padding: 9px 12px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 500; line-height: 1.2;
+    transition: background .12s ease, color .12s ease, filter .12s ease;
+  }
+  .seg:disabled { opacity: 0.5; cursor: not-allowed; }
+  .seg.plan { border-right: 1px solid var(--border-color); }
+  /* Plan is the raised, active side of the rocker. */
+  .seg.plan:not(:disabled) { background: var(--color-primary); color: #fff; }
+  .seg.plan:hover:not(:disabled) { filter: brightness(1.07); }
+  .seg.run:hover:not(:disabled) { background: var(--bg-card, var(--bg-hover)); color: var(--color-danger, #e5484d); }
+  /* One primary action (Plan). Everything else is a quieter outline so the eye lands on Plan. */
   .go {
-    background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);
-    border-radius: var(--radius-md); padding: 6px 14px; cursor: pointer; font-size: 0.88rem;
+    width: 100%; box-sizing: border-box; text-align: center;
+    background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-primary);
+    border-radius: var(--radius-md); padding: 9px 15px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 500; line-height: 1.2;
+    transition: border-color .12s ease, background .12s ease, filter .12s ease;
   }
+  .go:hover:not(:disabled) { border-color: var(--text-secondary); }
   .go:disabled { opacity: 0.5; cursor: not-allowed; }
-  .go.approve, .go.direct { border-color: var(--color-danger, #e5484d); color: var(--color-danger, #e5484d); }
-  .go.save-skill { border-color: var(--color-success, #30a46c); color: var(--color-success, #30a46c); }
+  .go.approve { background: var(--color-success, #30a46c); border-color: var(--color-success, #30a46c); color: #fff; }
+  .go.approve:hover:not(:disabled) { filter: brightness(1.07); }
+  .go.save-skill { color: var(--color-success, #30a46c); }
+  .go.save-skill:hover:not(:disabled) { border-color: var(--color-success, #30a46c); }
   .msg.saved { color: var(--color-success, #30a46c); }
   .cancel { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.85rem; }
   .stop { color: #ef4444; font-weight: 600; }
   .stop:disabled { opacity: 0.5; cursor: default; }
+  .run-row { display: flex; align-items: center; gap: var(--spacing-2); }
   .running { font-size: 0.85rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 8px; }
+  .run-row .stop { margin-left: auto; } /* push Stop to the right end of the timer */
   .elapsed { font-variant-numeric: tabular-nums; font-size: 0.8rem; color: var(--text-tertiary); }
   .msg {
     font-size: 0.85rem; color: var(--text-primary); background: var(--bg-card, var(--bg-input));
     border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 6px 10px;
   }
   .msg.warn { border-color: var(--color-danger, #e5484d); color: var(--color-danger, #e5484d); }
-  .hdr { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); font-weight: 600; }
-  .log { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-  .log code { font-size: 0.75rem; color: var(--text-secondary); word-break: break-all; }
   .doc {
     white-space: pre-wrap; word-break: break-word; font-size: 0.8rem;
     background: var(--bg-input); border: 1px solid var(--border-color);
     border-radius: var(--radius-md); padding: var(--spacing-2); margin: 0; max-height: 340px; overflow: auto;
   }
-  .plan-steps {
-    list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px;
-    max-height: 340px; overflow: auto;
+
+  /* ---- Live activity feed ---- */
+  .feed {
+    background: var(--bg-card, var(--bg-input)); border: 1px solid var(--border-color);
+    border-radius: var(--radius-md); padding: 10px 12px;
+    display: flex; flex-direction: column; gap: 8px;
   }
-  .plan-steps li {
-    display: flex; gap: 8px; align-items: baseline;
-    font-size: 0.82rem; line-height: 1.35; color: var(--text-primary);
+  .feed.live { border-color: color-mix(in srgb, var(--color-primary) 40%, var(--border-color)); }
+  .feed-hdr { display: flex; align-items: center; gap: 8px; }
+  .feed-title {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;
+    font-weight: 700; color: var(--text-secondary);
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 70%, transparent);
+    animation: live-pulse 1.4s ease-out infinite;
+  }
+  @keyframes live-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 55%, transparent); }
+    70% { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+  .steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .step {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 0.83rem; line-height: 1.3; color: var(--text-secondary);
+    padding: 3px 4px; border-radius: var(--radius-sm, 5px);
+    opacity: 0.72; transition: opacity .15s ease, background .15s ease, color .15s ease;
+  }
+  .step:last-child { opacity: 1; color: var(--text-primary); }
+  .step-ic {
+    flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--bg-input); color: var(--text-secondary);
+  }
+  .step-lbl { flex: 1; word-break: break-word; }
+  .step.current { opacity: 1; background: color-mix(in srgb, var(--color-primary) 8%, transparent); color: var(--text-primary); }
+  .step.current .step-ic { background: color-mix(in srgb, var(--color-primary) 16%, transparent); color: var(--color-primary); }
+
+  /* ---- Panels (plan + result) ---- */
+  .panel {
+    background: var(--bg-card, var(--bg-input)); border: 1px solid var(--border-color);
+    border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 9px;
+  }
+  .plan-panel.pending { border-color: color-mix(in srgb, var(--color-primary) 45%, var(--border-color)); }
+  .panel-top { display: flex; align-items: center; gap: 8px; }
+  .panel-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+  .pill {
+    display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap;
+  }
+  .pill-wait { margin-left: auto; color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 14%, transparent); }
+  .pill-danger { color: var(--color-danger, #e5484d); background: color-mix(in srgb, var(--color-danger, #e5484d) 13%, transparent); }
+  .plan-sub { margin: 0; font-size: 0.82rem; color: var(--text-secondary); }
+  .danger-txt { color: var(--color-danger, #e5484d); font-weight: 600; }
+
+  .steps-list {
+    list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px;
+    max-height: 360px; overflow: auto;
+  }
+  .pstep {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.85rem; line-height: 1.4; color: var(--text-primary);
     background: var(--bg-input); border: 1px solid var(--border-color);
-    border-left: 3px solid var(--border-color);
-    border-radius: var(--radius-sm, 4px); padding: 5px 9px;
+    border-radius: 8px; padding: 8px 10px;
   }
-  .plan-steps li.mutates { border-left-color: var(--color-danger, #e5484d); }
-  .step-n {
-    flex: 0 0 auto; min-width: 1.4em; text-align: right;
-    font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text-secondary);
+  .pstep.mutates {
+    border-color: color-mix(in srgb, var(--color-danger, #e5484d) 45%, var(--border-color));
+    background: color-mix(in srgb, var(--color-danger, #e5484d) 6%, var(--bg-input));
   }
-  .step-text { flex: 1; word-break: break-word; }
-  .mut-badge {
-    display: inline-block; margin-right: 6px; padding: 1px 6px;
-    font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
-    color: #fff; background: var(--color-danger, #e5484d); border-radius: 3px; vertical-align: baseline;
+  .pnum {
+    flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%; margin-top: 1px;
+    background: var(--bg-card, var(--border-color)); border: 1px solid var(--border-color);
+    font-size: 0.75rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-secondary);
   }
+  .pstep.mutates .pnum { background: var(--color-danger, #e5484d); border-color: var(--color-danger, #e5484d); color: #fff; }
+  .ptext { flex: 1; word-break: break-word; }
+  .pstep .pill-danger { flex: 0 0 auto; margin-top: 2px; }
+
   .risk {
-    font-size: 0.8rem; line-height: 1.4; color: var(--text-primary);
-    background: color-mix(in srgb, var(--color-danger, #e5484d) 10%, var(--bg-input));
-    border: 1px solid var(--color-danger, #e5484d); border-radius: var(--radius-md);
-    padding: 7px 10px; margin-top: 2px;
+    display: flex; gap: 9px; align-items: flex-start;
+    font-size: 0.83rem; line-height: 1.45; color: var(--text-primary);
+    background: color-mix(in srgb, var(--color-danger, #e5484d) 9%, var(--bg-input));
+    border: 1px solid color-mix(in srgb, var(--color-danger, #e5484d) 45%, var(--border-color));
+    border-radius: 8px; padding: 9px 11px;
   }
-  .risk-hdr { font-weight: 700; color: var(--color-danger, #e5484d); margin-right: 4px; }
+  .risk-ic { flex: 0 0 auto; color: var(--color-danger, #e5484d); margin-top: 1px; }
+  .risk-hdr { font-weight: 700; color: var(--color-danger, #e5484d); margin-right: 3px; }
+
+  .result-panel { border-color: color-mix(in srgb, var(--color-success, #30a46c) 35%, var(--border-color)); }
+  .result-ic { display: inline-flex; color: var(--color-success, #30a46c); }
+  .result-body {
+    white-space: pre-wrap; word-break: break-word;
+    font-size: 0.87rem; line-height: 1.5; color: var(--text-primary);
+    max-height: 360px; overflow: auto;
+  }
 </style>

@@ -7,7 +7,7 @@
   import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, healMappingDoc } from '../lib/site-profiles';
   import { buildCliVerifyPrompt, parseCliVerifyOutput } from '../lib/cli-crawl';
   import { cliModelArg, extractCliText, summarizeCliLine, engineForProvider } from '../lib/agent-cli';
-  import { listProviderConfigs, getClaudeApiKey } from '../lib/db';
+  import { listProviderConfigs } from '../lib/db';
   import { createEmbeddedBrowser, hideWebview, destroyWebview, injectScript, listenBrowserPageLoaded } from '../lib/browser';
   import { tabMarker, markerScript } from '../lib/tab-control';
 
@@ -146,7 +146,6 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
-        apiKey: await getClaudeApiKey(),
         systemPrompt: null,
         bypassPermissions: true,
         timeoutSecs: 900,

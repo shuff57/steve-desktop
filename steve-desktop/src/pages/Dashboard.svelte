@@ -1,26 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { MousePointerClick, Brain, Settings } from 'lucide-svelte';
-  import { invoke } from '@tauri-apps/api/core';
-  import { getClaudeApiKey } from '../lib/db';
 
   let { onnavigate = (_page: string) => {} }: {
     onnavigate?: (page: string) => void;
   } = $props();
-
-  let providerStatus = $state('checking...');
-
-  onMount(async () => {
-    // The real gate is the `claude` CLI the app spawns, not a DB row. If it's on PATH the agent can
-    // run; auth is either a pasted API key (injected into the spawn) or the CLI's own login.
-    const onPath = await invoke<boolean>('claude_cli_available').catch(() => false);
-    if (!onPath) {
-      providerStatus = 'claude CLI not found';
-    } else {
-      const key = await getClaudeApiKey().catch(() => null);
-      providerStatus = key ? 'ready (API key)' : 'ready (claude login)';
-    }
-  });
 </script>
 
 <div class="dashboard">
@@ -28,13 +11,6 @@
     <h1>S.T.E.V.E Desktop</h1>
     <span class="version">v0.1.0</span>
   </header>
-
-  <section class="health-indicators">
-    <div class="indicator provider" class:ok={providerStatus.startsWith('ready')} class:warn={providerStatus === 'checking...'}>
-      <span class="status-dot"></span>
-      <span>Provider: {providerStatus}</span>
-    </div>
-  </section>
 
   <section class="quick-actions">
     <h2>Get Started</h2>
@@ -85,44 +61,6 @@
     color: var(--color-text-muted);
     font-size: 0.9rem;
     font-family: var(--font-mono);
-  }
-
-  /* Health Indicators */
-  .health-indicators {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    background: var(--color-bg-card);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-  }
-
-  .indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-weight: 500;
-    color: var(--color-text-primary);
-  }
-
-  .status-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--color-error);
-    box-shadow: 0 0 0 2px var(--color-error-bg);
-    transition: background-color 0.3s ease;
-  }
-
-  .indicator.ok .status-dot {
-    background: var(--color-success);
-    box-shadow: 0 0 0 2px var(--color-success-bg);
-  }
-
-  .indicator.warn .status-dot {
-    background: var(--color-warning);
-    box-shadow: 0 0 0 2px var(--color-warning-bg);
   }
 
   /* Quick Actions */

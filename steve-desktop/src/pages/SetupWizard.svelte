@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  import { invoke } from '@tauri-apps/api/core';
   import { saveProviderConfig, setSetting } from '../lib/db';
   import {
     fetchAvailableModels,
@@ -15,6 +17,64 @@
   let currentStep = $state(1);
   let loading = $state(false);
   let error = $state('');
+
+  // Claude sign-in on the welcome step — the friendly no-terminal flow (same Rust claude_login_*
+  // commands as Settings). Most users only need this; the provider/model steps below are optional.
+  let claudeStatus: { loggedIn?: boolean; email?: string; subscriptionType?: string } = $state({});
+  let claudeLoginUrl: string | null = $state(null);
+  let claudeCode = $state('');
+  let claudeBusy = $state(false);
+  let claudeError = $state('');
+
+  onMount(refreshClaudeStatus);
+
+  async function refreshClaudeStatus() {
+    try {
+      claudeStatus = await invoke('claude_auth_status');
+    } catch {
+      claudeStatus = { loggedIn: false };
+    }
+  }
+
+  async function startClaudeLogin() {
+    claudeError = '';
+    claudeBusy = true;
+    try {
+      claudeLoginUrl = await invoke<string>('claude_login_start');
+    } catch (e) {
+      claudeError = e instanceof Error ? e.message : String(e);
+      claudeLoginUrl = null;
+    } finally {
+      claudeBusy = false;
+    }
+  }
+
+  async function submitClaudeCode() {
+    const code = claudeCode.trim();
+    if (!code) return;
+    claudeBusy = true;
+    claudeError = '';
+    try {
+      claudeStatus = await invoke('claude_login_submit', { code });
+      if (claudeStatus?.loggedIn) {
+        claudeCode = '';
+        claudeLoginUrl = null;
+      } else {
+        claudeError = 'Sign-in did not complete — double-check the code and try again.';
+      }
+    } catch (e) {
+      claudeError = e instanceof Error ? e.message : String(e);
+    } finally {
+      claudeBusy = false;
+    }
+  }
+
+  async function cancelClaudeLogin() {
+    await invoke('claude_login_cancel').catch(() => {});
+    claudeLoginUrl = null;
+    claudeCode = '';
+    claudeError = '';
+  }
 
   // OAuth State
   let fetchedModels = $state<Record<string, Array<{id: string, name: string}>>>({});
@@ -262,6 +322,12 @@
   async function saveAndComplete() {
     loading = true;
     try {
+      // Signed in with Claude → ensure a runnable claude provider exists, even on the quick path
+      // where the user skipped the provider/model steps.
+      if (claudeStatus?.loggedIn) {
+        await saveProviderConfig({ id: 'anthropic', api_url: '', api_key: '', model: 'claude-opus-4-8', is_active: 1 });
+      }
+
       const enabledProviders = providers.filter(p => p.enabled);
       for (const provider of enabledProviders) {
         await saveProviderConfig({ id: provider.id, api_url: provider.apiUrl, api_key: provider.apiKey, model: provider.model, is_active: 1 });
@@ -294,12 +360,36 @@
     {#if currentStep === 1}
       <div class="step-content">
         <h1>Welcome to S.T.E.V.E!</h1>
-        <p class="subtitle">Let's configure your AI provider to get started.</p>
+        <p class="subtitle">Sign in with your Claude account to get started.</p>
         <p class="description">
-          S.T.E.V.E helps you automate watching videos completely. You can connect to local models (Ollama) or cloud providers like OpenAI, Anthropic, or Gemini.
+          S.T.E.V.E helps you automate watching videos completely. The simplest way in is to sign in with your Claude account — no API key needed. You can add other providers afterward.
         </p>
+
+        <div class="oauth-section">
+          {#if claudeLoginUrl}
+            <div class="device-flow-box">
+              <p class="instructions">1. A browser window opened to sign in to Claude. If it didn't, <a href={claudeLoginUrl} target="_blank" rel="noopener noreferrer">open the sign-in page</a>.</p>
+              <p class="instructions">2. After you approve, copy the code shown and paste it here:</p>
+              <div class="flex-row">
+                <input type="text" placeholder="Paste your sign-in code" bind:value={claudeCode} disabled={claudeBusy} style="flex:1; padding:0.5rem; border:1px solid var(--border-color); border-radius: var(--radius-md);" />
+                <button class="btn-primary" style="margin:0;" disabled={claudeBusy || !claudeCode.trim()} onclick={submitClaudeCode}>{claudeBusy ? 'Signing in…' : 'Submit'}</button>
+              </div>
+              {#if claudeError}<div class="error-message" style="text-align:left; font-size:0.85rem;">{claudeError}</div>{/if}
+              <button class="link-btn" onclick={cancelClaudeLogin}>Cancel</button>
+            </div>
+          {:else if claudeStatus?.loggedIn}
+            <div class="signed-in-badge">✅ Signed in{claudeStatus.email ? ` as ${claudeStatus.email}` : ''}{claudeStatus.subscriptionType ? ` · ${claudeStatus.subscriptionType}` : ''}</div>
+          {:else}
+            {#if claudeError}<div class="error-message" style="font-size:0.85rem;">{claudeError}</div>{/if}
+            <button class="btn-oauth" disabled={claudeBusy} onclick={startClaudeLogin}>{claudeBusy ? 'Opening browser…' : 'Sign in with Claude'}</button>
+          {/if}
+        </div>
+
         <div class="actions">
-          <button class="btn-primary" onclick={nextStep}>Get Started</button>
+          <button class="btn-secondary" onclick={nextStep}>Add other providers</button>
+          <button class="btn-primary" onclick={saveAndComplete} disabled={loading || !claudeStatus?.loggedIn}>
+            {#if loading}Saving…{:else}Start using STEVE{/if}
+          </button>
         </div>
       </div>
     {/if}

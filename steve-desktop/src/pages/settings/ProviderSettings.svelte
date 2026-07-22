@@ -4,12 +4,10 @@
     listProviderConfigs,
     saveProviderConfig,
     deleteProviderConfig,
-    getOAuthToken,
-    saveOAuthToken,
     deleteOAuthToken,
   } from '../../lib/db';
   import { invoke } from '@tauri-apps/api/core';
-  import { Activity, Pencil, Trash2, Plus, RefreshCw, Copy } from 'lucide-svelte';
+  import { Activity, Pencil, Trash2, Plus, RefreshCw } from 'lucide-svelte';
   import type { ProviderConfig } from '../../lib/db';
   import {
     startGitHubDeviceFlow,
@@ -40,8 +38,31 @@
   let deviceFlows: Record<string, DeviceFlowResult> = $state({});
   let authLoading: Record<string, boolean> = $state({});
   let authErrors: Record<string, string> = $state({});
-  // Buffer for Anthropic copy-paste auth code
-  let _anthropicPasteBuffer = $state('');
+
+  // Claude Code sign-in (the friendly, no-terminal flow). The CLI opens the browser, the user
+  // pastes the code it shows, and we feed it to `claude auth login` over stdin — see the Rust
+  // claude_login_* commands. claudeStatus mirrors `claude auth status`.
+  let claudeStatus: { loggedIn?: boolean; email?: string; subscriptionType?: string } = $state({});
+  let claudeLoginUrl: string | null = $state(null);
+  let claudeCode = $state('');
+  let claudeBusy = $state(false);
+  let claudeError = $state('');
+
+  // opencode cloud providers — key-based auth written straight to opencode's auth.json (the same
+  // file its own `auth login` writes). No terminal picker. OAuth-only providers aren't here; they
+  // still need opencode's TUI.
+  const OPENCODE_KEY_PROVIDERS = [
+    { id: 'ollama-cloud', name: 'Ollama Cloud', keysUrl: 'https://ollama.com/settings/keys' },
+    { id: 'openai', name: 'OpenAI', keysUrl: 'https://platform.openai.com/api-keys' },
+    { id: 'openrouter', name: 'OpenRouter', keysUrl: 'https://openrouter.ai/keys' },
+    { id: 'opencode', name: 'OpenCode Zen', keysUrl: '' },
+  ];
+  let ocProvider = $state('ollama-cloud');
+  const ocOpt = $derived(OPENCODE_KEY_PROVIDERS.find((p) => p.id === ocProvider));
+  let ocKey = $state('');
+  let ocBusy = $state(false);
+  let ocError = $state('');
+  let ocSaved = $state(false);
 
   // Three supported providers, all API-key auth (the legal, no-OAuth-client path).
   // keysUrl points at each vendor's own API-keys page.
@@ -55,6 +76,22 @@
     await loadProviders();
     await checkOAuthStatus();
   });
+
+  async function saveOpencodeKey() {
+    if (!ocKey.trim()) return;
+    ocBusy = true;
+    ocError = '';
+    ocSaved = false;
+    try {
+      await invoke('opencode_save_key', { provider: ocProvider, key: ocKey.trim() });
+      ocKey = '';
+      ocSaved = true;
+    } catch (e) {
+      ocError = e instanceof Error ? e.message : String(e);
+    } finally {
+      ocBusy = false;
+    }
+  }
 
   async function loadProviders() {
     providers = await listProviderConfigs();
@@ -70,24 +107,81 @@
   }
 
   async function checkOAuthStatus() {
-    for (const opt of PROVIDER_OPTIONS) {
-      if (opt.canSignIn) {
-        const providerKey = getProviderKey(opt.id);
-        if (!providerKey) continue;
-        
-        const token = await getOAuthToken(providerKey);
-        oauthStatus[opt.id] = !!token;
-        if (token) {
-           fetchModels(opt.id);
-        }
+    // Claude signs in through its own CLI login, not a stored token.
+    await refreshClaudeStatus();
+  }
+
+  async function refreshClaudeStatus() {
+    try {
+      claudeStatus = await invoke('claude_auth_status');
+    } catch {
+      claudeStatus = { loggedIn: false };
+    }
+    oauthStatus['anthropic'] = !!claudeStatus?.loggedIn;
+    if (claudeStatus?.loggedIn) fetchModels('anthropic');
+  }
+
+  // Kick off the browser sign-in: the CLI opens the browser and returns the URL, then waits for the
+  // code the user pastes back (submitClaudeCode). No terminal, no API key.
+  async function startClaudeLogin() {
+    claudeError = '';
+    claudeBusy = true;
+    try {
+      claudeLoginUrl = await invoke<string>('claude_login_start');
+    } catch (e) {
+      claudeError = e instanceof Error ? e.message : String(e);
+      claudeLoginUrl = null;
+    } finally {
+      claudeBusy = false;
+    }
+  }
+
+  async function submitClaudeCode() {
+    const code = claudeCode.trim();
+    if (!code) return;
+    claudeBusy = true;
+    claudeError = '';
+    try {
+      claudeStatus = await invoke('claude_login_submit', { code });
+      oauthStatus['anthropic'] = !!claudeStatus?.loggedIn;
+      if (claudeStatus?.loggedIn) {
+        claudeCode = '';
+        claudeLoginUrl = null;
+        fetchModels('anthropic');
+      } else {
+        claudeError = 'Sign-in did not complete — double-check the code and try again.';
       }
+    } catch (e) {
+      claudeError = e instanceof Error ? e.message : String(e);
+    } finally {
+      claudeBusy = false;
+    }
+  }
+
+  async function cancelClaudeLogin() {
+    await invoke('claude_login_cancel').catch(() => {});
+    claudeLoginUrl = null;
+    claudeCode = '';
+    claudeError = '';
+  }
+
+  async function signOutClaude() {
+    claudeBusy = true;
+    claudeError = '';
+    try {
+      claudeStatus = await invoke('claude_auth_logout');
+      oauthStatus['anthropic'] = !!claudeStatus?.loggedIn;
+    } catch (e) {
+      claudeError = e instanceof Error ? e.message : String(e);
+    } finally {
+      claudeBusy = false;
     }
   }
 
   async function startAuth(providerId: string) {
     authErrors[providerId] = '';
     authLoading[providerId] = true;
-    
+
     try {
       if (providerId === 'github-models') {
         const flow = await startGitHubDeviceFlow();
@@ -98,26 +192,12 @@
       } else if (providerId === 'google-gemini') {
         const flow = await startGoogleDeviceFlow();
         handleDeviceFlow(providerId, flow);
-      } else if (providerId === 'anthropic') {
-        await signInWithClaude(providerId);
       }
     } catch (error) {
       authErrors[providerId] = error instanceof Error ? error.message : String(error);
     } finally {
       authLoading[providerId] = false;
     }
-  }
-
-  // Browser login via the Claude Code `claude` CLI — the SAME binary the agent spawns, so the
-  // stored credentials line up with the runs (the old `ant` path logged in a different tool).
-  // `claude setup-token` opens a browser, completes OAuth, and stores a long-lived token where
-  // `claude -p` reads it. We keep a presence marker so the UI shows "Signed in". Throws so
-  // startAuth surfaces the error banner. If it can't complete, the API-key path below is the
-  // reliable fallback.
-  async function signInWithClaude(providerId: string) {
-    await invoke<string>('claude_setup_token'); // rejects with a message on failure
-    await saveOAuthToken(providerId, 'claude-oauth-token'); // presence marker, not the token
-    oauthStatus[providerId] = true;
   }
 
   async function handleDeviceFlow(providerId: string, flow: DeviceFlowResult) {
@@ -256,6 +336,74 @@
 </script>
 
 <section class="card mb-6">
+  <h3>AI Accounts</h3>
+  <p class="mb-6">Sign in with your Claude account (no API key needed), or configure OpenCode with a provider and API key.</p>
+
+  <!-- Claude Code -->
+  <div class="account-item">
+    <div class="account-head">
+      <h4>Claude Code</h4>
+      {#if claudeStatus?.loggedIn}<span class="badge active">Signed in</span>{/if}
+    </div>
+
+    {#if claudeLoginUrl}
+      <div class="device-flow-container">
+        <p class="instructions">1. A browser window opened for you to sign in to Claude. If it didn't, <a href={claudeLoginUrl} target="_blank" rel="noopener noreferrer">open the sign-in page</a>.</p>
+        <p class="instructions">2. After you approve, copy the code shown and paste it here:</p>
+        <div class="paste-input-row">
+          <input type="text" placeholder="Paste your sign-in code" bind:value={claudeCode} disabled={claudeBusy} />
+          <button class="btn primary small" disabled={claudeBusy || !claudeCode.trim()} onclick={submitClaudeCode}>
+            {claudeBusy ? 'Signing in…' : 'Submit'}
+          </button>
+        </div>
+        {#if claudeError}<div class="error-banner">{claudeError}</div>{/if}
+        <button class="ghost small" onclick={cancelClaudeLogin}>Cancel</button>
+      </div>
+    {:else if claudeStatus?.loggedIn}
+      <div class="oauth-status success">
+        <span class="icon">✅</span>
+        Signed in{claudeStatus.email ? ` as ${claudeStatus.email}` : ''}{claudeStatus.subscriptionType ? ` · ${claudeStatus.subscriptionType}` : ''}
+        <button class="ghost small" disabled={claudeBusy} onclick={signOutClaude}>Sign out</button>
+      </div>
+    {:else}
+      {#if claudeError}<div class="error-banner">{claudeError}</div>{/if}
+      <button class="btn oauth-btn" disabled={claudeBusy} onclick={startClaudeLogin}>
+        {claudeBusy ? 'Opening browser…' : 'Sign in with Claude'}
+      </button>
+      <p class="hint">Uses your Claude account through the installed Claude Code app — no API key needed.</p>
+    {/if}
+  </div>
+
+  <!-- Configure OpenCode: pick a provider, save its API key -->
+  <div class="account-item">
+    <div class="account-head"><h4>Configure OpenCode</h4></div>
+    <div class="edit-form">
+      <label>
+        Provider
+        <select bind:value={ocProvider}>
+          {#each OPENCODE_KEY_PROVIDERS as p}
+            <option value={p.id}>{p.name}</option>
+          {/each}
+        </select>
+      </label>
+      <label>
+        API Key
+        <input type="password" bind:value={ocKey} placeholder="Paste your cloud API key" />
+      </label>
+      {#if ocOpt?.keysUrl}
+        {@const opt = ocOpt}
+        <a class="keys-link" href={opt.keysUrl} target="_blank" rel="noopener noreferrer">Get your {opt.name} API key ↗</a>
+      {/if}
+      {#if ocError}<div class="error-banner">{ocError}</div>{/if}
+      <div class="form-actions">
+        <button class="primary" disabled={ocBusy || !ocKey.trim()} onclick={saveOpencodeKey}>{ocBusy ? 'Saving…' : 'Save key'}</button>
+        {#if ocSaved}<span class="oauth-status success"><span class="icon">✅</span> Saved</span>{/if}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card mb-6">
   <h3>AI Provider Configuration</h3>
   <p class="mb-6">Manage connections to local or cloud-based AI providers.</p>
   
@@ -303,76 +451,7 @@
             
             {#if option?.requiresKey}
               {#if option.canSignIn}
-                 <div class="oauth-section">
-                   {#if oauthStatus[provider.id] && !useApiKey[provider.id]}
-                     <div class="oauth-status success">
-                        <span class="icon">✅</span> Signed in
-                        <button class="ghost small" onclick={() => handleSignOut(provider.id)}>Sign out</button>
-                     </div>
-                   {:else if deviceFlows[provider.id]}
-                     <div class="device-flow-container">
-                       {#if deviceFlows[provider.id].submitCode}
-                         <p class="instructions">1. Sign in at the page that just opened in your browser.</p>
-                         <p class="instructions">2. Copy the code shown on the page and paste it below:</p>
-                         <div class="paste-input-row">
-                           <input
-                             type="text"
-                             placeholder="Paste code here (e.g. abc123#xyz...)"
-                             oninput={(e) => { _anthropicPasteBuffer = (e.currentTarget as HTMLInputElement).value; }}
-                           />
-                           <button class="btn primary small" onclick={() => {
-                             if (_anthropicPasteBuffer) {
-                               deviceFlows[provider.id].submitCode?.(_anthropicPasteBuffer);
-                               _anthropicPasteBuffer = '';
-                             }
-                           }}>Submit</button>
-                         </div>
-                       {:else}
-                         <p class="instructions">1. Go to: <a href={deviceFlows[provider.id].verificationUrl} target="_blank">{deviceFlows[provider.id].verificationUrl}</a></p>
-                         <p class="instructions">2. Enter code:</p>
-                         <div class="code-display">
-                            {deviceFlows[provider.id].userCode}
-                            <button class="icon-btn" title="Copy" aria-label="Copy code" onclick={() => navigator.clipboard.writeText(deviceFlows[provider.id].userCode)}><Copy size={14} /></button>
-                         </div>
-                       {/if}
-                       <div class="polling-indicator">
-                          <span class="spinner">⏳</span> Waiting for authorization...
-                       </div>
-                       <button class="ghost small" onclick={() => cancelAuth(provider.id)}>Cancel</button>
-                     </div>
-                   {:else}
-                     <div class="oauth-actions">
-                        {#if authErrors[provider.id]}
-                          <div class="error-banner">{authErrors[provider.id]}</div>
-                        {/if}
-
-                        {#if !useApiKey[provider.id]}
-                           <button class="btn oauth-btn" disabled={authLoading[provider.id]} onclick={() => startAuth(provider.id)}>
-                             {#if authLoading[provider.id]}
-                               Loading...
-                             {:else}
-                               Sign in with {option.name.split(' ')[0]}
-                             {/if}
-                           </button>
-                           <div class="divider"><span>OR</span></div>
-                        {/if}
-                        
-                        {#if useApiKey[provider.id]}
-                           <label>
-                              API Key (Optional)
-                              <input type="password" bind:value={provider.api_key} placeholder="sk-..." />
-                           </label>
-                           <button class="link-btn" onclick={() => useApiKey[provider.id] = false}>
-                             Use Sign In instead
-                           </button>
-                        {:else}
-                           <button class="link-btn" onclick={() => useApiKey[provider.id] = true}>
-                             Use API Key instead
-                           </button>
-                        {/if}
-                     </div>
-                   {/if}
-                 </div>
+                 <p class="hint">Manage Claude sign-in under <strong>AI Accounts</strong> above. This card just picks the model.</p>
               {:else}
                 <label>
                   API Key
@@ -562,6 +641,27 @@
 </section>
 
 <style>
+  .account-item {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .account-head {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .account-head h4 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+  }
+
   .empty-state {
     text-align: center;
     padding: var(--spacing-4);
@@ -767,13 +867,6 @@
   }
 
   /* OAuth Specifics */
-  .oauth-section {
-    background: var(--bg-hover);
-    padding: var(--spacing-4);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-  }
-
   .oauth-status {
     display: flex;
     align-items: center;
@@ -781,15 +874,9 @@
     color: var(--text-primary);
     font-weight: 500;
   }
-  
+
   .oauth-status.success {
     color: var(--color-success);
-  }
-
-  .oauth-actions {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
   }
 
   .oauth-btn {
@@ -801,40 +888,6 @@
   
   .oauth-btn:hover {
     background-color: var(--color-primary-hover);
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    color: var(--text-tertiary);
-    font-size: var(--font-size-xs);
-    margin: var(--spacing-2) 0;
-  }
-
-  .divider::before,
-  .divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .divider span {
-    padding: 0 var(--spacing-2);
-  }
-
-  .link-btn {
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    text-decoration: underline;
-    padding: 0;
-    font-size: var(--font-size-xs);
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .link-btn:hover {
-    color: var(--color-primary-hover);
   }
 
   .hint {
@@ -897,39 +950,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
-  }
-
-  .code-display {
-    background: var(--bg-input);
-    color: var(--text-primary);
-    padding: var(--spacing-2);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: 1.125rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-2);
-  }
-
-  .polling-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-2);
-    color: var(--text-tertiary);
-    font-size: var(--font-size-sm);
-  }
-
-  .spinner {
-    animation: spin 2s linear infinite;
-    display: inline-block;
-  }
-
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
   }
 
   .url-presets {

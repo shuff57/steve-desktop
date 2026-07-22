@@ -101,7 +101,21 @@ export function extractCliText(engine: AgentEngine, stdout: string): string {
     return raw;
   }
 
-  return raw;
+  // opencode --format json: NDJSON, one event per line. The assistant's reply is carried in
+  // {"type":"text",...,"part":{"text":"..."}} events — concatenate them. Output with no such events
+  // (a bare JSON action or plain text) falls back to the raw stdout.
+  const lines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
+  const texts: string[] = [];
+  for (const line of lines) {
+    let ev: { type?: string; part?: { text?: string } } | null = null;
+    try {
+      ev = JSON.parse(line);
+    } catch {
+      continue;
+    }
+    if (ev?.type === 'text' && typeof ev.part?.text === 'string') texts.push(ev.part.text);
+  }
+  return texts.length ? texts.join('').trim() : raw;
 }
 
 /**
@@ -143,6 +157,7 @@ export function summarizeCliLine(line: string): string | null {
   let ev: {
     type?: string;
     message?: { content?: { type?: string; name?: string; text?: string; input?: { command?: string } }[] };
+    part?: { text?: string; tool?: string; state?: { input?: { command?: string } } };
     is_error?: boolean;
   };
   try {
@@ -164,6 +179,17 @@ export function summarizeCliLine(line: string): string | null {
         return t.replace(/\s+/g, ' ').slice(0, 110);
       }
     }
+  }
+  // opencode --format json events are flat: {type, part:{...}}, not a claude-style envelope.
+  if (ev.type === 'step_start' || ev.type === 'step_finish') return null;
+  if (ev.type === 'tool_use' && ev.part) {
+    if (ev.part.tool === 'bash' && ev.part.state?.input?.command) return describeBrowserCommand(ev.part.state.input.command);
+    return ev.part.tool ? `using ${ev.part.tool}` : null;
+  }
+  if (ev.type === 'text' && ev.part?.text?.trim()) {
+    const t = ev.part.text.trim();
+    if (/^#{1,6}\s|^\d+\.\s+\*\*\[MUTATES\]/.test(t)) return null; // plan/result markdown, shown separately
+    return t.replace(/\s+/g, ' ').slice(0, 110);
   }
   return null;
 }

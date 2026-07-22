@@ -80,11 +80,18 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
     '',
     'Output ONLY a markdown plan, no preamble:',
     '# Plan',
-    'A numbered list. Each step: the action (navigate / click / fill / select / submit), the',
-    'target (URL, link text, field label, or button text), the value for a fill, and one clause',
-    'of why. Prefix every step that CHANGES STATE (submit, save, post, delete, enroll, grade)',
-    'with **[MUTATES]**. End with a "## Risk" line naming what will change and what could go wrong.',
-    'If the task cannot be done safely or the page does not support it, say so instead of inventing steps.',
+    'A numbered list a non-technical person reads at a glance. Each step is ONE short imperative',
+    'phrase — start with a verb, 3 to 8 words, describing just the action. For example:',
+    '  1. Open Gmail.',
+    "  2. Fill the subject with 'Welcome to class'.",
+    '  3. **[MUTATES]** Send the email.',
+    'STRICT — a step is ONE action only. Do NOT add: a second sentence, parentheses, the current',
+    'state or what you found while scouting, reassurances about safety ("nothing is changed", "no',
+    'sign-in needed"), code, function/method names, URLs as code, selectors, tab ids, or a "why".',
+    'Prefix every step that CHANGES the site (submit, save, post, delete, enroll, grade) with',
+    '**[MUTATES]**. End with a "## Risk" line: one short sentence on what could go wrong (or',
+    '"Nothing on the site changes." if read-only). If the task cannot be done safely or the page',
+    'does not support it, say so instead of inventing steps.',
   ]
     .filter(Boolean)
     .join('\n');
@@ -233,13 +240,27 @@ export interface ParsedPlan {
 }
 
 function cleanStepText(s: string): string {
-  return s
+  let t = s
     .replace(/\*\*\[MUTATES\]\*\*/gi, '')
     .replace(/\[MUTATES\]/gi, '')
+    // Defensive net: strip the technical noise + padding the plan prompt forbids, if the agent slips.
+    // Order matters — kill code calls (with their args) before generic parenthetical removal.
+    .replace(/\bwindow\.__steve\w*/gi, '')     // window.__steveCursorMove(…) / __steveScreenshotFlash
+    .replace(/\b__steve\w*(?:\.\w+)?/gi, '')   // __steveControl.newTab, .activate, .login …
+    .replace(/\b[\w.$]+\.\w+\([^)]*\)/g, '')   // any remaining code call foo.bar("…")
+    .replace(/\([^)]*\)/g, '')                 // ANY parenthetical aside (scouting context, reassurances)
+    .replace(/\*[^*]*\*/g, '')                 // *italic asides*
+    .replace(/\s*[—-]?\s*(?:→|=>).*$/u, '')    // "→ returns tab id" arrow clauses to end
+    .replace(/[;.]?\s*Why:.*$/i, '')           // "Why: …" rationale to end
     .replace(/\*\*/g, '')
     .replace(/`/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+  // Keep only the first sentence — steps are one action; extra sentences are padding/reassurance.
+  // A sentence end is .!? followed by space+capital or end; the dot in "course.php" won't match.
+  const end = t.match(/[.!?](?=\s+[A-Z]|\s*$)/);
+  if (end?.index !== undefined) t = t.slice(0, end.index + 1);
+  return t.replace(/\s*[—-]\s*$/u, '').trim(); // drop a dangling "Navigate — " lead-in dash
 }
 
 /** Parse the agent's markdown plan into numbered steps (with a mutates flag) and the Risk block, so

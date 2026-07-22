@@ -21,7 +21,6 @@
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
-  import { getClaudeApiKey } from '../../lib/db';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
   import { planFrontier, fetchTemplateTiebreak, type FrontierCandidate } from '../../lib/crawl-planner';
@@ -112,7 +111,7 @@
    * Returns the redactor too, so the profile can be redacted before it's persisted. */
   async function captureCurrent(url: string): Promise<{ profile: SiteProfile; redact: (t: string) => string; secrets: Record<string, string> }> {
     if (!isConnected() && !(await connectCDP())) {
-      throw new Error('Could not connect to the browser — open a page in the browser first.');
+      throw new Error('Could not connect to the browser. Open a page in the browser first.');
     }
     const { snapshot, merged } = await captureMergedTree(cdp);
     const profile = mergedToProfile(merged, url);
@@ -365,7 +364,7 @@
           const failedTpl = urlTemplate(landed);
           tplMapped.set(failedTpl, (tplMapped.get(failedTpl) ?? 0) + 1);
           failures.push({ url: landed, error: e instanceof Error ? e.message : String(e) });
-          siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${failures.length} skipped · ${queue.length} queued…`;
+          siteMsg = `Crawling: ${siteMap?.pages.length ?? 0} mapped · ${failures.length} skipped · ${queue.length} queued…`;
           continue;
         }
         // Record this page's shape against its URL family, so a repeating template is
@@ -397,7 +396,7 @@
           }
         }
 
-        siteMsg = `Crawling — ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`
+        siteMsg = `Crawling: ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`
           + (collapsed.length ? ` · ${collapsed.reduce((n, c) => n + c.skipped, 0)} repeats skipped` : '');
 
         // Deterministic filters first (gate, scope, saturation) — the AI planner only ever
@@ -453,7 +452,7 @@
 
       // Synthesis first (it can only add), then the deterministic trim as the floor.
       if (ai && siteMap && !stopRequested) {
-        siteMsg = 'Crawl done — synthesizing site map…';
+        siteMsg = 'Crawl done, synthesizing site map…';
         const cards: Record<string, PageCard | undefined> = {};
         for (const p of siteMap.pages) cards[p.url] = p.card ?? cardCache.get(p.url);
         synthesis = await fetchMapSynthesis(siteMap, cards, allSecrets, ai);
@@ -468,7 +467,7 @@
       }
       const n = siteMap?.pages.length ?? 0;
       const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
-      siteMsg = (stopRequested ? `Stopped — ${n} pages mapped.` : `Crawl done — ${n} pages mapped.`)
+      siteMsg = (stopRequested ? `Stopped: ${n} pages mapped.` : `Crawl done: ${n} pages mapped.`)
         + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope?.key}=${activeScope?.value} not followed.` : '')
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (aiSkips.length ? ` ${aiSkips.length} link(s) skipped by AI — see below.` : '')
@@ -507,7 +506,7 @@
     let progressBuf: ReturnType<typeof createThrottledBuffer<string>> | undefined;
     try {
       const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
+      if (!port) throw new Error('CDP debug port unavailable. Restart the app.');
       const engine = engineForProvider(provider);
 
       // Subscribe BEFORE spawning so no early event is missed. Only this run's lines.
@@ -526,7 +525,7 @@
         scope: stayInScope ? activeScope : null,
         marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined,
       });
-      siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} — it is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
+      siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''}. It is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
       await showAgentConnected(getActiveTabId()); // connection overlay (border + cursor) on the driven tab
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -534,7 +533,6 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
-        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
         timeoutSecs: 900,
@@ -558,7 +556,7 @@
         for (const [i, p] of pages.entries()) {
           const u = normalizeUrl(p.url);
           if (visited.has(u) || !isCrawlableLink(u, start)) continue;
-          siteMsg = `Capturing page ${i + 1}/${pages.length} for verification — ${p.name}…`;
+          siteMsg = `Capturing page ${i + 1}/${pages.length} for verification: ${p.name}…`;
           try {
             const loaded = await armPageLoad();
             await navigateEmbedded(activeTabIdOr(tabId), u);
@@ -571,7 +569,7 @@
         }
         await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
       }
-      siteMsg = `Agent crawl done — ${aiProgress.length} step(s), ${siteMap?.pages.length ?? 0} page(s) captured for verification.`
+      siteMsg = `Agent crawl done: ${aiProgress.length} step(s), ${siteMap?.pages.length ?? 0} page(s) captured for verification.`
         + (pages.length ? '' : ' (agent returned no page list — doc only, nothing to verify.)')
         + (failures.length ? ` ${failures.length} capture(s) failed.` : '');
     } catch (e) {
@@ -604,7 +602,7 @@
     let progressBuf: ReturnType<typeof createThrottledBuffer<string>> | undefined;
     try {
       const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
+      if (!port) throw new Error('CDP debug port unavailable. Restart the app.');
       const engine = engineForProvider(provider);
       progressBuf = createThrottledBuffer<string>((lines) => { aiProgress = [...aiProgress, ...lines].slice(-40); });
       unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
@@ -613,7 +611,7 @@
         if (summary) progressBuf!.push(summary);
       });
       const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
-      siteMsg = `Spawned ${engine} to verify its own mapping — re-reading ${aiPages.length} page(s) over CDP…`;
+      siteMsg = `Spawned ${engine} to verify its own mapping: re-reading ${aiPages.length} page(s) over CDP…`;
       await showAgentConnected(getActiveTabId()); // connection overlay on the driven tab
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -621,7 +619,6 @@
         sessionId,
         resume: false,
         model: cliModelArg(engine, model),
-        apiKey: engine === 'claude' ? await getClaudeApiKey() : null,
         systemPrompt: null,
         bypassPermissions: true,
         timeoutSecs: 900,
@@ -650,7 +647,7 @@
         for (const [i, p] of recapture.entries()) {
           const u = normalizeUrl(p.url);
           if (visited.has(u) || !isCrawlableLink(u, start)) continue;
-          siteMsg = `Healing profile ${i + 1}/${recapture.length} — ${p.name}…`;
+          siteMsg = `Healing profile ${i + 1}/${recapture.length}: ${p.name}…`;
           try {
             const loaded = await armPageLoad();
             await navigateEmbedded(activeTabIdOr(tabId), u);
@@ -665,7 +662,7 @@
         await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
       }
 
-      siteMsg = `Agent verification done — report below.`
+      siteMsg = `Agent verification done. Report below.`
         + (healed ? ' Doc healed (prior saved as _sitemap-ai.prev.md).' : ' Doc unchanged.')
         + (recaptured ? ` ${recaptured} profile(s) re-captured.` : '')
         + (failures.length ? ` ${failures.length} re-capture(s) failed.` : '');
@@ -725,7 +722,7 @@
     try {
       for (const [i, node] of pages.entries()) {
         if (stopRequested) break;
-        verifyMsg = `Verifying ${i + 1}/${pages.length} — ${node.pageName}…`;
+        verifyMsg = `Verifying ${i + 1}/${pages.length}: ${node.pageName}…`;
 
         // Same guard as the crawl: one unreachable page must not end the pass.
         try {
@@ -820,11 +817,11 @@
     if (pages.length === 0) {
       await deleteSiteMap(siteMap.domain);
       siteMap = null;
-      siteMsg = 'Cleared — no pages left.';
+      siteMsg = 'Cleared. No pages left.';
     } else {
       siteMap = { ...siteMap, pages };
       await saveSiteMap(siteMap);
-      siteMsg = `Cleared ${p.pageName} — ${pages.length} pages left.`;
+      siteMsg = `Cleared ${p.pageName}. ${pages.length} pages left.`;
     }
   }
 
@@ -848,7 +845,7 @@
       {mapping ? '⏳ Mapping…' : '🔍 Map this page'}
     </button>
   </div>
-  <p class="muted">Open a page in the browser first, then map it. Capture is DOM-only — no screenshots or raw text leave this app.</p>
+  <p class="muted">Open a page in the browser, then map it. Only the page structure is read; no screenshots or text ever leave this app.</p>
 
   {#if message}<div class="msg">{message}</div>{/if}
 
@@ -860,7 +857,7 @@
              engine CLI with the CDP debug port. The BFS crawl() machinery stays for the
              deterministic path but has no button here. -->
         <button class="map" disabled={crawling || aiDriving || aiVerifying || !provider} onclick={aiDriveCrawl}
-          title="Spawns the chosen engine CLI full-shell with the app's CDP debug port: the agent drives the logged-in browser itself (read-only rules + deny-list in its prompt, max {CLI_CRAWL_MAX_PAGES} pages), writes the mapping document, and reports the pages it visited so the app can capture their selectors for verification. Cannot be stopped mid-run — bounded by a 15 min timeout. Needs an engine selected above.">
+          title="Spawns the chosen engine CLI full-shell with the app's CDP debug port: the agent drives the logged-in browser itself (read-only rules + deny-list in its prompt, max {CLI_CRAWL_MAX_PAGES} pages), writes the mapping document, and reports the pages it visited so the app can capture their selectors for verification. Cannot be stopped mid-run; bounded by a 15 min timeout. Needs an engine selected above.">
           {aiDriving ? '🤖 Agent crawling…' : '🕸 Map this site'}
         </button>
         {#if aiDoc && !aiDriving}
@@ -871,7 +868,7 @@
         {/if}
         {#if siteMap?.pages.length && !crawling && !aiDriving && !aiVerifying}
           <button class="map" disabled={verifying} onclick={verifyMap}
-            title="Re-visit every mapped page and check the agent could act on it (selectors resolve to one element). Read-only — resolves selectors, never clicks. Works for the agent-driven map too, since its pages are captured into profiles.">
+            title="Re-visit every mapped page and check the agent could act on it (selectors resolve to one element). Read-only; resolves selectors, never clicks. Works for the agent-driven map too, since its pages are captured into profiles.">
             {verifying ? '⏳ Verifying…' : '✅ Verify map'}
           </button>
         {/if}
@@ -885,11 +882,17 @@
       <span>
         Stay in this course
         {#if scopeOf(pageUrl)}<span class="kind">({scopeOf(pageUrl)?.key}={scopeOf(pageUrl)?.value})</span>
-        {:else}<span class="kind">(no course id on this page — whole site)</span>{/if}
+        {:else}<span class="kind">(no course id on this page; whole site)</span>{/if}
       </span>
     </label>
     <!-- AI-guided BFS toggle hidden with the BFS button on this branch; state + crawl() kept. -->
-    <p class="muted">Crawls breadth-first from the current page (so the start page's links — e.g. each class — map first), lazy-loads each, and maps it. Same-origin only; skips logout, admin, and anything that reads as a write (add/change/remove/copy/transfer, ?action=). Repeating templates (a roster of students, a bank of questions) are sampled twice then skipped — or at most {MAX_SAMPLES_PER_TEMPLATE} times if their shape keeps changing. Drives your browser tab; use Stop to halt.</p>
+    <p class="muted">Maps this site page by page, starting from where you are now, so each class near the top is mapped first.</p>
+    <ul class="how">
+      <li>Stays on this site only.</li>
+      <li>Never changes anything. Skips logout, admin, and any add / edit / delete link.</li>
+      <li>Repeating pages (student rosters, question banks) are sampled a couple of times, then skipped, up to {MAX_SAMPLES_PER_TEMPLATE} if they keep shifting.</li>
+      <li>Runs in your browser tab. Press <strong>Stop</strong> anytime.</li>
+    </ul>
     {#if siteMsg}<div class="msg">{siteMsg}</div>{/if}
 
     {#if collapsed.length}
@@ -899,7 +902,7 @@
       <ul class="list">
         {#each collapsed as c (c.template)}
           <li class="row site-row">
-            <span class="label" title={c.template}>{c.template} — <span class="kind">{c.skipped} repeat page(s) skipped, shape already mapped</span></span>
+            <span class="label" title={c.template}>{c.template}: <span class="kind">{c.skipped} repeat page(s) skipped, shape already mapped</span></span>
           </li>
         {/each}
       </ul>
@@ -938,7 +941,7 @@
       <ul class="list">
         {#each aiSkips as s (s.url)}
           <li class="row site-row">
-            <span class="label" title={s.url}>{s.url} — <span class="kind">{s.reason}</span></span>
+            <span class="label" title={s.url}>{s.url}: <span class="kind">{s.reason}</span></span>
           </li>
         {/each}
       </ul>
@@ -951,7 +954,7 @@
       <ul class="list">
         {#each synthesis.sections as sec (sec.name)}
           <li class="row site-row">
-            <span class="label">{sec.name} — <span class="kind">{sec.urls.map((u) => siteMap?.pages.find((p) => p.url === u)?.pageName ?? u).join(' · ')}</span></span>
+            <span class="label">{sec.name}: <span class="kind">{sec.urls.map((u) => siteMap?.pages.find((p) => p.url === u)?.pageName ?? u).join(' · ')}</span></span>
           </li>
         {/each}
       </ul>
@@ -966,16 +969,16 @@
       <div class="head">
         <span class="hdr">Pages the agent may not act on correctly</span>
       </div>
-      <p class="muted">Only problem pages are listed. <strong>Ambiguous</strong> is the one to fix first: the selector matches several elements, so a click silently hits the first — on a roster that is the wrong student.</p>
+      <p class="muted">Only problem pages are listed. <strong>Ambiguous</strong> is the one to fix first: the selector matches several elements, so a click silently hits the first. On a roster that is the wrong student.</p>
       <ul class="list">
         {#each verdicts.filter((v) => v.status !== 'ok') as v (v.url)}
           <li class="row site-row">
             <span class="label" title={v.url}>
               {v.pageName}
               {#if v.status === 'unreachable'}
-                — <span class="kind">unreachable: {v.error}</span>
+                <span class="kind">unreachable: {v.error}</span>
               {:else}
-                — <span class="kind">
+                <span class="kind">
                   {v.checks.filter((c) => c.status === 'ambiguous').length} ambiguous ·
                   {v.checks.filter((c) => c.status === 'broken').length} broken ·
                   {v.checks.filter((c) => c.status === 'healed').length} self-heal
@@ -990,12 +993,12 @@
 
     {#if failures.length}
       <div class="head">
-        <span class="hdr">Skipped — capture failed ({failures.length})</span>
+        <span class="hdr">Skipped: capture failed ({failures.length})</span>
       </div>
       <ul class="list">
         {#each failures as f (f.url)}
           <li class="row site-row">
-            <span class="label" title={f.url}>{f.url} — <span class="kind">{f.error}</span></span>
+            <span class="label" title={f.url}>{f.url}: <span class="kind">{f.error}</span></span>
           </li>
         {/each}
       </ul>
@@ -1009,7 +1012,7 @@
       <ul class="list">
         {#each trimSuggestions as s (s.url)}
           <li class="row site-row">
-            <span class="label" title={s.url}>{s.pageName} — <span class="kind">{s.reason}</span></span>
+            <span class="label" title={s.url}>{s.pageName}: <span class="kind">{s.reason}</span></span>
             <button class="x" onclick={() => trimOne(s)} title="Trim this page">✕</button>
           </li>
         {/each}
@@ -1017,7 +1020,7 @@
     {/if}
     {#if siteMap && siteMap.pages.length}
       <div class="head">
-        <span class="hdr">{siteMap.domain} — {siteMap.pages.length} pages</span>
+        <span class="hdr">{siteMap.domain} · {siteMap.pages.length} pages</span>
         <button class="link-btn" onclick={clearAll} title="Delete every mapped page for this site">Clear all</button>
       </div>
       <ul class="list">
@@ -1061,8 +1064,8 @@
 
   {#if redactedSample}
     <div class="section">
-      <span class="hdr">Redacted snapshot — {redactedSize.toLocaleString()} chars · {redactedTokens} data tokens</span>
-      <p class="muted">This is exactly what the model would see. It should hold only chrome (controls, labels, headings) and ⟦D…⟧ tokens — no student names or IDs.</p>
+      <span class="hdr">Redacted snapshot · {redactedSize.toLocaleString()} chars · {redactedTokens} data tokens</span>
+      <p class="muted">This is exactly what the model would see. It should hold only chrome (controls, labels, headings) and ⟦D…⟧ tokens, with no student names or IDs.</p>
       <pre class="sample">{redactedSample}{redactedSize > redactedSample.length ? '\n…' : ''}</pre>
     </div>
   {/if}
@@ -1089,6 +1092,17 @@
   .link-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.75rem; text-decoration: underline; padding: 0; }
   .link-btn:hover { color: var(--color-danger); }
   .muted { color: var(--text-secondary); font-size: 0.8rem; margin: 0; line-height: 1.4; }
+  .how {
+    margin: 6px 0 0; padding-left: 1.1em; list-style: none;
+    color: var(--text-secondary); font-size: 0.8rem; line-height: 1.5;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .how li { position: relative; }
+  .how li::before {
+    content: ''; position: absolute; left: -0.95em; top: 0.5em;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--text-tertiary, var(--text-secondary));
+  }
+  .how strong { color: var(--text-primary); font-weight: 600; }
   .msg { font-size: 0.8rem; color: var(--text-secondary); padding: var(--spacing-2); background: var(--bg-card); border-radius: var(--radius-md); word-break: break-all; }
   .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-2); }
   .stat { display: flex; flex-direction: column; gap: 2px; padding: var(--spacing-2); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); }
