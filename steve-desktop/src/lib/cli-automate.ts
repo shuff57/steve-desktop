@@ -61,24 +61,34 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
 }
 
 export interface AutomateExecOptions extends AutomatePlanOptions {
-  /** The plan the human approved — the agent may ONLY carry out these steps. */
-  approvedPlan: string;
+  /**
+   * The plan the human approved — the agent may ONLY carry out these steps.
+   * Omitted for a direct ("run now") one-off: no plan was written, so the agent works the steps
+   * out as it goes. The same-origin / scope / no-logout guards apply either way; what's missing
+   * is the human review gate, which is the caller's choice to skip.
+   */
+  approvedPlan?: string;
 }
 
 export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
   const host = hostOf(o.startUrl);
+  const planned = Boolean(o.approvedPlan);
   return [
-    'You are EXECUTING an automation task that a human has APPROVED. Carry out the approved plan.',
+    planned
+      ? 'You are EXECUTING an automation task that a human has APPROVED. Carry out the approved plan.'
+      : 'You are EXECUTING an automation task directly. No plan was written — work out the steps as you go.',
     '',
     `TASK: ${o.task}`,
     '',
-    'APPROVED PLAN — do ONLY these steps, in order:',
-    o.approvedPlan,
+    planned ? 'APPROVED PLAN — do ONLY these steps, in order:' : '',
+    planned ? o.approvedPlan : '',
     '',
     `Drive the logged-in browser over CDP at http://127.0.0.1:${o.cdpPort}:`,
     cdpTargetInstruction(host, o.marker),
     'The user watches it happen in the app.',
-    'You MAY now click, fill, select, and submit — but ONLY to perform the approved steps.',
+    planned
+      ? 'You MAY now click, fill, select, and submit — but ONLY to perform the approved steps.'
+      : 'You MAY click, fill, select, and submit — but ONLY as the task above requires.',
     '',
     'The user is watching via a green agent-cursor on this tab. It moves ONLY when you call',
     'window.__steveCursorMove(x, y) (through Runtime.evaluate) — it never follows the user. So',
@@ -86,8 +96,11 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     'where you are acting. Prefer real CDP Input mouse events at the element centre over el.click().',
     '',
     'HARD RULES:',
-    '- Do NOT take any mutating action that is not in the approved plan. If the page differs from',
-    '  the plan or a step cannot be done as written, STOP and report — never improvise a mutation.',
+    planned ? '- Do NOT take any mutating action that is not in the approved plan. If the page differs from' : '',
+    planned ? '  the plan or a step cannot be done as written, STOP and report — never improvise a mutation.' : '',
+    // No plan was reviewed, so the task text is the only mandate there is — hold the agent to it.
+    planned ? '' : '- Do NOT take any mutating action beyond what the task plainly asks for. Nothing was',
+    planned ? '' : '  reviewed by a human, so anything ambiguous or destructive: STOP and report instead.',
     `- Same-origin only (${host}). Never log out or leave the session` +
       ` (nothing matching /${DENY_LINK.source}/i).`,
     o.scope ? `- Stay in ${o.scope.key}=${o.scope.value}.` : '',
@@ -96,7 +109,9 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     '',
     `When done, navigate back to ${o.startUrl} and output ONLY a markdown result report:`,
     '# Result',
-    'One bullet per plan step: DONE / SKIPPED (why) / FAILED (why). Then a "## Changed" list of',
+    planned
+      ? 'One bullet per plan step: DONE / SKIPPED (why) / FAILED (why). Then a "## Changed" list of'
+      : 'One bullet per step you took: DONE / SKIPPED (why) / FAILED (why). Then a "## Changed" list of',
     'exactly what state you modified (so it can be checked against an audit log), and a "## Verdict"',
     'line: did the task complete?',
   ]
@@ -112,4 +127,47 @@ export function cleanAutomateOutput(raw: string): string {
 /** True when a plan contains at least one state-changing step (drives the review warning). */
 export function planHasMutations(plan: string): boolean {
   return /\[MUTATES\]/i.test(plan);
+}
+
+export interface PlanStep {
+  n: number;
+  text: string;
+  /** A state-changing step (was tagged [MUTATES]) — rendered with a warning badge. */
+  mutates: boolean;
+}
+export interface ParsedPlan {
+  steps: PlanStep[];
+  risk: string | null;
+}
+
+function cleanStepText(s: string): string {
+  return s
+    .replace(/\*\*\[MUTATES\]\*\*/gi, '')
+    .replace(/\[MUTATES\]/gi, '')
+    .replace(/\*\*/g, '')
+    .replace(/`/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Parse the agent's markdown plan into numbered steps (with a mutates flag) and the Risk block, so
+ *  the UI can render stylized steps + a warning callout instead of a raw text dump. Continuation
+ *  lines fold into the preceding step. Falls back to zero steps if the plan isn't numbered. */
+export function parsePlan(plan: string): ParsedPlan {
+  const steps: PlanStep[] = [];
+  let risk: string | null = null;
+  let inRisk = false;
+  for (const raw of plan.split('\n')) {
+    const line = raw.trim();
+    if (/^#{1,6}\s*risk\b/i.test(line)) { inRisk = true; risk = ''; continue; }
+    if (/^#{1,6}\s/.test(line)) { inRisk = false; continue; } // another heading (e.g. # Plan)
+    if (inRisk) { if (line) risk = risk ? `${risk} ${line}` : line; continue; }
+    const m = line.match(/^(\d+)\.\s+(.*)$/);
+    if (m) {
+      steps.push({ n: Number(m[1]), text: cleanStepText(m[2]), mutates: /\[MUTATES\]/i.test(m[2]) });
+    } else if (steps.length && line) {
+      steps[steps.length - 1].text += ` ${cleanStepText(line)}`;
+    }
+  }
+  return { steps, risk: risk ? risk.trim() : null };
 }

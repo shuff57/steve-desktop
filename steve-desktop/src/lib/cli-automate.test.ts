@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cleanAutomateOutput } from './cli-automate';
+import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cleanAutomateOutput, parsePlan } from './cli-automate';
 
 const base = {
   cdpPort: 9223,
@@ -52,12 +52,53 @@ describe('buildAutomateExecPrompt', () => {
     expect(p).toContain('__steveCursorMove');
     expect(p).toContain('never follows the user');
   });
+
+  describe('direct run (no approved plan)', () => {
+    const d = buildAutomateExecPrompt(base); // "Run now": nothing was reviewed
+    it('drops the plan framing and lets the agent work out the steps', () => {
+      expect(d).toContain('No plan was written');
+      expect(d).not.toContain('APPROVED PLAN');
+      expect(d).not.toContain('ONLY these steps');
+    });
+    it('still bounds mutations to the task and keeps every safety guard', () => {
+      expect(d).toContain('beyond what the task plainly asks for');
+      expect(d).toContain('Post an announcement titled Welcome');
+      expect(d).toContain('Never log out');
+      expect(d).toContain('log[\\s_-]?out');
+      expect(d).toContain('cid=316341');
+      expect(d).toContain('Same-origin only');
+    });
+    it('still asks for the Changed/Verdict report so the run can be audited', () => {
+      expect(d).toContain('# Result');
+      expect(d).toContain('## Changed');
+      expect(d).toContain('## Verdict');
+    });
+  });
 });
 
 describe('planHasMutations', () => {
   it('detects mutating steps for the review warning', () => {
     expect(planHasMutations('1. navigate\n2. [MUTATES] submit')).toBe(true);
     expect(planHasMutations('1. navigate\n2. read the table')).toBe(false);
+  });
+});
+
+describe('parsePlan', () => {
+  const plan = '# Plan\n1. Navigate to `course.php?cid=316341` — establish the view.\n2. Read the page\n   to find the form.\n6. **[MUTATES]** Fill the name field with `DEMO`.\n## Risk\nCreates one block; nothing existing is edited.';
+  const parsed = parsePlan(plan);
+  it('extracts numbered steps and folds continuation lines', () => {
+    expect(parsed.steps).toHaveLength(3);
+    expect(parsed.steps[0]).toEqual({ n: 1, text: 'Navigate to course.php?cid=316341 — establish the view.', mutates: false });
+    expect(parsed.steps[1].text).toBe('Read the page to find the form.'); // continuation folded in
+  });
+  it('flags mutating steps and strips the [MUTATES] marker + markdown', () => {
+    expect(parsed.steps[2]).toEqual({ n: 6, text: 'Fill the name field with DEMO.', mutates: true });
+  });
+  it('captures the Risk block separately', () => {
+    expect(parsed.risk).toBe('Creates one block; nothing existing is edited.');
+  });
+  it('returns no steps for an unnumbered plan', () => {
+    expect(parsePlan('just some prose').steps).toHaveLength(0);
   });
 });
 

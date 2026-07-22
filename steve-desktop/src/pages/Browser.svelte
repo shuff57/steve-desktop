@@ -180,6 +180,27 @@
     revealed = next;
   }
 
+  // Fill the saved credential for this page and submit it. Same on-device path as the autofill on
+  // page load — creds come from the local DB straight into the embedded page, never to a model.
+  // If the site then asks for a Duo push, the user is right here to tap it.
+  async function loginNow(tabId?: string): Promise<boolean> {
+    const id = tabId ?? activeTabId;
+    if (!id) return false;
+    let url = '';
+    try { url = await getEmbeddedUrl(id); } catch { /* ignore */ }
+    if (!url) return false;
+    const match = matchCredentialsToUrl(url, await getSiteCredentials());
+    if (!match) return false;
+    // submit=true regardless of the global toggle: an explicit "log in" means fill AND submit.
+    const otp = match.totp_secret ? await totpNow(match.totp_secret).catch(() => '') : '';
+    await injectScript(generateAutoFillScript(match.username, match.password, true, otp), id);
+    return true;
+  }
+
+  async function handleLoginClick() {
+    showToast((await loginNow()) ? 'Logging in…' : 'No saved login matches this page.');
+  }
+
   // Read the username/password the user typed into the embedded page (over CDP) and save them.
   async function saveCurrentLogin() {
     let url = pageLoadedUrl;
@@ -449,19 +470,7 @@
       closeTab: async (id: string) => { await closeTab(id); },
       navigate: async (id: string, url: string) => { await switchTab(id); urlInput = url; await handleNavigate(); },
       activate: async (id: string) => { await switchTab(id); },
-      login: async (id?: string) => {
-        const tabId = id ?? activeTabId;
-        if (!tabId) return false;
-        let url = '';
-        try { url = await getEmbeddedUrl(tabId); } catch { /* ignore */ }
-        if (!url) return false;
-        const match = matchCredentialsToUrl(url, await getSiteCredentials());
-        if (!match) return false;
-        // force submit=true so it fills AND clicks login (maybeAutofill obeys the global toggle).
-        const otp = match.totp_secret ? await totpNow(match.totp_secret).catch(() => '') : '';
-        await injectScript(generateAutoFillScript(match.username, match.password, true, otp), tabId);
-        return true;
-      },
+      login: (id?: string) => loginNow(id),
     };
 
     await openNewTab();
@@ -691,8 +700,11 @@
 
   {#if showPasswords}
     <div class="passwords-bar aux-bar">
+      <button class="pw-save" onclick={handleLoginClick} title="Fill the saved login for this page and submit it">
+        🔑 Log in now
+      </button>
       <button class="pw-save" onclick={saveCurrentLogin} title="Read the username/password from this page and save it">
-        🔑 Save this login
+        Save this login
       </button>
       <label class="pw-toggle" title="After autofilling a saved login, submit the form automatically">
         <input type="checkbox" checked={autoSubmit} onchange={toggleAutoSubmit} /> Auto-submit
