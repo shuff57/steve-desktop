@@ -31,12 +31,17 @@ export interface PageDriver {
 
 export type StepStatus = 'done' | 'recovered' | 'skipped';
 
+/** Heal tiers, cheapest first. Rising use of the later ones is the staleness signal. */
+export type HealTier = 'candidate' | 'ranked' | 'fuzzy' | 'model';
+
 export interface ReplayStepResult {
   step: WorkflowStep;
   status: StepStatus;
   selectorUsed?: string;
   /** Set when the driver has a verify(): did the step's postcondition pass? */
   verified?: boolean;
+  /** Which heal tier recovered this step, if any — drift telemetry counts these per page. */
+  tier?: HealTier;
   detail: string;
 }
 
@@ -207,7 +212,7 @@ async function actGated(
   page: PageDriver,
   step: WorkflowStep,
   selector: string,
-  opts: { healed: boolean; okDetail: string; failDetail: string },
+  opts: { healed: boolean; okDetail: string; failDetail: string; tier?: HealTier },
 ): Promise<ReplayStepResult> {
   const ok = await page.act(step, selector);
   if (!ok) return { step, status: 'skipped', selectorUsed: selector, detail: opts.failDetail };
@@ -232,7 +237,7 @@ async function actGated(
 
   if (opts.healed) persistHeal(step, selector);
   await refreshFingerprint(page, step, selector);
-  return { step, status: opts.healed ? 'recovered' : 'done', selectorUsed: selector, verified, detail: opts.okDetail };
+  return { step, status: opts.healed ? 'recovered' : 'done', selectorUsed: selector, verified, tier: opts.healed ? opts.tier : undefined, detail: opts.okDetail };
 }
 
 export async function replayWorkflow(
@@ -269,6 +274,7 @@ export async function replayWorkflow(
       results.push(
         await actGated(page, step, healedByCandidate, {
           healed: true,
+          tier: 'candidate',
           okDetail: `Selector "${recorded}" no longer matched; recovered via stored candidate "${healedByCandidate}"`,
           failDetail: `Candidate "${healedByCandidate}" also failed`,
         }),
@@ -289,6 +295,7 @@ export async function replayWorkflow(
         if (cand.selector === recorded || !(await page.exists(cand.selector))) continue;
         const r = await actGated(page, step, cand.selector, {
           healed: true,
+          tier: 'ranked',
           okDetail: `Selector "${recorded}" no longer matched; ranked page elements and recovered via "${cand.selector}" (score ${cand.score.toFixed(2)})`,
           failDetail: `Ranked candidate "${cand.selector}" failed its postcondition`,
         });
@@ -309,6 +316,7 @@ export async function replayWorkflow(
       results.push(
         await actGated(page, step, healed, {
           healed: true,
+          tier: 'fuzzy',
           okDetail: `Selector "${recorded}" no longer matched; re-derived page state and recovered via "${healed}"`,
           failDetail: `Recovered selector "${healed}" also failed`,
         }),
@@ -329,6 +337,7 @@ export async function replayWorkflow(
       if (relocated && (await page.exists(relocated))) {
         const r = await actGated(page, step, relocated, {
           healed: true,
+          tier: 'model',
           okDetail: `Selector "${recorded}" not found locally; escalated to the model (redacted), relocated to "${relocated}" and rewrote the cache`,
           failDetail: `Relocated selector "${relocated}" also failed`,
         });
