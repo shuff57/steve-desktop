@@ -192,6 +192,8 @@ export function summarizeCliLine(line: string): string | null {
       }
       if (c.type === 'text' && c.text?.trim()) {
         const t = c.text.trim();
+        const heal = mapHealLine(t);
+        if (heal) return heal;
         if (/^#{1,6}\s|^\d+\.\s+\*\*\[MUTATES\]/.test(t)) return null; // plan/result markdown, shown separately
         return t.replace(/\s+/g, ' ').slice(0, 110);
       }
@@ -205,8 +207,19 @@ export function summarizeCliLine(line: string): string | null {
   }
   if (ev.type === 'text' && ev.part?.text?.trim()) {
     const t = ev.part.text.trim();
+    const heal = mapHealLine(t);
+    if (heal) return heal;
     if (/^#{1,6}\s|^\d+\.\s+\*\*\[MUTATES\]/.test(t)) return null; // plan/result markdown, shown separately
     return t.replace(/\s+/g, ' ').slice(0, 110);
   }
   return null;
+}
+
+/** Recognize the `STEVE_MAP_HEAL: …` transparency marker the automate agent prints when it pauses
+ *  to self-heal the site map mid-task, and turn it into a loud activity-log line. Returns null for
+ *  any other text. The agent heals the map file in place (its own working memory) — this is what
+ *  makes that background work visible instead of silent. */
+export function mapHealLine(text: string): string | null {
+  const m = text.match(/^STEVE_MAP_HEAL:\s*(.+)$/im);
+  return m ? `⚡ self-healing the site map — ${m[1].trim().slice(0, 90)}` : null;
 }

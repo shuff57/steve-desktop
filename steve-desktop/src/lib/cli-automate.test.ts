@@ -46,6 +46,7 @@ describe('buildAutomateExecPrompt', () => {
     expect(pm).toContain('_sitemap-ai.md');
     expect(pm).toContain('## Heal log');
     expect(pm).toContain('resume the task');
+    expect(pm).toContain('STEVE_MAP_HEAL:'); // transparency marker → activity-log message
     expect(p).not.toContain('MAPPING MAINTENANCE'); // absent without a stored doc
   });
 

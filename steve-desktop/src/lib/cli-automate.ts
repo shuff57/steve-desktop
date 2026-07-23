@@ -176,9 +176,12 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
       ? [
           `MAPPING MAINTENANCE — the site map above is stored at ${o.mapDocPath}.`,
           'If during the task you find it disagrees with the live site (moved or renamed page, dead',
-          'URL, changed structure), pause the task, surgically edit that file so it matches what you',
-          'VERIFIED on the live page (keep its format; append one line to a "## Heal log" section at',
-          'the end noting what changed and why), save it, then resume the task where you left off.',
+          'URL, changed structure), pause the task and self-heal the map in the background:',
+          '1. FIRST print one line exactly `STEVE_MAP_HEAL: <page> — <what drifted>` (this shows the',
+          '   user a transparency message in the activity log that a background map heal is running).',
+          '2. Then surgically edit that file so it matches what you VERIFIED on the live page (keep its',
+          '   format; append one line to a "## Heal log" section at the end noting what changed and why).',
+          '3. Save it, then resume the task where you left off.',
           'Never write anything into the map you did not verify live. Do not rewrite unaffected parts.',
           '',
         ].join('\n')

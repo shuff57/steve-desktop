@@ -65,6 +65,14 @@ describe('summarizeCliLine', () => {
     expect(describeBrowserCommand('Runtime.evaluate __steveControl.login(id)')).toBe('logging in');
     expect(describeBrowserCommand('__steveControl.activate(id)')).toBe('switching tabs');
   });
+  it('surfaces the STEVE_MAP_HEAL marker as a loud self-heal line (transparency), both engines', () => {
+    const claude = '{"type":"assistant","message":{"content":[{"type":"text","text":"STEVE_MAP_HEAL: Author page — map said /writer/, live path is /author/"}]}}';
+    expect(summarizeCliLine(claude)).toBe('⚡ self-healing the site map — Author page — map said /writer/, live path is /author/');
+    const oc = '{"type":"text","part":{"type":"text","text":"STEVE_MAP_HEAL: Gradebook moved to gradebook.php"}}';
+    expect(summarizeCliLine(oc)).toBe('⚡ self-healing the site map — Gradebook moved to gradebook.php');
+    // a normal text line is unaffected
+    expect(summarizeCliLine('{"type":"assistant","message":{"content":[{"type":"text","text":"looking at the page"}]}}')).toBe('looking at the page');
+  });
   it('summarizes opencode flat events (tool_use/bash, text, step noise)', () => {
     const tool = '{"type":"tool_use","part":{"type":"tool","tool":"bash","state":{"input":{"command":"python cdp.py ws://x \\"Page.navigate https://www.myopenmath.com/x\\""}}}}';
     expect(summarizeCliLine(tool)).toBe('navigating to www.myopenmath.com/x');
