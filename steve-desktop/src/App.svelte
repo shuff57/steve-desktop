@@ -10,6 +10,7 @@
   import SiteProfiles from './pages/SiteProfiles.svelte';
   import Settings from './pages/settings/Settings.svelte';
   import SetupWizard from './pages/SetupWizard.svelte';
+  import MomBrowser from './pages/MomBrowser.svelte';
   import {
     CollapseIcon,
     DashboardIcon,
@@ -18,6 +19,7 @@
     ArtifactsIcon,
     SiteProfilesIcon,
     SettingsIcon,
+    MomIcon,
   } from './components/icons/index';
   import { Sun, Moon } from 'lucide-svelte';
   import { getSetting } from './lib/db';
@@ -137,6 +139,10 @@
             <span class="icon"><SiteProfilesIcon /></span>
             <span class="label">Site Profiles</span>
           </button>
+          <button class="nav-item" class:active={currentPage === 'mom'} onclick={() => navigate('mom')} title="MOM Question Bank">
+            <span class="icon"><MomIcon /></span>
+            <span class="label">MOM</span>
+          </button>
         </div>
 
         <!-- System group -->
@@ -175,6 +181,8 @@
         <Artifacts />
       {:else if currentPage === 'profiles'}
         <SiteProfiles />
+      {:else if currentPage === 'mom'}
+        <MomBrowser />
       {:else if currentPage === 'settings'}
         <Settings />
       {:else if currentPage !== 'browser'}
