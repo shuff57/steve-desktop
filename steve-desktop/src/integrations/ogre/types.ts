@@ -1,30 +1,19 @@
 /**
- * Type definitions matching the O.G.R.E schema in
- * `./migrations/001-ogre-schema.sql`. These shapes are what the rest of
- * the app (and the grading server in phase 5) sees when reading from or
- * writing to the O.G.R.E tables.
+ * Type definitions for the ogre island's tables, which live in steve.db —
+ * see migrations 9 and 10 in `src-tauri/src/lib.rs`.
  *
  * Conventions:
- *  - Every row type includes `island_id` because the schema namespace
- *    requires it.
- *  - The `*Insert` type omits columns that the schema fills in itself
- *    (`id AUTOINCREMENT`, `created_at`, `updated_at`, `island_id` with
- *    a default of 'ogre').
- *  - JSON-encoded columns are typed as `string` here. The accessor
- *    layer (added in phase 5) will parse/serialize at the boundary so
- *    the rest of the app sees objects, not strings.
+ *  - The `*Insert` type omits columns the schema fills in itself
+ *    (`id AUTOINCREMENT`, `created_at`, `updated_at`).
+ *  - JSON-encoded columns are typed as `string` here. `./db.ts` parses and
+ *    serializes at the boundary so the rest of the app sees objects.
  *
- * `ISLAND_IDS` is the runtime list of valid island_id values. Exported
- * for validation in phases 5/6 (e.g., when an island_id arrives in a
- * payload from another island).
+ * O.G.R.E's `island_id` column is not carried over. It was constant 'ogre' on
+ * every row of the ogre-only tables, and in the tables now shared with steve
+ * (skills, site_profiles) it would have mislabelled steve's own rows.
+ * `skills.source = 'rubric'` is what marks a rubric.
  */
 
-/** The full set of island_ids this island can produce. */
-export const ISLAND_IDS = ['ogre'] as const;
-export type IslandId = (typeof ISLAND_IDS)[number];
-
-/** The O.G.R.E default island_id. */
-export const OGRE_ISLAND_ID: IslandId = 'ogre';
 
 // ---------------------------------------------------------------------------
 // provider_configs
@@ -38,7 +27,6 @@ export interface ProviderConfig {
   is_active: 0 | 1;
   created_at: string;
   updated_at: string;
-  island_id: IslandId;
 }
 
 export interface ProviderConfigInsert {
@@ -67,7 +55,6 @@ export interface GradingSession {
   question_id: string | null;
   custom_instructions: string | null;
   created_at: string;
-  island_id: IslandId;
 }
 
 export interface GradingSessionInsert {
@@ -91,7 +78,6 @@ export interface GradingSessionInsert {
 export interface AppSetting {
   key: string;
   value: string | null;
-  island_id: IslandId;
 }
 
 export interface AppSettingInsert {
@@ -111,7 +97,6 @@ export interface OAuthToken {
   expires_at: number | null;
   created_at: string;
   updated_at: string;
-  island_id: IslandId;
 }
 
 export interface OAuthTokenInsert {
@@ -135,7 +120,6 @@ export interface SiteCredential {
   notes: string | null;
   created_at: string;
   updated_at: string;
-  island_id: IslandId;
 }
 
 export interface SiteCredentialInsert {
@@ -174,7 +158,6 @@ export interface SiteProfile {
   extraction: string | null;
   created_at: string;
   updated_at: string;
-  island_id: IslandId;
 }
 
 export interface SiteProfileInsert {
@@ -197,7 +180,6 @@ export interface BatchSession {
   url: string;
   last_student_name: string;
   timestamp: string;
-  island_id: IslandId;
 }
 
 export interface BatchSessionInsert {
@@ -224,7 +206,6 @@ export interface Skill {
   learned_corrections: string | null;
   created_at: string;
   updated_at: string;
-  island_id: IslandId;
 }
 
 export interface SkillInsert {
@@ -253,7 +234,6 @@ export interface ResponseEmbedding {
   embedding: Buffer;
   embedding_model: string;
   created_at: string | null;
-  island_id: IslandId;
 }
 
 export interface ResponseEmbeddingInsert {

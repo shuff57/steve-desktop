@@ -71,6 +71,13 @@ async function initDB(): Promise<SqlDb> {
   return db;
 }
 
+/**
+ * The one steve.db connection, shared with the islands. The ogre island stores its
+ * grading tables here rather than in its own file — a WebView can't open a second
+ * SQLite handle, so tauri-plugin-sql's connection is the only way in.
+ */
+export const openSteveDb = initDB;
+
 export async function saveOAuthToken(
   provider: string,
   access_token: string,

@@ -2636,7 +2636,8 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             version: 9,
             description: "fold_ogre_shapes_into_skills_and_site_profiles",
             // Bare ALTERs are safe here: the plugin records applied versions, so this runs
-            // exactly once per DB (SQLite has no ADD COLUMN IF NOT EXISTS).
+            // exactly once per DB (SQLite has no ADD COLUMN IF NOT EXISTS). Verify any change
+            // against a POPULATED db — an empty table hides the ADD COLUMN default rule below.
             //
             // site_profiles is replaced outright rather than migrated — the old
             // (domain, page_name, profile_json) shape had no production reader, only test
@@ -2664,6 +2665,57 @@ CREATE TABLE site_profiles (
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 10,
+            description: "ogre_grading_tables",
+            // The ogre island's remaining tables. Its other six (provider_configs,
+            // app_settings, oauth_tokens, site_credentials, site_profiles, skills) are
+            // already steve.db tables — migration 9 widened the last two to ogre's shape.
+            //
+            // O.G.R.E's island_id column is dropped in the port: it defaulted to 'ogre' on
+            // every row of ogre-only tables, and in the shared tables it would mislabel
+            // steve's own rows. `skills.source` already separates rubrics from steve skills.
+            //
+            // student_response holds real student work — local DB only. Anything model-bound
+            // goes through model-gate redaction first.
+            sql: "CREATE TABLE IF NOT EXISTS grading_sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    provider_id TEXT,
+    model TEXT,
+    student_count INTEGER,
+    mean_score REAL,
+    min_score REAL,
+    max_score REAL,
+    median_score REAL,
+    max_possible_score REAL,
+    page_url TEXT,
+    question_id TEXT,
+    custom_instructions TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS response_embeddings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER REFERENCES grading_sessions(id),
+    rubric_hash TEXT NOT NULL,
+    student_response TEXT,
+    score REAL NOT NULL,
+    feedback TEXT,
+    embedding BLOB NOT NULL,
+    embedding_model TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_embeddings_rubric_hash ON response_embeddings(rubric_hash);
+CREATE INDEX IF NOT EXISTS idx_embeddings_model ON response_embeddings(embedding_model);
+CREATE TABLE IF NOT EXISTS batch_session (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    url TEXT NOT NULL,
+    last_student_name TEXT NOT NULL,
+    timestamp TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_batch_session_url ON batch_session(url);
+INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns', '[\"timestamp\",\"provider\",\"model\",\"studentCount\",\"meanScore\",\"pageUrl\"]');",
             kind: MigrationKind::Up,
         },
     ];

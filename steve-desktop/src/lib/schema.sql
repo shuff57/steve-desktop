@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS skills (
   created_at TEXT DEFAULT (datetime('now')),
   source_id TEXT,
   learned_corrections TEXT,
-  updated_at TEXT DEFAULT (datetime('now'))
+  -- No default: migration 9 adds this via ALTER, which rejects a non-constant
+  -- default on a populated table. Writers bind updated_at explicitly.
+  updated_at TEXT
 );
 CREATE UNIQUE INDEX IF NOT EXISTS idx_skills_source ON skills(source, source_id) WHERE source_id IS NOT NULL;
 

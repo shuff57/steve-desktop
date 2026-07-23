@@ -10,35 +10,35 @@ imports nothing from `src/integrations/gradebook/` or
 
 ```
 ogre/
-  index.ts               island surface — currently exposes openOgreDb()
-  db.ts                  openOgreDb(): path-keyed singleton accessor
-  db.test.ts             migration smoke tests + round-trips
-  open-db.test.ts        openOgreDb() API + singleton-by-path tests
-  island.test.ts         asserts the island surface exposes openOgreDb()
+  index.ts               island surface — the data-access methods
+  db.ts                  typed accessors over the shared steve.db connection
+  db.test.ts             asserts the SQL each accessor issues
+  island.test.ts         asserts the island surface
   types.ts               TypeScript row/insert types per O.G.R.E table
-  migrations/
-    001-ogre-schema.sql  the canonical O.G.R.E schema, ported 1:1
   README.md              this file
 ```
 
-## What's built (phase 4)
+## What's built (phases 4-5)
 
-- **`better-sqlite3` (^13.0.1)** added as a runtime dep. `@types/better-sqlite3`
-  (^7.6.13) added as a dev dep for type info.
-- **Schema** — ported 1:1 from
-  `O.G.R.E-OllamaGradingRubricEvaluator/ogre-desktop/electron-main/database.ts`
-  with one namespace change: every table gains an `island_id TEXT NOT NULL
-  DEFAULT 'ogre'` column. Migrations are idempotent (`CREATE TABLE IF NOT
-  EXISTS`, `INSERT OR IGNORE`); the migration file can be re-run safely.
-- **DB file location** — `~/.steve/ogre.db`. Override with
-  `openOgreDb(path)`. Tests use `:memory:` or `file:...` URIs.
-- **Typed accessor** — `openOgreDb(path?)` returns a `better-sqlite3
-  Database` with the canonical tables. Singleton by path.
+- **Schema** — ported from
+  `O.G.R.E-OllamaGradingRubricEvaluator/ogre-desktop/electron-main/database.ts`,
+  and it lives in **steve.db**, as migrations 9 and 10 in
+  `src-tauri/src/lib.rs`. Six of the nine O.G.R.E tables were already steve.db
+  tables; migration 9 widened `skills` and `site_profiles` to O.G.R.E's shape and
+  migration 10 adds the three that were missing.
+- **No separate ogre.db.** The original port opened `~/.steve/ogre.db` with
+  `better-sqlite3`. That could never run: `better-sqlite3` and `node:fs` are Node
+  APIs, and this code runs in a WebView. (The mom island hit the same wall and
+  moved its filesystem into Rust.) `better-sqlite3` has been dropped as a
+  dependency.
+- **No `island_id` column.** O.G.R.E namespaced every row with
+  `island_id = 'ogre'`. In the ogre-only tables it was a constant, and in the
+  tables now shared with steve it would have mislabelled steve's own rows.
+  `skills.source = 'rubric'` is what marks a rubric.
+- **Typed accessors** — `db.ts` exposes site-profile, rubric, grading-history and
+  batch-resume reads/writes over the one shared `steve.db` connection.
 - **Type definitions** — `types.ts` exports the row and insert shape for
-  every O.G.R.E table (`SiteProfile`, `Skill`, `GradingSession`,
-  `ResponseEmbedding`, `ProviderConfig`, `OAuthToken`, `SiteCredential`,
-  `BatchSession`, `AppSetting`). The `IslandId` union and `ISLAND_IDS`
-  runtime constant are the namespace contract.
+  every O.G.R.E table.
 
 ## Tables (port 1:1 from O.G.R.E)
 
@@ -79,21 +79,20 @@ These belong to later phases and are **not** built here:
 ```ts
 import { ogreIsland } from '~/integrations/ogre';
 
-// Default path: ~/.steve/ogre.db
-const db = ogreIsland.methods.openOgreDb();
+const profiles = await ogreIsland.methods.listSiteProfiles();
+const rubrics = await ogreIsland.methods.listRubrics();
 
-// Or an explicit path (tests do this)
-const mem = ogreIsland.methods.openOgreDb(':memory:');
+// Resume marker — skip students a previous run already graded and submitted.
+const last = await ogreIsland.methods.getBatchResume(pageUrl);
 ```
 
-The returned `Database` is a vanilla `better-sqlite3` instance. The rest
-of the island (typed wrappers, parsed JSON columns, server logic) lands
-in phases 5 and 6.
+Every method is async: tauri-plugin-sql crosses the WebView/Rust boundary.
+JSON-encoded columns (`selectors`, `url_patterns`, ...) are still strings at this
+layer. Grading server logic lands in phase 5, the UI in phase 6.
 
 ## Test status
 
-- `bunx vitest run` — 502 tests pass, 0 failures (project-wide)
-- `bunx svelte-check` — 0 errors
-- OGRE-specific: 3 test files, 14 tests (`db.test.ts` covers migration +
-  round-trips; `open-db.test.ts` covers the singleton accessor;
-  `island.test.ts` covers the island surface)
+- OGRE-specific: 2 test files (`db.test.ts` asserts the SQL each accessor
+  issues; `island.test.ts` covers the island surface).
+- The schema itself is verified by applying every `lib.rs` migration to a
+  throwaway DB — both the fresh path and a v8-with-rows upgrade.
