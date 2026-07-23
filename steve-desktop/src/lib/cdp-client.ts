@@ -8,10 +8,16 @@ export interface CDPTarget {
 
 type EventCallback = (params: Record<string, unknown>) => void;
 
+// The app's OWN UI window, which must never be mistaken for the page being driven. Matching a
+// hardcoded dev port was a latent bug: the list said 1420/5173 while vite actually serves 5174,
+// so the app UI stayed eligible and could be picked over the embedded tab (silently reading and
+// acting on the app's own DOM). Any loopback origin is the app UI — the embedded browser drives
+// external sites. ponytail: a user browsing a localhost site in the embedded tab is the one
+// case this over-excludes; match on the real dev-server origin if that ever matters.
 export const MAIN_APP_PATTERNS = [
   /^tauri:\/\/localhost/,
   /^https:\/\/tauri\.localhost/,
-  /^http:\/\/localhost:(1420|5173)/,
+  /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?(\/|$)/,
 ];
 
 const SEND_TIMEOUT_MS = 90_000;

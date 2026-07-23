@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { CDPClient } from './cdp-client';
+import { CDPClient, MAIN_APP_PATTERNS } from './cdp-client';
 
 const originalWebSocket = globalThis.WebSocket;
 const originalFetch = globalThis.fetch;
@@ -150,5 +150,29 @@ describe('CDPClient', () => {
     });
 
     expect(handler).toHaveBeenCalledWith({ type: 'log', args: [{ value: 'hello' }] });
+  });
+});
+
+describe('MAIN_APP_PATTERNS — never attach to the app UI', () => {
+  // Regression: the list hardcoded dev ports 1420/5173 while vite serves 5174, so the app's own
+  // window stayed eligible and CDP could attach to it instead of the embedded page — silently
+  // reading and acting on the wrong DOM.
+  const isAppUi = (url: string) => MAIN_APP_PATTERNS.some((p) => p.test(url));
+
+  test('excludes the app UI on any loopback origin, whatever the dev port', () => {
+    expect(isAppUi('http://localhost:5174/')).toBe(true); // the port the app actually uses
+    expect(isAppUi('http://localhost:1420/')).toBe(true);
+    expect(isAppUi('http://localhost:5173/')).toBe(true);
+    expect(isAppUi('http://127.0.0.1:5174/')).toBe(true);
+    expect(isAppUi('tauri://localhost/index.html')).toBe(true);
+    expect(isAppUi('https://tauri.localhost/')).toBe(true);
+  });
+
+  test('does not exclude the external pages the embedded browser drives', () => {
+    expect(isAppUi('https://quotes.toscrape.com/')).toBe(false);
+    expect(isAppUi('https://www.myopenmath.com/course/course.php?cid=1')).toBe(false);
+    expect(isAppUi('https://mail.google.com/')).toBe(false);
+    // a host that merely starts with "localhost" is a real site, not the app
+    expect(isAppUi('https://localhosting.example.com/')).toBe(false);
   });
 });

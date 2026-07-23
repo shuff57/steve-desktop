@@ -1648,14 +1648,23 @@ async fn discover_cdp_target(port: u16) -> Result<Option<String>, String> {
         .await
         .map_err(|e| format!("Failed to parse CDP targets: {}", e))?;
 
+    // Skip the app's OWN UI window. Matching hardcoded dev ports was a latent bug: the list said
+    // 1420/5173 while vite actually serves 5174, leaving the app UI eligible — so CDP could attach
+    // to the app's own DOM instead of the embedded page. Any loopback origin is the app UI; the
+    // embedded browser drives external sites. Mirrors MAIN_APP_PATTERNS in cdp-client.ts.
+    let is_app_ui = |url: &str| {
+        url.starts_with("tauri://localhost")
+            || url.starts_with("https://tauri.localhost")
+            || ["http://localhost", "https://localhost", "http://127.0.0.1", "https://127.0.0.1"]
+                .iter()
+                .any(|p| {
+                    url.strip_prefix(p)
+                        .is_some_and(|rest| rest.is_empty() || rest.starts_with('/') || rest.starts_with(':'))
+                })
+    };
+
     let target = targets.iter().find(|t| {
-        t.target_type == "page"
-            && t.url != "about:blank"
-            && !t.url.is_empty()
-            && !t.url.starts_with("tauri://localhost")
-            && !t.url.starts_with("https://tauri.localhost")
-            && !t.url.starts_with("http://localhost:1420")
-            && !t.url.starts_with("http://localhost:5173")
+        t.target_type == "page" && t.url != "about:blank" && !t.url.is_empty() && !is_app_ui(&t.url)
     });
 
     Ok(target.and_then(|t| t.ws_debugger_url.clone()))
