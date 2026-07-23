@@ -530,6 +530,9 @@
     window.addEventListener('resize', handleResize);
     window.addEventListener('steve:sidebar-changed', handleSidebarChanged);
     window.addEventListener('steve:agent-active', handleAgentActive as EventListener);
+    // A sidebar entry can ask for a specific panel tab (OGRE grading does). Opening the
+    // drawer is this component's job; ActionPanel handles which tab it lands on.
+    window.addEventListener('steve:action-panel', handleOpenPanel);
 
     steveWindow.__steveControl = {
       listTabs: (): TabInfo[] => tabs.map(t => ({
@@ -576,6 +579,7 @@
       () => { window.removeEventListener('resize', handleResize); },
       () => { window.removeEventListener('steve:sidebar-changed', handleSidebarChanged); },
       () => { window.removeEventListener('steve:agent-active', handleAgentActive as EventListener); },
+      () => { window.removeEventListener('steve:action-panel', handleOpenPanel); },
     ]);
   });
 
@@ -694,6 +698,12 @@
     if (showActionPanel) {
       actionPanelCollapsed = false;
     }
+  }
+
+  /** Open (never close) the drawer expanded, so a nav entry always lands on a visible panel. */
+  function handleOpenPanel() {
+    showActionPanel = true;
+    actionPanelCollapsed = false;
   }
 </script>
 
