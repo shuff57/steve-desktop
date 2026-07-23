@@ -176,7 +176,10 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
       ? [
           `MAPPING MAINTENANCE — the site map above is stored at ${o.mapDocPath}.`,
           'If during the task you find it disagrees with the live site (moved or renamed page, dead',
-          'URL, changed structure), pause the task and self-heal the map in the background:',
+          'URL, changed structure), pause the task and self-heal the map in the background.',
+          'A 404 / "Not Found" / error page after you open a URL the MAP gave you IS drift — the',
+          "mapped URL is stale. Never accept an error page as \"done\": find the page's correct live URL",
+          '(follow on-page navigation from the entry point), confirm it loads, then heal. To self-heal:',
           '1. FIRST print one line exactly `STEVE_MAP_HEAL: <page> — <what drifted>` (this shows the',
           '   user a transparency message in the activity log that a background map heal is running).',
           '2. Then surgically edit that file so it matches what you VERIFIED on the live page (keep its',

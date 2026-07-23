@@ -27,7 +27,15 @@
     const s = Math.max(0, Math.floor((updateRun.now - updateRun.startedAt) / 1000));
     return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
   });
-  const ctxLabel = $derived(updateRun.ctxTokens >= 1000 ? `${(updateRun.ctxTokens / 1000).toFixed(0)}k` : String(updateRun.ctxTokens));
+  // Context meter, matching the Agent panel: "used / max" + fill bar + %.
+  function fmtTokens(n: number): string {
+    if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
+    if (n >= 1000) return `${(n / 1000).toFixed(1)}K`;
+    return String(n);
+  }
+  const ctxPct = $derived(
+    updateRun.ctxMax && updateRun.ctxTokens ? Math.min(100, (updateRun.ctxTokens / updateRun.ctxMax) * 100) : null,
+  );
 
   // Modal dismissal: a full-screen backdrop must always be closable, or it traps every click behind
   // it. Closing the RESULT modal clears it; closing the PROGRESS modal just hides it — the run keeps
@@ -152,7 +160,18 @@
     <div class="panel" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
       <h2>Updating {updateRun.domain}</h2>
       <p class="step">{updateRun.step}</p>
-      <p class="runmeta"><span>⏱ {elapsed()}</span>{#if updateRun.ctxTokens}<span>context used ~{ctxLabel} tokens</span>{/if}</p>
+      <p class="runmeta">
+        <span>⏱ {elapsed()}</span>
+        {#if updateRun.ctxTokens}
+          <span class="ctx" title="Context used this run vs the model's window">
+            Context: {fmtTokens(updateRun.ctxTokens)}{#if updateRun.ctxMax}<span class="ctx-dim"> / {fmtTokens(updateRun.ctxMax)}</span>{/if}
+            {#if ctxPct != null}
+              <span class="ctx-bar"><span class="ctx-fill" style="width:{ctxPct}%"></span></span>
+              {ctxPct < 10 ? ctxPct.toFixed(1) : Math.round(ctxPct)}%
+            {/if}
+          </span>
+        {/if}
+      </p>
       {#if updateRun.progress.length}
         <ul class="prog">
           {#each updateRun.progress.slice(-12) as line}<li>{line}</li>{/each}
@@ -261,6 +280,11 @@
   .chip.warn { background: rgba(217,119,6,.18); color: #d97706; }
   .verdict { font-size: 13px; margin: 0 0 8px; opacity: .85; }
   .runmeta { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; opacity: .7; margin: 0 0 4px; font-variant-numeric: tabular-nums; }
+  /* Context meter — matches the Agent panel's "used / max" bar. */
+  .ctx { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .ctx-dim { opacity: 0.6; }
+  .ctx-bar { display: inline-block; width: 42px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.15); overflow: hidden; flex-shrink: 0; }
+  .ctx-fill { display: block; height: 100%; background: var(--color-primary, #3b82f6); transition: width 0.3s ease; }
   .dlist { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .dlist li { background: rgba(217,119,6,.12); border-left: 3px solid #d97706; border-radius: 4px; padding: 6px 10px; font-size: 12.5px; line-height: 1.45; }
   .clist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
