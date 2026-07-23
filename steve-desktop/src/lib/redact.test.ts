@@ -3,6 +3,7 @@ import {
   Redactor,
   isRedacted,
   assertOutbound,
+  assertNoLeak,
   identifierValuesFromSnapshot,
 } from './redact';
 import type { SnapshotResult } from './dom-snapshot-types';
@@ -123,5 +124,47 @@ describe('identifierValuesFromSnapshot — structured field-swap source', () => 
     expect(payload.text).not.toContain('Jane Doe');
     expect(payload.text).not.toContain('4471');
     expect(r.rehydrate(payload.text)).toContain('Jane Doe');
+  });
+});
+
+describe('pattern-detected PII (identifiers we never enumerated)', () => {
+  it('tokenizes an email the dictionary never knew about, reversibly', () => {
+    const r = new Redactor(['Jane Doe']);
+    const out = r.redact('Contact parent at sam.oconnor+school@example.co.uk about Jane Doe');
+    expect(out.text).not.toContain('sam.oconnor+school@example.co.uk');
+    expect(out.text).toContain('⟦S1⟧'); // dictionary name still tokenized
+    expect(out.text).toMatch(/⟦P1⟧/); // pattern token, distinct series
+    expect(r.rehydrate(out.text)).toContain('sam.oconnor+school@example.co.uk');
+  });
+
+  it('gives the same value a stable token across calls', () => {
+    const r = new Redactor([]);
+    const a = r.redact('a@b.com');
+    const b = r.redact('again a@b.com');
+    expect(a.text).toBe('⟦P1⟧');
+    expect(b.text).toBe('again ⟦P1⟧');
+  });
+
+  it('catches phone numbers and SSNs but not bare digit runs by default', () => {
+    const r = new Redactor([]);
+    expect(r.redact('call 555-867-5309').text).not.toContain('555-867-5309');
+    expect(r.redact('ssn 123-45-6789').text).not.toContain('123-45-6789');
+    // a course id in a URL must survive — redacting it would break navigation
+    expect(r.redact('https://x.edu/course.php?cid=316341').text).toContain('cid=316341');
+  });
+
+  it('numericIds opt-in tokenizes a bare student id but still spares URL ids', () => {
+    const r = new Redactor([], { numericIds: true });
+    expect(r.redact('Student 4471902 scored 88').text).not.toContain('4471902');
+    expect(r.redact('https://x.edu/course.php?cid=316341').text).toContain('cid=316341');
+  });
+
+  it('leaks() refuses raw pattern PII, so the outbound gate catches it', () => {
+    const r = new Redactor(['Jane Doe']);
+    expect(r.leaks('mail me at a@b.com')).toBe(true);
+    expect(r.leaks('nothing identifying here')).toBe(false);
+    expect(() => assertNoLeak('parent: a@b.com', r)).toThrow(/still contains a known identifier|outbound payload/i);
+    // a fully redacted payload passes
+    expect(() => assertNoLeak(r.redact('parent: a@b.com').text, r)).not.toThrow();
   });
 });

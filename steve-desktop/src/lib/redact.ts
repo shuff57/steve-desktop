@@ -23,6 +23,32 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// ── Pattern-detected identifiers ───────────────────────────────────────────
+// The dictionary only covers identifiers we enumerated up front. A roster we never loaded, a
+// parent's email in a comment, a phone number in a note — those would otherwise reach the model
+// in the clear. These shapes are matched structurally, tokenized reversibly (⟦P n⟧, distinct from
+// dictionary ⟦S n⟧ so an audit can tell them apart), and refused by leaks() if they ever appear raw.
+//
+// Deliberately conservative: every pattern here needs an unambiguous anchor (@, or separator-
+// delimited digit groups). Bare digit runs are NOT matched by default — see numericIds.
+const PII_PATTERNS: readonly RegExp[] = [
+  /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, // email
+  /\b\d{3}-\d{2}-\d{4}\b/g, // US SSN
+  /(?:\+?1[\s.-])?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}(?!\d)/g, // phone, separators required
+];
+
+// Bare 6–10 digit runs (a student ID in a table cell). Off by default: page structure is full of
+// non-PII numbers — `cid=316341` in a MyOpenMath URL, element coordinates — and tokenizing those
+// breaks navigation and selectors. The negative lookarounds skip query-param and path positions
+// so that, even when enabled, a URL id is left alone.
+const NUMERIC_ID_PATTERN = /(?<![=/\w-])\d{6,10}(?![\w-])/g;
+
+export interface RedactorOptions {
+  /** Also tokenize bare 6–10 digit runs as identifiers. Enable only for text you know is page
+   *  DATA (a cell value), never for URLs or selectors. */
+  numericIds?: boolean;
+}
+
 export class Redactor {
   // token -> original value (the only place real PII lives during a task)
   private readonly tokenToValue = new Map<string, string>();
@@ -30,9 +56,14 @@ export class Redactor {
   // secrets sorted longest-first so "Jane Doe" wins over "Doe"
   private readonly secrets: string[];
 
-  constructor(secrets: string[]) {
+  private readonly numericIds: boolean;
+  /** Counter for pattern-detected tokens (⟦P n⟧), separate from the dictionary's ⟦S n⟧. */
+  private patternCount = 0;
+
+  constructor(secrets: string[], options: RedactorOptions = {}) {
     const unique = Array.from(new Set(secrets.map((s) => s.trim()).filter(Boolean)));
     this.secrets = unique.sort((a, b) => b.length - a.length);
+    this.numericIds = options.numericIds ?? false;
     let n = 0;
     for (const secret of this.secrets) {
       n += 1;
@@ -42,7 +73,26 @@ export class Redactor {
     }
   }
 
-  /** Replace every occurrence of each known identifier with its stable token. */
+  /** Active PII shapes for this instance. */
+  private patterns(): RegExp[] {
+    return this.numericIds ? [...PII_PATTERNS, NUMERIC_ID_PATTERN] : [...PII_PATTERNS];
+  }
+
+  /** Stable token for a pattern-detected value — the same email always maps to the same token,
+   *  so the model sees consistent identity and rehydrate() can put it back. */
+  private tokenForPattern(value: string): string {
+    const key = value.toLowerCase();
+    const existing = this.valueToToken.get(key);
+    if (existing) return existing;
+    this.patternCount += 1;
+    const token = `⟦P${this.patternCount}⟧`;
+    this.tokenToValue.set(token, value);
+    this.valueToToken.set(key, token);
+    return token;
+  }
+
+  /** Replace every occurrence of each known identifier with its stable token, then tokenize any
+   *  identifier-shaped text the dictionary didn't know about. */
   redact(text: string): RedactedPayload {
     let out = text;
     let used = 0;
@@ -57,6 +107,14 @@ export class Redactor {
         used += 1;
       }
     }
+    // Pattern pass runs on the dictionary's output, so an enumerated identifier keeps its ⟦S n⟧
+    // token and is never double-tokenized.
+    for (const pattern of this.patterns()) {
+      out = out.replace(new RegExp(pattern.source, pattern.flags), (match) => {
+        used += 1;
+        return this.tokenForPattern(match);
+      });
+    }
     return Object.freeze({ [BRAND]: true, text: out, tokenCount: used }) as RedactedPayload;
   }
 
@@ -69,10 +127,13 @@ export class Redactor {
     return out;
   }
 
-  /** True if the text still contains any known identifier in the clear. */
+  /** True if the text still contains an identifier in the clear — either an enumerated one or
+   *  anything matching a PII shape. The pattern half is what stops an identifier we never
+   *  enumerated from reaching a model: assertOutbound/assertNoLeak refuse on it. */
   leaks(text: string): boolean {
     const lower = text.toLowerCase();
-    return this.secrets.some((s) => lower.includes(s.toLowerCase()));
+    if (this.secrets.some((s) => lower.includes(s.toLowerCase()))) return true;
+    return this.patterns().some((p) => new RegExp(p.source, p.flags).test(text));
   }
 
   get map(): Record<string, string> {
