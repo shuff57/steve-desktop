@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "questions": [
+    { "slug": "q1-test", "status": "completed" },
+    { "slug": "q2-pending", "status": "pending" }
+  ]
+}
