@@ -160,10 +160,15 @@
     </aside>
 
     <main class="content">
+      <!-- Browser stays MOUNTED across navigation: unmounting it fires onDestroy, which tears
+           down every embedded webview and kills any running agent task. Hidden (not destroyed)
+           when another page is showing; it hides its own native webview via the `active` prop. -->
+      <div class="browser-holder" class:hidden={currentPage !== 'browser'}>
+        <Browser active={currentPage === 'browser'} />
+      </div>
+
       {#if currentPage === 'dashboard'}
         <Dashboard onnavigate={navigate} />
-      {:else if currentPage === 'browser'}
-        <Browser />
       {:else if currentPage === 'skills'}
         <Skills />
       {:else if currentPage === 'artifacts'}
@@ -172,7 +177,7 @@
         <SiteProfiles />
       {:else if currentPage === 'settings'}
         <Settings />
-      {:else}
+      {:else if currentPage !== 'browser'}
         <!-- Placeholders for other pages for now -->
         <div style="padding: 2rem; color: var(--text-primary);">
           <h2>{currentPage}</h2>
@@ -382,5 +387,15 @@
     flex: 1;
     overflow-y: auto;
     background-color: var(--bg-primary);
+  }
+
+  /* display:contents makes the holder transparent to layout so Browser lays out exactly as a
+     direct child of .content; hidden removes the whole subtree (Browser's own effect hides the
+     native webview separately). */
+  .browser-holder {
+    display: contents;
+  }
+  .browser-holder.hidden {
+    display: none;
   }
 </style>

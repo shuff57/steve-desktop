@@ -55,6 +55,12 @@
   }
   const steveWindow = window as Window & { __steveControl?: SteveControl };
 
+  // The page stays MOUNTED when the user navigates away (App keeps <Browser> alive so embedded
+  // webviews + any running agent task survive) — this flips false while another page is showing.
+  // Native webviews float above the DOM, so hiding the holder in CSS isn't enough; we hide/show
+  // the active tab's webview explicitly on the toggle.
+  let { active = true }: { active?: boolean } = $props();
+
   let urlInput = $state('');
   // The tab an agent is currently driving — highlights its tab and keeps the connection overlay
   // (border ring + arrow cursor) re-injected across the agent's navigations.
@@ -363,6 +369,21 @@
     actionPanelCollapsed;
     actionPanelWidth;
     if (browserCreated) {
+      tick().then(() => updateWebviewBounds());
+    }
+  });
+
+  // Page kept mounted across navigation: hide the native webview when another page is showing
+  // (it would otherwise float over that page), re-show + re-bound when we return. The webview and
+  // any in-flight agent run are never destroyed — that's the whole point of staying mounted.
+  $effect(() => {
+    const id = activeTabId;
+    if (!active) {
+      if (id) hideWebview(id).catch(() => {});
+      return;
+    }
+    if (id && browserCreated) {
+      showWebview(id).catch(() => {});
       tick().then(() => updateWebviewBounds());
     }
   });
