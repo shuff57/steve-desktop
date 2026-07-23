@@ -3,6 +3,7 @@ import type { SnapshotResult } from './dom-snapshot-types';
 import type { ModelTransport } from './model-gate';
 import { replayWorkflow, modelRelocator, type PageDriver, type ReplaySummary } from './replay';
 import { captureMergedTree } from './merged-tree';
+import { observe } from './observation';
 import { cdp } from './cdp-client';
 import { evalScript as cdpEval, pwClick, pwType, isConnected } from './cdp-actions';
 import { selectorToElementExpr } from './selector-resolve';
@@ -45,9 +46,12 @@ export class BrowserPageDriver implements PageDriver {
     return res.success && res.data === true;
   }
 
+  /** Observe through the AX tree: captureMergedTree already merges role/name onto every node, so
+   *  pruning to interactive+visible cuts the payload the ranker and the model see. Falls back to
+   *  the full capture on pages whose a11y is too poor to prune through (observe() decides). */
   async snapshot(): Promise<SnapshotResult> {
     const { snapshot } = await captureMergedTree(cdp);
-    return snapshot;
+    return observe(snapshot).snapshot;
   }
 
   async act(step: WorkflowStep, selector: string): Promise<boolean> {

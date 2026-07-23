@@ -1,3 +1,4 @@
+/** @vitest-environment jsdom */
 import { describe, it, expect } from 'vitest';
 import { foldStep, buildWorkflow, RECORDER_SCRIPT } from './teach-recorder';
 import { buildTeachPolishPrompt, parseTeachPolish, composeTeachSkill } from './teach-polish';
@@ -75,5 +76,34 @@ describe('composeTeachSkill', () => {
     const md = composeTeachSkill(wf, { name: 'Enter grade', description: 'd', summary: '1. Click submit' }, undefined);
     expect(md).toContain('1. Click submit');
     expect(skillToWorkflow(md).steps).toHaveLength(1);
+  });
+});
+
+describe('recorder captures a heal fingerprint (stage 3 capture side)', () => {
+  it('emits the weak signals the ranker scores against', () => {
+    // Exercise the injected script in a DOM so the captured shape is real, not asserted by eye.
+    document.body.innerHTML = `
+      <div><span>Student name</span>
+        <button id="save" class="btn primary" data-testid="save-btn" aria-label="Save Grade">Save Grade</button>
+      </div>`;
+    const sent: string[] = [];
+    (window as unknown as Record<string, unknown>).__steveTeach = (s: string) => sent.push(s);
+    delete (window as unknown as Record<string, unknown>).__steveTeachOn;
+    // eslint-disable-next-line no-eval
+    (0, eval)(RECORDER_SCRIPT);
+
+    document.getElementById('save')!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+    expect(sent).toHaveLength(1);
+    const step = JSON.parse(sent[0]);
+    expect(step.fingerprint).toBeTruthy();
+    expect(step.fingerprint.tag).toBe('button');
+    expect(step.fingerprint.role).toBe('button');
+    expect(step.fingerprint.name).toBe('Save Grade');
+    expect(step.fingerprint.id).toBe('save');
+    expect(step.fingerprint.classes).toEqual(['btn', 'primary']);
+    // the visible label sitting before the control — survives the control's own rename
+    expect(step.fingerprint.neighborText).toBe('Student name');
+    expect(typeof step.fingerprint.siblingIndex).toBe('number');
   });
 });

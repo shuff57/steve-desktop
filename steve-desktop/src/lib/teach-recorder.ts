@@ -57,12 +57,40 @@ export const RECORDER_SCRIPT = `(function(){
     for(var i=0;i<out.length;i++){if(out[i]&&!seen[out[i]]){seen[out[i]]=1;res.push(out[i]);}}
     return res;
   }
+  // Weak signals for the heal ranker (fingerprint.ts). Captured here because this is the only
+  // moment we KNOW which element the user meant; on a later drift the ranker scores every
+  // candidate against these instead of stopping at the first selector that still matches.
+  // Never throws into the page — a missing fingerprint just means the old heal path is used.
+  function fp(el){
+    try{
+      var sibs=el.parentNode?Array.prototype.slice.call(el.parentNode.children):[];
+      var idx=sibs.indexOf(el);
+      var prev='';
+      for(var i=idx-1;i>=0;i--){var tx=(sibs[i].textContent||'').replace(/\\s+/g,' ').trim();if(tx){prev=tx.slice(0,80);break;}}
+      var o={tag:(el.tagName||'').toLowerCase(),siblingIndex:idx<0?0:idx};
+      var role=roleOf(el);if(role)o.role=role;
+      var nm=label(el);if(nm)o.name=nm;
+      var tx2=(el.textContent||'').replace(/\\s+/g,' ').trim().slice(0,80);if(tx2)o.text=tx2;
+      if(el.id)o.id=el.id;
+      var hf=el.getAttribute&&el.getAttribute('href');if(hf)o.href=hf;
+      if(prev)o.neighborText=prev;
+      var cn=el.className;
+      if(cn&&cn.baseVal!==undefined)cn=cn.baseVal;
+      var cls=String(cn||'').trim().split(/\\s+/);
+      var keep=[];for(var j=0;j<cls.length&&keep.length<6;j++){if(cls[j])keep.push(cls[j]);}
+      if(keep.length)o.classes=keep;
+      var r=el.getBoundingClientRect&&el.getBoundingClientRect();
+      if(r&&r.width&&r.height){o.cx=Math.round(r.left+r.width/2);o.cy=Math.round(r.top+r.height/2);o.w=Math.round(r.width);o.h=Math.round(r.height);}
+      return o;
+    }catch(e){return null;}
+  }
   function send(action,el,value){
     try{
       var a=anchors(el);
       if(!a.length)return;
       var step={action:action,selector:a[0],candidates:a.slice(1),
         description:label(el)||(el.getAttribute&&el.getAttribute('placeholder'))||el.tagName.toLowerCase()};
+      var f=fp(el);if(f)step.fingerprint=f;
       if(value!=null)step.value=value;
       if(window.__steveTeach)window.__steveTeach(JSON.stringify(step));
     }catch(e){}
