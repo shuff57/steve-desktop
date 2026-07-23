@@ -3,7 +3,7 @@
   import { invoke } from '@tauri-apps/api/core';
   import { SITE_PROFILES_DIR } from '../lib/constants';
   import { domainToPath } from '../lib/utils/index';
-  import { listProfiles, loadMappingDoc, healMappingDoc } from '../lib/site-profiles';
+  import { listProfiles, loadMappingDoc, healMappingDoc, clearDirtyPages } from '../lib/site-profiles';
   import { renderSkillPreview } from '../lib/skill-parser';
   import { summarizeVerifyReport } from '../lib/verify-summary';
   import { updateRun, startUpdate } from '../lib/update-run.svelte';
@@ -82,6 +82,7 @@
     applying = true;
     try {
       await healMappingDoc(updateRun.result.domain, updateRun.result.healedDoc); // keeps _sitemap-ai.prev.md → reversible
+      await clearDirtyPages(updateRun.result.domain).catch(() => {}); // drift applied — dirty backlog spent
       updateRun.result = null;
       await refresh();
     } catch (e) {

@@ -147,7 +147,10 @@ export async function startUpdate(domain: string): Promise<void> {
     if (!report) throw new Error('The agent returned an empty verification report.');
     const changed = !!healedDoc && healedDoc.trim() !== doc.trim();
     updateRun.result = { domain, report, healedDoc: healedDoc ?? '', changed };
-    await clearDirtyPages(domain).catch(() => {}); // re-map done — the dirty backlog is spent
+    // Clear the dirty backlog ONLY when there's nothing to apply — verify confirmed the doc is
+    // already accurate. When there IS a healed doc, the drift is still live until the user clicks
+    // Apply, so the page stays dirty until then (cleared in applyUpdate).
+    if (!changed) await clearDirtyPages(domain).catch(() => {});
     updateRun.dismissed = false; // surface the result even if the progress modal was dismissed
     updateRun.step = changed ? 'Re-map done — review the changes, then Apply.' : 'Re-map done — no changes needed.';
   } catch (e) {
