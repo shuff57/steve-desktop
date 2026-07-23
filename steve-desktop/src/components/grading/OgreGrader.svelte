@@ -18,6 +18,7 @@
   import { ogreIsland } from '../../integrations/ogre';
   import { describeLeniency, restoreCategoryWeights, rewriteRubric } from '../../integrations/ogre/leniency';
   import { detectOutliers } from '../../integrations/ogre/outliers';
+  import { generateScoringAnchors } from '../../integrations/ogre/batch';
   import { evalScript, isConnected } from '../../lib/cdp-actions';
   import type { ExtractedStudent } from '../../integrations/ogre/load-students';
   import type { BatchResult } from '../../integrations/ogre/batch';
@@ -30,6 +31,20 @@
   let rubricId = $state<string | null>(null);
   let leniency = $state(50);
   let chunkSize = $state(20);
+  let instructions = $state('');
+
+  // Only these students get graded when set. O.G.R.E's "single student mode" — the escape
+  // hatch for re-grading one person after a dispute without touching the rest of the class.
+  let onlyStudent = $state('');
+
+  let reviewing = $state(false);
+  let reviewMsg = $state<string | null>(null);
+
+  // Stop between chunks, not mid-call: a chunk IS one model call, so there is nothing to
+  // interrupt inside one. O.G.R.E's pause/resume guarded its per-student write-back loop;
+  // with nothing written back, the only thing worth interrupting is spending more calls.
+  let stopRequested = $state(false);
+  let stopped = $state(false);
 
   let students = $state<ExtractedStudent[]>([]);
   let includeGraded = $state(false);
@@ -62,16 +77,39 @@
    */
   const effectiveRubric = $derived.by((): Rubric | null => {
     if (!parsedRubric) return null;
-    if (leniency === 50) return parsedRubric;
-    const items = (parsedRubric.checklistItems ?? []).map((c) => ({
+    const base = instructions.trim()
+      ? { ...parsedRubric, customInstructions: instructions.trim() }
+      : parsedRubric;
+    if (leniency === 50) return base;
+    const items = (base.checklistItems ?? []).map((c) => ({
       ...c,
       items: (c.items ?? []).map((line) => restoreCategoryWeights(rewriteRubric(line, leniency), line)),
     }));
-    return { ...parsedRubric, checklistItems: items };
+    return { ...base, checklistItems: items };
+  });
+
+  /**
+   * The calibration references the model is told to score against. Shown because they are
+   * derived from maxScore rather than written by anyone — seeing "Excellent = 19/20" is
+   * how you catch a rubric whose maxScore is wrong before a whole class is graded to it.
+   */
+  const anchors = $derived(effectiveRubric ? generateScoringAnchors(effectiveRubric) : null);
+
+  /** Roster the run will actually cover — narrowed by single-student mode. */
+  const targetStudents = $derived.by(() => {
+    const q = onlyStudent.trim().toLowerCase();
+    if (!q) return students;
+    return students.filter((s) => (s.name ?? '').toLowerCase().includes(q));
   });
 
   const outliers = $derived(results.length ? detectOutliers(results) : null);
-  const nameFor = (i: number) => students[i]?.name ?? `Student ${i}`;
+  /**
+   * Results index into the roster that was graded, not the roster that was loaded — those
+   * differ under single-student mode, and using the wrong one puts a name on the wrong
+   * grade. Captured at grade time so later edits to the filter cannot retarget it.
+   */
+  let gradedRoster = $state<ExtractedStudent[]>([]);
+  const nameFor = (i: number) => gradedRoster[i]?.name ?? `Student ${i}`;
 
   /** One evaluator for both reads — throws rather than returning a silent undefined. */
   async function readPage(expression: string): Promise<unknown> {
@@ -122,17 +160,29 @@
   }
 
   async function runGrading() {
-    if (!effectiveRubric || students.length === 0) return;
+    if (!effectiveRubric || targetStudents.length === 0) return;
     grading = true;
     gradeError = null;
+    reviewMsg = null;
     results = [];
     progress = null;
+    stopRequested = false;
+    stopped = false;
+    const roster = targetStudents;
+    gradedRoster = roster;
     try {
-      const toGrade = ogreIsland.methods.toGradingStudents(students);
+      const toGrade = ogreIsland.methods.toGradingStudents(roster);
       const gen = ogreIsland.methods.gradeBatch(toGrade, effectiveRubric, { id: provider, model }, { chunkSize });
       for await (const ev of gen) {
         if (ev.type === 'chunk-start') progress = { chunk: ev.chunkIndex + 1, of: ev.chunkCount };
+        // Keep each chunk as it lands. A later chunk that fails — or a stop — then leaves
+        // the finished work on screen instead of discarding grades already paid for.
+        if (ev.type === 'chunk-done') results = [...results, ...ev.results];
         if (ev.type === 'done') results = ev.results;
+        if (stopRequested) {
+          stopped = true;
+          break; // breaking a for-await calls gen.return(), so no further chunk runs
+        }
       }
       // Record the run only once it actually produced grades.
       if (results.length) {
@@ -146,6 +196,7 @@
           max_score: Math.max(...scores),
           max_possible_score: Number(effectiveRubric.maxScore ?? 10),
           page_url: pageUrl || null,
+          custom_instructions: instructions.trim() || null,
         });
       }
     } catch (e) {
@@ -155,6 +206,36 @@
     } finally {
       grading = false;
       progress = null;
+    }
+  }
+
+  /**
+   * Send the flagged students back for a second look. Detection alone only says the scores
+   * look wrong; this is the pass that re-reads them against similarly-scored peers.
+   *
+   * Explicitly a button, not an automatic step: it costs another model call and it changes
+   * grades, so it should be a decision rather than something that happens on its own.
+   */
+  async function runReview() {
+    if (!effectiveRubric || !results.length) return;
+    reviewing = true;
+    reviewMsg = null;
+    gradeError = null;
+    try {
+      const out = await ogreIsland.methods.reviewOutliers(
+        ogreIsland.methods.toGradingStudents(gradedRoster),
+        results,
+        effectiveRubric,
+        { id: provider, model },
+      );
+      results = out.results;
+      reviewMsg = out.changed.length
+        ? `Reviewed ${out.reviewed}, revised ${out.changed.length}: ${out.changed.map(nameFor).join(', ')}.`
+        : `Reviewed ${out.reviewed}; every original score held.`;
+    } catch (e) {
+      gradeError = e instanceof Error ? e.message : String(e);
+    } finally {
+      reviewing = false;
     }
   }
 
@@ -178,9 +259,37 @@
     <input type="range" min="0" max="100" step="5" bind:value={leniency} disabled={grading} />
   </div>
 
+  {#if anchors}
+    <details class="anchors">
+      <summary>Scoring anchors</summary>
+      <p class="note">Derived from the rubric's max score ({effectiveRubric?.maxScore ?? 10}). If these read wrong, the max score is wrong.</p>
+      <ul>
+        <li><span>Excellent</span><b>{anchors.excellent.score}</b></li>
+        <li><span>Adequate</span><b>{anchors.adequate.score}</b></li>
+        <li><span>Below average</span><b>{anchors.belowAverage.score}</b></li>
+        <li><span>Minimal</span><b>{anchors.minimal.score}</b></li>
+      </ul>
+    </details>
+  {/if}
+
+  <div class="field">
+    <span class="lbl">Extra instructions</span>
+    <textarea
+      rows="2"
+      placeholder="e.g. accept informal notation for the fence calculation"
+      bind:value={instructions}
+      disabled={grading}
+    ></textarea>
+  </div>
+
   <div class="field">
     <span class="lbl">Students per context</span>
     <input class="num" type="number" min="1" max="50" bind:value={chunkSize} disabled={grading} />
+  </div>
+
+  <div class="field">
+    <span class="lbl">Only this student <em>optional</em></span>
+    <input type="text" placeholder="name fragment — blank grades everyone" bind:value={onlyStudent} disabled={grading} />
   </div>
 
   <label class="check">
@@ -192,16 +301,47 @@
     <button onclick={loadFromPage} disabled={loadingStudents || grading}>
       {loadingStudents ? 'Reading…' : 'Load students'}
     </button>
-    <button class="primary" onclick={runGrading} disabled={grading || !students.length || !effectiveRubric}>
-      {grading ? (progress ? `Chunk ${progress.chunk}/${progress.of}` : 'Grading…') : `Grade ${students.length || ''}`}
-    </button>
+    {#if grading}
+      <button class="primary" onclick={() => (stopRequested = true)} disabled={stopRequested}>
+        {stopRequested ? 'Stopping…' : `Stop${progress ? ` (${progress.chunk}/${progress.of})` : ''}`}
+      </button>
+    {:else}
+      <button class="primary" onclick={runGrading} disabled={!targetStudents.length || !effectiveRubric}>
+        Grade {targetStudents.length || ''}
+      </button>
+    {/if}
   </div>
+  {#if grading}
+    <p class="note">
+      {progress ? `Chunk ${progress.chunk} of ${progress.of}` : 'Starting…'} — stopping finishes the
+      current chunk and keeps everything graded so far.
+    </p>
+  {/if}
+  {#if stopped}
+    <p class="note warn">Stopped early. {results.length} of {gradedRoster.length} students graded.</p>
+  {/if}
+
+  {#if onlyStudent.trim() && students.length > 0}
+    <p class="note" class:warn={targetStudents.length === 0}>
+      {targetStudents.length === 0
+        ? `No loaded student matches “${onlyStudent.trim()}”.`
+        : `Grading ${targetStudents.length} of ${students.length}: ${targetStudents.map((s) => s.name).join(', ')}`}
+    </p>
+  {/if}
 
   {#if loadError}<div class="err"><strong>Could not load students.</strong><p>{loadError}</p></div>{/if}
-  {#if gradeError}<div class="err"><strong>Grading failed — no grades were produced.</strong><p>{gradeError}</p></div>{/if}
+  {#if gradeError}
+    <div class="err">
+      <strong>Grading failed.</strong>
+      <p>{gradeError}</p>
+      {#if results.length}
+        <p>The {results.length} student{results.length === 1 ? '' : 's'} graded before the failure are kept below.</p>
+      {/if}
+    </div>
+  {/if}
 
   {#if students.length > 0 && results.length === 0 && !grading}
-    <p class="note">{students.length} student{students.length === 1 ? '' : 's'} ready.</p>
+    <p class="note">{students.length} student{students.length === 1 ? '' : 's'} loaded.</p>
   {/if}
 
   {#if results.length > 0 && outliers}
@@ -210,6 +350,12 @@
       <span>σ <strong>{outliers.stdDev}</strong></span>
       <span class:flag={outliers.outliers.length > 0}><strong>{outliers.outliers.length}</strong> outlier{outliers.outliers.length === 1 ? '' : 's'}</span>
     </div>
+    {#if outliers.outliers.length > 0}
+      <button onclick={runReview} disabled={reviewing || grading}>
+        {reviewing ? 'Re-reading…' : `Review ${outliers.outliers.length} outlier${outliers.outliers.length === 1 ? '' : 's'}`}
+      </button>
+    {/if}
+    {#if reviewMsg}<p class="note">{reviewMsg}</p>{/if}
   {/if}
 
   {#each results as r (r.studentIndex)}
@@ -235,8 +381,16 @@
   .lbl { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary, #aaa); }
   .lbl em { font-style: normal; font-weight: 400; color: var(--text-muted, #888); }
   .lbl em.changed { color: var(--color-primary, #4a9eff); font-weight: 600; }
-  select, input[type='number'] { padding: 0.3rem 0.4rem; font: inherit; font-size: 0.85rem; }
+  select, input[type='number'], input[type='text'], textarea {
+    padding: 0.3rem 0.4rem; font: inherit; font-size: 0.85rem; width: 100%; box-sizing: border-box;
+  }
+  textarea { resize: vertical; }
   .num { width: 5rem; }
+  .anchors { font-size: 0.8rem; }
+  .anchors summary { cursor: pointer; font-weight: 600; color: var(--text-secondary, #aaa); }
+  .anchors ul { list-style: none; margin: 0.3rem 0 0; padding: 0; }
+  .anchors li { display: flex; justify-content: space-between; padding: 0.1rem 0; }
+  .note.warn { color: #e67e22; }
   input[type='range'] { width: 100%; }
   .check { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; }
   button { font: inherit; font-size: 0.85rem; padding: 0.35rem 0.7rem; border-radius: 6px; cursor: pointer; }

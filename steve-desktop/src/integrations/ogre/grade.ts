@@ -23,10 +23,18 @@ import {
   generateScoringAnchors,
   mergeResults,
   parseBatchResponse,
+  PARSE_FAILURE_FEEDBACK,
   type BatchResult,
   type BatchStudent,
   type BridgeResponse,
 } from './batch';
+import {
+  applyReview,
+  buildOutlierReviewPrompt,
+  outlierStudentsFrom,
+  parseOutlierReview,
+} from './outlier-review';
+import { detectOutliers } from './outliers';
 
 export interface Student {
   name: string;
@@ -216,4 +224,71 @@ export async function* gradeBatch(
   const merged = mergeResults(collected);
   yield { type: 'done', results: merged };
   return merged;
+}
+
+export interface ReviewOutcome {
+  results: BatchResult[];
+  /** Roster indices whose score actually moved. */
+  changed: number[];
+  /** How many students were sent back for review. */
+  reviewed: number;
+}
+
+/**
+ * Re-grade the students `detectOutliers` flagged, then overlay the verdicts.
+ *
+ * Runs as one model context over all the outliers together — reviewing them separately
+ * would lose exactly the cross-student comparison that makes the pass worth doing.
+ *
+ * Redaction is rebuilt from scratch here rather than reused from `gradeBatch`. The review
+ * prompt carries peer excerpts, so it can contain names from students who are not
+ * themselves outliers; the Redactor is therefore given every student in the batch, not
+ * just the flagged ones.
+ *
+ * Returns the results unchanged when nothing was flagged, or when the model returned
+ * nothing parseable — a failed review must never be able to lower a real grade.
+ */
+export async function reviewOutliers(
+  students: Student[],
+  results: BatchResult[],
+  rubric: Rubric,
+  provider: GradeProvider,
+  opts: { run?: ModelRunner } = {},
+): Promise<ReviewOutcome> {
+  const report = detectOutliers(results);
+  if (report.outliers.length === 0) return { results, changed: [], reviewed: 0 };
+
+  const indexed: BatchStudent[] = students.map((s, i) => ({
+    index: i,
+    name: s.name,
+    response: s.responseText,
+    prompt: s.prompt,
+  }));
+  const flagged = outlierStudentsFrom(report, results, indexed);
+  if (flagged.length === 0) return { results, changed: [], reviewed: 0 };
+
+  const run = opts.run ?? cliRunner(provider, gradingTimeoutSecs(flagged.length));
+  const anchors = generateScoringAnchors(rubric);
+  const redactor = new Redactor(students.flatMap(identifiersFor));
+
+  const payload = redactor.redact(
+    buildOutlierReviewPrompt(
+      rubric,
+      flagged,
+      anchors,
+      { mean: report.mean, stdDev: report.stdDev, totalStudents: results.length },
+      results,
+      indexed,
+    ),
+  );
+
+  const reply = await callModel(payload, redactor, run);
+  const reviewed = parseOutlierReview(reply, flagged, rubric);
+
+  const { merged, changed } = applyReview(
+    results,
+    reviewed,
+    (r) => r.feedback === PARSE_FAILURE_FEEDBACK,
+  );
+  return { results: merged, changed, reviewed: flagged.length };
 }

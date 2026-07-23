@@ -254,6 +254,49 @@ describe('gradeBatch', () => {
     expect(done.type === 'done' && done.results[0]!.feedback).toContain('Hi Yuki,');
   });
 
+  // The panel accumulates chunk-done events so a later failure does not discard grades
+  // already paid for. That only works if the successful chunks are yielded BEFORE the
+  // throw — if assertGraded fired before any yield, the UI would show nothing.
+  it('yields the chunks that succeeded before a later one fails', async () => {
+    let call = 0;
+    const run = vi.fn(async () => {
+      if (call++ === 0) {
+        return JSON.stringify([
+          { studentIndex: 0, score: 9, feedback: '<p>Hi [name],</p><p>ok</p>' },
+          { studentIndex: 1, score: 7, feedback: '<p>Hi [name],</p><p>ok</p>' },
+        ]);
+      }
+      return 'the model returned prose, not JSON';
+    });
+
+    const gen = gradeBatch(roster(4), RUBRIC, OLLAMA, { run, chunkSize: 2 });
+    const events: GradingEvent[] = [];
+    await expect(async () => {
+      for await (const e of gen) events.push(e);
+    }).rejects.toThrow(/chunk 1/i);
+
+    const done = events.filter((e) => e.type === 'chunk-done');
+    expect(done).toHaveLength(1);
+    expect(done[0]!.type === 'chunk-done' && done[0]!.results.map((r) => r.score)).toEqual([9, 7]);
+    // ...and no 'done' event, so the caller cannot mistake a partial run for a full one.
+    expect(events.some((e) => e.type === 'done')).toBe(false);
+  });
+
+  // Stopping is `break` in a for-await, which calls gen.return(). Nothing may run after it.
+  it('runs no further chunks once the consumer breaks out', async () => {
+    const { run } = batchRun([[9, 9], [5, 5], [4, 4]]);
+    const gen = gradeBatch(roster(6), RUBRIC, OLLAMA, { run, chunkSize: 2 });
+    const collected: number[] = [];
+    for await (const e of gen) {
+      if (e.type === 'chunk-done') {
+        collected.push(...e.results.map((r) => r.score));
+        break;
+      }
+    }
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(collected).toEqual([9, 9]);
+  });
+
   it('grades an empty roster without calling the model', async () => {
     const { run } = batchRun([]);
     const events = await drain(gradeBatch([], RUBRIC, OLLAMA, { run }));
