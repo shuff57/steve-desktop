@@ -57,8 +57,22 @@ export class BrowserPageDriver implements PageDriver {
         return (await pwClick(selector)).success;
 
       case 'fill':
-      case 'select':
         return (await pwType(selector, step.value ?? '', true)).success;
+
+      // Typing into a <select> is wrong (keystrokes land in whatever is focused); set the option
+      // by value-or-text and fire change. ponytail: native <select> only — a custom dropdown
+      // returns false here and falls through to the heal/skip audit path.
+      case 'select': {
+        const v = JSON.stringify(step.value ?? '');
+        const res = await cdpEval(
+          `(function(){var el=${selectorToElementExpr(selector)};if(!el||!el.options)return false;` +
+            `var m=Array.prototype.filter.call(el.options,function(o){return o.value===${v}||o.text.trim()===${v};})[0];` +
+            `if(!m)return false;el.value=m.value;` +
+            `el.dispatchEvent(new Event('input',{bubbles:true}));` +
+            `el.dispatchEvent(new Event('change',{bubbles:true}));return true;})()`,
+        );
+        return res.success && res.data === true;
+      }
 
       case 'navigate': {
         const tabId = getActiveTabId();

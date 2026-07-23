@@ -1,4 +1,3 @@
-import matter from 'gray-matter';
 import type { Workflow } from './types/site-profile';
 
 // A trained workflow persists as a SKILL.md: human-readable frontmatter + a JSON
@@ -51,7 +50,9 @@ export function skillToWorkflow(markdown: string): Workflow {
   }
   const workflow = parsed as Workflow;
   // prefer the frontmatter name if the body name was stripped
-  const { data } = matter(markdown);
-  if (typeof data.name === 'string' && data.name) workflow.name = data.name;
+  // ponytail: regex over gray-matter — gray-matter needs Node Buffer, which doesn't exist in the
+  // WebView ("Run failed: Buffer is not defined"). We only ever read our own generated frontmatter.
+  const fmName = /^---\r?\n[\s\S]*?\r?\n---/.exec(markdown)?.[0].match(/^name:\s*(.+)$/m)?.[1]?.trim();
+  if (fmName) workflow.name = fmName;
   return workflow;
 }

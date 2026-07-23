@@ -4,6 +4,7 @@
   import AutomateRunner from '../components/grading/AutomateRunner.svelte';
   import SkillRunner from '../components/grading/SkillRunner.svelte';
   import SiteMapper from '../components/grading/SiteMapper.svelte';
+  import TeachMode from '../components/grading/TeachMode.svelte';
   import ProviderSelector from '../components/grading/ProviderSelector.svelte';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
@@ -21,7 +22,7 @@
 
   // One engine selection for the whole panel — shared across the Agent, Discovery, and
   // Skills tabs so switching tabs never changes the AI engine. Passed down as props.
-  let activeMode = $state('agent');  // 'agent' | 'discovery' | 'skills'
+  let activeMode = $state('agent');  // 'agent' | 'discovery' | 'teach' | 'skills'
   let activeProvider = $state('');
   let activeModel = $state('');
 
@@ -200,6 +201,10 @@
       <span class="mode-icon">🔍</span>
       {#if !isCollapsed}<span class="mode-label">Discovery</span>{/if}
     </button>
+    <button class="mode-tab" class:active={activeMode === 'teach'} onclick={() => activeMode = 'teach'}>
+      <span class="mode-icon">🎓</span>
+      {#if !isCollapsed}<span class="mode-label">Teach</span>{/if}
+    </button>
     <button class="mode-tab" class:active={activeMode === 'skills'} onclick={() => activeMode = 'skills'}>
       <span class="mode-icon">▶</span>
       {#if !isCollapsed}<span class="mode-label">Skills</span>{/if}
@@ -218,6 +223,8 @@
         <AutomateRunner provider={activeProvider} model={activeModel} />
       {:else if activeMode === 'skills'}
         <SkillRunner provider={activeProvider} model={activeModel} />
+      {:else if activeMode === 'teach'}
+        <TeachMode {pageUrl} provider={activeProvider} model={activeModel} />
       {:else}
         <SiteMapper {pageUrl} provider={activeProvider} model={activeModel} />
       {/if}
