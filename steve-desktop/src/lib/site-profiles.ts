@@ -65,7 +65,9 @@ export async function listProfiles(): Promise<StoredProfileInfo[]> {
   const paths = await invoke<string[]>('list_files', { path: SITE_PROFILES_DIR, recursive: true });
   const profiles = await Promise.all(
     paths
-      .filter((path) => path.endsWith('.json'))
+      // _-prefixed files (_sitemap.json) are bookkeeping, not page profiles — counting them
+      // made the card say "24 pages" while re-map correctly walked 23.
+      .filter((path) => path.endsWith('.json') && !(path.split('/').pop() ?? '').startsWith('_'))
       .map(async (path) => {
         const contents = await invoke<string>('read_file', { path });
         const parsed: unknown = JSON.parse(contents);
