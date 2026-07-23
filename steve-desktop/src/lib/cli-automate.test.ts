@@ -40,6 +40,15 @@ describe('buildAutomateExecPrompt', () => {
     expect(p).toContain('ONLY these steps');
     expect(p).toContain('not in the approved plan');
   });
+  it('mapDocPath → agent maintains the map: heal verified drift in place, then continue', () => {
+    const pm = buildAutomateExecPrompt({ ...base, mapDocPath: 'C:\\repo\\.agents\\site-profiles\\x\\_sitemap-ai.md' });
+    expect(pm).toContain('MAPPING MAINTENANCE');
+    expect(pm).toContain('_sitemap-ai.md');
+    expect(pm).toContain('## Heal log');
+    expect(pm).toContain('resume the task');
+    expect(p).not.toContain('MAPPING MAINTENANCE'); // absent without a stored doc
+  });
+
   it('keeps the session + same-origin guard', () => {
     expect(p).toContain('Never log out');
     expect(p).toContain('log[\\s_-]?out'); // DENY_LINK source is inlined

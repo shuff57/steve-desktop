@@ -156,7 +156,14 @@ export function describeBrowserCommand(command: string): string {
 export function summarizeCliLine(line: string): string | null {
   let ev: {
     type?: string;
-    message?: { content?: { type?: string; name?: string; text?: string; input?: { command?: string } }[] };
+    message?: {
+      content?: {
+        type?: string;
+        name?: string;
+        text?: string;
+        input?: { command?: string; description?: string; prompt?: string; subagent_type?: string };
+      }[];
+    };
     part?: { text?: string; tool?: string; state?: { input?: { command?: string } } };
     is_error?: boolean;
   };
@@ -170,7 +177,17 @@ export function summarizeCliLine(line: string): string | null {
   if (ev.type === 'assistant' && Array.isArray(ev.message?.content)) {
     for (const c of ev.message.content) {
       if (c.type === 'tool_use') {
-        if (c.name === 'Bash' && c.input?.command) return describeBrowserCommand(c.input.command);
+        // Transparency: a subagent spawn is a bigger event than a tool call — say so, with its
+        // stated purpose, so the user always knows when extra agents are working on their behalf.
+        if (c.name === 'Task' || c.name === 'Agent') {
+          const what = c.input?.description || c.input?.subagent_type || c.input?.prompt?.slice(0, 60) || '';
+          return `⚡ spawned a subagent${what ? `: ${what}` : ''}`;
+        }
+        if (c.name === 'Bash' && c.input?.command) {
+          const cmd = c.input.command;
+          if (/\b(claude|opencode)\b(\.exe)?\s/.test(cmd)) return `⚡ spawned a CLI agent process`;
+          return describeBrowserCommand(cmd);
+        }
         return c.name ? `using ${c.name}` : null;
       }
       if (c.type === 'text' && c.text?.trim()) {

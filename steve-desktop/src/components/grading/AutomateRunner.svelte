@@ -26,7 +26,7 @@
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { buildCliCrawlPrompt, parseCliCrawlOutput } from '../../lib/cli-crawl';
   import { buildAutomatePlanPrompt, buildAutomateExecPrompt, cleanAutomateOutput, planHasMutations, parsePlan, buildEnhancePrompt } from '../../lib/cli-automate';
-  import { loadMappingDoc, saveMappingDoc } from '../../lib/site-profiles';
+  import { loadMappingDoc, saveMappingDoc, getMappingDocPath } from '../../lib/site-profiles';
   import { tabMarker } from '../../lib/tab-control';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
@@ -326,8 +326,9 @@
       const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       phase = 'executing';
       msg = 'Running the task directly — no plan was reviewed.';
+      const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
         'exec',
       );
       result = cleanAutomateOutput(raw);
@@ -356,8 +357,9 @@
       msg = 'Executing the approved plan…';
       const map = domain ? await loadMappingDoc(domain) : null;
       const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
+      const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
         'exec',
       );
       result = cleanAutomateOutput(raw);

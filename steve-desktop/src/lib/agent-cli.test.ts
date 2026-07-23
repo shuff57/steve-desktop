@@ -48,6 +48,13 @@ describe('summarizeCliLine', () => {
     expect(summarizeCliLine('not json')).toBeNull();
     expect(summarizeCliLine('{"type":"assistant","message":{"content":[]}}')).toBeNull();
   });
+  it('surfaces subagent spawns and CLI child processes loudly (transparency)', () => {
+    const task = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Task","input":{"description":"map the gradebook"}}]}}';
+    expect(summarizeCliLine(task)).toBe('⚡ spawned a subagent: map the gradebook');
+    const cli = '{"type":"assistant","message":{"content":[{"type":"tool_use","name":"Bash","input":{"command":"claude -p \\"verify the map\\""}}]}}';
+    expect(summarizeCliLine(cli)).toBe('⚡ spawned a CLI agent process');
+  });
+
   it('describeBrowserCommand maps common CDP calls', () => {
     expect(describeBrowserCommand('Page.captureScreenshot')).toBe('taking a screenshot');
     expect(describeBrowserCommand('el.dispatchMouseEvent click')).toBe('clicking');
