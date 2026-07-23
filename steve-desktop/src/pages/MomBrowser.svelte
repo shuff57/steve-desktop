@@ -3,12 +3,17 @@
    * mom-island browser — three-pane read-only question browser.
    * Left: families. Center: questions. Right: PHP preview + manifest stats.
    * MOM_ROOT is read from a Tauri setting; on first run the user picks a folder.
+   *
+   * Phase 3: "New question" per family opens a modal where the user picks a
+   * template, sees the draft, and pastes it into MyOpenMath via CDP.
    */
   import { onMount } from 'svelte';
   import { getSetting, setSetting } from '../lib/db';
-  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail } from '../integrations/mom';
+  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
+  import MomDraft from './MomDraft.svelte';
 
   const ROOT_SETTING = 'mom_root';
+  const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
 
   let momRoot = $state<string | null>(null);
   let rootInput = $state('');
@@ -21,6 +26,14 @@
   let selectedQuestion = $state<MomQuestionDetail | null>(null);
   let loadingQuestion = $state(false);
   let questionErr = $state<string | null>(null);
+
+  // Phase 3: draft modal state. When `draftingFamily` is set, the modal opens
+  // for that family. draftsDir is the working dir the user has set.
+  let draftingFamily = $state<string | null>(null);
+  let draftsDir = $state<string | null>(null);
+  let draftsDirInput = $state('');
+  let savingDraftsDir = $state(false);
+  const templates = getTemplates();
 
   const currentFamily = $derived<MOMFamily | null>(
     families.find((f) => f.name === selectedFamily) ?? null,
@@ -95,11 +108,49 @@
       momRoot = root;
       await loadIndex();
     }
+    const drafts = await getSetting(DRAFTS_DIR_SETTING).catch(() => null);
+    if (drafts) {
+      draftsDir = drafts;
+      draftsDirInput = drafts;
+    }
   });
 
   // Re-load if the user has manually edited the disk between visits. Not auto-polled.
   function refresh() {
     if (momRoot) loadIndex();
+  }
+
+  async function saveDraftsDir() {
+    if (savingDraftsDir) return;
+    const trimmed = draftsDirInput.trim();
+    if (!trimmed) return;
+    savingDraftsDir = true;
+    err = null;
+    try {
+      await setSetting(DRAFTS_DIR_SETTING, trimmed);
+      draftsDir = trimmed;
+    } catch (e) {
+      err = e instanceof Error ? e.message : String(e);
+    } finally {
+      savingDraftsDir = false;
+    }
+  }
+
+  function openDraftModal(family: string) {
+    draftingFamily = family;
+  }
+
+  function closeDraftModal() {
+    draftingFamily = null;
+  }
+
+  async function handleDraftCreated() {
+    draftingFamily = null;
+    // No re-browse: drafts live outside the source repo.
+  }
+
+  function templateFor(family: string): MomTemplate | null {
+    return findTemplate(family);
   }
 </script>
 
@@ -156,6 +207,13 @@
                 <span class="fam-name">{f.name}</span>
                 <span class="fam-count">{f.count}</span>
               </button>
+              {#if templateFor(f.name)}
+                <button
+                  class="new-q"
+                  title="New question in {f.name}"
+                  onclick={() => openDraftModal(f.name)}
+                >+ New</button>
+              {/if}
             </li>
           {/each}
         </ul>
@@ -204,8 +262,41 @@
         {/if}
       </section>
     </div>
+
+    <footer class="drafts-config">
+      {#if draftsDir}
+        <span class="muted">Drafts dir: <code>{draftsDir}</code></span>
+        <button class="change" onclick={() => { draftsDir = null; draftsDirInput = ''; }}>Change</button>
+      {:else}
+        <form class="drafts-form" onsubmit={(e) => { e.preventDefault(); saveDraftsDir(); }}>
+          <label>
+            Drafts working dir
+            <input
+              type="text"
+              bind:value={draftsDirInput}
+              placeholder="C:\Users\shuff\AppData\Roaming\steve-desktop\mom-drafts"
+              required
+            />
+          </label>
+          <button type="submit" disabled={savingDraftsDir || draftsDirInput.trim().length === 0}>
+            {savingDraftsDir ? 'Saving…' : 'Save'}
+          </button>
+        </form>
+        <p class="muted small">Required to enable "New question" — drafts live outside the source repo.</p>
+      {/if}
+    </footer>
   {/if}
 </div>
+
+{#if draftingFamily && momRoot && draftsDir}
+  <MomDraft
+    family={draftingFamily}
+    momRoot={momRoot}
+    draftsDir={draftsDir}
+    onclose={closeDraftModal}
+    oncreated={handleDraftCreated}
+  />
+{/if}
 
 <style>
   .browser { padding: 24px; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; }
@@ -240,4 +331,20 @@
   .preview pre { flex: 1; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; padding: 12px; border-radius: 6px; background: rgba(0,0,0,.25); margin: 0; white-space: pre; }
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
   .stats.muted { opacity: .5; }
+
+  .families li { display: flex; gap: 4px; align-items: stretch; }
+  .families .fam { flex: 1; min-width: 0; }
+  .new-q { padding: 0 8px; font-size: 11px; border-radius: 6px; border: 1px dashed rgba(128,128,128,.4); background: transparent; color: inherit; cursor: pointer; opacity: .7; }
+  .new-q:hover { opacity: 1; border-color: rgba(59,130,246,.5); color: #3b82f6; }
+
+  .drafts-config { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(128,128,128,.15); display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .drafts-config .muted { font-size: 12px; opacity: .7; }
+  .drafts-config .muted.small { font-size: 11px; }
+  .drafts-config code { font-size: 11px; }
+  .drafts-form { display: flex; gap: 8px; align-items: end; }
+  .drafts-form label { display: flex; flex-direction: column; gap: 4px; flex: 1; font-size: 12px; opacity: .8; }
+  .drafts-form input { padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .drafts-form button { padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; cursor: pointer; font-size: 12px; }
+  .drafts-form button:disabled { opacity: .5; cursor: default; }
+  .drafts-config .change { padding: 4px 10px; font-size: 11px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; cursor: pointer; }
 </style>
