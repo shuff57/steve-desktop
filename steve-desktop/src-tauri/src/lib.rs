@@ -2644,7 +2644,12 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             // separate store (site-profiles.ts) and are untouched by this.
             sql: "ALTER TABLE skills ADD COLUMN source_id TEXT;
 ALTER TABLE skills ADD COLUMN learned_corrections TEXT;
-ALTER TABLE skills ADD COLUMN updated_at TEXT DEFAULT (datetime('now'));
+-- SQLite rejects a non-constant DEFAULT in ADD COLUMN, so `DEFAULT (datetime('now'))` here
+-- aborted the whole migration: it rolled back, source_id never existed, and db.ts (which already
+-- selects it) threw on every read — silently killing the entire Skills panel. Add the column
+-- bare and backfill instead.
+ALTER TABLE skills ADD COLUMN updated_at TEXT;
+UPDATE skills SET updated_at = datetime('now') WHERE updated_at IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_skills_source ON skills(source, source_id) WHERE source_id IS NOT NULL;
 DROP TABLE IF EXISTS site_profiles;
 CREATE TABLE site_profiles (

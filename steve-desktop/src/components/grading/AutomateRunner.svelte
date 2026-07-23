@@ -31,6 +31,8 @@
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
+  import { summarizeRunResult } from '../../lib/result-summary';
+  import { renderSkillPreview } from '../../lib/skill-parser';
 
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
 
@@ -225,9 +227,18 @@
     });
     // Watch the WebView2 debug endpoint: it has wedged under load, and a wedged endpoint means
     // the agent's CDP calls hang. Surface it so a stuck run is diagnosable, not silent.
+    // Timing is stated once and the warning text is derived from it — the message used to
+    // hardcode "~15s" while the watchdog actually waited 8 × 5s, so it under-reported how long
+    // the endpoint had really been quiet. Agent bursts routinely stall it for tens of seconds
+    // and recover, so this deliberately waits well past a burst before saying anything.
+    const WEDGE_INTERVAL_MS = 5000;
+    const WEDGE_FAILURES_TO_TRIP = 8; // → warn only after ~40s of sustained silence
+    const wedgeSecs = Math.round((WEDGE_INTERVAL_MS * WEDGE_FAILURES_TO_TRIP) / 1000);
     const watchdog = createCdpWatchdog({
       port,
-      onWedge: () => { msg = '⚠ Browser debug endpoint has been unresponsive for ~15s — the run may be stuck. It can still recover on its own; restart the app only if it stays frozen.'; },
+      intervalMs: WEDGE_INTERVAL_MS,
+      failuresToTrip: WEDGE_FAILURES_TO_TRIP,
+      onWedge: () => { msg = `⚠ Browser debug endpoint has been unresponsive for ~${wedgeSecs}s — the run may be stuck. It can still recover on its own; restart the app only if it stays frozen.`; },
     });
     watchdog.start();
     // Show the "agent connected" overlay (border ring + arrow cursor) on the driven tab.
@@ -518,12 +529,55 @@
   {/if}
 
   {#if result}
+    {@const rs = summarizeRunResult(result)}
     <div class="panel result-panel">
       <div class="panel-top">
         <span class="result-ic"><CheckCircle2 size={16} strokeWidth={2.2} /></span>
         <span class="panel-title">Done</span>
       </div>
-      <div class="result-body">{result}</div>
+
+      {#if rs.steps.length || rs.verdict}
+        <!-- Lead with the verdict and what CHANGED; the step-by-step markdown is one click away.
+             An unparsed report (no steps, no verdict) falls through to the raw text below. -->
+        {#if rs.verdict}<p class="verdict">{rs.verdict}</p>{/if}
+
+        {#if rs.steps.length}
+          <div class="rchips">
+            <span class="chip ok">✓ {rs.done} done</span>
+            {#if rs.skipped}<span class="chip warn">⚠ {rs.skipped} skipped</span>{/if}
+            {#if rs.failed}<span class="chip bad">✕ {rs.failed} failed</span>{/if}
+          </div>
+        {/if}
+
+        {#if rs.changed.length}
+          <p class="clabel">{rs.noChanges ? 'Nothing was changed' : 'Changed'}</p>
+          <ul class="chlist">
+            {#each rs.changed as c}<li class:none={rs.noChanges}>{c}</li>{/each}
+          </ul>
+        {/if}
+
+        {#if rs.steps.length}
+          <details class="rsteps">
+            <summary>{rs.steps.length} step{rs.steps.length === 1 ? '' : 's'}</summary>
+            <ul class="slist">
+              {#each rs.steps as s}
+                <li class={s.status}><span class="sdot"></span>{s.text}</li>
+              {/each}
+            </ul>
+          </details>
+        {/if}
+
+        <details class="rfull">
+          <summary>Full report</summary>
+          <!-- Same sanitized renderer the verify report uses — agent markdown is never trusted
+               into {@html} unsanitized. -->
+          <div class="md">
+            {#await renderSkillPreview(result) then html}{@html html}{:catch}<pre class="doc">{result}</pre>{/await}
+          </div>
+        </details>
+      {:else}
+        <div class="result-body">{result}</div>
+      {/if}
     </div>
   {/if}
 </div>
@@ -720,4 +774,38 @@
     font-size: 0.87rem; line-height: 1.5; color: var(--text-primary);
     max-height: 360px; overflow: auto;
   }
+
+  /* Summarized result: verdict + counts + what changed, with the detail collapsed. */
+  .verdict { margin: 0 0 8px; font-size: 0.9rem; line-height: 1.5; color: var(--text-primary); }
+  .rchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+  .chip { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+  .chip.ok { background: rgba(34,197,94,.15); color: #22c55e; }
+  .chip.warn { background: rgba(217,119,6,.18); color: #d97706; }
+  .chip.bad { background: rgba(185,28,28,.18); color: #ef4444; }
+  .clabel { margin: 8px 0 4px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .04em; opacity: .6; }
+  .chlist { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .chlist li {
+    font-size: 0.8rem; line-height: 1.45; word-break: break-word;
+    background: rgba(217,119,6,.10); border-left: 3px solid #d97706;
+    border-radius: 4px; padding: 5px 9px;
+  }
+  /* A read-only run's "nothing changed" line is reassurance, not a warning. */
+  .chlist li.none { background: rgba(34,197,94,.10); border-left-color: #22c55e; }
+  .rsteps, .rfull { margin: 6px 0 0; }
+  .rsteps summary, .rfull summary { cursor: pointer; font-size: 0.78rem; opacity: .75; user-select: none; }
+  .rsteps summary:hover, .rfull summary:hover { opacity: 1; }
+  .slist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .slist li {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 0.8rem; line-height: 1.45; opacity: .85; word-break: break-word;
+  }
+  .sdot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; background: #22c55e; }
+  .slist li.skipped .sdot { background: #d97706; }
+  .slist li.failed .sdot { background: #ef4444; }
+  .rfull .md { max-height: 300px; overflow: auto; font-size: 0.82rem; line-height: 1.5; margin-top: 6px; }
+  .rfull :global(h1) { font-size: 0.95rem; margin: 0 0 6px; }
+  .rfull :global(h2) { font-size: 0.87rem; margin: 10px 0 4px; }
+  .rfull :global(ul) { margin: 4px 0; padding-left: 18px; }
+  .rfull :global(li) { margin: 2px 0; }
+  .rfull :global(p) { margin: 5px 0; }
 </style>

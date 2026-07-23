@@ -32,6 +32,8 @@
   let stopBatch = $state(false);
   let journal = $state<RunEntry[]>([]);
   let showJournal = $state(false);
+  /** Non-empty when the skills read itself failed (bad schema), as opposed to having no skills. */
+  let loadError = $state('');
 
   // Only skills carrying a recorded steps block can be replayed.
   const replayable = $derived(skills.filter((s) => /```json/.test(s.content)));
@@ -48,7 +50,12 @@
     loading = true;
     try {
       skills = await getSkills();
-    } catch {
+      if (loadError) loadError = '';
+    } catch (e) {
+      // Surfacing this matters: a swallowed read error rendered as "No workflow skills yet",
+      // so a broken schema looked exactly like an empty library (it hid a failed migration
+      // that had killed every skill).
+      loadError = e instanceof Error ? e.message : String(e);
       skills = [];
     } finally {
       loading = false;
@@ -197,6 +204,8 @@
 
   {#if loading}
     <p class="muted">Loading…</p>
+  {:else if loadError}
+    <p class="loaderr">Couldn't read your skills: {loadError}</p>
   {:else if replayable.length === 0}
     <p class="muted">No workflow skills yet. Capture one, or import a SKILL.md that has a recorded steps block.</p>
   {:else}
@@ -292,4 +301,5 @@
   .jstatus.failed { color: #b91c1c; }
   .jname { color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .jtime { color: var(--text-tertiary); }
+  .loaderr { font-size: 12px; color: #ef4444; background: rgba(239,68,68,.10); border-left: 3px solid #ef4444; border-radius: 4px; padding: 6px 9px; margin: 0; line-height: 1.45; }
 </style>
