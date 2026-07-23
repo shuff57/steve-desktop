@@ -27,6 +27,10 @@ without growing model spend. Work in priority order; each stage must land green 
 5. KEY-NODE VERIFY + DRIFT TELEMETRY. Each page profile carries 3–5 must-exist key nodes + one
    postcondition; verify = replay key nodes only, escalating to re-map on failure. Count which
    heal tier fires per page; rising tier usage auto-flags the page for re-map.
+6. VISUAL FALLBACK (Tarsier pattern, LAST tier only). When AX-tree AND DOM tiers both fail —
+   canvas widgets, image-map controls, broken-a11y pages — screenshot with bracketed numeric ID
+   tags overlaid on interactive elements + OCR'd text layout, model picks a tag ID. Fires only
+   after every cheaper tier misses; never the default observation path.
 
 HARD CONSTRAINTS:
 - Never weaken the deny-regex safety rails or the read-only guarantees of verify/crawl paths.
@@ -39,6 +43,6 @@ HARD CONSTRAINTS:
 - Compatibility: existing stored profiles and SKILL.md workflows must keep replaying unchanged;
   new fingerprint fields are additive.
 
-DONE WHEN: all five stages merged green (vitest + svelte-check + cargo check), a live fixture
+DONE WHEN: all six stages merged green (vitest + svelte-check + cargo check), a live fixture
 run shows a wrong-selector step healing, verifying its postcondition, persisting the fix, and
 the same skill replaying cleanly a second time with zero heal tiers fired.
