@@ -11,9 +11,8 @@ import { loadMOMIndex, type MOMFamily, type MOMIndex, type MOMQuestion } from '.
 import { getFrqSetStats, type FrqSetStats, type MOMManifest } from './manifest';
 
 export type { MOMFamily, MOMIndex, MOMQuestion, FrqSetStats, MOMManifest };
-export { loadMOMIndex, getFrqSetStats } from './loader';
-export { getFrqSetStats as _getFrqSetStats } from './manifest';
-export { readManifest as _readManifest } from './manifest';
+export { loadMOMIndex } from './loader';
+export { getFrqSetStats, readManifest } from './manifest';
 
 export interface MomQuestionDetail {
   family: string;

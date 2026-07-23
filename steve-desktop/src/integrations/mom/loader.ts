@@ -49,13 +49,13 @@ export async function loadMOMIndex(root: string): Promise<MOMIndex> {
     const st = await stat(familyPath).catch(() => null);
     if (!st?.isDirectory()) continue;
 
-    const slugs = await readdir(familyPath).catch(() => []);
+    const slugs = await readdir(familyPath).catch((): string[] => []);
     const questions: MOMQuestion[] = [];
     for (const slug of slugs) {
       const slugPath = join(familyPath, slug);
       const slugStat = await stat(slugPath).catch(() => null);
       if (!slugStat?.isDirectory()) continue;
-      const files = await readdir(slugPath).catch(() => []);
+      const files: string[] = await readdir(slugPath).catch((): string[] => []);
       const hasPhp = files.some((f) => f.endsWith('.php'));
       if (!hasPhp) continue;
       const hasManifest = files.includes('manifest.json');
