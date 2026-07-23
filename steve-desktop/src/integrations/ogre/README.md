@@ -122,6 +122,34 @@ Ported near-verbatim and worth leaving alone: the grading philosophy text, the
 prompts are byte-identical to O.G.R.E's across rubric shapes. Not ported: outlier
 review, pairwise sweeps, historical calibration from `response_embeddings`.
 
+## Known limitation: opencode cannot grade
+
+`engineForProvider` routes anything non-anthropic to opencode, but the opencode engine
+cannot currently complete a grading run. `opencode run` boots its full coding-agent stack
+on every invocation — skills, tool schemas, git snapshot tracking — costing ~30K input
+tokens of fixed overhead before the prompt is even added. `--pure` only skips plugins, not
+the built-in tools.
+
+A grading prompt is another 8-25K chars, which overruns a local Ollama's enforced 32768
+token ceiling. The model truncates at ~89 output tokens, emits no `type:"text"` event, and
+`assertGraded` correctly refuses to report the result as grades. Reproduced at both 1 and
+3 students, so smaller chunks do not help. claude's `-p` mode has no equivalent bootstrap.
+
+Two secondary findings from the same investigation:
+- A bare opencode install exposes only the `ollama-cloud` provider, so the `ollama/<model>`
+  id `cliModelArg` produces fails with `ProviderModelNotFoundError` until a local
+  `@ai-sdk/openai-compatible` provider is added to `~/.config/opencode/opencode.jsonc`.
+- Raising opencode's own `limit.context` metadata changes nothing; the 32768 cap comes from
+  Ollama's runtime `num_ctx`, not opencode's belief about the model.
+
+Making it work needs `OLLAMA_CONTEXT_LENGTH` (or a Modelfile `num_ctx`) well past 40K, or a
+leaner opencode invocation that does not exist today. Until then **grading is claude-only**,
+which means it costs plan tokens and student work leaves the machine.
+
+`grade.opencode.e2e.test.ts` documents this and currently fails by design — it is opt-in via
+`OGRE_OPENCODE_E2E=1`, so it never runs in the normal suite. Keep it: it is how you find out
+the environment changed.
+
 ## Test status
 
 - Unit: `db.test.ts` (SQL per accessor), `grading.test.ts` and `batch.test.ts`

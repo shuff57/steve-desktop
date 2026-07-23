@@ -64,6 +64,17 @@ export function gradingTimeoutSecs(studentCount: number): number {
  *
  * Each grading call is a fresh session. Grading is one-shot, not conversational, and
  * resuming would let one student's work condition the next student's grade.
+ *
+ * KNOWN LIMITATION — the opencode engine cannot currently grade.
+ * `engineForProvider` sends everything non-anthropic to opencode, but `opencode run`
+ * boots its full coding-agent stack (skills, tool schemas, git snapshots) on every
+ * invocation — roughly 30K input tokens of fixed overhead before the prompt is added,
+ * and `--pure` does not remove it. A grading prompt is 8-25K chars on top, which
+ * overruns a local Ollama's default 32768-token ceiling; the model then truncates at
+ * ~89 output tokens and never emits a parseable result. Verified at 1 and 3 students.
+ * claude's `-p` mode has no equivalent bootstrap, which is why it works.
+ * See grade.opencode.e2e.test.ts. Fixing it means raising OLLAMA_CONTEXT_LENGTH well
+ * past 40K, or a leaner opencode invocation that does not exist today.
  */
 function cliRunner(provider: GradeProvider, timeoutSecs: number): ModelRunner {
   return async (prompt) => {
