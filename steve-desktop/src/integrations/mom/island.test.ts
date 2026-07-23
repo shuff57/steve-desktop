@@ -1,10 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { momIsland } from './index';
+import { momIsland, type MomMethods } from './index';
 
 describe('momIsland', () => {
   it('exposes a mom island with the right id and label', () => {
     expect(momIsland.id).toBe('mom');
     expect(momIsland.label).toBe('MOM');
     expect(momIsland.enabled).toBe(true);
+  });
+
+  it('declares the phase-2 methods on the island surface', () => {
+    const m = momIsland.methods as MomMethods;
+    expect(typeof m.browse).toBe('function');
+    expect(typeof m.getQuestion).toBe('function');
+    expect(typeof m.getFamily).toBe('function');
   });
 });
