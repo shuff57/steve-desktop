@@ -64,8 +64,6 @@
   let failures = $state<{ url: string; error: string }[]>([]);
   /** URL families collapsed after their shape repeated — never a silent truncation. */
   let collapsed = $state<{ template: string; skipped: number }[]>([]);
-  /** Keep the crawl inside the course/section you started in. */
-  let stayInScope = $state(true);
   /** The scope detected on the start page, shown so you know what you're confined to. */
   let activeScope = $state<{ key: string; value: string } | null>(null);
   /** Links dropped for belonging to another course. */
@@ -409,9 +407,9 @@
           // Skip same-page anchors (popovers), already-seen pages, and unsafe links.
           if (abs === landed || queued.has(abs) || fresh.some((c) => c.url === abs) || !isCrawlableLink(abs, landed)) continue;
 
-          // Stay in the course you started in. Without this the crawl reaches your home
-          // page and follows it into every other course on the account.
-          if (stayInScope && !withinScope(abs, start)) {
+          // Stay in the course you started in — always. Without this the crawl reaches your
+          // home page and follows it into every other course on the account.
+          if (!withinScope(abs, start)) {
             queued.add(abs);
             outOfScope += 1;
             continue;
@@ -522,7 +520,8 @@
       const prompt = buildCliCrawlPrompt({
         cdpPort: port,
         startUrl: normalizeUrl(pageUrl),
-        scope: stayInScope ? activeScope : null,
+        scope: activeScope, // stay-on-course lives in the prompt, not a UI opt-out
+
         marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined,
       });
       siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''}. It is driving the crawl over CDP. Up to ~15 min; watch progress below.`;
@@ -610,7 +609,17 @@
         const summary = summarizeCliLine(ev.payload.line);
         if (summary) progressBuf!.push(summary);
       });
-      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), doc: aiDoc, pages: aiPages, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
+      // Goal prompt: the agent reads the doc from disk — ensure it's saved, then hand it the
+      // absolute path (the spawned CLI's cwd is the temp dir, not the project root).
+      const vDomain = domainFromUrl(pageUrl);
+      let relDocPath = aiDocPath;
+      if (!relDocPath) {
+        if (!vDomain) throw new Error('No domain to save the mapping doc under.');
+        relDocPath = await saveMappingDoc(vDomain, aiDoc);
+        aiDocPath = relDocPath;
+      }
+      const docPath = await invoke<string>('resolve_path', { path: relDocPath });
+      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl: normalizeUrl(pageUrl), docPath, marker: getActiveTabId() ? tabMarker(getActiveTabId()) : undefined });
       siteMsg = `Spawned ${engine} to verify its own mapping: re-reading ${aiPages.length} page(s) over CDP…`;
       await showAgentConnected(getActiveTabId()); // connection overlay on the driven tab
       const stdout = await invoke<string>('run_agent_cli', {
@@ -877,18 +886,13 @@
         {/if}
       </div>
     </div>
-    <label class="scope-row" title="Only follow links belonging to the same course/section as the page you start on. Without this, the crawl reaches your home page and follows it into every other course.">
-      <input type="checkbox" bind:checked={stayInScope} disabled={crawling} />
-      <span>
-        Stay in this course
-        {#if scopeOf(pageUrl)}<span class="kind">({scopeOf(pageUrl)?.key}={scopeOf(pageUrl)?.value})</span>
-        {:else}<span class="kind">(no course id on this page; whole site)</span>{/if}
-      </span>
-    </label>
     <!-- AI-guided BFS toggle hidden with the BFS button on this branch; state + crawl() kept. -->
     <p class="muted">Maps this site page by page, starting from where you are now, so each class near the top is mapped first.</p>
     <ul class="how">
-      <li>Stays on this site only.</li>
+      <li>
+        {#if scopeOf(pageUrl)}Stays in this course ({scopeOf(pageUrl)?.key}={scopeOf(pageUrl)?.value}) on this site only.
+        {:else}Stays on this site only.{/if}
+      </li>
       <li>Never changes anything. Skips logout, admin, and any add / edit / delete link.</li>
       <li>Repeating pages (student rosters, question banks) are sampled a couple of times, then skipped, up to {MAX_SAMPLES_PER_TEMPLATE} if they keep shifting.</li>
       <li>Runs in your browser tab. Press <strong>Stop</strong> anytime.</li>
@@ -1112,11 +1116,6 @@
   .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 240px; overflow-y: auto; }
   .row { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: var(--spacing-2); padding: 4px var(--spacing-2); background: var(--bg-card); border-radius: var(--radius-sm); }
   .kind { font-size: 0.65rem; text-transform: uppercase; color: var(--text-tertiary); }
-  .scope-row {
-    display: flex; align-items: center; gap: var(--spacing-1);
-    font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; user-select: none;
-  }
-  .scope-row input { cursor: pointer; }
   .label { font-size: 0.8rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sel { grid-column: 1 / -1; font-size: 0.7rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sample { font-size: 0.7rem; color: var(--text-secondary); background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: var(--spacing-2); max-height: 220px; overflow: auto; white-space: pre-wrap; word-break: break-all; margin: 0; }

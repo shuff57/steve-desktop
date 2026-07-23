@@ -4,9 +4,11 @@
   import { listen } from '@tauri-apps/api/event';
   import { SITE_PROFILES_DIR } from '../lib/constants';
   import { domainToPath } from '../lib/utils/index';
-  import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, healMappingDoc } from '../lib/site-profiles';
+  import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, healMappingDoc, getMappingDocPath } from '../lib/site-profiles';
   import { buildCliVerifyPrompt, parseCliVerifyOutput } from '../lib/cli-crawl';
   import { cliModelArg, extractCliText, summarizeCliLine, engineForProvider } from '../lib/agent-cli';
+  import { renderSkillPreview } from '../lib/skill-parser';
+  import { summarizeVerifyReport } from '../lib/verify-summary';
   import { listProviderConfigs } from '../lib/db';
   import { createEmbeddedBrowser, hideWebview, destroyWebview, injectScript, listenBrowserPageLoaded } from '../lib/browser';
   import { tabMarker, markerScript } from '../lib/tab-control';
@@ -139,7 +141,10 @@
         if (s && updateProgress[updateProgress.length - 1] !== s) updateProgress = [...updateProgress, s].slice(-30);
       });
 
-      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl, doc, pages, marker: tabMarker(tabId) });
+      // Goal prompt: the doc stays on disk and the agent reads it there — the prompt is a
+      // fixed-size template (<4000 chars) instead of embedding an unbounded document.
+      const docPath = await invoke<string>('resolve_path', { path: getMappingDocPath(domain) });
+      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl, docPath, marker: tabMarker(tabId) });
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
         prompt,
@@ -247,12 +252,52 @@
     </div>
   </div>
 {:else if result && !modalDismissed}
+  {@const s = summarizeVerifyReport(result.report)}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div class="backdrop" role="presentation" onclick={closeModal}>
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="panel wide" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
       <h2>{result.domain} — verification</h2>
-      <pre class="report">{result.report}</pre>
+      {#if s.confirmed.length || s.discrepancies.length}
+        <!-- Structured review: problems first, the long confirmed list collapsed. -->
+        <div class="vsum">
+          <span class="chip ok">✓ {s.confirmed.length} confirmed</span>
+          <span class="chip {s.discrepancies.length ? 'warn' : 'ok'}">{s.discrepancies.length ? `⚠ ${s.discrepancies.length} discrepanc${s.discrepancies.length === 1 ? 'y' : 'ies'}` : 'no discrepancies'}</span>
+        </div>
+        {#if s.verdict}<p class="verdict">{s.verdict}</p>{/if}
+        <div class="report">
+          {#if s.discrepancies.length}
+            <ul class="dlist">
+              {#each s.discrepancies as d}<li>⚠ {d}</li>{/each}
+            </ul>
+          {/if}
+          <details>
+            <summary>{s.confirmed.length} confirmed page{s.confirmed.length === 1 ? '' : 's'}</summary>
+            <ul class="clist">
+              {#each s.confirmed as c}<li>✓ {c}</li>{/each}
+            </ul>
+          </details>
+          <details>
+            <summary>Full report</summary>
+            <!-- Sanitized (renderSkillPreview = marked + sanitizeHtml) — model output over
+                 untrusted pages never lands in {@html} unsanitized. -->
+            <div class="md">
+              {#await renderSkillPreview(result.report) then html}{@html html}{:catch}<pre class="raw">{result.report}</pre>{/await}
+            </div>
+          </details>
+        </div>
+      {:else}
+        <!-- Report didn't match the expected shape — fall back to the rendered markdown. -->
+        <div class="report md">
+          {#await renderSkillPreview(result.report)}
+            <pre class="raw">{result.report}</pre>
+          {:then html}
+            {@html html}
+          {:catch}
+            <pre class="raw">{result.report}</pre>
+          {/await}
+        </div>
+      {/if}
       <div class="panel-actions">
         {#if result.changed}
           <span class="changed">The mapping doc will be updated (prior kept as a .prev backup).</span>
@@ -295,7 +340,26 @@
   .prog { list-style: none; margin: 0 0 10px; padding: 10px 12px; background: rgba(255,255,255,.05); border-radius: 6px; font-size: 12px; max-height: 220px; overflow-y: auto; }
   .prog li { opacity: .8; padding: 1px 0; }
   .note { margin: 0; font-size: 11px; opacity: .55; }
-  .report { flex: 1; overflow: auto; white-space: pre-wrap; word-break: break-word; font-size: 12px; line-height: 1.5; background: rgba(255,255,255,.05); border-radius: 6px; padding: 12px 14px; margin: 0 0 12px; }
+  .report { flex: 1; overflow: auto; word-break: break-word; font-size: 13px; line-height: 1.55; background: rgba(255,255,255,.05); border-radius: 6px; padding: 12px 14px; margin: 0 0 12px; }
+  .report .raw { white-space: pre-wrap; margin: 0; font-size: 12px; }
+  .vsum { display: flex; gap: 8px; margin: 0 0 6px; }
+  .chip { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+  .chip.ok { background: rgba(34,197,94,.15); color: #22c55e; }
+  .chip.warn { background: rgba(217,119,6,.18); color: #d97706; }
+  .verdict { font-size: 13px; margin: 0 0 8px; opacity: .85; }
+  .dlist { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .dlist li { background: rgba(217,119,6,.12); border-left: 3px solid #d97706; border-radius: 4px; padding: 6px 10px; font-size: 12.5px; line-height: 1.45; }
+  .clist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .clist li { font-size: 12px; opacity: .8; padding: 2px 4px; }
+  .report details { margin: 6px 0; }
+  .report summary { cursor: pointer; font-size: 12.5px; opacity: .8; user-select: none; }
+  .report summary:hover { opacity: 1; }
+  .md :global(h1) { font-size: 16px; margin: 0 0 8px; }
+  .md :global(h2) { font-size: 14px; margin: 14px 0 6px; }
+  .md :global(ul) { margin: 4px 0; padding-left: 20px; }
+  .md :global(li) { margin: 2px 0; }
+  .md :global(p) { margin: 6px 0; }
+  .md :global(code) { background: rgba(128,128,128,.2); border-radius: 4px; padding: 0 4px; font-size: 12px; }
   .panel-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .panel-actions button { padding: 7px 14px; font-size: 13px; border-radius: 6px; cursor: pointer; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #eee; }
   .panel-actions button:disabled { opacity: .5; cursor: default; }

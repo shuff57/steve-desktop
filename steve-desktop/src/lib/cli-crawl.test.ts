@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, cdpTargetInstruction, cdpMultiTabInstruction } from './cli-crawl';
+import { summarizeVerifyReport } from './verify-summary';
 
 describe('cdpTargetInstruction', () => {
   it('pins by window.name marker when present (unambiguous with duplicate tabs)', () => {
@@ -140,17 +141,73 @@ describe('parseCliVerifyOutput', () => {
 });
 
 describe('buildCliVerifyPrompt', () => {
-  it('feeds the doc + page list back and asks for a read-only report', () => {
-    const p = buildCliVerifyPrompt({
-      cdpPort: 9223,
-      startUrl: 'https://x.edu/course?cid=1',
-      doc: '# Site map\nGradebook at /g',
-      pages: [{ name: 'Gradebook', url: 'https://x.edu/g' }],
-    });
-    expect(p).toContain('VERIFY it against the');
-    expect(p).toContain('- Gradebook: https://x.edu/g');
-    expect(p).toContain('# Site map\nGradebook at /g');
+  const p = buildCliVerifyPrompt({
+    cdpPort: 9223,
+    startUrl: 'https://x.edu/course?cid=1',
+    docPath: 'C:\\repo\\.agents\\site-profiles\\x-edu\\_sitemap-ai.md',
+    marker: 'steve-tab-abc',
+  });
+  it('points at the doc on disk (goal prompt — the doc is never embedded) and keeps read-only rails', () => {
+    expect(p).toContain('_sitemap-ai.md');
+    expect(p).toContain('Read it yourself');
     expect(p).toContain('READ-ONLY');
     expect(p).toContain('# Verification report');
+    expect(p).toContain('---HEALED-DOC---');
+  });
+  it('carries the same deny rules as the crawl prompt', () => {
+    expect(p).toContain('log[\\s_-]?out');
+    expect(p).toContain('\\/admin\\/');
+  });
+});
+
+describe('summarizeVerifyReport', () => {
+  const report = [
+    '# Verification report',
+    '## Pages',
+    '- CONFIRMED Gradebook: https://x.edu/gb — matches',
+    '- `CONFIRMED` Roster: https://x.edu/r',
+    '- DISCREPANCY: Calendar url moved to /cal2.php',
+    '- DISCREPANCY: Forums — page missing',
+    '## Verdict',
+    'Accurate enough for automation after the two fixes above.',
+    'Could not check the LTI page (requires launch context).',
+  ].join('\n');
+
+  it('splits confirmed vs discrepancy bullets and pulls the verdict', () => {
+    const s = summarizeVerifyReport(report);
+    expect(s.confirmed).toHaveLength(2);
+    expect(s.confirmed[0]).toContain('Gradebook');
+    expect(s.discrepancies).toEqual([
+      'Calendar url moved to /cal2.php',
+      'Forums — page missing',
+    ]);
+    expect(s.verdict).toContain('Accurate enough');
+  });
+
+  it('unparseable report → empty summary (UI falls back to rendered markdown)', () => {
+    const s = summarizeVerifyReport('The site looks fine to me.');
+    expect(s.confirmed).toEqual([]);
+    expect(s.discrepancies).toEqual([]);
+  });
+});
+
+describe('goal prompts stay under 4000 chars', () => {
+  it('crawl prompt (worst case: marker + scope)', () => {
+    const p = buildCliCrawlPrompt({
+      cdpPort: 9223,
+      startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
+      scope: { key: 'cid', value: '316341' },
+      marker: 'steve-tab-00000000-0000-0000-0000-000000000000',
+    });
+    expect(p.length).toBeLessThan(4000);
+  });
+  it('verify prompt (fixed size — doc lives in a file)', () => {
+    const p = buildCliVerifyPrompt({
+      cdpPort: 9223,
+      startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
+      docPath: 'C:\\Users\\someone\\repo\\.agents\\site-profiles\\www-myopenmath-com\\_sitemap-ai.md',
+      marker: 'steve-tab-00000000-0000-0000-0000-000000000000',
+    });
+    expect(p.length).toBeLessThan(4000);
   });
 });
