@@ -1,18 +1,24 @@
 /**
  * gradebook-island — rehosts the gradebook/playwright-grading scripts as
- * in-app Skills (shell-out to Bun subprocess). Stub in phase 0; methods added
- * in phase 1.
+ * in-app Skills. The scripts run as Bun subprocesses via `runner.ts`; the
+ * island exposes a typed surface to the rest of the app.
  */
 import { defineIsland } from '../_shared/island';
+import { runFloorScores, runScrapeQids, type RunResult, type ScrapeQidsResult } from './runner';
+import type { FloorScoresOpts, ScrapeQidsOpts } from './args';
 
 export interface GradebookMethods {
-  // Intentionally empty for phase 0. Phase 1 will add:
-  // - runFloorScores(opts) -> { ok, stdout, csvPaths, error? }
-  // - scrapeQids(opts)     -> { ok, qids, stdout, error? }
+  /** Run the floor-grader. Dry-run by default; opt in with opts.writeBack. */
+  runFloorScores: (opts: FloorScoresOpts) => Promise<RunResult>;
+  /** Scrape question number -> qid map for an assignment. */
+  runScrapeQids: (opts: ScrapeQidsOpts) => Promise<ScrapeQidsResult>;
 }
 
 export const gradebookIsland = defineIsland<GradebookMethods>({
   id: 'gradebook',
   label: 'Gradebook',
-  methods: {} as GradebookMethods,
+  methods: {
+    runFloorScores,
+    runScrapeQids,
+  },
 });
