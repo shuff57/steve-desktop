@@ -20,12 +20,12 @@
  * nothing leaves the machine. The fixture is 30 invented students; never point this at real
  * gradebook data.
  *
- * Environment note: as installed on this machine, opencode ships only the `ollama-cloud`
- * provider — `ollama/<model>` (the id cliModelArg produces) resolves to
- * `ProviderModelNotFoundError: Model not found: ollama/gemma4:12b. Did you mean: ollama-cloud?`
- * until a local `ollama` provider is added to ~/.config/opencode/opencode.jsonc (an
- * `@ai-sdk/openai-compatible` entry pointed at localhost:11434). That's environment/global-config
- * setup, not something this test or the product code can fix.
+ * Environment note: model ids must be `provider/model`. `cliModelArg` prefixes a bare id
+ * with `ollama/`, which needs a local ollama provider in ~/.config/opencode/opencode.jsonc.
+ * An install authenticated against Ollama Cloud exposes `ollama-cloud/*` instead, so pass a
+ * qualified id via OGRE_OPENCODE_E2E_MODEL (e.g. ollama-cloud/gemma4:31b) — ids containing
+ * `/` pass through untouched. Note a cloud model leaves the machine; the fixture is
+ * synthetic, so that is fine here and would not be for real student work.
  */
 import { spawn } from 'node:child_process';
 import { readFileSync, existsSync } from 'node:fs';
@@ -71,6 +71,12 @@ function resolveOnPath(binary: string): string | null {
 /** The exact argv run_agent_cli assembles for engine=opencode, bypassPermissions=false, no resume. */
 function opencodeArgs(model?: string): string[] {
   const args = ['run', '--format', 'json'];
+  // --agent summary is the difference between working and not. opencode's default agent
+  // boots the whole coding stack (~29.3K input tokens before the prompt); `summary` carries
+  // almost no tools and costs ~4.6K. Measured on this machine:
+  //   default 29329 | plan 29609 | title 4945 | summary 4560
+  // Without it a grading prompt overruns a local Ollama's 32768 ceiling and truncates.
+  args.push('--agent', 'summary');
   const m = cliModelArg('opencode', model);
   if (m) args.push('-m', m);
   return args;
@@ -127,7 +133,7 @@ describe.runIf(ENABLED)('opencode CLI transport', () => {
         sawPrompt = prompt;
         prompts.push(prompt);
         const stdout = await spawnOpencode(prompt, provider.model);
-        console.log(`[opencode-e2e] raw stdout (first 800 chars): ${stdout.slice(0, 800)}`);
+        console.log(`[opencode-e2e] raw stdout (${stdout.length} chars):\n${stdout}`);
         return extractCliText('opencode', stdout);
       };
 

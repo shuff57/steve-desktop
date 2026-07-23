@@ -65,16 +65,18 @@ export function gradingTimeoutSecs(studentCount: number): number {
  * Each grading call is a fresh session. Grading is one-shot, not conversational, and
  * resuming would let one student's work condition the next student's grade.
  *
- * KNOWN LIMITATION — the opencode engine cannot currently grade.
- * `engineForProvider` sends everything non-anthropic to opencode, but `opencode run`
- * boots its full coding-agent stack (skills, tool schemas, git snapshots) on every
- * invocation — roughly 30K input tokens of fixed overhead before the prompt is added,
- * and `--pure` does not remove it. A grading prompt is 8-25K chars on top, which
- * overruns a local Ollama's default 32768-token ceiling; the model then truncates at
- * ~89 output tokens and never emits a parseable result. Verified at 1 and 3 students.
- * claude's `-p` mode has no equivalent bootstrap, which is why it works.
- * See grade.opencode.e2e.test.ts. Fixing it means raising OLLAMA_CONTEXT_LENGTH well
- * past 40K, or a leaner opencode invocation that does not exist today.
+ * The opencode engine needs `--agent summary`, and grading passes it.
+ * opencode's default agent boots its whole coding stack — skills, tool schemas, git
+ * snapshots — costing ~29.3K input tokens before the prompt is added, which overruns a
+ * local Ollama's 32768 ceiling and truncates the reply to nothing parseable. `--agent`
+ * selects the tool set, the way claude uses `--disallowed-tools "*"`. Measured here:
+ * default 29329, plan 29609, title 4945, summary 4560 — an 84% cut that makes a 14K
+ * grading prompt fit comfortably. `--pure` does NOT help; it only skips plugins.
+ *
+ * Model ids for opencode must be `provider/model`. `cliModelArg` prefixes a bare id with
+ * `ollama/`, which assumes a LOCAL ollama provider in ~/.config/opencode/opencode.jsonc.
+ * An install authenticated against Ollama Cloud exposes `ollama-cloud/*` instead, so pass
+ * the qualified id (ids containing `/` are passed through untouched).
  */
 function cliRunner(provider: GradeProvider, timeoutSecs: number): ModelRunner {
   return async (prompt) => {
@@ -88,10 +90,15 @@ function cliRunner(provider: GradeProvider, timeoutSecs: number): ModelRunner {
       systemPrompt: null,
       bypassPermissions: false,
       timeoutSecs,
+      // Grading wants a completion, not an agent. Ignored by the claude engine.
+      agent: engine === 'opencode' ? OPENCODE_GRADING_AGENT : null,
     });
     return extractCliText(engine, stdout);
   };
 }
+
+/** opencode's leanest built-in agent — see the note above cliRunner for why this matters. */
+export const OPENCODE_GRADING_AGENT = 'summary';
 
 /**
  * Every identifier we know for this student, as separate secrets.

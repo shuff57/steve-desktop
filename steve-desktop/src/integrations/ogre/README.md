@@ -122,33 +122,37 @@ Ported near-verbatim and worth leaving alone: the grading philosophy text, the
 prompts are byte-identical to O.G.R.E's across rubric shapes. Not ported: outlier
 review, pairwise sweeps, historical calibration from `response_embeddings`.
 
-## Known limitation: opencode cannot grade
+## Engines: claude and opencode
 
-`engineForProvider` routes anything non-anthropic to opencode, but the opencode engine
-cannot currently complete a grading run. `opencode run` boots its full coding-agent stack
-on every invocation — skills, tool schemas, git snapshot tracking — costing ~30K input
-tokens of fixed overhead before the prompt is even added. `--pure` only skips plugins, not
-the built-in tools.
+Grading runs through whichever CLI `engineForProvider` picks — `claude` for
+anthropic/claude, `opencode` for everything else. Both are verified end to end against
+the synthetic fixture.
 
-A grading prompt is another 8-25K chars, which overruns a local Ollama's enforced 32768
-token ceiling. The model truncates at ~89 output tokens, emits no `type:"text"` event, and
-`assertGraded` correctly refuses to report the result as grades. Reproduced at both 1 and
-3 students, so smaller chunks do not help. claude's `-p` mode has no equivalent bootstrap.
+**opencode requires `--agent summary`, and grading passes it.** opencode's default agent
+boots its entire coding stack — skills, tool schemas, git snapshot tracking — before it
+sees your prompt. `--agent` selects the tool set, the way claude uses
+`--disallowed-tools "*"`. Measured on this machine with an identical one-line prompt:
 
-Two secondary findings from the same investigation:
-- A bare opencode install exposes only the `ollama-cloud` provider, so the `ollama/<model>`
-  id `cliModelArg` produces fails with `ProviderModelNotFoundError` until a local
-  `@ai-sdk/openai-compatible` provider is added to `~/.config/opencode/opencode.jsonc`.
-- Raising opencode's own `limit.context` metadata changes nothing; the 32768 cap comes from
-  Ollama's runtime `num_ctx`, not opencode's belief about the model.
+| agent | input tokens |
+|---|---|
+| (default) | 29,329 |
+| plan | 29,609 |
+| title | 4,945 |
+| **summary** | **4,560** |
 
-Making it work needs `OLLAMA_CONTEXT_LENGTH` (or a Modelfile `num_ctx`) well past 40K, or a
-leaner opencode invocation that does not exist today. Until then **grading is claude-only**,
-which means it costs plan tokens and student work leaves the machine.
+Without it, ~29.3K of overhead plus a 14K-char grading prompt overruns a local Ollama's
+32768-token ceiling; the model truncates at ~89 output tokens and returns nothing
+parseable, and `assertGraded` refuses the result. `--pure` does not help — it only skips
+external plugins, not the built-in tools.
 
-`grade.opencode.e2e.test.ts` documents this and currently fails by design — it is opt-in via
-`OGRE_OPENCODE_E2E=1`, so it never runs in the normal suite. Keep it: it is how you find out
-the environment changed.
+**Model ids must be `provider/model`.** `cliModelArg` prefixes a bare id with `ollama/`,
+which assumes a local ollama provider in `~/.config/opencode/opencode.jsonc`. An install
+authenticated against Ollama Cloud (`opencode auth list` → "Ollama Cloud") exposes
+`ollama-cloud/*` instead, and a bare id fails with `ProviderModelNotFoundError`. Pass the
+qualified id — anything containing `/` is passed through untouched.
+
+Observed: opencode + `ollama-cloud/gemma4:31b` graded 3 students in ~13s; claude graded
+the same 3 in ~45s.
 
 ## Test status
 
