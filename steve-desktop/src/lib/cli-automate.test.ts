@@ -55,13 +55,16 @@ describe('buildAutomateExecPrompt', () => {
     expect(p).toContain('log[\\s_-]?out'); // DENY_LINK source is inlined
     expect(p).toContain('# Result');
   });
-  it('pins the agent to the existing embedded target (no new window)', () => {
-    expect(p).toContain('EXISTING');
+  it('drives the embedded tab via the __steveControl bridge (not a CDP target) and bans new windows', () => {
+    expect(p).toContain('NOT a CDP target');
+    expect(p).toContain('__steveControl');
     expect(p).toContain('Target.createTarget');
   });
-  it('pins execution to the marked tab when a marker is given', () => {
+  it('reaches the tab via the bridge (uses the active tab id), not a window.name marker', () => {
     const pm = buildAutomateExecPrompt({ ...base, approvedPlan: '1. submit', marker: 'steve-tab-9' });
-    expect(pm).toContain('window.name === "steve-tab-9"');
+    expect(pm).toContain('__steveControl'); // agent gets the active tab id from listTabs()
+    expect(pm).toContain('listTabs()');
+    expect(pm).not.toContain('window.name === "steve-tab-9"'); // markers no longer used for targeting
   });
   it('tells the agent to drive the cursor via __steveCursorMove (never follows the user)', () => {
     expect(p).toContain('__steveCursorMove');

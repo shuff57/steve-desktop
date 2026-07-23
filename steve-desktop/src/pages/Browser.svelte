@@ -11,6 +11,7 @@
     hideWebview,
     showWebview,
     destroyWebview,
+    evalScriptInTab,
     listenBrowserUrlChanged, 
     listenBrowserPageLoaded,
     listenBrowserStatus,
@@ -49,6 +50,10 @@
     /** Fill + submit the login form on a tab using saved creds. Returns true if a credential
      *  matched the tab's URL (creds stay on-device — never sent to the model). */
     login: (id?: string) => Promise<boolean>;
+    /** Run JS inside a tab's embedded webview and return its result (JSON-parsed). This is the
+     *  agent's read/act bridge: on this platform embedded tabs are NOT CDP targets, so the agent
+     *  reaches them through the app-UI target (which IS) via this method. `id` omitted = active tab. */
+    eval: (id: string | undefined, script: string) => Promise<unknown>;
     /** Start/stop an app-window screen recording (ffmpeg) — saved to the Artifacts gallery. */
     startRecording: () => Promise<string>;
     stopRecording: () => Promise<string | null>;
@@ -548,6 +553,13 @@
       navigate: async (id: string, url: string) => { const from = activeTabId; await switchTab(id); urlInput = url; await handleNavigate(); if (sessions.length) await followAgentTo(from, id); },
       activate: async (id: string) => { const from = activeTabId; await switchTab(id); if (sessions.length) await followAgentTo(from, id); },
       login: (id?: string) => loginNow(id),
+      // The agent's bridge into the real tab (embedded webviews aren't CDP targets on this
+      // platform). Runs JS by tab LABEL via the Rust eval_webview_script, returns the parsed
+      // result. Rust JSON.stringify's the value, so parse it back to a real JS value here.
+      eval: async (id: string | undefined, script: string): Promise<unknown> => {
+        const json = await evalScriptInTab(id ?? activeTabId, script);
+        try { return JSON.parse(json); } catch { return json; }
+      },
       // Record the tab the agent is on — pass its URL so the right target is captured with several open.
       startRecording: () => startRecording(tabs.find(t => t.id === activeTabId)?.url),
       stopRecording: () => stopRecording(),

@@ -10,27 +10,23 @@ import { DENY_LINK, MUTATING_VERB, ADMIN_PATH, ACTION_PARAM } from './site-map';
 export const CLI_CRAWL_MAX_PAGES = 30;
 
 /**
- * The CDP target-selection instruction. When a `marker` is present (the app stamps the driven
- * tab's window.name — see tab-control.ts), pin to it: this is unambiguous even when the shared
- * debug port has several identical-URL targets, which is what let earlier runs grab an orphan
- * window. Without a marker, fall back to matching the host.
+ * How the agent reaches the embedded tab. On this platform the embedded browser tab is NOT a CDP
+ * page target — /json/list shows ONLY the app-UI window (its url starts with http://localhost).
+ * That window exposes window.__steveControl, the bridge into the real tab via the app's own
+ * eval_webview_script. So: Runtime.evaluate on the app-UI target to call __steveControl; read and
+ * act on the page through __steveControl.eval(id, "<js>"). The `marker`/host args are kept for
+ * signature compatibility but no longer used for target selection.
  */
-export function cdpTargetInstruction(host: string, marker?: string): string {
-  if (marker) {
-    return [
-      `- GET /json/list — the tab you must drive is stamped with window.name === "${marker}".`,
-      '  For each candidate page target, connect and evaluate `window.name` via Runtime.evaluate;',
-      `  drive ONLY the target whose window.name === "${marker}". Ignore the localhost app UI and`,
-      '  every other tab. Do NOT open a new window/tab, call Target.createTarget/window.open, or',
-      '  launch your own browser (no playwright/puppeteer.launch) — act IN PLACE on the marked target.',
-    ].join('\n');
-  }
+export function cdpTargetInstruction(host: string, _marker?: string): string {
   return [
-    `- GET /json/list — pick the EXISTING page target whose url is on ${host} (NOT the localhost app UI).`,
-    '- Talk to its webSocketDebuggerUrl (write a small Bash/node/bun script; you have shell access).',
-    '- Drive THAT target IN PLACE. Do NOT open a new window or tab, do NOT call Target.createTarget',
-    '  or window.open, and do NOT launch your own browser (no playwright/puppeteer.launch) — every',
-    "  action must happen in the app's embedded browser the user is watching, on the existing target.",
+    '- The embedded tab is NOT a CDP target (not in /json/list, which shows ONLY the app-UI window,',
+    '  url http://localhost). That window exposes window.__steveControl — your bridge into the tab.',
+    '  Runtime.evaluate on it to call (all async): listTabs()->[{id,url,active,ready}] (use the',
+    '  active id); eval(id,"<js>") runs <js> in the tab and returns its result — READ (innerText,',
+    '  querySelector, location.href, document.title) and ACT (el.click(); set input.value + dispatch',
+    '  input+change); navigate(id,url) to move the tab. A 404 shows in the title/body — treat it as',
+    `  real state, never assume a nav worked. Stay on ${host}; no Target.createTarget/window.open, no`,
+    '  self-launched browser (no playwright/puppeteer.launch).',
   ].join('\n');
 }
 
@@ -44,20 +40,21 @@ export function cdpTargetInstruction(host: string, marker?: string): string {
  */
 export function cdpMultiTabInstruction(primaryHost: string): string {
   return [
-    '- Two kinds of target share this debug port:',
-    '  1. The APP UI window (its url starts with http://localhost) exposes window.__steveControl —',
-    '     your ONLY sanctioned way to manage tabs and log in. Reach it with Runtime.evaluate on that',
-    '     target; never use it to act on a site. Its methods (all async — await them):',
-    '       - __steveControl.listTabs() -> [{id,url,title,active,ready,marker}]',
+    '- The ONLY CDP target is the APP UI window (its url starts with http://localhost). Embedded',
+    '  tabs are NOT CDP targets on this platform — do not look for them in /json/list. The app-UI',
+    '  window exposes window.__steveControl, your bridge for BOTH managing tabs and driving them.',
+    '  Reach it with Runtime.evaluate on that target. Its methods (all async — await them):',
+    '       - __steveControl.listTabs() -> [{id,url,title,active,ready}]',
     '       - __steveControl.newTab(url) -> opens a tab, returns its id',
+    '       - __steveControl.eval(id, "<js>") -> runs <js> INSIDE tab id and returns its result;',
+    '         this is how you READ (innerText, querySelector, location.href, document.title) and',
+    '         ACT (el.click(); set an input .value then dispatch input+change). Treat a 404 title/',
+    '         body as real state — never assume a navigation worked.',
     "       - __steveControl.login(id) -> submits the SAVED on-device credentials for that tab's site",
     '         and returns true if one matched. Credentials never leave the machine, you never see',
     '         them, and no MFA is expected. Always log in this way — never type a password yourself.',
     '       - __steveControl.activate(id) -> bring tab id to the front (what the user sees)',
     '       - __steveControl.navigate(id, url), __steveControl.closeTab(id)',
-    '  2. One PAGE target per tab, each stamped window.name === "steve-tab-<id>". Do ALL reading,',
-    '     clicking, and filling on the page target whose window.name matches the tab you are on',
-    '     (evaluate window.name over each candidate target to find it).',
     '- Make tabs ONLY via __steveControl.newTab. Never call Target.createTarget / window.open or',
     '  launch your own browser (no playwright/puppeteer.launch).',
     '- Before each visible action, __steveControl.activate(id) the tab you are working so the user',
