@@ -265,7 +265,7 @@
     <div class="panel" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
       <h2>Updating {updating}</h2>
       <p class="step">{updateStep}</p>
-      <p class="runmeta">⏱ {elapsed()}{#if ctxTokens} · context used ~{ctxLabel} tokens{/if}</p>
+      <p class="runmeta"><span>⏱ {elapsed()}</span>{#if ctxTokens}<span>context used ~{ctxLabel} tokens</span>{/if}</p>
       {#if updateProgress.length}
         <ul class="prog">
           {#each updateProgress.slice(-12) as line}<li>{line}</li>{/each}
@@ -373,7 +373,7 @@
   .chip.ok { background: rgba(34,197,94,.15); color: #22c55e; }
   .chip.warn { background: rgba(217,119,6,.18); color: #d97706; }
   .verdict { font-size: 13px; margin: 0 0 8px; opacity: .85; }
-  .runmeta { font-size: 12px; opacity: .7; margin: 0 0 8px; font-variant-numeric: tabular-nums; }
+  .runmeta { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; opacity: .7; margin: 0 0 4px; font-variant-numeric: tabular-nums; }
   .dlist { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .dlist li { background: rgba(217,119,6,.12); border-left: 3px solid #d97706; border-radius: 4px; padding: 6px 10px; font-size: 12.5px; line-height: 1.45; }
   .clist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
