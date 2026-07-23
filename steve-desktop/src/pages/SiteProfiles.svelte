@@ -1,17 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { invoke } from '@tauri-apps/api/core';
-  import { listen } from '@tauri-apps/api/event';
   import { SITE_PROFILES_DIR } from '../lib/constants';
   import { domainToPath } from '../lib/utils/index';
-  import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, healMappingDoc, getMappingDocPath } from '../lib/site-profiles';
-  import { buildCliVerifyPrompt, parseCliVerifyOutput } from '../lib/cli-crawl';
-  import { cliModelArg, extractCliText, summarizeCliLine, engineForProvider } from '../lib/agent-cli';
+  import { listProfiles, loadMappingDoc, healMappingDoc } from '../lib/site-profiles';
   import { renderSkillPreview } from '../lib/skill-parser';
   import { summarizeVerifyReport } from '../lib/verify-summary';
-  import { listProviderConfigs } from '../lib/db';
-  import { createEmbeddedBrowser, hideWebview, destroyWebview, injectScript, listenBrowserPageLoaded } from '../lib/browser';
-  import { tabMarker, markerScript } from '../lib/tab-control';
+  import { updateRun, startUpdate } from '../lib/update-run.svelte';
 
   interface DomainGroup {
     domain: string;
@@ -25,31 +20,21 @@
   let busy = $state('');
   let pendingDelete = $state('');
 
-  // Update (re-map → diff → heal) state.
-  let updating = $state(''); // domain currently being re-mapped
-  let updateStep = $state('');
-  let updateProgress = $state<string[]>([]);
-  // Run meta shown in the progress modal: elapsed wall clock + the agent's context usage,
-  // read from the CLI's own stream-json usage blocks. Both answer "is it still alive?".
-  let updateStartedAt = $state(0);
-  let nowMs = $state(0);
-  let ctxTokens = $state(0);
-  let tick: ReturnType<typeof setInterval> | undefined;
+  // Update (re-map → diff → heal) run lives in update-run.svelte.ts — a module singleton — so
+  // navigating away from this page never kills a run; this component is a pure view of it.
+  let applying = $state(false);
   const elapsed = $derived(() => {
-    const s = Math.max(0, Math.floor((nowMs - updateStartedAt) / 1000));
+    const s = Math.max(0, Math.floor((updateRun.now - updateRun.startedAt) / 1000));
     return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
   });
-  const ctxLabel = $derived(ctxTokens >= 1000 ? `${(ctxTokens / 1000).toFixed(0)}k` : String(ctxTokens));
-  let result = $state<{ domain: string; report: string; healedDoc: string; changed: boolean } | null>(null);
-  let applying = $state(false);
+  const ctxLabel = $derived(updateRun.ctxTokens >= 1000 ? `${(updateRun.ctxTokens / 1000).toFixed(0)}k` : String(updateRun.ctxTokens));
+
   // Modal dismissal: a full-screen backdrop must always be closable, or it traps every click behind
   // it. Closing the RESULT modal clears it; closing the PROGRESS modal just hides it — the run keeps
   // going in the background and the result modal re-appears when it finishes.
-  let modalDismissed = $state(false);
-
   function closeModal() {
-    if (result) result = null;
-    else modalDismissed = true;
+    if (updateRun.result) updateRun.result = null;
+    else updateRun.dismissed = true;
   }
 
   async function refresh() {
@@ -88,122 +73,16 @@
     }
   }
 
-  /** Re-map a stored profile: re-read its pages on a hidden background tab, have the agent verify its
-   *  own mapping doc, then offer to apply the corrected doc. Read-only until you press Apply. */
-  async function updateProfile(domain: string) {
-    if (updating) return;
-    err = '';
-    result = null;
-    updateProgress = [];
-    updating = domain;
-    modalDismissed = false;
-    updateStep = 'Preparing…';
-    updateStartedAt = Date.now();
-    nowMs = Date.now();
-    ctxTokens = 0;
-    tick = setInterval(() => (nowMs = Date.now()), 1000);
-    let tabId = '';
-    let unlisten: (() => void) | undefined;
-    let unlistenLoad: (() => void) | undefined;
-    try {
-      // On Windows the only working spawn engine is claude (opencode fails, os error 193); it
-      // self-auths via the machine Claude Code login — same as the panel's real runs. Pick a claude
-      // model from a configured claude provider if present, else the default.
-      const engine = 'claude' as const;
-      const configs = await listProviderConfigs().catch(() => []);
-      const model = configs.find((c) => engineForProvider(c.id) === 'claude')?.model ?? 'claude-opus-4-8';
-
-      const doc = await loadMappingDoc(domain);
-      if (!doc) throw new Error('No mapping doc for this site to verify.');
-
-      // Pages to re-check: prefer the stored site map, fall back to the page profiles.
-      const map = await loadSiteMap(domain).catch(() => null);
-      let pages = (map?.pages ?? []).map((p) => ({ name: p.pageName || p.url, url: p.url })).filter((p) => p.url);
-      if (!pages.length) {
-        const infos = (await listProfiles()).filter((p) => p.domain === domain);
-        const loaded = await Promise.all(
-          infos.map(async (i) => {
-            const pr = await loadProfile(i.domain, i.pageName);
-            return pr?.url ? { name: pr.pageName || pr.url, url: pr.url } : null;
-          }),
-        );
-        pages = loaded.filter((p): p is { name: string; url: string } => !!p);
-      }
-      if (!pages.length) throw new Error('No mapped pages to re-check.');
-      const startUrl = pages[0].url;
-
-      const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
-
-      // Hidden transient tab — verify is read-only (navigate + read), so it needn't be watched.
-      updateStep = 'Opening a background tab…';
-      tabId = globalThis.crypto.randomUUID();
-      // Re-stamp window.name on EVERY page load — a single injection is wiped by any navigation
-      // (e.g. a sign-in redirect), which is what made the agent unable to find the marked tab.
-      unlistenLoad = await listenBrowserPageLoaded(({ tabId: tid }) => {
-        if (tid === tabId) injectScript(markerScript(tabId), tabId).catch(() => {});
-      });
-      await createEmbeddedBrowser(tabId, startUrl, true); // offscreen — never flashes over the UI
-      await new Promise((r) => setTimeout(r, 2500)); // let it register + load as a CDP target
-      await injectScript(markerScript(tabId), tabId).catch(() => {});
-      await hideWebview(tabId).catch(() => {}); // belt + braces: fully hidden once registered
-
-      updateStep = `Re-mapping ${pages.length} page(s) with ${engine}…`;
-      const sessionId = globalThis.crypto.randomUUID();
-      unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
-        if (ev.payload.sessionId !== sessionId) return;
-        const s = summarizeCliLine(ev.payload.line);
-        if (s && updateProgress[updateProgress.length - 1] !== s) updateProgress = [...updateProgress, s].slice(-30);
-        // Context meter: the CLI's stream-json assistant/result events carry per-turn usage.
-        try {
-          const u = (JSON.parse(ev.payload.line) as { message?: { usage?: Record<string, number> }; usage?: Record<string, number> });
-          const usage = u.message?.usage ?? u.usage;
-          if (usage) {
-            const n = (usage.input_tokens ?? 0) + (usage.cache_read_input_tokens ?? 0) + (usage.cache_creation_input_tokens ?? 0) + (usage.output_tokens ?? 0);
-            if (n > 0) ctxTokens = n;
-          }
-        } catch { /* not JSON — ignore */ }
-      });
-
-      // Goal prompt: the doc stays on disk and the agent reads it there — the prompt is a
-      // fixed-size template (<4000 chars) instead of embedding an unbounded document.
-      const docPath = await invoke<string>('resolve_path', { path: getMappingDocPath(domain) });
-      const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl, docPath, marker: tabMarker(tabId) });
-      const stdout = await invoke<string>('run_agent_cli', {
-        engine,
-        prompt,
-        sessionId,
-        resume: false,
-        model: cliModelArg(engine, model),
-        systemPrompt: null,
-        bypassPermissions: true,
-        timeoutSecs: 900,
-        stream: true,
-      });
-
-      const { report, healedDoc } = parseCliVerifyOutput(extractCliText(engine, stdout));
-      if (!report) throw new Error('The agent returned an empty verification report.');
-      const changed = !!healedDoc && healedDoc.trim() !== doc.trim();
-      result = { domain, report, healedDoc: healedDoc ?? '', changed };
-      modalDismissed = false; // surface the result even if the progress modal was dismissed
-      updateStep = changed ? 'Re-map done — review the changes, then Apply.' : 'Re-map done — no changes needed.';
-    } catch (e) {
-      err = e instanceof Error ? e.message : String(e);
-    } finally {
-      unlisten?.();
-      unlistenLoad?.();
-      if (tabId) await destroyWebview(tabId).catch(() => {});
-      if (tick) { clearInterval(tick); tick = undefined; }
-      updating = '';
-    }
+  /** Delegate to the module-level run (survives page navigation). */
+  function updateProfile(domain: string) {
+    void startUpdate(domain);
   }
-
   async function applyUpdate() {
-    if (!result?.changed) return;
+    if (!updateRun.result?.changed) return;
     applying = true;
     try {
-      await healMappingDoc(result.domain, result.healedDoc); // keeps _sitemap-ai.prev.md → reversible
-      result = null;
+      await healMappingDoc(updateRun.result.domain, updateRun.result.healedDoc); // keeps _sitemap-ai.prev.md → reversible
+      updateRun.result = null;
       await refresh();
     } catch (e) {
       err = e instanceof Error ? e.message : String(e);
@@ -223,7 +102,7 @@
       <h1>Site Profiles</h1>
       <p class="sub">Maps the agent has learned for each site. Update re-checks the site and heals the map; Delete removes it from disk.</p>
     </div>
-    <button class="refresh" onclick={refresh} disabled={loading || !!updating}>↻ Refresh</button>
+    <button class="refresh" onclick={refresh} disabled={loading || !!updateRun.domain}>↻ Refresh</button>
   </header>
 
   {#if err}<p class="err">{err}</p>{/if}
@@ -241,14 +120,14 @@
             <span class="meta">{g.pages} {g.pages === 1 ? 'page' : 'pages'}{g.hasDoc ? ' · mapping doc' : ' · no doc'}</span>
           </div>
           <div class="actions">
-            {#if (updating === g.domain || result?.domain === g.domain) && modalDismissed}
+            {#if (updateRun.domain === g.domain || updateRun.result?.domain === g.domain) && updateRun.dismissed}
               <!-- The run (or its finished report) is hidden — bring the panel back. -->
-              <button class="upd" onclick={(e) => { e.stopPropagation(); modalDismissed = false; }}>
-                {updating === g.domain ? '⏳ View progress' : 'View report'}
+              <button class="upd" onclick={(e) => { e.stopPropagation(); updateRun.dismissed = false; }}>
+                {updateRun.domain === g.domain ? '⏳ View progress' : 'View report'}
               </button>
             {:else}
-              <button class="upd" disabled={!!updating || !g.hasDoc} title={g.hasDoc ? 'Re-check this site and heal the map' : 'No mapping doc to verify'} onclick={(e) => { e.stopPropagation(); updateProfile(g.domain); }}>
-                {updating === g.domain ? 'Updating…' : 'Update'}
+              <button class="upd" disabled={!!updateRun.domain || !g.hasDoc} title={g.hasDoc ? 'Re-check this site and heal the map' : 'No mapping doc to verify'} onclick={(e) => { e.stopPropagation(); updateProfile(g.domain); }}>
+                {updateRun.domain === g.domain ? 'Updating…' : 'Update'}
               </button>
             {/if}
             {#if pendingDelete === g.domain}
@@ -256,7 +135,7 @@
                 {busy === g.domain ? 'Deleting…' : 'Confirm delete'}
               </button>
             {:else}
-              <button class="del" disabled={!!updating} onclick={(e) => { e.stopPropagation(); pendingDelete = g.domain; }}>Delete</button>
+              <button class="del" disabled={!!updateRun.domain} onclick={(e) => { e.stopPropagation(); pendingDelete = g.domain; }}>Delete</button>
             {/if}
           </div>
         </li>
@@ -265,17 +144,17 @@
   {/if}
 </div>
 
-{#if updating && !modalDismissed}
+{#if updateRun.domain && !updateRun.dismissed}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div class="backdrop" role="presentation" onclick={closeModal}>
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="panel" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
-      <h2>Updating {updating}</h2>
-      <p class="step">{updateStep}</p>
-      <p class="runmeta"><span>⏱ {elapsed()}</span>{#if ctxTokens}<span>context used ~{ctxLabel} tokens</span>{/if}</p>
-      {#if updateProgress.length}
+      <h2>Updating {updateRun.domain}</h2>
+      <p class="step">{updateRun.step}</p>
+      <p class="runmeta"><span>⏱ {elapsed()}</span>{#if updateRun.ctxTokens}<span>context used ~{ctxLabel} tokens</span>{/if}</p>
+      {#if updateRun.progress.length}
         <ul class="prog">
-          {#each updateProgress.slice(-12) as line}<li>{line}</li>{/each}
+          {#each updateRun.progress.slice(-12) as line}<li>{line}</li>{/each}
         </ul>
       {/if}
       <div class="panel-actions">
@@ -284,13 +163,13 @@
       </div>
     </div>
   </div>
-{:else if result && !modalDismissed}
-  {@const s = summarizeVerifyReport(result.report)}
+{:else if updateRun.result && !updateRun.dismissed}
+  {@const s = summarizeVerifyReport(updateRun.result.report)}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div class="backdrop" role="presentation" onclick={closeModal}>
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div class="panel wide" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
-      <h2>{result.domain} — verification</h2>
+      <h2>{updateRun.result.domain} — verification</h2>
       {#if s.confirmed.length || s.discrepancies.length}
         <!-- Structured review: problems first, the long confirmed list collapsed. -->
         <div class="vsum">
@@ -315,30 +194,30 @@
             <!-- Sanitized (renderSkillPreview = marked + sanitizeHtml) — model output over
                  untrusted pages never lands in {@html} unsanitized. -->
             <div class="md">
-              {#await renderSkillPreview(result.report) then html}{@html html}{:catch}<pre class="raw">{result.report}</pre>{/await}
+              {#await renderSkillPreview(updateRun.result.report) then html}{@html html}{:catch}<pre class="raw">{updateRun.result.report}</pre>{/await}
             </div>
           </details>
         </div>
       {:else}
         <!-- Report didn't match the expected shape — fall back to the rendered markdown. -->
         <div class="report md">
-          {#await renderSkillPreview(result.report)}
-            <pre class="raw">{result.report}</pre>
+          {#await renderSkillPreview(updateRun.result.report)}
+            <pre class="raw">{updateRun.result.report}</pre>
           {:then html}
             {@html html}
           {:catch}
-            <pre class="raw">{result.report}</pre>
+            <pre class="raw">{updateRun.result.report}</pre>
           {/await}
         </div>
       {/if}
       <div class="panel-actions">
-        {#if result.changed}
+        {#if updateRun.result.changed}
           <span class="changed">The mapping doc will be updated (prior kept as a .prev backup).</span>
           <button class="confirm" disabled={applying} onclick={applyUpdate}>{applying ? 'Applying…' : 'Apply update'}</button>
         {:else}
           <span class="unchanged">No changes needed — the map still holds up.</span>
         {/if}
-        <button onclick={() => (result = null)}>Close</button>
+        <button onclick={() => (updateRun.result = null)}>Close</button>
       </div>
     </div>
   </div>
