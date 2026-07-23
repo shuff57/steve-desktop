@@ -25,6 +25,7 @@ describe('ogreIsland', () => {
       'getBatchResume',
       'setBatchResume',
       'clearBatchResume',
+      'gradeOne',
     ]) {
       expect(typeof ogreIsland.methods[m as keyof typeof ogreIsland.methods]).toBe('function');
     }

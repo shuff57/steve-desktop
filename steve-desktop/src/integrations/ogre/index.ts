@@ -5,7 +5,7 @@
  * The tables live in steve.db via tauri-plugin-sql; see ./db.ts for why the
  * original better-sqlite3 accessor could not survive the port.
  *
- * Phase 5 will add:
+ * Phase 5 so far: gradeOne() grades a single student. Still to come:
  *  - loadStudents(profile) -> { name, responseText }[]
  *  - gradeBatch(input)     -> AsyncIterable<GradingEvent>
  */
@@ -21,6 +21,9 @@ import {
   listSiteProfiles,
   setBatchResume,
 } from './db';
+import { gradeOne } from './grade';
+import type { GradeProvider, Student } from './grade';
+import type { GradeResult, Rubric } from './grading';
 import type { GradingSession, GradingSessionInsert, SiteProfile, Skill } from './types';
 
 export interface OgreMethods {
@@ -35,6 +38,13 @@ export interface OgreMethods {
   getBatchResume(url: string): Promise<string | null>;
   setBatchResume(url: string, lastStudentName: string): Promise<void>;
   clearBatchResume(url: string): Promise<void>;
+  /** Grade one student. Work reaches the model only through the redaction gate. */
+  gradeOne(
+    student: Student,
+    rubric: Rubric,
+    provider: GradeProvider,
+    opts?: { instructions?: string },
+  ): Promise<GradeResult>;
 }
 
 export const ogreIsland = defineIsland<OgreMethods>({
@@ -50,5 +60,6 @@ export const ogreIsland = defineIsland<OgreMethods>({
     getBatchResume,
     setBatchResume,
     clearBatchResume,
+    gradeOne,
   },
 });
