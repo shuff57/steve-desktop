@@ -2010,6 +2010,9 @@ async fn run_agent_cli(
     bypass_permissions: bool,
     timeout_secs: Option<u64>,
     stream: Option<bool>,
+    // opencode only. Selects one of its configured agents; `summary` carries almost no
+    // tools. See the opencode arm below for why that matters. None keeps today's behaviour.
+    agent: Option<String>,
 ) -> Result<String, String> {
     let streaming = stream == Some(true);
     let bin = resolve_on_path(&engine).ok_or_else(|| {
@@ -2058,6 +2061,17 @@ async fn run_agent_cli(
         "opencode" => {
             // The prompt goes in on stdin (opencode run reads it), same as claude.
             args.push("run".into());
+            // `--agent` is opencode's equivalent of claude's `--disallowed-tools "*"`: it
+            // picks which tool set gets loaded. The default agent boots the entire coding
+            // stack — skills, tool schemas, git snapshots — costing ~29.3K input tokens
+            // before the prompt is even added, which overruns a local Ollama's 32768 ceiling
+            // and truncates the reply. Measured here: default 29329, plan 29609, title 4945,
+            // summary 4560. `--pure` does NOT help; it only skips external plugins.
+            // Callers that just want a completion (grading) pass "summary"; the browser
+            // agent passes None because it genuinely needs the tools.
+            if let Some(a) = agent.filter(|s| !s.trim().is_empty()) {
+                args.extend(["--agent".into(), a]);
+            }
             // Raw JSON events on stdout, one per line — for both live progress and final-text
             // parsing. opencode has no separate stream flag: `--format json` IS the event stream
             // (verified against the installed CLI: step_start / tool_use / text / step_finish).

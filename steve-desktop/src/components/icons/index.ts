@@ -8,6 +8,7 @@ export {
   Map as SiteProfilesIcon,
   Settings as SettingsIcon,
   BookOpen as MomIcon,
+  ClipboardCheck as OgreIcon,
 } from 'lucide-svelte';
 
 // CollapseIcon flips direction based on its `collapsed` prop — needs a wrapper.
