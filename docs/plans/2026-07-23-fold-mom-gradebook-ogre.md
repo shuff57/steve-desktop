@@ -301,6 +301,20 @@ describe('buildFloorArgs', () => {
 - **Real data guardrails.** gradebook is FERPA-scoped (per your memory). Never log student names, never write to `mom/`, never push to a real gradebook page without confirm.
 - **AGENTS.md updates per phase.** Each phase that adds a non-trivial skill surface should append one line to `steve-desktop/AGENTS.md` under "Integrations."
 
+## Worktree layout (set up 2026-07-23)
+
+Each island lands in its own worktree, branched from `ai-site-mapping` at f800405. The plan's phase 0 (scaffolding) will land on `ai-site-mapping` first; phase 1+ in the per-island worktrees. Worktrees:
+
+| Worktree path | Branch | Plan phases |
+|---|---|---|
+| `steve-desktop/.worktrees/gradebook-island/` | `integration/gradebook-island` | Phase 1 |
+| `steve-desktop/.worktrees/mom-island/` | `integration/mom-island` | Phases 2 + 3 |
+| `steve-desktop/.worktrees/ogre-island/` | `integration/ogre-island` | Phases 4 + 5 + 6 |
+
+`.worktrees/` is gitignored at the outer repo root. Each worktree has its own `node_modules` (gitignored). Baseline test: 51 files, 482 tests, 0 failures in all three.
+
+Merge order: gradebook → mom → ogre. Each PR reviewed independently.
+
 ## What is NOT in this plan
 
 - **OGRE Cloud** (Google login + JWT + worker). Out of scope for the initial fold. The island boundary keeps the door open.
