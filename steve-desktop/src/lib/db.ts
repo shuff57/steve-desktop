@@ -25,13 +25,26 @@ export interface Skill {
   source: string;
   is_active: number;
   url_pattern: string | null;
+  // Ogre-island columns. Optional because rows written by the original steve paths
+  // (local / marketplace / created skills) leave them NULL.
+  source_id?: string | null;
+  learned_corrections?: string | null;
+  updated_at?: string | null;
 }
 
-export interface SiteProfile {
+// A site_profiles row. Distinct from the crawler's `SiteProfile` in ./types/site-profile —
+// that one is the on-disk JSON snapshot, this one is ogre's structured grading config.
+export interface SiteProfileRow {
   id: string;
-  domain: string;
-  page_name: string;
-  profile_json: string;
+  name: string;
+  url_patterns: string;
+  selectors: string;
+  feedback: string;
+  save: string;
+  navigation: string;
+  extraction: string | null;
+  created_at?: string;
+  updated_at?: string;
 }
 
 // Credential passwords live in the OS keychain (Windows Credential Manager / macOS Keychain),
@@ -156,6 +169,9 @@ export async function getSetting(key: string): Promise<string | null> {
   return rows.length > 0 ? rows[0].value : null;
 }
 
+const SKILL_COLUMNS =
+  'id, name, description, content, source, is_active, url_pattern, source_id, learned_corrections, updated_at';
+
 export async function saveSkill(skill: {
   id: string;
   name: string;
@@ -164,18 +180,23 @@ export async function saveSkill(skill: {
   source?: string;
   is_active?: number;
   url_pattern?: string | null;
+  source_id?: string | null;
+  learned_corrections?: string | null;
 }): Promise<void> {
   const database = await initDB();
   await database.execute(
-    `INSERT INTO skills (id, name, description, content, source, is_active, url_pattern)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `INSERT INTO skills (${SKILL_COLUMNS})
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
      ON CONFLICT(id) DO UPDATE SET
        name = $2,
        description = $3,
        content = $4,
        source = $5,
        is_active = $6,
-       url_pattern = $7`,
+       url_pattern = $7,
+       source_id = $8,
+       learned_corrections = $9,
+       updated_at = $10`,
     [
       skill.id,
       skill.name,
@@ -184,23 +205,22 @@ export async function saveSkill(skill: {
       skill.source ?? 'local',
       skill.is_active ?? 1,
       skill.url_pattern ?? null,
+      skill.source_id ?? null,
+      skill.learned_corrections ?? null,
+      // Bound rather than SQL datetime('now') so the same value lands on insert and update.
+      new Date().toISOString().replace('T', ' ').slice(0, 19),
     ],
   );
 }
 
 export async function getSkills(): Promise<Skill[]> {
   const database = await initDB();
-  return database.select<Skill[]>(
-    'SELECT id, name, description, content, source, is_active, url_pattern FROM skills ORDER BY name',
-  );
+  return database.select<Skill[]>(`SELECT ${SKILL_COLUMNS} FROM skills ORDER BY name`);
 }
 
 export async function getSkill(id: string): Promise<Skill | null> {
   const database = await initDB();
-  const rows = await database.select<Skill[]>(
-    'SELECT id, name, description, content, source, is_active, url_pattern FROM skills WHERE id = $1',
-    [id],
-  );
+  const rows = await database.select<Skill[]>(`SELECT ${SKILL_COLUMNS} FROM skills WHERE id = $1`, [id]);
   return rows.length > 0 ? rows[0] : null;
 }
 
@@ -214,32 +234,57 @@ export async function updateSkillActive(id: string, isActive: number): Promise<v
   await database.execute('UPDATE skills SET is_active = $1 WHERE id = $2', [isActive, id]);
 }
 
-export async function saveSiteProfile(domain: string, pageName: string, profileJson: string): Promise<void> {
+const SITE_PROFILE_COLUMNS =
+  'id, name, url_patterns, selectors, feedback, save, navigation, extraction, created_at, updated_at';
+
+export async function saveSiteProfile(profile: {
+  id: string;
+  name: string;
+  url_patterns: string;
+  selectors: string;
+  feedback: string;
+  save: string;
+  navigation: string;
+  extraction?: string | null;
+}): Promise<void> {
   const database = await initDB();
   await database.execute(
-    `INSERT INTO site_profiles (id, domain, page_name, profile_json, created_at, updated_at)
-     VALUES (lower(hex(randomblob(16))), $1, $2, $3, datetime('now'), datetime('now'))
-     ON CONFLICT(domain, page_name) DO UPDATE SET
-       profile_json = $3,
+    `INSERT INTO site_profiles (id, name, url_patterns, selectors, feedback, save, navigation, extraction, created_at, updated_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, datetime('now'), datetime('now'))
+     ON CONFLICT(id) DO UPDATE SET
+       name = $2,
+       url_patterns = $3,
+       selectors = $4,
+       feedback = $5,
+       save = $6,
+       navigation = $7,
+       extraction = $8,
        updated_at = datetime('now')`,
-    [domain, pageName, profileJson],
+    [
+      profile.id,
+      profile.name,
+      profile.url_patterns,
+      profile.selectors,
+      profile.feedback,
+      profile.save,
+      profile.navigation,
+      profile.extraction ?? null,
+    ],
   );
 }
 
-export async function getSiteProfile(domain: string, pageName: string): Promise<SiteProfile | null> {
+export async function getSiteProfile(id: string): Promise<SiteProfileRow | null> {
   const database = await initDB();
-  const rows = await database.select<SiteProfile[]>(
-    'SELECT id, domain, page_name, profile_json FROM site_profiles WHERE domain = $1 AND page_name = $2',
-    [domain, pageName],
+  const rows = await database.select<SiteProfileRow[]>(
+    `SELECT ${SITE_PROFILE_COLUMNS} FROM site_profiles WHERE id = $1`,
+    [id],
   );
   return rows.length > 0 ? rows[0] : null;
 }
 
-export async function listSiteProfiles(): Promise<SiteProfile[]> {
+export async function listSiteProfiles(): Promise<SiteProfileRow[]> {
   const database = await initDB();
-  return database.select<SiteProfile[]>(
-    'SELECT id, domain, page_name, profile_json FROM site_profiles ORDER BY domain, page_name',
-  );
+  return database.select<SiteProfileRow[]>(`SELECT ${SITE_PROFILE_COLUMNS} FROM site_profiles ORDER BY name`);
 }
 
 export async function deleteSiteProfile(id: string): Promise<void> {

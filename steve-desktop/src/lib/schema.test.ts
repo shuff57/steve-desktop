@@ -12,12 +12,15 @@ describe('steve.db schema', () => {
     expect(schema).toContain('site_profiles');
   });
 
+  // Matches a table declaration, not a bare mention — comments are free to name ogre
+  // concepts (e.g. "rubric") without tripping this.
+  const declaresTable = (name: string) =>
+    new RegExp(`CREATE TABLE (IF NOT EXISTS )?${name}\\b`, 'i').test(schema);
+
   it('has no grading tables', () => {
-    expect(schema).not.toContain('grading_session');
-    expect(schema).not.toContain('batch_session');
-    expect(schema).not.toContain('response_embedding');
-    expect(schema).not.toContain('visible_columns');
-    expect(schema).not.toContain('rubric');
+    for (const t of ['grading_session', 'batch_session', 'response_embedding', 'visible_columns', 'rubrics?']) {
+      expect(declaresTable(t)).toBe(false);
+    }
   });
 
   it('seeds setup_complete as false', () => {

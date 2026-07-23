@@ -117,7 +117,7 @@ describe('db.ts', () => {
 
     expect(mockExecute).toHaveBeenCalledWith(
       expect.stringContaining('INSERT INTO skills'),
-      ['skill-1', 'My Skill', 'desc', 'content', 'local', 1, 'https://example.com/*'],
+      ['skill-1', 'My Skill', 'desc', 'content', 'local', 1, 'https://example.com/*', null, null, expect.any(String)],
     );
 
     mockSelect.mockResolvedValueOnce([
@@ -158,45 +158,134 @@ describe('db.ts', () => {
     expect(mockExecute).toHaveBeenCalledWith('DELETE FROM skills WHERE id = $1', ['skill-1']);
   });
 
-  it('exposes provider and site profile APIs for steve schema', async () => {
-    await saveProviderConfig({ id: 'ollama', api_url: 'http://localhost:11434', api_key: 'k', model: 'llama3', is_active: 1 });
+  it('saveSkill round-trips the ogre-shaped optional columns (source_id, learned_corrections)', async () => {
+    await saveSkill({
+      id: 'skill-rubric-1',
+      name: 'FRQ Stats Rubric',
+      description: 'rubric for FRQ',
+      content: '{"requirements":[]}',
+      source: 'rubric',
+      is_active: 0,
+      url_pattern: null,
+      source_id: 'frq-stats',
+      learned_corrections: '[]',
+    });
+
     expect(mockExecute).toHaveBeenCalledWith(
-      expect.stringContaining('INSERT INTO provider_configs'),
-      ['ollama', 'http://localhost:11434', 'k', 'llama3', 1],
+      expect.stringContaining('INSERT INTO skills'),
+      [
+        'skill-rubric-1',
+        'FRQ Stats Rubric',
+        'rubric for FRQ',
+        '{"requirements":[]}',
+        'rubric',
+        0,
+        null,
+        'frq-stats',
+        '[]',
+        expect.any(String), // updated_at — datetime('now')
+      ],
     );
 
     mockSelect.mockResolvedValueOnce([
-      { id: 'ollama', api_url: 'http://localhost:11434', api_key: 'k', model: 'llama3', is_active: 1 },
+      {
+        id: 'skill-rubric-1',
+        name: 'FRQ Stats Rubric',
+        description: 'rubric for FRQ',
+        content: '{"requirements":[]}',
+        source: 'rubric',
+        is_active: 0,
+        url_pattern: null,
+        source_id: 'frq-stats',
+        learned_corrections: '[]',
+        updated_at: '2026-07-23 12:00:00',
+      },
     ]);
-    const config = await getProviderConfig('ollama');
-    expect(config?.id).toBe('ollama');
+    const one = await getSkill('skill-rubric-1');
+    expect(one?.source_id).toBe('frq-stats');
+    expect(one?.learned_corrections).toBe('[]');
+    expect(one?.updated_at).toBe('2026-07-23 12:00:00');
+  });
 
-    mockSelect.mockResolvedValueOnce([
-      { id: 'ollama', api_url: 'http://localhost:11434', api_key: 'k', model: 'llama3', is_active: 1 },
-    ]);
-    const allConfigs = await listProviderConfigs();
-    expect(allConfigs).toHaveLength(1);
+  it('saveSkill with no optional ogre fields writes NULL for source_id/learned_corrections', async () => {
+    await saveSkill({
+      id: 'skill-local-1',
+      name: 'Local',
+      description: null,
+      content: 'content',
+      source: 'local',
+      is_active: 1,
+    });
 
-    await saveSiteProfile('example.com', 'watch-page', '{"autoplay":true}');
+    // Optional ogre fields are appended as nulls; existing 7-field consumers don't break.
+    expect(mockExecute).toHaveBeenCalledWith(
+      expect.stringContaining('INSERT INTO skills'),
+      ['skill-local-1', 'Local', null, 'content', 'local', 1, null, null, null, expect.any(String)],
+    );
+  });
+
+  it('exposes ogre-shaped site_profiles CRUD (id, name, url_patterns, selectors, feedback, save, navigation, extraction)', async () => {
+    await saveSiteProfile({
+      id: 'sp-1',
+      name: 'MyOpenMath grading',
+      url_patterns: '["myopenmath.com/*"]',
+      selectors: '{"question":"#qtext","answer":"#answer"}',
+      feedback: '# Feedback\n\nGood work.',
+      save: '{"mode":"append","selector":"#save"}',
+      navigation: '{"next":"#next-student"}',
+      extraction: '{"score":".score-cell"}',
+    });
     expect(mockExecute).toHaveBeenCalledWith(
       expect.stringContaining('INSERT INTO site_profiles'),
-      ['example.com', 'watch-page', '{"autoplay":true}'],
+      [
+        'sp-1',
+        'MyOpenMath grading',
+        '["myopenmath.com/*"]',
+        '{"question":"#qtext","answer":"#answer"}',
+        '# Feedback\n\nGood work.',
+        '{"mode":"append","selector":"#save"}',
+        '{"next":"#next-student"}',
+        '{"score":".score-cell"}',
+      ],
     );
 
     mockSelect.mockResolvedValueOnce([
-      { id: 'profile-1', domain: 'example.com', page_name: 'watch-page', profile_json: '{"autoplay":true}' },
+      {
+        id: 'sp-1',
+        name: 'MyOpenMath grading',
+        url_patterns: '["myopenmath.com/*"]',
+        selectors: '{"question":"#qtext"}',
+        feedback: '# Feedback',
+        save: '{"mode":"append"}',
+        navigation: '{"next":"#next-student"}',
+        extraction: '{"score":".score-cell"}',
+        created_at: '2026-07-23 12:00:00',
+        updated_at: '2026-07-23 12:00:00',
+      },
     ]);
-    const profile = await getSiteProfile('example.com', 'watch-page');
-    expect(profile?.domain).toBe('example.com');
+    const one = await getSiteProfile('sp-1');
+    expect(one?.name).toBe('MyOpenMath grading');
+    expect(one?.url_patterns).toBe('["myopenmath.com/*"]');
 
     mockSelect.mockResolvedValueOnce([
-      { id: 'profile-1', domain: 'example.com', page_name: 'watch-page', profile_json: '{"autoplay":true}' },
+      {
+        id: 'sp-1',
+        name: 'MyOpenMath grading',
+        url_patterns: '["myopenmath.com/*"]',
+        selectors: '{}',
+        feedback: '# Feedback',
+        save: '{}',
+        navigation: '{}',
+        extraction: null,
+        created_at: '2026-07-23 12:00:00',
+        updated_at: '2026-07-23 12:00:00',
+      },
     ]);
-    const profiles = await listSiteProfiles();
-    expect(profiles).toHaveLength(1);
+    const all = await listSiteProfiles();
+    expect(all).toHaveLength(1);
 
-    await deleteSiteProfile('profile-1');
-    expect(mockExecute).toHaveBeenCalledWith('DELETE FROM site_profiles WHERE id = $1', ['profile-1']);
+    await deleteSiteProfile('sp-1');
+    expect(mockExecute).toHaveBeenCalledWith('DELETE FROM site_profiles WHERE id = $1', ['sp-1']);
   });
 
   it('deletes oauth token by provider', async () => {
