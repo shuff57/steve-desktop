@@ -19,8 +19,18 @@
   import { describeLeniency, restoreCategoryWeights, rewriteRubric } from '../../integrations/ogre/leniency';
   import { detectOutliers } from '../../integrations/ogre/outliers';
   import { generateScoringAnchors } from '../../integrations/ogre/batch';
+  import { anchorsToText, withCalibration } from '../../integrations/ogre/anchors';
+  import {
+    autoFillWeights,
+    clearWeights,
+    equalizeWeights,
+    hasWeights,
+    validateWeights,
+    weightFieldsFor,
+  } from '../../integrations/ogre/weights';
   import { evalScript, isConnected } from '../../lib/cdp-actions';
-  import type { ExtractedStudent } from '../../integrations/ogre/load-students';
+  import type { ExtractedStudent, ExtractionProfile } from '../../integrations/ogre/load-students';
+  import type { RubricChecklistItem } from '../../integrations/ogre/grading';
   import type { BatchResult } from '../../integrations/ogre/batch';
   import type { Rubric } from '../../integrations/ogre/grading';
   import type { Skill } from '../../integrations/ogre/types';
@@ -45,6 +55,19 @@
   // with nothing written back, the only thing worth interrupting is spending more calls.
   let stopRequested = $state(false);
   let stopped = $state(false);
+
+  // Anchors: generated examples, then edited. Held as text because that is what the
+  // teacher edits and what ends up in the rubric's calibration block.
+  let anchorText = $state('');
+  let anchorBusy = $state(false);
+  let anchorError = $state<string | null>(null);
+
+  // Weights live here rather than in the stored rubric: they are a property of THIS run,
+  // and writing them back would silently re-weight every future use of the rubric.
+  let weighted = $state<RubricChecklistItem[] | null>(null);
+
+  let profiles = $state<ExtractionProfile[]>([]);
+  let profileId = $state('auto');
 
   let students = $state<ExtractedStudent[]>([]);
   let includeGraded = $state(false);
@@ -75,11 +98,22 @@
    * Leniency rewrites the criteria text, so it has to be applied to the rubric actually
    * handed to the grader — not appended as an instruction.
    */
+  /** Categories as currently weighted, falling back to the rubric's own. */
+  const weightItems = $derived(weighted ?? parsedRubric?.checklistItems ?? []);
+  const weightCheck = $derived(hasWeights(weightItems) ? validateWeights(weightItems) : null);
+
   const effectiveRubric = $derived.by((): Rubric | null => {
     if (!parsedRubric) return null;
-    const base = instructions.trim()
-      ? { ...parsedRubric, customInstructions: instructions.trim() }
-      : parsedRubric;
+
+    // Order matters: calibration anchors must be folded in as the SCORING CALIBRATION
+    // block with the plain instructions after, which is what extractCustomInstructions
+    // splits back apart at the far end.
+    let base = withCalibration(parsedRubric, anchorText, instructions);
+
+    // Weights are a run-level override of the stored categories.
+    if (weighted) base = { ...base, checklistItems: weighted };
+    base = { ...base, ...weightFieldsFor(base) };
+
     if (leniency === 50) return base;
     const items = (base.checklistItems ?? []).map((c) => ({
       ...c,
@@ -145,12 +179,50 @@
     }
   }
 
+  /** Auto-detect resolves against the current page; an explicit pick always wins. */
+  const activeProfile = $derived.by((): ExtractionProfile | null => {
+    if (profileId !== 'auto') return profiles.find((p) => p.id === profileId) ?? null;
+    return ogreIsland.methods.matchProfile(pageUrl, profiles);
+  });
+
+  async function loadProfiles() {
+    try {
+      profiles = await ogreIsland.methods.listExtractionProfiles();
+    } catch {
+      profiles = []; // extraction still works on the built-in MyOpenMath selectors
+    }
+  }
+
+  /** Generate worked examples of each score level for this question. */
+  async function generateAnchors() {
+    if (!parsedRubric) return;
+    anchorBusy = true;
+    anchorError = null;
+    try {
+      const examples = await ogreIsland.methods.generateAnchorExamples(
+        // Anchors describe the criteria as they will be graded, so leniency applies —
+        // but calibration must not be fed back in while generating it.
+        { ...parsedRubric, checklistItems: effectiveRubric?.checklistItems ?? parsedRubric.checklistItems },
+        { id: provider, model },
+        { leniency },
+      );
+      anchorText = anchorsToText(examples);
+    } catch (e) {
+      anchorError = e instanceof Error ? e.message : String(e);
+    } finally {
+      anchorBusy = false;
+    }
+  }
+
   async function loadFromPage() {
     loadingStudents = true;
     loadError = null;
     results = [];
     try {
-      students = await ogreIsland.methods.loadStudents(readPage, { includeGraded });
+      students = await ogreIsland.methods.loadStudents(readPage, {
+        includeGraded,
+        selectors: activeProfile?.selectors,
+      });
     } catch (e) {
       students = [];
       loadError = e instanceof Error ? e.message : String(e);
@@ -239,7 +311,10 @@
     }
   }
 
-  onMount(loadRubrics);
+  onMount(() => {
+    void loadRubrics();
+    void loadProfiles();
+  });
 
   /**
    * Re-read the rubric list every time the sidebar asks for this tab.
@@ -274,7 +349,7 @@
 
   {#if anchors}
     <details class="anchors">
-      <summary>Scoring anchors</summary>
+      <summary>Scoring anchors{#if anchorText}<span class="tag">edited</span>{/if}</summary>
       <p class="note">Derived from the rubric's max score ({effectiveRubric?.maxScore ?? 10}). If these read wrong, the max score is wrong.</p>
       <ul>
         <li><span>Excellent</span><b>{anchors.excellent.score}</b></li>
@@ -282,8 +357,71 @@
         <li><span>Below average</span><b>{anchors.belowAverage.score}</b></li>
         <li><span>Minimal</span><b>{anchors.minimal.score}</b></li>
       </ul>
+      <p class="note">
+        Those are score levels with generic wording. Generating examples writes what an
+        actual answer to <em>this</em> question looks like at each level — edit them freely,
+        they go to the grader verbatim.
+      </p>
+      <button onclick={generateAnchors} disabled={anchorBusy || grading || !parsedRubric}>
+        {anchorBusy ? 'Writing examples…' : anchorText ? 'Regenerate examples' : 'Generate examples'}
+      </button>
+      {#if anchorError}<p class="note warn">{anchorError}</p>{/if}
+      {#if anchorText}
+        <textarea class="anchor-text" rows="8" bind:value={anchorText} disabled={anchorBusy || grading}></textarea>
+        <button onclick={() => (anchorText = '')} disabled={anchorBusy || grading}>Clear examples</button>
+      {/if}
     </details>
+
+    {#if weightItems.length > 1}
+      <details class="anchors">
+        <summary>Category weights{#if weightCheck}<span class="tag" class:bad={!weightCheck.valid}>{weightCheck.sum}%</span>{/if}</summary>
+        <p class="note">
+          Each category is scored 0-10 on its own merits; the weight is the share of the final
+          grade it carries. Leave these off to grade on the rubric's points as-is.
+        </p>
+        <div class="row">
+          <button onclick={() => (weighted = autoFillWeights(weightItems))} disabled={grading}>From points</button>
+          <button onclick={() => (weighted = equalizeWeights(weightItems))} disabled={grading}>Equal</button>
+          {#if hasWeights(weightItems)}
+            <button onclick={() => (weighted = clearWeights(weightItems))} disabled={grading}>Off</button>
+          {/if}
+        </div>
+        {#if hasWeights(weightItems)}
+          <ul class="weights">
+            {#each weightItems as c, i (c.category + i)}
+              <li>
+                <span>{c.category || 'General'}</span>
+                <input
+                  type="number" min="0" max="100" step="0.1" disabled={grading}
+                  value={c.categoryWeight ?? 0}
+                  oninput={(e) => {
+                    const v = parseFloat((e.currentTarget as HTMLInputElement).value) || 0;
+                    weighted = weightItems.map((x, j) => (j === i ? { ...x, categoryWeight: v } : x));
+                  }}
+                />
+              </li>
+            {/each}
+          </ul>
+          {#if weightCheck && !weightCheck.valid}
+            <p class="note warn">{weightCheck.error} Grading is blocked until they do.</p>
+          {/if}
+        {/if}
+      </details>
+    {/if}
   {/if}
+
+  <div class="field">
+    <span class="lbl">Page profile</span>
+    <select bind:value={profileId} disabled={grading || loadingStudents}>
+      <option value="auto">
+        Auto-detect{activeProfile && profileId === 'auto' ? ` — ${activeProfile.name}` : ''}
+      </option>
+      {#each profiles as p (p.id)}<option value={p.id}>{p.name}</option>{/each}
+    </select>
+    {#if profileId === 'auto' && !activeProfile}
+      <span class="note">No saved profile matches this page — reading with the built-in MyOpenMath selectors.</span>
+    {/if}
+  </div>
 
   <div class="field">
     <span class="lbl">Extra instructions</span>
@@ -319,7 +457,12 @@
         {stopRequested ? 'Stopping…' : `Stop${progress ? ` (${progress.chunk}/${progress.of})` : ''}`}
       </button>
     {:else}
-      <button class="primary" onclick={runGrading} disabled={!targetStudents.length || !effectiveRubric}>
+      <button
+        class="primary"
+        onclick={runGrading}
+        disabled={!targetStudents.length || !effectiveRubric || weightCheck?.valid === false}
+        title={weightCheck?.valid === false ? weightCheck.error : ''}
+      >
         Grade {targetStudents.length || ''}
       </button>
     {/if}
@@ -403,6 +546,17 @@
   .anchors summary { cursor: pointer; font-weight: 600; color: var(--text-secondary, #aaa); }
   .anchors ul { list-style: none; margin: 0.3rem 0 0; padding: 0; }
   .anchors li { display: flex; justify-content: space-between; padding: 0.1rem 0; }
+  .anchors > button { margin-top: 0.4rem; }
+  .anchor-text { margin-top: 0.4rem; font-size: 0.8rem; }
+  .weights { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+  .weights li { display: flex; align-items: center; gap: 0.5rem; padding: 0.15rem 0; }
+  .weights li span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .weights input { width: 4.5rem; }
+  .tag {
+    font-size: 0.68rem; background: var(--color-primary, #4a9eff); color: #fff;
+    padding: 0.05rem 0.3rem; border-radius: 4px; margin-left: 0.4rem; font-weight: 600;
+  }
+  .tag.bad { background: #e67e22; }
   .note.warn { color: #e67e22; }
   input[type='range'] { width: 100%; }
   .check { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; }

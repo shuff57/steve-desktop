@@ -21,8 +21,11 @@ import {
   saveImportedRubric,
   setBatchResume,
 } from './db';
-import { gradeBatch, gradeOne, reviewOutliers } from './grade';
+import { gradeBatch, gradeOne, generateAnchorExamples, reviewOutliers } from './grade';
 import type { ReviewOutcome } from './grade';
+import type { AnchorExample } from './anchors';
+import { matchProfile, profileFromRow } from './load-students';
+import type { ExtractionProfile } from './load-students';
 import { importRubricFromPage } from './import-rubric';
 import type { ImportedRubric } from './import-rubric';
 import { gradeableFrom, loadStudents, toGradingStudents } from './load-students';
@@ -80,6 +83,19 @@ export interface OgreMethods {
     provider: GradeProvider,
   ): Promise<ReviewOutcome>;
   /**
+   * Worked example answers at each quality tier, for this question. Sends the rubric
+   * only — no student work exists at this point, so there is nothing to redact.
+   */
+  generateAnchorExamples(
+    rubric: Rubric,
+    provider: GradeProvider,
+    opts?: { leniency?: number },
+  ): Promise<AnchorExample[]>;
+  /** Extraction profiles from site_profiles, minus any whose selectors are unusable. */
+  listExtractionProfiles(): Promise<ExtractionProfile[]>;
+  /** First profile matching the URL, or null — never a guess. */
+  matchProfile(url: string, profiles: ExtractionProfile[]): ExtractionProfile | null;
+  /**
    * Read student responses off a MyOpenMath gradeallq2 page. Read-only — it evaluates
    * one expression and touches nothing. Defaults to students who answered and are not
    * yet graded, so a re-run never overwrites a human's scores.
@@ -90,6 +106,12 @@ export interface OgreMethods {
   ): Promise<ExtractedStudent[]>;
   gradeableFrom(students: ExtractedStudent[], opts?: LoadOptions): ExtractedStudent[];
   toGradingStudents(students: ExtractedStudent[]): Student[];
+}
+
+/** Site profiles, narrowed to extraction and with the unusable ones dropped. */
+async function listExtractionProfiles(): Promise<ExtractionProfile[]> {
+  const rows = await listSiteProfiles();
+  return rows.map(profileFromRow).filter((p): p is ExtractionProfile => p !== null);
 }
 
 export const ogreIsland = defineIsland<OgreMethods>({
@@ -110,6 +132,9 @@ export const ogreIsland = defineIsland<OgreMethods>({
     gradeOne,
     gradeBatch,
     reviewOutliers,
+    generateAnchorExamples,
+    listExtractionProfiles,
+    matchProfile,
     loadStudents,
     gradeableFrom,
     toGradingStudents,

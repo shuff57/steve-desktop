@@ -35,18 +35,55 @@ export interface ExtractedStudent {
 }
 
 /**
- * Evaluated in the page. Kept as a string (not a function reference) because it crosses
- * the CDP boundary — it must not close over anything in this module.
+ * Where the pieces of a student's row live on a grading page. One set per site.
+ *
+ * `studentSection` is the repeating container; every other selector is resolved WITHIN it,
+ * which is what keeps one student's answer from being read for another.
  */
-export const PAGE_EXTRACT_JS = `(() => {
-  const wraps = Array.from(document.querySelectorAll('div.bigquestionwrap'));
+export interface SiteSelectors {
+  studentSection: string;
+  /** Name element. A comma-separated list is tried in order — pages vary by course. */
+  studentName: string;
+  response: string;
+  scoreInput: string;
+  feedbackBox: string;
+}
+
+/**
+ * MyOpenMath `gradeallq2.php`, confirmed over CDP against a real graded page.
+ *
+ * These deliberately differ from O.G.R.E's own MyOpenMath profile, which keys off
+ * `div[data-lastchange]` and `input[aria-label="Score"]`. Those may well be right for the
+ * pages it was written against, but the selectors below are the ones actually verified
+ * here, so they stay the default; O.G.R.E's belong in a saved profile if a page needs them.
+ */
+export const MYOPENMATH_SELECTORS: SiteSelectors = {
+  studentSection: 'div.bigquestionwrap',
+  studentName: 'div.headerpane b, span.person',
+  response: 'div[id^="qnwrap"].introtext',
+  scoreInput: 'input[name^="ud-"]',
+  feedbackBox: 'div.fbbox',
+};
+
+/**
+ * Build the page-side extractor for a selector set.
+ *
+ * Returns a string, not a function: it crosses the CDP boundary and must close over
+ * nothing in this module. Selectors are embedded with JSON.stringify so a quote in a
+ * saved profile cannot break out of the literal and run as code — profiles are editable,
+ * which makes this an injection boundary however friendly the author.
+ */
+export function buildExtractJs(sel: SiteSelectors = MYOPENMATH_SELECTORS): string {
+  const s = (v: string) => JSON.stringify(v);
+  return `(() => {
+  const wraps = Array.from(document.querySelectorAll(${s(sel.studentSection)}));
   return {
     url: location.href,
     students: wraps.map((w, i) => {
-      const nameEl = w.querySelector('div.headerpane b') || w.querySelector('span.person');
-      const ansEl = w.querySelector('div[id^="qnwrap"].introtext');
-      const scoreEl = w.querySelector('input[name^="ud-"]');
-      const fbEl = w.querySelector('div.fbbox');
+      const nameEl = w.querySelector(${s(sel.studentName)});
+      const ansEl = w.querySelector(${s(sel.response)});
+      const scoreEl = w.querySelector(${s(sel.scoreInput)});
+      const fbEl = w.querySelector(${s(sel.feedbackBox)});
       return {
         index: i,
         name: (nameEl && nameEl.textContent || '').replace(/:\\s*$/, '').trim(),
@@ -58,6 +95,10 @@ export const PAGE_EXTRACT_JS = `(() => {
     }),
   };
 })()`;
+}
+
+/** The default extractor, kept as a constant for callers that never change site. */
+export const PAGE_EXTRACT_JS = buildExtractJs();
 
 interface RawRow {
   index: number;
@@ -95,6 +136,71 @@ export interface LoadOptions {
   includeUnanswered?: boolean;
   /** Include students who already have a score. Off by default, so re-runs are additive. */
   includeGraded?: boolean;
+  /** Site selectors to read with. Defaults to the confirmed MyOpenMath set. */
+  selectors?: SiteSelectors;
+}
+
+/** A saved profile, narrowed to what extraction needs. */
+export interface ExtractionProfile {
+  id: string;
+  name: string;
+  urlPatterns: string[];
+  selectors: SiteSelectors;
+}
+
+/**
+ * First profile whose patterns appear in the URL, or null.
+ *
+ * Substring matching, and deny-by-default: an unmatched URL returns null rather than
+ * falling back to a profile that happens to be first. Reading a page with the wrong
+ * selectors does not fail loudly — it yields empty responses that look like a class who
+ * submitted nothing, which is exactly the mistake worth refusing to make silently.
+ */
+export function matchProfile(url: string, profiles: ExtractionProfile[]): ExtractionProfile | null {
+  if (!url) return null;
+  const lower = url.toLowerCase();
+  return (
+    profiles.find((p) =>
+      (p.urlPatterns ?? []).some((pat) => pat && lower.includes(pat.toLowerCase())),
+    ) ?? null
+  );
+}
+
+/**
+ * Read a `site_profiles` row into the shape extraction needs, or null when its selector
+ * JSON is unusable. A profile missing `studentSection` cannot find anyone, so it is
+ * rejected here rather than producing an empty roster later.
+ */
+export function profileFromRow(row: {
+  id: string;
+  name: string;
+  url_patterns: string;
+  selectors: string;
+}): ExtractionProfile | null {
+  const parse = <T>(text: string, fallback: T): T => {
+    try {
+      return JSON.parse(text) as T;
+    } catch {
+      return fallback;
+    }
+  };
+  const raw = parse<Partial<SiteSelectors>>(row.selectors, {});
+  if (!raw.studentSection) return null;
+
+  return {
+    id: row.id,
+    name: row.name,
+    urlPatterns: parse<string[]>(row.url_patterns, []),
+    selectors: {
+      studentSection: raw.studentSection,
+      // Each field falls back to the confirmed MyOpenMath selector; a profile that only
+      // overrides the container is a common and legitimate thing to save.
+      studentName: raw.studentName || MYOPENMATH_SELECTORS.studentName,
+      response: raw.response || MYOPENMATH_SELECTORS.response,
+      scoreInput: raw.scoreInput || MYOPENMATH_SELECTORS.scoreInput,
+      feedbackBox: raw.feedbackBox || MYOPENMATH_SELECTORS.feedbackBox,
+    },
+  };
 }
 
 /**
@@ -124,5 +230,6 @@ export async function loadStudents(
   evaluate: (expression: string) => Promise<unknown>,
   opts: LoadOptions = {},
 ): Promise<ExtractedStudent[]> {
-  return gradeableFrom(parseExtracted(await evaluate(PAGE_EXTRACT_JS)), opts);
+  const js = buildExtractJs(opts.selectors ?? MYOPENMATH_SELECTORS);
+  return gradeableFrom(parseExtracted(await evaluate(js)), opts);
 }

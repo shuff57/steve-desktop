@@ -35,6 +35,11 @@ import {
   parseOutlierReview,
 } from './outlier-review';
 import { detectOutliers } from './outliers';
+import {
+  buildAnchorGenerationPrompt,
+  parseAnchorResponses,
+  type AnchorExample,
+} from './anchors';
 
 export interface Student {
   name: string;
@@ -224,6 +229,35 @@ export async function* gradeBatch(
   const merged = mergeResults(collected);
   yield { type: 'done', results: merged };
   return merged;
+}
+
+/**
+ * Ask the model for one worked example per quality tier, for THIS question.
+ *
+ * Deliberately NOT behind the redaction gate: the prompt contains the rubric only — no
+ * student work exists at this point in the flow, and callModel would have no identifiers
+ * to register. Passing an empty Redactor would make `assertOutbound` a no-op that merely
+ * looked like a check.
+ *
+ * Throws when the model produced nothing usable, rather than returning four blank
+ * examples that read like a successful generation.
+ */
+export async function generateAnchorExamples(
+  rubric: Rubric,
+  provider: GradeProvider,
+  opts: { leniency?: number; run?: ModelRunner } = {},
+): Promise<AnchorExample[]> {
+  const run = opts.run ?? cliRunner(provider, gradingTimeoutSecs(4));
+  const anchors = generateScoringAnchors(rubric);
+  const reply = await run(buildAnchorGenerationPrompt(rubric, anchors, opts.leniency ?? null));
+  const examples = parseAnchorResponses(reply, anchors);
+
+  if (examples.every((a) => !a.response)) {
+    throw new Error(
+      'The model returned no usable calibration examples — none of the four tier headings were found in its reply.',
+    );
+  }
+  return examples;
 }
 
 export interface ReviewOutcome {
