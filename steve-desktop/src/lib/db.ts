@@ -352,3 +352,39 @@ export async function deleteBookmarkByUrl(url: string): Promise<void> {
   const database = await initDB();
   await database.execute('DELETE FROM bookmarks WHERE url = $1', [url]);
 }
+
+// ── Run journal ─────────────────────────────────────────────────────────────
+// Audit trail for skill replays on live sites: what ran, for whom, what happened.
+// row_label may hold real student data — this stays in the local DB, never model-bound.
+
+export interface RunEntry {
+  id: number;
+  skill_id: string | null;
+  skill_name: string;
+  row_label: string | null;
+  status: string; // 'complete' | 'partial' | 'failed'
+  detail: string | null;
+  created_at: string;
+}
+
+export async function addRunEntry(e: {
+  skill_id?: string | null;
+  skill_name: string;
+  row_label?: string | null;
+  status: string;
+  detail?: string | null;
+}): Promise<void> {
+  const database = await initDB();
+  await database.execute(
+    'INSERT INTO run_journal (skill_id, skill_name, row_label, status, detail) VALUES ($1, $2, $3, $4, $5)',
+    [e.skill_id ?? null, e.skill_name, e.row_label ?? null, e.status, e.detail ?? null],
+  );
+}
+
+export async function getRunEntries(limit = 50): Promise<RunEntry[]> {
+  const database = await initDB();
+  return database.select<RunEntry[]>(
+    'SELECT id, skill_id, skill_name, row_label, status, detail, created_at FROM run_journal ORDER BY id DESC LIMIT $1',
+    [limit],
+  );
+}

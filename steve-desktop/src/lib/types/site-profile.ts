@@ -58,6 +58,9 @@ export interface WorkflowStep {
   /** Ranked alternate anchors (role=name, #id, data-testid, …) tried in order on self-heal. */
   candidates?: string[];
   value?: string;
+  /** Variable name for fill/select steps: replay binds this from a roster row instead of `value`.
+   *  A parameterized step stores NO literal recorded value (FERPA: skills are de-identified). */
+  param?: string;
   key?: string;
   frame?: string;
   context?: 'outer' | 'iframe';

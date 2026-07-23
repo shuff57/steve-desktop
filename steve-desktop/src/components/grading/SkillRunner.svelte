@@ -3,12 +3,19 @@
    * SkillRunner — lists saved workflow skills and replays them against the live embedded
    * browser (CDP) with Tier-3 model self-heal. Lives in the Browser page's ActionPanel because
    * replay acts on the page you're currently viewing.
+   *
+   * Parameterized skills (steps marked as variables in Teach mode) expand a roster box: paste
+   * CSV or a spreadsheet block, one replay per row. Roster values stay local — they go to the
+   * page over CDP and into the local run journal, never to a model (the heal path is already
+   * slot-redacted). Every run writes a journal row so a batch against a live gradebook is
+   * auditable after the fact.
    */
   import { onMount } from 'svelte';
-  import { getSkills, type Skill } from '../../lib/db';
+  import { getSkills, addRunEntry, getRunEntries, type Skill, type RunEntry } from '../../lib/db';
   import { skillToWorkflow } from '../../lib/workflow-skill';
   import { replayLive } from '../../lib/replay-live';
   import { connectCDP, isConnected } from '../../lib/cdp-actions';
+  import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
 
   // Engine selection is owned by the panel (shared across tabs) and passed in.
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
@@ -17,9 +24,23 @@
   let loading = $state(true);
   let runningId = $state<string | null>(null);
   let message = $state<string | null>(null);
+  /** Skill whose roster box is open (parameterized skills only). */
+  let rosterFor = $state<string | null>(null);
+  let rosterText = $state('');
+  let stopBatch = $state(false);
+  let journal = $state<RunEntry[]>([]);
+  let showJournal = $state(false);
 
   // Only skills carrying a recorded steps block can be replayed.
   const replayable = $derived(skills.filter((s) => /```json/.test(s.content)));
+
+  function paramsOf(skill: Skill): string[] {
+    try {
+      return workflowParams(skillToWorkflow(skill.content));
+    } catch {
+      return [];
+    }
+  }
 
   async function load() {
     loading = true;
@@ -30,10 +51,34 @@
     } finally {
       loading = false;
     }
+    refreshJournal();
+  }
+
+  async function refreshJournal() {
+    journal = await getRunEntries(30).catch(() => []);
+  }
+
+  async function ensureConnected(): Promise<boolean> {
+    if (isConnected() || (await connectCDP())) return true;
+    message = 'Could not connect to the browser — load a page first.';
+    return false;
+  }
+
+  function summarize(summary: Awaited<ReturnType<typeof replayLive>>): { line: string; status: string } {
+    const c = (s: string) => summary.results.filter((r) => r.status === s).length;
+    const line = `${c('done')} done · ${c('recovered')} self-healed · ${c('skipped')} skipped${summary.completed ? ' · complete' : ''}`;
+    const status = summary.completed ? 'complete' : c('done') + c('recovered') > 0 ? 'partial' : 'failed';
+    return { line, status };
   }
 
   async function run(skill: Skill) {
     if (runningId) return;
+    // Parameterized skill → open the roster box instead of replaying the recorded literals
+    // (there are none: parameterized steps store no value).
+    if (paramsOf(skill).length) {
+      rosterFor = rosterFor === skill.id ? null : skill.id;
+      return;
+    }
     runningId = skill.id;
     message = `Running "${skill.name}"…`;
     try {
@@ -42,17 +87,59 @@
         message = `"${skill.name}" has no replayable steps.`;
         return;
       }
-      if (!isConnected() && !(await connectCDP())) {
-        message = 'Could not connect to the browser — load a page first.';
-        return;
-      }
-      const summary = await replayLive(workflow, { provider, model });
-      const c = (s: string) => summary.results.filter((r) => r.status === s).length;
-      message = `${c('done')} done · ${c('recovered')} self-healed · ${c('skipped')} skipped${summary.completed ? ' · complete' : ''}`;
+      if (!(await ensureConnected())) return;
+      const { line, status } = summarize(await replayLive(workflow, { provider, model }));
+      message = line;
+      await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status, detail: line });
     } catch (e) {
       message = `Run failed: ${e instanceof Error ? e.message : 'Unknown error'}`;
+      await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status: 'failed', detail: message }).catch(() => {});
     } finally {
       runningId = null;
+      refreshJournal();
+    }
+  }
+
+  async function runBatch(skill: Skill) {
+    if (runningId) return;
+    const params = paramsOf(skill);
+    const roster = parseRoster(rosterText);
+    const missing = params.filter((p) => !roster.headers.includes(p));
+    if (!roster.rows.length) {
+      message = `Paste a roster: first line "${params.join(',')}", one row per run.`;
+      return;
+    }
+    if (missing.length) {
+      message = `Roster is missing column(s): ${missing.join(', ')}.`;
+      return;
+    }
+    if (!(await ensureConnected())) return;
+    runningId = skill.id;
+    stopBatch = false;
+    const workflow = skillToWorkflow(skill.content);
+    let ok = 0;
+    try {
+      for (let i = 0; i < roster.rows.length; i++) {
+        if (stopBatch) break;
+        const row = roster.rows[i];
+        const label = rowLabel(row, roster.headers);
+        message = `${i + 1}/${roster.rows.length} — ${label}…`;
+        try {
+          const { line, status } = summarize(await replayLive(bindWorkflow(workflow, row), { provider, model }));
+          if (status === 'complete') ok++;
+          await addRunEntry({ skill_id: skill.id, skill_name: skill.name, row_label: label, status, detail: line });
+        } catch (e) {
+          const err = e instanceof Error ? e.message : 'Unknown error';
+          await addRunEntry({ skill_id: skill.id, skill_name: skill.name, row_label: label, status: 'failed', detail: err }).catch(() => {});
+        }
+      }
+      message = stopBatch
+        ? `Stopped — ${ok} of ${roster.rows.length} rows completed. Journal has the per-row record.`
+        : `Batch done: ${ok}/${roster.rows.length} rows complete. Check the journal (and the site) to confirm.`;
+    } finally {
+      runningId = null;
+      stopBatch = false;
+      refreshJournal();
     }
   }
 
@@ -72,20 +159,62 @@
   {:else}
     <ul class="list">
       {#each replayable as skill (skill.id)}
+        {@const params = paramsOf(skill)}
         <li class="row">
           <div class="info">
             <span class="name" title={skill.name}>{skill.name}</span>
             {#if skill.url_pattern}<span class="pat">{skill.url_pattern}</span>{/if}
+            {#if params.length}<span class="pat">vars: {params.join(', ')}</span>{/if}
           </div>
-          <button class="run" disabled={runningId !== null} onclick={() => run(skill)} title="Replay on the current page">
-            {runningId === skill.id ? '⏳' : '▶'}
+          <button class="run" disabled={runningId !== null} onclick={() => run(skill)} title={params.length ? 'Run with a roster of values' : 'Replay on the current page'}>
+            {runningId === skill.id ? '⏳' : params.length ? '▶⋯' : '▶'}
           </button>
         </li>
+        {#if rosterFor === skill.id}
+          <li class="roster">
+            <textarea
+              rows="5"
+              bind:value={rosterText}
+              disabled={runningId !== null}
+              placeholder={`Paste rows — first line names the columns:\n${params.join(',')}\n… one row per run (CSV or pasted from a spreadsheet)`}
+            ></textarea>
+            <div class="roster-actions">
+              {#if runningId === skill.id}
+                <button class="stop" onclick={() => (stopBatch = true)}>⏹ Stop after this row</button>
+              {:else}
+                <button class="go" disabled={runningId !== null} onclick={() => runBatch(skill)}>
+                  Run {parseRoster(rosterText).rows.length || ''} row{parseRoster(rosterText).rows.length === 1 ? '' : 's'}
+                </button>
+              {/if}
+            </div>
+          </li>
+        {/if}
       {/each}
     </ul>
   {/if}
 
   {#if message}<div class="msg">{message}</div>{/if}
+
+  <div class="runner-head journal-head">
+    <button class="jtoggle" onclick={() => (showJournal = !showJournal)}>
+      {showJournal ? '▾' : '▸'} Recent runs {journal.length ? `(${journal.length})` : ''}
+    </button>
+  </div>
+  {#if showJournal}
+    {#if journal.length === 0}
+      <p class="muted">No runs yet.</p>
+    {:else}
+      <ul class="jlist">
+        {#each journal as e (e.id)}
+          <li class="jrow" title={e.detail ?? ''}>
+            <span class="jstatus {e.status}">{e.status === 'complete' ? '✓' : e.status === 'partial' ? '◐' : '✗'}</span>
+            <span class="jname">{e.skill_name}{e.row_label ? ` — ${e.row_label}` : ''}</span>
+            <span class="jtime">{e.created_at?.slice(5, 16) ?? ''}</span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+  {/if}
 </div>
 
 <style>
@@ -104,4 +233,20 @@
   .run:hover:not(:disabled) { background: var(--color-success-bg); }
   .run:disabled { opacity: 0.5; cursor: not-allowed; }
   .msg { font-size: 0.8rem; color: var(--text-secondary); padding: var(--spacing-2); background: var(--bg-card); border-radius: var(--radius-md); }
+  .roster { display: flex; flex-direction: column; gap: var(--spacing-1); padding: var(--spacing-2); background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md); }
+  .roster textarea { width: 100%; resize: vertical; font-size: 0.78rem; font-family: var(--font-mono, monospace); background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: var(--spacing-1); box-sizing: border-box; }
+  .roster-actions { display: flex; justify-content: flex-end; gap: var(--spacing-1); }
+  .roster-actions .go { background: transparent; border: 1px solid var(--color-success); color: var(--color-success); cursor: pointer; font-size: 0.8rem; padding: 3px 10px; border-radius: var(--radius-md); }
+  .roster-actions .go:hover:not(:disabled) { background: var(--color-success-bg); }
+  .roster-actions .stop { background: transparent; border: 1px solid #b91c1c; color: #b91c1c; cursor: pointer; font-size: 0.8rem; padding: 3px 10px; border-radius: var(--radius-md); }
+  .journal-head { margin-top: var(--spacing-1); }
+  .jtoggle { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; padding: 0; }
+  .jtoggle:hover { color: var(--text-primary); }
+  .jlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 180px; overflow-y: auto; }
+  .jrow { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: var(--spacing-2); font-size: 0.75rem; padding: 3px var(--spacing-2); background: var(--bg-card); border-radius: var(--radius-sm); }
+  .jstatus.complete { color: var(--color-success); }
+  .jstatus.partial { color: #d97706; }
+  .jstatus.failed { color: #b91c1c; }
+  .jname { color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .jtime { color: var(--text-tertiary); }
 </style>

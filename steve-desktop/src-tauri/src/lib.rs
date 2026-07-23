@@ -964,6 +964,13 @@ fn write_file(path: String, contents: String) -> Result<(), String> {
     std::fs::write(&target, contents).map_err(|e| e.to_string())
 }
 
+/// Absolute form of a project-relative path — for handing files to spawned CLIs, whose cwd is
+/// the temp dir (see run_agent_cli), not the project root.
+#[tauri::command]
+fn resolve_path(path: String) -> Result<String, String> {
+    Ok(resolve_project_path(&path)?.to_string_lossy().into_owned())
+}
+
 #[tauri::command]
 fn read_file(path: String) -> Result<String, String> {
     let target = resolve_project_path(&path)?;
@@ -2315,6 +2322,23 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
 );",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 8,
+            description: "create_run_journal",
+            // Audit trail for skill replays against live sites: one row per run (per roster row
+            // when parameterized). row_label may hold real student data — local DB only, never
+            // model-bound or exported.
+            sql: "CREATE TABLE IF NOT EXISTS run_journal (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    skill_id TEXT,
+    skill_name TEXT NOT NULL,
+    row_label TEXT,
+    status TEXT NOT NULL,
+    detail TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+);",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
@@ -2342,6 +2366,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             create_dir,
             write_file,
             read_file,
+            resolve_path,
             delete_file,
             list_files,
             keyring_set,
