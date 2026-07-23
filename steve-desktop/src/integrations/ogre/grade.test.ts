@@ -7,7 +7,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@tauri-apps/plugin-http', () => ({ fetch: vi.fn() }));
 
-import { gradeOne, identifiersFor, type GradeProvider, type Student } from './grade';
+import { gradeBatch, gradeOne, identifiersFor, type GradeProvider, type GradingEvent, type Student } from './grade';
 import type { Rubric } from './grading';
 
 const RUBRIC: Rubric = {
@@ -162,5 +162,99 @@ describe('result handling', () => {
   it('propagates a transport failure rather than reporting a 0 grade', async () => {
     const post = vi.fn().mockRejectedValue(new Error('Model request failed: 401 Unauthorized'));
     await expect(gradeOne(STUDENT, RUBRIC, OLLAMA, { post })).rejects.toThrow(/401/);
+  });
+});
+
+// ── gradeBatch ────────────────────────────────────────────────────────────────
+
+/** Replies with a well-formed grade for every student the prompt asked about. */
+function batchPost(scores: number[][]) {
+  const seen: string[] = [];
+  let call = 0;
+  const post = vi.fn(async (_url: string, init: { headers: Record<string, string>; body: string }) => {
+    seen.push(init.body);
+    const rows = (scores[call++] ?? []).map((score, i) => ({
+      studentIndex: i,
+      score,
+      feedback: `<p>Hi [name],</p><p>result ${i}</p>`,
+    }));
+    return { choices: [{ message: { content: JSON.stringify(rows) } }] };
+  });
+  return { post, seen };
+}
+
+const roster = (n: number): Student[] =>
+  Array.from({ length: n }, (_, i) => ({ name: `Name${i} Surname${i}`, responseText: `answer ${i}` }));
+
+async function drain(gen: AsyncGenerator<GradingEvent, unknown, void>) {
+  const events: GradingEvent[] = [];
+  for await (const e of gen) events.push(e);
+  return events;
+}
+
+describe('gradeBatch', () => {
+  it('grades a small class in a single request', async () => {
+    const { post } = batchPost([[8, 6, 4]]);
+    const events = await drain(gradeBatch(roster(3), RUBRIC, OLLAMA, { post }));
+
+    expect(post).toHaveBeenCalledTimes(1);
+    const done = events.find((e) => e.type === 'done')!;
+    expect(done.type === 'done' && done.results.map((r) => r.score)).toEqual([8, 6, 4]);
+  });
+
+  it('reports progress per chunk', async () => {
+    const { post } = batchPost([[8, 8], [6, 6]]);
+    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+
+    expect(events.filter((e) => e.type === 'chunk-start')).toHaveLength(2);
+    expect(events.filter((e) => e.type === 'chunk-done')).toHaveLength(2);
+    expect(events.at(-1)!.type).toBe('done');
+  });
+
+  it('returns results in roster order across chunks', async () => {
+    const { post } = batchPost([[9, 9], [3, 3]]);
+    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+    const done = events.find((e) => e.type === 'done')!;
+    expect(done.type === 'done' && done.results.map((r) => r.studentIndex)).toEqual([0, 1, 2, 3]);
+  });
+
+  it('carries calibration from the first chunk into the second', async () => {
+    const { post, seen } = batchPost([[9, 2], [7, 7]]);
+    await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+
+    expect(seen[0]).not.toContain('previously graded batch');
+    expect(seen[1]).toContain('previously graded batch'); // bridge responses reached chunk 2
+  });
+
+  // One student's name must not reach the model via a classmate's response either.
+  it('redacts every student in the chunk, not just the one being graded', async () => {
+    const { post, seen } = batchPost([[8, 8]]);
+    const students: Student[] = [
+      { name: 'Nakamura, Yuki', responseText: 'my own answer' },
+      { name: 'Okonkwo, Chidi', responseText: 'I worked with Yuki Nakamura on this' },
+    ];
+    await drain(gradeBatch(students, RUBRIC, OLLAMA, { post }));
+
+    expect(seen[0]).not.toContain('Nakamura');
+    expect(seen[0]).not.toContain('Yuki');
+    expect(seen[0]).not.toContain('Okonkwo');
+    expect(seen[0]).toContain('I worked with'); // the substance survives
+  });
+
+  it('rehydrates names into per-student feedback', async () => {
+    const { post } = batchPost([[8]]);
+    const events = await drain(
+      gradeBatch([{ name: 'Nakamura, Yuki', responseText: 'a' }], RUBRIC, OLLAMA, { post }),
+    );
+    const done = events.find((e) => e.type === 'done')!;
+    expect(done.type === 'done' && done.results[0]!.feedback).toContain('Hi Yuki,');
+  });
+
+  it('grades an empty roster without calling the model', async () => {
+    const { post } = batchPost([]);
+    const events = await drain(gradeBatch([], RUBRIC, OLLAMA, { post }));
+    expect(post).not.toHaveBeenCalled();
+    const done = events.find((e) => e.type === 'done')!;
+    expect(done.type === 'done' && done.results).toEqual([]);
   });
 });

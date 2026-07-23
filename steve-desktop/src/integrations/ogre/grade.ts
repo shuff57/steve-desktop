@@ -21,12 +21,25 @@ import {
   parseChatResponse,
 } from '../../lib/model-providers';
 import { buildSingleGradePrompt, parseSingleGradeResponse, type GradeResult, type Rubric } from './grading';
+import {
+  buildBatchPrompt,
+  buildBridgeResponses,
+  chunkStudents,
+  generateScoringAnchors,
+  mergeResults,
+  parseBatchResponse,
+  type BatchResult,
+  type BatchStudent,
+  type BridgeResponse,
+} from './batch';
 
 export interface Student {
   name: string;
   responseText: string;
   /** Gradebook id when the page exposes one — redacted alongside the name. */
   studentId?: string;
+  /** The student's own question text, when each saw different randomized values. */
+  prompt?: string;
 }
 
 export interface GradeProvider {
@@ -113,4 +126,75 @@ export async function gradeOne(
     rubric.categoryMaxPoints ?? null,
     student.name,
   );
+}
+
+/** Progress events so a UI can show grading as it happens rather than one long freeze. */
+export type GradingEvent =
+  | { type: 'chunk-start'; chunkIndex: number; chunkCount: number; students: number }
+  | { type: 'chunk-done'; chunkIndex: number; results: BatchResult[] }
+  | { type: 'done'; results: BatchResult[] };
+
+/**
+ * Grade a whole class. Students are graded together in one model context per chunk,
+ * which is what keeps scores comparable between them; past the chunk size, bridge
+ * responses carry the standard forward so chunk 2 doesn't drift from chunk 1.
+ *
+ * Yields progress as it goes. Every chunk redacts against the identifiers of every
+ * student in that chunk, so one student's name can't leak via another's response.
+ */
+export async function* gradeBatch(
+  students: Student[],
+  rubric: Rubric,
+  provider: GradeProvider,
+  opts: { chunkSize?: number; post?: HttpPost } = {},
+): AsyncGenerator<GradingEvent, BatchResult[], void> {
+  const post = opts.post ?? defaultPost;
+  const maxScore = parseFloat(String(rubric.maxScore ?? 10)) || 10;
+  const anchors = generateScoringAnchors(rubric);
+
+  // Index by position here rather than trusting a caller-supplied index — the whole
+  // result mapping keys off it.
+  const indexed: BatchStudent[] = students.map((s, i) => ({
+    index: i,
+    name: s.name,
+    response: s.responseText,
+    prompt: s.prompt,
+  }));
+
+  const chunks = chunkStudents(indexed, opts.chunkSize ?? 20);
+  const collected: BatchResult[][] = [];
+  let bridge: BridgeResponse[] | null = null;
+
+  for (const chunk of chunks) {
+    yield { type: 'chunk-start', chunkIndex: chunk.chunkIndex, chunkCount: chunks.length, students: chunk.students.length };
+
+    const original = chunk.students.map((bs) => students[bs.index]!);
+    const redactor = new Redactor(original.flatMap(identifiersFor));
+    const payload = redactor.redact(buildBatchPrompt(rubric, chunk.students, anchors, bridge));
+
+    const isAnthropic = provider.id === 'anthropic';
+    const reply = await callModel(payload, redactor, async (redactedText) => {
+      const body = isAnthropic
+        ? buildAnthropicBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model)
+        : buildChatBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model);
+      const json = await post(provider.apiUrl, { headers: headersFor(provider), body: JSON.stringify(body) });
+      return (isAnthropic ? parseAnthropicResponse(json) : parseChatResponse(json)).content;
+    });
+
+    const results = parseBatchResponse(
+      reply,
+      chunk.students,
+      maxScore,
+      rubric.categoryWeights ?? null,
+      rubric.categoryMaxPoints ?? null,
+    );
+    collected.push(results);
+    bridge = buildBridgeResponses(results, chunk.students, anchors);
+
+    yield { type: 'chunk-done', chunkIndex: chunk.chunkIndex, results };
+  }
+
+  const merged = mergeResults(collected);
+  yield { type: 'done', results: merged };
+  return merged;
 }

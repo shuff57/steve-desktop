@@ -21,8 +21,9 @@ import {
   listSiteProfiles,
   setBatchResume,
 } from './db';
-import { gradeOne } from './grade';
-import type { GradeProvider, Student } from './grade';
+import { gradeBatch, gradeOne } from './grade';
+import type { GradeProvider, GradingEvent, Student } from './grade';
+import type { BatchResult } from './batch';
 import type { GradeResult, Rubric } from './grading';
 import type { GradingSession, GradingSessionInsert, SiteProfile, Skill } from './types';
 
@@ -45,6 +46,16 @@ export interface OgreMethods {
     provider: GradeProvider,
     opts?: { instructions?: string },
   ): Promise<GradeResult>;
+  /**
+   * Grade a class together, so scores stay comparable between students. Yields
+   * progress per chunk; the final event carries every result in roster order.
+   */
+  gradeBatch(
+    students: Student[],
+    rubric: Rubric,
+    provider: GradeProvider,
+    opts?: { chunkSize?: number },
+  ): AsyncGenerator<GradingEvent, BatchResult[], void>;
 }
 
 export const ogreIsland = defineIsland<OgreMethods>({
@@ -61,5 +72,6 @@ export const ogreIsland = defineIsland<OgreMethods>({
     setBatchResume,
     clearBatchResume,
     gradeOne,
+    gradeBatch,
   },
 });

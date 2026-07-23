@@ -110,7 +110,7 @@ export function extractFirstName(name?: string): string {
  * Models echo back whatever name they were shown, which in a gradebook is usually
  * "Last, First". Rewrite the greeting to first-name-only without touching the body.
  */
-function normalizeGreeting(html: string, name?: string): string {
+export function normalizeGreeting(html: string, name?: string): string {
   if (!html || typeof html !== 'string') return html;
   const firstName = extractFirstName(name);
   if (!firstName) return html;
