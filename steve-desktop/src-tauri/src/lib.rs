@@ -1833,7 +1833,18 @@ async fn claude_login_submit(
     let _ = login.stdin.flush().await;
     drop(login.stdin); // EOF → the CLI stops waiting and stores the token
     let _ = tokio::time::timeout(std::time::Duration::from_secs(25), login.child.wait()).await;
-    claude_auth_status().await
+    // The credential lands a beat after the process exits, so a status query fired immediately can
+    // still read "not signed in" (the UI then looked stale until the user left + returned). Poll a
+    // few times until it settles instead of trusting the first read.
+    let mut status = claude_auth_status().await?;
+    for _ in 0..6 {
+        if status.get("loggedIn").and_then(|v| v.as_bool()).unwrap_or(false) {
+            break;
+        }
+        tokio::time::sleep(std::time::Duration::from_millis(500)).await;
+        status = claude_auth_status().await?;
+    }
+    Ok(status)
 }
 
 /// Abort an in-flight sign-in (user cancelled).
