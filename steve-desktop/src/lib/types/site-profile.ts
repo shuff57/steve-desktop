@@ -116,6 +116,10 @@ export interface SiteProfile {
   title?: string;
   goal?: string;
   interactive: InteractiveElements;
+  /** 3–5 durable anchors that answer "is this page still itself?". Verify resolves only these
+   *  and escalates to a full re-map when one is missing (key-nodes.ts). Additive — profiles
+   *  captured before this simply verify the old, exhaustive way. */
+  keyNodes?: { selector: string; label: string }[];
   workflows?: Workflow[];
   frames?: Record<string, FrameInfo>;
   landmarks?: Record<string, LandmarkInfo[]>;

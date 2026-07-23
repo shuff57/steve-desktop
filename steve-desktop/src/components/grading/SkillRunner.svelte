@@ -16,8 +16,10 @@
   import { replayLive } from '../../lib/replay-live';
   import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
-  import { markPageDirty } from '../../lib/site-profiles';
+  import { markPageDirty, recordPageDrift } from '../../lib/site-profiles';
   import type { Workflow } from '../../lib/types/site-profile';
+  import { shouldRemap } from '../../lib/key-nodes';
+  import type { HealTier } from '../../lib/replay';
 
   // Engine selection is owned by the panel (shared across tabs) and passed in.
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
@@ -100,6 +102,24 @@
     }
   }
 
+  /** Drift telemetry: fold this replay's heal-tier usage into the page's running stats and, when
+   *  the page is leaning on healing hard enough to look stale, flag it for a targeted re-map.
+   *  Measured from ordinary runs, so no verification pass is needed to notice drift. */
+  async function noteDrift(results: { tier?: string }[]): Promise<void> {
+    try {
+      const href = await evalScript('location.href');
+      if (!href.success || typeof href.data !== 'string') return;
+      const url = href.data;
+      const domain = new URL(url).hostname;
+      const stats = await recordPageDrift(domain, url, results);
+      if (shouldRemap({ steps: stats.steps, tiers: stats.tiers as Partial<Record<HealTier, number>> })) {
+        await markPageDirty(domain, url);
+      }
+    } catch {
+      /* telemetry must never affect the run */
+    }
+  }
+
   /** Copy healed anchors from a bound (roster) copy back onto the master workflow —
    *  selector + candidates only, never the bound value. */
   function syncHeals(master: Workflow, bound: Workflow): void {
@@ -133,6 +153,7 @@
       message = line;
       await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status, detail: line });
       if (summary.healed) await persistHeals(skill, workflow);
+      await noteDrift(summary.results);
     } catch (e) {
       message = `Run failed: ${e instanceof Error ? e.message : 'Unknown error'}`;
       await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status: 'failed', detail: message }).catch(() => {});

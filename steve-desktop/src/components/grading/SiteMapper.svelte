@@ -17,6 +17,7 @@
   import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
+  import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
   import { tabMarker } from '../../lib/tab-control';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
@@ -113,6 +114,9 @@
     }
     const { snapshot, merged } = await captureMergedTree(cdp);
     const profile = mergedToProfile(merged, url);
+    // Record the page's durable anchors while we're already looking at it — verify later resolves
+    // just these instead of re-capturing the whole page.
+    profile.keyNodes = deriveKeyNodes(snapshot);
     const red = redactTree(snapshot);
     stats = summarizeMerged(merged);
     interactive = flattenInteractive(profile);
@@ -742,8 +746,31 @@
           if (stopRequested) break;
 
           const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => node.url));
+          const priorProfile = await loadProfile(domainFromUrl(landed) || '', node.pageName).catch(() => null);
+
+          // Key-node spot check first: if every durable anchor still resolves, the page is
+          // intact and re-capturing it would only confirm that at full price. Only a missing
+          // anchor justifies the expensive path.
+          const keys = priorProfile?.keyNodes ?? [];
+          if (keys.length) {
+            const probed = await probeSelectors(keys.map((k) => k.selector));
+            const intact = await verifyKeyNodes(keys, (s) => (probed[s] ?? 0) > 0);
+            if (intact.ok) {
+              verdicts = [...verdicts, {
+                url: node.url,
+                pageName: node.pageName,
+                status: 'ok' as const,
+                landedUrl: landed,
+                signatureMatch: true,
+                checks: keys.map((k) => ({ kind: 'button' as const, label: k.label, selector: k.selector, status: 'ok' as const, matches: 1 })),
+              }];
+              continue;
+            }
+            verifyMsg = `${node.pageName}: ${intact.missing.length} key node(s) missing — re-capturing…`;
+          }
+
           const { profile: fresh } = await captureCurrent(landed);
-          const baseline = await loadProfile(fresh.domain, node.pageName).catch(() => null);
+          const baseline = priorProfile ?? (await loadProfile(fresh.domain, node.pageName).catch(() => null));
           const counts = await probeSelectors(selectorsToProbe(fresh));
           verdicts = [...verdicts, gradePage(fresh, baseline, counts, landed)];
         } catch (e) {

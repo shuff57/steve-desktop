@@ -78,3 +78,36 @@ export function resolveVisualChoice(reply: string, tags: VisualTag[]): string | 
   if (!m) return null;
   return tags.find((t) => t.id === Number(m[1]))?.selector ?? null;
 }
+
+/**
+ * Page script that draws the numbered badges the screenshot is supposed to show. Self-contained
+ * and removable: it appends one absolutely-positioned overlay it can delete wholesale, so the
+ * page the user is watching is never left marked up. Coordinates come from the live elements
+ * rather than stored bboxes, so the badges land correctly even after a reflow.
+ */
+export function overlayScript(tags: { id: number; selector: string }[]): string {
+  const pairs = JSON.stringify(tags.map((t) => [t.id, t.selector]));
+  return `(function(){
+    try{
+      var old=document.getElementById('__steveVisualTags'); if(old)old.remove();
+      var box=document.createElement('div'); box.id='__steveVisualTags';
+      box.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:2147483646';
+      var pairs=${pairs};
+      for(var i=0;i<pairs.length;i++){
+        var el=null; try{ el=document.querySelector(pairs[i][1]); }catch(e){}
+        if(!el||!el.getBoundingClientRect)continue;
+        var r=el.getBoundingClientRect(); if(!r.width||!r.height)continue;
+        var b=document.createElement('div');
+        b.textContent='['+pairs[i][0]+']';
+        b.style.cssText='position:absolute;left:'+Math.max(0,r.left)+'px;top:'+Math.max(0,r.top)+'px;'+
+          'background:#e11d48;color:#fff;font:700 11px/1.4 monospace;padding:0 4px;border-radius:3px';
+        box.appendChild(b);
+      }
+      document.documentElement.appendChild(box);
+      return true;
+    }catch(e){return false;}
+  })()`;
+}
+
+/** Remove the badges. Always run this after the capture, including on failure. */
+export const OVERLAY_REMOVE = `(function(){var o=document.getElementById('__steveVisualTags');if(o)o.remove();return true;})()`;

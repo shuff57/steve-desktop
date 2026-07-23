@@ -4,8 +4,9 @@ import type { ModelTransport } from './model-gate';
 import { replayWorkflow, modelRelocator, type PageDriver, type ReplaySummary } from './replay';
 import { captureMergedTree } from './merged-tree';
 import { observe } from './observation';
+import { tagCandidates, overlayScript, OVERLAY_REMOVE, type VisualTag } from './visual-fallback';
 import { cdp } from './cdp-client';
-import { evalScript as cdpEval, pwClick, pwType, isConnected } from './cdp-actions';
+import { evalScript as cdpEval, pwClick, pwType, isConnected, cdpScreenshot } from './cdp-actions';
 import { selectorToElementExpr } from './selector-resolve';
 import { navigateEmbedded, getActiveTabId } from './browser';
 
@@ -134,6 +135,27 @@ export class BrowserPageDriver implements PageDriver {
       }
       default:
         return true;
+    }
+  }
+
+  /**
+   * Last-tier visual capture: draw the numbered badges, screenshot, then ALWAYS strip the
+   * overlay — the user is watching this tab, so it must never be left marked up, even if the
+   * capture throws. Returns the tags alongside the image so the caller can resolve the model's
+   * numeric answer back to a selector it already has.
+   */
+  async captureTagged(snapshot: SnapshotResult): Promise<{ tags: VisualTag[]; screenshot: string } | null> {
+    const tags = tagCandidates(snapshot);
+    if (!tags.length) return null;
+    try {
+      const drawn = await cdpEval(overlayScript(tags));
+      if (!drawn.success) return null;
+      const screenshot = await cdpScreenshot();
+      return { tags, screenshot };
+    } catch {
+      return null;
+    } finally {
+      await cdpEval(OVERLAY_REMOVE).catch(() => {});
     }
   }
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { tagCandidates, shouldUseVisualFallback, buildVisualPrompt, resolveVisualChoice } from './visual-fallback';
+import { tagCandidates, shouldUseVisualFallback, buildVisualPrompt, resolveVisualChoice, overlayScript, OVERLAY_REMOVE } from './visual-fallback';
 import type { SnapshotNode, SnapshotResult } from './dom-snapshot-types';
 
 function n(tag: string, attrs: Record<string, string> = {}, text = '', bbox?: SnapshotNode['bbox']): SnapshotNode {
@@ -76,5 +76,26 @@ describe('buildVisualPrompt / resolveVisualChoice', () => {
     expect(resolveVisualChoice('99', tags)).toBeNull();
     expect(resolveVisualChoice('#invented-selector', tags)).toBeNull();
     expect(resolveVisualChoice('I think the second one', tags)).toBeNull();
+  });
+});
+
+describe('overlay drawing (the screenshot the model actually sees)', () => {
+  it('draws one removable badge per tag, positioned from live rects', () => {
+    const js = overlayScript([{ id: 1, selector: '#save' }, { id: 2, selector: '#help' }]);
+    expect(js).toContain('__steveVisualTags');
+    expect(js).toContain('#save');
+    expect(js).toContain("'['+pairs[i][0]+']'");
+    expect(js).toContain('getBoundingClientRect'); // live geometry, not stored bbox
+    expect(js).toContain('pointer-events:none'); // never steals the click we are about to make
+  });
+
+  it('is idempotent and leaves no marks behind', () => {
+    // re-running removes the previous overlay first, and REMOVE clears it outright
+    expect(overlayScript([])).toContain("getElementById('__steveVisualTags'); if(old)old.remove()");
+    expect(OVERLAY_REMOVE).toContain('remove()');
+  });
+
+  it('never throws into the page', () => {
+    expect(overlayScript([{ id: 1, selector: 'not[a valid' }])).toContain('try{');
   });
 });

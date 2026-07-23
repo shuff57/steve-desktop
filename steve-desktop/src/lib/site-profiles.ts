@@ -196,6 +196,42 @@ export async function clearDirtyPages(domain: string): Promise<void> {
   }
 }
 
+// ── Drift telemetry ────────────────────────────────────────────────────────
+// Heal pressure per page, accumulated from ordinary replays. A page that starts leaning on the
+// later heal tiers is drifting and flags itself for re-map — no verification pass needed.
+
+export function getDriftPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_drift.json`;
+}
+
+type DriftFile = Record<string, { steps: number; tiers: Record<string, number> }>;
+
+async function readDrift(domain: string): Promise<DriftFile> {
+  try {
+    return JSON.parse(await invoke<string>('read_file', { path: getDriftPath(domain) })) as DriftFile;
+  } catch {
+    return {};
+  }
+}
+
+/** Fold one replay's tier usage into the page's running stats and return them. */
+export async function recordPageDrift(
+  domain: string,
+  url: string,
+  results: { tier?: string }[],
+): Promise<{ steps: number; tiers: Record<string, number> }> {
+  const all = await readDrift(domain);
+  const prior = all[url] ?? { steps: 0, tiers: {} };
+  const tiers = { ...prior.tiers };
+  for (const r of results) if (r.tier) tiers[r.tier] = (tiers[r.tier] ?? 0) + 1;
+  const next = { steps: prior.steps + results.length, tiers };
+  all[url] = next;
+  const path = getDriftPath(domain);
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents: JSON.stringify(all, null, 2) });
+  return next;
+}
+
 /** Narrow an Update run's page list to the dirty ones. Same origin+path+query counts as the
  *  same page (hash and trailing slash don't). Dirty URLs matching nothing → full list, so a
  *  stale dirty file can never silently skip a re-map. */
