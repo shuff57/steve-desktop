@@ -133,7 +133,9 @@ describe.runIf(ENABLED)('opencode CLI transport', () => {
         sawPrompt = prompt;
         prompts.push(prompt);
         const stdout = await spawnOpencode(prompt, provider.model);
-        console.log(`[opencode-e2e] raw stdout (${stdout.length} chars):\n${stdout}`);
+        // Bounded on purpose: a passing run's stdout is tens of KB of event JSON. The
+        // failure path already embeds the raw output in its error, which is when you want it.
+        console.log(`[opencode-e2e] stdout ${stdout.length} chars, head: ${stdout.slice(0, 200)}`);
         return extractCliText('opencode', stdout);
       };
 
