@@ -13,6 +13,12 @@
  * headings carry their own weight — "IQR & Upper Fence (4 pts)" — and their sum is the
  * question's real point value, which is where `maxScore` comes from.
  *
+ * Steve's live questions lay the rubric out as a two-column `table.rubric-table`: the
+ * category is a `<b>` in the left cell, its requirements a `<ul>` in the right. That is
+ * why headings are matched by tag rather than by position — an `<h4>` layout and a table
+ * layout both reduce to "a bold-ish node, then the requirements that follow it" in
+ * document order. See the .php generators under mom/questions/frq/.
+ *
  * `<details>` being collapsed does not matter: this reads textContent, never layout.
  *
  * Read-only, like load-students.ts — one evaluated expression, no clicks, no writes.
@@ -61,6 +67,8 @@ export const PAGE_RUBRIC_EXTRACT_JS = `(() => {
       const isLi = el.tagName === 'LI';
       // Bold inside a requirement is emphasis, not a category heading.
       if (!isLi && el.closest('li')) continue;
+      // Same for bold inside the model narrative — it is prose, not structure.
+      if (el.closest('.full-response-box')) continue;
       // Outer <li> of a nested list: its children carry the actual requirements.
       if (isLi && el.querySelector('li')) continue;
       const target = isLi ? txt(el.querySelector('.ideal-ans')) : '';

@@ -66,6 +66,140 @@ function page(inner: string, url = 'https://www.myopenmath.com/assess2/?cid=99&a
   return dom.window.eval(PAGE_RUBRIC_EXTRACT_JS);
 }
 
+/**
+ * The layout Steve's questions actually emit — copied from
+ * mom/questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php with
+ * its PHP values rendered. Two-column table.rubric-table, category as a <b> in the left
+ * cell with "<br>(N pts)", requirements as a <ul> in the right, and the model narrative
+ * in a .full-response-box whose own <b> tags must not read as headings.
+ */
+const REAL_INSTRUCTOR_BLOCK = `
+<div class="rubric-container">
+  <details>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Rubric &amp; Model Response
+    </summary>
+    <div class="rubric-content">
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <th class="col-header">Category</th>
+            <th class="col-check">Checklist &amp; Ideal Targets</th>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>IQR &amp; Upper Fence<br>(4 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li>Calculate the IQR from Q1 and Q3.
+                    <span class="ideal-ans">Target: "IQR = Q3 - Q1 = 62 - 41 = 21"</span></li>
+                <li>Calculate the upper fence using the 1.5(IQR) rule.
+                    <span class="ideal-ans">Target: "Upper fence = Q3 + 1.5(IQR) = 62 + 1.5(21) = 93.5"</span></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><b>Outlier Classification<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li>Compare the maximum value to the upper fence.
+                    <span class="ideal-ans">Target: "Max = 118, which is greater than the upper fence of 93.5."</span></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td class="col-cat-bot" style="text-align:center;"><b>Contextual Interpretation<br>(3 pts)</b></td>
+            <td class="col-check-bot">
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li>Explain what the outlier might suggest about the data.
+                    <span class="ideal-ans">Target: "an unusually long service call"</span></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="full-response-box">
+        <span style="color:#2E7D32; font-weight:bold;">Model Narrative Response:</span><br><br>
+        First, <b>IQR = 21</b>. Next, <b>the upper fence is 93.5</b>. <b>118 exceeds it</b>.
+      </div>
+    </div>
+  </details>
+</div>`;
+
+/** The student-facing half of the same question: same table, no points, no targets. */
+const REAL_STUDENT_BLOCK = `
+<div class="rubric-container">
+  <details>
+    <summary>Click to View Grading Checklist</summary>
+    <div class="rubric-content">
+      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <table class="rubric-table">
+        <tbody>
+          <tr><th class="col-header">Category</th><th class="col-check">Requirement</th></tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>IQR &amp; Upper Fence</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Calculate the IQR from the given Q1 and Q3 values.</label></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>`;
+
+describe('rubric import — real question layout', () => {
+  it('reads the two-column rubric table Steve’s questions emit', () => {
+    const r = parseExtractedRubric(page(REAL_STUDENT_BLOCK + REAL_INSTRUCTOR_BLOCK));
+
+    expect(r.rubric.checklistItems?.map((c) => c.category)).toEqual([
+      'IQR & Upper Fence',
+      'Outlier Classification',
+      'Contextual Interpretation',
+    ]);
+    // "<br>(4 pts)" collapses to "…Fence(4 pts)" in textContent — the points must still parse
+    // and must not be left glued onto the category name.
+    expect(r.rubric.checklistItems?.map((c) => c.points)).toEqual([4, 3, 3]);
+    expect(r.rubric.maxScore).toBe(10);
+
+    expect(r.rubric.checklistItems![0]!.items![0]).toContain('IQR = Q3 - Q1 = 62 - 41 = 21');
+    expect(r.rubric.modelText).toContain('118 exceeds it');
+  });
+
+  it('does not mine the model narrative for criteria', () => {
+    // The narrative is prose that happens to sit inside the same .rubric-content. An
+    // author who enumerates the steps turns it into <li>s, which would otherwise be
+    // swallowed by whichever category came last — silently adding grading criteria the
+    // instructor never wrote. Bold text in the narrative is the same hazard as a heading.
+    const withList = REAL_INSTRUCTOR_BLOCK.replace(
+      'First, <b>IQR = 21</b>. Next, <b>the upper fence is 93.5</b>. <b>118 exceeds it</b>.',
+      '<ul><li>First, IQR = 21.</li><li>Then the upper fence is 93.5.</li></ul>',
+    );
+    const cats = parseExtractedRubric(page(withList)).rubric.checklistItems ?? [];
+
+    expect(cats).toHaveLength(3);
+    expect(cats.map((c) => c.category)).toEqual([
+      'IQR & Upper Fence',
+      'Outlier Classification',
+      'Contextual Interpretation',
+    ]);
+    // The last category keeps exactly its own requirement, not the narrative's steps.
+    expect(cats[2]!.items).toHaveLength(1);
+    expect(JSON.stringify(cats)).not.toContain('Then the upper fence');
+
+    // Bold in the narrative must not become a category either.
+    const bold = parseExtractedRubric(page(REAL_INSTRUCTOR_BLOCK)).rubric.checklistItems ?? [];
+    expect(bold.map((c) => c.category)).not.toContain('IQR = 21');
+  });
+
+  it('drops the "Grading Criteria" lead-in that precedes the table', () => {
+    const cats = parseExtractedRubric(page(REAL_STUDENT_BLOCK)).rubric.checklistItems ?? [];
+    expect(cats.map((c) => c.category)).toEqual(['IQR & Upper Fence']);
+  });
+});
+
 describe('rubric import', () => {
   it('prefers the instructor block and folds its targets into the criteria', () => {
     const r = parseExtractedRubric(page(STUDENT_BLOCK + INSTRUCTOR_BLOCK));
