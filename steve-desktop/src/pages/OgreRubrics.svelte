@@ -11,6 +11,7 @@
   import { onMount } from 'svelte';
   import { ogreIsland } from '../integrations/ogre';
   import { describeLeniency, restoreCategoryWeights, rewriteRubric } from '../integrations/ogre/leniency';
+  import { evalScript, isConnected } from '../lib/cdp-actions';
   import type { Rubric } from '../integrations/ogre/grading';
   import type { Skill } from '../integrations/ogre/types';
 
@@ -19,6 +20,10 @@
   let loading = $state(true);
   let error = $state<string | null>(null);
   let leniency = $state(50);
+
+  let importing = $state(false);
+  let importError = $state<string | null>(null);
+  let imported = $state<string | null>(null);
 
   const selected = $derived(rubrics.find((r) => r.id === selectedId) ?? null);
 
@@ -62,6 +67,33 @@
     }
   }
 
+  /**
+   * Read the rubric off the MyOpenMath question currently open in Browse. Re-importing
+   * the same question overwrites its rubric — the id is derived from the question — so
+   * this is safe to run twice.
+   */
+  async function importFromPage() {
+    importing = true;
+    importError = null;
+    imported = null;
+    try {
+      if (!isConnected()) throw new Error('Not connected to the browser. Open the question in Browse first.');
+      const r = await ogreIsland.methods.importRubricFromPage(async (expression) => {
+        const res = await evalScript(expression);
+        if (!res.success) throw new Error(res.error ?? 'Page evaluation failed');
+        return res.data;
+      });
+      const id = await ogreIsland.methods.saveImportedRubric(r);
+      await load();
+      selectedId = id;
+      imported = r.name;
+    } catch (e) {
+      importError = e instanceof Error ? e.message : String(e);
+    } finally {
+      importing = false;
+    }
+  }
+
   onMount(load);
 </script>
 
@@ -70,6 +102,19 @@
     <h1>Rubrics</h1>
     <p class="sub">Grading criteria used by OGRE. Stored as skills with source “rubric”.</p>
   </header>
+
+  <section class="actions">
+    <button onclick={importFromPage} disabled={importing}>
+      {importing ? 'Reading question…' : 'Import from page'}
+    </button>
+    <span class="hint">Reads the grading checklist off the MyOpenMath question open in Browse. Read-only.</span>
+  </section>
+
+  {#if importError}
+    <div class="error"><strong>Could not import a rubric.</strong><p>{importError}</p></div>
+  {:else if imported}
+    <p class="ok">Imported “{imported}”.</p>
+  {/if}
 
   {#if loading}
     <p class="muted">Loading rubrics…</p>
@@ -83,8 +128,8 @@
     <div class="empty">
       <p>No rubrics yet.</p>
       <p class="muted">
-        Your MyOpenMath questions already embed grading checklists and model responses —
-        importing them is the planned way to fill this list.
+        Your MyOpenMath questions already embed grading checklists and model responses.
+        Open one in Browse and use “Import from page”.
       </p>
     </div>
   {:else}
@@ -154,7 +199,11 @@
   .page { padding: 1.5rem; overflow-y: auto; height: 100%; }
   header { margin-bottom: 1.25rem; }
   h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
-  .sub, .muted { color: var(--text-muted, #888); font-size: 0.9rem; margin: 0; }
+  .sub, .muted, .hint { color: var(--text-muted, #888); font-size: 0.9rem; margin: 0; }
+  .actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  .actions button { padding: 0.45rem 0.9rem; border-radius: 6px; cursor: pointer; }
+  .actions button:disabled { opacity: 0.5; cursor: default; }
+  .ok { color: var(--accent, #4a9eff); font-size: 0.9rem; margin: 0 0 1rem; }
   .split { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: 1.5rem; align-items: start; }
   .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
   .row {
