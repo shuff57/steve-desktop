@@ -240,6 +240,19 @@
   }
 
   onMount(loadRubrics);
+
+  /**
+   * Re-read the rubric list every time the sidebar asks for this tab.
+   *
+   * onMount alone is not enough: ActionPanel only mounts the tab you switch TO, so a
+   * rubric added on the Rubrics page while this tab was already the active one never
+   * showed up — the list looked empty long after it wasn't.
+   */
+  $effect(() => {
+    const reload = () => void loadRubrics();
+    window.addEventListener('steve:action-panel', reload);
+    return () => window.removeEventListener('steve:action-panel', reload);
+  });
 </script>
 
 <div class="grader">
