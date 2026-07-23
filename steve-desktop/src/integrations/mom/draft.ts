@@ -3,9 +3,12 @@
  * the user can edit it without touching the source repo. The drafts dir
  * lives outside the mom repo (Tauri app-data) so a stray draft never
  * corrupts the catalog.
+ *
+ * The copy + containment check run in Rust (`mom_create_draft`) — a WebView has no filesystem,
+ * and the guard belongs where the paths are actually resolved. Slug validation stays here too
+ * so the UI can fail fast without a round trip.
  */
-import { copyFile, mkdir } from 'node:fs/promises';
-import { isAbsolute, join, normalize, sep } from 'node:path';
+import { invoke } from '@tauri-apps/api/core';
 
 export interface CreateDraftOpts {
   /** Path to the user's mom repo (MOM_ROOT). */
@@ -26,6 +29,7 @@ export interface DraftResult {
 
 const SLUG_RE = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
+/** Mirrored by mom_is_valid_slug in lib.rs — keep the two in step. */
 export function isValidSlug(slug: string): boolean {
   return SLUG_RE.test(slug);
 }
@@ -34,32 +38,11 @@ export async function createDraft(family: string, opts: CreateDraftOpts): Promis
   if (!isValidSlug(opts.slug)) {
     throw new Error(`invalid slug: ${opts.slug}`);
   }
-
-  const questionsDir = join(opts.momRoot, 'questions');
-  const sourcePath = isAbsolute(opts.templatePath)
-    ? opts.templatePath
-    : join(questionsDir, opts.templatePath);
-  // Normalize both, ensure the source is within the questions dir.
-  const normalizedSource = normalize(sourcePath);
-  const normalizedRoot = normalize(questionsDir);
-  if (!normalizedSource.startsWith(normalizedRoot + sep) && normalizedSource !== normalizedRoot) {
-    throw new Error(`template path escapes questions dir: ${opts.templatePath}`);
-  }
-
-  // Drafts live at <draftsDir>/<family>/<slug>.php — family is a subdir so
-  // switching families doesn't mix.
-  const draftDir = join(opts.draftsDir, family);
-  await mkdir(draftDir, { recursive: true });
-  const draftPath = join(draftDir, `${opts.slug}.php`);
-
-  try {
-    await copyFile(normalizedSource, draftPath);
-  } catch (e) {
-    if (e instanceof Error && /ENOENT/.test(e.message)) {
-      throw new Error(`template not found: ${opts.templatePath}`);
-    }
-    throw e;
-  }
-
-  return { draftPath, family, slug: opts.slug };
+  return await invoke<DraftResult>('mom_create_draft', {
+    momRoot: opts.momRoot,
+    draftsDir: opts.draftsDir,
+    templatePath: opts.templatePath,
+    family,
+    slug: opts.slug,
+  });
 }

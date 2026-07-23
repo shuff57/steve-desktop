@@ -1,10 +1,13 @@
-import { describe, it, expect } from 'vitest';
-import { join } from 'node:path';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+const { invokeMock } = vi.hoisted(() => ({ invokeMock: vi.fn() }));
+vi.mock('@tauri-apps/api/core', () => ({ invoke: invokeMock }));
+
 import { loadMOMIndex, isJunkFamily } from './loader';
 
-// Fixture: src/integrations/mom/__tests__/fixtures/mom/questions/frq/descriptive-statistics/q1-test.php
-// + a manifest.json with two entries (one completed, one pending).
-const FIXTURE_ROOT = join(__dirname, '__tests__', 'fixtures', 'mom');
+// The real filesystem walk now lives in Rust (mom_load_index) and is covered by cargo test
+// `mom_tests::walks_questions_into_families` against the same fixture. Here we test the pure
+// junk rule and that the TS wrapper shapes the command's reply correctly.
 
 describe('isJunkFamily', () => {
   it('flags the Windows artifacts the loader must skip', () => {
@@ -22,31 +25,35 @@ describe('isJunkFamily', () => {
 });
 
 describe('loadMOMIndex', () => {
-  it('walks questions/<family>/ and returns families with questions', async () => {
-    const index = await loadMOMIndex(FIXTURE_ROOT);
+  beforeEach(() => invokeMock.mockReset());
+
+  it('passes the root through and wraps the families the command returns', async () => {
+    invokeMock.mockResolvedValue([
+      {
+        name: 'frq',
+        count: 1,
+        questions: [{ slug: 'descriptive-statistics', path: '/mom/questions/frq/descriptive-statistics', hasManifest: true }],
+      },
+    ]);
+
+    const index = await loadMOMIndex('/mom');
+
+    expect(invokeMock).toHaveBeenCalledWith('mom_load_index', { root: '/mom' });
     expect(index.families).toHaveLength(1);
-    const family = index.families[0]!;
-    expect(family.name).toBe('frq');
-    expect(family.count).toBe(1);
-    expect(family.questions[0]).toMatchObject({
+    expect(index.families[0]!.name).toBe('frq');
+    expect(index.families[0]!.questions[0]).toMatchObject({
       slug: 'descriptive-statistics',
       hasManifest: true,
     });
-    expect(family.questions[0]!.path).toContain('descriptive-statistics');
   });
 
-  it('reports hasManifest as boolean for each question', async () => {
-    const index = await loadMOMIndex(FIXTURE_ROOT);
-    for (const f of index.families) {
-      for (const q of f.questions) {
-        expect(typeof q.hasManifest).toBe('boolean');
-      }
-    }
+  it('returns an empty families array when the command reports nothing (missing questions dir)', async () => {
+    invokeMock.mockResolvedValue([]);
+    expect((await loadMOMIndex('/no-such-root')).families).toEqual([]);
   });
 
-  it('returns empty families array when questions dir is missing', async () => {
-    // Use a non-existent root; loader must not throw.
-    const index = await loadMOMIndex(join(FIXTURE_ROOT, '..', 'no-such-root'));
-    expect(index.families).toEqual([]);
+  it('tolerates a null reply rather than crashing the page', async () => {
+    invokeMock.mockResolvedValue(null);
+    expect((await loadMOMIndex('/mom')).families).toEqual([]);
   });
 });

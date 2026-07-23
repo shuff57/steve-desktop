@@ -5,10 +5,16 @@
  * the mom question bank. No Tauri or CDP wiring in the type signatures; the
  * page supplies `root` (a filesystem path) explicitly.
  */
-import { readFile, readdir } from 'node:fs/promises';
+import { invoke } from '@tauri-apps/api/core';
 import { defineIsland } from '../_shared/island';
 import { loadMOMIndex, type MOMFamily, type MOMIndex, type MOMQuestion } from './loader';
-import { getFrqSetStats, type FrqSetStats, type MOMManifest } from './manifest';
+import {
+  getFrqSetStats,
+  parseManifest,
+  aggregateStats,
+  type FrqSetStats,
+  type MOMManifest,
+} from './manifest';
 import { createDraft as draftCreate, type CreateDraftOpts, type DraftResult } from './draft';
 import { uploadToMOM as uploadRun, type UploadOpts } from './upload';
 
@@ -47,19 +53,11 @@ export interface MomMethods {
   upload(opts: UploadOpts): Promise<boolean>;
 }
 
-async function resolveQuestionPath(
-  root: string,
-  family: string,
-  slug: string,
-): Promise<string> {
-  // Re-walk the index for the family+slug pair. We don't trust caller-supplied
-  // paths; the index is the source of truth.
-  const idx = await loadMOMIndex(root);
-  const fam = idx.families.find((f) => f.name === family);
-  if (!fam) throw new Error(`Unknown family: ${family}`);
-  const q = fam.questions.find((qq) => qq.slug === slug);
-  if (!q) throw new Error(`Unknown question: ${family}/${slug}`);
-  return q.path;
+/** What `mom_read_question` hands back: the resolved .php plus its sibling manifest text. */
+interface MomQuestionRead {
+  path: string;
+  contents: string;
+  manifestText: string | null;
 }
 
 export const momIsland = defineIsland<MomMethods>({
@@ -71,15 +69,13 @@ export const momIsland = defineIsland<MomMethods>({
     },
 
     async getQuestion(family, slug, root) {
-      const dir = await resolveQuestionPath(root, family, slug);
-      // The loader returns the question folder; the PHP file lives inside it.
-      const files = await readdir(dir);
-      const php = files.find((f) => f.endsWith('.php'));
-      if (!php) throw new Error(`No .php file in ${dir}`);
-      const path = `${dir}/${php}`;
-      const contents = await readFile(path, 'utf-8');
-      const manifest = await getFrqSetStats(dir);
-      return { family, slug, path, contents, manifest };
+      // Rust resolves family+slug against the walked index (caller paths are never trusted),
+      // reads the .php, and returns the sibling manifest in the same round trip.
+      const read = await invoke<MomQuestionRead>('mom_read_question', { root, family, slug });
+      const manifest = read.manifestText
+        ? aggregateStats(parseManifest(read.manifestText, family))
+        : { completed: 0, pending: 0, total: 0 };
+      return { family, slug, path: read.path, contents: read.contents, manifest };
     },
 
     async getFamily(family, root) {

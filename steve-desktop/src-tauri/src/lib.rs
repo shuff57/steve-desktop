@@ -2219,6 +2219,273 @@ async fn run_agent_cli(
     Ok(stdout)
 }
 
+// ── mom-island filesystem ──────────────────────────────────────────────────
+// The MOM question bank lives on disk, so the walk/read/copy belong here: a WebView has no
+// filesystem, and the integration previously imported node:fs directly, which threw on import
+// and white-screened the whole app. These commands are the only FS door for mom-island.
+
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct MomQuestion {
+    slug: String,
+    path: String,
+    has_manifest: bool,
+}
+
+#[derive(serde::Serialize)]
+struct MomFamily {
+    name: String,
+    count: usize,
+    questions: Vec<MomQuestion>,
+}
+
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct MomQuestionRead {
+    path: String,
+    contents: String,
+    manifest_text: Option<String>,
+}
+
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct MomDraftResult {
+    draft_path: String,
+    family: String,
+    slug: String,
+}
+
+/// Family folders that are Windows artifacts, never content. Mirrors JUNK_FAMILY_RE in loader.ts.
+fn mom_is_junk_family(name: &str) -> bool {
+    name.eq_ignore_ascii_case("nul")
+        || name.eq_ignore_ascii_case("$APPDATA")
+        || name.len() >= 7 && name[..7].eq_ignore_ascii_case("C:Users")
+}
+
+/// Mirrors SLUG_RE in draft.ts: leading alphanumeric, then alphanumeric / . _ -
+fn mom_is_valid_slug(slug: &str) -> bool {
+    let mut chars = slug.chars();
+    match chars.next() {
+        Some(c) if c.is_ascii_alphanumeric() => {}
+        _ => return false,
+    }
+    chars.all(|c| c.is_ascii_alphanumeric() || c == '.' || c == '_' || c == '-')
+}
+
+/// Walk `<root>/questions/<family>/<slug>/`. A question is any folder holding at least one
+/// .php file. A missing questions dir yields an empty list rather than an error — the UI
+/// renders "nothing here yet" instead of failing.
+fn mom_walk(root: &std::path::Path) -> Vec<MomFamily> {
+    let questions_dir = root.join("questions");
+    let mut families: Vec<MomFamily> = Vec::new();
+    let entries = match std::fs::read_dir(&questions_dir) {
+        Ok(e) => e,
+        Err(_) => return families,
+    };
+
+    for entry in entries.flatten() {
+        let family_name = entry.file_name().to_string_lossy().to_string();
+        if mom_is_junk_family(&family_name) {
+            continue;
+        }
+        let family_path = entry.path();
+        if !family_path.is_dir() {
+            continue;
+        }
+
+        let mut questions: Vec<MomQuestion> = Vec::new();
+        if let Ok(slugs) = std::fs::read_dir(&family_path) {
+            for slug_entry in slugs.flatten() {
+                let slug_path = slug_entry.path();
+                if !slug_path.is_dir() {
+                    continue;
+                }
+                let files: Vec<String> = std::fs::read_dir(&slug_path)
+                    .map(|rd| {
+                        rd.flatten()
+                            .map(|f| f.file_name().to_string_lossy().to_string())
+                            .collect()
+                    })
+                    .unwrap_or_default();
+                if !files.iter().any(|f| f.ends_with(".php")) {
+                    continue;
+                }
+                questions.push(MomQuestion {
+                    slug: slug_entry.file_name().to_string_lossy().to_string(),
+                    path: slug_path.to_string_lossy().to_string(),
+                    has_manifest: files.iter().any(|f| f == "manifest.json"),
+                });
+            }
+        }
+
+        if questions.is_empty() {
+            continue;
+        }
+        questions.sort_by(|a, b| a.slug.cmp(&b.slug));
+        families.push(MomFamily {
+            name: family_name,
+            count: questions.len(),
+            questions,
+        });
+    }
+
+    families.sort_by(|a, b| a.name.cmp(&b.name));
+    families
+}
+
+#[tauri::command]
+async fn mom_load_index(root: String) -> Result<Vec<MomFamily>, String> {
+    Ok(mom_walk(std::path::Path::new(&root)))
+}
+
+#[tauri::command]
+async fn mom_read_manifest(folder: String) -> Result<Option<String>, String> {
+    let path = std::path::Path::new(&folder).join("manifest.json");
+    match std::fs::read_to_string(&path) {
+        Ok(text) => Ok(Some(text)),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(e) => Err(format!("Failed to read {}: {}", path.display(), e)),
+    }
+}
+
+/// Resolve family+slug against the walked index (the index is the source of truth — a
+/// caller-supplied path is never trusted), then read the question's .php and its manifest.
+#[tauri::command]
+async fn mom_read_question(
+    root: String,
+    family: String,
+    slug: String,
+) -> Result<MomQuestionRead, String> {
+    let families = mom_walk(std::path::Path::new(&root));
+    let fam = families
+        .iter()
+        .find(|f| f.name == family)
+        .ok_or_else(|| format!("Unknown family: {}", family))?;
+    let question = fam
+        .questions
+        .iter()
+        .find(|q| q.slug == slug)
+        .ok_or_else(|| format!("Unknown question: {}/{}", family, slug))?;
+
+    let dir = std::path::Path::new(&question.path);
+    let php = std::fs::read_dir(dir)
+        .map_err(|e| format!("Failed to read {}: {}", dir.display(), e))?
+        .flatten()
+        .map(|f| f.file_name().to_string_lossy().to_string())
+        .find(|f| f.ends_with(".php"))
+        .ok_or_else(|| format!("No .php file in {}", dir.display()))?;
+
+    let path = dir.join(&php);
+    let contents = std::fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read {}: {}", path.display(), e))?;
+    let manifest_text = std::fs::read_to_string(dir.join("manifest.json")).ok();
+
+    Ok(MomQuestionRead {
+        path: path.to_string_lossy().to_string(),
+        contents,
+        manifest_text,
+    })
+}
+
+/// Copy a template into `<draftsDir>/<family>/<slug>.php`. The source must resolve inside
+/// `<momRoot>/questions` — a template path that escapes it is refused.
+#[tauri::command]
+async fn mom_create_draft(
+    mom_root: String,
+    drafts_dir: String,
+    template_path: String,
+    family: String,
+    slug: String,
+) -> Result<MomDraftResult, String> {
+    if !mom_is_valid_slug(&slug) {
+        return Err(format!("invalid slug: {}", slug));
+    }
+
+    let questions_dir = std::path::Path::new(&mom_root).join("questions");
+    let candidate = std::path::Path::new(&template_path);
+    let source = if candidate.is_absolute() {
+        candidate.to_path_buf()
+    } else {
+        questions_dir.join(candidate)
+    };
+
+    // Resolve symlinks/.. before the containment check so the guard can't be walked around.
+    let canon_questions = questions_dir
+        .canonicalize()
+        .map_err(|e| format!("questions dir unavailable: {}", e))?;
+    let canon_source = source
+        .canonicalize()
+        .map_err(|_| format!("template not found: {}", template_path))?;
+    if !canon_source.starts_with(&canon_questions) {
+        return Err(format!(
+            "template path escapes questions dir: {}",
+            template_path
+        ));
+    }
+
+    let draft_dir = std::path::Path::new(&drafts_dir).join(&family);
+    std::fs::create_dir_all(&draft_dir)
+        .map_err(|e| format!("Failed to create {}: {}", draft_dir.display(), e))?;
+    let draft_path = draft_dir.join(format!("{}.php", slug));
+    std::fs::copy(&canon_source, &draft_path)
+        .map_err(|e| format!("Failed to copy template: {}", e))?;
+
+    Ok(MomDraftResult {
+        draft_path: draft_path.to_string_lossy().to_string(),
+        family,
+        slug,
+    })
+}
+
+#[cfg(test)]
+mod mom_tests {
+    use super::*;
+
+    fn fixture_root() -> std::path::PathBuf {
+        // src-tauri/../src/integrations/mom/__tests__/fixtures/mom
+        std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .parent()
+            .unwrap()
+            .join("src/integrations/mom/__tests__/fixtures/mom")
+    }
+
+    #[test]
+    fn junk_families_are_skipped() {
+        assert!(mom_is_junk_family("nul"));
+        assert!(mom_is_junk_family("NUL"));
+        assert!(mom_is_junk_family("$APPDATA"));
+        assert!(mom_is_junk_family("C:Usersshuff"));
+        assert!(!mom_is_junk_family("frq"));
+        assert!(!mom_is_junk_family("descriptive-statistics"));
+    }
+
+    #[test]
+    fn slug_validation_matches_the_ts_rule() {
+        assert!(mom_is_valid_slug("q1-test"));
+        assert!(mom_is_valid_slug("a.b_c-1"));
+        assert!(!mom_is_valid_slug("-leading"));
+        assert!(!mom_is_valid_slug("has space"));
+        assert!(!mom_is_valid_slug(""));
+    }
+
+    #[test]
+    fn walks_questions_into_families() {
+        let families = mom_walk(&fixture_root());
+        assert_eq!(families.len(), 1, "fixture has one family");
+        let fam = &families[0];
+        assert_eq!(fam.name, "frq");
+        assert_eq!(fam.count, 1);
+        assert_eq!(fam.questions[0].slug, "descriptive-statistics");
+        assert!(fam.questions[0].has_manifest);
+    }
+
+    #[test]
+    fn missing_questions_dir_yields_empty() {
+        let families = mom_walk(std::path::Path::new("/no/such/mom/root"));
+        assert!(families.is_empty());
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let cdp_port: Option<u16> = {
@@ -2356,6 +2623,35 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
 );",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 9,
+            description: "fold_ogre_shapes_into_skills_and_site_profiles",
+            // Bare ALTERs are safe here: the plugin records applied versions, so this runs
+            // exactly once per DB (SQLite has no ADD COLUMN IF NOT EXISTS).
+            //
+            // site_profiles is replaced outright rather than migrated — the old
+            // (domain, page_name, profile_json) shape had no production reader, only test
+            // fixtures. The crawler's on-disk profiles under ~/.agents/site-profiles/ are a
+            // separate store (site-profiles.ts) and are untouched by this.
+            sql: "ALTER TABLE skills ADD COLUMN source_id TEXT;
+ALTER TABLE skills ADD COLUMN learned_corrections TEXT;
+ALTER TABLE skills ADD COLUMN updated_at TEXT DEFAULT (datetime('now'));
+CREATE UNIQUE INDEX IF NOT EXISTS idx_skills_source ON skills(source, source_id) WHERE source_id IS NOT NULL;
+DROP TABLE IF EXISTS site_profiles;
+CREATE TABLE site_profiles (
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    url_patterns TEXT NOT NULL,
+    selectors TEXT NOT NULL,
+    feedback TEXT NOT NULL,
+    save TEXT NOT NULL,
+    navigation TEXT NOT NULL,
+    extraction TEXT DEFAULT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
@@ -2374,6 +2670,10 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             eval_webview_script,
             #[cfg(not(target_os = "linux"))]
             _eval_callback,
+            mom_load_index,
+            mom_read_manifest,
+            mom_read_question,
+            mom_create_draft,
             inject_webview_script,
             scan_local_skills,
             start_oauth_callback_server,

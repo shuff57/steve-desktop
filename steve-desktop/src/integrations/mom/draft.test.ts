@@ -1,81 +1,58 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtemp, readFile, rm, stat, mkdir, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { createDraft } from './draft';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-let momRoot = '';
-let draftsDir = '';
+const { invokeMock } = vi.hoisted(() => ({ invokeMock: vi.fn() }));
+vi.mock('@tauri-apps/api/core', () => ({ invoke: invokeMock }));
 
-beforeEach(async () => {
-  momRoot = await mkdtemp(join(tmpdir(), 'mom-test-'));
-  draftsDir = await mkdtemp(join(tmpdir(), 'mom-drafts-'));
-  // Create a family/template skeleton: <root>/questions/frq/basics/q1-test.php
-  const dir = join(momRoot, 'questions', 'frq', 'basics');
-  await mkdir(dir, { recursive: true });
-  await writeFile(join(dir, 'q1-test.php'), '<?php\n$anstypes = "num";\n$questiontext = "Original template";\n');
-});
+import { createDraft, isValidSlug } from './draft';
 
-afterEach(async () => {
-  await rm(momRoot, { recursive: true, force: true });
-  await rm(draftsDir, { recursive: true, force: true });
+// The copy + "template must stay inside <momRoot>/questions" guard now run in Rust
+// (mom_create_draft), where the paths are actually resolved — cargo test covers the slug rule.
+// Here: the slug fast-fail and that we hand the command the right arguments.
+
+const OPTS = {
+  momRoot: '/mom',
+  draftsDir: '/drafts',
+  templatePath: 'frq/basics/q1-test.php',
+  slug: 'q99-test',
+};
+
+describe('isValidSlug', () => {
+  it('accepts ordinary slugs', () => {
+    expect(isValidSlug('q99-test')).toBe(true);
+    expect(isValidSlug('a.b_c-1')).toBe(true);
+  });
+  it('rejects traversal and junk', () => {
+    expect(isValidSlug('../etc/passwd')).toBe(false);
+    expect(isValidSlug('-leading')).toBe(false);
+    expect(isValidSlug('has space')).toBe(false);
+    expect(isValidSlug('')).toBe(false);
+  });
 });
 
 describe('createDraft', () => {
-  it('copies the template into the drafts dir and returns its path', async () => {
-    const result = await createDraft('frq', {
-      momRoot,
-      draftsDir,
+  beforeEach(() => invokeMock.mockReset());
+
+  it('forwards the draft request and returns the command result', async () => {
+    invokeMock.mockResolvedValue({ draftPath: '/drafts/frq/q99-test.php', family: 'frq', slug: 'q99-test' });
+
+    const result = await createDraft('frq', OPTS);
+
+    expect(invokeMock).toHaveBeenCalledWith('mom_create_draft', {
+      momRoot: '/mom',
+      draftsDir: '/drafts',
       templatePath: 'frq/basics/q1-test.php',
+      family: 'frq',
       slug: 'q99-test',
     });
     expect(result.draftPath).toContain('q99-test.php');
-    const st = await stat(result.draftPath);
-    expect(st.isFile()).toBe(true);
-    const contents = await readFile(result.draftPath, 'utf-8');
-    expect(contents).toContain('Original template');
+    expect(result.family).toBe('frq');
   });
 
-  it('does not touch the original template', async () => {
-    await createDraft('frq', {
-      momRoot,
-      draftsDir,
-      templatePath: 'frq/basics/q1-test.php',
-      slug: 'q99-test',
-    });
-    const original = await readFile(join(momRoot, 'questions', 'frq', 'basics', 'q1-test.php'), 'utf-8');
-    expect(original).toBe('<?php\n$anstypes = "num";\n$questiontext = "Original template";\n');
+  it('rejects slugs that try to escape the drafts dir, without calling the command', async () => {
+    await expect(createDraft('frq', { ...OPTS, slug: '../etc/passwd' })).rejects.toThrow(/invalid slug/);
+    expect(invokeMock).not.toHaveBeenCalled();
   });
 
-  it('uses the family as a subdirectory under drafts', async () => {
-    const result = await createDraft('frq', {
-      momRoot,
-      draftsDir,
-      templatePath: 'frq/basics/q1-test.php',
-      slug: 'q99-test',
-    });
-    expect(result.draftPath).toContain(join(draftsDir, 'frq'));
-  });
-
-  it('rejects when the source template is missing', async () => {
-    await expect(
-      createDraft('frq', {
-        momRoot,
-        draftsDir,
-        templatePath: 'frq/basics/nope.php',
-        slug: 'q99-test',
-      }),
-    ).rejects.toThrow(/template not found/);
-  });
-
-  it('rejects slugs that try to escape the drafts dir', async () => {
-    await expect(
-      createDraft('frq', {
-        momRoot,
-        draftsDir,
-        templatePath: 'frq/basics/q1-test.php',
-        slug: '../etc/passwd',
-      }),
-    ).rejects.toThrow(/invalid slug/);
-  });
+  // A missing template / escaping path is detected and reported by mom_create_draft in Rust
+  // (cargo test mom_tests) — the wrapper just lets that rejection through.
 });
