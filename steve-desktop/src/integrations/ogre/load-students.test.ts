@@ -6,10 +6,14 @@
 import { JSDOM } from 'jsdom';
 import { describe, expect, it } from 'vitest';
 import {
+  MYOPENMATH_SELECTORS,
   PAGE_EXTRACT_JS,
+  buildExtractJs,
   gradeableFrom,
   loadStudents,
+  matchProfile,
   parseExtracted,
+  profileFromRow,
   toGradingStudents,
   type ExtractedStudent,
 } from './load-students';
@@ -181,5 +185,101 @@ describe('no student data leaves this module unredacted', () => {
     // in grade.ts, which needs the real name to build the Redactor.
     const s: ExtractedStudent[] = parseExtracted(extractFrom(ROWS));
     expect(s[0]!.name).toBe('Okonkwo, Chidi');
+  });
+});
+
+
+describe('site profiles', () => {
+  it('reads a page whose container class is not the MyOpenMath one', () => {
+    const dom = new JSDOM(
+      `<html><body>
+         <article class="submission">
+           <h3 class="who">Vance, Kai</h3>
+           <div class="answer">The max exceeds the fence.</div>
+           <input name="pts-1" value="N/A" />
+           <div class="teacher-note">prior note</div>
+         </article>
+       </body></html>`,
+      { runScripts: 'dangerously' },
+    );
+    const js = buildExtractJs({
+      studentSection: 'article.submission',
+      studentName: 'h3.who',
+      response: 'div.answer',
+      scoreInput: 'input[name^="pts-"]',
+      feedbackBox: 'div.teacher-note',
+    });
+    const rows = parseExtracted(dom.window.eval(js));
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0]!.name).toBe('Vance, Kai');
+    expect(rows[0]!.response).toBe('The max exceeds the fence.');
+    expect(rows[0]!.currentScore).toBeNull();
+    expect(rows[0]!.scoreField).toBe('pts-1');
+    expect(rows[0]!.existingFeedback).toBe('prior note');
+  });
+
+  it('cannot be broken out of by a quote in a saved profile', () => {
+    // Profiles are user-editable, so this is an injection boundary. A naive template
+    // literal would end the string and run whatever followed.
+    const evil = `x'] ); window.__pwned = true; document.querySelectorAll(['div`;
+    const js = buildExtractJs({ ...MYOPENMATH_SELECTORS, studentSection: evil });
+    const dom = new JSDOM('<html><body><div class="bigquestionwrap"></div></body></html>', {
+      runScripts: 'dangerously',
+    });
+    // An invalid selector throws inside the page rather than executing the payload.
+    expect(() => dom.window.eval(js)).toThrow();
+    expect((dom.window as unknown as { __pwned?: boolean }).__pwned).toBeUndefined();
+  });
+
+  it('keeps the default extractor identical to the confirmed MyOpenMath one', () => {
+    expect(PAGE_EXTRACT_JS).toBe(buildExtractJs(MYOPENMATH_SELECTORS));
+    expect(PAGE_EXTRACT_JS).toContain('div.bigquestionwrap');
+  });
+});
+
+describe('profile matching', () => {
+  const profiles = [
+    { id: 'canvas', name: 'Canvas', urlPatterns: ['instructure.com'], selectors: MYOPENMATH_SELECTORS },
+    { id: 'mom', name: 'MyOpenMath', urlPatterns: ['gradeallq2.php', 'myopenmath.com'], selectors: MYOPENMATH_SELECTORS },
+  ];
+
+  it('matches on any pattern a profile lists, case-insensitively', () => {
+    expect(matchProfile('https://www.MyOpenMath.com/assess2/?cid=1', profiles)?.id).toBe('mom');
+    expect(matchProfile('https://x/gradeallq2.php?id=9', profiles)?.id).toBe('mom');
+    expect(matchProfile('https://canvas.instructure.com/x', profiles)?.id).toBe('canvas');
+  });
+
+  it('returns null for an unknown page rather than guessing', () => {
+    // Reading with the wrong selectors yields empty responses, which look exactly like a
+    // class that submitted nothing — so no fallback.
+    expect(matchProfile('https://example.com/whatever', profiles)).toBeNull();
+    expect(matchProfile('', profiles)).toBeNull();
+  });
+
+  it('builds a profile from a DB row, filling gaps from the confirmed defaults', () => {
+    const p = profileFromRow({
+      id: 'p1',
+      name: 'Custom',
+      url_patterns: '["example.edu"]',
+      selectors: '{"studentSection":"section.row"}',
+    });
+    expect(p?.selectors.studentSection).toBe('section.row');
+    expect(p?.selectors.response).toBe(MYOPENMATH_SELECTORS.response);
+    expect(p?.urlPatterns).toEqual(['example.edu']);
+  });
+
+  it('rejects a profile that cannot find a student at all', () => {
+    // No container means every page reads as an empty roster. Better to refuse it.
+    expect(profileFromRow({ id: 'p', name: 'n', url_patterns: '[]', selectors: '{}' })).toBeNull();
+    expect(profileFromRow({ id: 'p', name: 'n', url_patterns: '[]', selectors: 'not json' })).toBeNull();
+  });
+
+  it('survives malformed url_patterns without losing the selectors', () => {
+    const p = profileFromRow({
+      id: 'p', name: 'n', url_patterns: 'oops', selectors: '{"studentSection":"div.x"}',
+    });
+    expect(p?.urlPatterns).toEqual([]);
+    expect(p?.selectors.studentSection).toBe('div.x');
   });
 });
