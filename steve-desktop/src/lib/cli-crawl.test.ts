@@ -3,33 +3,26 @@ import { buildCliCrawlPrompt, cleanMappingDoc, parseCliCrawlOutput, buildCliVeri
 import { summarizeVerifyReport } from './verify-summary';
 
 describe('cdpTargetInstruction', () => {
-  // Embedded tabs are NOT CDP targets on this platform — the agent drives them through the
-  // app-UI window's __steveControl bridge, not by attaching to a page target.
-  const s = cdpTargetInstruction('x.edu', 'steve-tab-abc');
-  it('tells the agent the embedded tab is not a CDP target and to use the bridge', () => {
-    expect(s).toContain('NOT a CDP target');
-    expect(s).toContain('__steveControl');
-    expect(s).toContain('eval(id,');
-    expect(s).toContain('navigate(id,url)');
-  });
-  it('names 404/page-state awareness and stays scoped to the host', () => {
-    expect(s).toContain('404');
-    expect(s).toContain('x.edu');
-  });
-  it('still bans self-opened tabs and browsers', () => {
+  it('pins by window.name marker when present (unambiguous with duplicate tabs)', () => {
+    const s = cdpTargetInstruction('x.edu', 'steve-tab-abc');
+    expect(s).toContain('window.name === "steve-tab-abc"');
     expect(s).toContain('Target.createTarget');
-    expect(s).toContain('playwright');
+    expect(s).not.toContain('url is on x.edu');
+  });
+  it('falls back to host matching without a marker', () => {
+    const s = cdpTargetInstruction('x.edu', undefined);
+    expect(s).toContain('EXISTING page target whose url is on x.edu');
+    expect(s).toContain('Target.createTarget');
   });
 });
 
 describe('cdpMultiTabInstruction', () => {
   const s = cdpMultiTabInstruction('www.safecolleges.com');
-  it('hands over the __steveControl bridge (open/eval/login/activate) as the only way in', () => {
+  it('hands over the __steveControl bridge (open/login/activate) as the only way to make tabs', () => {
     expect(s).toContain('__steveControl.newTab');
-    expect(s).toContain('__steveControl.eval');
     expect(s).toContain('__steveControl.login');
     expect(s).toContain('__steveControl.activate');
-    expect(s).toContain('NOT CDP targets'); // embedded tabs reached via the bridge, not a page target
+    expect(s).toContain('steve-tab-<id>'); // page targets identified by their marker
   });
   it('still bans self-opened tabs/browsers and keeps creds off the model', () => {
     expect(s).toContain('Never call Target.createTarget');
@@ -66,21 +59,19 @@ describe('buildCliCrawlPrompt', () => {
     expect(p).toContain('at most 30 pages');
   });
 
-  it('drives the crawl through the __steveControl bridge (embedded tab is not a CDP target)', () => {
-    expect(p).toContain('NOT a CDP target');
-    expect(p).toContain('__steveControl');
-    expect(p).toContain('Target.createTarget'); // still bans self-opened windows
+  it('pins the crawl to the existing embedded target (no new window)', () => {
+    expect(p).toContain('EXISTING page target');
+    expect(p).toContain('Target.createTarget');
   });
 
-  it('reaches the tab via the bridge regardless of any marker passed', () => {
+  it('threads a marker into the crawl prompt when given', () => {
     const pm = buildCliCrawlPrompt({
       cdpPort: 9223,
       startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
       scope: { key: 'cid', value: '316341' },
       marker: 'steve-tab-xyz',
     });
-    expect(pm).toContain('__steveControl'); // bridge, not a window.name target
-    expect(pm).not.toContain('window.name === "steve-tab-xyz"');
+    expect(pm).toContain('window.name === "steve-tab-xyz"');
   });
 });
 

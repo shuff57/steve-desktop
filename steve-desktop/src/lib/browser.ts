@@ -113,13 +113,6 @@ export async function evalScript(script: string): Promise<string> {
   return await invoke('eval_webview_script', { tabId, script });
 }
 
-/** Run `script` in a specific tab's embedded webview and return the JSON text of its result.
- *  The reliable bridge to an embedded tab (which is NOT a CDP target on this platform). */
-export async function evalScriptInTab(tabId: string, script: string): Promise<string> {
-  if (!tabId) throw new Error('No tab id to evaluate script in');
-  return await invoke('eval_webview_script', { tabId, script });
-}
-
 export async function captureWebviewScreenshot(): Promise<string> {
   return await invoke('capture_webview_screenshot');
 }
