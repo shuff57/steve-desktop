@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildAnthropicBody,
+  parseDataUrl,
   parseAnthropicResponse,
   buildChatBody,
   parseChatResponse,
@@ -58,5 +59,41 @@ describe('OpenAI/Ollama chat mapping', () => {
   it('parses Ollama message shape', () => {
     const parsed = parseChatResponse({ message: { content: 'hello' } });
     expect(parsed.content).toBe('hello');
+  });
+});
+
+// ── Image attachment (the visual heal tier) ────────────────────────────────
+
+describe('image attachment', () => {
+  const IMG = 'data:image/jpeg;base64,AAAA';
+  const body = { messages: [{ role: 'system', content: 'be terse' }, { role: 'user', content: 'which one?' }], image: IMG };
+
+  it('parses only a base64 image data URL', () => {
+    expect(parseDataUrl(IMG)).toEqual({ mediaType: 'image/jpeg', data: 'AAAA' });
+    expect(parseDataUrl('https://example.com/x.png')).toBeNull();
+    expect(parseDataUrl('data:text/html;base64,AAAA')).toBeNull();
+  });
+
+  it('attaches an Anthropic image block to the last user message', () => {
+    const out = buildAnthropicBody(body, 'claude-opus-4-8');
+    expect(out.messages).toHaveLength(1);
+    expect(out.messages[0].content).toEqual([
+      { type: 'text', text: 'which one?' },
+      { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: 'AAAA' } },
+    ]);
+    expect(out.system).toBe('be terse'); // system stays a plain string
+  });
+
+  it('attaches an image_url block for chat-completions providers', () => {
+    const out = buildChatBody(body, 'gpt-x');
+    expect(out.messages[1].content).toEqual([
+      { type: 'text', text: 'which one?' },
+      { type: 'image_url', image_url: { url: IMG } },
+    ]);
+  });
+
+  it('leaves the body untouched with no image, or an unusable one', () => {
+    expect(buildAnthropicBody({ messages: body.messages }, 'm').messages[0].content).toBe('which one?');
+    expect(buildAnthropicBody({ ...body, image: 'http://evil/x.png' }, 'm').messages[0].content).toBe('which one?');
   });
 });

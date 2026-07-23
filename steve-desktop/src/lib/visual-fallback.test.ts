@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { tagCandidates, shouldUseVisualFallback, buildVisualPrompt, resolveVisualChoice, overlayScript, OVERLAY_REMOVE } from './visual-fallback';
+import { tagCandidates, shouldUseVisualFallback, buildVisualPrompt, resolveVisualChoice, overlayScript, OVERLAY_REMOVE, redactTags, assertLegendClean } from './visual-fallback';
 import type { SnapshotNode, SnapshotResult } from './dom-snapshot-types';
 
 function n(tag: string, attrs: Record<string, string> = {}, text = '', bbox?: SnapshotNode['bbox']): SnapshotNode {
@@ -97,5 +97,43 @@ describe('overlay drawing (the screenshot the model actually sees)', () => {
 
   it('never throws into the page', () => {
     expect(overlayScript([{ id: 1, selector: 'not[a valid' }])).toContain('try{');
+  });
+});
+
+describe('privacy masking — the only redaction a screenshot can get', () => {
+  it('masks by default: rendered text and images are painted over before the shutter', () => {
+    const js = overlayScript([{ id: 1, selector: '#save' }]);
+    expect(js).toContain('SHOW_TEXT'); // every text run, not just snapshot nodes
+    expect(js).toContain('getClientRects'); // per-line boxes, so wrapped text is fully covered
+    expect(js).toContain("querySelectorAll('img,svg,video");
+  });
+
+  it('fails closed — an unfinished mask returns false so nothing is sent', () => {
+    const js = overlayScript([{ id: 1, selector: '#save' }]);
+    expect(js).toContain('painted>CAP)return false');
+  });
+
+  it('can be turned off only explicitly (used for non-outbound captures)', () => {
+    expect(overlayScript([], { mask: false })).toContain('if(false)');
+    expect(overlayScript([])).toContain('if(true)');
+  });
+});
+
+describe('legend redaction — the text half of the visual gate', () => {
+  const map = { '⟦D1⟧': 'Jane Doe', '⟦D2⟧': 'B+' };
+
+  it('swaps known data values out of labels, longest first', () => {
+    const out = redactTags([{ id: 1, selector: '#r1', label: 'Row for Jane Doe' }], map);
+    expect(out[0].label).toBe('Row for ⟦D1⟧');
+    expect(out[0].selector).toBe('#r1'); // selector untouched — it is what we act on
+  });
+
+  it('leaves short values alone — they legitimately recur in chrome text', () => {
+    expect(redactTags([{ id: 1, selector: '#g', label: 'B+ grade' }], map)[0].label).toBe('B+ grade');
+  });
+
+  it('refuses the call when a data value survived into the prompt', () => {
+    expect(() => assertLegendClean('pick the row for Jane Doe', map)).toThrow(/leaked into the legend/);
+    expect(() => assertLegendClean('pick the row for ⟦D1⟧', map)).not.toThrow();
   });
 });

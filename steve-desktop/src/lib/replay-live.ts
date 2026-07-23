@@ -1,10 +1,17 @@
 import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult } from './dom-snapshot-types';
 import type { ModelTransport } from './model-gate';
-import { replayWorkflow, modelRelocator, type PageDriver, type ReplaySummary } from './replay';
+import {
+  replayWorkflow,
+  modelRelocator,
+  visualRelocator,
+  type PageDriver,
+  type ReplaySummary,
+  type VisualCapture,
+} from './replay';
 import { captureMergedTree } from './merged-tree';
 import { observe } from './observation';
-import { tagCandidates, overlayScript, OVERLAY_REMOVE, type VisualTag } from './visual-fallback';
+import { tagCandidates, overlayScript, OVERLAY_REMOVE } from './visual-fallback';
 import { cdp } from './cdp-client';
 import { evalScript as cdpEval, pwClick, pwType, isConnected, cdpScreenshot } from './cdp-actions';
 import { selectorToElementExpr } from './selector-resolve';
@@ -23,7 +30,7 @@ const SIDECAR_BASE = 'http://localhost:3456';
  * bytes. Throws on a non-200 so the healer falls through to a skip rather than acting on garbage.
  */
 export function sidecarTransport(opts: { provider?: string; model?: string } = {}): ModelTransport {
-  return async (prompt: string): Promise<string> => {
+  return async (prompt: string, image?: string): Promise<string> => {
     const res = await fetch(`${SIDECAR_BASE}/api/agent`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,6 +38,8 @@ export function sidecarTransport(opts: { provider?: string; model?: string } = {
         messages: [{ role: 'user', content: prompt }],
         provider: opts.provider,
         model: opts.model,
+        // Only the visual tier sends one, and it is already masked + gated by visualRelocator.
+        ...(image ? { image } : {}),
       }),
     });
     if (!res.ok) throw new Error(`sidecar relocate failed (HTTP ${res.status})`);
@@ -139,17 +148,21 @@ export class BrowserPageDriver implements PageDriver {
   }
 
   /**
-   * Last-tier visual capture: draw the numbered badges, screenshot, then ALWAYS strip the
-   * overlay — the user is watching this tab, so it must never be left marked up, even if the
-   * capture throws. Returns the tags alongside the image so the caller can resolve the model's
-   * numeric answer back to a selector it already has.
+   * Last-tier visual capture: mask the page, draw the numbered badges, screenshot, then ALWAYS
+   * strip the overlay — the user is watching this tab, so it must never be left marked up, even
+   * if the capture throws. Returns the tags alongside the image so the caller can resolve the
+   * model's numeric answer back to a selector it already has.
+   *
+   * Fails CLOSED: the overlay script returns false if it could not finish masking, and we return
+   * null rather than screenshot a page whose text is still readable. This is the only redaction a
+   * screenshot can get — there is no tokenizing it after the shutter.
    */
-  async captureTagged(snapshot: SnapshotResult): Promise<{ tags: VisualTag[]; screenshot: string } | null> {
+  async captureTagged(snapshot: SnapshotResult): Promise<VisualCapture | null> {
     const tags = tagCandidates(snapshot);
     if (!tags.length) return null;
     try {
-      const drawn = await cdpEval(overlayScript(tags));
-      if (!drawn.success) return null;
+      const drawn = await cdpEval(overlayScript(tags, { mask: true }));
+      if (!drawn.success || drawn.data !== true) return null;
       const screenshot = await cdpScreenshot();
       return { tags, screenshot };
     } catch {
@@ -186,6 +199,6 @@ export async function replayLive(
     throw new Error('Replay needs a CDP connection — connect to the embedded browser first.');
   }
   const driver = new BrowserPageDriver();
-  const heal = modelRelocator(sidecarTransport(opts));
-  return replayWorkflow(workflow, driver, heal);
+  const transport = sidecarTransport(opts);
+  return replayWorkflow(workflow, driver, modelRelocator(transport), visualRelocator(transport));
 }

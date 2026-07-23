@@ -75,7 +75,7 @@ export async function verifyKeyNodes(
 
 /** How much each tier signals staleness. Reaching for the model is far worse than a stored
  *  candidate still matching, so they are not counted equally. */
-const TIER_COST: Record<HealTier, number> = { candidate: 1, ranked: 2, fuzzy: 3, model: 4 };
+const TIER_COST: Record<HealTier, number> = { candidate: 1, ranked: 2, fuzzy: 3, model: 4, visual: 5 };
 
 export interface DriftStats {
   /** Total replayed steps observed for this page. */

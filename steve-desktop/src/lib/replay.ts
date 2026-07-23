@@ -2,7 +2,15 @@ import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 import { redactTree } from './redact-tree';
 import { callModelTree, type ModelTransport } from './model-gate';
-import { rankCandidates, type RankedCandidate } from './fingerprint';
+import { rankCandidates, isInteractive, type RankedCandidate } from './fingerprint';
+import {
+  buildVisualPrompt,
+  resolveVisualChoice,
+  redactTags,
+  assertLegendClean,
+  shouldUseVisualFallback,
+  type VisualTag,
+} from './visual-fallback';
 
 // Replays a trained workflow deterministically. When a recorded selector no
 // longer matches, it re-derives page state from a fresh snapshot and fuzzy-matches
@@ -27,12 +35,16 @@ export interface PageDriver {
   /** Optional passive refresh: re-capture the acted element's live attributes as fresh candidate
    *  selectors, so stored anchors stay current without a scheduled re-map. */
   fingerprint?(selector: string): Awaitable<string[] | null>;
+  /** Optional last-tier capture: draw numbered badges over the candidates and screenshot the page
+   *  (privacy-masked). null when the page yields nothing worth tagging or the capture failed —
+   *  either way the visual tier is skipped rather than guessed. */
+  captureTagged?(snapshot: SnapshotResult): Awaitable<VisualCapture | null>;
 }
 
 export type StepStatus = 'done' | 'recovered' | 'skipped';
 
 /** Heal tiers, cheapest first. Rising use of the later ones is the staleness signal. */
-export type HealTier = 'candidate' | 'ranked' | 'fuzzy' | 'model';
+export type HealTier = 'candidate' | 'ranked' | 'fuzzy' | 'model' | 'visual';
 
 export interface ReplayStepResult {
   step: WorkflowStep;
@@ -178,6 +190,45 @@ export function modelRelocator(transport: ModelTransport): ModelHealer {
   };
 }
 
+// ── Tier 4: visual relocation over a masked screenshot ─────────────────────
+
+export interface VisualCapture {
+  tags: VisualTag[];
+  /** data: URL of the masked page image. */
+  screenshot: string;
+}
+
+/** Pick a tag number for the step from the screenshot, or null. Async/cloud, and the most
+ *  expensive tier we have — only reached when structure has genuinely run out. */
+export type VisualHealer = (
+  step: WorkflowStep,
+  snapshot: SnapshotResult,
+  capture: VisualCapture,
+) => Promise<string | null>;
+
+/**
+ * Tier-4 healer factory. Two redactions, because an image can't be tokenized after the fact:
+ * the screenshot is masked in-page before capture (BrowserPageDriver.captureTagged), and the
+ * legend is dictionary-swapped here and refused outright if a data value survived it. The reply
+ * is a bare tag number, resolved back against the REAL tags — so the model never sees a live
+ * selector and never gets to invent one.
+ */
+export function visualRelocator(transport: ModelTransport): VisualHealer {
+  return async (step, snapshot, capture) => {
+    const red = redactTree(snapshot);
+    const intent = step.description || step.selector || step.action;
+    const prompt = buildVisualPrompt(intent, redactTags(capture.tags, red.map));
+    assertLegendClean(prompt, red.map);
+    return resolveVisualChoice(await transport(prompt, capture.screenshot), capture.tags);
+  };
+}
+
+/** Does this element carry anything a cheaper tier could have matched on? */
+function isLabelled(node: SnapshotNode): boolean {
+  const a = node.attrs ?? {};
+  return Boolean((a['aria-label'] || a['name'] || a['id'] || node.text || '').trim());
+}
+
 // ── Outcome gate + passive refresh ─────────────────────────────────────────
 
 /** Rewrite the step's cached selector after a VERIFIED heal, keeping the stale one as a
@@ -244,6 +295,7 @@ export async function replayWorkflow(
   workflow: Workflow,
   page: PageDriver,
   heal?: ModelHealer,
+  visual?: VisualHealer,
 ): Promise<ReplaySummary> {
   const results: ReplayStepResult[] = [];
 
@@ -342,6 +394,42 @@ export async function replayWorkflow(
           failDetail: `Relocated selector "${relocated}" also failed`,
         });
         results.push(r); // recovered, or an audited act/postcondition failure — both beat a generic skip
+        continue;
+      }
+    }
+
+    // self-heal tier 4 (last resort, most expensive): the page has no structure left to match on —
+    // nothing addressable, or controls that carry no label any cheaper tier could have used. Tag
+    // them, screenshot (masked), and let the model pick a NUMBER. Same reused snapshot.
+    // Counted off the SNAPSHOT, not `ranked` — ranked is empty whenever the step has no stored
+    // fingerprint, which would read as "this page has nothing addressable" on a perfectly
+    // well-labelled page and fire the most expensive tier for no reason.
+    const addressable = snapshot.nodes.filter(isInteractive);
+    if (
+      visual &&
+      page.captureTagged &&
+      shouldUseVisualFallback({
+        structuralTiersMissed: true,
+        rankedCandidates: addressable.length,
+        labelledCandidates: addressable.filter(isLabelled).length,
+      })
+    ) {
+      let picked: string | null = null;
+      try {
+        const capture = await page.captureTagged(snapshot);
+        if (capture) picked = await visual(step, snapshot, capture);
+      } catch {
+        picked = null; // capture/model/gate failure → fall through to skip, never throw
+      }
+      if (picked && (await page.exists(picked))) {
+        results.push(
+          await actGated(page, step, picked, {
+            healed: true,
+            tier: 'visual',
+            okDetail: `Selector "${recorded}" had no structural match; located "${picked}" visually from a masked screenshot`,
+            failDetail: `Visually located selector "${picked}" also failed`,
+          }),
+        );
         continue;
       }
     }

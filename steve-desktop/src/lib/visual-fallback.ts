@@ -80,18 +80,76 @@ export function resolveVisualChoice(reply: string, tags: VisualTag[]): string | 
 }
 
 /**
+ * Redact the legend against the tree redaction's value map — same dictionary swap, same rule as
+ * callModelTree. The model reads tokenized labels; the caller still resolves the reply against the
+ * REAL tags, so a token can never end up in a selector.
+ */
+export function redactTags(tags: VisualTag[], map: Record<string, string>): VisualTag[] {
+  const pairs = Object.entries(map).sort((a, b) => b[1].length - a[1].length);
+  return tags.map((t) => {
+    let label = t.label;
+    for (const [token, value] of pairs) if (value.trim().length >= 3) label = label.split(value).join(token);
+    return { ...t, label };
+  });
+}
+
+/**
+ * The gate for the visual path. The screenshot itself is masked in-page (it cannot be tokenized
+ * after capture), and this refuses the call if any redacted data value survived into the legend —
+ * deny-by-default, matching callModelTree rather than bypassing it.
+ */
+export function assertLegendClean(prompt: string, map: Record<string, string>): void {
+  for (const value of Object.values(map)) {
+    if (value.trim().length >= 3 && prompt.includes(value)) {
+      throw new Error('Refusing visual model call: a redacted data value leaked into the legend.');
+    }
+  }
+}
+
+/**
  * Page script that draws the numbered badges the screenshot is supposed to show. Self-contained
  * and removable: it appends one absolutely-positioned overlay it can delete wholesale, so the
  * page the user is watching is never left marked up. Coordinates come from the live elements
  * rather than stored bboxes, so the badges land correctly even after a reflow.
+ *
+ * With `mask` (the default, and what the live capture uses) it first paints an opaque box over
+ * every run of rendered text and every image, so the picture that leaves the machine carries
+ * layout and our badges but no readable data. That is the only redaction a screenshot can get —
+ * so it fails CLOSED: if anything prevents finishing the mask, the script returns false and the
+ * caller sends nothing.
+ *
+ * ponytail: masks text and media. Content painted into a <canvas> is left visible, because
+ * canvas-drawn widgets are the case this tier exists for — do not point it at a canvas that
+ * renders student data.
  */
-export function overlayScript(tags: { id: number; selector: string }[]): string {
+export function overlayScript(tags: { id: number; selector: string }[], opts: { mask?: boolean } = {}): string {
   const pairs = JSON.stringify(tags.map((t) => [t.id, t.selector]));
+  const mask = opts.mask !== false;
   return `(function(){
     try{
       var old=document.getElementById('__steveVisualTags'); if(old)old.remove();
       var box=document.createElement('div'); box.id='__steveVisualTags';
       box.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:2147483646';
+      var painted=0, CAP=4000;
+      function cover(r){
+        if(!r.width||!r.height)return true;
+        if(++painted>CAP)return false;
+        var m=document.createElement('div');
+        m.style.cssText='position:absolute;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;'+
+          'height:'+r.height+'px;background:#8b93a1';
+        box.appendChild(m); return true;
+      }
+      if(${mask}){
+        var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null), tn;
+        while((tn=w.nextNode())){
+          if(!tn.nodeValue||!tn.nodeValue.trim())continue;
+          var rg=document.createRange(); rg.selectNodeContents(tn);
+          var rs=rg.getClientRects();
+          for(var k=0;k<rs.length;k++){ if(!cover(rs[k]))return false; }
+        }
+        var med=document.querySelectorAll('img,svg,video,canvas[data-steve-mask]');
+        for(var q=0;q<med.length;q++){ if(!cover(med[q].getBoundingClientRect()))return false; }
+      }
       var pairs=${pairs};
       for(var i=0;i<pairs.length;i++){
         var el=null; try{ el=document.querySelector(pairs[i][1]); }catch(e){}

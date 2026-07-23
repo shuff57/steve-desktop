@@ -7,7 +7,9 @@ import { Redactor, assertOutbound, type RedactedPayload } from './redact';
 // local transport plugs in here. Replies come back referring to tokens and are
 // rehydrated locally.
 
-export type ModelTransport = (redactedText: string) => Promise<string>;
+/** `image` (a masked data: URL) is optional and only the visual heal tier passes one. Text-only
+ *  transports ignore it, so every existing caller keeps working unchanged. */
+export type ModelTransport = (redactedText: string, image?: string) => Promise<string>;
 
 export async function callModel(
   payload: RedactedPayload,

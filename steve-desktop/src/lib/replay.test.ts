@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { replayWorkflow, modelRelocator, parseRelocateReply, buildRelocatePrompt, type PageDriver, type ModelHealer } from './replay';
+import { replayWorkflow, modelRelocator, visualRelocator, parseRelocateReply, buildRelocatePrompt, type PageDriver, type ModelHealer } from './replay';
 import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
@@ -340,5 +340,105 @@ describe('stage 3 — the model arbitrates a shortlist', () => {
     const snap: SnapshotResult = { nodes: [], meta: { totalVisited: 0, nodesIncluded: 0, nodesDropped: 0, wasTruncated: false, charCount: 0, capturedAt: 'x' } };
     expect(await modelRelocator(async () => '#btn_9f3a')({ action: 'click' }, snap, shortlist)).toBe('#btn_9f3a');
     expect(await modelRelocator(async () => 'NONE')({ action: 'click' }, snap, shortlist)).toBeNull();
+  });
+});
+
+// ── Stage 6: the visual tier ───────────────────────────────────────────────
+
+/** A page whose controls carry no label at all — the canvas-ish case every structural tier misses. */
+class AnonymousPage implements PageDriver {
+  acted: string[] = [];
+  captures = 0;
+  constructor(public selectors: string[], public labelled = false) {}
+  exists(s: string): boolean {
+    return this.selectors.includes(s);
+  }
+  snapshot(): SnapshotResult {
+    const nodes: SnapshotNode[] = this.selectors.map((s) => ({
+      tag: 'button',
+      depth: 1,
+      priority: 'critical',
+      text: this.labelled ? 'Submit grades' : '',
+      attrs: (this.labelled ? { id: s.replace(/^#/, ''), 'aria-label': 'Submit grades' } : {}) as Record<string, string>,
+    }));
+    return { nodes, meta: meta() };
+  }
+  act(_step: WorkflowStep, selector: string): boolean {
+    if (!this.exists(selector)) return false;
+    this.acted.push(selector);
+    return true;
+  }
+  captureTagged() {
+    this.captures += 1;
+    return { tags: [{ id: 1, selector: this.selectors[0], label: '' }], screenshot: 'data:image/jpeg;base64,AAAA' };
+  }
+}
+
+// A FRESH workflow per test: a successful heal rewrites step.selector in place, so a shared
+// object would leave later tests replaying an already-healed workflow.
+const anonWorkflow = (): Workflow => ({
+  name: 'Anonymous widget',
+  steps: [{ action: 'click', selector: '#gone', description: 'the confirm control' }],
+});
+
+describe('stage 6 — visual fallback as the last tier', () => {
+  it('recovers a step no structural tier could address, tagged as tier "visual"', async () => {
+    const page = new AnonymousPage(['button']);
+    const summary = await replayWorkflow(anonWorkflow(), page, undefined, async () => 'button');
+    expect(summary.results[0].status).toBe('recovered');
+    expect(summary.results[0].tier).toBe('visual');
+    expect(page.acted).toEqual(['button']);
+    expect(summary.healed).toBe(true);
+  });
+
+  it('never fires while a cheaper tier still has a labelled element to work with', async () => {
+    const page = new AnonymousPage(['#confirm'], true);
+    let called = false;
+    await replayWorkflow(anonWorkflow(), page, undefined, async () => {
+      called = true;
+      return '#confirm';
+    });
+    expect(called).toBe(false);
+    expect(page.captures).toBe(0); // no screenshot taken at all — nothing left the machine
+  });
+
+  it('skips rather than guesses when the model declines or the capture fails', async () => {
+    const page = new AnonymousPage(['button']);
+    expect((await replayWorkflow(anonWorkflow(), page, undefined, async () => null)).results[0].status).toBe('skipped');
+
+    const noCapture = new AnonymousPage(['button']);
+    noCapture.captureTagged = () => null as never;
+    expect((await replayWorkflow(anonWorkflow(), noCapture, undefined, async () => 'button')).results[0].status).toBe('skipped');
+    expect(noCapture.acted).toEqual([]);
+  });
+
+  it('a throwing gate or transport degrades to a skip, never an exception', async () => {
+    const page = new AnonymousPage(['button']);
+    const summary = await replayWorkflow(anonWorkflow(), page, undefined, async () => {
+      throw new Error('Refusing visual model call: a redacted data value leaked into the legend.');
+    });
+    expect(summary.results[0].status).toBe('skipped');
+    expect(page.acted).toEqual([]);
+  });
+});
+
+describe('visualRelocator — the trust boundary for the visual tier', () => {
+  const snap: SnapshotResult = { nodes: [], meta: meta() };
+  const capture = { tags: [{ id: 1, selector: '#a', label: '' }, { id: 2, selector: '#b', label: '' }], screenshot: 'data:image/jpeg;base64,AAAA' };
+
+  it('sends the image alongside the prompt and maps the number back to a real selector', async () => {
+    let sentImage: string | undefined;
+    const picked = await visualRelocator(async (_p, image) => {
+      sentImage = image;
+      return '2';
+    })({ action: 'click' }, snap, capture);
+    expect(picked).toBe('#b');
+    expect(sentImage).toBe('data:image/jpeg;base64,AAAA');
+  });
+
+  it('refuses an invented selector or a confused reply — number-only answer space', async () => {
+    for (const reply of ['#invented', 'NONE', 'the left one', '9']) {
+      expect(await visualRelocator(async () => reply)({ action: 'click' }, snap, capture)).toBeNull();
+    }
   });
 });
