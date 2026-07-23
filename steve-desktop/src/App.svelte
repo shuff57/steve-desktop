@@ -11,7 +11,6 @@
   import Settings from './pages/settings/Settings.svelte';
   import SetupWizard from './pages/SetupWizard.svelte';
   import MomBrowser from './pages/MomBrowser.svelte';
-  import OgreGrading from './pages/OgreGrading.svelte';
   import OgreRubrics from './pages/OgreRubrics.svelte';
   import OgreHistory from './pages/OgreHistory.svelte';
   import NavSection from './components/NavSection.svelte';
@@ -74,10 +73,23 @@
   }
 
   function navigate(page: string) {
+    // OGRE grading is a browser drawer tab, not a route: "load students from page" means
+    // the page on screen, so the controls have to sit beside it. Send the request through
+    // sessionStorage as well as the event — the drawer may still be closed, in which case
+    // ActionPanel does not exist yet to hear it and reads the request when it mounts.
+    let panelMode: string | null = null;
+    if (page === 'ogre-grading') {
+      panelMode = 'ogre';
+      sessionStorage.setItem('steve:panel-mode', panelMode);
+      page = 'browser';
+    }
+
     currentPage = page;
     if (page === 'browser') {
       sidebarCollapsed = true;
       window.dispatchEvent(new CustomEvent('steve:sidebar-changed'));
+      // Only when a nav entry asked for a tab — plain "Browse" must not force the drawer open.
+      if (panelMode) window.dispatchEvent(new CustomEvent('steve:action-panel', { detail: { mode: panelMode } }));
     } else {
       sidebarCollapsed = false;
     }
@@ -203,8 +215,6 @@
         <SiteProfiles />
       {:else if currentPage === 'mom'}
         <MomBrowser />
-      {:else if currentPage === 'ogre-grading'}
-        <OgreGrading />
       {:else if currentPage === 'ogre-rubrics'}
         <OgreRubrics />
       {:else if currentPage === 'ogre-history'}

@@ -5,6 +5,7 @@
   import SkillRunner from '../components/grading/SkillRunner.svelte';
   import SiteMapper from '../components/grading/SiteMapper.svelte';
   import TeachMode from '../components/grading/TeachMode.svelte';
+  import OgreGrader from '../components/grading/OgreGrader.svelte';
   import ProviderSelector from '../components/grading/ProviderSelector.svelte';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
@@ -22,7 +23,33 @@
 
   // One engine selection for the whole panel — shared across the Agent, Discovery, and
   // Skills tabs so switching tabs never changes the AI engine. Passed down as props.
-  let activeMode = $state('agent');  // 'agent' | 'discovery' | 'teach' | 'skills'
+  let activeMode = $state('agent');  // 'agent' | 'discovery' | 'teach' | 'skills' | 'ogre'
+
+  // The OGRE sidebar entry opens grading here rather than on its own route: "load students
+  // from page" means the page on screen, so the controls have to sit beside it.
+  //
+  // Two paths because the drawer may have been closed when the request was made, in which
+  // case no panel existed to hear the event: the live event covers an open drawer, the
+  // sessionStorage handoff covers one opening for the first time. Read once and clear, so
+  // it steers only the navigation that set it.
+  const pendingMode = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('steve:panel-mode') : null;
+  if (pendingMode) {
+    activeMode = pendingMode;
+    sessionStorage.removeItem('steve:panel-mode');
+  }
+
+  $effect(() => {
+    const open = (e: Event) => {
+      if (!active) return;
+      const mode = (e as CustomEvent<{ mode?: string }>).detail?.mode;
+      if (mode) {
+        activeMode = mode;
+        sessionStorage.removeItem('steve:panel-mode');
+      }
+    };
+    window.addEventListener('steve:action-panel', open);
+    return () => window.removeEventListener('steve:action-panel', open);
+  });
   let activeProvider = $state('');
   let activeModel = $state('');
 
@@ -209,6 +236,10 @@
       <span class="mode-icon">▶</span>
       {#if !isCollapsed}<span class="mode-label">Skills</span>{/if}
     </button>
+    <button class="mode-tab" class:active={activeMode === 'ogre'} onclick={() => activeMode = 'ogre'}>
+      <span class="mode-icon">📝</span>
+      {#if !isCollapsed}<span class="mode-label">OGRE</span>{/if}
+    </button>
   </div>
   
   {#if !isCollapsed}
@@ -225,6 +256,8 @@
         <SkillRunner provider={activeProvider} model={activeModel} />
       {:else if activeMode === 'teach'}
         <TeachMode {pageUrl} provider={activeProvider} model={activeModel} />
+      {:else if activeMode === 'ogre'}
+        <OgreGrader {pageUrl} provider={activeProvider} model={activeModel} />
       {:else}
         <SiteMapper {pageUrl} provider={activeProvider} model={activeModel} />
       {/if}
