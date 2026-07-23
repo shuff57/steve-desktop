@@ -2638,13 +2638,20 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('setup_complete', 'false
             // Bare ALTERs are safe here: the plugin records applied versions, so this runs
             // exactly once per DB (SQLite has no ADD COLUMN IF NOT EXISTS).
             //
+            // updated_at is added WITHOUT a default and backfilled by the UPDATE below.
+            // `DEFAULT (datetime('now'))` is rejected by ADD COLUMN once the table has any
+            // rows ("Cannot add a column with non-constant default") — it only appears to
+            // work on an empty table, so a fresh DB would pass while every real install
+            // failed to start. Writers bind updated_at explicitly, so no default is needed.
+            //
             // site_profiles is replaced outright rather than migrated — the old
             // (domain, page_name, profile_json) shape had no production reader, only test
             // fixtures. The crawler's on-disk profiles under ~/.agents/site-profiles/ are a
             // separate store (site-profiles.ts) and are untouched by this.
             sql: "ALTER TABLE skills ADD COLUMN source_id TEXT;
 ALTER TABLE skills ADD COLUMN learned_corrections TEXT;
-ALTER TABLE skills ADD COLUMN updated_at TEXT DEFAULT (datetime('now'));
+ALTER TABLE skills ADD COLUMN updated_at TEXT;
+UPDATE skills SET updated_at = datetime('now') WHERE updated_at IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS idx_skills_source ON skills(source, source_id) WHERE source_id IS NOT NULL;
 DROP TABLE IF EXISTS site_profiles;
 CREATE TABLE site_profiles (
@@ -2659,6 +2666,57 @@ CREATE TABLE site_profiles (
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );",
+            kind: MigrationKind::Up,
+        },
+        Migration {
+            version: 10,
+            description: "ogre_grading_tables",
+            // The ogre island's remaining tables. Its other six (provider_configs,
+            // app_settings, oauth_tokens, site_credentials, site_profiles, skills) are
+            // already steve.db tables — migration 9 widened the last two to ogre's shape.
+            //
+            // O.G.R.E's island_id column is dropped in the port: it defaulted to 'ogre' on
+            // every row of ogre-only tables, and in the shared tables it would mislabel
+            // steve's own rows. `skills.source` already separates rubrics from steve skills.
+            //
+            // student_response holds real student work — local DB only. Anything model-bound
+            // goes through model-gate redaction first.
+            sql: "CREATE TABLE IF NOT EXISTS grading_sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    provider_id TEXT,
+    model TEXT,
+    student_count INTEGER,
+    mean_score REAL,
+    min_score REAL,
+    max_score REAL,
+    median_score REAL,
+    max_possible_score REAL,
+    page_url TEXT,
+    question_id TEXT,
+    custom_instructions TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS response_embeddings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER REFERENCES grading_sessions(id),
+    rubric_hash TEXT NOT NULL,
+    student_response TEXT,
+    score REAL NOT NULL,
+    feedback TEXT,
+    embedding BLOB NOT NULL,
+    embedding_model TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_embeddings_rubric_hash ON response_embeddings(rubric_hash);
+CREATE INDEX IF NOT EXISTS idx_embeddings_model ON response_embeddings(embedding_model);
+CREATE TABLE IF NOT EXISTS batch_session (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    url TEXT NOT NULL,
+    last_student_name TEXT NOT NULL,
+    timestamp TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_batch_session_url ON batch_session(url);
+INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns', '[\"timestamp\",\"provider\",\"model\",\"studentCount\",\"meanScore\",\"pageUrl\"]');",
             kind: MigrationKind::Up,
         },
     ];
