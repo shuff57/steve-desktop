@@ -2,6 +2,7 @@ import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 import { redactTree } from './redact-tree';
 import { callModelTree, type ModelTransport } from './model-gate';
+import { rankCandidates, type RankedCandidate } from './fingerprint';
 
 // Replays a trained workflow deterministically. When a recorded selector no
 // longer matches, it re-derives page state from a fresh snapshot and fuzzy-matches
@@ -91,23 +92,47 @@ export function findSelectorForStep(step: WorkflowStep, snapshot: SnapshotResult
 
 // ── Tier 3: model relocation over the redacted tree ────────────────────────
 
-/** Given a fresh page snapshot, return a selector for the step (or null). Async/cloud. */
-export type ModelHealer = (step: WorkflowStep, snapshot: SnapshotResult) => Promise<string | null>;
+/** Given a fresh page snapshot, return a selector for the step (or null). Async/cloud.
+ *  `shortlist` (when the ranker produced one) is the handful of elements worth choosing between —
+ *  a healer should arbitrate those rather than reading the whole tree. */
+export type ModelHealer = (
+  step: WorkflowStep,
+  snapshot: SnapshotResult,
+  shortlist?: RankedCandidate[],
+) => Promise<string | null>;
 
-/** The relocate instruction the model sees alongside the redacted page structure. */
-export function buildRelocatePrompt(step: WorkflowStep, redactedStructure: string): string {
+/** The relocate instruction the model sees alongside the redacted page structure. When the ranker
+ *  produced a shortlist, the model is asked to ARBITRATE those few rather than scan everything —
+ *  cheaper, and it can't wander off to an element the ranker already judged irrelevant. */
+export function buildRelocatePrompt(
+  step: WorkflowStep,
+  redactedStructure: string,
+  shortlist?: RankedCandidate[],
+): string {
   const intent = step.description || step.selector || step.action;
-  return [
+  const head = [
     'A recorded selector no longer matches. Relocate the element for this step.',
     `Step: ${step.action} — "${intent}"`,
     step.selector ? `Old selector (stale): ${step.selector}` : '',
+  ].filter(Boolean);
+
+  if (shortlist?.length) {
+    return [
+      ...head,
+      '',
+      'These are the closest elements on the page now, best-scored first. Choose the ONE that is',
+      'the step\'s element and reply with ONLY its selector — or reply NONE if none of them is it.',
+      ...shortlist.map((c, i) => `${i + 1}. ${c.selector}  (score ${c.score.toFixed(2)})`),
+    ].join('\n');
+  }
+
+  return [
+    ...head,
     'Reply with ONLY one CSS or role=name selector for the current element — nothing else.',
     '',
     'Redacted page structure (data values are tokens like ⟦D1⟧ — never use a token as a selector):',
     redactedStructure,
-  ]
-    .filter(Boolean)
-    .join('\n');
+  ].join('\n');
 }
 
 /** Pull a single selector out of a model reply that should be just a selector. */
@@ -134,10 +159,17 @@ export function parseRelocateReply(reply: string): string | null {
  * anchor, by design — so it can miss on elements only data distinguishes; that surfaces as a skip.
  */
 export function modelRelocator(transport: ModelTransport): ModelHealer {
-  return async (step, snapshot) => {
+  return async (step, snapshot, shortlist) => {
     const red = redactTree(snapshot);
-    const reply = await callModelTree(red, (text) => transport(buildRelocatePrompt(step, text)));
-    return parseRelocateReply(reply);
+    // Even when arbitrating a shortlist the call still goes through callModelTree, so the leak
+    // gate runs on whatever is sent — selectors are chrome, but the gate is not optional.
+    const reply = await callModelTree(red, (text) => transport(buildRelocatePrompt(step, text, shortlist)));
+    const picked = parseRelocateReply(reply);
+    if (!picked || /^none$/i.test(picked)) return null;
+    // Arbitration is a CHOICE among the shortlist — anything else is the model inventing an
+    // element, which we refuse rather than act on.
+    if (shortlist?.length && !shortlist.some((c) => c.selector === picked)) return null;
+    return picked;
   };
 }
 
@@ -244,8 +276,34 @@ export async function replayWorkflow(
       continue;
     }
 
-    // self-heal tier 2: re-derive page state and fuzzy-match the step's intent
+    // self-heal tier 2: rank EVERY interactive element against the step's stored fingerprint and
+    // try the best few in order. Replaces stop-at-first-match — a renamed id costs a little
+    // rather than disqualifying the element. Each attempt is still outcome-gated, so a
+    // high-scoring wrong guess fails its postcondition instead of being persisted.
     const snapshot = await page.snapshot();
+    let ranked: RankedCandidate[] = [];
+    if (step.fingerprint) {
+      ranked = rankCandidates(step.fingerprint, snapshot);
+      let recoveredByRank: ReplayStepResult | null = null;
+      for (const cand of ranked) {
+        if (cand.selector === recorded || !(await page.exists(cand.selector))) continue;
+        const r = await actGated(page, step, cand.selector, {
+          healed: true,
+          okDetail: `Selector "${recorded}" no longer matched; ranked page elements and recovered via "${cand.selector}" (score ${cand.score.toFixed(2)})`,
+          failDetail: `Ranked candidate "${cand.selector}" failed its postcondition`,
+        });
+        if (r.status === 'recovered') {
+          recoveredByRank = r;
+          break;
+        }
+      }
+      if (recoveredByRank) {
+        results.push(recoveredByRank);
+        continue;
+      }
+    }
+
+    // tier 2b: no fingerprint (older recording) — fall back to the label-token match.
     const healed = findSelectorForStep(step, snapshot);
     if (healed && (await page.exists(healed))) {
       results.push(
@@ -264,7 +322,7 @@ export async function replayWorkflow(
     if (heal) {
       let relocated: string | null = null;
       try {
-        relocated = await heal(step, snapshot);
+        relocated = await heal(step, snapshot, ranked.length ? ranked : undefined);
       } catch {
         relocated = null; // model/transport failure → fall through to skip, never throw
       }

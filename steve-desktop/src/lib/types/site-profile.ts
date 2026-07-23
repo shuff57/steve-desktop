@@ -62,6 +62,9 @@ export interface WorkflowStep {
    *  A parameterized step stores NO literal recorded value (FERPA: skills are de-identified). */
   param?: string;
   key?: string;
+  /** Weighted signals captured for this step's element (fingerprint.ts). Additive: steps
+   *  recorded before this existed simply heal without it. */
+  fingerprint?: import('../fingerprint').ElementFingerprint;
   frame?: string;
   context?: 'outer' | 'iframe';
   condition?: string;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { replayWorkflow, modelRelocator, parseRelocateReply, type PageDriver, type ModelHealer } from './replay';
+import { replayWorkflow, modelRelocator, parseRelocateReply, buildRelocatePrompt, type PageDriver, type ModelHealer } from './replay';
 import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
@@ -262,5 +262,83 @@ describe('modelRelocator — tier-3 trust boundary', () => {
     expect(parseRelocateReply('selector: role=button[name="Go"]')).toBe('role=button[name="Go"]');
     expect(parseRelocateReply('⟦D1⟧')).toBeNull();
     expect(parseRelocateReply('   ')).toBeNull();
+  });
+});
+
+describe('stage 3 — weighted ranking replaces stop-at-first-match', () => {
+  const fpStep = (): Workflow => ({
+    name: 'Save',
+    steps: [{
+      action: 'click',
+      selector: '#save',                       // stale
+      description: 'save the grade',
+      fingerprint: { tag: 'button', role: 'button', name: 'Save Grade', text: 'Save Grade', id: 'save' },
+    }],
+  });
+
+  // A page where the button was renamed AND a decoy exists that a naive first-match would grab.
+  class RankPage extends MockPage {
+    snapshot(): SnapshotResult {
+      return {
+        nodes: [
+          { tag: 'button', depth: 1, priority: 'critical', text: 'Cancel', attrs: { id: 'cancel', role: 'button', 'aria-label': 'Cancel' } },
+          { tag: 'button', depth: 1, priority: 'critical', text: 'Save Grade', attrs: { id: 'btn_9f3a', role: 'button', 'aria-label': 'Save Grade' } },
+        ],
+        meta: { totalVisited: 2, nodesIncluded: 2, nodesDropped: 0, wasTruncated: false, charCount: 0, capturedAt: 'x' },
+      };
+    }
+  }
+
+  it('recovers the renamed element by score, not by first match', async () => {
+    const page = new RankPage([{ selector: '#cancel', tag: 'button', label: 'Cancel' }, { selector: '#btn_9f3a', tag: 'button', label: 'Save Grade' }]);
+    const wf = fpStep();
+    const summary = await replayWorkflow(wf, page);
+
+    expect(summary.results[0].status).toBe('recovered');
+    expect(summary.results[0].selectorUsed).toBe('#btn_9f3a'); // not #cancel
+    expect(summary.results[0].detail).toMatch(/ranked page elements/i);
+    expect(wf.steps[0].selector).toBe('#btn_9f3a'); // persisted
+  });
+
+  it('a ranked pick that fails its postcondition is not persisted', async () => {
+    const page = new RankPage([{ selector: '#btn_9f3a', tag: 'button', label: 'Save Grade' }]);
+    (page as unknown as { verify: () => boolean }).verify = () => false;
+    const wf = fpStep();
+    const summary = await replayWorkflow(wf, page);
+
+    expect(summary.results[0].status).toBe('skipped');
+    expect(wf.steps[0].selector).toBe('#save'); // unchanged
+  });
+});
+
+describe('stage 3 — the model arbitrates a shortlist', () => {
+  const shortlist = [
+    { selector: '#btn_9f3a', score: 0.82, node: { tag: 'button', depth: 1, priority: 'critical' as const, attrs: {} } },
+    { selector: '#cancel', score: 0.31, node: { tag: 'button', depth: 1, priority: 'critical' as const, attrs: {} } },
+  ];
+
+  it('offers the shortlist instead of dumping the whole tree', () => {
+    const p = buildRelocatePrompt({ action: 'click', description: 'save the grade' }, 'WHOLE-TREE-JSON', shortlist);
+    expect(p).toContain('#btn_9f3a');
+    expect(p).toContain('score 0.82');
+    expect(p).toContain('NONE');
+    expect(p).not.toContain('WHOLE-TREE-JSON'); // the point: the tree is not sent
+  });
+
+  it('falls back to the redacted tree when there is no shortlist', () => {
+    const p = buildRelocatePrompt({ action: 'click', description: 'save' }, 'WHOLE-TREE-JSON');
+    expect(p).toContain('WHOLE-TREE-JSON');
+  });
+
+  it('refuses a pick that is not on the shortlist (model inventing an element)', async () => {
+    const heal = modelRelocator(async () => '#something-invented');
+    const snap: SnapshotResult = { nodes: [], meta: { totalVisited: 0, nodesIncluded: 0, nodesDropped: 0, wasTruncated: false, charCount: 0, capturedAt: 'x' } };
+    expect(await heal({ action: 'click' }, snap, shortlist)).toBeNull();
+  });
+
+  it('accepts a pick that is on the shortlist, and honours NONE', async () => {
+    const snap: SnapshotResult = { nodes: [], meta: { totalVisited: 0, nodesIncluded: 0, nodesDropped: 0, wasTruncated: false, charCount: 0, capturedAt: 'x' } };
+    expect(await modelRelocator(async () => '#btn_9f3a')({ action: 'click' }, snap, shortlist)).toBe('#btn_9f3a');
+    expect(await modelRelocator(async () => 'NONE')({ action: 'click' }, snap, shortlist)).toBeNull();
   });
 });
