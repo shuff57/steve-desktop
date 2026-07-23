@@ -241,9 +241,16 @@
             <span class="meta">{g.pages} {g.pages === 1 ? 'page' : 'pages'}{g.hasDoc ? ' · mapping doc' : ' · no doc'}</span>
           </div>
           <div class="actions">
-            <button class="upd" disabled={!!updating || !g.hasDoc} title={g.hasDoc ? 'Re-check this site and heal the map' : 'No mapping doc to verify'} onclick={(e) => { e.stopPropagation(); updateProfile(g.domain); }}>
-              {updating === g.domain ? 'Updating…' : 'Update'}
-            </button>
+            {#if (updating === g.domain || result?.domain === g.domain) && modalDismissed}
+              <!-- The run (or its finished report) is hidden — bring the panel back. -->
+              <button class="upd" onclick={(e) => { e.stopPropagation(); modalDismissed = false; }}>
+                {updating === g.domain ? '⏳ View progress' : 'View report'}
+              </button>
+            {:else}
+              <button class="upd" disabled={!!updating || !g.hasDoc} title={g.hasDoc ? 'Re-check this site and heal the map' : 'No mapping doc to verify'} onclick={(e) => { e.stopPropagation(); updateProfile(g.domain); }}>
+                {updating === g.domain ? 'Updating…' : 'Update'}
+              </button>
+            {/if}
             {#if pendingDelete === g.domain}
               <button class="confirm" disabled={busy === g.domain} onclick={(e) => { e.stopPropagation(); remove(g.domain); }}>
                 {busy === g.domain ? 'Deleting…' : 'Confirm delete'}
