@@ -180,6 +180,12 @@ export function selectorForNode(node: SnapshotNode): string {
   if (a['data-testid']) return `[data-testid="${a['data-testid']}"]`;
   if (a['id']) return `#${a['id']}`;
   if (a['name']) return `${node.tag}[name="${a['name']}"]`;
+  // `aria-label` on a merged node is often the COMPUTED accessible name — merged-tree writes the
+  // AX name there when the element carries no literal attribute — so the CSS form matches nothing.
+  // Live MyOpenMath produced `a[aria-label="MyOpenMath"]` resolving to 0 elements on the very page
+  // it came from, which as a key node reports drift on every single run. role=name resolves by
+  // accessible name either way (selector-resolve), so prefer it whenever we know the role.
+  if (a['aria-label'] && a['role']) return `role=${a['role']}[name="${a['aria-label']}"]`;
   if (a['aria-label']) return `${node.tag}[aria-label="${a['aria-label']}"]`;
   return node.tag;
 }

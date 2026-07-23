@@ -115,8 +115,13 @@
     const { snapshot, merged } = await captureMergedTree(cdp);
     const profile = mergedToProfile(merged, url);
     // Record the page's durable anchors while we're already looking at it — verify later resolves
-    // just these instead of re-capturing the whole page.
-    profile.keyNodes = deriveKeyNodes(snapshot);
+    // just these instead of re-capturing the whole page. Prove each one against the page it came
+    // from before storing it: an anchor that cannot re-find its own element would report drift on
+    // every future run, which is worse than having no key nodes at all (verify then falls back to
+    // a real re-map). One extra probe, only at capture time.
+    const derived = deriveKeyNodes(snapshot);
+    const selfCheck = await probeSelectors(derived.map((k) => k.selector));
+    profile.keyNodes = derived.filter((k) => selfCheck[k.selector] === 1);
     const red = redactTree(snapshot);
     stats = summarizeMerged(merged);
     interactive = flattenInteractive(profile);

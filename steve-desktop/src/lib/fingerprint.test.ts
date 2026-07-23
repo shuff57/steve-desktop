@@ -89,6 +89,9 @@ describe('selectorForNode / isInteractive', () => {
     expect(selectorForNode(node('button', { id: 'save' }))).toBe('#save');
     expect(selectorForNode(node('input', { name: 'student' }))).toBe('input[name="student"]');
     expect(selectorForNode(node('input', { 'aria-label': 'Student' }))).toBe('input[aria-label="Student"]');
+    // A merged node's aria-label is often the COMPUTED accessible name, so the CSS form matches
+    // nothing. Live MyOpenMath produced a[aria-label="MyOpenMath"] → 0 elements on its own page.
+    expect(selectorForNode(node('a', { 'aria-label': 'MyOpenMath', role: 'link' }))).toBe('role=link[name="MyOpenMath"]');
   });
 
   it('treats tags and ARIA roles as interactive', () => {

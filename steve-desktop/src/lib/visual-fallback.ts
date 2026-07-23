@@ -112,60 +112,78 @@ export function assertLegendClean(prompt: string, map: Record<string, string>): 
  * page the user is watching is never left marked up. Coordinates come from the live elements
  * rather than stored bboxes, so the badges land correctly even after a reflow.
  *
- * With `mask` (the default, and what the live capture uses) it first paints an opaque box over
- * every run of rendered text and every image, so the picture that leaves the machine carries
- * layout and our badges but no readable data. That is the only redaction a screenshot can get —
- * so it fails CLOSED: if anything prevents finishing the mask, the script returns false and the
- * caller sends nothing.
+ * With `mask` (the default, and what the live capture uses) it first makes every glyph and image
+ * on the page invisible, so the picture that leaves the machine carries layout and our badges but
+ * nothing readable. That is the only redaction a screenshot can get — so it fails CLOSED: if the
+ * mask cannot be installed, the script returns false and the caller sends nothing.
  *
- * ponytail: masks text and media. Content painted into a <canvas> is left visible, because
+ * The mask is a STYLESHEET, not painted boxes. Boxes were the first attempt and they leaked badly
+ * on a live page: rects drawn from text-node geometry landed offset from the glyphs, and an
+ * <input>'s value is not a text node at all, so a real username sat in plain sight in the capture.
+ * Transparent text needs no coordinates, cannot drift, and catches field values and placeholders
+ * for free — while layout, which is the only thing this tier actually reads, is untouched.
+ *
+ * ponytail: hides text and media. Pixels painted into a <canvas> stay visible, because
  * canvas-drawn widgets are the case this tier exists for — do not point it at a canvas that
  * renders student data.
  */
 export function overlayScript(tags: { id: number; selector: string }[], opts: { mask?: boolean } = {}): string {
   const pairs = JSON.stringify(tags.map((t) => [t.id, t.selector]));
   const mask = opts.mask !== false;
+  // Every text-bearing property blanked, media hidden, then the badges exempted by id so the one
+  // thing the model must read survives the blanking.
+  const MASK_CSS = [
+    '*,*::before,*::after{color:transparent !important;-webkit-text-fill-color:transparent !important;',
+    'text-shadow:none !important;caret-color:transparent !important}',
+    'input,textarea,select,option{color:transparent !important;-webkit-text-fill-color:transparent !important}',
+    'input::placeholder,textarea::placeholder{color:transparent !important}',
+    'img,svg,video,picture,iframe,object,embed{visibility:hidden !important}',
+    '#__steveVisualTags,#__steveVisualTags *{color:#fff !important;',
+    '-webkit-text-fill-color:#fff !important;visibility:visible !important}',
+  ].join('');
   return `(function(){
     try{
       var old=document.getElementById('__steveVisualTags'); if(old)old.remove();
+      var oldCss=document.getElementById('__steveVisualMask'); if(oldCss)oldCss.remove();
+      if(${mask}){
+        var st=document.createElement('style'); st.id='__steveVisualMask';
+        st.textContent=${JSON.stringify(MASK_CSS)};
+        document.documentElement.appendChild(st);
+        // Fail closed: no stylesheet, no screenshot.
+        if(!document.getElementById('__steveVisualMask'))return false;
+      }
       var box=document.createElement('div'); box.id='__steveVisualTags';
       box.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:2147483646';
-      var painted=0, CAP=4000;
-      function cover(r){
-        if(!r.width||!r.height)return true;
-        if(++painted>CAP)return false;
-        var m=document.createElement('div');
-        m.style.cssText='position:absolute;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;'+
-          'height:'+r.height+'px;background:#8b93a1';
-        box.appendChild(m); return true;
-      }
-      if(${mask}){
-        var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null), tn;
-        while((tn=w.nextNode())){
-          if(!tn.nodeValue||!tn.nodeValue.trim())continue;
-          var rg=document.createRange(); rg.selectNodeContents(tn);
-          var rs=rg.getClientRects();
-          for(var k=0;k<rs.length;k++){ if(!cover(rs[k]))return false; }
-        }
-        var med=document.querySelectorAll('img,svg,video,canvas[data-steve-mask]');
-        for(var q=0;q<med.length;q++){ if(!cover(med[q].getBoundingClientRect()))return false; }
-      }
-      var pairs=${pairs};
+      var pairs=${pairs}, drawn=[];
       for(var i=0;i<pairs.length;i++){
         var el=null; try{ el=document.querySelector(pairs[i][1]); }catch(e){}
         if(!el||!el.getBoundingClientRect)continue;
         var r=el.getBoundingClientRect(); if(!r.width||!r.height)continue;
+        // A rect can be non-empty and still sit outside the captured viewport (scrolled past,
+        // off to one side). Those badges never appear in the screenshot, so offering their
+        // numbers would invite a pick the model cannot actually see.
+        if(r.bottom<=0||r.right<=0||r.top>=innerHeight||r.left>=innerWidth)continue;
         var b=document.createElement('div');
         b.textContent='['+pairs[i][0]+']';
         b.style.cssText='position:absolute;left:'+Math.max(0,r.left)+'px;top:'+Math.max(0,r.top)+'px;'+
           'background:#e11d48;color:#fff;font:700 11px/1.4 monospace;padding:0 4px;border-radius:3px';
         box.appendChild(b);
+        drawn.push(pairs[i][0]);
       }
       document.documentElement.appendChild(box);
-      return true;
+      // The ids that ACTUALLY got a badge. On a live login page 23 candidates yielded 3 badges —
+      // the rest sit in a collapsed menu with no box — so returning plain true would have handed
+      // the model a legend describing 20 elements its screenshot does not show.
+      return drawn;
     }catch(e){return false;}
   })()`;
 }
 
-/** Remove the badges. Always run this after the capture, including on failure. */
-export const OVERLAY_REMOVE = `(function(){var o=document.getElementById('__steveVisualTags');if(o)o.remove();return true;})()`;
+/** Remove the badges AND the mask stylesheet. Always run this after the capture, including on
+ *  failure — the user is looking at this page, and a page left with transparent text is worse
+ *  than one left with badges on it. */
+export const OVERLAY_REMOVE = `(function(){
+  var o=document.getElementById('__steveVisualTags');if(o)o.remove();
+  var m=document.getElementById('__steveVisualMask');if(m)m.remove();
+  return true;
+})()`;

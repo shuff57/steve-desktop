@@ -162,9 +162,13 @@ export class BrowserPageDriver implements PageDriver {
     if (!tags.length) return null;
     try {
       const drawn = await cdpEval(overlayScript(tags, { mask: true }));
-      if (!drawn.success || drawn.data !== true) return null;
+      // The script returns the ids it actually badged (false on failure). Narrow the legend to
+      // those, so every number the model is offered is one it can see in the picture.
+      const ids = drawn.success && Array.isArray(drawn.data) ? (drawn.data as number[]) : null;
+      if (!ids?.length) return null;
+      const visible = tags.filter((t) => ids.includes(t.id));
       const screenshot = await cdpScreenshot();
-      return { tags, screenshot };
+      return { tags: visible, screenshot };
     } catch {
       return null;
     } finally {

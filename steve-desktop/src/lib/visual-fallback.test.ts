@@ -89,6 +89,14 @@ describe('overlay drawing (the screenshot the model actually sees)', () => {
     expect(js).toContain('pointer-events:none'); // never steals the click we are about to make
   });
 
+  it('reports which ids it actually badged, so the legend matches the picture', () => {
+    const js = overlayScript([{ id: 1, selector: '#save' }]);
+    expect(js).toContain('drawn.push(pairs[i][0])');
+    expect(js).toContain('return drawn');
+    expect(js).toContain('r.top>=innerHeight'); // off-viewport badges are not in the picture
+    expect(js).not.toMatch(/appendChild\(box\);\s*return true/); // never "all of them, trust me"
+  });
+
   it('is idempotent and leaves no marks behind', () => {
     // re-running removes the previous overlay first, and REMOVE clears it outright
     expect(overlayScript([])).toContain("getElementById('__steveVisualTags'); if(old)old.remove()");
@@ -101,21 +109,44 @@ describe('overlay drawing (the screenshot the model actually sees)', () => {
 });
 
 describe('privacy masking — the only redaction a screenshot can get', () => {
-  it('masks by default: rendered text and images are painted over before the shutter', () => {
-    const js = overlayScript([{ id: 1, selector: '#save' }]);
-    expect(js).toContain('SHOW_TEXT'); // every text run, not just snapshot nodes
-    expect(js).toContain('getClientRects'); // per-line boxes, so wrapped text is fully covered
-    expect(js).toContain("querySelectorAll('img,svg,video");
+  const js = overlayScript([{ id: 1, selector: '#save' }]);
+
+  it('blanks every glyph, not just text nodes it could find', () => {
+    expect(js).toContain('color:transparent !important');
+    expect(js).toContain('-webkit-text-fill-color:transparent !important');
   });
 
-  it('fails closed — an unfinished mask returns false so nothing is sent', () => {
-    const js = overlayScript([{ id: 1, selector: '#save' }]);
-    expect(js).toContain('painted>CAP)return false');
+  it('covers input values and placeholders — a live capture leaked a real username without this', () => {
+    expect(js).toContain('input,textarea,select,option{color:transparent !important');
+    expect(js).toContain('::placeholder');
+  });
+
+  it('hides media', () => {
+    expect(js).toContain('img,svg,video,picture,iframe,object,embed{visibility:hidden !important}');
+  });
+
+  it('exempts the badges, or the model would be sent a picture it cannot read', () => {
+    expect(js).toContain('#__steveVisualTags,#__steveVisualTags *{color:#fff !important');
+    expect(js).toContain('visibility:visible !important');
+  });
+
+  it('uses no coordinates at all — box geometry drifted off the glyphs on a real page', () => {
+    expect(js).not.toContain('SHOW_TEXT');
+    expect(js).not.toContain('getClientRects');
+  });
+
+  it('fails closed — no stylesheet, no screenshot', () => {
+    expect(js).toContain("if(!document.getElementById('__steveVisualMask'))return false");
   });
 
   it('can be turned off only explicitly (used for non-outbound captures)', () => {
     expect(overlayScript([], { mask: false })).toContain('if(false)');
     expect(overlayScript([])).toContain('if(true)');
+  });
+
+  it('removal clears the mask too — a page left with invisible text is worse than one with badges', () => {
+    expect(OVERLAY_REMOVE).toContain('__steveVisualMask');
+    expect(OVERLAY_REMOVE).toContain('__steveVisualTags');
   });
 });
 
