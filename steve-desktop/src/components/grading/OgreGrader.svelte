@@ -40,6 +40,12 @@
   let reviewing = $state(false);
   let reviewMsg = $state<string | null>(null);
 
+  // Stop between chunks, not mid-call: a chunk IS one model call, so there is nothing to
+  // interrupt inside one. O.G.R.E's pause/resume guarded its per-student write-back loop;
+  // with nothing written back, the only thing worth interrupting is spending more calls.
+  let stopRequested = $state(false);
+  let stopped = $state(false);
+
   let students = $state<ExtractedStudent[]>([]);
   let includeGraded = $state(false);
   let loadingStudents = $state(false);
@@ -160,6 +166,8 @@
     reviewMsg = null;
     results = [];
     progress = null;
+    stopRequested = false;
+    stopped = false;
     const roster = targetStudents;
     gradedRoster = roster;
     try {
@@ -167,7 +175,14 @@
       const gen = ogreIsland.methods.gradeBatch(toGrade, effectiveRubric, { id: provider, model }, { chunkSize });
       for await (const ev of gen) {
         if (ev.type === 'chunk-start') progress = { chunk: ev.chunkIndex + 1, of: ev.chunkCount };
+        // Keep each chunk as it lands. A later chunk that fails — or a stop — then leaves
+        // the finished work on screen instead of discarding grades already paid for.
+        if (ev.type === 'chunk-done') results = [...results, ...ev.results];
         if (ev.type === 'done') results = ev.results;
+        if (stopRequested) {
+          stopped = true;
+          break; // breaking a for-await calls gen.return(), so no further chunk runs
+        }
       }
       // Record the run only once it actually produced grades.
       if (results.length) {
@@ -286,10 +301,25 @@
     <button onclick={loadFromPage} disabled={loadingStudents || grading}>
       {loadingStudents ? 'Reading…' : 'Load students'}
     </button>
-    <button class="primary" onclick={runGrading} disabled={grading || !targetStudents.length || !effectiveRubric}>
-      {grading ? (progress ? `Chunk ${progress.chunk}/${progress.of}` : 'Grading…') : `Grade ${targetStudents.length || ''}`}
-    </button>
+    {#if grading}
+      <button class="primary" onclick={() => (stopRequested = true)} disabled={stopRequested}>
+        {stopRequested ? 'Stopping…' : `Stop${progress ? ` (${progress.chunk}/${progress.of})` : ''}`}
+      </button>
+    {:else}
+      <button class="primary" onclick={runGrading} disabled={!targetStudents.length || !effectiveRubric}>
+        Grade {targetStudents.length || ''}
+      </button>
+    {/if}
   </div>
+  {#if grading}
+    <p class="note">
+      {progress ? `Chunk ${progress.chunk} of ${progress.of}` : 'Starting…'} — stopping finishes the
+      current chunk and keeps everything graded so far.
+    </p>
+  {/if}
+  {#if stopped}
+    <p class="note warn">Stopped early. {results.length} of {gradedRoster.length} students graded.</p>
+  {/if}
 
   {#if onlyStudent.trim() && students.length > 0}
     <p class="note" class:warn={targetStudents.length === 0}>
@@ -300,7 +330,15 @@
   {/if}
 
   {#if loadError}<div class="err"><strong>Could not load students.</strong><p>{loadError}</p></div>{/if}
-  {#if gradeError}<div class="err"><strong>Grading failed — no grades were produced.</strong><p>{gradeError}</p></div>{/if}
+  {#if gradeError}
+    <div class="err">
+      <strong>Grading failed.</strong>
+      <p>{gradeError}</p>
+      {#if results.length}
+        <p>The {results.length} student{results.length === 1 ? '' : 's'} graded before the failure are kept below.</p>
+      {/if}
+    </div>
+  {/if}
 
   {#if students.length > 0 && results.length === 0 && !grading}
     <p class="note">{students.length} student{students.length === 1 ? '' : 's'} loaded.</p>
