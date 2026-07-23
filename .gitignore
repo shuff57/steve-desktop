@@ -37,6 +37,9 @@ Thumbs.db
 # Sisyphus evidence (large, regenerable)
 .sisyphus/evidence/
 
+# Git worktrees (per-island integration branches live here)
+.worktrees/
+
 # Environment
 .env
 .env.local
