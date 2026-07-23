@@ -97,13 +97,21 @@ git commit -m "feat(integrations): island scaffold with shared defineIsland type
 
 **Goal:** Rehost the four playwright scripts (config.mjs, lib.mjs, floor-scores.mjs, scrape-qids.mjs) as a Bun-spawned skill, wired to the in-app Skills panel. The scripts run in their own Playwright context against a separate Chrome instance (unchanged behavior); the app captures stdout + output CSVs and surfaces results.
 
-**Files:**
-- Move: `gradebook/playwright-grading/` → `steve-desktop/steve-desktop/src/integrations/gradebook/scripts/` *(the four .mjs files + README; drop node_modules, package-lock.json, package.json — we use the root package.json's playwright dep)*
-- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/config.ts` — typed wrapper around the existing `config.mjs` DEFAULTS. Removes the hardcoded `C:\\Users\\shuff\\AppData\\...` and reads from Tauri config instead.
-- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/runner.ts` — Bun.spawn wrapper, returns parsed stdout + captured CSV paths.
-- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/runner.test.ts` — unit tests for arg parsing + CSV capture (no real Chrome needed; mock spawn).
-- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/index.ts` — the island surface: `runFloorScores(opts)`, `scrapeQids(opts)`.
-- Modify: `steve-desktop/steve-desktop/src/pages/Skills.svelte` — register `floor-grader` and `scrape-qids` as new skills, sourced from the island.
+**Files (in worktree `integration/gradebook-island`):**
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/args.ts` — typed wrapper for CLI flag serialization. *(Built: ✅ committed 3fd7ef6)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/args.test.ts` *(Built: ✅)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/runner.ts` — Bun/Node subprocess wrapper with injectable spawner. *(Built: ✅ committed 3fd7ef6)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/runner.test.ts` — unit tests with fake spawner. *(Built: ✅)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/runner.e2e.test.ts` — real-subprocess e2e (no Chrome needed). *(Built: ✅ committed 2bf28eb)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/config.ts` — resolves `scriptsDir` and `outDir` from caller / env var / default. *(Built: ✅ committed 2bf28eb)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/config.test.ts` *(Built: ✅)*
+- Create: `steve-desktop/steve-desktop/src/integrations/gradebook/README.md` — usage docs. *(Built: ✅ committed 2bf28eb)*
+- Modify: `steve-desktop/steve-desktop/src/integrations/gradebook/index.ts` — wire the methods. *(Built: ✅ committed 2bf28eb)*
+- Modify: `steve-desktop/steve-desktop/src/integrations/gradebook/island.test.ts` — assert new methods. *(Built: ✅)*
+
+**Architectural change from the original plan:** the four playwright scripts **do NOT move into the steve-desktop repo**. They use `playwright` to drive a separate Chrome process (the user's logged-in MyOpenMath session). Adding `playwright` to the Tauri app's `package.json` would bloat the bundle for no benefit. The island locates the scripts at runtime via `config.ts` (caller override → `GRADEBOOK_SCRIPTS_DIR` env var → default `./scripts/`). User must point the app at their existing `gradebook/playwright-grading/` install (e.g. `C:/Users/shuff/Documents/GitHub/gradebook/playwright-grading`).
+
+**Skills.svelte wiring is DEFERRED.** The existing Skills page is for markdown-imported skills stored in SQLite; the floor-grader needs CID/AID inputs the current schema doesn't carry. UI work belongs in a future "Gradebook" page (or extending the skill schema). The island's methods are callable from anywhere in the app — when the UI is needed, it can call them.
 
 **Step 1: Failing test for runner argv parsing**
 
