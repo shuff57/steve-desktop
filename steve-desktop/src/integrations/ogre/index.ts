@@ -21,7 +21,8 @@ import {
   saveImportedRubric,
   setBatchResume,
 } from './db';
-import { gradeBatch, gradeOne } from './grade';
+import { gradeBatch, gradeOne, reviewOutliers } from './grade';
+import type { ReviewOutcome } from './grade';
 import { importRubricFromPage } from './import-rubric';
 import type { ImportedRubric } from './import-rubric';
 import { gradeableFrom, loadStudents, toGradingStudents } from './load-students';
@@ -68,6 +69,17 @@ export interface OgreMethods {
     opts?: { chunkSize?: number },
   ): AsyncGenerator<GradingEvent, BatchResult[], void>;
   /**
+   * Second pass over the students detectOutliers flagged, re-read against their peers.
+   * Returns the batch unchanged when nothing is flagged or the review fails to parse —
+   * a bad review must never be able to lower a grade that was already earned.
+   */
+  reviewOutliers(
+    students: Student[],
+    results: BatchResult[],
+    rubric: Rubric,
+    provider: GradeProvider,
+  ): Promise<ReviewOutcome>;
+  /**
    * Read student responses off a MyOpenMath gradeallq2 page. Read-only — it evaluates
    * one expression and touches nothing. Defaults to students who answered and are not
    * yet graded, so a re-run never overwrites a human's scores.
@@ -97,6 +109,7 @@ export const ogreIsland = defineIsland<OgreMethods>({
     clearBatchResume,
     gradeOne,
     gradeBatch,
+    reviewOutliers,
     loadStudents,
     gradeableFrom,
     toGradingStudents,
