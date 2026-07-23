@@ -5,9 +5,8 @@
  * The tables live in steve.db via tauri-plugin-sql; see ./db.ts for why the
  * original better-sqlite3 accessor could not survive the port.
  *
- * Phase 5 so far: gradeOne() grades a single student. Still to come:
- *  - loadStudents(profile) -> { name, responseText }[]
- *  - gradeBatch(input)     -> AsyncIterable<GradingEvent>
+ * Phase 5: loadStudents() scrapes a MyOpenMath grading page, gradeOne()/gradeBatch()
+ * grade through the CLI behind the redaction gate.
  */
 import { defineIsland } from '../_shared/island';
 import {
@@ -22,6 +21,8 @@ import {
   setBatchResume,
 } from './db';
 import { gradeBatch, gradeOne } from './grade';
+import { gradeableFrom, loadStudents, toGradingStudents } from './load-students';
+import type { ExtractedStudent, LoadOptions } from './load-students';
 import type { GradeProvider, GradingEvent, Student } from './grade';
 import type { BatchResult } from './batch';
 import type { GradeResult, Rubric } from './grading';
@@ -56,6 +57,17 @@ export interface OgreMethods {
     provider: GradeProvider,
     opts?: { chunkSize?: number },
   ): AsyncGenerator<GradingEvent, BatchResult[], void>;
+  /**
+   * Read student responses off a MyOpenMath gradeallq2 page. Read-only — it evaluates
+   * one expression and touches nothing. Defaults to students who answered and are not
+   * yet graded, so a re-run never overwrites a human's scores.
+   */
+  loadStudents(
+    evaluate: (expression: string) => Promise<unknown>,
+    opts?: LoadOptions,
+  ): Promise<ExtractedStudent[]>;
+  gradeableFrom(students: ExtractedStudent[], opts?: LoadOptions): ExtractedStudent[];
+  toGradingStudents(students: ExtractedStudent[]): Student[];
 }
 
 export const ogreIsland = defineIsland<OgreMethods>({
@@ -73,5 +85,8 @@ export const ogreIsland = defineIsland<OgreMethods>({
     clearBatchResume,
     gradeOne,
     gradeBatch,
+    loadStudents,
+    gradeableFrom,
+    toGradingStudents,
   },
 });
