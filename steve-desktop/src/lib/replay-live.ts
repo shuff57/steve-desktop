@@ -103,6 +103,49 @@ export class BrowserPageDriver implements PageDriver {
         return false; // unsupported action — replay audits this as a skip, never a guess
     }
   }
+
+  /** Postcondition per action, so a heal persists only on a VERIFIED outcome:
+   *  fill/select → value read back equals what we set; navigate → URL actually changed to the
+   *  target. Actions with no recorded expectation (click, keyboard, scroll) pass through.
+   *  ponytail: click postconditions arrive with stage-5 key nodes — record expectation, then gate. */
+  async verify(step: WorkflowStep, selector: string): Promise<boolean> {
+    switch (step.action) {
+      case 'fill':
+      case 'select': {
+        const res = await cdpEval(
+          `(function(){var el=${selectorToElementExpr(selector)};return el&&'value'in el?String(el.value):null;})()`,
+        );
+        return res.success && res.data === String(step.value ?? '');
+      }
+      case 'navigate': {
+        const norm = (u: string) => u.replace(/^https?:\/\//, '').replace(/\/$/, '').split('#')[0];
+        const target = norm(step.value ?? selector);
+        // Navigation lands async — poll briefly instead of judging a half-loaded page.
+        for (let i = 0; i < 6; i++) {
+          const res = await cdpEval('location.href');
+          if (res.success && typeof res.data === 'string' && norm(res.data).includes(target)) return true;
+          await new Promise((r) => setTimeout(r, 500));
+        }
+        return false;
+      }
+      default:
+        return true;
+    }
+  }
+
+  /** Passive refresh: re-capture the acted element's live anchors (id/testid/name/aria-label)
+   *  so stored candidates track the real page on every successful run. */
+  async fingerprint(selector: string): Promise<string[] | null> {
+    const res = await cdpEval(
+      `(function(){var el=${selectorToElementExpr(selector)};if(!el)return null;var out=[];var t=el.tagName.toLowerCase();` +
+        `if(el.id)out.push('#'+el.id);` +
+        `var ti=el.getAttribute('data-testid');if(ti)out.push('[data-testid="'+ti+'"]');` +
+        `var n=el.getAttribute('name');if(n)out.push(t+'[name="'+n+'"]');` +
+        `var a=el.getAttribute('aria-label');if(a)out.push(t+'[aria-label="'+a+'"]');` +
+        `return out;})()`,
+    );
+    return res.success && Array.isArray(res.data) ? (res.data as string[]) : null;
+  }
 }
 
 /**

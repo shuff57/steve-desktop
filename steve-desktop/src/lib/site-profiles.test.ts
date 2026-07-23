@@ -153,3 +153,47 @@ describe('site profile storage', () => {
     });
   });
 });
+
+describe('dirty pages — heal-driven targeted re-map', () => {
+  beforeEach(() => {
+    invokeMock.mockReset();
+  });
+
+  it('markPageDirty accumulates URLs into _dirty.json', async () => {
+    invokeMock.mockImplementation(async (cmd: string) => {
+      if (cmd === 'read_file') return JSON.stringify({ 'https://x.edu/a': '2026-07-23T00:00:00Z' });
+      return undefined;
+    });
+    const { markPageDirty } = await import('./site-profiles');
+    await markPageDirty('x.edu', 'https://x.edu/b');
+
+    const write = invokeMock.mock.calls.find(([cmd]) => cmd === 'write_file');
+    expect(write?.[1]).toMatchObject({ path: '.agents/site-profiles/x-edu/_dirty.json' });
+    const stored = JSON.parse((write?.[1] as { contents: string }).contents) as Record<string, string>;
+    expect(Object.keys(stored)).toEqual(['https://x.edu/a', 'https://x.edu/b']);
+  });
+
+  it('getDirtyPages returns [] on a clean domain, clearDirtyPages deletes the file', async () => {
+    invokeMock.mockRejectedValueOnce(new Error('not found'));
+    const { getDirtyPages, clearDirtyPages } = await import('./site-profiles');
+    expect(await getDirtyPages('x.edu')).toEqual([]);
+
+    invokeMock.mockResolvedValue(undefined);
+    await clearDirtyPages('x.edu');
+    expect(invokeMock).toHaveBeenCalledWith('delete_file', { path: '.agents/site-profiles/x-edu/_dirty.json' });
+  });
+
+  it('filterToDirty narrows to dirty pages, ignoring hash/trailing-slash noise but keeping query identity', async () => {
+    const { filterToDirty } = await import('./site-profiles');
+    const pages = [
+      { name: 'gb', url: 'https://x.edu/gb?cid=1' },
+      { name: 'forums', url: 'https://x.edu/forums?cid=1' },
+      { name: 'cal', url: 'https://x.edu/cal?cid=1' },
+    ];
+    expect(filterToDirty(pages, ['https://x.edu/gb/?cid=1#top'])).toEqual([pages[0]]);
+    // query differs = different page — no match → fall back to the FULL list, never silently skip
+    expect(filterToDirty(pages, ['https://x.edu/gb?cid=2'])).toEqual(pages);
+    // no dirty entries → untouched
+    expect(filterToDirty(pages, [])).toEqual(pages);
+  });
+});

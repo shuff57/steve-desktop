@@ -144,6 +144,95 @@ describe('replayWorkflow', () => {
   });
 });
 
+// Driver with a postcondition + live fingerprint — the outcome-gated heal path.
+class GatedPage extends MockPage {
+  verifyResult = true;
+  verifyCalls = 0;
+  fingerprints: string[] | null = null;
+  verify(): boolean {
+    this.verifyCalls++;
+    return this.verifyResult;
+  }
+  fingerprint(): string[] | null {
+    return this.fingerprints;
+  }
+}
+
+describe('outcome-gated heals + passive refresh', () => {
+  const staleWf = (): Workflow => ({
+    name: 'Enter Grades',
+    steps: [
+      { action: 'fill', selector: '#studentName', value: 'A', description: 'student name field',
+        candidates: ['#student_name'] },
+    ],
+  });
+
+  it('a heal that passes its postcondition persists: selector rewritten, stale one kept as candidate', async () => {
+    const page = new GatedPage([{ selector: '#student_name', tag: 'input', label: 'Student Name' }]);
+    const wf = staleWf();
+    const summary = await replayWorkflow(wf, page);
+
+    expect(summary.results[0].status).toBe('recovered');
+    expect(summary.results[0].verified).toBe(true);
+    expect(summary.healed).toBe(true);
+    expect(wf.steps[0].selector).toBe('#student_name'); // persisted
+    expect(wf.steps[0].candidates).toContain('#studentName'); // stale anchor kept for a flip-back
+  });
+
+  it('a heal that FAILS its postcondition must NOT persist', async () => {
+    const page = new GatedPage([{ selector: '#student_name', tag: 'input', label: 'Student Name' }]);
+    page.verifyResult = false;
+    const wf = staleWf();
+    const summary = await replayWorkflow(wf, page);
+
+    expect(summary.results[0].status).toBe('skipped');
+    expect(summary.results[0].verified).toBe(false);
+    expect(summary.results[0].detail).toMatch(/postcondition/i);
+    expect(wf.steps[0].selector).toBe('#studentName'); // unchanged — nothing persisted
+    expect(summary.healed).toBe(false);
+  });
+
+  it('a verify() that throws counts as unverified, not as a pass', async () => {
+    const page = new GatedPage([{ selector: '#student_name', tag: 'input', label: 'Student Name' }]);
+    page.verify = () => { throw new Error('CDP hiccup'); };
+    const wf = staleWf();
+    const summary = await replayWorkflow(wf, page);
+    expect(summary.results[0].status).toBe('skipped');
+    expect(wf.steps[0].selector).toBe('#studentName');
+  });
+
+  it('the happy path is outcome-gated too: acted but unverified = skipped', async () => {
+    const page = new GatedPage([{ selector: '#grade', tag: 'input', label: 'Grade' }]);
+    page.verifyResult = false;
+    const summary = await replayWorkflow(
+      { name: 'g', steps: [{ action: 'fill', selector: '#grade', value: 'A', description: 'grade field' }] },
+      page,
+    );
+    expect(summary.results[0].status).toBe('skipped');
+    expect(summary.completed).toBe(false);
+  });
+
+  it('passive refresh: every verified act merges the element\'s fresh live anchors into candidates', async () => {
+    const page = new GatedPage([{ selector: '#grade', tag: 'input', label: 'Grade' }]);
+    page.fingerprints = ['input[name="grade"]', '#grade'];
+    const wf: Workflow = { name: 'g', steps: [{ action: 'fill', selector: '#grade', value: 'A', description: 'grade field' }] };
+    const summary = await replayWorkflow(wf, page);
+
+    expect(summary.results[0].status).toBe('done');
+    // own selector excluded, fresh anchor stored — the profile refreshed for free
+    expect(wf.steps[0].candidates).toEqual(['input[name="grade"]']);
+  });
+
+  it('a driver without verify/fingerprint behaves exactly as before (back-compat)', async () => {
+    const page = new MockPage([{ selector: '#grade', tag: 'input', label: 'Grade' }]);
+    const wf: Workflow = { name: 'g', steps: [{ action: 'fill', selector: '#grade', value: 'A', description: 'grade field' }] };
+    const summary = await replayWorkflow(wf, page);
+    expect(summary.results[0].status).toBe('done');
+    expect(summary.results[0].verified).toBeUndefined();
+    expect(summary.healed).toBe(false);
+  });
+});
+
 describe('modelRelocator — tier-3 trust boundary', () => {
   function piiSnapshot(): SnapshotResult {
     return {

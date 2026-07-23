@@ -5,7 +5,7 @@
 
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
-import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, getMappingDocPath } from './site-profiles';
+import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, getMappingDocPath, getDirtyPages, filterToDirty, clearDirtyPages } from './site-profiles';
 import { buildCliVerifyPrompt, parseCliVerifyOutput } from './cli-crawl';
 import { cliModelArg, extractCliText, summarizeCliLine, engineForProvider } from './agent-cli';
 import { listProviderConfigs } from './db';
@@ -75,6 +75,13 @@ export async function startUpdate(domain: string): Promise<void> {
       pages = loaded.filter((p): p is { name: string; url: string } => !!p);
     }
     if (!pages.length) throw new Error('No mapped pages to re-check.');
+
+    // Heals mark pages dirty; when any exist, re-map ONLY those — never the full site.
+    // >6 dirty pages = broad drift → full verify (also keeps the goal prompt under budget).
+    const dirty = await getDirtyPages(domain).catch(() => []);
+    const targeted = filterToDirty(pages, dirty);
+    const isTargeted = dirty.length > 0 && targeted.length < pages.length && targeted.length <= 6;
+    if (isTargeted) pages = targeted;
     const startUrl = pages[0].url;
 
     const port = await invoke<number | null>('get_cdp_port');
@@ -93,7 +100,7 @@ export async function startUpdate(domain: string): Promise<void> {
     await injectScript(markerScript(tabId), tabId).catch(() => {});
     await hideWebview(tabId).catch(() => {}); // belt + braces: fully hidden once registered
 
-    updateRun.step = `Re-mapping ${pages.length} page(s) with ${engine}…`;
+    updateRun.step = `Re-mapping ${pages.length} ${isTargeted ? 'dirty ' : ''}page(s) with ${engine}…`;
     const sessionId = globalThis.crypto.randomUUID();
     unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
       if (ev.payload.sessionId !== sessionId) return;
@@ -117,7 +124,13 @@ export async function startUpdate(domain: string): Promise<void> {
     // Goal prompt: the doc stays on disk and the agent reads it there — the prompt is a
     // fixed-size template (<4000 chars) instead of embedding an unbounded document.
     const docPath = await invoke<string>('resolve_path', { path: getMappingDocPath(domain) });
-    const prompt = buildCliVerifyPrompt({ cdpPort: port, startUrl, docPath, marker: tabMarker(tabId) });
+    const prompt = buildCliVerifyPrompt({
+      cdpPort: port,
+      startUrl,
+      docPath,
+      marker: tabMarker(tabId),
+      onlyUrls: isTargeted ? pages.map((p) => p.url) : undefined,
+    });
     const stdout = await invoke<string>('run_agent_cli', {
       engine,
       prompt,
@@ -134,6 +147,7 @@ export async function startUpdate(domain: string): Promise<void> {
     if (!report) throw new Error('The agent returned an empty verification report.');
     const changed = !!healedDoc && healedDoc.trim() !== doc.trim();
     updateRun.result = { domain, report, healedDoc: healedDoc ?? '', changed };
+    await clearDirtyPages(domain).catch(() => {}); // re-map done — the dirty backlog is spent
     updateRun.dismissed = false; // surface the result even if the progress modal was dismissed
     updateRun.step = changed ? 'Re-map done — review the changes, then Apply.' : 'Re-map done — no changes needed.';
   } catch (e) {

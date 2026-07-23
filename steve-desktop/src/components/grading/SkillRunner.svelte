@@ -11,11 +11,13 @@
    * auditable after the fact.
    */
   import { onMount } from 'svelte';
-  import { getSkills, addRunEntry, getRunEntries, type Skill, type RunEntry } from '../../lib/db';
+  import { getSkills, addRunEntry, getRunEntries, saveSkill, type Skill, type RunEntry } from '../../lib/db';
   import { skillToWorkflow } from '../../lib/workflow-skill';
   import { replayLive } from '../../lib/replay-live';
-  import { connectCDP, isConnected } from '../../lib/cdp-actions';
+  import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
+  import { markPageDirty } from '../../lib/site-profiles';
+  import type { Workflow } from '../../lib/types/site-profile';
 
   // Engine selection is owned by the panel (shared across tabs) and passed in.
   let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
@@ -71,6 +73,37 @@
     return { line, status };
   }
 
+  /** Outcome-gated heal persistence: replay rewrote selectors in the workflow only after their
+   *  postconditions passed, so write the healed workflow back into the skill and mark the page
+   *  dirty for a targeted re-map. Selectors/candidates only — never roster values (FERPA). */
+  async function persistHeals(skill: Skill, workflow: Workflow): Promise<void> {
+    try {
+      const content = skill.content.replace(
+        /```json\s*[\s\S]*?```/,
+        '```json\n' + JSON.stringify(workflow, null, 2) + '\n```',
+      );
+      await saveSkill({ ...skill, content });
+      skill.content = content; // keep the in-memory list consistent for the next run
+      const href = await evalScript('location.href');
+      if (href.success && typeof href.data === 'string') {
+        await markPageDirty(new URL(href.data).hostname, href.data);
+      }
+    } catch {
+      /* best-effort: the run already succeeded; an unsaved heal just re-heals next time */
+    }
+  }
+
+  /** Copy healed anchors from a bound (roster) copy back onto the master workflow —
+   *  selector + candidates only, never the bound value. */
+  function syncHeals(master: Workflow, bound: Workflow): void {
+    bound.steps.forEach((bs, i) => {
+      const ms = master.steps[i];
+      if (!ms) return;
+      ms.selector = bs.selector;
+      if (bs.candidates) ms.candidates = bs.candidates;
+    });
+  }
+
   async function run(skill: Skill) {
     if (runningId) return;
     // Parameterized skill → open the roster box instead of replaying the recorded literals
@@ -88,9 +121,11 @@
         return;
       }
       if (!(await ensureConnected())) return;
-      const { line, status } = summarize(await replayLive(workflow, { provider, model }));
+      const summary = await replayLive(workflow, { provider, model });
+      const { line, status } = summarize(summary);
       message = line;
       await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status, detail: line });
+      if (summary.healed) await persistHeals(skill, workflow);
     } catch (e) {
       message = `Run failed: ${e instanceof Error ? e.message : 'Unknown error'}`;
       await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status: 'failed', detail: message }).catch(() => {});
@@ -118,6 +153,7 @@
     stopBatch = false;
     const workflow = skillToWorkflow(skill.content);
     let ok = 0;
+    let healedAny = false;
     try {
       for (let i = 0; i < roster.rows.length; i++) {
         if (stopBatch) break;
@@ -125,7 +161,13 @@
         const label = rowLabel(row, roster.headers);
         message = `${i + 1}/${roster.rows.length} — ${label}…`;
         try {
-          const { line, status } = summarize(await replayLive(bindWorkflow(workflow, row), { provider, model }));
+          const bound = bindWorkflow(workflow, row);
+          const summary = await replayLive(bound, { provider, model });
+          const { line, status } = summarize(summary);
+          if (summary.healed) {
+            healedAny = true;
+            syncHeals(workflow, bound); // later rows replay with the healed anchors
+          }
           if (status === 'complete') ok++;
           await addRunEntry({ skill_id: skill.id, skill_name: skill.name, row_label: label, status, detail: line });
         } catch (e) {
@@ -133,6 +175,7 @@
           await addRunEntry({ skill_id: skill.id, skill_name: skill.name, row_label: label, status: 'failed', detail: err }).catch(() => {});
         }
       }
+      if (healedAny) await persistHeals(skill, workflow);
       message = stopBatch
         ? `Stopped — ${ok} of ${roster.rows.length} rows completed. Journal has the per-row record.`
         : `Batch done: ${ok}/${roster.rows.length} rows complete. Check the journal (and the site) to confirm.`;

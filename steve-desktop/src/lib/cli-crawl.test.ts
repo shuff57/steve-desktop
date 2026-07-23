@@ -158,6 +158,19 @@ describe('buildCliVerifyPrompt', () => {
     expect(p).toContain('log[\\s_-]?out');
     expect(p).toContain('\\/admin\\/');
   });
+  it('onlyUrls → targeted re-map: checks the dirty pages, leaves the rest of the doc alone', () => {
+    const t = buildCliVerifyPrompt({
+      cdpPort: 9223,
+      startUrl: 'https://x.edu/course?cid=1',
+      docPath: 'C:\\repo\\.agents\\site-profiles\\x-edu\\_sitemap-ai.md',
+      onlyUrls: ['https://x.edu/gb?cid=1', 'https://x.edu/forums?cid=1'],
+    });
+    expect(t).toContain('TARGETED RE-MAP');
+    expect(t).toContain('- https://x.edu/gb?cid=1');
+    expect(t).toContain('untouched');
+    expect(t).not.toContain('Re-check every page');
+    expect(p).not.toContain('TARGETED RE-MAP'); // absent without a dirty list
+  });
 });
 
 describe('summarizeVerifyReport', () => {
@@ -219,6 +232,17 @@ describe('goal prompts stay under 4000 chars', () => {
       startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
       docPath: 'C:\\Users\\someone\\repo\\.agents\\site-profiles\\www-myopenmath-com\\_sitemap-ai.md',
       marker: 'steve-tab-00000000-0000-0000-0000-000000000000',
+    });
+    expect(p.length).toBeLessThan(4000);
+  });
+  it('targeted verify prompt at the 6-URL cap', () => {
+    const p = buildCliVerifyPrompt({
+      cdpPort: 9223,
+      startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
+      docPath: 'C:\\Users\\someone\\repo\\.agents\\site-profiles\\www-myopenmath-com\\_sitemap-ai.md',
+      marker: 'steve-tab-00000000-0000-0000-0000-000000000000',
+      onlyUrls: Array.from({ length: 6 }, (_, i) =>
+        `https://www.myopenmath.com/course/gradebook.php?cid=316341&folder=long-folder-name-${i}`),
     });
     expect(p.length).toBeLessThan(4000);
   });

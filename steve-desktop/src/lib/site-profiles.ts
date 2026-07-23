@@ -159,6 +159,61 @@ export async function healMappingDoc(domain: string, corrected: string): Promise
   return path;
 }
 
+// ── Dirty pages ────────────────────────────────────────────────────────────
+// A page is marked dirty when a heal fires on it during replay. Dirty pages get a targeted
+// single-page re-map on the next Update — never a full-site crawl.
+
+export function getDirtyPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_dirty.json`;
+}
+
+export async function markPageDirty(domain: string, url: string): Promise<void> {
+  const path = getDirtyPath(domain);
+  let pages: Record<string, string> = {};
+  try {
+    pages = JSON.parse(await invoke<string>('read_file', { path })) as Record<string, string>;
+  } catch {
+    /* first mark for this domain */
+  }
+  pages[url] = new Date().toISOString();
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents: JSON.stringify(pages, null, 2) });
+}
+
+export async function getDirtyPages(domain: string): Promise<string[]> {
+  try {
+    return Object.keys(JSON.parse(await invoke<string>('read_file', { path: getDirtyPath(domain) })) as Record<string, string>);
+  } catch {
+    return [];
+  }
+}
+
+export async function clearDirtyPages(domain: string): Promise<void> {
+  try {
+    await invoke('delete_file', { path: getDirtyPath(domain) });
+  } catch {
+    /* already clean */
+  }
+}
+
+/** Narrow an Update run's page list to the dirty ones. Same origin+path+query counts as the
+ *  same page (hash and trailing slash don't). Dirty URLs matching nothing → full list, so a
+ *  stale dirty file can never silently skip a re-map. */
+export function filterToDirty<T extends { url: string }>(pages: T[], dirty: string[]): T[] {
+  if (!dirty.length) return pages;
+  const key = (u: string) => {
+    try {
+      const x = new URL(u);
+      return x.origin + x.pathname.replace(/\/$/, '') + x.search;
+    } catch {
+      return u;
+    }
+  };
+  const dirtyKeys = new Set(dirty.map(key));
+  const hit = pages.filter((p) => dirtyKeys.has(key(p.url)));
+  return hit.length ? hit : pages;
+}
+
 export async function loadSiteMap(domain: string): Promise<SiteMap | null> {
   try {
     const contents = await invoke<string>('read_file', { path: getSiteMapPath(domain) });

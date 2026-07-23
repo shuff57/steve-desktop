@@ -187,6 +187,9 @@ export interface CliVerifyOptions {
   docPath: string;
   /** window.name marker of the tab to drive; pins the agent to the exact tab when present. */
   marker?: string;
+  /** Targeted re-map: verify ONLY these page URLs (replay heals flagged them dirty). Callers
+   *  cap the list (≤6) so the goal prompt stays under its 4000-char budget. */
+  onlyUrls?: string[];
 }
 
 /**
@@ -206,8 +209,14 @@ export function buildCliVerifyPrompt(o: CliVerifyOptions): string {
     'it has drifted — an automation agent will rely on it being true.',
     '',
     `The document is on disk at: ${o.docPath}`,
-    'Read it yourself (plain markdown). It lists the mapped pages and their URLs — re-check every',
-    'page it claims, on the live site. How you verify is up to you, within the constraints.',
+    'Read it yourself (plain markdown). It lists the mapped pages and their URLs.',
+    ...(o.onlyUrls?.length
+      ? [
+          'TARGETED RE-MAP: replay heals flagged these page(s) as drifted. Re-check ONLY them and',
+          "leave every other page's claims in the document untouched:",
+          ...o.onlyUrls.map((u) => `- ${u}`),
+        ]
+      : ['Re-check every page it claims, on the live site. How you verify is up to you, within the constraints.']),
     '',
     `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :`,
     cdpTargetInstruction(host, o.marker),
