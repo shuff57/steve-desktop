@@ -11,6 +11,7 @@
   import Settings from './pages/settings/Settings.svelte';
   import SetupWizard from './pages/SetupWizard.svelte';
   import MomBrowser from './pages/MomBrowser.svelte';
+  import OgreGrading from './pages/OgreGrading.svelte';
   import OgreRubrics from './pages/OgreRubrics.svelte';
   import OgreHistory from './pages/OgreHistory.svelte';
   import NavSection from './components/NavSection.svelte';
@@ -157,6 +158,7 @@
             {currentPage}
             onnavigate={navigate}
             items={[
+              { id: 'ogre-grading', label: 'Grading', title: 'Batch grading' },
               { id: 'ogre-rubrics', label: 'Rubrics', title: 'Rubric library' },
               { id: 'ogre-history', label: 'History', title: 'Past grading sessions' },
             ]}
@@ -201,6 +203,8 @@
         <SiteProfiles />
       {:else if currentPage === 'mom'}
         <MomBrowser />
+      {:else if currentPage === 'ogre-grading'}
+        <OgreGrading />
       {:else if currentPage === 'ogre-rubrics'}
         <OgreRubrics />
       {:else if currentPage === 'ogre-history'}
