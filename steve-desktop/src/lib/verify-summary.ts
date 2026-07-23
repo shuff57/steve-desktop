@@ -19,7 +19,7 @@ export function summarizeVerifyReport(report: string): VerifySummary {
 
   for (const raw of report.split(/\r?\n/)) {
     const line = raw.trim();
-    if (/^#{1,3}\s*verdict/i.test(line)) { inVerdict = true; continue; }
+    if (/^#{1,3}\s*verdict:?\s*$/i.test(line)) { inVerdict = true; continue; }
     if (/^#{1,3}\s/.test(line)) { inVerdict = false; continue; }
     if (inVerdict) {
       if (line) verdictLines.push(line);
@@ -27,9 +27,11 @@ export function summarizeVerifyReport(report: string): VerifySummary {
     }
     const m = line.match(BULLET);
     if (!m) continue;
+    // The verdict word can land anywhere in the bullet ("Inbox #inbox — DISCREPANCY: …"),
+    // not just as a prefix. DISCREPANCY wins when both appear.
     const item = m[1].replace(/^`?(CONFIRMED|DISCREPANCY)`?:?\s*/i, '').trim();
-    if (/^`?DISCREPANCY/i.test(m[1])) discrepancies.push(item);
-    else if (/^`?CONFIRMED/i.test(m[1])) confirmed.push(item);
+    if (/\bDISCREPANCY\b/i.test(m[1])) discrepancies.push(item);
+    else if (/\bCONFIRMED\b/i.test(m[1])) confirmed.push(item);
   }
 
   return { confirmed, discrepancies, verdict: verdictLines.join(' ') };

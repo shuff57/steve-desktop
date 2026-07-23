@@ -189,6 +189,18 @@ describe('summarizeVerifyReport', () => {
     expect(s.confirmed).toEqual([]);
     expect(s.discrepancies).toEqual([]);
   });
+
+  it('classifies bullets with the verdict word mid-line (real Gmail report shape)', () => {
+    const s = summarizeVerifyReport([
+      '## Pages',
+      '- **Inbox** `#inbox` — DISCREPANCY: Forums tab is gone; counts drifted.',
+      '- **Starred** `#starred` — CONFIRMED: renders, empty state.',
+      '- **Sent** `#sent` — CONFIRMED: 468 conversations.',
+    ].join('\n'));
+    expect(s.discrepancies).toHaveLength(1);
+    expect(s.discrepancies[0]).toContain('Forums tab is gone');
+    expect(s.confirmed).toHaveLength(2);
+  });
 });
 
 describe('goal prompts stay under 4000 chars', () => {

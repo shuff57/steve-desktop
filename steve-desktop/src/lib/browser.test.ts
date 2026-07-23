@@ -42,6 +42,7 @@ describe('browser API', () => {
     expect(invokeMock).toHaveBeenCalledWith('create_embedded_browser', {
       tabId: 'tab-1',
       url: 'https://example.com',
+      offscreen: false,
     });
   });
 

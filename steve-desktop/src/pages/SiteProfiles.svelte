@@ -29,6 +29,17 @@
   let updating = $state(''); // domain currently being re-mapped
   let updateStep = $state('');
   let updateProgress = $state<string[]>([]);
+  // Run meta shown in the progress modal: elapsed wall clock + the agent's context usage,
+  // read from the CLI's own stream-json usage blocks. Both answer "is it still alive?".
+  let updateStartedAt = $state(0);
+  let nowMs = $state(0);
+  let ctxTokens = $state(0);
+  let tick: ReturnType<typeof setInterval> | undefined;
+  const elapsed = $derived(() => {
+    const s = Math.max(0, Math.floor((nowMs - updateStartedAt) / 1000));
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  });
+  const ctxLabel = $derived(ctxTokens >= 1000 ? `${(ctxTokens / 1000).toFixed(0)}k` : String(ctxTokens));
   let result = $state<{ domain: string; report: string; healedDoc: string; changed: boolean } | null>(null);
   let applying = $state(false);
   // Modal dismissal: a full-screen backdrop must always be closable, or it traps every click behind
@@ -87,6 +98,10 @@
     updating = domain;
     modalDismissed = false;
     updateStep = 'Preparing…';
+    updateStartedAt = Date.now();
+    nowMs = Date.now();
+    ctxTokens = 0;
+    tick = setInterval(() => (nowMs = Date.now()), 1000);
     let tabId = '';
     let unlisten: (() => void) | undefined;
     let unlistenLoad: (() => void) | undefined;
@@ -128,10 +143,10 @@
       unlistenLoad = await listenBrowserPageLoaded(({ tabId: tid }) => {
         if (tid === tabId) injectScript(markerScript(tabId), tabId).catch(() => {});
       });
-      await createEmbeddedBrowser(tabId, startUrl);
+      await createEmbeddedBrowser(tabId, startUrl, true); // offscreen — never flashes over the UI
       await new Promise((r) => setTimeout(r, 2500)); // let it register + load as a CDP target
       await injectScript(markerScript(tabId), tabId).catch(() => {});
-      await hideWebview(tabId).catch(() => {}); // hide only AFTER it has registered/loaded
+      await hideWebview(tabId).catch(() => {}); // belt + braces: fully hidden once registered
 
       updateStep = `Re-mapping ${pages.length} page(s) with ${engine}…`;
       const sessionId = globalThis.crypto.randomUUID();
@@ -139,6 +154,15 @@
         if (ev.payload.sessionId !== sessionId) return;
         const s = summarizeCliLine(ev.payload.line);
         if (s && updateProgress[updateProgress.length - 1] !== s) updateProgress = [...updateProgress, s].slice(-30);
+        // Context meter: the CLI's stream-json assistant/result events carry per-turn usage.
+        try {
+          const u = (JSON.parse(ev.payload.line) as { message?: { usage?: Record<string, number> }; usage?: Record<string, number> });
+          const usage = u.message?.usage ?? u.usage;
+          if (usage) {
+            const n = (usage.input_tokens ?? 0) + (usage.cache_read_input_tokens ?? 0) + (usage.cache_creation_input_tokens ?? 0) + (usage.output_tokens ?? 0);
+            if (n > 0) ctxTokens = n;
+          }
+        } catch { /* not JSON — ignore */ }
       });
 
       // Goal prompt: the doc stays on disk and the agent reads it there — the prompt is a
@@ -169,6 +193,7 @@
       unlisten?.();
       unlistenLoad?.();
       if (tabId) await destroyWebview(tabId).catch(() => {});
+      if (tick) { clearInterval(tick); tick = undefined; }
       updating = '';
     }
   }
@@ -240,6 +265,7 @@
     <div class="panel" role="dialog" aria-modal="true" tabindex="-1" onclick={(e) => e.stopPropagation()}>
       <h2>Updating {updating}</h2>
       <p class="step">{updateStep}</p>
+      <p class="runmeta">⏱ {elapsed()}{#if ctxTokens} · context used ~{ctxLabel} tokens{/if}</p>
       {#if updateProgress.length}
         <ul class="prog">
           {#each updateProgress.slice(-12) as line}<li>{line}</li>{/each}
@@ -347,6 +373,7 @@
   .chip.ok { background: rgba(34,197,94,.15); color: #22c55e; }
   .chip.warn { background: rgba(217,119,6,.18); color: #d97706; }
   .verdict { font-size: 13px; margin: 0 0 8px; opacity: .85; }
+  .runmeta { font-size: 12px; opacity: .7; margin: 0 0 8px; font-variant-numeric: tabular-nums; }
   .dlist { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .dlist li { background: rgba(217,119,6,.12); border-left: 3px solid #d97706; border-radius: 4px; padding: 6px 10px; font-size: 12.5px; line-height: 1.45; }
   .clist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }

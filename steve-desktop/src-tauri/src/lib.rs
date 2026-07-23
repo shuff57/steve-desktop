@@ -80,8 +80,12 @@ async fn create_embedded_browser(
     app: tauri::AppHandle,
     tab_id: String,
     url: String,
+    offscreen: Option<bool>,
 ) -> Result<(), String> {
     let parsed: url::Url = url.parse().map_err(|e| format!("Invalid URL: {}", e))?;
+    // Transient/background tabs are born off-screen: they must render to register as a CDP
+    // target and load, but the user should never see them flash over the UI.
+    let x0 = if offscreen == Some(true) { -4000.0 } else { 0.0 };
 
     let app_clone = app.clone();
     tauri::async_runtime::spawn(async move {
@@ -136,7 +140,7 @@ async fn create_embedded_browser(
         if let Some(window) = app_clone.get_window("main") {
             match window.add_child(
                 builder,
-                tauri::LogicalPosition::new(0.0, 60.0),
+                tauri::LogicalPosition::new(x0, 60.0),
                 tauri::LogicalSize::new(800.0, 600.0),
             ) {
                 Ok(_) => {
@@ -167,10 +171,12 @@ async fn create_embedded_browser(
     app: tauri::AppHandle,
     tab_id: String,
     url: String,
+    offscreen: Option<bool>,
 ) -> Result<(), String> {
     let url_str = url.clone();
     let app_clone = app.clone();
     let tab_id_clone = tab_id.clone();
+    let x0 = if offscreen == Some(true) { -4000.0_f64 } else { 0.0_f64 };
     let (tx, rx) = oneshot::channel::<Result<(), String>>();
 
     app.run_on_main_thread(move || {
@@ -195,7 +201,7 @@ async fn create_embedded_browser(
             let builder = wry::WebViewBuilder::new()
                 .with_url(&url_str)
                 .with_bounds(wry::Rect {
-                    position: wry::dpi::LogicalPosition::new(0.0_f64, 60.0_f64).into(),
+                    position: wry::dpi::LogicalPosition::new(x0, 60.0_f64).into(),
                     size: wry::dpi::LogicalSize::new(800.0_f64, 600.0_f64).into(),
                 })
                 .with_navigation_handler(move |url| {

@@ -19,8 +19,10 @@ function normalizeUrl(url: string): string {
   return normalized;
 }
 
-export async function createEmbeddedBrowser(tabId: string, url: string): Promise<void> {
-  await invoke('create_embedded_browser', { tabId, url: normalizeUrl(url) });
+export async function createEmbeddedBrowser(tabId: string, url: string, offscreen = false): Promise<void> {
+  // offscreen: transient/background tabs render (and register as CDP targets) at x=-4000 so
+  // they never flash over the UI.
+  await invoke('create_embedded_browser', { tabId, url: normalizeUrl(url), offscreen });
 }
 
 export async function navigateEmbedded(tabId: string, url: string): Promise<void> {
