@@ -18,9 +18,12 @@ import {
   listGradingSessions,
   listRubrics,
   listSiteProfiles,
+  saveImportedRubric,
   setBatchResume,
 } from './db';
 import { gradeBatch, gradeOne } from './grade';
+import { importRubricFromPage } from './import-rubric';
+import type { ImportedRubric } from './import-rubric';
 import { gradeableFrom, loadStudents, toGradingStudents } from './load-students';
 import type { ExtractedStudent, LoadOptions } from './load-students';
 import type { GradeProvider, GradingEvent, Student } from './grade';
@@ -34,6 +37,13 @@ export interface OgreMethods {
   /** Rubrics are `skills` rows with `source = 'rubric'`. */
   listRubrics(): Promise<Skill[]>;
   getRubric(id: string): Promise<Skill | null>;
+  /**
+   * Build a rubric from the MyOpenMath question the browser is on. Read-only: it
+   * evaluates one expression and writes nothing back to the page.
+   */
+  importRubricFromPage(evaluate: (expression: string) => Promise<unknown>): Promise<ImportedRubric>;
+  /** Persist an imported rubric, keyed on the question so a re-import updates in place. */
+  saveImportedRubric(r: ImportedRubric): Promise<string>;
   addGradingSession(s: GradingSessionInsert): Promise<number>;
   listGradingSessions(limit?: number): Promise<GradingSession[]>;
   /** Resume marker so a re-run skips students already graded and submitted. */
@@ -78,6 +88,8 @@ export const ogreIsland = defineIsland<OgreMethods>({
     getSiteProfile,
     listRubrics,
     getRubric,
+    importRubricFromPage,
+    saveImportedRubric,
     addGradingSession,
     listGradingSessions,
     getBatchResume,

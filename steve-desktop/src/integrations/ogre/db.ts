@@ -10,7 +10,8 @@
  * Rubrics live in `skills` with `source = 'rubric'` — that column, not a separate
  * island_id, is what separates them from steve's own skills.
  */
-import { openSteveDb } from '../../lib/db';
+import { openSteveDb, saveSkill } from '../../lib/db';
+import type { ImportedRubric } from './import-rubric';
 import type { GradingSession, GradingSessionInsert, SiteProfile, Skill } from './types';
 
 /** Rubric rows are skills tagged with this source. */
@@ -49,6 +50,24 @@ export async function getRubric(id: string): Promise<Skill | null> {
     [id, RUBRIC_SOURCE],
   );
   return rows[0] ?? null;
+}
+
+/**
+ * Store an imported rubric. The id is derived from the question's identity, so
+ * re-importing the same question overwrites its rubric instead of stacking near-duplicates
+ * in the list. Returns the skills row id.
+ */
+export async function saveImportedRubric(r: ImportedRubric): Promise<string> {
+  const id = `ogre-rubric:${r.sourceId}`;
+  await saveSkill({
+    id,
+    name: r.name,
+    description: `Imported from ${r.sourceId}`,
+    content: JSON.stringify(r.rubric, null, 2),
+    source: RUBRIC_SOURCE,
+    source_id: r.sourceId,
+  });
+  return id;
 }
 
 /** Append a completed batch run to the grading history. Returns its row id. */
