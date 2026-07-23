@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  PARSE_FAILURE_FEEDBACK,
+  assertGraded,
   buildBatchPrompt,
   buildBridgeResponses,
   chunkStudents,
@@ -223,5 +225,31 @@ describe('buildBatchPrompt', () => {
     expect(p).toContain('Be generous on units.');
     // The instruction text must not remain in the question shown to the model.
     expect(p.split('QUESTION/PROMPT:')[1]!.split('\n')[1]).toBe('Interpret the residual.');
+  });
+});
+
+describe('assertGraded — never let ungraded zeros pass as grades', () => {
+  const ok: BatchResult[] = [
+    { studentIndex: 0, score: 8, feedback: '<p>real</p>' },
+    { studentIndex: 1, score: 5, feedback: '<p>real</p>' },
+  ];
+
+  it('passes a fully graded chunk', () => {
+    expect(() => assertGraded(ok, 0)).not.toThrow();
+  });
+
+  it('throws when the model graded nobody', () => {
+    const none = ok.map((r) => ({ ...r, score: 0, feedback: PARSE_FAILURE_FEEDBACK }));
+    expect(() => assertGraded(none, 1)).toThrow(/returned nothing parseable/i);
+  });
+
+  it('throws when only some students failed, naming them', () => {
+    const partial = [ok[0]!, { studentIndex: 1, score: 0, feedback: PARSE_FAILURE_FEEDBACK }];
+    expect(() => assertGraded(partial, 0)).toThrow(/1 of 2 students \(indices 1\)/);
+  });
+
+  it('does not mistake a genuine zero for a failure', () => {
+    const realZero = [{ studentIndex: 0, score: 0, feedback: '<p>Blank submission.</p>' }];
+    expect(() => assertGraded(realZero, 0)).not.toThrow();
   });
 });

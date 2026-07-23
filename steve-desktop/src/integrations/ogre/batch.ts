@@ -481,6 +481,37 @@ export function parseBatchResponse(
   return students.map((student, idx) => ({
     studentIndex: student.index ?? idx,
     score: 0,
-    feedback: 'Error parsing AI response. Please try again.',
+    feedback: PARSE_FAILURE_FEEDBACK,
   }));
+}
+
+/**
+ * Marks a result the model never actually produced. These carry score 0, which is
+ * indistinguishable from a genuine zero once it reaches a gradebook — so callers must
+ * treat it as a failure, not a grade. See `assertGraded`.
+ */
+export const PARSE_FAILURE_FEEDBACK = 'Error parsing AI response. Please try again.';
+
+/**
+ * Refuse to hand back a chunk the model didn't grade.
+ *
+ * O.G.R.E returned 0-with-an-error-message per student and let the UI show it. Here the
+ * results feed a gradebook writer, where a silent row of zeros is the worst possible
+ * outcome — it looks exactly like a class that all failed. A local reasoning model
+ * emptying its budget into chain-of-thought produces precisely this, and every mocked
+ * test passed while it happened.
+ */
+export function assertGraded(results: BatchResult[], chunkIndex: number): void {
+  const failed = results.filter((r) => r.feedback === PARSE_FAILURE_FEEDBACK);
+  if (failed.length === 0) return;
+  if (failed.length === results.length) {
+    throw new Error(
+      `Grading chunk ${chunkIndex} failed: the model returned nothing parseable for any of its ${results.length} students. No grades were produced.`,
+    );
+  }
+  throw new Error(
+    `Grading chunk ${chunkIndex} failed for ${failed.length} of ${results.length} students (indices ${failed
+      .map((r) => r.studentIndex)
+      .join(', ')}). Refusing to report zeros as grades.`,
+  );
 }

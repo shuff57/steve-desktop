@@ -6,22 +6,17 @@
  * haven't been tokenized and rehydrates the reply locally. The Redactor is built from
  * the identifiers we know for this student (name, and student id when we have one).
  *
- * Provider bodies reuse src/lib/model-providers.ts rather than porting O.G.R.E's
- * providers.js — that module already covers the Anthropic shape and the
- * OpenAI-compatible chat shape, which between them serve Ollama, OpenAI, Gemini's
- * compat endpoint, GitHub Models and RunPod.
+ * Models are reached by spawning the claude/opencode CLI, not by calling a provider's
+ * HTTP API — the CLI carries its own login, so no API key lives here. O.G.R.E's
+ * providers.js is therefore not ported at all.
  */
-import { fetch as tauriFetch } from '@tauri-apps/plugin-http';
+import { invoke } from '@tauri-apps/api/core';
 import { callModel } from '../../lib/model-gate';
 import { Redactor } from '../../lib/redact';
-import {
-  buildAnthropicBody,
-  buildChatBody,
-  parseAnthropicResponse,
-  parseChatResponse,
-} from '../../lib/model-providers';
+import { cliModelArg, engineForProvider, extractCliText } from '../../lib/agent-cli';
 import { buildSingleGradePrompt, parseSingleGradeResponse, type GradeResult, type Rubric } from './grading';
 import {
+  assertGraded,
   buildBatchPrompt,
   buildBridgeResponses,
   chunkStudents,
@@ -43,32 +38,48 @@ export interface Student {
 }
 
 export interface GradeProvider {
-  /** 'anthropic' selects the Messages API shape; anything else uses chat-completions. */
-  id: string;
-  apiUrl: string;
-  apiKey?: string | null;
-  model: string;
+  /** provider_configs id. 'anthropic'/'claude' route to the claude CLI, else opencode. */
+  id?: string;
+  /** Model id for the CLI's --model flag. opencode takes `provider/model`. */
+  model?: string;
 }
 
-/** Swappable for tests; the default posts through Tauri's HTTP plugin. */
-export type HttpPost = (url: string, init: { headers: Record<string, string>; body: string }) => Promise<unknown>;
+/** Takes the redacted prompt, returns the model's raw text. Injected in tests. */
+export type ModelRunner = (redactedPrompt: string) => Promise<string>;
 
-const defaultPost: HttpPost = async (url, init) => {
-  const res = await tauriFetch(url, { method: 'POST', headers: init.headers, body: init.body });
-  if (!res.ok) throw new Error(`Model request failed: ${res.status} ${res.statusText}`);
-  return res.json();
-};
+/**
+ * run_agent_cli defaults to a 180s timeout, which suits a browser-agent turn and is far
+ * too short for grading — a local model spends ~35s per student, so even a 10-student
+ * chunk blows through it and the batch dies part-graded. Scale the budget with the work
+ * and floor it well above the default.
+ */
+export function gradingTimeoutSecs(studentCount: number): number {
+  return Math.min(3600, Math.max(600, studentCount * 90));
+}
 
-function headersFor(provider: GradeProvider): Record<string, string> {
-  const h: Record<string, string> = { 'Content-Type': 'application/json' };
-  if (!provider.apiKey) return h;
-  if (provider.id === 'anthropic') {
-    h['x-api-key'] = provider.apiKey;
-    h['anthropic-version'] = '2023-06-01';
-  } else {
-    h['Authorization'] = `Bearer ${provider.apiKey}`;
-  }
-  return h;
+/**
+ * The app's real transport: spawn `claude`/`opencode` headlessly through Rust and reuse
+ * the CLI's own login. No API key is stored or sent from here — same reason
+ * agent-api.ts stopped POSTing at providers directly.
+ *
+ * Each grading call is a fresh session. Grading is one-shot, not conversational, and
+ * resuming would let one student's work condition the next student's grade.
+ */
+function cliRunner(provider: GradeProvider, timeoutSecs: number): ModelRunner {
+  return async (prompt) => {
+    const engine = engineForProvider(provider.id);
+    const stdout = await invoke<string>('run_agent_cli', {
+      engine,
+      prompt,
+      sessionId: crypto.randomUUID(),
+      resume: false,
+      model: cliModelArg(engine, provider.model),
+      systemPrompt: null,
+      bypassPermissions: false,
+      timeoutSecs,
+    });
+    return extractCliText(engine, stdout);
+  };
 }
 
 /**
@@ -97,9 +108,9 @@ export async function gradeOne(
   student: Student,
   rubric: Rubric,
   provider: GradeProvider,
-  opts: { instructions?: string; post?: HttpPost } = {},
+  opts: { instructions?: string; run?: ModelRunner } = {},
 ): Promise<GradeResult> {
-  const post = opts.post ?? defaultPost;
+  const run = opts.run ?? cliRunner(provider, gradingTimeoutSecs(1));
   const maxScore = parseFloat(String(rubric.maxScore ?? 10)) || 10;
 
   const redactor = new Redactor(identifiersFor(student));
@@ -109,14 +120,7 @@ export async function gradeOne(
   const prompt = buildSingleGradePrompt(rubric, student.responseText, opts.instructions);
   const payload = redactor.redact(prompt);
 
-  const isAnthropic = provider.id === 'anthropic';
-  const reply = await callModel(payload, redactor, async (redactedText) => {
-    const body = isAnthropic
-      ? buildAnthropicBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model)
-      : buildChatBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model);
-    const json = await post(provider.apiUrl, { headers: headersFor(provider), body: JSON.stringify(body) });
-    return (isAnthropic ? parseAnthropicResponse(json) : parseChatResponse(json)).content;
-  });
+  const reply = await callModel(payload, redactor, run);
 
   // studentName is used only to rewrite the greeting — locally, after rehydration.
   return parseSingleGradeResponse(
@@ -146,9 +150,10 @@ export async function* gradeBatch(
   students: Student[],
   rubric: Rubric,
   provider: GradeProvider,
-  opts: { chunkSize?: number; post?: HttpPost } = {},
+  opts: { chunkSize?: number; run?: ModelRunner } = {},
 ): AsyncGenerator<GradingEvent, BatchResult[], void> {
-  const post = opts.post ?? defaultPost;
+  const chunkSize = opts.chunkSize ?? 20;
+  const run = opts.run ?? cliRunner(provider, gradingTimeoutSecs(chunkSize));
   const maxScore = parseFloat(String(rubric.maxScore ?? 10)) || 10;
   const anchors = generateScoringAnchors(rubric);
 
@@ -161,7 +166,7 @@ export async function* gradeBatch(
     prompt: s.prompt,
   }));
 
-  const chunks = chunkStudents(indexed, opts.chunkSize ?? 20);
+  const chunks = chunkStudents(indexed, chunkSize);
   const collected: BatchResult[][] = [];
   let bridge: BridgeResponse[] | null = null;
 
@@ -172,14 +177,7 @@ export async function* gradeBatch(
     const redactor = new Redactor(original.flatMap(identifiersFor));
     const payload = redactor.redact(buildBatchPrompt(rubric, chunk.students, anchors, bridge));
 
-    const isAnthropic = provider.id === 'anthropic';
-    const reply = await callModel(payload, redactor, async (redactedText) => {
-      const body = isAnthropic
-        ? buildAnthropicBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model)
-        : buildChatBody({ messages: [{ role: 'user', content: redactedText }] }, provider.model);
-      const json = await post(provider.apiUrl, { headers: headersFor(provider), body: JSON.stringify(body) });
-      return (isAnthropic ? parseAnthropicResponse(json) : parseChatResponse(json)).content;
-    });
+    const reply = await callModel(payload, redactor, run);
 
     const results = parseBatchResponse(
       reply,
@@ -188,6 +186,9 @@ export async function* gradeBatch(
       rubric.categoryWeights ?? null,
       rubric.categoryMaxPoints ?? null,
     );
+    // Stop the run rather than let ungraded zeros flow onward into a gradebook.
+    assertGraded(results, chunk.chunkIndex);
+
     collected.push(results);
     bridge = buildBridgeResponses(results, chunk.students, anchors);
 

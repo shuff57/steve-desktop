@@ -5,9 +5,18 @@
  */
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('@tauri-apps/plugin-http', () => ({ fetch: vi.fn() }));
+vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }));
 
-import { gradeBatch, gradeOne, identifiersFor, type GradeProvider, type GradingEvent, type Student } from './grade';
+import {
+  gradeBatch,
+  gradeOne,
+  gradingTimeoutSecs,
+  identifiersFor,
+  type GradeProvider,
+  type GradingEvent,
+  type Student,
+} from './grade';
+import { cliModelArg, engineForProvider } from '../../lib/agent-cli';
 import type { Rubric } from './grading';
 
 const RUBRIC: Rubric = {
@@ -22,58 +31,50 @@ const STUDENT: Student = {
   responseText: 'Yuki Nakamura here. The residual is observed minus predicted, so 2.4.',
 };
 
-const OLLAMA: GradeProvider = { id: 'ollama', apiUrl: 'http://localhost:11434/v1/chat/completions', model: 'llama3' };
-const ANTHROPIC: GradeProvider = {
-  id: 'anthropic',
-  apiUrl: 'https://api.anthropic.com/v1/messages',
-  apiKey: 'sk-test',
-  model: 'claude-opus-4-8',
-};
+const OLLAMA: GradeProvider = { id: 'ollama', model: 'llama3' };
 
-/** Captures what would go over the wire and replies in the given provider's shape. */
-function spyPost(reply: string, shape: 'chat' | 'anthropic' = 'chat') {
-  const seen: { url: string; headers: Record<string, string>; body: string }[] = [];
-  const post = vi.fn(async (url: string, init: { headers: Record<string, string>; body: string }) => {
-    seen.push({ url, ...init });
-    return shape === 'anthropic'
-      ? { content: [{ type: 'text', text: reply }] }
-      : { choices: [{ message: { content: reply } }] };
+/** Captures the prompt that would reach the CLI and replies with canned text. */
+function spyRun(reply: string) {
+  const seen: string[] = [];
+  const run = vi.fn(async (prompt: string) => {
+    seen.push(prompt);
+    return reply;
   });
-  return { post, seen };
+  return { run, seen };
 }
 
 const OK_REPLY = '{"score": 8, "feedback": "<p>Hi Nakamura, Yuki,</p><p>Good work.</p>"}';
 
 describe('redaction', () => {
   it('sends neither the student name nor id to the model', async () => {
-    const { post, seen } = spyPost(OK_REPLY);
-    await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+    const { run, seen } = spyRun(OK_REPLY);
+    await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
 
-    const wire = seen[0]!.body;
+    const wire = seen[0]!;
     expect(wire).not.toContain('Nakamura');
     expect(wire).not.toContain('Yuki');
     expect(wire).not.toContain('S8842119');
   });
 
   it('still sends the actual work, with identifiers tokenized in place', async () => {
-    const { post, seen } = spyPost(OK_REPLY);
-    await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+    const { run, seen } = spyRun(OK_REPLY);
+    await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
 
-    const wire = seen[0]!.body;
+    const wire = seen[0]!;
     expect(wire).toContain('residual is observed minus predicted');
     expect(wire).toContain('Interpret the residual.');
   });
 
   it('rehydrates the reply locally, so feedback names the real student', async () => {
-    const { post } = spyPost(OK_REPLY);
-    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+    const { run } = spyRun(OK_REPLY);
+    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
     // Greeting is normalized to first name only — proof it round-tripped through rehydrate.
     expect(out.feedback).toContain('<p>Hi Yuki,</p>');
   });
 
   it('grades a student with no id without tripping the gate', async () => {
-    const { post } = spyPost(OK_REPLY);
-    const out = await gradeOne({ name: 'Ada Lovelace', responseText: 'answer' }, RUBRIC, OLLAMA, { post });
+    const { run } = spyRun(OK_REPLY);
+    const out = await gradeOne({ name: 'Ada Lovelace', responseText: 'answer' }, RUBRIC, OLLAMA, { run });
     expect(out.score).toBe(8);
   });
 
@@ -81,21 +82,21 @@ describe('redaction', () => {
   // Nakamura". Redacting only the full name let the reversed form through, and
   // assertOutbound could not catch it — it only knows the secrets it was handed.
   it('redacts a name written in the opposite order from the roster', async () => {
-    const { post, seen } = spyPost(OK_REPLY);
+    const { run, seen } = spyRun(OK_REPLY);
     await gradeOne(
       { name: 'Nakamura, Yuki', responseText: 'Submitted by Yuki Nakamura on Tuesday.' },
       RUBRIC,
       OLLAMA,
-      { post },
+      { run },
     );
-    expect(seen[0]!.body).not.toContain('Yuki');
-    expect(seen[0]!.body).not.toContain('Nakamura');
+    expect(seen[0]!).not.toContain('Yuki');
+    expect(seen[0]!).not.toContain('Nakamura');
   });
 
   it('rehydrates tokens the model echoed back', async () => {
     // What a model really returns: it saw tokens, so it writes tokens.
-    const { post } = spyPost('{"score": 8, "feedback": "<p>Hi ⟦S1⟧,</p><p>Nice.</p>"}');
-    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+    const { run } = spyRun('{"score": 8, "feedback": "<p>Hi ⟦S1⟧,</p><p>Nice.</p>"}');
+    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
     expect(out.feedback).not.toContain('⟦S1⟧');
     expect(out.feedback).toContain('Yuki');
   });
@@ -117,70 +118,73 @@ describe('identifiersFor', () => {
   });
 });
 
-describe('provider shape', () => {
-  it('uses chat-completions for non-anthropic providers', async () => {
-    const { post, seen } = spyPost(OK_REPLY);
-    await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+describe('CLI transport', () => {
+  it('hands the prompt itself to the runner, not an HTTP body', async () => {
+    const { run, seen } = spyRun(OK_REPLY);
+    await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
 
-    const body = JSON.parse(seen[0]!.body);
-    expect(body.model).toBe('llama3');
-    expect(body.messages[0].role).toBe('user');
-    expect(seen[0]!.url).toBe(OLLAMA.apiUrl);
-    expect(seen[0]!.headers.Authorization).toBeUndefined(); // no key configured
+    expect(seen[0]).toContain('You are an expert grading assistant');
+    expect(seen[0]).toContain('Interpret the residual.');
   });
 
-  it('uses the Messages API and its auth headers for anthropic', async () => {
-    const { post, seen } = spyPost(OK_REPLY, 'anthropic');
-    await gradeOne(STUDENT, RUBRIC, ANTHROPIC, { post });
-
-    expect(seen[0]!.headers['x-api-key']).toBe('sk-test');
-    expect(seen[0]!.headers['anthropic-version']).toBe('2023-06-01');
-    expect(JSON.parse(seen[0]!.body).max_tokens).toBeGreaterThan(0);
+  it('routes claude-backed providers to the claude CLI and everything else to opencode', () => {
+    expect(engineForProvider('anthropic')).toBe('claude');
+    expect(engineForProvider('claude')).toBe('claude');
+    expect(engineForProvider('ollama')).toBe('opencode');
+    expect(engineForProvider(undefined)).toBe('opencode');
   });
 
-  it('sends a bearer token for keyed chat providers', async () => {
-    const { post, seen } = spyPost(OK_REPLY);
-    await gradeOne(STUDENT, RUBRIC, { ...OLLAMA, apiKey: 'sk-abc' }, { post });
-    expect(seen[0]!.headers.Authorization).toBe('Bearer sk-abc');
+  // run_agent_cli's own default is 180s — fine for an agent turn, fatal mid-batch.
+  it('asks for far more time than the CLI default, scaled to the chunk', () => {
+    expect(gradingTimeoutSecs(1)).toBe(600);
+    expect(gradingTimeoutSecs(20)).toBe(1800);
+    expect(gradingTimeoutSecs(10)).toBeGreaterThan(180);
+    expect(gradingTimeoutSecs(500)).toBe(3600); // capped
+  });
+
+  it('prefixes a bare model id for opencode, which expects provider/model', () => {
+    expect(cliModelArg('opencode', 'llama3')).toBe('ollama/llama3');
+    expect(cliModelArg('opencode', 'ollama/llama3')).toBe('ollama/llama3');
+    expect(cliModelArg('claude', 'claude-opus-4-8')).toBe('claude-opus-4-8');
   });
 });
 
 describe('result handling', () => {
   it('scales the score to the rubric max', async () => {
-    const { post } = spyPost('{"score": 5, "feedback": "<p>x</p>"}');
-    const out = await gradeOne(STUDENT, { ...RUBRIC, maxScore: 4 }, OLLAMA, { post });
+    const { run } = spyRun('{"score": 5, "feedback": "<p>x</p>"}');
+    const out = await gradeOne(STUDENT, { ...RUBRIC, maxScore: 4 }, OLLAMA, { run });
     expect(out.score).toBe(2);
   });
 
   it('surfaces an unparseable reply instead of silently scoring 0 as if graded', async () => {
-    const { post } = spyPost('I cannot grade this.');
-    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { post });
+    const { run } = spyRun('I cannot grade this.');
+    const out = await gradeOne(STUDENT, RUBRIC, OLLAMA, { run });
     expect(out.score).toBe(0);
     expect(out.feedback).toMatch(/error parsing/i);
   });
 
   it('propagates a transport failure rather than reporting a 0 grade', async () => {
-    const post = vi.fn().mockRejectedValue(new Error('Model request failed: 401 Unauthorized'));
-    await expect(gradeOne(STUDENT, RUBRIC, OLLAMA, { post })).rejects.toThrow(/401/);
+    const run = vi.fn().mockRejectedValue(new Error('claude reported an error: not logged in'));
+    await expect(gradeOne(STUDENT, RUBRIC, OLLAMA, { run })).rejects.toThrow(/not logged in/);
   });
 });
 
 // ── gradeBatch ────────────────────────────────────────────────────────────────
 
 /** Replies with a well-formed grade for every student the prompt asked about. */
-function batchPost(scores: number[][]) {
+function batchRun(scores: number[][]) {
   const seen: string[] = [];
   let call = 0;
-  const post = vi.fn(async (_url: string, init: { headers: Record<string, string>; body: string }) => {
-    seen.push(init.body);
+  const run = vi.fn(async (prompt: string) => {
+    seen.push(prompt);
     const rows = (scores[call++] ?? []).map((score, i) => ({
       studentIndex: i,
       score,
       feedback: `<p>Hi [name],</p><p>result ${i}</p>`,
     }));
-    return { choices: [{ message: { content: JSON.stringify(rows) } }] };
+    return JSON.stringify(rows);
   });
-  return { post, seen };
+  return { run, seen };
 }
 
 const roster = (n: number): Student[] =>
@@ -194,17 +198,17 @@ async function drain(gen: AsyncGenerator<GradingEvent, unknown, void>) {
 
 describe('gradeBatch', () => {
   it('grades a small class in a single request', async () => {
-    const { post } = batchPost([[8, 6, 4]]);
-    const events = await drain(gradeBatch(roster(3), RUBRIC, OLLAMA, { post }));
+    const { run } = batchRun([[8, 6, 4]]);
+    const events = await drain(gradeBatch(roster(3), RUBRIC, OLLAMA, { run }));
 
-    expect(post).toHaveBeenCalledTimes(1);
+    expect(run).toHaveBeenCalledTimes(1);
     const done = events.find((e) => e.type === 'done')!;
     expect(done.type === 'done' && done.results.map((r) => r.score)).toEqual([8, 6, 4]);
   });
 
   it('reports progress per chunk', async () => {
-    const { post } = batchPost([[8, 8], [6, 6]]);
-    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+    const { run } = batchRun([[8, 8], [6, 6]]);
+    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { run, chunkSize: 2 }));
 
     expect(events.filter((e) => e.type === 'chunk-start')).toHaveLength(2);
     expect(events.filter((e) => e.type === 'chunk-done')).toHaveLength(2);
@@ -212,15 +216,15 @@ describe('gradeBatch', () => {
   });
 
   it('returns results in roster order across chunks', async () => {
-    const { post } = batchPost([[9, 9], [3, 3]]);
-    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+    const { run } = batchRun([[9, 9], [3, 3]]);
+    const events = await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { run, chunkSize: 2 }));
     const done = events.find((e) => e.type === 'done')!;
     expect(done.type === 'done' && done.results.map((r) => r.studentIndex)).toEqual([0, 1, 2, 3]);
   });
 
   it('carries calibration from the first chunk into the second', async () => {
-    const { post, seen } = batchPost([[9, 2], [7, 7]]);
-    await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { post, chunkSize: 2 }));
+    const { run, seen } = batchRun([[9, 2], [7, 7]]);
+    await drain(gradeBatch(roster(4), RUBRIC, OLLAMA, { run, chunkSize: 2 }));
 
     expect(seen[0]).not.toContain('previously graded batch');
     expect(seen[1]).toContain('previously graded batch'); // bridge responses reached chunk 2
@@ -228,12 +232,12 @@ describe('gradeBatch', () => {
 
   // One student's name must not reach the model via a classmate's response either.
   it('redacts every student in the chunk, not just the one being graded', async () => {
-    const { post, seen } = batchPost([[8, 8]]);
+    const { run, seen } = batchRun([[8, 8]]);
     const students: Student[] = [
       { name: 'Nakamura, Yuki', responseText: 'my own answer' },
       { name: 'Okonkwo, Chidi', responseText: 'I worked with Yuki Nakamura on this' },
     ];
-    await drain(gradeBatch(students, RUBRIC, OLLAMA, { post }));
+    await drain(gradeBatch(students, RUBRIC, OLLAMA, { run }));
 
     expect(seen[0]).not.toContain('Nakamura');
     expect(seen[0]).not.toContain('Yuki');
@@ -242,18 +246,18 @@ describe('gradeBatch', () => {
   });
 
   it('rehydrates names into per-student feedback', async () => {
-    const { post } = batchPost([[8]]);
+    const { run } = batchRun([[8]]);
     const events = await drain(
-      gradeBatch([{ name: 'Nakamura, Yuki', responseText: 'a' }], RUBRIC, OLLAMA, { post }),
+      gradeBatch([{ name: 'Nakamura, Yuki', responseText: 'a' }], RUBRIC, OLLAMA, { run }),
     );
     const done = events.find((e) => e.type === 'done')!;
     expect(done.type === 'done' && done.results[0]!.feedback).toContain('Hi Yuki,');
   });
 
   it('grades an empty roster without calling the model', async () => {
-    const { post } = batchPost([]);
-    const events = await drain(gradeBatch([], RUBRIC, OLLAMA, { post }));
-    expect(post).not.toHaveBeenCalled();
+    const { run } = batchRun([]);
+    const events = await drain(gradeBatch([], RUBRIC, OLLAMA, { run }));
+    expect(run).not.toHaveBeenCalled();
     const done = events.find((e) => e.type === 'done')!;
     expect(done.type === 'done' && done.results).toEqual([]);
   });

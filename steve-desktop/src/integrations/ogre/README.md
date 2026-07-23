@@ -10,10 +10,14 @@ imports nothing from `src/integrations/gradebook/` or
 
 ```
 ogre/
-  index.ts               island surface — the data-access methods
+  index.ts               island surface — data access + grading
   db.ts                  typed accessors over the shared steve.db connection
-  db.test.ts             asserts the SQL each accessor issues
-  island.test.ts         asserts the island surface
+  grade.ts               gradeOne / gradeBatch — redaction gate + CLI transport
+  grading.ts             single-student prompt + response parsing (pure)
+  batch.ts               batch prompt, chunking, bridge calibration, parsing (pure)
+  grading-constants.ts   grading philosophy + scoring scale, ported verbatim
+  grade.cli.e2e.test.ts  opt-in: spawns the real claude CLI (OGRE_CLI_E2E=1)
+  fixtures/              O.G.R.E's synthetic 30-student demo class
   types.ts               TypeScript row/insert types per O.G.R.E table
   README.md              this file
 ```
@@ -90,9 +94,47 @@ Every method is async: tauri-plugin-sql crosses the WebView/Rust boundary.
 JSON-encoded columns (`selectors`, `url_patterns`, ...) are still strings at this
 layer. Grading server logic lands in phase 5, the UI in phase 6.
 
+## Grading (phase 5)
+
+`gradeOne(student, rubric, provider)` and `gradeBatch(students, rubric, provider)`.
+Batch grades a class in one model context per chunk — that shared context is what
+keeps scores comparable between students — and carries bridge examples from one
+chunk into the next so chunk 2 doesn't drift from chunk 1.
+
+**Transport is the claude/opencode CLI**, spawned through Rust's `run_agent_cli`.
+No API keys: the CLI's own login authenticates. `providers.js` from O.G.R.E is not
+ported at all. Pass `opts.run` to inject a different transport in tests.
+
+**Redaction is not optional.** Student work reaches a model only through
+`model-gate.callModel`, which refuses to send anything whose known identifiers
+survive into the payload. `identifiersFor()` registers the full name, the student
+id, AND each name part — a roster "Nakamura, Yuki" does not match work signed
+"Yuki Nakamura", and assertOutbound cannot catch what it was never given.
+
+**Never report zeros as grades.** `assertGraded` throws when the model returns
+nothing parseable. Verbatim O.G.R.E returned score 0 with an error message per
+student; here those results feed a gradebook, where a silent row of zeros is
+indistinguishable from a class that genuinely all failed. A local reasoning model
+that empties its budget into chain-of-thought produces exactly that.
+
+Ported near-verbatim and worth leaving alone: the grading philosophy text, the
+0-10 scoring scale, and the score arithmetic. A differential harness confirmed the
+prompts are byte-identical to O.G.R.E's across rubric shapes. Not ported: outlier
+review, pairwise sweeps, historical calibration from `response_embeddings`.
+
 ## Test status
 
-- OGRE-specific: 2 test files (`db.test.ts` asserts the SQL each accessor
-  issues; `island.test.ts` covers the island surface).
-- The schema itself is verified by applying every `lib.rs` migration to a
-  throwaway DB — both the fresh path and a v8-with-rows upgrade.
+- Unit: `db.test.ts` (SQL per accessor), `grading.test.ts` and `batch.test.ts`
+  (prompt + parsing + scoring, pure), `grade.test.ts` (redaction, transport,
+  batch orchestration), `island.test.ts` (surface).
+- Schema: every `lib.rs` migration applied to a throwaway DB — the fresh path and
+  a v8-with-rows upgrade.
+- End-to-end: `OGRE_CLI_E2E=1 npx vitest run src/integrations/ogre/grade.cli.e2e.test.ts`
+  spawns the real `claude` CLI with the same argv `run_agent_cli` builds and the
+  prompt on stdin. Opt-in because it costs tokens and leaves the machine — the
+  fixture is invented students, and must stay that way.
+  `OGRE_CLI_E2E_STUDENTS=30` exercises chunking and bridge calibration.
+
+Mocked tests could not have found any of the three defects the live runs did:
+ungraded zeros passing as grades, the 180s CLI timeout killing every real batch,
+and e2e assertions passing vacuously over an empty result set.
