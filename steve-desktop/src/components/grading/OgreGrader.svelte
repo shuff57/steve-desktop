@@ -241,10 +241,34 @@
 
   /**
    * The page has no matching profile and a plain load found nothing. The teacher — who
-   * knows this page is a gradebook — asks us to learn it: snapshot the structure, derive
-   * the grading selectors, save a profile, then re-load with it.
+   * knows this is a gradebook — asks us to learn the whole site: hand off to the site
+   * crawler (Discovery tab), which maps every page and returns here, THEN derive the
+   * grading selectors from this page and re-load.
+   *
+   * The whole site, not just this page, on purpose: the profile is reused beyond grading
+   * (a Canvas forum, an assignment list), so mapping stops at the site, not the gradebook.
+   *
+   * Cross-tab because the crawl runs in a different panel that unmounts this one — the
+   * request and its follow-up ride sessionStorage, the same channel the sidebar handoff
+   * uses. SiteMapper starts on CRAWL_REQUEST and, on return, sets DERIVE_ON_RETURN and
+   * switches back here (see the onMount below).
    */
-  async function mapThisPage() {
+  const CRAWL_REQUEST = 'steve:crawl-for-grading';
+  const DERIVE_ON_RETURN = 'steve:derive-after-crawl';
+
+  function mapThisSite() {
+    if (!pageUrl) {
+      mapError = 'Open the grading page in the browser first.';
+      return;
+    }
+    sessionStorage.setItem(CRAWL_REQUEST, pageUrl);
+    // Switch the drawer to Discovery and let SiteMapper pick up the request on mount.
+    window.dispatchEvent(new CustomEvent('steve:action-panel', { detail: { mode: 'discovery' } }));
+  }
+
+  /** Derive + save grading selectors for the current page, then dry-run. Runs after the
+   *  crawl returns here, or standalone if a crawl isn't wanted. */
+  async function deriveThisPage() {
     mapping = true;
     mapError = null;
     try {
@@ -341,6 +365,14 @@
   onMount(() => {
     void loadRubrics();
     void loadProfiles();
+    // Coming back from a crawl the panel kicked off: the crawler mapped the site, returned
+    // to this page, and set this flag. Presence is enough — the crawl navigates back to the
+    // start page before flipping it, so the browser is on the grading page again, and
+    // deriveThisPage reads the live URL regardless.
+    if (sessionStorage.getItem(DERIVE_ON_RETURN)) {
+      sessionStorage.removeItem(DERIVE_ON_RETURN);
+      void deriveThisPage();
+    }
   });
 
   /**
@@ -503,10 +535,13 @@
              → re-load. Structure only, no student text leaves the machine. -->
         <div class="map-cta">
           <span class="status-hint warn">
-            No students found here. If this page lists each student's work, map it so the grader learns its layout.
+            No students found here. If this page lists each student's work, map the site so the grader learns its layout.
           </span>
-          <button class="btn-secondary full-width" onclick={mapThisPage} disabled={mapping}>
-            {mapping ? 'Mapping the page…' : 'Map this page for grading'}
+          <button class="btn-secondary full-width" onclick={mapThisSite} disabled={mapping}>
+            Map this site for grading
+          </button>
+          <button class="text-btn" onclick={deriveThisPage} disabled={mapping}>
+            {mapping ? 'Learning this page…' : 'Or just learn this page (skip the crawl)'}
           </button>
           {#if mapError}<span class="status-hint warn">{mapError}</span>{/if}
         </div>
