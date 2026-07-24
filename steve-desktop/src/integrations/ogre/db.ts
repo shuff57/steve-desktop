@@ -27,6 +27,46 @@ export async function listSiteProfiles(): Promise<SiteProfile[]> {
   return db.select<SiteProfile[]>(`SELECT ${SITE_PROFILE_COLUMNS} FROM site_profiles ORDER BY name`);
 }
 
+/**
+ * Save a grading profile derived for a page steve didn't already recognise.
+ *
+ * The id and url_patterns are keyed on the page's host+path so a re-derive updates in
+ * place and future visits to the same page auto-match it (matchProfile does substring
+ * containment). Only `selectors` carries real data — grading is read-only, so feedback /
+ * save / navigation are empty; none of it holds student PII (selectors are class/tag
+ * patterns, derived from structure alone).
+ */
+export async function saveGradingProfile(
+  url: string,
+  selectors: {
+    studentSection: string;
+    studentName: string;
+    response: string;
+    scoreInput: string;
+    feedbackBox: string;
+  },
+): Promise<string> {
+  let key = url;
+  let name = url;
+  try {
+    const u = new URL(url);
+    key = `${u.host}${u.pathname}`;
+    name = `${u.host}${u.pathname.replace(/\/$/, '')}`.slice(0, 80) || u.host;
+  } catch {
+    /* non-URL — fall back to the raw string */
+  }
+  const id = `ogre-site:${key}`;
+  const db = await openSteveDb();
+  await db.execute(
+    `INSERT INTO site_profiles (id, name, url_patterns, selectors, feedback, save, navigation)
+       VALUES ($1, $2, $3, $4, '{}', '{}', '{}')
+     ON CONFLICT(id) DO UPDATE SET
+       name = $2, url_patterns = $3, selectors = $4, updated_at = datetime('now')`,
+    [id, name, JSON.stringify([key]), JSON.stringify(selectors)],
+  );
+  return id;
+}
+
 export async function getSiteProfile(id: string): Promise<SiteProfile | null> {
   const db = await openSteveDb();
   const rows = await db.select<SiteProfile[]>(

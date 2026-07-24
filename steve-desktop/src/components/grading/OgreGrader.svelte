@@ -217,9 +217,13 @@
   // True once a load has run, so "found no students" can be told apart from "not tried yet".
   let loadAttempted = $state(false);
 
+  let mapping = $state(false);
+  let mapError = $state<string | null>(null);
+
   async function loadFromPage() {
     loadingStudents = true;
     loadError = null;
+    mapError = null;
     results = [];
     try {
       students = await ogreIsland.methods.loadStudents(readPage, {
@@ -232,6 +236,25 @@
       loadError = e instanceof Error ? e.message : String(e);
     } finally {
       loadingStudents = false;
+    }
+  }
+
+  /**
+   * The page has no matching profile and a plain load found nothing. The teacher — who
+   * knows this page is a gradebook — asks us to learn it: snapshot the structure, derive
+   * the grading selectors, save a profile, then re-load with it.
+   */
+  async function mapThisPage() {
+    mapping = true;
+    mapError = null;
+    try {
+      await ogreIsland.methods.mapPageForGrading(readPage, pageUrl);
+      await loadProfiles(); // pick up the new site_profiles row so activeProfile matches
+      await loadFromPage(); // dry-run immediately with the freshly learned selectors
+    } catch (e) {
+      mapError = e instanceof Error ? e.message : String(e);
+    } finally {
+      mapping = false;
     }
   }
 
@@ -475,12 +498,18 @@
       {#if students.length > 0 && results.length === 0 && !grading && !onlyStudent.trim()}
         <span class="status-hint">{students.length} student{students.length === 1 ? '' : 's'} loaded.</span>
       {:else if loadAttempted && students.length === 0 && !loadError}
-        <!-- No profile fit this page. This is where the site-mapping flow will hook in:
-             the teacher confirms it's gradeable, mapping derives the selectors, and the
-             run comes back here. Not wired yet — see the design note. -->
-        <span class="status-hint warn">
-          No students found on this page. Its layout isn't one the grader recognises yet.
-        </span>
+        <!-- No profile fit this page and a plain read found nothing. The teacher knows the
+             page is a gradebook, so offer to learn it: snapshot → derive selectors → save
+             → re-load. Structure only, no student text leaves the machine. -->
+        <div class="map-cta">
+          <span class="status-hint warn">
+            No students found here. If this page lists each student's work, map it so the grader learns its layout.
+          </span>
+          <button class="btn-secondary full-width" onclick={mapThisPage} disabled={mapping}>
+            {mapping ? 'Mapping the page…' : 'Map this page for grading'}
+          </button>
+          {#if mapError}<span class="status-hint warn">{mapError}</span>{/if}
+        </div>
       {/if}
       {#if onlyStudent.trim() && students.length > 0}
         <span class="status-hint" class:warn={targetStudents.length === 0}>
@@ -631,6 +660,7 @@
   .check { display: flex; align-items: center; gap: var(--spacing-2); font-size: 0.82rem; color: var(--color-text-secondary); }
   .status-hint { font-size: 0.8rem; color: var(--color-text-secondary); font-style: italic; }
   .status-hint.warn { color: var(--color-warning-text); font-style: normal; }
+  .map-cta { display: flex; flex-direction: column; gap: var(--spacing-2); }
   .hint { font-size: 0.78rem; color: var(--color-text-secondary); margin: 0; line-height: 1.45; }
   .err-text { color: var(--color-warning-text); }
 
