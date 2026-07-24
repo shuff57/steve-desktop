@@ -14,6 +14,9 @@
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
+  // Stateless IMathAS render sandbox (self-hosted, no login). POST question PHP -> full HTML page.
+  // ponytail: one hardcoded URL; lift to a setting if we ever need per-env sandboxes.
+  const SANDBOX_URL = 'https://mom.huffpalmer.fyi/';
 
   let momRoot = $state<string | null>(null);
   let rootInput = $state('');
@@ -44,6 +47,41 @@
   const currentFamily = $derived<MOMFamily | null>(
     families.find((f) => f.name === selectedFamily) ?? null,
   );
+
+  // Preview pane can show the raw PHP or the sandbox-rendered question ("as if in MyOpenMath").
+  let renderMode = $state<'php' | 'rendered'>('php');
+  let renderedHtml = $state('');
+  let rendering = $state(false);
+  let renderErr = $state<string | null>(null);
+  let lastRenderedPath = '';
+
+  async function renderQuestion(contents: string) {
+    rendering = true;
+    renderErr = null;
+    try {
+      const res = await fetch(SANDBOX_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: contents,
+      });
+      if (!res.ok) throw new Error(`sandbox HTTP ${res.status}`);
+      renderedHtml = await res.text();
+    } catch (e) {
+      renderErr = e instanceof Error ? e.message : String(e);
+      renderedHtml = '';
+    } finally {
+      rendering = false;
+    }
+  }
+
+  // Render lazily: only when the Rendered tab is showing, and only once per question.
+  $effect(() => {
+    const q = selectedQuestion;
+    if (renderMode === 'rendered' && q && q.path !== lastRenderedPath) {
+      lastRenderedPath = q.path;
+      renderQuestion(q.contents);
+    }
+  });
 
   async function saveRoot() {
     if (savingRoot) return;
@@ -327,13 +365,30 @@
       {/if}
 
       <section class="preview">
-        <h2>Preview</h2>
+        <div class="preview-head">
+          <h2>Preview</h2>
+          {#if selectedQuestion}
+            <div class="view-toggle">
+              <button class:active={renderMode === 'php'} onclick={() => (renderMode = 'php')}>PHP</button>
+              <button class:active={renderMode === 'rendered'} onclick={() => (renderMode = 'rendered')}>Rendered</button>
+            </div>
+          {/if}
+        </div>
         {#if loadingQuestion}
           <p class="empty">Loading…</p>
         {:else if questionErr}
           <p class="err">{questionErr}</p>
         {:else if !selectedQuestion}
-          <p class="empty">Select a question to preview the PHP.</p>
+          <p class="empty">Select a question to preview.</p>
+        {:else if renderMode === 'rendered'}
+          {#if rendering}
+            <p class="empty">Rendering in sandbox…</p>
+          {:else if renderErr}
+            <p class="err">Sandbox unreachable: {renderErr}</p>
+            <p class="muted small">Renders at <code>{SANDBOX_URL}</code> — live once its DNS/cert are up.</p>
+          {:else}
+            <iframe class="render-frame" title="Rendered question" srcdoc={renderedHtml} sandbox="allow-scripts"></iframe>
+          {/if}
         {:else}
           {#if selectedQuestion.manifest.total > 0}
             <p class="stats">
@@ -418,6 +473,10 @@
   /* verify_status colouring: in-mom = live/green (default badge), pending/other = amber. */
   .badge.status-pending, .badge.status-draft { background: rgba(245,158,11,.18); color: #f59e0b; }
 
+  .preview-head { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .preview-head h2 { margin: 0; }
+  .render-frame { flex: 1; width: 100%; border: none; border-radius: 6px; background: #fff; }
+  .preview .muted.small { font-size: 11px; opacity: .6; margin: 6px 0 0; }
   .preview pre { flex: 1; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; padding: 12px; border-radius: 6px; background: rgba(0,0,0,.25); margin: 0; white-space: pre; }
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
   .stats.muted { opacity: .5; }
