@@ -362,6 +362,26 @@
     }
   }
 
+  /**
+   * Clear the run and start fresh. Grading already spawns a new CLI session per chunk, so
+   * the model never carries context between runs — this just wipes the on-screen state (a
+   * loaded roster, a finished batch, a stray error) so the next run starts clean. Rubric,
+   * leniency, anchors and weights are configuration, not run state, so they stay.
+   */
+  function startOver() {
+    if (grading || reviewing || mapping) return; // don't yank state out from under a live run
+    students = [];
+    results = [];
+    gradedRoster = [];
+    loadAttempted = false;
+    loadError = null;
+    gradeError = null;
+    mapError = null;
+    reviewMsg = null;
+    stopped = false;
+    expanded = null;
+  }
+
   onMount(() => {
     void loadRubrics();
     void loadProfiles();
@@ -605,11 +625,14 @@
     <div class="batch-log-card">
       <div class="log-header">
         <span class="log-title">Results ({results.length})</span>
-        {#if outliers && outliers.outliers.length > 0}
-          <button class="btn-secondary small" onclick={runReview} disabled={reviewing || grading}>
-            {reviewing ? 'Re-reading…' : `Review ${outliers.outliers.length} outlier${outliers.outliers.length === 1 ? '' : 's'}`}
-          </button>
-        {/if}
+        <div class="log-actions">
+          {#if outliers && outliers.outliers.length > 0}
+            <button class="btn-secondary small" onclick={runReview} disabled={reviewing || grading}>
+              {reviewing ? 'Re-reading…' : `Review ${outliers.outliers.length} outlier${outliers.outliers.length === 1 ? '' : 's'}`}
+            </button>
+          {/if}
+          <button class="text-btn" onclick={startOver} disabled={grading || reviewing}>Start over</button>
+        </div>
       </div>
       {#if reviewMsg}<div class="log-note">{reviewMsg}</div>{/if}
       <div class="log-container">
@@ -792,6 +815,7 @@
   /* Results log */
   .batch-log-card { background: var(--color-bg-main); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
   .log-header { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-2); padding: var(--spacing-2) var(--spacing-3); font-size: 0.85rem; font-weight: 600; color: var(--color-text-secondary); }
+  .log-actions { display: flex; align-items: center; gap: var(--spacing-2); }
   .log-note { padding: 0 var(--spacing-3) var(--spacing-2); font-size: 0.78rem; color: var(--color-text-secondary); }
   .log-container { max-height: 320px; overflow-y: auto; border-top: 1px solid var(--color-border); }
   .log-entry { border-bottom: 1px solid var(--color-border); }
