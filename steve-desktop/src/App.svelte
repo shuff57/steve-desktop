@@ -164,13 +164,13 @@
             <span class="label">MOM</span>
           </button>
           <NavSection
-            label="OGRE"
+            label="Grading"
             icon={OgreIcon}
             collapsed={sidebarCollapsed}
             {currentPage}
             onnavigate={navigate}
             items={[
-              { id: 'ogre-grading', label: 'Grading', title: 'Batch grading' },
+              { id: 'ogre-grading', label: 'Batch', title: 'Grade a class from the page' },
               { id: 'ogre-rubrics', label: 'Rubrics', title: 'Rubric library' },
               { id: 'ogre-history', label: 'History', title: 'Past grading sessions' },
             ]}
