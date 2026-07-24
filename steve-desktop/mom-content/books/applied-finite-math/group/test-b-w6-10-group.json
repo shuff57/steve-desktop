@@ -1,0 +1,71 @@
+{
+  "name": "Group Final Quiz 2",
+  "book": "applied-finite-math",
+  "kind": "group",
+  "chapter_section": "7-13",
+  "slug": "test-b-w6-10-group",
+  "created_at": "2026-05-10",
+  "source": {
+    "url": "https://www.myopenmath.com/course/course.php?cid=306621",
+    "coverage_spec": [
+      "4.1–4.2 Simplex Method — 2-variable max LP (coffee roaster), 3-variable max LP (tech accessories)",
+      "4.3 Simplex Tableau Mechanics — identify pivot column, pivot row, minimum ratio",
+      "6.1 Compound Interest — annual vs monthly comparison",
+      "6.2 Annuities — ordinary annuity future value",
+      "6.4 Loans — monthly payment and total interest",
+      "7.1 Sets — union vs intersection cardinality compare",
+      "7.2 Venn Diagrams and Cardinality — exactly-one and neither counts",
+      "7.3 Permutations — ordered arrangements in real-world podium scenarios",
+      "7.5 Combinations with Condition — committees with required member",
+      "7.5 Perm vs Comb Diagnostic — classify three real-world counting scenarios",
+      "8.2 Conditional Probability and Bayes — 2x2 table conditional + independence check",
+      "8.4 Expected Value — E(X) and E(X^2) of a discrete RV"
+    ]
+  },
+  "target": {
+    "cid": "306621",
+    "block": "0-34"
+  },
+  "mom_settings": {
+    "subtype": "Quiz",
+    "defattempts": 3,
+    "versions_per_question": 1,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "Tests",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "No",
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "intro": "<h3>Group Final Quiz 2 — Instructions</h3><p>This is a <b>collaborative group test</b>. Work with your assigned group to discuss and solve each problem together. Every student must <b>submit their own answers individually</b> on their own device.</p><p><b>Topics covered (Weeks 7–13):</b></p><ul><li><b>Week 7 — Linear Programming: The Simplex Method (§4.1–4.2):</b> 2-variable max LP, 3-variable max LP, identify pivot column / pivot row / minimum ratio</li><li><b>Week 8:</b> Midterm — no new content on this quiz</li><li><b>Week 9 — Mathematics of Finance (§6.1–6.3):</b> Compound interest (annual vs monthly), ordinary annuity future value</li><li><b>Week 10 — Annuity and Amortization (§6.4):</b> Loan monthly payment and total interest</li><li><b>Week 11 — Intro to Sets (§7.1):</b> Set operations (union vs intersection); 2-circle Venn (exactly-one and neither)</li><li><b>Week 12 — Counting (§7.3, §7.5):</b> Permutations word problem, combinations with a required member, perm vs comb diagnostic</li><li><b>Week 13 — Intro to Probability (§8.1–8.2, §8.4):</b> 2x2 conditional probability + independence check, expected value E(X) and E(X²)</li></ul><p><b>Group work rules:</b></p><ul><li><b>Discuss first, submit individually.</b> Talk through each problem as a group before anyone submits.</li><li><b>Everyone participates.</b> Make sure every group member understands the reasoning before moving on.</li><li><b>Three attempts, no penalty.</b> You get 3 tries with the same version. Use them if your group wants to re-check a problem.</li><li><b>Stay with your group.</b> Do not leave the classroom or break off from your group until everyone has submitted.</li></ul><p>Your individual submission will be graded, but your score reflects your group's collective effort. Work together and make it count.</p>",
+    "default_points": 1
+  },
+  "planning_notes": {
+    "target_n": 13,
+    "valid_n_range": [12, 15],
+    "frq_count": 0,
+    "selection_priority": "Simplex (slots 1-3), Finance (slots 4-6), Sets/Venn (slots 7-8), Counting (slots 9-11), Probability (slots 12-13). Restructured 2026-05-10: replaced 6 misfit quad/poly/exp/log questions with 3 simplex + 3 counting questions. Designed to fit one ~88-minute class period."
+  },
+  "auto_graded_count": 13,
+  "frq_count": 0,
+  "estimated_minutes": 59,
+  "time_budget_minutes": 88,
+  "questions": [
+    { "slot": 1,  "sub_topic": "4.1–4.2 Simplex Max (2-var)",    "file_path": "questions/linear-programming/q6-simplex-coffee-roaster.php",                    "title": "Simplex max: coffee roaster (2 variables)",                                  "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823699" },
+    { "slot": 2,  "sub_topic": "4.1–4.2 Simplex Max (3-var)",    "file_path": "questions/linear-programming/q7-simplex-three-variables.php",                   "title": "Simplex max: tech accessories (3 variables)",                                "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823700" },
+    { "slot": 3,  "sub_topic": "4.3 Simplex Pivot Mechanics",     "file_path": "questions/linear-programming/q8-simplex-identify-pivot.php",                    "title": "Identify pivot column, row, and minimum ratio",                              "role": "conceptual",  "difficulty": "easy",     "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823701" },
+    { "slot": 4,  "sub_topic": "6.1 Compound Interest",           "file_path": "questions/finance/compound-interest/q10-annual-vs-monthly-comparison.php",        "title": "Compound interest: annual vs monthly comparison",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823675" },
+    { "slot": 5,  "sub_topic": "6.2 Annuities",                   "file_path": "questions/finance/annuities/q10-ordinary-annuity-future-value.php",               "title": "Ordinary annuity future value (FV and contributions)",                       "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823677" },
+    { "slot": 6,  "sub_topic": "6.4 Loans",                       "file_path": "questions/finance/installment-payment/q11-loan-payment-and-total-interest.php",   "title": "Loan monthly payment and total interest",                                    "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823679" },
+    { "slot": 7,  "sub_topic": "7.1 Set Operations",              "file_path": "questions/sets/q14-set-ops-union-intersection-compare.php",                       "title": "A union B vs A intersection B (and which is larger)",                        "role": "multipart",   "difficulty": "easy",     "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823681" },
+    { "slot": 8,  "sub_topic": "7.2 Venn 2-Circle",               "file_path": "questions/sets/q15-venn-2circle-exactly-one-and-neither.php",                     "title": "2-circle Venn: exactly-one and neither counts",                              "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823682" },
+    { "slot": 9,  "sub_topic": "7.3 Permutations Word Problem",   "file_path": "questions/combinatorics/q18-permutations-word-problem.php",                      "title": "Permutations: ordered arrangements in podium scenario",                      "role": "computation", "difficulty": "easy",     "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823702" },
+    { "slot": 10, "sub_topic": "7.5 Combinations w/ Condition",   "file_path": "questions/combinatorics/q19-combinations-with-condition.php",                    "title": "Combinations: committees with required member",                              "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823703" },
+    { "slot": 11, "sub_topic": "7.5 Perm vs Comb Diagnostic",     "file_path": "questions/combinatorics/q20-perm-or-comb-three-scenarios.php",                   "title": "Classify three counting scenarios: perm or comb?",                           "role": "conceptual",  "difficulty": "easy",     "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823705" },
+    { "slot": 12, "sub_topic": "8.2 Conditional Probability",     "file_path": "questions/probability/q21-conditional-2x2-with-independence.php",                 "title": "2x2 conditional probability + independence check",                           "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823683" },
+    { "slot": 13, "sub_topic": "8.4 Expected Value",              "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php",                     "title": "Expected value E(X) and E(X^2) of a discrete RV",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823685" }
+  ],
+  "aid": "22534731",
+  "transferred_at": "2026-05-10T19:45:00Z",
+  "status": "transferred"
+}

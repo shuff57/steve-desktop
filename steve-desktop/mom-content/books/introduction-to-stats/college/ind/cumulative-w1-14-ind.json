@@ -1,0 +1,53 @@
+{
+  "name": "Cumulative Test: Weeks 1-14 (Data -> Regression) Huff",
+  "book": "introduction-to-stats",
+  "kind": "ind",
+  "chapter_section": "cumulative-w1-14",
+  "slug": "cumulative-w1-14-ind",
+  "created_at": "2026-05-25",
+  "source_url": "https://www.myopenmath.com/course/course.php?folder=0&cid=314128",
+  "cid": "314128",
+  "block": "0-1",
+  "mom_settings": {
+    "subtype": "by_question",
+    "defattempts": 3,
+    "versions_per_question": 1,
+    "penalty": { "type": "after_full_score", "reduction_pct": 33, "mom_encoding": "defattemptpenalty=33, defattemptpenaltyaftern=1" },
+    "gbcategory": "Default (no Tests category in cid 314128)",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "after_lastattempt",
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "intro": "",
+    "default_points": 10
+  },
+  "target_n": 10,
+  "auto_graded_count": 8,
+  "frq_count": 2,
+  "estimated_minutes": 59,
+  "time_budget_minutes": 60,
+  "aid": "22674606",
+  "transferred_at": "2026-05-25T16:30:00",
+  "status": "transferred",
+  "planning_notes": [
+    "Cumulative individual test drawn from the two final group quiz manifests: wk1-5-group.json (aid 22618261) and wk7-14-group.json (aid 22620729).",
+    "6 freshly authored (slots 2,3,5,7 auto-graded + slots 9,10 general conceptual FRQs), 4 reused (slots 1,4,6,8). All 10 uploaded as FRESH qids in cid 314128 (matching the group-quiz transfer pattern).",
+    "Settings matched to the prior Unit 3 ind test (aid 22575957): subtype by_question, defattempts 3, defregens 1, defattemptpenalty 33 after 1 attempt (the MOM encoding of after_full_score 33%), showans after_lastattempt, gbcategory Default (no Tests category exists in this course), avail Hide (hidden draft).",
+    "Created hidden with NO date window. Teacher must set available/due and unhide in MOM after previewing.",
+    "Render-verified all 10 via testquestion2.php (no parser errors). The 4 fresh auto-graded reuse the verified-live computation code of the originals (only $cases data differs); chi-square chi^2 values hand-checked.",
+    "An empty 'Text' placeholder row exists at the bottom of the question list (MOM default) - harmless, no points."
+  ],
+  "questions": [
+    { "slot": 1, "topic": "Sampling: population/parameter/statistic", "file": "questions/data-sampling/q4-population-parameter-statistic.php", "title": "Identify population, sample, parameter vs statistic", "role": "conceptual", "diff": "mod", "est_minutes": 3, "is_frq": false, "is_high_impact": true, "qid": "1832720", "points": 10, "source": "reuse", "verify_status": "added" },
+    { "slot": 2, "topic": "Displays: boxplot", "file": "questions/displays/q4-boxplot-outliers-context.php", "title": "Boxplot: IQR, fences, outlier rule (fresh context)", "role": "multipart", "diff": "mod", "est_minutes": 5, "is_frq": false, "is_high_impact": true, "qid": "1832722", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 3, "topic": "Normal distribution", "file": "questions/normal-distribution/q5-normal-probability-context.php", "title": "Normal: P(X<a), P(X>b), P(a<X<b) (fresh context)", "role": "computation", "diff": "mod", "est_minutes": 5, "is_frq": false, "is_high_impact": true, "qid": "1832723", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 4, "topic": "Confidence interval (one mean)", "file": "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php", "title": "CI for one mean (t) from story context + interpret", "role": "multipart", "diff": "mod", "est_minutes": 5, "is_frq": false, "is_high_impact": true, "qid": "1832724", "points": 10, "source": "reuse", "verify_status": "added" },
+    { "slot": 5, "topic": "Hypothesis test (one mean)", "file": "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php", "title": "Full HT one-mean (fresh context 2, t-stat + p + decision)", "role": "multipart", "diff": "mod", "est_minutes": 6, "is_frq": false, "is_high_impact": true, "qid": "1832725", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 6, "topic": "Two-sample CI (means)", "file": "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php", "title": "CI for difference of two means", "role": "multipart", "diff": "mod", "est_minutes": 4, "is_frq": false, "is_high_impact": true, "qid": "1832726", "points": 10, "source": "reuse", "verify_status": "added" },
+    { "slot": 7, "topic": "Chi-square goodness of fit", "file": "questions/stats-tests/chi-square/q9-gof-full-with-conclusion-2.php", "title": "Goodness-of-fit: full test with context conclusion (fresh context 2)", "role": "multipart", "diff": "mod", "est_minutes": 6, "is_frq": false, "is_high_impact": true, "qid": "1832727", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 8, "topic": "Linear regression: correlation & determination from data", "file": "questions/regression/least-squares/q19-data-r-r2-pvalue.php", "title": "From a data set: compute r, r-squared, two-tailed p-value, and interpret r-squared", "role": "multipart", "diff": "mod", "est_minutes": 6, "is_frq": false, "is_high_impact": true, "qid": "1832742", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 9, "topic": "General data literacy FRQ", "file": "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php", "title": "FRQ: Reading a study - observational vs experiment, bias, justified conclusion", "role": "multipart", "diff": "easy", "est_minutes": 10, "is_frq": true, "is_high_impact": false, "qid": "1832729", "points": 10, "source": "draft", "verify_status": "added" },
+    { "slot": 10, "topic": "General inference literacy FRQ", "file": "questions/frq/inference-for-means/q13-interpreting-inference-frq.php", "title": "FRQ: What inference really says - interpret CI/significance + name a misinterpretation", "role": "multipart", "diff": "easy", "est_minutes": 10, "is_frq": true, "is_high_impact": false, "qid": "1832730", "points": 10, "source": "draft", "verify_status": "added" }
+  ]
+}

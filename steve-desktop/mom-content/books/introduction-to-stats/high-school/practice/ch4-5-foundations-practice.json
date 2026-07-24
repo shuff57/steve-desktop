@@ -1,0 +1,165 @@
+{
+  "name": "Practice: Ch4-5 Sampling Distributions + Foundations for Inference (Final-Exam Review)",
+  "book": "introduction-to-stats",
+  "kind": "practice",
+  "chapter_section": "4-5",
+  "slug": "ch4-5-foundations-practice",
+  "source": {
+    "purpose": "Final Semester 2 review. Ch4-5 content was taught Wk12-13 + Wk1-3 of S2. Existing Ch4-5 Practice Test (aid 21979970) and Ch4-5 IND Test (aid 22035961) on this course already gave the class one pass; class IND avg 75.7 is lowest of any S2 chapter test, so this practice is for retention drill before the S2 final.",
+    "coverage_spec": [
+      "Ch4.1 Sampling distribution of sample proportion (p-hat) — conditions and probability",
+      "Ch4.2 Sampling distribution of sample mean (x-bar) — conditions and probability (GAP in existing practice + IND, only p-hat was tested)",
+      "Ch4.3 Central Limit Theorem — when it applies, single-value vs sample comparison (top-miss IND drill)",
+      "Ch5.1 Confidence intervals — interpretation language",
+      "Ch5.1 Confidence intervals — one proportion computation",
+      "Ch5.1 Confidence intervals — one mean (t) (GAP, IND tested only one-prop CI)",
+      "Ch5.1 Confidence interval width factors",
+      "Ch5.2 Hypothesis testing — null and alternative setup in context",
+      "Ch5.2 Hypothesis testing — one proportion full workflow (GAP, IND had only decisions)",
+      "Ch5.2 Hypothesis testing — one mean full workflow (GAP, IND had no one-mean HT)",
+      "Ch5.2 Hypothesis testing — p-value to decision",
+      "Ch5.2 Reject vs fail-to-reject in nuanced contexts (TOP-miss IND, 56% avg)",
+      "Ch5.2 Writing conclusion in context",
+      "Ch5.3 CI ↔ HT connection — using CI for HT",
+      "Ch5.3 Type I and Type II errors in context"
+    ],
+    "high_miss_topics": [
+      { "topic": "Reject vs Fail to Reject (nuanced)", "ind_avg_pct": 56, "drill_strategy": "slot 15 new draft with non-obvious context" },
+      { "topic": "CLT: single vs sample comparison (direction)", "ind_avg_pct": 68, "drill_strategy": "slot 5 new draft, vary inequality direction" },
+      { "topic": "Sampling distribution of sample proportion probability", "ind_avg_pct": 71, "drill_strategy": "slot 3 new draft, both < and > directions" },
+      { "topic": "CLT general", "ind_avg_pct": 74, "drill_strategy": "slot 6 new conceptual draft" },
+      { "topic": "CI interpretation choices", "ind_avg_pct": 83, "drill_strategy": "slot 7 reuse, in-context wording check" }
+    ],
+    "gaps_in_existing_assessments": [
+      "Sampling distribution of x-bar (sample MEAN) — not in either existing practice or IND",
+      "CI for one mean — not in either",
+      "HT for one proportion full workflow with computation — only decisions tested",
+      "HT for one mean — entirely absent",
+      "CI <-> HT connection — neither linked them",
+      "Writing conclusion in context — only 'identify the conclusion' choice tested",
+      "Null/alt setup in context — only definitional p-value/sides tested"
+    ],
+    "covered_hw_assignments": [
+      { "aid": "21000025", "name": "Homework 4.1", "avg_pct": 89, "weakest_items": [
+        { "q": 8,  "title": "Sampling dist conditions (6.6.1)",                 "avg_pct": 89, "incomplete_pct": 19.4 },
+        { "q": 9,  "title": "Sampling dist on-time-for-flight, unusually low",  "avg_pct": 90, "incomplete_pct": 51.4 },
+        { "q": 10, "title": "Sampling dist left-handed, unusually low",         "avg_pct": 93, "incomplete_pct": 52.8 }
+      ] },
+      { "aid": "21000026", "name": "Homework 4.2", "avg_pct": 89, "weakest_items": [
+        { "q": 9,  "title": "CLT: compare single to sample, > or <",            "avg_pct": 88, "incomplete_pct": 15.5 },
+        { "q": 12, "title": "CLT percentile for single value and sample mean",  "avg_pct": 88, "incomplete_pct": 19.7 }
+      ] },
+      { "aid": "21612991", "name": "4.3 Central Limit Theorem Synthesis", "avg_pct": 90, "weakest_items": [
+        { "q": 1,  "title": "CLT Synthesis (single integration item)",          "avg_pct": 79, "incomplete_pct":  2.9 }
+      ] },
+      { "aid": "21749465", "name": "Homework 5.1, 5.2 (part 1)", "avg_pct": 94, "weakest_items": [
+        { "q": 9,  "title": "C.I. form (from interval to p and ME)",            "avg_pct": 95, "incomplete_pct": 10.0 },
+        { "q": 11, "title": "Confidence interval interpretation (p)",           "avg_pct": 95, "incomplete_pct":  5.7 },
+        { "q": 14, "title": "CI given, interpretation only",                    "avg_pct": 95, "incomplete_pct":  5.7 },
+        { "q": 15, "title": "CI w/ interpretation choices, climate change",     "avg_pct": 96, "incomplete_pct":  8.6 }
+      ] },
+      { "aid": "21806792", "name": "Homework 5.3 (part 1)", "avg_pct": 93, "weakest_items": [
+        { "q": 15, "title": "Define p-value, one/two-sided tests",              "avg_pct": 96, "incomplete_pct":  5.5 }
+      ] },
+      { "aid": "21876888", "name": "5.3 Type I and Type II Errors (part 2)", "avg_pct": 97, "weakest_items": [
+        { "q": 5,  "title": "Ho, Ha, type I and type II errors",                "avg_pct": 98, "incomplete_pct":  4.2 }
+      ] }
+    ],
+    "hw_scrape_findings": [
+      "INCOMPLETE-rate problem in HW 4.1: 'unusually low' sampling-distribution items q9 (51.4%) and q10 (52.8%) — half the class never finished. Score among finishers is fine (90-93%), so this is engagement/perseverance, not skill — practice slots 3 and 4 drill this kind of P(p-hat tail) computation in both directions.",
+      "Lowest single HW item across Ch4-5: 4.3 CLT Synthesis at 79% — integration across CLT topics is the weak spot. FRQ slot 20 (sampling-distribution reasoning) targets the same skill.",
+      "HW 4.2 q9/q12 'compare single value vs sample mean' both 88% — lowest cluster in HW 4.2. Practice slot 5 (CLT single-vs-sample) drills this directly in new contexts.",
+      "Reject/fail-to-reject items in HW 5.3 averaged 96-100% but the IND test scored 56% on the same topic. The gap between HW (with retries + feedback) and IND (one attempt) is the retention/transfer signal. Practice slot 15 (nuanced reject drill) is exactly the right counter-measure.",
+      "CI interpretation cluster (HW 5.1 q9/q11/q14/q15) is the lowest Ch5 HW cluster at 95-96%. Practice slot 7 reuses HW q15/q11 verbatim for review."
+    ],
+    "related_existing_assessments": [
+      { "aid": "21979970", "name": "Chapter 4 - 5 Practice Test (existing HW-category, 17 pts, avg 14.2)", "role": "Prior practice; do NOT delete; new practice supplements for final review" },
+      { "aid": "22035961", "name": "Chapter 4 - 5 Individual Test (IND, 100 pts, avg 75.7)", "role": "Reference for high-miss items and coverage gaps" }
+    ]
+  },
+  "created_at": "2026-05-12",
+  "target": { "cid": "301265", "block": "0-7-3" },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "HW (course has no Practice category — same fallback as ch8-regression-practice)",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "after last attempt",
+    "review_before_due": false,
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "default_points": 1,
+    "intro": null
+  },
+  "planning_notes": {
+    "target_n": 22,
+    "valid_n_range": [20, 25],
+    "frq_count": 3,
+    "auto_graded_count": 19,
+    "frq_strategy": "1 reuse (frq/inference-for-proportions/q9) + 2 new drafts (Ch4 sampling-dist FRQ + Ch5 full-HT FRQ)",
+    "draft_count": 10,
+    "selection_priority": "Gap-fill first (slots 2,4 for x-bar sampling dist; slots 13,14 for full HT workflows; slots 17,18 for CI<->HT). Then over-weight high-miss IND items (slots 3,5,6,15) with NEW questions in different contexts. Reuse well-vetted Ch5 repo files for solid foundations.",
+    "qid_status": "Assessment shell created on cid 301265 as aid 22555221, block 0-7-3, displaymethod=full (all on one page), gbcategory=HW (id 736412). 10 drafts must be created+verified+added; 12 reuses must be searched+added. Per-question create/verify/add loop is pending — resume with /mom-transfer 4-5 in a fresh session. Phase 5 skips questions whose qid is already populated, so the run is idempotent.",
+    "settings_post_create": "Verified on save: name set, displaymethod=full, subtype=by_question (Homework), defattempts=3, defregens=20, gbcategory=HW. avail (hide/show) and dates not yet set — teacher will set both before unhiding."
+  },
+  "questions": [
+    { "slot": 1, "topic": "Ch4.1 Sampling dist p-hat", "title": "Sampling distribution of sample proportion — conditions check", "file": "questions/sampling-distributions/q1-p-hat-conditions.php", "role": "multipart", "diff": "easy", "is_frq": false, "source": "draft", "qid": "1825460", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12" },
+    { "slot": 2, "topic": "Ch4.2 Sampling dist x-bar", "title": "Sampling distribution of sample mean — conditions check (GAP)", "file": "questions/sampling-distributions/q2-x-bar-conditions.php", "role": "multipart", "diff": "easy", "is_frq": false, "source": "draft", "qid": "1825464", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12", "qid_note": "save URL reported 1825465 but assessment table shows 1825464 — table is authoritative" },
+    { "slot": 3, "topic": "Ch4.1 Sampling dist p-hat", "title": "P(p-hat < x) or P(p-hat > x) — direction varies", "file": "questions/sampling-distributions/q3-p-hat-probability.php", "role": "computation", "diff": "mod", "is_frq": false, "source": "draft", "qid": "1825467", "verify_status": "rendered_clean_after_loadlibrary_fix", "draft_status": "written 2026-05-12" },
+    { "slot": 4, "topic": "Ch4.2 Sampling dist x-bar", "title": "P(x-bar < x) or P(x-bar > x) — direction varies (GAP)", "file": "questions/sampling-distributions/q4-x-bar-probability.php", "role": "computation", "diff": "mod", "is_frq": false, "source": "draft", "qid": "1825481", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12" },
+    { "slot": 5, "topic": "Ch4.3 CLT", "title": "CLT: compare P(X < a) to P(x-bar < a) — direction matters", "file": "questions/sampling-distributions/q5-clt-single-vs-sample.php", "role": "multipart", "diff": "hard", "is_frq": false, "source": "draft", "qid": "1825483", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12 — TOP-miss drill" },
+    { "slot": 6, "topic": "Ch4.3 CLT", "title": "When does the CLT apply? — conditions and consequences", "file": "questions/sampling-distributions/q6-clt-when-applies.php", "role": "conceptual", "diff": "mod", "is_frq": false, "source": "draft", "qid": "1825490", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12", "qid_note": "first attempt (1825486) was created as multipart by mistake; replaced with multans-typed 1825490 via Advanced Search by qid" },
+    { "slot": 7, "topic": "Ch5.1 CI interpretation", "title": "Interpret a confidence interval — choose correct wording", "file": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php", "role": "conceptual", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825491", "verify_status": "rendered_clean", "notes": "Well-vetted. Common-pitfall language." },
+    { "slot": 8, "topic": "Ch5.1 CI one prop", "title": "CI for one proportion — compute", "file": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php", "role": "computation", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825492", "verify_status": "rendered_clean", "notes": null },
+    { "slot": 9, "topic": "Ch5.1 CI one mean", "title": "CI for one mean (t) — compute (GAP)", "file": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php", "role": "computation", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825493", "verify_status": "rendered_clean", "notes": "Existing IND didn't have CI for mean. Borderline Ch7 t-procedures but acceptable for foundations review." },
+    { "slot": 10, "topic": "Ch5.1 CI width", "title": "What changes CI width — n, sigma, confidence level", "file": "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php", "role": "conceptual", "diff": "easy", "is_frq": false, "source": "reuse", "qid": "1825494", "verify_status": "rendered_clean", "notes": null },
+    { "slot": 11, "topic": "Ch5.2 HT setup", "title": "State H0 and Ha in context", "file": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php", "role": "multipart", "diff": "easy", "is_frq": false, "source": "reuse", "qid": "1825496", "verify_status": "rendered_clean", "notes": "Definitional + context — fills gap (existing tests only had definitional)." },
+    { "slot": 12, "topic": "Ch5.2 HT decision", "title": "p-value to decision at significance level alpha", "file": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php", "role": "computation", "diff": "easy", "is_frq": false, "source": "reuse", "qid": "1825498", "verify_status": "rendered_clean", "notes": null },
+    { "slot": 13, "topic": "Ch5.2 HT one prop full", "title": "HT for one proportion — full workflow (GAP)", "file": "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php", "role": "multipart", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825499", "verify_status": "rendered_clean_after_array_index_fix", "notes": "GAP: existing tests only had decisions, not full HT computation. Patched $arr[$dir] interpolation to precomputed scalars 2026-05-12." },
+    { "slot": 14, "topic": "Ch5.2 HT one mean full", "title": "HT for one mean — full workflow (GAP)", "file": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php", "role": "multipart", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825500", "verify_status": "rendered_clean_after_array_index_fix", "notes": "GAP: no one-mean HT in either existing test. Borderline t-procedures. Patched $arr[$dir] interpolation to precomputed scalars 2026-05-12." },
+    { "slot": 15, "topic": "Ch5.2 Reject decision", "title": "Reject vs fail-to-reject in nuanced context (TOP-MISS DRILL)", "file": "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php", "role": "multipart", "diff": "hard", "is_frq": false, "source": "draft", "qid": "1825501", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12 — TOP-miss drill" },
+    { "slot": 16, "topic": "Ch5.2 Conclusion writing", "title": "Write the conclusion of a test in context (GAP)", "file": "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php", "role": "conceptual", "diff": "mod", "is_frq": false, "source": "draft", "qid": "1825502", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12" },
+    { "slot": 17, "topic": "Ch5.3 CI<->HT", "title": "Use CI to test hypothesis — proportion (GAP)", "file": "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php", "role": "multipart", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825503", "verify_status": "rendered_clean", "notes": "GAP fill." },
+    { "slot": 18, "topic": "Ch5.3 CI<->HT", "title": "CI to test — does it contain the null value (GAP)", "file": "questions/stats-tests/ci-ht-connection/q10-ci-to-test-hypothesis.php", "role": "conceptual", "diff": "mod", "is_frq": false, "source": "reuse", "qid": "1825504", "verify_status": "rendered_clean", "notes": "GAP fill." },
+    { "slot": 19, "topic": "Ch5.3 Type I/II", "title": "Type I vs Type II errors in context", "file": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php", "role": "conceptual", "diff": "mod", "is_frq": false, "source": "draft", "qid": "1825505", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12" },
+    { "slot": 20, "topic": "FRQ Ch4 Sampling distributions", "title": "FRQ: Sampling-distribution reasoning + condition verification + SE interpretation", "file": "questions/frq/sampling-distributions/q1-sampling-distribution-reasoning.php", "role": "essay", "diff": "mod", "is_frq": true, "source": "draft", "qid": "1825507", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12 — new FRQ folder" },
+    { "slot": 21, "topic": "FRQ Ch5 Full HT", "title": "FRQ: Full hypothesis test in context — state H0/Ha, check conditions, compute, conclude", "file": "questions/frq/inference-for-proportions/q14-full-ht-workflow-context.php", "role": "essay", "diff": "hard", "is_frq": true, "source": "draft", "qid": "1825508", "verify_status": "rendered_clean", "draft_status": "written 2026-05-12 — integrative" },
+    { "slot": 22, "topic": "FRQ Ch5 Interpret results", "title": "FRQ: Single-proportion test interpretation", "file": "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php", "role": "essay", "diff": "mod", "is_frq": true, "source": "reuse", "qid": "1777562", "verify_status": "rendered_clean", "notes": "Well-vetted; complements slot 21 which is the full workflow.", "qid_note": "search by description returned pre-existing library copy 1777562 which renders cleanly; the freshly-created 1825510 is an orphan in the library" }
+  ],
+  "aid": "22555221",
+  "transferred_at": "2026-05-12T00:00:00",
+  "status": "transferred",
+  "assessment_url": "https://www.myopenmath.com/course/addassessment2.php?id=22555221&cid=301265",
+  "addquestions_url": "https://www.myopenmath.com/course/addquestions2.php?cid=301265&aid=22555221",
+  "transfer_notes": {
+    "session_date": "2026-05-12",
+    "discoveries": [
+      "MOM blocks `normalcdf`, `invnormalcdf`, `tcdf`, `invtcdf`, etc. unless the CC begins with `loadlibrary(\"stats\")`. Documented in `questions/sampling-distributions/AGENTS.md`.",
+      "The 4-arg form `normalcdf(mean, sd, lower, upper)` is rejected on this MOM instance even with `loadlibrary(\"stats\")` loaded. Use `normalcdf($z)` where `$z = (c - mu) / se`.",
+      "IMathAS text interpolation does NOT resolve `$arr[$varIndex]` in QT or Detailed Solution; precompute scalars like `$dirtext_picked = $dirtext[$dir]` in CC and reference the scalar. Slots 13 and 14 were patched accordingly.",
+      "The `mom-transfer` helper's `addToAssignment` uses description-based search; when a same-name question pre-exists in the MOM library it can pick that pre-existing qid instead of the freshly-created one. Slot 22 ended up bound to the older library copy 1777562 (which renders cleanly), and the freshly-created 1825510 is an orphan.",
+      "Question-type selector on `moddataset.php` is keyed by the `data-sn` attribute on `<a>` elements: multipart, multans, choices, essay, conditional. The earlier `createAndSave` helper that hard-coded Multipart misclassified slots 6, 10, 16, 18."
+    ],
+    "orphans_in_library": ["1825473", "1825474", "1825476", "1825479", "1825486", "1825490 (replaced by table-resolved equiv at slot 6, see note)", "1825510 (slot 22 picked pre-existing 1777562 from library)"],
+    "next_steps_for_teacher": [
+      "Open the assessment URL above. Verify slot order and content match expectations.",
+      "Set the `available` and `due` dates in the assessment settings before unhiding.",
+      "Toggle `avail` from `no` to `yes` once ready for students.",
+      "Optional: preview each FRQ slot (20, 21, 22) to confirm essay rubric prompts render correctly."
+    ],
+    "restyle_pass_2026_05_12": {
+      "scope": "10 reuse files (slots 7,8,9,10,11,12,13,14,17,18) brought up to current mom-style-guide. Slot 22 left as the pre-existing FRQ library copy 1777562 since it has its own rubric template.",
+      "changes": [
+        "Wrapped all QT bodies in the standard card-per-part layout (white cards, blue chip labels, dual-layer shadow, -apple-system font stack, max-width 688px).",
+        "Wrapped inline math (`p`, `H_0`, `H_a`, `mu`, `bar(x)`, `\\hat{p}`, `n = N`, percentages) in AsciiMath backticks.",
+        "Added missing `$noshuffle[n] = \"all\"` on choices parts with hardcoded `$answer[n]` index — fixes a latent grading bug in q5-pvalue-decision, q6-null-alt-hypotheses, q7-ht-one-mean, q8-ht-one-proportion, q9-ht-using-ci-proportion. Without it MOM was shuffling options on each version and the integer answer index pointed at the wrong choice.",
+        "Per-part `$displayformat[n] = \"select\"` instead of global `$displayformat = \"select\"`.",
+        "Cleaned up solution blocks: precomputed scalars used in interpolation (no $arr[$var_index] left), wrapped formulas in backticks."
+      ],
+      "rendered_clean": "All 10 restyled qids verified via testquestion2 preview with zero errors and zero array-to-string warnings."
+    }
+  }
+}

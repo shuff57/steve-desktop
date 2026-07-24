@@ -1,0 +1,667 @@
+{
+  "21000031": {
+    "name": "HW 7.1",
+    "n": 16,
+    "rows": [
+      {
+        "q": "1",
+        "title": "hypothesis test of a mean, standard deviation unknown (local for Leah Dorazio)",
+        "avg": "98%",
+        "tries": "1.85 (0.06)",
+        "incomplete": "8.5%"
+      },
+      {
+        "q": "2",
+        "title": "Withdrawn hypothesis test of a proportion",
+        "avg": "100%",
+        "tries": "2 (0.11)",
+        "incomplete": "87.3%"
+      },
+      {
+        "q": "3",
+        "title": "Withdrawn Intro Mean Hypothesis testing using p-value (incorrectly from normal distribution, even though it's a small sa",
+        "avg": "100%",
+        "tries": "2 (0.6)",
+        "incomplete": "93%"
+      },
+      {
+        "q": "4",
+        "title": "Withdrawn Hypothesis tests, 1 population, proportion (5 parts) (copy by Melonie Rasmussen) (local for Leah Dorazio)",
+        "avg": "100%",
+        "tries": "1.5 (0.5)",
+        "incomplete": "97.2%"
+      },
+      {
+        "q": "5",
+        "title": "Withdrawn Critical value (t) for confidence interval, 80,90,95,98, or 99% (local for Leah Dorazio) (local for Steven Huf",
+        "avg": "100%",
+        "tries": "1.8 (0)",
+        "incomplete": "93%"
+      },
+      {
+        "q": "6",
+        "title": "Confidence interval for the mean (MP) (local for Leah Dorazio)",
+        "avg": "100%",
+        "tries": "1.23 (0.02)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "7",
+        "title": "Confidence interval for the mean--sample size (MC)",
+        "avg": "100%",
+        "tries": "1.4 (0)",
+        "incomplete": "4.2%"
+      },
+      {
+        "q": "8",
+        "title": "Confidence interval for the mean--confidence level (MC)",
+        "avg": "100%",
+        "tries": "1.3 (0)",
+        "incomplete": "5.6%"
+      },
+      {
+        "q": "9",
+        "title": "Calculate a confidence interval for the mean",
+        "avg": "85%",
+        "tries": "1.52 (0.21)",
+        "incomplete": "12.7%"
+      },
+      {
+        "q": "10",
+        "title": "Distribution of the averages (T/F)",
+        "avg": "100%",
+        "tries": "1.75 (0)",
+        "incomplete": "4.2%"
+      },
+      {
+        "q": "11",
+        "title": "Test statistic, one mean test, sigma unknown",
+        "avg": "90%",
+        "tries": "1.37 (0.11)",
+        "incomplete": "11.3%"
+      },
+      {
+        "q": "12",
+        "title": "Full hypothesis test, one population, mean, multipart",
+        "avg": "95%",
+        "tries": "2.03 (0.14)",
+        "incomplete": "11.3%"
+      },
+      {
+        "q": "13",
+        "title": "Hyp test for μ & σ unknown large n (abtract & p-value) [4243 GH] (local for Jessica Reidel changed to xbar and s)",
+        "avg": "86%",
+        "tries": "2.26 (0.11)",
+        "incomplete": "14.1%"
+      },
+      {
+        "q": "14",
+        "title": "Full hypothesis test, one population, mean (p-value, no critical values) (with technology tutorial)",
+        "avg": "98%",
+        "tries": "1.9 (0)",
+        "incomplete": "12.7%"
+      },
+      {
+        "q": "15",
+        "title": "Hypothesis Testing (). (BW)",
+        "avg": "95%",
+        "tries": "2.12 (0.07)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "16",
+        "title": "Hypothesis Testing () (2). (BW)",
+        "avg": "95%",
+        "tries": "2.22 (0.13)",
+        "incomplete": "22.5%"
+      }
+    ]
+  },
+  "21000032": {
+    "name": "HW 7.2",
+    "n": 7,
+    "rows": [
+      {
+        "q": "1",
+        "title": "OLI CP Matched Pairs #1",
+        "avg": "100%",
+        "tries": "1.67 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "2",
+        "title": "OLI CP Matched Pairs #4",
+        "avg": "100%",
+        "tries": "1.68 (0.14)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "3",
+        "title": "u4_m3_matchedpairs3_tutor11 Tutor",
+        "avg": "97%",
+        "tries": "1.8 (0.1)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "4",
+        "title": "Test statistic for matched pairs",
+        "avg": "100%",
+        "tries": "1.28 (0.1)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "5",
+        "title": "OpenIntro Statistics: Problem 5.20 (Answers using TI functionality) (local for Leah Dorazio)",
+        "avg": "93%",
+        "tries": "2.25 (0.54)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "6",
+        "title": "Hyp test Matched Pairs small n (abtract & p-value) [4259 GH] (local for Leah Dorazio)",
+        "avg": "88%",
+        "tries": "2.1 (0.16)",
+        "incomplete": "8.7%"
+      },
+      {
+        "q": "7",
+        "title": "OpenIntro Statistics: Problem 5.22 (Answers using TI functionality) (local for Leah Dorazio)",
+        "avg": "98%",
+        "tries": "1.89 (0.24)",
+        "incomplete": "4.3%"
+      }
+    ]
+  },
+  "21000033": {
+    "name": "HW 7.3",
+    "n": 16,
+    "rows": [
+      {
+        "q": "1",
+        "title": "OpenIntro Statistics (3Ed): Problem 5.17 Like OpenIntro Statistics (4Ed) Problem 7.17 (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.81 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "2",
+        "title": "OpenIntro Statistics (3Ed): Problem 5.18 Like OpenIntro Statistics (4Ed) Problem 7.18 (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.81 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "3",
+        "title": "OLI CP Matched Pairs #2",
+        "avg": "100%",
+        "tries": "1.93 (0.11)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "4",
+        "title": "two-sample mean t-statistic given info (context) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "95%",
+        "tries": "1.2 (0.13)",
+        "incomplete": "9.9%"
+      },
+      {
+        "q": "5",
+        "title": "OpenIntro Statistics: Problem 5.32 (Answers using TI functionality) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "99%",
+        "tries": "1.66 (0.03)",
+        "incomplete": "14.1%"
+      },
+      {
+        "q": "6",
+        "title": "AP 374.17 health service costs two sample independent (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.4 (0.36)",
+        "incomplete": "5.6%"
+      },
+      {
+        "q": "7",
+        "title": "Withdrawn OpenIntro Statistics: Problem 5.34 (Answers using TI functionality) (local for Leah Dorazio) (local for Steven",
+        "avg": "100%",
+        "tries": "2.23 (0.47)",
+        "incomplete": "15.5%"
+      },
+      {
+        "q": "8",
+        "title": "test statistic from two means and two sample std devs",
+        "avg": "100%",
+        "tries": "1.12 (0.03)",
+        "incomplete": "8.5%"
+      },
+      {
+        "q": "9",
+        "title": "test statistic from two means and two sample std devs - PG",
+        "avg": "100%",
+        "tries": "1.13 (0)",
+        "incomplete": "11.3%"
+      },
+      {
+        "q": "10",
+        "title": "Withdrawn Hypothesis Test Two independent samples, Mean. two tailed z test with p-value. Difference in reflex time of ol",
+        "avg": "100%",
+        "tries": "2.06 (0.44)",
+        "incomplete": "77.5%"
+      },
+      {
+        "q": "11",
+        "title": "two-sample mean t-statistics given info",
+        "avg": "100%",
+        "tries": "1.15 (0.07)",
+        "incomplete": "15.5%"
+      },
+      {
+        "q": "12",
+        "title": "two-sample mean difference confidence interval",
+        "avg": "82%",
+        "tries": "1.84 (0.61)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "13",
+        "title": "two-sample mean difference confidence interval conde naste traveler (local for Steven Huff)",
+        "avg": "78%",
+        "tries": "1.6 (0.4)",
+        "incomplete": "15.5%"
+      },
+      {
+        "q": "14",
+        "title": "Withdrawn Margin of error, two means, sigma unknown, 80,90,95,98, or 99% confidence, independent samples.",
+        "avg": "100%",
+        "tries": "2.75 (1)",
+        "incomplete": "94.4%"
+      },
+      {
+        "q": "15",
+        "title": "Withdrawn Critical value, two means, sigma unknown, 80,90,95,98, or 99% confidence, independent samples",
+        "avg": "100%",
+        "tries": "1.5 (0.25)",
+        "incomplete": "94.4%"
+      },
+      {
+        "q": "16",
+        "title": "Withdrawn Confidence interval, two means, sigma unknown, 80,90,95,98, or 99% confidence, independent samples",
+        "avg": "100%",
+        "tries": "2 (0.5)",
+        "incomplete": "97.2%"
+      }
+    ]
+  },
+  "22263279": {
+    "name": "7.1-7.3 Mixed Review",
+    "n": 20,
+    "rows": [
+      {
+        "q": "1",
+        "title": "T Values",
+        "avg": "99%",
+        "tries": "1.34 (0.2)",
+        "incomplete": "11.9%"
+      },
+      {
+        "q": "2",
+        "title": "Margin of Error-Mean Small Sample Size",
+        "avg": "98%",
+        "tries": "1.32 (0.14)",
+        "incomplete": "11.9%"
+      },
+      {
+        "q": "3",
+        "title": "Margin of Error-Mean Larger Sample Size",
+        "avg": "98%",
+        "tries": "1.12 (0.02)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "4",
+        "title": "Confidence Interval for a Mean - Story Efficient Manufacturing",
+        "avg": "95%",
+        "tries": "2.25 (0.22)",
+        "incomplete": "23.9%"
+      },
+      {
+        "q": "5",
+        "title": "Confidence Interval for a Mean - Household Computers (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.83 (0.06)",
+        "incomplete": "19.4%"
+      },
+      {
+        "q": "6",
+        "title": "test statistic from two means and two sample std devs",
+        "avg": "100%",
+        "tries": "1.14 (0)",
+        "incomplete": "13.4%"
+      },
+      {
+        "q": "7",
+        "title": "Full hypothesis test, two population, mean, multipart",
+        "avg": "89%",
+        "tries": "2.27 (0.38)",
+        "incomplete": "22.4%"
+      },
+      {
+        "q": "8",
+        "title": "two-sample mean t-statistics given info",
+        "avg": "98%",
+        "tries": "1.18 (0.1)",
+        "incomplete": "26.9%"
+      },
+      {
+        "q": "9",
+        "title": "Hyp test for 2 μ don't assume equal var (confidence interval)",
+        "avg": "72%",
+        "tries": "2.59 (0.51)",
+        "incomplete": "44.8%"
+      },
+      {
+        "q": "10",
+        "title": "Full hypothesis test, two population (not pooled), means (p-value)",
+        "avg": "99%",
+        "tries": "1.69 (0.04)",
+        "incomplete": "32.8%"
+      },
+      {
+        "q": "11",
+        "title": "Hypothesis testing t-test 2 independent means left-tail p-value",
+        "avg": "98%",
+        "tries": "2 (0.09)",
+        "incomplete": "32.8%"
+      },
+      {
+        "q": "12",
+        "title": "2-sample mean t-interval assume unequal variances (local for Rachel Webb)",
+        "avg": "50%",
+        "tries": "1.94 (0.23)",
+        "incomplete": "47.8%"
+      },
+      {
+        "q": "13",
+        "title": "Determine if each scenario is matched pairs or independent samples",
+        "avg": "99%",
+        "tries": "1.88 (0.36)",
+        "incomplete": "25.4%"
+      },
+      {
+        "q": "14",
+        "title": "Test statistic for matched pairs",
+        "avg": "100%",
+        "tries": "1.06 (0)",
+        "incomplete": "23.9%"
+      },
+      {
+        "q": "15",
+        "title": "Hyp test Matched Pairs small n (abtract & critical region)",
+        "avg": "88%",
+        "tries": "2.42 (0.08)",
+        "incomplete": "43.3%"
+      },
+      {
+        "q": "16",
+        "title": "Hyp test Matched Pairs moderate n (abtract & p-value)",
+        "avg": "90%",
+        "tries": "2.3 (0.19)",
+        "incomplete": "44.8%"
+      },
+      {
+        "q": "17",
+        "title": "2 Dependent Sample t-test, Data (short) playing vs. watching sports",
+        "avg": "91%",
+        "tries": "2.71 (0.15)",
+        "incomplete": "49.3%"
+      },
+      {
+        "q": "18",
+        "title": "2 Dependent Sample t-test, Data (short) right vs. left eye covered time on obstacle course.",
+        "avg": "89%",
+        "tries": "2.48 (0.13)",
+        "incomplete": "53.7%"
+      },
+      {
+        "q": "19",
+        "title": "Single Mean - Concept and Hypotheses - Students explain what a hypothesis test for a single population mean is trying to",
+        "avg": "0%",
+        "tries": "1 (0.04)",
+        "incomplete": "61.2%"
+      },
+      {
+        "q": "20",
+        "title": "Two-Sample Means - Concept and Hypotheses - Students explain when a two-sample t-test for independent means is appropria",
+        "avg": "0%",
+        "tries": "1 (0.04)",
+        "incomplete": "61.2%"
+      }
+    ]
+  },
+  "22328868": {
+    "name": "Ch7 Group Test",
+    "n": 13,
+    "rows": [
+      {
+        "q": "1",
+        "title": "T Values",
+        "avg": "99%",
+        "tries": "1.47 (0)",
+        "incomplete": "4.1%"
+      },
+      {
+        "q": "2",
+        "title": "Margin of Error-Mean Small Sample Size",
+        "avg": "94%",
+        "tries": "1.5 (0)",
+        "incomplete": "4.1%"
+      },
+      {
+        "q": "3",
+        "title": "Confidence Interval for a Mean - Household Computers (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "2.33 (0)",
+        "incomplete": "9.6%"
+      },
+      {
+        "q": "4",
+        "title": "Full hypothesis test, two population, mean, multipart",
+        "avg": "89%",
+        "tries": "2.42 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "5",
+        "title": "Hypothesis testing t-test 2 independent means left-tail p-value (local for Steven Huff)",
+        "avg": "95%",
+        "tries": "2.3 (0)",
+        "incomplete": "5.5%"
+      },
+      {
+        "q": "6",
+        "title": "Determine if each scenario is matched pairs or independent samples",
+        "avg": "95%",
+        "tries": "1.75 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "7",
+        "title": "2 Dependent Sample t-test, Data (short) playing vs. watching sports",
+        "avg": "91%",
+        "tries": "2.88 (0)",
+        "incomplete": "19.2%"
+      },
+      {
+        "q": "8",
+        "title": "ANOVA Summary Table v3",
+        "avg": "92%",
+        "tries": "1.6 (0)",
+        "incomplete": "13.7%"
+      },
+      {
+        "q": "9",
+        "title": "ANOVA: 1-way fixed G=4, Full Hypothesis, GPA by clothes",
+        "avg": "95%",
+        "tries": "1.87 (0)",
+        "incomplete": "8.2%"
+      },
+      {
+        "q": "10",
+        "title": "G&W Chpt 13 #8 + #9: means get closer",
+        "avg": "93%",
+        "tries": "1.62 (0)",
+        "incomplete": "9.6%"
+      },
+      {
+        "q": "11",
+        "title": "Single Mean Inference - Interpreting P-Value - Students interpret a completed one-sample mean hypothesis test by compari",
+        "avg": "57%",
+        "tries": "1.03 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "12",
+        "title": "Paired Means - Interpreting Results - Students interpret a completed paired t-test by comparing p-value to alpha, making",
+        "avg": "55%",
+        "tries": "0.94 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "13",
+        "title": "When to Use ANOVA - Inference for Means Ch7 FRQ Q10",
+        "avg": "44%",
+        "tries": "1 (0)",
+        "incomplete": "1.4%"
+      }
+    ]
+  },
+  "22351314": {
+    "name": "Ch7 Practice Test",
+    "n": 9,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Margin of Error-Mean Small Sample Size",
+        "avg": "97%",
+        "tries": "1.33 (0.2)",
+        "incomplete": "5.7%"
+      },
+      {
+        "q": "2",
+        "title": "Confidence Interval for a Mean - Household Computers (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "2.02 (0.41)",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "3",
+        "title": "Full hypothesis test, two population, mean, multipart",
+        "avg": "95%",
+        "tries": "2.18 (0.17)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "4",
+        "title": "Hypothesis testing t-test 2 independent means left-tail p-value (local for Steven Huff)",
+        "avg": "96%",
+        "tries": "2.25 (0.18)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "5",
+        "title": "2 Dependent Sample t-test, Data (short) playing vs. watching sports",
+        "avg": "93%",
+        "tries": "2.33 (0.28)",
+        "incomplete": "22.9%"
+      },
+      {
+        "q": "6",
+        "title": "ANOVA Summary Table v3",
+        "avg": "96%",
+        "tries": "1.41 (0.22)",
+        "incomplete": "22.9%"
+      },
+      {
+        "q": "7",
+        "title": "ANOVA: 1-way fixed G=4, Full Hypothesis, GPA by clothes",
+        "avg": "94%",
+        "tries": "1.82 (0.08)",
+        "incomplete": "14.3%"
+      },
+      {
+        "q": "8",
+        "title": "Single Mean - Concept and Hypotheses - Students explain what a hypothesis test for a single population mean is trying to",
+        "avg": "37%",
+        "tries": "0.69 (0.01)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "9",
+        "title": "Paired vs Two-Sample T-Tests - Students explain the key design difference between paired and independent samples, classi",
+        "avg": "37%",
+        "tries": "0.68 (0.03)",
+        "incomplete": "2.9%"
+      }
+    ]
+  },
+  "22375326": {
+    "name": "Ch7 Individual Test",
+    "n": 8,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Confidence Interval for a Mean - Household Computers (local for Steven Huff)",
+        "avg": "94%",
+        "tries": "1.85",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "2",
+        "title": "Full hypothesis test, two population, mean, multipart",
+        "avg": "93%",
+        "tries": "2.12",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "3",
+        "title": "Hypothesis testing t-test 2 independent means left-tail p-value (local for Steven Huff)",
+        "avg": "96%",
+        "tries": "1.97",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "4",
+        "title": "ANOVA Summary Table v3",
+        "avg": "93%",
+        "tries": "1.5",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "5",
+        "title": "ANOVA: 1-way fixed G=4, Full Hypothesis, GPA by clothes",
+        "avg": "95%",
+        "tries": "1.67",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "6",
+        "title": "Single Mean Inference - Interpreting P-Value - Students interpret a completed one-sample mean hypothesis test by compari",
+        "avg": "68%",
+        "tries": "1.5",
+        "incomplete": "0%"
+      },
+      {
+        "q": "7",
+        "title": "When to Use ANOVA - Inference for Means Ch7 FRQ Q10",
+        "avg": "56%",
+        "tries": "1.57",
+        "incomplete": "0%"
+      },
+      {
+        "q": "8",
+        "title": "Hypothesis Test - Reaction Times - Students identify the correct test, build hypotheses, compute stats, and conclude.",
+        "avg": "93%",
+        "tries": "2.31",
+        "incomplete": "11.4%"
+      }
+    ]
+  }
+}

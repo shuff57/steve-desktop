@@ -1,0 +1,65 @@
+{
+  "source": "INDEX.txt",
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q1-single-mean-concept-and-hypotheses.php",
+      "title": "Single Mean - Concept and Hypotheses",
+      "prompt": "Students explain what a hypothesis test for a single population mean is trying to answer, provide a real-world example from a randomized context with randomized numerical values, and state the hypotheses."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q2-single-mean-interpreting-p-value.php",
+      "title": "Single Mean - Interpreting P-Value",
+      "prompt": "Given a scenario with randomized data (n, x-bar, claimed mu, p-value, alpha), students interpret the p-value, make a decision about the null hypothesis, and explain what the result means in context."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q3-single-mean-interpreting-confidence-interval.php",
+      "title": "Single Mean - Interpreting Confidence Interval",
+      "prompt": "Given a scenario with randomized data (n, x-bar, s, confidence level, interval bounds), students interpret what the confidence interval means for the population mean and connect it to the context."
+    },
+    "4": {
+      "status": "completed",
+      "file": "q4-paired-means-concept-and-hypotheses.php",
+      "title": "Paired Means - Concept and Hypotheses",
+      "prompt": "Students explain why paired data uses differences, describe the paired design, provide a real-world example from a randomized context with randomized numerical values, and state the hypotheses."
+    },
+    "5": {
+      "status": "completed",
+      "file": "q5-paired-means-interpreting-results.php",
+      "title": "Paired Means - Interpreting Results",
+      "prompt": "Given a paired scenario with randomized summary stats (n pairs, d-bar, s_d, p-value, alpha), students interpret the results, make a decision, and explain in context."
+    },
+    "6": {
+      "status": "completed",
+      "file": "q6-two-sample-means-concept-and-hypotheses.php",
+      "title": "Two-Sample Means - Concept and Hypotheses",
+      "prompt": "Students explain when a two-sample t-test is appropriate, provide a real-world example from a randomized context with randomized numerical values, and state the hypotheses."
+    },
+    "7": {
+      "status": "completed",
+      "file": "q7-two-sample-means-interpreting-results.php",
+      "title": "Two-Sample Means - Interpreting Results",
+      "prompt": "Given a two-group scenario with randomized data (n1, n2, x-bar1, x-bar2, p-value, alpha), students interpret the results, make a decision, and explain in context."
+    },
+    "8": {
+      "status": "completed",
+      "file": "q8-paired-vs-two-sample-t-tests.php",
+      "title": "Paired vs Two-Sample T-Tests",
+      "prompt": "Students explain the fundamental difference between paired and two-sample t-tests, classify randomized scenarios as paired or independent with justification, and explain why using the correct test matters."
+    },
+    "9": {
+      "status": "completed",
+      "file": "q9-anova-interpreting-results.php",
+      "title": "ANOVA - Interpreting Results",
+      "prompt": "Given a one-way ANOVA scenario with three groups, randomized sample sizes, group means, F-statistic, p-value, and alpha, students explain why ANOVA is appropriate instead of multiple t-tests, state the hypotheses, interpret the F-test output, and write a contextual conclusion."
+    },
+    "10": {
+      "status": "completed",
+      "file": "q10-two-sample-means-interpreting-confidence-interval.php",
+      "title": "Two-Sample Means - Interpreting Confidence Interval",
+      "prompt": "Given a two-group scenario with randomized data (n1, n2, x-bar1, x-bar2, confidence level, interval bounds), students interpret what the confidence interval for the difference in means tells us, explain the confidence level meaning, and assess whether zero in the interval suggests a real difference."
+    }
+  }
+}

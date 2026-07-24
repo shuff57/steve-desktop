@@ -1,0 +1,56 @@
+{
+  "_purpose": "Working notes — MOM assessment inventory for Ch6/7/8 practice-test build. Delete after manifests are written.",
+  "cid": "301265",
+  "course": "3, 5 Intro to Stats",
+  "scraped_at": "2026-05-13",
+  "ch6": {
+    "hw_block_path": "0-7-4",
+    "test_block_path": "0-7-5",
+    "hw": [
+      { "aid": "21000027", "name": "Homework 6.1" },
+      { "aid": "21000028", "name": "Homework 6.2" },
+      { "aid": "22110497", "name": "6.1 & 6.2 Mixed Review" },
+      { "aid": "21000029", "name": "Homework 6.3" },
+      { "aid": "21000030", "name": "Homework 6.4" }
+    ],
+    "test_assessments": [
+      { "aid": "22166694", "name": "Chapter 6 FRQ", "kind": "pool", "hidden": true },
+      { "aid": "22170278", "name": "Chapter 6 Practice Test", "kind": "practice" },
+      { "aid": "22181973", "name": "Chapter 6 Group Test", "kind": "group" },
+      { "aid": "22195968", "name": "Chapter 6 Individual Test", "kind": "ind" }
+    ]
+  },
+  "ch7": {
+    "hw_block_path": "0-7-6",
+    "test_block_path": "0-7-7",
+    "hw": [
+      { "aid": "21000031", "name": "Homework 7.1" },
+      { "aid": "21000032", "name": "Homework 7.2" },
+      { "aid": "21000033", "name": "Homework 7.3" },
+      { "aid": "22263279", "name": "7.1, 7.2, and 7.3 Mixed Review" }
+    ],
+    "missing_hw_notes": "No HW for 7.4 or 7.5 (ANOVA) visible in chapter block. 7.5 reading assignment exists but no associated HW.",
+    "test_assessments": [
+      { "aid": "22324741", "name": "Chapter 7 FRQ", "kind": "pool", "hidden": true },
+      { "aid": "22351314", "name": "Chapter 7 Practice Test", "kind": "practice" },
+      { "aid": "22328868", "name": "Chapter 7 Group Test", "kind": "group" },
+      { "aid": "22375326", "name": "Chapter 7 Individual Test", "kind": "ind" }
+    ]
+  },
+  "ch8": {
+    "hw_block_path": "0-7-8",
+    "test_block_path": "0-7-9",
+    "hw": [
+      { "aid": "22393935", "name": "Homework 8.1 Day 1" },
+      { "aid": "21000034", "name": "Homework 8.1 Day 2" },
+      { "aid": "21000035", "name": "Homework 8.2" },
+      { "aid": "22451386", "name": "Homework: Ch 8.4 Inference for the Slope of a Regression Line" },
+      { "aid": "21000036", "name": "Homework 8.4 (hidden — possibly orphan)" }
+    ],
+    "test_assessments": [
+      { "aid": "22462700", "name": "Practice: Ch8 Introduction to Linear Regression", "kind": "practice", "note": "Already has manifest in repo at books/introduction-to-stats/practice/ch8-regression-practice.json (manifest aid 22450319 — different from this 22462700, suggests course-copy occurred)" },
+      { "aid": "22462701", "name": "Group Test: Ch8 Introduction to Linear Regression", "kind": "group" },
+      { "aid": "22495236", "name": "Ch8 Individual Test", "kind": "ind", "note": "Repo manifest at books/introduction-to-stats/ind/ch8-regression-test.json references aid 22495236? need to verify" }
+    ]
+  }
+}

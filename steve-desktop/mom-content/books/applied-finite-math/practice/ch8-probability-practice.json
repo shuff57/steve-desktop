@@ -1,0 +1,45 @@
+{
+  "name": "Practice: Ch8 Probability",
+  "kind": "practice",
+  "chapter_section": "8",
+  "slug": "ch8-probability-practice",
+  "source": {
+    "url": "http://127.0.0.1:4000/docs/applied-finite-math/Chapter_8_assembled.html",
+    "coverage_spec": [
+      "8.1 Sample Spaces and Probability — full coverage of 8.1.1, 8.1.2, 8.1.3",
+      "8.2 Mutually Exclusive Events and the Addition Rule — full coverage of 8.2.1–8.2.4",
+      "8.3 Probability Using Tree Diagrams and Combinations — full coverage of 8.3.1–8.3.4",
+      "8.4 Conditional Probability — full coverage of 8.4.1–8.4.4",
+      "8.5 Independent Events — full coverage of 8.5.1–8.5.4"
+    ],
+    "high_miss_topics": []
+  },
+  "created_at": "2026-04-26",
+  "target": {
+    "cid": "TODO",
+    "block": "TODO"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "Practice",
+    "displaymethod": "One question at a time",
+    "show_solutions": "after last attempt",
+    "review_before_due": false,
+    "available": null,
+    "due": "TODO",
+    "default_points": 1,
+    "intro": null
+  },
+  "planning_notes": {
+    "target_n": 22,
+    "valid_n_range": [20, 25],
+    "frq_count": 3,
+    "selection_priority": "Full coverage of every section + over-weight any topics flagged in source.high_miss_topics"
+  },
+  "questions": [],
+  "aid": null,
+  "transferred_at": null
+}

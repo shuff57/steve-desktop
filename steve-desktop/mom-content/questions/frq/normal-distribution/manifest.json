@@ -1,0 +1,35 @@
+{
+  "source": "prompts.txt",
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q10-z-scores-and-normal-probability.php",
+      "title": "Z-Scores and Normal Probability",
+      "prompt": "A standardized test has scores that are normally distributed with a mean of 100 and a standard deviation of 15. A student scores 130 on the test. Calculate the z-score for this student and write a conclusion statement interpreting what this z-score means in context. Then explain whether this score would be considered unusual or typical for this test."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q11-empirical-rule.php",
+      "title": "Empirical Rule",
+      "prompt": "A researcher measures the daily water consumption (in liters) of a sample of adults and finds the data is approximately normally distributed with a mean of 2.5 liters and a standard deviation of 0.8 liters. Using the 68-95-99.7 rule, write a conclusion statement explaining what percentage of adults drink between 0.9 and 4.1 liters of water per day, and show your work."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q12-normal-distribution-and-percentiles.php",
+      "title": "Normal Distribution and Percentiles",
+      "prompt": "SAT scores are normally distributed with a mean of 1000 and a standard deviation of 200. A student wants to know what score they need to be in the top 10% of test-takers (approximately z = 1.28). Calculate the required score and write a conclusion statement explaining what this score represents and how many students out of 5,000 test-takers would be expected to score at or above this value."
+    },
+    "4": {
+      "status": "completed",
+      "file": "q13-identifying-non-normal-distributions.php",
+      "title": "Identifying Non-Normal Distributions",
+      "prompt": "A researcher collects data on the number of hours students sleep the night before an exam and creates a Q-Q plot. The points closely follow the diagonal line in the middle of the plot but deviate noticeably at both tails. Write a conclusion statement describing what this pattern suggests about whether the sleep data is normally distributed, and explain what the tail deviations specifically indicate about the data."
+    },
+    "5": {
+      "status": "completed",
+      "file": "q14-central-limit-theorem.php",
+      "title": "Central Limit Theorem",
+      "prompt": "A population has a highly skewed distribution of income with mean $55,000 and standard deviation $20,000. A researcher plans to take many random samples of 100 individuals each and calculate the mean income for each sample. Write a conclusion statement explaining what the Central Limit Theorem tells us about the shape of the distribution of sample means, and explain why this is important even though the original population is skewed."
+    }
+  }
+}

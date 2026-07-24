@@ -1,0 +1,14 @@
+Source: Introduction to Stats - Chapter 8 Linear Regression
+Target sections: 8.1, 8.2, 8.4
+Output folder: questions/frq/regression/
+
+1. [8.1] Explanatory vs Response Variable - Justify the Choice
+2. [8.1] Interpret a Residual in Context
+3. [8.1] Interpret a Correlation Coefficient
+4. [8.1] Predicting from a Regression Equation - Interpretation
+5. [8.2] Least Squares Method - Conceptual Explanation
+6. [8.2] Interpret Slope and Y-Intercept in Context
+7. [8.2] R-Squared Interpretation
+8. [8.2] Extrapolation - Why It's Risky
+9. [8.4] Inference for the Slope - Concept and Hypotheses
+10. [8.4] Interpret a P-Value for the Slope Test

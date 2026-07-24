@@ -1,0 +1,532 @@
+{
+  "name": "Practice: Ch6 Inference for Categorical Data (Final-Exam Review)",
+  "book": "introduction-to-stats",
+  "kind": "practice",
+  "chapter_section": "6",
+  "slug": "ch6-categorical-inference-practice",
+  "source": {
+    "purpose": "Final Semester 2 review for Ch6 (Weeks 4-6 of S2). Existing Ch6 Practice Test (aid 22170278, avg 95.3%) and Ch6 IND Test (aid 22195968, avg 90.9%) ran in late Feb 2026. IND auto-graded items are solid (95%+) \u2014 the only real misses are the two FRQs at 58-59%, which were interpretation/conclusion-writing items. This practice drills FRQ-style interpretation in auto-graded form plus reuses the well-vetted FRQ files for the 3 essay slots.",
+    "coverage_spec": [
+      "Ch6.1 Inference for a single proportion \u2014 CI, HT, sample size",
+      "Ch6.2 Inference for the difference of two proportions \u2014 CI, HT",
+      "Ch6.3 Chi-square goodness-of-fit \u2014 expected counts, test statistic, full workflow, conclusion",
+      "Ch6.4 Chi-square independence / homogeneity \u2014 expected counts, test statistic, conclusion",
+      "Choose-the-right-test (single prop vs diff of props vs GOF vs independence) \u2014 group test q14 (67%)",
+      "Conclusion writing in context (statistical significance interpretation) \u2014 group test q15 (46%)",
+      "Type I/II errors in chi-square context"
+    ],
+    "high_miss_topics": [
+      {
+        "topic": "Single proportion inference \u2014 interpretation/conclusion",
+        "ind_avg_pct": 59,
+        "drill_strategy": "FRQ slot 20 reuses inference-for-proportions/q9"
+      },
+      {
+        "topic": "Difference of proportions \u2014 interpretation/conclusion",
+        "ind_avg_pct": 58,
+        "drill_strategy": "FRQ slot 21 reuses inference-for-proportions/q10"
+      },
+      {
+        "topic": "Statistical significance interpretation",
+        "group_avg_pct": 46,
+        "drill_strategy": "slot 15 new draft, auto-graded multiple-choice version of the FRQ"
+      },
+      {
+        "topic": "Chi-square GOF conclusion writing",
+        "group_avg_pct": 57,
+        "drill_strategy": "FRQ slot 22 reuses inference-for-proportions/q11; slot 10 new draft adds auto-graded version"
+      },
+      {
+        "topic": "When to use which Ch6 test (single vs diff vs GOF vs independence)",
+        "group_avg_pct": 67,
+        "drill_strategy": "slot 7 new draft, conceptual multipart"
+      }
+    ],
+    "gaps_in_existing_assessments": [
+      "CI for difference of two proportions was thinly covered (HW 6.2 q8 only, 21.9% incomplete rate)",
+      "Auto-graded conclusion-writing was absent \u2014 only FRQ versions existed and both scored ~58%",
+      "'When-to-use-which-test' was tested only on the group (q14, 67%)",
+      "Sample-size for proportion (HW 6.1 q9, 15.9% incomplete) was not in prior practice or IND"
+    ],
+    "covered_hw_assignments": [
+      {
+        "aid": "21000027",
+        "name": "Homework 6.1",
+        "avg_pct": 98,
+        "weakest_items": [
+          {
+            "q": 9,
+            "title": "Find Sample Size no p*",
+            "avg_pct": 97,
+            "incomplete_pct": 15.9
+          },
+          {
+            "q": 11,
+            "title": "OpenIntro 6.18 (single-prop interpretation)",
+            "avg_pct": 97,
+            "incomplete_pct": 20.3
+          },
+          {
+            "q": 1,
+            "title": "z-test of a proportion \u2014 p-value",
+            "avg_pct": 98,
+            "incomplete_pct": 11.6
+          }
+        ]
+      },
+      {
+        "aid": "21000028",
+        "name": "Homework 6.2",
+        "avg_pct": 97,
+        "weakest_items": [
+          {
+            "q": 8,
+            "title": "CI for difference of two proportions (peanuts)",
+            "avg_pct": 92,
+            "incomplete_pct": 21.9
+          },
+          {
+            "q": 3,
+            "title": "Hypothesis Test, two proportions (5 parts)",
+            "avg_pct": 94,
+            "incomplete_pct": 13.7
+          },
+          {
+            "q": 7,
+            "title": "Full Test Diff of Props \u2014 Vehicle Altitudes",
+            "avg_pct": 95,
+            "incomplete_pct": 13.7
+          }
+        ]
+      },
+      {
+        "aid": "22110497",
+        "name": "6.1 & 6.2 Mixed Review",
+        "avg_pct": 96,
+        "weakest_items": [
+          {
+            "q": 18,
+            "title": "Hyp test for 2 p (x & n given; abstract p-value)",
+            "avg_pct": 79,
+            "incomplete_pct": 20.0
+          },
+          {
+            "q": 19,
+            "title": "Hyp test for 2 p (x & y given; abstract p-value)",
+            "avg_pct": 82,
+            "incomplete_pct": 20.0
+          },
+          {
+            "q": 22,
+            "title": "Full Hypothesis Test, 2-PropZTest, Drug test",
+            "avg_pct": 89,
+            "incomplete_pct": 25.7
+          }
+        ]
+      },
+      {
+        "aid": "21000029",
+        "name": "Homework 6.3 (Chi-square GOF)",
+        "avg_pct": 98,
+        "weakest_items": [
+          {
+            "q": 3,
+            "title": "Multinomial GOF (unequal p) w/ technology",
+            "avg_pct": 91,
+            "incomplete_pct": 22.4
+          },
+          {
+            "q": 7,
+            "title": "GOF Uniform \u2014 suits of cards",
+            "avg_pct": 94,
+            "incomplete_pct": 23.9
+          },
+          {
+            "q": 12,
+            "title": "GOF unequal p \u2014 Hair Color distribution",
+            "avg_pct": 95,
+            "incomplete_pct": 25.4
+          }
+        ]
+      },
+      {
+        "aid": "21000030",
+        "name": "Homework 6.4 (Chi-square Indep)",
+        "avg_pct": 97,
+        "weakest_items": [
+          {
+            "q": 9,
+            "title": "Contingency Table (2x3)",
+            "avg_pct": 91,
+            "incomplete_pct": 19.7
+          },
+          {
+            "q": 12,
+            "title": "Independence, gender and major",
+            "avg_pct": 91,
+            "incomplete_pct": 26.8
+          },
+          {
+            "q": 11,
+            "title": "Independence, computer type and car type",
+            "avg_pct": 94,
+            "incomplete_pct": 23.9
+          }
+        ]
+      }
+    ],
+    "hw_scrape_findings": [
+      "HW 6.3 + 6.4 carry 20-27% incomplete rates on chi-square items \u2014 pattern matches Ch4-5 incomplete-rate findings: scores among finishers are 91-97% but engagement drops on multi-step chi-square tables. Practice drills slots 8-14 reuse short clean computational items.",
+      "Mixed Review (22110497) q18/q19 at 79-82% are the lowest student-completed items in Ch6 \u2014 abstract two-proportion HT with no context. Slot 6 (draft CI for diff of props) and slot 7 (draft when-to-use-which) target this conceptual weakness.",
+      "Ch6 IND auto-graded items all \u226590%. The two FRQs (q9 59%, q10 58%) are the entire delta between IND avg (90.9%) and a hypothetical 95%+ \u2014 interpretation is the bottleneck.",
+      "Ch6 Group Test q15 (Statistical Significance Interpretation, 46%) is the single lowest item in the entire Ch6 dataset. Slot 15 draft converts the FRQ prompt to multiple-choice form for auto-graded drill."
+    ],
+    "related_existing_assessments": [
+      {
+        "aid": "22170278",
+        "name": "Chapter 6 Practice Test (existing, 35 students, avg 95.3%)",
+        "role": "Prior practice; do NOT delete; new practice supplements for final review"
+      },
+      {
+        "aid": "22181973",
+        "name": "Chapter 6 Group Test (28 students, avg 93.4%)",
+        "role": "Source of high-miss interpretation items (q14, q15, q16)"
+      },
+      {
+        "aid": "22195968",
+        "name": "Chapter 6 Individual Test (14 students, avg 90.9%)",
+        "role": "Reference for high-miss items and coverage gaps"
+      }
+    ]
+  },
+  "created_at": "2026-05-13",
+  "target": {
+    "cid": "301265",
+    "block": "0-7-11"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": {
+      "type": "none",
+      "reduction_pct": 0
+    },
+    "gbcategory": "HW (course has no Practice category \u2014 same fallback as ch4-5-foundations-practice)",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "after last attempt",
+    "review_before_due": false,
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "default_points": 1,
+    "intro": null
+  },
+  "planning_notes": {
+    "target_n": 22,
+    "valid_n_range": [
+      20,
+      25
+    ],
+    "frq_count": 3,
+    "auto_graded_count": 19,
+    "frq_strategy": "All 3 FRQs reuse well-vetted files from questions/frq/inference-for-proportions/ \u2014 q9 (single-prop interp, drills IND q9), q10 (diff-of-props interp, drills IND q10), q11 (chi-square GOF interp, drills group q16).",
+    "draft_count": 5,
+    "reuse_count": 17,
+    "selection_priority": "Reuse-first. Drafts limited to gap-fill (slot 6 CI for diff of props) and high-miss interpretation drills (slots 7, 10, 14, 15). Auto-graded computation items pull from existing chi-square + two-sample-inference + Ch4-5 reuse pool.",
+    "qid_status": "Transfer complete 2026-05-13. All 22 questions created+verified+added in slot order; assessment hidden from students (avail=0) with no due date set (matches manifest hidden_from_students=true, due=null). Slot 7 required nonrepeatrand\u2192diffrands autofix. FRQ slots 20-22 used Advanced Search by qid to avoid library description-collision (each got a fresh qid)."
+  },
+  "questions": [
+    {
+      "slot": 1,
+      "topic": "Ch6.1 Single prop CI",
+      "title": "CI for one proportion \u2014 compute",
+      "file": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826145",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5 foundations practice \u2014 well-vetted."
+    },
+    {
+      "slot": 2,
+      "topic": "Ch6.1 Single prop HT",
+      "title": "HT for one proportion \u2014 full workflow",
+      "file": "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826147",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5."
+    },
+    {
+      "slot": 3,
+      "topic": "Ch6.1 CI interpretation",
+      "title": "Interpret a CI for one proportion \u2014 correct wording",
+      "file": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826148",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5."
+    },
+    {
+      "slot": 4,
+      "topic": "Ch6.2 Two-prop HT",
+      "title": "Two-proportion HT \u2014 Cholesterol",
+      "file": "questions/stats-tests/two-sample-inference/q11-two-prop-test-cholesterol.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826149",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 5,
+      "topic": "Ch6.2 Two-prop HT",
+      "title": "Two-proportion HT \u2014 Health Field",
+      "file": "questions/stats-tests/two-sample-inference/q12-two-prop-test-health-field.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826151",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 6,
+      "topic": "Ch6.2 Two-prop CI",
+      "title": "CI for difference of two proportions (GAP)",
+      "file": "questions/stats-tests/two-sample-inference/q16-ci-diff-two-proportions.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1826120",
+      "draft_note": "Gap-fill: HW 6.2 q8 was the only two-prop CI item and had 21.9% incomplete rate.",
+      "verify_status": "rendered_clean"
+    },
+    {
+      "slot": 7,
+      "topic": "Ch6 Choose test",
+      "title": "Choose the right Ch6 test \u2014 single vs diff vs chi-sq",
+      "file": "questions/stats-tests/chi-square/q5-choose-which-test.php",
+      "role": "conceptual",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1826154",
+      "verify_status": "rendered_clean_after_nonrepeatrand_to_diffrands_fix",
+      "draft_note": "Drill: group test q14 (67%) \u2014 students confuse single-prop, diff-of-props, GOF, and independence tests."
+    },
+    {
+      "slot": 8,
+      "topic": "Ch6.3 GOF expected counts",
+      "title": "Chi-square GOF \u2014 expected counts",
+      "file": "questions/stats-tests/chi-square/q2-gof-expected-counts.php",
+      "role": "computation",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826157",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 9,
+      "topic": "Ch6.3 GOF test statistic",
+      "title": "Chi-square GOF \u2014 test statistic from observed/expected",
+      "file": "questions/stats-tests/chi-square/q3-gof-test-statistic.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826160",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 10,
+      "topic": "Ch6.3 GOF full + conclusion",
+      "title": "Chi-square GOF \u2014 full workflow with written conclusion",
+      "file": "questions/stats-tests/chi-square/q6-gof-full-with-conclusion.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1826162",
+      "verify_status": "rendered_clean",
+      "draft_note": "Drill: group test q16 (57%) \u2014 drill conclusion-writing in auto-graded multiple-choice form."
+    },
+    {
+      "slot": 11,
+      "topic": "Ch6.3/6.4 GOF vs Indep",
+      "title": "When to use Chi-square GOF vs Test of Independence",
+      "file": "questions/stats-tests/chi-square/q1-when-gof-vs-independence.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826165",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 12,
+      "topic": "Ch6.4 Indep expected",
+      "title": "Chi-square Independence \u2014 expected counts",
+      "file": "questions/stats-tests/chi-square/q4-independence-expected.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826166",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 13,
+      "topic": "Ch6.4 Indep in context",
+      "title": "Chi-square independence \u2014 distracted eating",
+      "file": "questions/stats-tests/two-sample-inference/q15-distracted-eating.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826167",
+      "verify_status": "rendered_clean",
+      "notes": null
+    },
+    {
+      "slot": 14,
+      "topic": "Ch6.4 Indep interpretation",
+      "title": "Interpret independence test conclusion in context",
+      "file": "questions/stats-tests/chi-square/q7-independence-interpretation.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1826168",
+      "verify_status": "rendered_clean",
+      "draft_note": "Drill: IND q9/q10 interpretation deficit applied to chi-square independence context."
+    },
+    {
+      "slot": 15,
+      "topic": "Ch6 Stat significance",
+      "title": "Statistical significance interpretation (TOP-MISS)",
+      "file": "questions/stats-tests/hypothesis-testing/q12-stat-significance-interpretation.php",
+      "role": "conceptual",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1826184",
+      "verify_status": "rendered_clean",
+      "draft_note": "Drill: group test q15 (46%) \u2014 single lowest item in Ch6 data. Convert the FRQ prompt to auto-graded multiple-choice."
+    },
+    {
+      "slot": 16,
+      "topic": "Ch6 HT setup",
+      "title": "State H0 and Ha in context \u2014 proportion",
+      "file": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php",
+      "role": "multipart",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826185",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5."
+    },
+    {
+      "slot": 17,
+      "topic": "Ch6 p-value decision",
+      "title": "p-value to decision at significance level alpha",
+      "file": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php",
+      "role": "computation",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826186",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5."
+    },
+    {
+      "slot": 18,
+      "topic": "Ch6 Type I/II",
+      "title": "Type I vs Type II errors in proportion context",
+      "file": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826187",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5 \u2014 chapter-agnostic, applies here."
+    },
+    {
+      "slot": 19,
+      "topic": "Ch6 CI<->HT",
+      "title": "Use CI to test hypothesis \u2014 proportion",
+      "file": "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1826188",
+      "verify_status": "rendered_clean",
+      "notes": "Reuse from Ch4-5."
+    },
+    {
+      "slot": 20,
+      "topic": "FRQ Single-prop interp",
+      "title": "FRQ: Single-proportion test interpretation",
+      "file": "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1826189",
+      "verify_status": "rendered_clean",
+      "notes": "Drill: IND q9 (59%). Same file used as slot 22 in ch4-5 final-review practice. Fresh qid created (description-collision risk mitigated via Advanced Search by qid)."
+    },
+    {
+      "slot": 21,
+      "topic": "FRQ Diff-of-props interp",
+      "title": "FRQ: Difference-of-proportions test interpretation",
+      "file": "questions/frq/inference-for-proportions/q10-difference-of-proportions-interpreting-results.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1826190",
+      "verify_status": "rendered_clean",
+      "notes": "Drill: IND q10 (58%)."
+    },
+    {
+      "slot": 22,
+      "topic": "FRQ Chi-square GOF interp",
+      "title": "FRQ: Chi-square goodness-of-fit interpretation",
+      "file": "questions/frq/inference-for-proportions/q11-chi-square-gof-interpreting-results.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1826191",
+      "verify_status": "rendered_clean",
+      "notes": "Drill: group q16 (57%) GOF conclusion-writing."
+    }
+  ],
+  "aid": "22567602",
+  "status": "transferred",
+  "transferred_at": "2026-05-13T00:00:00",
+  "assessment_url": "https://www.myopenmath.com/course/addassessment2.php?id=22567602&cid=301265",
+  "addquestions_url": "https://www.myopenmath.com/course/addquestions2.php?cid=301265&aid=22567602"
+}

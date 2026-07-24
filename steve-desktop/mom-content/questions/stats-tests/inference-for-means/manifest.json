@@ -1,0 +1,22 @@
+{
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q1-sleep-hours.php",
+      "title": "Hypothesis Test - Sleep Hours",
+      "prompt": "Students are given sleep data for two independent groups, must identify the correct test, build hypotheses from dropdowns, compute sample means, test statistic, p-value, and state a conclusion. Auto-graded 11-part multipart."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q2-reaction-times.php",
+      "title": "Hypothesis Test - Reaction Times",
+      "prompt": "Students are given reaction time data for two independent groups, must identify the correct test, build hypotheses from dropdowns, compute sample means, test statistic, p-value, and state a conclusion. Auto-graded 11-part multipart."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q3-daily-steps.php",
+      "title": "Hypothesis Test - Daily Steps",
+      "prompt": "Students are given daily step data for two independent groups, must identify the correct test, build hypotheses from dropdowns, compute sample means, test statistic, p-value, and state a conclusion. Auto-graded 11-part multipart."
+    }
+  }
+}

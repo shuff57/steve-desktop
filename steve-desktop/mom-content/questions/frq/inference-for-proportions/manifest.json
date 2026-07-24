@@ -1,0 +1,83 @@
+{
+  "source": "prompts.txt",
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q1-single-proportion-hypothesis-test.php",
+      "title": "Single Proportion Inference",
+      "prompt": "Explain in your own words what a hypothesis test for a single proportion is trying to answer. Give an example of a real-world question that could be answered using this type of test, and describe what the null hypothesis would claim in your example."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q2-difference-of-proportions.php",
+      "title": "Difference of Proportions",
+      "prompt": "What is the main difference between testing a single proportion and comparing two proportions? Give an example of a question that would require comparing two proportions instead of just looking at one group."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q3-chi-square-goodness-of-fit.php",
+      "title": "Chi-Square Goodness of Fit",
+      "prompt": "Imagine you roll a die 60 times and get: 8 ones, 9 twos, 11 threes, 10 fours, 12 fives, and 10 sixes. Without doing any calculations, do you think this die is fair or unfair? Explain your reasoning and describe what a chi-square goodness of fit test would measure."
+    },
+    "4": {
+      "status": "completed",
+      "file": "q4-chi-square-independence.php",
+      "title": "Chi-Square Independence",
+      "prompt": "What is the difference between asking \"Is there an association between two variables?\" and \"Does one variable cause the other?\" Give an example of two variables that might be associated but where one does not cause the other."
+    },
+    "5": {
+      "status": "completed",
+      "file": "q5-when-to-use-each-test.php",
+      "title": "When to Use Each Test",
+      "prompt": "A researcher wants to know if students prefer online or in-person learning. Decide whether they should use a single proportion test or a two-proportion test, and explain why they made that choice."
+    },
+    "6": {
+      "status": "completed",
+      "file": "q6-understanding-statistical-significance.php",
+      "title": "Understanding Statistical Significance",
+      "prompt": "Explain what it means when a test has a p-value of 0.03 at the \u03b1 = 0.05 significance level. Does this prove that your hypothesis is true? What does this result actually tell you?"
+    },
+    "7": {
+      "status": "completed",
+      "file": "q7-association-vs-causation.php",
+      "title": "Association vs. Causation",
+      "prompt": "A study finds that students who drink more coffee tend to get lower grades. Explain why we cannot conclude that drinking coffee causes lower grades, and give at least two alternative explanations for this association."
+    },
+    "8": {
+      "status": "completed",
+      "file": "q8-comparing-tests.php",
+      "title": "Comparing Tests",
+      "prompt": "You have data on 200 students showing whether they passed or failed a class, and whether they attended tutoring or not. Would you use a chi-square test of independence or a two-proportion z-test to analyze this? Explain what each test would be comparing."
+    },
+    "9": {
+      "status": "completed",
+      "file": "q9-single-proportion-interpreting-results.php",
+      "title": "Single Proportion Inference - Interpreting Results",
+      "prompt": "A high school counselor tests whether more than 50% of students plan to attend college. They test 150 randomly selected students and find that 82 plan to attend college. The hypothesis test produces a p-value of 0.08 with a significance level of \u03b1 = 0.05. Write a final conclusion statement explaining what the counselor should conclude about whether more than half of students plan to attend college. Make sure to state whether the null hypothesis is rejected or not, and explain what this result means in the context of college attendance."
+    },
+    "10": {
+      "status": "completed",
+      "file": "q10-difference-of-proportions-interpreting-results.php",
+      "title": "Difference of Proportions - Interpreting Results",
+      "prompt": "A researcher compares the graduation rates between two high schools. School A has a graduation rate of 88% (out of 250 students), and School B has a graduation rate of 84% (out of 280 students). A hypothesis test for the difference in proportions produces a p-value of 0.12 with a significance level of \u03b1 = 0.05. Write a final conclusion statement about whether there is a difference in graduation rates between the two schools. Make sure to state whether the null hypothesis is rejected or not, and explain what this tells us about the schools' graduation rates."
+    },
+    "11": {
+      "status": "completed",
+      "file": "q11-chi-square-gof-interpreting-results.php",
+      "title": "Chi-Square Goodness of Fit - Interpreting Results",
+      "prompt": "A teacher suspects that students are not guessing randomly on a true/false test. On a 40-question test, if students were purely guessing, we would expect about 20 true answers and 20 false answers. Instead, the teacher observes 24 true answers and 16 false answers. A chi-square goodness of fit test produces a p-value of 0.31 with a significance level of \u03b1 = 0.05. Write a final conclusion statement about whether students are guessing randomly on this test. Make sure to state whether the null hypothesis is rejected or not, and explain what the results suggest about student guessing behavior."
+    },
+    "12": {
+      "status": "completed",
+      "file": "q12-chi-square-independence-interpreting-results.php",
+      "title": "Chi-Square Independence - Interpreting Results",
+      "prompt": "A researcher performs a chi-square test of independence examining whether there is a relationship between students' sleep quality (good or poor) and their academic performance (passing or failing). The test results in a p-value of 0.02 with a significance level of \u03b1 = 0.05. Write a final conclusion statement explaining what the researcher should conclude about the relationship between sleep quality and academic performance. Make sure to state whether the null hypothesis is rejected or not, explain what this means about the two variables, and describe what the result tells us in the context of this study."
+    },
+    "13": {
+      "status": "completed",
+      "file": "q13-difference-of-proportions-interpreting-confidence-interval.php",
+      "title": "Difference of Proportions - Interpreting Confidence Interval",
+      "prompt": "Given a two-group scenario with randomized data (n1, n2, p-hat1, p-hat2, confidence level, interval bounds for p1 - p2), students interpret what the confidence interval for the difference in proportions tells us, explain the confidence level meaning, and assess whether zero in the interval suggests a real difference."
+    }
+  }
+}

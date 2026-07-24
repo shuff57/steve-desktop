@@ -1,0 +1,509 @@
+{
+  "name": "Practice: Ch8 Regression (Final-Exam Review)",
+  "book": "introduction-to-stats",
+  "kind": "practice",
+  "chapter_section": "8",
+  "slug": "ch8-regression-final-review-practice",
+  "source": {
+    "purpose": "Final Semester 2 review for Ch8 (Weeks 11-13). Ch8 IND avg 92.2% — auto-graded items all scored ≥95%, but the three FRQs were big misses (slope inference concept 65%, correlation interpretation 77%, explanatory vs response 77% on group). Reuse-heavy slate that supplements the existing ch8-regression-practice (which was course-copied to cid 301265 as aid 22462700) by drilling the FRQ-style interpretation gaps with auto-graded versions plus reusing the three target FRQ files directly.",
+    "coverage_spec": [
+      "Ch8.1.1 Explanatory and response variables",
+      "Ch8.1.2 Predictions from a regression equation",
+      "Ch8.1.3 Residuals — compute, interpret, standard error",
+      "Ch8.1.4 Correlation — interpret r value (TOP-miss FRQ topic)",
+      "Ch8.2.1 Least-squares criterion",
+      "Ch8.2.2 Full equation from summary statistics",
+      "Ch8.2.3 Slope and intercept interpretation (HW 8.2 q6 standout 51% miss)",
+      "Ch8.2.4 Extrapolation",
+      "Ch8.2.6 Read regression output from technology",
+      "Ch8.4.1 Role of inference for the slope (TOP-miss FRQ)",
+      "Ch8.4.2 LINE conditions",
+      "Ch8.4.3 CI for the slope",
+      "Ch8.4.5 HT for the slope",
+      "Ch8.4.6 CI from technology output"
+    ],
+    "high_miss_topics": [
+      {
+        "topic": "Slope inference concept and hypotheses",
+        "ind_avg_pct": 65,
+        "group_avg_pct": 43,
+        "drill_strategy": "FRQ slot 20 reuses regression/q9; slot 18 new draft adds auto-graded concept multipart"
+      },
+      {
+        "topic": "Correlation coefficient interpretation",
+        "ind_avg_pct": 77,
+        "group_avg_pct": 61,
+        "drill_strategy": "FRQ slot 21 reuses regression/q3; slot 7 reuses q7-interpret-r-value as auto-graded drill"
+      },
+      {
+        "topic": "Explanatory vs response justification",
+        "group_avg_pct": 77,
+        "drill_strategy": "FRQ slot 22 reuses regression/q1"
+      },
+      {
+        "topic": "Slope/intercept interpretation in context",
+        "hw82_q6_avg_pct": 51,
+        "incomplete_pct": 34.8,
+        "drill_strategy": "slot 13 new draft, isolate slope+intercept interpretation in cleaner context"
+      }
+    ],
+    "gaps_in_existing_assessments": [
+      "Auto-graded FRQ-style interpretation — the three FRQs in IND scored 65-77% but no auto-graded MC versions of those concepts existed in HW or prior Practice",
+      "HW 8.2 q6 (coffee drinking story, 51% with 34.8% incomplete) is the single lowest item in the entire Ch8 dataset — slope/intercept interpretation in a multi-step context",
+      "Choose-the-right-inference (correlation vs regression vs slope test) — not isolated anywhere"
+    ],
+    "covered_hw_assignments": [
+      {
+        "aid": "22393935",
+        "name": "Homework 8.1 Day 1",
+        "avg_pct": 99,
+        "weakest_items": [
+          {
+            "q": 9,
+            "title": "8.1 Two predictions (house size & price)",
+            "avg_pct": 92,
+            "incomplete_pct": 13.0
+          },
+          {
+            "q": 11,
+            "title": "8.1 Identifying explanatory and response",
+            "avg_pct": 96,
+            "incomplete_pct": 4.3
+          },
+          {
+            "q": 12,
+            "title": "Ch2 Predict response variable from regression eqn",
+            "avg_pct": 97,
+            "incomplete_pct": 14.5
+          }
+        ]
+      },
+      {
+        "aid": "21000034",
+        "name": "Homework 8.1 Day 2",
+        "avg_pct": 98,
+        "weakest_items": [
+          {
+            "q": 2,
+            "title": "matching correlations",
+            "avg_pct": 93,
+            "incomplete_pct": 8.6
+          },
+          {
+            "q": 4,
+            "title": "Choose most likely correlation 1",
+            "avg_pct": 97,
+            "incomplete_pct": 7.1
+          },
+          {
+            "q": 7,
+            "title": "Compute a Residual",
+            "avg_pct": 97,
+            "incomplete_pct": 14.3
+          }
+        ]
+      },
+      {
+        "aid": "21000035",
+        "name": "Homework 8.2",
+        "avg_pct": 92,
+        "weakest_items": [
+          {
+            "q": 6,
+            "title": "Find regression, interpret slope and intercept; coffee drinking story",
+            "avg_pct": 51,
+            "incomplete_pct": 34.8
+          },
+          {
+            "q": 1,
+            "title": "Ch 5 Moore — Regression w/ & w/o outlier",
+            "avg_pct": 91,
+            "incomplete_pct": 10.1
+          },
+          {
+            "q": 8,
+            "title": "OpenIntro 7.32",
+            "avg_pct": 96,
+            "incomplete_pct": 10.1
+          }
+        ]
+      },
+      {
+        "aid": "22451386",
+        "name": "Homework 8.4 (Slope Inference)",
+        "avg_pct": 99,
+        "weakest_items": [
+          {
+            "q": 8,
+            "title": "Full Regression Workflow",
+            "avg_pct": 96,
+            "incomplete_pct": 27.1
+          },
+          {
+            "q": 4,
+            "title": "Interpret a CI for the Slope",
+            "avg_pct": 98,
+            "incomplete_pct": 7.1
+          },
+          {
+            "q": 3,
+            "title": "CI for the Slope — SE, margin of error",
+            "avg_pct": 99,
+            "incomplete_pct": 17.1
+          }
+        ]
+      }
+    ],
+    "hw_scrape_findings": [
+      "HW 8.2 q6 (51%, 34.8% incomplete) is an extreme outlier — every other Ch8 HW item is ≥91%. Slot 13 draft isolates slope+intercept interpretation cleanly in a different context.",
+      "Ch8 IND auto-graded items all 95%+. The three FRQs (slope inference 65%, correlation interp 77%, explanatory/response 77%) explain almost the entire delta. Final review's job is to drill those three FRQ concepts in both auto-graded form (slots 7, 13, 18) and essay form (slots 20-22).",
+      "HW 8.4 full workflow (q8) has 27.1% incomplete despite scoring 96% among completers — engagement on the multi-step problem. Slot 19 (CI from tech output reuse) is a lighter integrative alternative.",
+      "Existing ch8-regression-practice.json (built 2026-04-26, course-copied to cid 301265 as aid 22462700) already covers chapter sections well; final-review supplements with the FRQ-style interpretation focus."
+    ],
+    "related_existing_assessments": [
+      {
+        "aid": "22462700",
+        "name": "Practice: Ch8 Introduction to Linear Regression (existing, 21 students, avg 91.8%)",
+        "role": "Prior practice (course-copied from cid 301417); supplemented by final-review here"
+      },
+      {
+        "aid": "22462701",
+        "name": "Group Test: Ch8 (17 students, avg 91.7%)",
+        "role": "Source of high-miss FRQ items (q14 slope inf 43%, q3 correlation 61%, q2 explanatory 77%)"
+      },
+      {
+        "aid": "22495236",
+        "name": "Ch8 Individual Test (10 students, avg 92.2%)",
+        "role": "Reference for high-miss items and coverage gaps"
+      }
+    ]
+  },
+  "created_at": "2026-05-13",
+  "target": {
+    "cid": "301265",
+    "block": "0-7-11"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": {
+      "type": "none",
+      "reduction_pct": 0
+    },
+    "gbcategory": "HW (course has no Practice category)",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "after last attempt",
+    "review_before_due": false,
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "default_points": 1,
+    "intro": null
+  },
+  "planning_notes": {
+    "target_n": 22,
+    "valid_n_range": [
+      20,
+      25
+    ],
+    "frq_count": 3,
+    "auto_graded_count": 19,
+    "frq_strategy": "All 3 FRQs reuse questions/frq/regression/ files that already target the IND/group misses — q9 (slope inference concept, drills IND q10 65% / group q14 43%), q3 (correlation interpretation, drills IND q9 77% / group q3 61%), q1 (explanatory vs response justification, drills group q2 77%).",
+    "draft_count": 6,
+    "reuse_count": 16,
+    "selection_priority": "Rebalanced from 20/2 to 16/6 reuse/draft ratio. 4 new drafts added: q11-predict-new-context (slot 3, replaces advertising), q15-r-squared-interpretation (slot 4, gap fill — r² completely absent from prior practice), q12-extrapolation-warning-new (slot 11, fresh contexts), q10-role-of-inference-new (slot 14, H0:beta1=0 conceptual). Original 2 drafts retained: slot 13 (slope+intercept HW 8.2 q6 drill) and slot 18 (slope inference concept MC).",
+    "qid_status": "Manifest only — no MOM assessment created yet."
+  },
+  "questions": [
+    {
+      "slot": 1,
+      "topic": "Ch8.1.1 Explanatory/response",
+      "title": "Explanatory and response variables",
+      "file": "questions/regression/intro/q1-explanatory-response.php",
+      "role": "multipart",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827936",
+      "notes": "From existing ch8-regression-practice slot 1.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 2,
+      "topic": "Ch8.1.1 Slope interp",
+      "title": "Interpret slope in context",
+      "file": "questions/regression/intro/q3-interpret-slope.php",
+      "role": "conceptual",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827937",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 3,
+      "topic": "Ch8.1.2 Predict + interp",
+      "title": "Predict from equation and above/below line",
+      "file": "questions/regression/intro/q11-predict-new-context.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827938",
+      "notes": "New context (sleep/GPA/exercise/typing), replaces advertising reuse.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 4,
+      "topic": "Ch8.2 r-squared interp",
+      "title": "r-squared interpretation (new — gap fill)",
+      "file": "questions/regression/least-squares/q15-r-squared-interpretation.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827939",
+      "notes": "Replaces q7-prediction-and-interpret. r² completely absent from prior practice.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 5,
+      "topic": "Ch8.1.3 Residual",
+      "title": "Compute a residual",
+      "file": "questions/regression/residuals-correlation/q1-compute-residual.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827940",
+      "notes": "Template-copy variant exists (qid 1816305) if original is Private.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 6,
+      "topic": "Ch8.1.3 Residual SD",
+      "title": "Estimate residual standard deviation",
+      "file": "questions/regression/residuals-correlation/q5-residual-std-dev.php",
+      "role": "multipart",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827941",
+      "notes": "Template-copy variant exists (qid 1816306) if original is Private.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 7,
+      "topic": "Ch8.1.4 Interpret r",
+      "title": "Interpret r value (TOP-MISS DRILL)",
+      "file": "questions/regression/residuals-correlation/q7-interpret-r-value.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827942",
+      "notes": "Drill: IND q9 (77%) / group q3 (61%). Auto-graded counterpart to FRQ slot 21.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 8,
+      "topic": "Ch8.2.1 Least squares",
+      "title": "Least squares criterion",
+      "file": "questions/regression/least-squares/q1-least-squares-criterion.php",
+      "role": "conceptual",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827943",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 9,
+      "topic": "Ch8.2.2 Equation from summary",
+      "title": "Full equation from summary statistics",
+      "file": "questions/regression/least-squares/q5-full-equation-from-summary.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827944",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 10,
+      "topic": "Ch8.2.3 Association/causation",
+      "title": "Association vs causation",
+      "file": "questions/regression/least-squares/q12-association-vs-causation.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827945",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 11,
+      "topic": "Ch8.2.4 Extrapolation",
+      "title": "Extrapolation warning (new context)",
+      "file": "questions/regression/intro/q12-extrapolation-warning-new.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827946",
+      "notes": "4 randomized contexts (PT/tutoring/fertilizer/training), replaces old library question.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 12,
+      "topic": "Ch8.2.6 Read output",
+      "title": "Read regression output",
+      "file": "questions/regression/least-squares/q14-read-regression-output.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827947",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 13,
+      "topic": "Ch8.2.3 Slope+intercept interp",
+      "title": "Interpret slope and intercept in context (TOP-MISS HW)",
+      "file": "questions/regression/least-squares/q16-slope-intercept-interpret-context.php",
+      "role": "multipart",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827948",
+      "draft_note": "Drill: HW 8.2 q6 (51%, 34.8% incomplete) — single lowest item in Ch8. Different context (not coffee), clean slope+intercept interpretation.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 14,
+      "topic": "Ch8.4.1 Role of inference",
+      "title": "Role of inference for the slope (new framing)",
+      "file": "questions/regression/slope-inference/q10-role-of-inference-new.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827949",
+      "notes": "Tests H0:beta1=0 conceptual understanding; targets IND 65% / group 43% miss.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 15,
+      "topic": "Ch8.4.2 LINE conditions",
+      "title": "LINE conditions for regression",
+      "file": "questions/regression/slope-inference/q5-line-conditions.php",
+      "role": "multipart",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827950",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 16,
+      "topic": "Ch8.4.3 CI for slope",
+      "title": "CI for the slope",
+      "file": "questions/regression/slope-inference/q1-ci-for-slope.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827951",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 17,
+      "topic": "Ch8.4.5 HT for slope",
+      "title": "Hypothesis test for the slope",
+      "file": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827952",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 18,
+      "topic": "Ch8.4 Slope concept",
+      "title": "Slope inference — concept and decisions (TOP-MISS DRILL)",
+      "file": "questions/regression/slope-inference/q9-slope-concept-decisions.php",
+      "role": "conceptual",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827953",
+      "draft_note": "Drill: IND q10 (65%) / group q14 (43%). Auto-graded MC counterpart to FRQ slot 20.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 19,
+      "topic": "Ch8.4.6 Tech CI output",
+      "title": "CI from technology output",
+      "file": "questions/regression/slope-inference/q8-tech-ci-from-output.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827955",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 20,
+      "topic": "FRQ Slope inference concept",
+      "title": "FRQ: Slope inference — concept and hypotheses",
+      "file": "questions/frq/regression/q9-slope-inference-concept-and-hypotheses.php",
+      "role": "essay",
+      "diff": "hard",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827956",
+      "notes": "Drill: IND q10 (65%) / group q14 (43%) — top Ch8 miss.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 21,
+      "topic": "FRQ Correlation interpret",
+      "title": "FRQ: Interpret a correlation coefficient",
+      "file": "questions/frq/regression/q3-interpret-correlation-coefficient.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827957",
+      "notes": "Drill: IND q9 (77%) / group q3 (61%).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 22,
+      "topic": "FRQ Explanatory vs response",
+      "title": "FRQ: Explanatory vs response variable — justify",
+      "file": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827959",
+      "notes": "Drill: group q2 (77%).",
+      "verify_status": "uploaded"
+    }
+  ],
+  "aid": "22594159",
+  "status": "transferred",
+  "transferred_at": "2026-05-16T23:12:35.133790+00:00"
+}

@@ -1,0 +1,508 @@
+{
+  "name": "Practice: Ch7 Inference for Numerical Data (Final-Exam Review)",
+  "book": "introduction-to-stats",
+  "kind": "practice",
+  "chapter_section": "7",
+  "slug": "ch7-numerical-inference-practice",
+  "source": {
+    "purpose": "Final Semester 2 review for Ch7 (Weeks 7-10). Ch7 IND avg 86.0% is the lowest of any S2 chapter test — significantly weaker than Ch6 (90.9%) or Ch8 (92.2%). FRQs were the dominant misses (IND q7 ANOVA when-to-use 56%, q6 single-mean p-value 68%; group q13 ANOVA 44%, q12 paired interpretation 55%). The mixed-review HW had 47-54% incomplete rates on two-sample/paired items — engagement and retention drop significantly across the four Ch7 inference types.",
+    "coverage_spec": [
+      "Ch7.1 Inference for one mean (t-distribution) — CI, HT, test statistic, interpretation",
+      "Ch7.2 Inference with paired data — paired t-test, full workflow, interpretation",
+      "Ch7.3 Inference for the difference of two means — CI, HT, full workflow",
+      "Ch7.5 Comparing means with ANOVA — when to apply, summary table, F-statistic, conclusion",
+      "Choose-the-right-test (one-mean vs paired vs two-sample vs ANOVA) — top conceptual driver",
+      "Conclusion writing and p-value interpretation in numerical context"
+    ],
+    "high_miss_topics": [
+      {
+        "topic": "When to use ANOVA (vs t-tests)",
+        "ind_avg_pct": 56,
+        "group_avg_pct": 44,
+        "drill_strategy": "slot 13 new draft (conceptual MC); FRQ slot 22 reuses anova interp"
+      },
+      {
+        "topic": "Single-mean p-value interpretation",
+        "ind_avg_pct": 68,
+        "group_avg_pct": 57,
+        "drill_strategy": "FRQ slot 20 reuses inference-for-means/q2; slot 3 new draft drills abstract test-statistic computation"
+      },
+      {
+        "topic": "Paired means interpretation",
+        "group_avg_pct": 55,
+        "drill_strategy": "FRQ slot 21 reuses inference-for-means/q5; slot 7 new draft drills paired-t workflow"
+      },
+      {
+        "topic": "Two-sample mean CI/HT — unequal variance",
+        "mixed_review_q12_avg_pct": 50,
+        "incomplete_pct": 47.8,
+        "drill_strategy": "slot 11 new draft, slot 12 full workflow draft"
+      },
+      {
+        "topic": "ANOVA summary table",
+        "ind_avg_pct": 93,
+        "incomplete_pct": 8.6,
+        "drill_strategy": "slot 14 new draft, fills the missing computational drill"
+      }
+    ],
+    "gaps_in_existing_assessments": [
+      "ANOVA — no auto-graded conceptual coverage in either Practice or IND (only computation tested), but it is the largest IND miss",
+      "Auto-graded choose-the-right-test (one-mean vs paired vs two-sample vs ANOVA) — completely absent",
+      "Paired-t abstract / table-driven workflow — only one item across HW + IND",
+      "Two-sample CI computation — students struggled on mixed review (47.8% incomplete) but it wasn't isolated in IND"
+    ],
+    "covered_hw_assignments": [
+      {
+        "aid": "21000031",
+        "name": "Homework 7.1",
+        "avg_pct": 96,
+        "weakest_items": [
+          {
+            "q": 9,
+            "title": "Calculate a CI for the mean",
+            "avg_pct": 85,
+            "incomplete_pct": 12.7
+          },
+          {
+            "q": 13,
+            "title": "Hyp test for μ & σ unknown large n (abstract)",
+            "avg_pct": 86,
+            "incomplete_pct": 14.1
+          },
+          {
+            "q": 11,
+            "title": "Test statistic, one mean test, sigma unknown",
+            "avg_pct": 90,
+            "incomplete_pct": 11.3
+          }
+        ]
+      },
+      {
+        "aid": "21000032",
+        "name": "Homework 7.2",
+        "avg_pct": 97,
+        "weakest_items": [
+          {
+            "q": 6,
+            "title": "Hyp test Matched Pairs small n (abstract)",
+            "avg_pct": 88,
+            "incomplete_pct": 8.7
+          },
+          {
+            "q": 5,
+            "title": "OpenIntro 5.20 (paired)",
+            "avg_pct": 93,
+            "incomplete_pct": 2.9
+          }
+        ]
+      },
+      {
+        "aid": "21000033",
+        "name": "Homework 7.3",
+        "avg_pct": 97,
+        "weakest_items": [
+          {
+            "q": 13,
+            "title": "two-sample mean CI — Conde Nast Traveler",
+            "avg_pct": 78,
+            "incomplete_pct": 15.5
+          },
+          {
+            "q": 12,
+            "title": "two-sample mean CI",
+            "avg_pct": 82,
+            "incomplete_pct": 19.7
+          },
+          {
+            "q": 4,
+            "title": "two-sample mean t-statistic given info (context)",
+            "avg_pct": 95,
+            "incomplete_pct": 9.9
+          }
+        ]
+      },
+      {
+        "aid": "22263279",
+        "name": "7.1-7.3 Mixed Review",
+        "avg_pct": 82,
+        "weakest_items": [
+          {
+            "q": 12,
+            "title": "2-sample mean t-interval, unequal variances",
+            "avg_pct": 50,
+            "incomplete_pct": 47.8
+          },
+          {
+            "q": 9,
+            "title": "Hyp test for 2 μ, unequal var (CI)",
+            "avg_pct": 72,
+            "incomplete_pct": 44.8
+          },
+          {
+            "q": 15,
+            "title": "Hyp test Matched Pairs small n (critical region)",
+            "avg_pct": 88,
+            "incomplete_pct": 43.3
+          },
+          {
+            "q": 18,
+            "title": "2 Dependent Sample t-test, Data (right vs left)",
+            "avg_pct": 89,
+            "incomplete_pct": 53.7
+          }
+        ]
+      }
+    ],
+    "hw_scrape_findings": [
+      "Mixed Review 7.1-7.3 (22263279) is a major retention failure: overall 82.5% (lowest of any HW in S2), 40-54% incomplete rates on the harder two-sample and paired items, q12 unequal-variance CI at 50%. Final review must drill cross-section integration with retry-friendly auto-graded items.",
+      "Ch7 IND avg 86.0% is dragged primarily by two FRQs (q6 68%, q7 56%) and slightly weaker auto-graded items (q2 two-pop mean 93%, q4 ANOVA table 93%) — but the FRQs are the dominant cost. Three FRQ reuses + new auto-graded interpretation drills should close the gap.",
+      "ANOVA had no representation in HW item analysis (no HW 7.5) but was IND q4 (93%, ANOVA table) + q5 (95%) + q7 (56%, FRQ). Conceptual ANOVA understanding is the weakest single area in Ch7.",
+      "Repo coverage for Ch7 is thin: only 3 inference-for-means files (sleep/reaction/steps) and 3 two-sample files (q13-q15). 9 drafts needed to close auto-graded gaps, especially in 7.2 paired-t and 7.5 ANOVA."
+    ],
+    "related_existing_assessments": [
+      {
+        "aid": "22351314",
+        "name": "Chapter 7 Practice Test (9 students, avg 82.6%)",
+        "role": "Prior practice; do NOT delete; new practice supplements for final review"
+      },
+      {
+        "aid": "22328868",
+        "name": "Chapter 7 Group Test (13 students, avg 84.3%)",
+        "role": "Source of high-miss interpretation items (q11, q12, q13)"
+      },
+      {
+        "aid": "22375326",
+        "name": "Chapter 7 Individual Test (8 students, avg 86.0%)",
+        "role": "Reference for high-miss items and coverage gaps"
+      }
+    ]
+  },
+  "created_at": "2026-05-13",
+  "target": {
+    "cid": "301265",
+    "block": "0-7-11"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": {
+      "type": "none",
+      "reduction_pct": 0
+    },
+    "gbcategory": "HW (course has no Practice category)",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "after last attempt",
+    "review_before_due": false,
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "default_points": 1,
+    "intro": null
+  },
+  "planning_notes": {
+    "target_n": 22,
+    "valid_n_range": [
+      20,
+      25
+    ],
+    "frq_count": 3,
+    "auto_graded_count": 19,
+    "frq_strategy": "All 3 FRQs reuse questions/frq/inference-for-means/ — q2 (single-mean p-value, drills IND q6 68%), q5 (paired interp, drills group q12 55%), q9 (ANOVA interp, drills IND q7 56% / group q13 44%).",
+    "draft_count": 9,
+    "reuse_count": 13,
+    "selection_priority": "Heavy draft burden because Ch7 repo coverage is thin. Drafts focus on: abstract one-mean computation (slot 3), CI mean interpretation (slot 4), paired-t workflow (slot 7), paired vs two-sample decision (slot 8), two-sample CI/HT (slots 11-12, drills 47.8% incomplete), ANOVA when-to-use + summary table + conclusion (slots 13-15), state H0/Ha for mean (slot 16). 7 reuses pull from Ch4-5 foundations (one-mean CI/HT/decision/setup/Type I-II/conclusion); 3 from existing inference-for-means / two-sample-inference repo files.",
+    "qid_status": "Manifest only — no MOM assessment created yet."
+  },
+  "questions": [
+    {
+      "slot": 1,
+      "topic": "Ch7.1 CI one mean",
+      "title": "CI for one mean (t) — compute",
+      "file": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827914",
+      "notes": "Reuse from Ch4-5.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 2,
+      "topic": "Ch7.1 HT one mean",
+      "title": "HT for one mean (t) — full workflow",
+      "file": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827915",
+      "notes": "Reuse from Ch4-5.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 3,
+      "topic": "Ch7.1 Test statistic",
+      "title": "One-mean test statistic — sigma unknown, abstract",
+      "file": "questions/stats-tests/inference-for-means/q4-test-statistic-abstract.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827916",
+      "draft_note": "Drill: HW 7.1 q11 (90%) + q13 (86%). Abstract no-context drill.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 4,
+      "topic": "Ch7.1 CI interpretation",
+      "title": "Interpret a CI for one mean — correct wording",
+      "file": "questions/stats-tests/inference-for-means/q5-ci-interpretation-mean.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827917",
+      "draft_note": "Drill: HW 7.1 q9 (85%). Auto-graded interpretation alternative to FRQ.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 5,
+      "topic": "Ch7.1 One-mean context",
+      "title": "One-mean inference — sleep hours",
+      "file": "questions/stats-tests/inference-for-means/q1-sleep-hours.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827918",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 6,
+      "topic": "Ch7.2 Paired t",
+      "title": "Paired t-test — reaction times",
+      "file": "questions/stats-tests/inference-for-means/q2-reaction-times.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827919",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 7,
+      "topic": "Ch7.2 Paired t workflow",
+      "title": "Paired t — full workflow from data table",
+      "file": "questions/stats-tests/inference-for-means/q6-paired-t-workflow.php",
+      "role": "multipart",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827920",
+      "draft_note": "Drill: HW 7.2 q6 (88%) + mixed q15/q18 (43-54% incomplete).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 8,
+      "topic": "Ch7.2/.3 Choose paired vs 2-sample",
+      "title": "Paired data vs independent two-sample — choose",
+      "file": "questions/stats-tests/inference-for-means/q7-paired-vs-two-sample-choice.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827921",
+      "draft_note": "Drill: pre-requisite for FRQ q21. Auto-graded MC alternative.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 9,
+      "topic": "Ch7.3 Two-mean HT",
+      "title": "Two-sample mean HT — energy drinks",
+      "file": "questions/stats-tests/two-sample-inference/q13-two-sample-means-energy-drinks.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827922",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 10,
+      "topic": "Ch7.3 Two-mean CI interp",
+      "title": "Interpret a CI for two means — distracted eating",
+      "file": "questions/stats-tests/two-sample-inference/q14-interpret-ci-two-means.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827923",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 11,
+      "topic": "Ch7.3 Two-mean CI compute",
+      "title": "CI for two means (unequal variances) — compute (TOP-MISS)",
+      "file": "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php",
+      "role": "computation",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827924",
+      "draft_note": "Drill: mixed-review q12 (50%, 47.8% incomplete) — single lowest item in Ch7 dataset.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 12,
+      "topic": "Ch7.3 Two-mean full workflow",
+      "title": "Two-sample t — full hypothesis workflow",
+      "file": "questions/stats-tests/two-sample-inference/q18-two-mean-full-workflow.php",
+      "role": "multipart",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827925",
+      "draft_note": "Drill: mixed q9 (72%, 44.8% incomplete). Integration with two-sample inference.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 13,
+      "topic": "Ch7.5 ANOVA when to use",
+      "title": "When to use ANOVA — choose the right test (TOP-MISS)",
+      "file": "questions/stats-tests/inference-for-means/q8-anova-when-to-use.php",
+      "role": "conceptual",
+      "diff": "hard",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827926",
+      "draft_note": "Drill: IND q7 (56%) + group q13 (44%) — largest IND miss. Auto-graded MC alternative to FRQ q22.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 14,
+      "topic": "Ch7.5 ANOVA summary table",
+      "title": "ANOVA summary table — compute MS, F",
+      "file": "questions/stats-tests/inference-for-means/q9-anova-summary-table.php",
+      "role": "computation",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827927",
+      "draft_note": "Drill: IND q4 (93%, 8.6% incomplete) + group q8 (92%, 13.7% incomplete).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 15,
+      "topic": "Ch7.5 ANOVA conclusion",
+      "title": "ANOVA conclusion — interpret F and decide",
+      "file": "questions/stats-tests/inference-for-means/q10-anova-conclusion.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827928",
+      "draft_note": "Drill: group q13 (44%) conclusion-writing as auto-graded MC.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 16,
+      "topic": "Ch7 H0/Ha for means",
+      "title": "State H0 and Ha — single mean and two means in context",
+      "file": "questions/stats-tests/hypothesis-testing/q13-null-alt-mean-context.php",
+      "role": "multipart",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "draft",
+      "qid": "1827929",
+      "draft_note": "Mean-specific version of Ch4-5 q6 (which was proportion-focused).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 17,
+      "topic": "Ch7 p-value decision",
+      "title": "p-value to decision at significance level alpha",
+      "file": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php",
+      "role": "computation",
+      "diff": "easy",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827930",
+      "notes": "Reuse from Ch4-5.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 18,
+      "topic": "Ch7 Type I/II numerical",
+      "title": "Type I vs Type II errors in numerical context",
+      "file": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php",
+      "role": "conceptual",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827931",
+      "notes": "Reuse from Ch4-5.",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 19,
+      "topic": "Ch7.1 Daily steps one-sample",
+      "title": "One-mean inference — daily steps",
+      "file": "questions/stats-tests/inference-for-means/q3-daily-steps.php",
+      "role": "multipart",
+      "diff": "mod",
+      "is_frq": false,
+      "source": "reuse",
+      "qid": "1827932",
+      "notes": null,
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 20,
+      "topic": "FRQ Single-mean p-value",
+      "title": "FRQ: Single-mean test — interpret the p-value",
+      "file": "questions/frq/inference-for-means/q2-single-mean-interpreting-p-value.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827933",
+      "notes": "Drill: IND q6 (68%).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 21,
+      "topic": "FRQ Paired means interp",
+      "title": "FRQ: Paired means — interpreting results",
+      "file": "questions/frq/inference-for-means/q5-paired-means-interpreting-results.php",
+      "role": "essay",
+      "diff": "mod",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827934",
+      "notes": "Drill: group q12 (55%).",
+      "verify_status": "uploaded"
+    },
+    {
+      "slot": 22,
+      "topic": "FRQ ANOVA interpretation",
+      "title": "FRQ: ANOVA — interpreting results",
+      "file": "questions/frq/inference-for-means/q9-anova-interpreting-results.php",
+      "role": "essay",
+      "diff": "hard",
+      "is_frq": true,
+      "source": "reuse",
+      "qid": "1827935",
+      "notes": "Drill: IND q7 (56%) + group q13 (44%) — top miss across Ch7.",
+      "verify_status": "uploaded"
+    }
+  ],
+  "aid": "22594158",
+  "status": "transferred",
+  "transferred_at": "2026-05-16T23:09:13.657497"
+}

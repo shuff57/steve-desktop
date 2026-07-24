@@ -1,0 +1,1044 @@
+{
+  "21000027": {
+    "name": "HW 6.1",
+    "n": 11,
+    "rows": [
+      {
+        "q": "1",
+        "title": "z-test of a proportion-calculating a p-value (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "1.41 (0.13)",
+        "incomplete": "11.6%"
+      },
+      {
+        "q": "2",
+        "title": "Critical value (z) for confidence interval, 80, 90,98,or 99% (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "1.11 (0.02)",
+        "incomplete": "7.2%"
+      },
+      {
+        "q": "3",
+        "title": "AP 340.8 95% confidence interval confidence interval proportion (local for Leah Dorazio)",
+        "avg": "100%",
+        "tries": "1.28 (0.08)",
+        "incomplete": "5.8%"
+      },
+      {
+        "q": "4",
+        "title": "C.I. form (from interval to p-&-ME) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "1.14 (0.08)",
+        "incomplete": "8.7%"
+      },
+      {
+        "q": "5",
+        "title": "Hypothesis Testing using confidence intervals (proportion) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "2.07 (0.29)",
+        "incomplete": "14.5%"
+      },
+      {
+        "q": "6",
+        "title": "CI proportions (interpret) 1 (local for Steven Huff)",
+        "avg": "99%",
+        "tries": "2.11 (0)",
+        "incomplete": "5.8%"
+      },
+      {
+        "q": "7",
+        "title": "confidence interval, one proportion, p and n given, 90,95,or 99% confidence (local for Leah Dorazio) (local for Steven H",
+        "avg": "98%",
+        "tries": "1.29 (0.06)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "8",
+        "title": "Full hypothesis test, one population, proportion (p-value) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "1.67 (0.05)",
+        "incomplete": "17.4%"
+      },
+      {
+        "q": "9",
+        "title": "Find Sample Size no p* [4346 GH] (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.36 (0.19)",
+        "incomplete": "15.9%"
+      },
+      {
+        "q": "10",
+        "title": "OpenIntro Statistics: Problem 6.16 (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "98%",
+        "tries": "1.93 (0.14)",
+        "incomplete": "17.4%"
+      },
+      {
+        "q": "11",
+        "title": "OpenIntro Statistics: Problem 6.18 (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.8 (0.07)",
+        "incomplete": "20.3%"
+      }
+    ]
+  },
+  "21000028": {
+    "name": "HW 6.2",
+    "n": 8,
+    "rows": [
+      {
+        "q": "1",
+        "title": "OpenIntro.org 6.2: Hypotheses for a two proportion test (dietary supplements and death rate) (local for Leah Dorazio - n",
+        "avg": "100%",
+        "tries": "1.76 (0.2)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "2",
+        "title": "Full hypothesis test, two population, proportion (p-value) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.89 (0.18)",
+        "incomplete": "11%"
+      },
+      {
+        "q": "3",
+        "title": "Hypothesis Test; two proportions (5 parts) (copy by Melonie Rasmussen) (local for Steven Huff)",
+        "avg": "94%",
+        "tries": "2.19 (0.44)",
+        "incomplete": "13.7%"
+      },
+      {
+        "q": "4",
+        "title": "OpenIntro Statistics: Problem 6.27 (Answers using TI functionality) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "99%",
+        "tries": "1.67 (0.06)",
+        "incomplete": "13.7%"
+      },
+      {
+        "q": "5",
+        "title": "OpenIntro Statistics: Problem 6.26 (local for Leah Dorazio - fixed symbol) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.81 (0.01)",
+        "incomplete": "6.8%"
+      },
+      {
+        "q": "6",
+        "title": "Full Test Difference of Proportions Proportions Given",
+        "avg": "96%",
+        "tries": "2.11 (0.11)",
+        "incomplete": "13.7%"
+      },
+      {
+        "q": "7",
+        "title": "Full Test Difference of Proportions Proportions Given Vehicle Altitudes",
+        "avg": "95%",
+        "tries": "2.25 (0.11)",
+        "incomplete": "13.7%"
+      },
+      {
+        "q": "8",
+        "title": "Confidence interval for difference of two proportions (peanuts)",
+        "avg": "92%",
+        "tries": "2.04 (0.18)",
+        "incomplete": "21.9%"
+      }
+    ]
+  },
+  "21000029": {
+    "name": "HW 6.3",
+    "n": 12,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Chi-Square d.f. (multinomial distribution) [4408 GH] (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.15 (0.05)",
+        "incomplete": "9%"
+      },
+      {
+        "q": "2",
+        "title": "Multinomial Distribution (equal p) Goodness of Fit Hypoth Test (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.81 (0.07)",
+        "incomplete": "13.4%"
+      },
+      {
+        "q": "3",
+        "title": "Multinomial Distribution (unequal p) Goodness of Fit Hypoth Test (with technology tutorial) (local for Leah Dorazio) (lo",
+        "avg": "91%",
+        "tries": "2.02 (0.21)",
+        "incomplete": "22.4%"
+      },
+      {
+        "q": "4",
+        "title": "OpenIntro Statistics: Problem 6.42 (Answers using TI functionality) (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "2.33 (0.08)",
+        "incomplete": "22.4%"
+      },
+      {
+        "q": "5",
+        "title": "Goodness of Fit Uniform, Fair Dice",
+        "avg": "98%",
+        "tries": "2.2 (0.12)",
+        "incomplete": "25.4%"
+      },
+      {
+        "q": "6",
+        "title": "Goodness of Fit Uniform, Traffic in each freeway lane",
+        "avg": "98%",
+        "tries": "1.8 (0)",
+        "incomplete": "23.9%"
+      },
+      {
+        "q": "7",
+        "title": "Goodness of Fit Uniform, suits of cards dealt",
+        "avg": "94%",
+        "tries": "1.76 (0.02)",
+        "incomplete": "23.9%"
+      },
+      {
+        "q": "8",
+        "title": "T/F, Goodness of Fit Use, ethnicity and job type.",
+        "avg": "100%",
+        "tries": "1.42 (0)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "9",
+        "title": "T/F, Goodness of Fit Use blood type for geniuses",
+        "avg": "100%",
+        "tries": "1.33 (0)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "10",
+        "title": "T/F, Goodness of Fit Use favorite color and major.",
+        "avg": "100%",
+        "tries": "1.37 (0)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "11",
+        "title": "T/F, Goodness of Fit Use political affiliation change.",
+        "avg": "100%",
+        "tries": "1.38 (0)",
+        "incomplete": "16.4%"
+      },
+      {
+        "q": "12",
+        "title": "Goodness-of-Fit full hypothesis, unequal proportion, Hair Color distribution (copy by Rachel Webb)",
+        "avg": "95%",
+        "tries": "1.86 (0.1)",
+        "incomplete": "25.4%"
+      }
+    ]
+  },
+  "21000030": {
+    "name": "HW 6.4",
+    "n": 12,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Purpose of Chi Square (local for Leah Dorazio) (local for Steven Huff)",
+        "avg": "99%",
+        "tries": "1.74 (0.42)",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "2",
+        "title": "Chi-Square d.f. (contingency tables) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.29 (0.24)",
+        "incomplete": "11.3%"
+      },
+      {
+        "q": "3",
+        "title": "OpenIntro.org 6.4: Chi square test for independence (stopping and gender) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.81 (0.16)",
+        "incomplete": "5.6%"
+      },
+      {
+        "q": "4",
+        "title": "OpenIntro.org 6.4: Expected count for chi square independence (stopping and gender) (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.56 (0.18)",
+        "incomplete": "7%"
+      },
+      {
+        "q": "5",
+        "title": "OpenIntro.org 6.4: Choosing a test - chisq independence (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.56 (0.06)",
+        "incomplete": "7%"
+      },
+      {
+        "q": "6",
+        "title": "OpenIntro.org 6.3: Chi square GOF expected value (rock-paper-scissors) (local for Steven Huff)",
+        "avg": "100%",
+        "tries": "1.7 (0.08)",
+        "incomplete": "7%"
+      },
+      {
+        "q": "7",
+        "title": "OpenIntro Statistics (3Ed): Problem 6.36 Like OpenIntro Statistics (4Ed) Problem 6.46 (local for Steven Huff)",
+        "avg": "99%",
+        "tries": "1.76 (0.05)",
+        "incomplete": "11.3%"
+      },
+      {
+        "q": "8",
+        "title": "Contingency Table (2x2) [fixed@1234] (local for Steven Huff)",
+        "avg": "93%",
+        "tries": "1.71 (0.2)",
+        "incomplete": "16.9%"
+      },
+      {
+        "q": "9",
+        "title": "Contingency Table (2x3) (local for Steven Huff)",
+        "avg": "91%",
+        "tries": "1.56 (0.09)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "10",
+        "title": "contingency tables (economy poll) [DVB3_03] (local for Steven Huff)",
+        "avg": "95%",
+        "tries": "2.18 (0.05)",
+        "incomplete": "21.1%"
+      },
+      {
+        "q": "11",
+        "title": "Independence, computer type and car type",
+        "avg": "94%",
+        "tries": "1.91 (0.15)",
+        "incomplete": "23.9%"
+      },
+      {
+        "q": "12",
+        "title": "Independence, gender and major",
+        "avg": "91%",
+        "tries": "2.1 (0.15)",
+        "incomplete": "26.8%"
+      }
+    ]
+  },
+  "22110497": {
+    "name": "6.1+6.2 Mixed Review",
+    "n": 22,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Margin of Error Proportion - Successes Given",
+        "avg": "99%",
+        "tries": "1.19 (0.07)",
+        "incomplete": "15.7%"
+      },
+      {
+        "q": "2",
+        "title": "Margin of Error Proportion - Successes Given",
+        "avg": "98%",
+        "tries": "1.26 (0.03)",
+        "incomplete": "17.1%"
+      },
+      {
+        "q": "3",
+        "title": "Margin of Error Proportion - Probability Given",
+        "avg": "99%",
+        "tries": "1.3 (0.02)",
+        "incomplete": "14.3%"
+      },
+      {
+        "q": "4",
+        "title": "Margin of Error Proportion - Probability Given",
+        "avg": "99%",
+        "tries": "1.22 (0.03)",
+        "incomplete": "17.1%"
+      },
+      {
+        "q": "5",
+        "title": "Confidence Interval Proportion Application Smoking a Year Later",
+        "avg": "94%",
+        "tries": "1.74 (0.03)",
+        "incomplete": "17.1%"
+      },
+      {
+        "q": "6",
+        "title": "Confidence Interval Proportion Application Not Smoking a Year Later (local for Steven Huff)",
+        "avg": "97%",
+        "tries": "1.6 (0.04)",
+        "incomplete": "21.4%"
+      },
+      {
+        "q": "7",
+        "title": "Intro Hypothesis Testing; Set up for One Proportion; Error types; random-tailed (7.1.1 and 7.1.5) (local for Terrill Mea",
+        "avg": "98%",
+        "tries": "2.11 (0.28)",
+        "incomplete": "32.9%"
+      },
+      {
+        "q": "8",
+        "title": "Setting up a test for a single proportion",
+        "avg": "100%",
+        "tries": "1.43 (0.02)",
+        "incomplete": "17.1%"
+      },
+      {
+        "q": "9",
+        "title": "Test Statistic Proportion",
+        "avg": "97%",
+        "tries": "1.26 (0.02)",
+        "incomplete": "11.4%"
+      },
+      {
+        "q": "10",
+        "title": "Test Statistic Proportion Successes Given",
+        "avg": "95%",
+        "tries": "1.39 (0.08)",
+        "incomplete": "15.7%"
+      },
+      {
+        "q": "11",
+        "title": "Test Statistic Proportion",
+        "avg": "98%",
+        "tries": "1.23 (0.03)",
+        "incomplete": "11.4%"
+      },
+      {
+        "q": "12",
+        "title": "Test Statistic Proportion Successes Given",
+        "avg": "94%",
+        "tries": "1.3 (0.14)",
+        "incomplete": "10%"
+      },
+      {
+        "q": "13",
+        "title": "Hypothesis Test Proportion Cats Two Tailed",
+        "avg": "98%",
+        "tries": "2.1 (0.1)",
+        "incomplete": "31.4%"
+      },
+      {
+        "q": "14",
+        "title": "Hypothesis Testing Proportion IRS Right Tailed",
+        "avg": "94%",
+        "tries": "1.88 (0.1)",
+        "incomplete": "25.7%"
+      },
+      {
+        "q": "15",
+        "title": "Hypothesis Testing and Confidence Interval for a Proportion Two Tailed FTR",
+        "avg": "97%",
+        "tries": "2.17 (0.09)",
+        "incomplete": "32.9%"
+      },
+      {
+        "q": "16",
+        "title": "Hypothesis Testing and Confidence Interval for a Proportion Left Tailed R",
+        "avg": "95%",
+        "tries": "2.22 (0.12)",
+        "incomplete": "28.6%"
+      },
+      {
+        "q": "17",
+        "title": "test statistic from two sample sizes and two phats",
+        "avg": "100%",
+        "tries": "1.2 (0.05)",
+        "incomplete": "14.3%"
+      },
+      {
+        "q": "18",
+        "title": "Hyp test for 2 p (x & n given; abtract & p-value)",
+        "avg": "79%",
+        "tries": "2.25 (0.25)",
+        "incomplete": "20%"
+      },
+      {
+        "q": "19",
+        "title": "Hyp test for 2 p (x & y given; abtract & p-value)",
+        "avg": "82%",
+        "tries": "2.32 (0.36)",
+        "incomplete": "20%"
+      },
+      {
+        "q": "20",
+        "title": "T/F on writing the null and alternative hypotheses.",
+        "avg": "100%",
+        "tries": "1.56 (0)",
+        "incomplete": "12.9%"
+      },
+      {
+        "q": "21",
+        "title": "T/F on sample size, condo vs. home fires",
+        "avg": "100%",
+        "tries": "1.56 (0)",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "22",
+        "title": "Full Hypothesis Test, 2-PropZTest, Drug test p-value method (copy by Rachel Webb)",
+        "avg": "89%",
+        "tries": "2.5 (0.31)",
+        "incomplete": "25.7%"
+      }
+    ]
+  },
+  "22170278": {
+    "name": "Ch6 Practice Test",
+    "n": 35,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Setting up a test for a single proportion",
+        "avg": "100%",
+        "tries": "1.78 (0.11)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "2",
+        "title": "Group average",
+        "avg": "96%",
+        "tries": "1.3 (0.19)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "2-1",
+        "title": "Test Statistic Proportion",
+        "avg": "94%",
+        "tries": "1.4 (0.26)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "2-2",
+        "title": "Test Statistic Proportion Successes Given",
+        "avg": "97%",
+        "tries": "1.21 (0.13)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "3",
+        "title": "Group average",
+        "avg": "98%",
+        "tries": "2.32 (0.18)",
+        "incomplete": "10.8%"
+      },
+      {
+        "q": "3-1",
+        "title": "Hypothesis Test Proportion Cats Two Tailed",
+        "avg": "97%",
+        "tries": "2.34 (0.16)",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "3-2",
+        "title": "Hypothesis Test for P Right Tailed Significance",
+        "avg": "98%",
+        "tries": "2.29 (0.21)",
+        "incomplete": "12.8%"
+      },
+      {
+        "q": "4",
+        "title": "Hypothesis Testing and Confidence Interval for a Proportion Left Tailed R",
+        "avg": "97%",
+        "tries": "2.38 (0.16)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "5",
+        "title": "test statistic from two sample sizes and two phats",
+        "avg": "99%",
+        "tries": "1.17 (0.03)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "6",
+        "title": "Hyp test for 2 p (x & n given; abtract & p-value)",
+        "avg": "81%",
+        "tries": "2.36 (0.28)",
+        "incomplete": "6.8%"
+      },
+      {
+        "q": "7",
+        "title": "Full hypothesis test, two population, proportion (p-value)",
+        "avg": "97%",
+        "tries": "1.87 (0.22)",
+        "incomplete": "8.1%"
+      },
+      {
+        "q": "8",
+        "title": "T/F on writing the null and alternative hypotheses.",
+        "avg": "100%",
+        "tries": "1.53 (0.03)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "9",
+        "title": "T/F on sample size, condo vs. home fires",
+        "avg": "100%",
+        "tries": "1.69 (0.01)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "10",
+        "title": "Group average",
+        "avg": "99%",
+        "tries": "1.26 (0.12)",
+        "incomplete": "6.8%"
+      },
+      {
+        "q": "10-1",
+        "title": "Chi-Squared Goodness of Fit Expected Frequencies Non-Uniform",
+        "avg": "98%",
+        "tries": "1.36 (0.16)",
+        "incomplete": "2.2%"
+      },
+      {
+        "q": "10-2",
+        "title": "Chi-Squared Goodness of Fit Expected Frequencies (Uniform)",
+        "avg": "100%",
+        "tries": "1.08 (0.04)",
+        "incomplete": "13.8%"
+      },
+      {
+        "q": "11",
+        "title": "Chi-Squared Goodness of Fit Expected Frequencies and Test Statistic Non-Uniform",
+        "avg": "99%",
+        "tries": "1.42 (0.03)",
+        "incomplete": "9.5%"
+      },
+      {
+        "q": "12",
+        "title": "Chi-Squared Goodness of Fit P-value",
+        "avg": "100%",
+        "tries": "1.05 (0.02)",
+        "incomplete": "10.8%"
+      },
+      {
+        "q": "13",
+        "title": "Group average",
+        "avg": "100%",
+        "tries": "1.45 (0.02)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "13-1",
+        "title": "T/F, Goodness of Fit Use, ethnicity and job type.",
+        "avg": "100%",
+        "tries": "1.45 (0)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "13-2",
+        "title": "T/F, Goodness of Fit Use blood type for geniuses",
+        "avg": "100%",
+        "tries": "1.4 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "13-3",
+        "title": "T/F, Goodness of Fit Use favorite color and major.",
+        "avg": "100%",
+        "tries": "1.56 (0.05)",
+        "incomplete": "2.5%"
+      },
+      {
+        "q": "13-4",
+        "title": "T/F, Goodness of Fit Use political affiliation change.",
+        "avg": "100%",
+        "tries": "1.38 (0.03)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "15",
+        "title": "Group average",
+        "avg": "100%",
+        "tries": "1.51 (0.06)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "15-1",
+        "title": "T/F, Independence Conclusion",
+        "avg": "100%",
+        "tries": "1.4 (0.23)",
+        "incomplete": "3.2%"
+      },
+      {
+        "q": "15-2",
+        "title": "T/F, Independence Use, Toughest Class.",
+        "avg": "100%",
+        "tries": "1.45 (0)",
+        "incomplete": "4.5%"
+      },
+      {
+        "q": "15-3",
+        "title": "T/F, Independence Use, High School Dropout Rates.",
+        "avg": "100%",
+        "tries": "1.66 (0.03)",
+        "incomplete": "3%"
+      },
+      {
+        "q": "15-4",
+        "title": "T/F, Independence Conclusion, eye vs. hair color.",
+        "avg": "100%",
+        "tries": "1.53 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "17",
+        "title": "find P-value from chi-square test statistic, MxN contingency table (Ying Lin)",
+        "avg": "99%",
+        "tries": "1.63 (0.32)",
+        "incomplete": "14.9%"
+      },
+      {
+        "q": "18",
+        "title": "Group average",
+        "avg": "89%",
+        "tries": "2.31 (0.32)",
+        "incomplete": "20.3%"
+      },
+      {
+        "q": "18-1",
+        "title": "Independence, body type and hair color (local for Steven Huff)",
+        "avg": "86%",
+        "tries": "2.45 (0.17)",
+        "incomplete": "27.5%"
+      },
+      {
+        "q": "18-2",
+        "title": "Independence, computer type and car type (local for Steven Huff)",
+        "avg": "91%",
+        "tries": "2.17 (0.47)",
+        "incomplete": "11.8%"
+      },
+      {
+        "q": "19",
+        "title": "Chi-Square Goodness of Fit - Students evaluate whether observed data matches an expected distribution, explain their rea",
+        "avg": "70%",
+        "tries": "1.11 (0.02)",
+        "incomplete": "25.7%"
+      },
+      {
+        "q": "20",
+        "title": "When to Use Each Test - Students read a research scenario and decide whether a single proportion test or a two-proportio",
+        "avg": "80%",
+        "tries": "1.09 (0)",
+        "incomplete": "28.4%"
+      },
+      {
+        "q": "21",
+        "title": "Single Proportion Inference - Interpreting Results - Students write a conclusion statement for a single-proportion hypot",
+        "avg": "72%",
+        "tries": "1.1 (0)",
+        "incomplete": "29.7%"
+      }
+    ]
+  },
+  "22181973": {
+    "name": "Ch6 Group Test",
+    "n": 28,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Setting up a test for a single proportion",
+        "avg": "99%",
+        "tries": "1.24 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "2",
+        "title": "Group average",
+        "avg": "97%",
+        "tries": "1.27 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "2-1",
+        "title": "Test Statistic Proportion",
+        "avg": "100%",
+        "tries": "1.25 (0)",
+        "incomplete": "7.7%"
+      },
+      {
+        "q": "2-2",
+        "title": "Test Statistic Proportion Successes Given",
+        "avg": "96%",
+        "tries": "1.28 (0)",
+        "incomplete": "4.2%"
+      },
+      {
+        "q": "3",
+        "title": "Hypothesis Testing and Confidence Interval for a Proportion Left Tailed R",
+        "avg": "98%",
+        "tries": "2.17 (0)",
+        "incomplete": "10.8%"
+      },
+      {
+        "q": "4",
+        "title": "test statistic from two sample sizes and two phats",
+        "avg": "94%",
+        "tries": "1.21 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "5",
+        "title": "Hyp test for 2 p (x & n given; abtract & p-value) (local for Steven Huff)",
+        "avg": "88%",
+        "tries": "2.43 (0)",
+        "incomplete": "6.8%"
+      },
+      {
+        "q": "6",
+        "title": "Full hypothesis test, two population, proportion (p-value)",
+        "avg": "96%",
+        "tries": "1.96 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "7",
+        "title": "T/F on writing the null and alternative hypotheses.",
+        "avg": "100%",
+        "tries": "1.49 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "8",
+        "title": "T/F on sample size, condo vs. home fires",
+        "avg": "100%",
+        "tries": "1.54 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "9",
+        "title": "Chi-Squared Goodness of Fit Expected Frequencies and Test Statistic Non-Uniform",
+        "avg": "96%",
+        "tries": "1.6 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "10",
+        "title": "Chi-Squared Goodness of Fit P-value",
+        "avg": "97%",
+        "tries": "1.06 (0)",
+        "incomplete": "5.4%"
+      },
+      {
+        "q": "11",
+        "title": "Group average",
+        "avg": "100%",
+        "tries": "1.43 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "11-1",
+        "title": "T/F, Goodness of Fit Use, ethnicity and job type.",
+        "avg": "100%",
+        "tries": "1.4 (0)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "11-2",
+        "title": "T/F, Goodness of Fit Use blood type for geniuses",
+        "avg": "100%",
+        "tries": "1.5 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "11-3",
+        "title": "T/F, Goodness of Fit Use favorite color and major.",
+        "avg": "100%",
+        "tries": "1.5 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "11-4",
+        "title": "T/F, Goodness of Fit Use political affiliation change.",
+        "avg": "100%",
+        "tries": "1.29 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "12",
+        "title": "Group average",
+        "avg": "100%",
+        "tries": "1.5 (0)",
+        "incomplete": "2.7%"
+      },
+      {
+        "q": "12-1",
+        "title": "T/F, Independence Conclusion",
+        "avg": "100%",
+        "tries": "1.47 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "12-2",
+        "title": "T/F, Independence Use, Toughest Class.",
+        "avg": "100%",
+        "tries": "1.65 (0)",
+        "incomplete": "4.8%"
+      },
+      {
+        "q": "12-3",
+        "title": "T/F, Independence Use, High School Dropout Rates.",
+        "avg": "100%",
+        "tries": "1.33 (0)",
+        "incomplete": "5.3%"
+      },
+      {
+        "q": "12-4",
+        "title": "T/F, Independence Conclusion, eye vs. hair color.",
+        "avg": "100%",
+        "tries": "1.53 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "13",
+        "title": "Group average",
+        "avg": "94%",
+        "tries": "2.1 (0)",
+        "incomplete": "17.6%"
+      },
+      {
+        "q": "13-1",
+        "title": "Independence, body type and hair color (local for Steven Huff)",
+        "avg": "94%",
+        "tries": "2.09 (0)",
+        "incomplete": "22%"
+      },
+      {
+        "q": "13-2",
+        "title": "Independence, computer type and car type (local for Steven Huff)",
+        "avg": "95%",
+        "tries": "2.1 (0)",
+        "incomplete": "12.1%"
+      },
+      {
+        "q": "14",
+        "title": "Difference of Proportions - Students explain the main difference between testing a single proportion and comparing two p",
+        "avg": "67%",
+        "tries": "1 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "15",
+        "title": "Understanding Statistical Significance - Students interpret a p-value relative to a significance level, make the correct",
+        "avg": "46%",
+        "tries": "0.99 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "16",
+        "title": "Chi-Square Goodness of Fit - Interpreting Results - Students write a conclusion statement for a chi-square goodness of f",
+        "avg": "57%",
+        "tries": "0.96 (0)",
+        "incomplete": "1.4%"
+      }
+    ]
+  },
+  "22195968": {
+    "name": "Ch6 Individual Test",
+    "n": 14,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Setting up a test for a single proportion",
+        "avg": "100%",
+        "tries": "1.11",
+        "incomplete": "0%"
+      },
+      {
+        "q": "2",
+        "title": "Group average",
+        "avg": "97%",
+        "tries": "1.15 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "2-1",
+        "title": "Test Statistic Proportion",
+        "avg": "94%",
+        "tries": "1.12",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "2-2",
+        "title": "Test Statistic Proportion Successes Given",
+        "avg": "100%",
+        "tries": "1.19",
+        "incomplete": "0%"
+      },
+      {
+        "q": "3",
+        "title": "Hypothesis Testing and Confidence Interval for a Proportion Left Tailed R",
+        "avg": "98%",
+        "tries": "1.87",
+        "incomplete": "6.9%"
+      },
+      {
+        "q": "4",
+        "title": "Hyp test for 2 p (x & n given; abtract & p-value) (local for Steven Huff)",
+        "avg": "90%",
+        "tries": "2.14",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "5",
+        "title": "Full hypothesis test, two population, proportion (p-value)",
+        "avg": "97%",
+        "tries": "1.71",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "6",
+        "title": "Chi-Squared Goodness of Fit Expected Frequencies and Test Statistic Non-Uniform",
+        "avg": "98%",
+        "tries": "1.29",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "7",
+        "title": "Chi-Squared Goodness of Fit P-value",
+        "avg": "97%",
+        "tries": "1.06",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "8",
+        "title": "Group average",
+        "avg": "95%",
+        "tries": "1.93 (0)",
+        "incomplete": "4.2%"
+      },
+      {
+        "q": "8-1",
+        "title": "Independence, body type and hair color (local for Steven Huff)",
+        "avg": "95%",
+        "tries": "2",
+        "incomplete": "5%"
+      },
+      {
+        "q": "8-2",
+        "title": "Independence, computer type and car type (local for Steven Huff)",
+        "avg": "94%",
+        "tries": "1.84",
+        "incomplete": "3.1%"
+      },
+      {
+        "q": "9",
+        "title": "Single Proportion Inference - Students explain what a hypothesis test for a single proportion is trying to answer, provi",
+        "avg": "59%",
+        "tries": "1.21",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "10",
+        "title": "Difference of Proportions - Interpreting Results - Students write a conclusion statement for a two-proportion hypothesis",
+        "avg": "58%",
+        "tries": "1.24",
+        "incomplete": "1.4%"
+      }
+    ]
+  }
+}

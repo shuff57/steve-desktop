@@ -1,0 +1,702 @@
+{
+  "21000034": {
+    "name": "HW 8.1 Day 2",
+    "n": 12,
+    "rows": [
+      {
+        "q": "1",
+        "title": "OpenIntro.org 7.1: Correlation - conceptual",
+        "avg": "100%",
+        "tries": "1.75 (0.23)",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "2",
+        "title": "matching correlations [DVB3_07]",
+        "avg": "93%",
+        "tries": "1.53 (0.28)",
+        "incomplete": "8.6%"
+      },
+      {
+        "q": "3",
+        "title": "Interpret correlation",
+        "avg": "98%",
+        "tries": "1.92 (0.26)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "4",
+        "title": "Pg 50 1Choose the most likely correlation...",
+        "avg": "97%",
+        "tries": "1.54 (0.12)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "5",
+        "title": "Pg 50 2Choose the most likely correlation...",
+        "avg": "98%",
+        "tries": "1.31 (0.12)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "6",
+        "title": "CP2 #4 A correlation of r =",
+        "avg": "100%",
+        "tries": "1.71 (0.14)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "7",
+        "title": "Compute a Residual - Use regression equation to find residual from observed point",
+        "avg": "97%",
+        "tries": "1.73 (0.35)",
+        "incomplete": "14.3%"
+      },
+      {
+        "q": "8",
+        "title": "Residual Sign Interpretation - Determine over/underprediction from residual value",
+        "avg": "100%",
+        "tries": "1.74 (0.02)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "9",
+        "title": "Residual Plot Good Fit - Identify whether a residual plot shows a good linear fit",
+        "avg": "100%",
+        "tries": "1.83 (0)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "10",
+        "title": "Identify Nonlinearity from Residual Plots - Which residual plot shows evidence of a nonlinear relationship",
+        "avg": "100%",
+        "tries": "1.66 (0)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "11",
+        "title": "Withdrawn Estimate Residual Standard Deviation - Use 95% rule to estimate s from residual plot bounds",
+        "avg": "100%",
+        "tries": "1.5 (0.5)",
+        "incomplete": "82.9%"
+      },
+      {
+        "q": "12",
+        "title": "Residual Concepts - Multiple choice on properties of residuals",
+        "avg": "98%",
+        "tries": "1.69 (0.17)",
+        "incomplete": "7.1%"
+      }
+    ]
+  },
+  "21000035": {
+    "name": "HW 8.2",
+    "n": 8,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Ch 5 Moore - Regression w/ & w/o outlier [4397 GH] (local for Leah Dorazio)",
+        "avg": "91%",
+        "tries": "1.87 (0.34)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "2",
+        "title": "Predict response variable from regression eqn (stats) [4400 GH] (local for Leah Dorazio)",
+        "avg": "98%",
+        "tries": "1.27 (0.22)",
+        "incomplete": "20.3%"
+      },
+      {
+        "q": "3",
+        "title": "OpenIntro.org 7.2: Residual based on linear model for predicting % poverty from % HS grad",
+        "avg": "98%",
+        "tries": "1.73 (0.27)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "4",
+        "title": "Standard 8.1.E Interpret slope and intercept",
+        "avg": "100%",
+        "tries": "1.65 (0.18)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "5",
+        "title": "Interpreting a Linear Equation - Interpret slope and intercept (fill in the blanks), volume story (increasing/decreasing",
+        "avg": "99%",
+        "tries": "1.43 (0.03)",
+        "incomplete": "15.9%"
+      },
+      {
+        "q": "6",
+        "title": "Find regression, interpret slope and intercept; coffee drinking story. Not all self-grading. (local for Leah Dorazio)",
+        "avg": "51%",
+        "tries": "1.96 (0.09)",
+        "incomplete": "34.8%"
+      },
+      {
+        "q": "7",
+        "title": "OpenIntro.org 7.2: Linear model for % poverty and % female householder (local for Leah Dorazio)",
+        "avg": "100%",
+        "tries": "1.8 (0.14)",
+        "incomplete": "14.5%"
+      },
+      {
+        "q": "8",
+        "title": "OpenIntro Statistics (3Ed): Problem 7.32 Like OpenIntro Statistics (4Ed) Problem 8.28",
+        "avg": "96%",
+        "tries": "2.1 (0.11)",
+        "incomplete": "10.1%"
+      }
+    ]
+  },
+  "22393935": {
+    "name": "HW 8.1 Day 1",
+    "n": 18,
+    "rows": [
+      {
+        "q": "1",
+        "title": "8.1 Explanatory and response variables (possum study)",
+        "avg": "100%",
+        "tries": "1.12 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "2",
+        "title": "8.1 Make a prediction (possum head length)",
+        "avg": "98%",
+        "tries": "1.02 (0)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "3",
+        "title": "8.1 Interpret slope (education and salary)",
+        "avg": "99%",
+        "tries": "1.56 (0.15)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "4",
+        "title": "8.1 Interpret y-intercept (homework and exam score)",
+        "avg": "100%",
+        "tries": "1.65 (0.13)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "5",
+        "title": "8.1 Positive or negative relationship (car age and value)",
+        "avg": "100%",
+        "tries": "1.4 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "6",
+        "title": "8.1 When is a linear model appropriate (physics experiment)",
+        "avg": "99%",
+        "tries": "1.87 (0.26)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "7",
+        "title": "8.1 Prediction and above/below line (used car price)",
+        "avg": "98%",
+        "tries": "1.76 (0.02)",
+        "incomplete": "10.1%"
+      },
+      {
+        "q": "8",
+        "title": "8.1 What does y-hat mean",
+        "avg": "100%",
+        "tries": "1.46 (0.06)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "9",
+        "title": "8.1 Two predictions (house size and price)",
+        "avg": "92%",
+        "tries": "1.2 (0.1)",
+        "incomplete": "13%"
+      },
+      {
+        "q": "10",
+        "title": "Association explanatory/response variable, randomized scenarios and order. V1 (sleep/mood, caffeine/sleep, movie tickets",
+        "avg": "100%",
+        "tries": "1.78 (0)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "11",
+        "title": "8.1 Identifying explanatory and response variables",
+        "avg": "96%",
+        "tries": "1.76 (0.5)",
+        "incomplete": "4.3%"
+      },
+      {
+        "q": "12",
+        "title": "Chapte 2 Predict response variable from regression eqn (stats) [4400 GH] (copy by Samantha Homier) changed independent/d",
+        "avg": "97%",
+        "tries": "1.19 (0.02)",
+        "incomplete": "14.5%"
+      },
+      {
+        "q": "13",
+        "title": "4.2: Use a regression equation to make predictions; interpret slope/y-intercept.",
+        "avg": "100%",
+        "tries": "1.83 (0.21)",
+        "incomplete": "15.9%"
+      },
+      {
+        "q": "14",
+        "title": "12.3.2 Interpret the slope and y-intercept of a least-squares regression line Q2",
+        "avg": "99%",
+        "tries": "1.46 (0.25)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "15",
+        "title": "8.1 Predict sales from advertising spend",
+        "avg": "97%",
+        "tries": "1.1 (0)",
+        "incomplete": "15.9%"
+      },
+      {
+        "q": "16",
+        "title": "8.1 Scatterplot direction and linear model fit (study time)",
+        "avg": "100%",
+        "tries": "1.69 (0)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "17",
+        "title": "8.1 Interpret slope and predict (plant growth)",
+        "avg": "99%",
+        "tries": "1.43 (0.02)",
+        "incomplete": "15.9%"
+      },
+      {
+        "q": "18",
+        "title": "8.1 Linear vs nonlinear (two scenarios)",
+        "avg": "100%",
+        "tries": "1.34 (0)",
+        "incomplete": "5.8%"
+      }
+    ]
+  },
+  "22451386": {
+    "name": "HW 8.4 Slope Inference",
+    "n": 8,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
+        "avg": "100%",
+        "tries": "1.46 (0.16)",
+        "incomplete": "2.9%"
+      },
+      {
+        "q": "2",
+        "title": "LINE Conditions for Regression - Spot which condition (Linearity/Independence/Normality/Equal variance) is violated",
+        "avg": "99%",
+        "tries": "2.21 (0.25)",
+        "incomplete": "4.3%"
+      },
+      {
+        "q": "3",
+        "title": "CI for the Slope - SE, margin of error, lower and upper bounds",
+        "avg": "99%",
+        "tries": "1.34 (0.03)",
+        "incomplete": "17.1%"
+      },
+      {
+        "q": "4",
+        "title": "Interpret a CI for the Slope - Contains zero, evidence of relationship, alpha=0.05 decision",
+        "avg": "98%",
+        "tries": "1.98 (0.09)",
+        "incomplete": "7.1%"
+      },
+      {
+        "q": "5",
+        "title": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
+        "avg": "99%",
+        "tries": "1.72 (0.11)",
+        "incomplete": "18.6%"
+      },
+      {
+        "q": "6",
+        "title": "CI from Technology Output - Read software output, construct slope CI, decide significance",
+        "avg": "100%",
+        "tries": "1.56 (0.09)",
+        "incomplete": "21.4%"
+      },
+      {
+        "q": "7",
+        "title": "Pick the Right Test - Paired t vs. regression vs. two-sample t for pre/post data",
+        "avg": "100%",
+        "tries": "1.81 (0.11)",
+        "incomplete": "11.4%"
+      },
+      {
+        "q": "8",
+        "title": "Full Regression Workflow - Check conditions, state hypotheses, compute t and CI, decide, conclude",
+        "avg": "96%",
+        "tries": "1.71 (0.14)",
+        "incomplete": "27.1%"
+      }
+    ]
+  },
+  "22462700": {
+    "name": "Ch8 Practice Test",
+    "n": 21,
+    "rows": [
+      {
+        "q": "1",
+        "title": "8.1 Explanatory and response variables (possum study)",
+        "avg": "100%",
+        "tries": "1.16 (0.02)",
+        "incomplete": "7.6%"
+      },
+      {
+        "q": "2",
+        "title": "8.1 Interpret slope (education and salary)",
+        "avg": "100%",
+        "tries": "1.46 (0.15)",
+        "incomplete": "7.6%"
+      },
+      {
+        "q": "3",
+        "title": "8.1 Interpret slope and predict (plant growth)",
+        "avg": "100%",
+        "tries": "1.37 (0.03)",
+        "incomplete": "10.6%"
+      },
+      {
+        "q": "4",
+        "title": "Predict from Equation - Advertising (Ch8 practice copy)",
+        "avg": "100%",
+        "tries": "1.15 (0)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "5",
+        "title": "8.1 Prediction and above/below line (used car price)",
+        "avg": "100%",
+        "tries": "1.47 (0.03)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "6",
+        "title": "Compute a Residual (Ch8 practice copy)",
+        "avg": "97%",
+        "tries": "1.83 (0.18)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "7",
+        "title": "Interpret r Value - Direction, strength, and units of correlation",
+        "avg": "100%",
+        "tries": "1.87 (0.05)",
+        "incomplete": "7.6%"
+      },
+      {
+        "q": "8",
+        "title": "Least Squares Criterion - Why minimize squared residuals",
+        "avg": "100%",
+        "tries": "1.78 (0.2)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "9",
+        "title": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
+        "avg": "97%",
+        "tries": "1.55 (0.24)",
+        "incomplete": "16.7%"
+      },
+      {
+        "q": "10",
+        "title": "Association vs Causation - Correct conclusion from observational regression",
+        "avg": "100%",
+        "tries": "1.47 (0.07)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "11",
+        "title": "Extrapolation Warning - Judge whether a prediction is reliable",
+        "avg": "100%",
+        "tries": "1.7 (0.15)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "12",
+        "title": "R-squared Interpretation - Pick best interpretation in context",
+        "avg": "100%",
+        "tries": "1.4 (0.1)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "13",
+        "title": "Read Regression Output - Pull slope estimate and p-value from a software table",
+        "avg": "100%",
+        "tries": "1.42 (0.04)",
+        "incomplete": "13.6%"
+      },
+      {
+        "q": "14",
+        "title": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
+        "avg": "99%",
+        "tries": "1.4 (0.13)",
+        "incomplete": "9.1%"
+      },
+      {
+        "q": "15",
+        "title": "LINE Conditions for Regression - Spot which condition (Linearity/Independence/Normality/Equal variance) is violated",
+        "avg": "100%",
+        "tries": "1.91 (0.31)",
+        "incomplete": "12.1%"
+      },
+      {
+        "q": "16",
+        "title": "CI for the Slope - SE, margin of error, lower and upper bounds",
+        "avg": "100%",
+        "tries": "1.24 (0.15)",
+        "incomplete": "18.2%"
+      },
+      {
+        "q": "17",
+        "title": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
+        "avg": "100%",
+        "tries": "1.4 (0.15)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "18",
+        "title": "CI from Technology Output - Read software output, construct slope CI, decide significance",
+        "avg": "99%",
+        "tries": "1.51 (0.17)",
+        "incomplete": "19.7%"
+      },
+      {
+        "q": "19",
+        "title": "Ch8 FRQ: Interpret a Residual in Context",
+        "avg": "47%",
+        "tries": "0.53 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "20",
+        "title": "Ch8 FRQ: Interpret Slope and Y-Intercept in Context",
+        "avg": "45%",
+        "tries": "0.53 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "21",
+        "title": "Ch8 FRQ: Interpret a P-Value for the Slope Test",
+        "avg": "43%",
+        "tries": "0.58 (0)",
+        "incomplete": "0%"
+      }
+    ]
+  },
+  "22462701": {
+    "name": "Ch8 Group Test",
+    "n": 17,
+    "rows": [
+      {
+        "q": "1",
+        "title": "8.1 Explanatory and response variables (possum study)",
+        "avg": "100%",
+        "tries": "1.13 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "2",
+        "title": "Ch8 FRQ: Explanatory vs Response Variable - Justify the Choice",
+        "avg": "77%",
+        "tries": "0.92 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "3",
+        "title": "Ch8 FRQ: Interpret a Correlation Coefficient",
+        "avg": "61%",
+        "tries": "0.87 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "4",
+        "title": "Least Squares Criterion - Why minimize squared residuals",
+        "avg": "97%",
+        "tries": "1.5 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "5",
+        "title": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
+        "avg": "97%",
+        "tries": "1.66 (0)",
+        "incomplete": "8.5%"
+      },
+      {
+        "q": "6",
+        "title": "Association vs Causation - Correct conclusion from observational regression",
+        "avg": "100%",
+        "tries": "1.16 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "7",
+        "title": "Extrapolation Warning - Judge whether a prediction is reliable",
+        "avg": "99%",
+        "tries": "1.27 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "8",
+        "title": "R-squared Interpretation - Pick best interpretation in context",
+        "avg": "100%",
+        "tries": "1.29 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "9",
+        "title": "Read Regression Output - Pull slope estimate and p-value from a software table",
+        "avg": "100%",
+        "tries": "1.45 (0)",
+        "incomplete": "2.8%"
+      },
+      {
+        "q": "10",
+        "title": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
+        "avg": "100%",
+        "tries": "1.19 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "11",
+        "title": "CI for the Slope - SE, margin of error, lower and upper bounds",
+        "avg": "97%",
+        "tries": "1.36 (0)",
+        "incomplete": "7%"
+      },
+      {
+        "q": "12",
+        "title": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
+        "avg": "100%",
+        "tries": "1.39 (0)",
+        "incomplete": "7%"
+      },
+      {
+        "q": "13",
+        "title": "CI from Technology Output - Read software output, construct slope CI, decide significance",
+        "avg": "96%",
+        "tries": "1.75 (0)",
+        "incomplete": "9.9%"
+      },
+      {
+        "q": "14",
+        "title": "Ch8 FRQ: Slope Inference - Concept and Hypotheses",
+        "avg": "43%",
+        "tries": "0.89 (0)",
+        "incomplete": "0%"
+      },
+      {
+        "q": "15",
+        "title": "8.1 Interpret slope and predict (plant growth)",
+        "avg": "99%",
+        "tries": "1.31 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "16",
+        "title": "8.1 Prediction and above/below line (used car price)",
+        "avg": "99%",
+        "tries": "1.56 (0)",
+        "incomplete": "1.4%"
+      },
+      {
+        "q": "17",
+        "title": "Compute a Residual (Ch8 group test copy)",
+        "avg": "94%",
+        "tries": "2.13 (0)",
+        "incomplete": "1.4%"
+      }
+    ]
+  },
+  "22495236": {
+    "name": "Ch8 Individual Test",
+    "n": 10,
+    "rows": [
+      {
+        "q": "1",
+        "title": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
+        "avg": "95%",
+        "tries": "1.64",
+        "incomplete": "4.5%"
+      },
+      {
+        "q": "2",
+        "title": "Extrapolation Warning - Judge whether a prediction is reliable",
+        "avg": "99%",
+        "tries": "1.07",
+        "incomplete": "0%"
+      },
+      {
+        "q": "3",
+        "title": "Read Regression Output - Pull slope estimate and p-value from a software table",
+        "avg": "99%",
+        "tries": "1.35",
+        "incomplete": "1.5%"
+      },
+      {
+        "q": "4",
+        "title": "CI for the Slope - SE, margin of error, lower and upper bounds",
+        "avg": "95%",
+        "tries": "1.26",
+        "incomplete": "3%"
+      },
+      {
+        "q": "5",
+        "title": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
+        "avg": "98%",
+        "tries": "1.44",
+        "incomplete": "6%"
+      },
+      {
+        "q": "6",
+        "title": "8.1 Interpret slope and predict (plant growth)",
+        "avg": "100%",
+        "tries": "1.07",
+        "incomplete": "0%"
+      },
+      {
+        "q": "7",
+        "title": "8.1 Prediction and above/below line (used car price)",
+        "avg": "99%",
+        "tries": "1.42",
+        "incomplete": "0%"
+      },
+      {
+        "q": "8",
+        "title": "Compute a Residual (Ch8 group test copy)",
+        "avg": "95%",
+        "tries": "1.66",
+        "incomplete": "0%"
+      },
+      {
+        "q": "9",
+        "title": "Ch8 FRQ: Interpret a Correlation Coefficient",
+        "avg": "77%",
+        "tries": "0.97",
+        "incomplete": "0%"
+      },
+      {
+        "q": "10",
+        "title": "Ch8 FRQ: Slope Inference - Concept and Hypotheses",
+        "avg": "65%",
+        "tries": "0.97",
+        "incomplete": "0%"
+      }
+    ]
+  }
+}

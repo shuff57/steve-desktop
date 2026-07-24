@@ -1,0 +1,59 @@
+{
+  "source": "prompts.txt",
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q1-identifying-sampling-bias.php",
+      "title": "Identifying Sampling Bias",
+      "prompt": "A researcher wants to study average study hours among college students. She stands outside the library at 8 PM on a Tuesday and surveys the first 50 students who walk out. Write a conclusion statement explaining what type of sampling bias might be present in this study design and how it could affect the validity of the results."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q2-classification-and-justification.php",
+      "title": "Classification and Justification",
+      "prompt": "A statistics student collects data on three variables: the number of courses a student is taking, the color of their backpack, and the GPA of each student. Write a conclusion statement classifying each variable as categorical or quantitative (and discrete or continuous if applicable), and explain why proper variable classification matters when choosing statistical methods."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q3-stratified-vs-simple-random-sampling.php",
+      "title": "Stratified vs. Simple Random Sampling",
+      "prompt": "A university wants to survey 300 students about campus facilities. The student body consists of 2,500 freshmen, 2,300 sophomores, 2,100 juniors, and 2,100 seniors. The registrar is considering either simple random sampling or stratified random sampling. Write a conclusion statement explaining which method would be more appropriate for this situation and justify your answer with specific reference to the class composition."
+    },
+    "4": {
+      "status": "completed",
+      "file": "q4-choosing-the-right-display.php",
+      "title": "Choosing the Right Display",
+      "prompt": "A teacher has test score data for 50 students ranging from 45 to 98. She is trying to decide between creating a histogram or a boxplot to display the data. Write a conclusion statement explaining which graphical display would be more appropriate for identifying the shape of the distribution and describing the center and spread, and explain what information each display provides differently."
+    },
+    "5": {
+      "status": "completed",
+      "file": "q5-interpreting-bimodal-data.php",
+      "title": "Interpreting Bimodal Data",
+      "prompt": "A histogram of reaction times for a computer task shows a clear bimodal distribution with two distinct peaks -- one around 300 milliseconds and another around 600 milliseconds. Write a conclusion statement about what this pattern might suggest about the participants or the task itself, and explain what further investigation you would recommend."
+    },
+    "6": {
+      "status": "completed",
+      "file": "q6-frequency-distribution-analysis.php",
+      "title": "Frequency Distribution Analysis",
+      "prompt": "The following data represents scores on a 100-point quiz: 72, 75, 78, 81, 82, 83, 85, 87, 88, 89, 90, 91, 92, 94, 95, 96, 97, 98, 99. Create a frequency distribution with 4 classes and write a conclusion statement describing the shape of the distribution and what it tells you about student performance on this quiz."
+    },
+    "7": {
+      "status": "completed",
+      "file": "q7-comparing-means-and-standard-deviations.php",
+      "title": "Comparing Means and Standard Deviations",
+      "prompt": "Two fitness instructors compare their class attendance over 10 weeks. Instructor A's classes averaged 32 students (SD = 3), while Instructor B's classes averaged 32 students (SD = 8). Write a conclusion statement explaining what these statistics tell us about the consistency and reliability of attendance in each instructor's classes, even though the means are identical."
+    },
+    "8": {
+      "status": "completed",
+      "file": "q8-five-number-summary-and-outliers.php",
+      "title": "Five-Number Summary and Outliers",
+      "prompt": "A dataset has the following five-number summary: Min = 8, Q1 = 18, Median = 25, Q3 = 35, Max = 92. Using the 1.5(IQR) rule, write a conclusion statement determining whether the maximum value (92) is an outlier, showing your calculations and explaining what this outlier might suggest about the data."
+    },
+    "9": {
+      "status": "completed",
+      "file": "q9-choosing-the-right-measure-of-center.php",
+      "title": "Choosing the Right Measure of Center",
+      "prompt": "A real estate agent is describing home prices in a neighborhood. The prices are: $250,000, $265,000, $270,000, $275,000, $280,000, $290,000, and $1,200,000. Write a conclusion statement recommending whether the agent should use the mean or median to describe a 'typical' home price in this neighborhood, and explain why your chosen measure better represents the data."
+    }
+  }
+}

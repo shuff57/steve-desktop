@@ -1,0 +1,28 @@
+Question 1: Single Proportion Inference
+Explain in your own words what a hypothesis test for a single proportion is trying to answer. Give an example of a real-world question that could be answered using this type of test, and describe what the null hypothesis would claim in your example.
+Question 2: Difference of Proportions
+What is the main difference between testing a single proportion and comparing two proportions? Give an example of a question that would require comparing two proportions instead of just looking at one group.
+Question 3: Chi-Square Goodness of Fit
+Imagine you roll a die 60 times and get: 8 ones, 9 twos, 11 threes, 10 fours, 12 fives, and 10 sixes. Without doing any calculations, do you think this die is fair or unfair? Explain your reasoning and describe what a chi-square goodness of fit test would measure.
+Question 4: Chi-Square Independence
+A chi-square test of independence examines whether two categorical variables are related to each other. Explain what the null hypothesis claims about the relationship between two variables in a chi-square test of independence. Then describe what it would mean if we reject the null hypothesis versus fail to reject it. Finally, explain why finding an association between two variables does not prove that one variable causes the other.
+Question 5: When to Use Each Test
+A researcher wants to know if students prefer online or in-person learning. Decide whether they should use a single proportion test or a two-proportion test, and explain why they made that choice.
+Question 6: Understanding Statistical Significance
+Explain what it means when a test has a p-value of 0.03 at the α = 0.05 significance level. Does this prove that your hypothesis is true? What does this result actually tell you?
+Question 7: Association vs. Causation
+A study finds that students who drink more coffee tend to get lower grades. Explain why we cannot conclude that drinking coffee causes lower grades, and give at least two alternative explanations for this association.
+Question 8: Comparing Tests
+You have data on 200 students showing whether they passed or failed a class, and whether they attended tutoring or not. Would you use a chi-square test of independence or a two-proportion z-test to analyze this? Explain what each test would be comparing.
+Question 9: Single Proportion Inference - Interpreting Results
+A high school counselor tests whether more than 50% of students plan to attend college. They test 150 randomly selected students and find that 82 plan to attend college. The hypothesis test produces a p-value of 0.08 with a significance level of α = 0.05.
+Write a final conclusion statement explaining what the counselor should conclude about whether more than half of students plan to attend college. Make sure to state whether the null hypothesis is rejected or not, and explain what this result means in the context of college attendance.
+Question 10: Difference of Proportions - Interpreting Results
+A researcher compares the graduation rates between two high schools. School A has a graduation rate of 88% (out of 250 students), and School B has a graduation rate of 84% (out of 280 students). A hypothesis test for the difference in proportions produces a p-value of 0.12 with a significance level of α = 0.05.
+Write a final conclusion statement about whether there is a difference in graduation rates between the two schools. Make sure to state whether the null hypothesis is rejected or not, and explain what this tells us about the schools' graduation rates.
+Question 11: Chi-Square Goodness of Fit - Interpreting Results
+A teacher suspects that students are not guessing randomly on a true/false test. On a 40-question test, if students were purely guessing, we would expect about 20 true answers and 20 false answers. Instead, the teacher observes 24 true answers and 16 false answers. A chi-square goodness of fit test produces a p-value of 0.31 with a significance level of α = 0.05.
+Write a final conclusion statement about whether students are guessing randomly on this test. Make sure to state whether the null hypothesis is rejected or not, and explain what the results suggest about student guessing behavior.
+Question 12: Chi-Square Independence - Interpreting Results
+A researcher performs a chi-square test of independence examining whether there is a relationship between students' sleep quality (good or poor) and their academic performance (passing or failing). The test results in a p-value of 0.02 with a significance level of α = 0.05.
+Write a final conclusion statement explaining what the researcher should conclude about the relationship between sleep quality and academic performance. Make sure to state whether the null hypothesis is rejected or not, explain what this means about the two variables, and describe what the result tells us in the context of this study.

@@ -1,0 +1,37 @@
+{
+  "name": "Homework: Ch8.2 Mutually Exclusive Events and the Addition Rule",
+  "kind": "hw",
+  "chapter_section": "8.2",
+  "slug": "ch8.2-mutually-exclusive-addition",
+  "source": {
+    "url": "http://127.0.0.1:4000/docs/applied-finite-math/chapter-8-probability/8.2_Mutually_Exclusive_Events_and_the_Addition_Rule.html",
+    "coverage_spec": [
+      "8.2.1 Set Operations on Events — union, intersection, complement on event sets",
+      "8.2.2 Mutually Exclusive Events — recognize when P(A ∩ B) = 0",
+      "8.2.3 The Addition Rule for Probability — apply P(A ∪ B) = P(A) + P(B) − P(A ∩ B)",
+      "8.2.4 Two-Way Tables and the Addition Rule — read marginals and apply addition rule from a table"
+    ]
+  },
+  "created_at": "2026-04-26",
+  "target": {
+    "cid": "TODO",
+    "block": "TODO"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "Homework",
+    "displaymethod": "One question at a time",
+    "show_solutions": "after each attempt",
+    "review_before_due": true,
+    "available": null,
+    "due": "TODO",
+    "default_points": 1,
+    "intro": null
+  },
+  "questions": [],
+  "aid": null,
+  "transferred_at": null
+}

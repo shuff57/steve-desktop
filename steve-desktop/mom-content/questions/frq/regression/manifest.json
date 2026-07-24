@@ -1,0 +1,77 @@
+{
+  "source": "prompts.txt",
+  "book": "introduction-to-stats",
+  "chapter": 8,
+  "questions": {
+    "1": {
+      "status": "completed",
+      "file": "q1-explanatory-vs-response-variable.php",
+      "section": "8.1",
+      "title": "Explanatory vs Response Variable - Justify the Choice",
+      "prompt": "Given a randomized real-world bivariate scenario, students identify which variable is the explanatory (predictor) and which is the response (outcome), justify the choice in context, and explain why the role assignment matters for a regression analysis."
+    },
+    "2": {
+      "status": "completed",
+      "file": "q2-interpret-residual-in-context.php",
+      "section": "8.1",
+      "title": "Interpret a Residual in Context",
+      "prompt": "Given a randomized regression equation, an observed (x, y) data point, and a context, students compute the predicted value, compute the residual, and interpret in context (over- or underpredicted, by how much, in what units)."
+    },
+    "3": {
+      "status": "completed",
+      "file": "q3-interpret-correlation-coefficient.php",
+      "section": "8.1",
+      "title": "Interpret a Correlation Coefficient",
+      "prompt": "Given a randomized correlation coefficient r and a randomized real-world bivariate context, students describe the strength and direction of the linear relationship, state what r does and does not measure, and explain why correlation alone does not establish causation."
+    },
+    "4": {
+      "status": "completed",
+      "file": "q4-predicting-from-regression-equation.php",
+      "section": "8.1",
+      "title": "Predicting from a Regression Equation - Interpretation",
+      "prompt": "Given a randomized regression equation y-hat = a + bx and a randomized x-value within the data range, students compute the predicted y, interpret what the prediction means in context, and discuss why this predicted value is an estimate rather than an exact value."
+    },
+    "5": {
+      "status": "completed",
+      "file": "q5-least-squares-method-conceptual.php",
+      "section": "8.2",
+      "title": "Least Squares Method - Conceptual Explanation",
+      "prompt": "Students explain what the least squares regression line is and why it is called 'least squares' - specifically that it minimizes the sum of squared residuals - and explain why we square the residuals rather than just adding them or taking absolute values."
+    },
+    "6": {
+      "status": "completed",
+      "file": "q6-interpret-slope-and-y-intercept.php",
+      "section": "8.2",
+      "title": "Interpret Slope and Y-Intercept in Context",
+      "prompt": "Given a randomized least-squares regression equation and context, students interpret the slope (units of y per one-unit increase in x) in plain language, interpret the y-intercept (predicted y when x = 0) in plain language, and address whether the y-intercept makes practical sense."
+    },
+    "7": {
+      "status": "completed",
+      "file": "q7-r-squared-interpretation.php",
+      "section": "8.2",
+      "title": "R-Squared Interpretation",
+      "prompt": "Given a randomized R-squared value and a randomized regression context, students explain what R-squared represents (proportion of variation in y explained by the linear model with x), interpret the specific value in context, and explain what the unexplained portion (1 - R-squared) tells us."
+    },
+    "8": {
+      "status": "completed",
+      "file": "q8-extrapolation-risk.php",
+      "section": "8.2",
+      "title": "Extrapolation - Why It's Risky",
+      "prompt": "Given a randomized regression scenario with stated data range and an x-value outside that range, students compute the prediction, identify it as extrapolation, and explain why predictions outside the observed range of x are unreliable even when the model fits well within the data."
+    },
+    "9": {
+      "status": "completed",
+      "file": "q9-slope-inference-concept-and-hypotheses.php",
+      "section": "8.4",
+      "title": "Inference for the Slope - Concept and Hypotheses",
+      "prompt": "Students explain what a hypothesis test for the slope of a regression line is trying to determine (whether there is a real linear relationship between x and y in the population), apply it to a randomized real-world bivariate context, and state H0 and H1 using beta-1 notation."
+    },
+    "10": {
+      "status": "completed",
+      "file": "q10-interpret-p-value-for-slope-test.php",
+      "section": "8.4",
+      "title": "Interpret a P-Value for the Slope Test",
+      "prompt": "Given a randomized regression scenario with sample slope b1, p-value, and significance level alpha, students interpret the p-value in context, make a decision about H0, and write a contextual conclusion about whether there is convincing evidence of a linear relationship between the explanatory and response variables."
+    }
+  }
+}

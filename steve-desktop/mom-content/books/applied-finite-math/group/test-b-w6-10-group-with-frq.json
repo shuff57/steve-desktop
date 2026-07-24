@@ -1,0 +1,65 @@
+{
+  "name": "Group Final Quiz 2 (with FRQ)",
+  "book": "applied-finite-math",
+  "kind": "group",
+  "chapter_section": "6-10",
+  "slug": "test-b-w6-10-group-with-frq",
+  "created_at": "2026-05-10",
+  "deploy_this_semester": false,
+  "source": {
+    "url": "https://www.myopenmath.com/course/course.php?cid=306621",
+    "coverage_spec": [
+      "4.1-8.4 same as test-b-w6-10-group.json plus 3 FRQs (5.3 exp growth/decay, 6.1 compound vs simple, 8.2 conditional + Bayes)"
+    ]
+  },
+  "target": {
+    "cid": "306621",
+    "block": "0-34"
+  },
+  "mom_settings": {
+    "subtype": "Quiz",
+    "defattempts": 3,
+    "versions_per_question": 1,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "Tests",
+    "displaymethod": "All questions on one page",
+    "show_solutions": "No",
+    "hidden_from_students": true,
+    "available": null,
+    "due": null,
+    "intro": "<h3>Group Final Quiz 2 (with FRQ) — Instructions</h3><p>This is a <b>collaborative group test</b>. Work with your assigned group to discuss and solve each problem together. Every student must <b>submit their own answers individually</b> on their own device.</p><p><b>Topics covered (Weeks 7–13):</b></p><ul><li><b>Week 7 — Linear Programming: The Simplex Method (§4.1–4.2):</b> 2-variable max LP, 3-variable max LP, identify pivot column / pivot row / minimum ratio</li><li><b>Week 8:</b> Midterm — no new content on this quiz</li><li><b>Week 9 — Mathematics of Finance (§6.1–6.3):</b> Compound interest (annual vs monthly), ordinary annuity future value</li><li><b>Week 10 — Annuity and Amortization (§6.4):</b> Loan monthly payment and total interest</li><li><b>Week 11 — Intro to Sets (§7.1):</b> Set operations (union vs intersection); 2-circle Venn (exactly-one and neither)</li><li><b>Week 12 — Counting (§7.3, §7.5):</b> Permutations word problem, combinations with a required member, perm vs comb diagnostic</li><li><b>Week 13 — Intro to Probability (§8.1–8.2, §8.4):</b> 2x2 conditional probability + independence check, expected value E(X) and E(X²)</li></ul><p><b>Group work rules:</b></p><ul><li><b>Discuss first, submit individually.</b> Talk through each problem as a group before anyone submits.</li><li><b>Everyone participates.</b> Make sure every group member understands the reasoning before moving on.</li><li><b>Three attempts, no penalty.</b> You get 3 tries with the same version. Use them if your group wants to re-check a problem.</li><li><b>Stay with your group.</b> Do not leave the classroom or break off from your group until everyone has submitted.</li></ul><p>Your individual submission will be graded, but your score reflects your group's collective effort. Work together and make it count.</p>",
+    "default_points": 1
+  },
+  "planning_notes": {
+    "target_n": 16,
+    "valid_n_range": [15, 18],
+    "frq_count": 3,
+    "selection_priority": "All 13 auto-graded slots from test-b-w6-10-group plus 3 FRQs covering exp growth/decay interpretation, compound vs simple interest comparison, conditional + Bayes interpretation. Designed for future-semester deployment; not pushed to MOM this semester.",
+    "deploy_note": "FRQs are designed and saved to repo for future use. This manifest is repo-only this semester; mom-transfer should be invoked on test-b-w6-10-group.json (no-FRQ) for actual deployment."
+  },
+  "auto_graded_count": 13,
+  "frq_count": 3,
+  "estimated_minutes": 86,
+  "time_budget_minutes": 88,
+  "questions": [
+    { "slot": 1,  "sub_topic": "4.1 Quadratic Vertex/Roots",     "file_path": "questions/quadratic-poly-rational/q1-quadratic-vertex-and-x-intercepts.php",     "title": "Quadratic vertex and x-intercepts",                                          "role": "multipart",   "difficulty": "easy",     "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 2,  "sub_topic": "4.2 Polynomial End Behavior",    "file_path": "questions/quadratic-poly-rational/q2-polynomial-end-behavior.php",                "title": "Polynomial end behavior (leading-term test)",                                "role": "conceptual",  "difficulty": "easy",     "is_frq": false, "est_minutes": 3,  "source": "draft", "qid": null },
+    { "slot": 3,  "sub_topic": "4.3 Rational Asymptotes",        "file_path": "questions/quadratic-poly-rational/q3-rational-asymptotes.php",                    "title": "Rational function vertical/horizontal asymptotes",                           "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 4,  "sub_topic": "5.1 Exp Evaluation",             "file_path": "questions/exp-log/q1-exponential-evaluation.php",                                  "title": "Evaluate f(x) = a*b^x at three values",                                      "role": "computation", "difficulty": "easy",     "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 5,  "sub_topic": "5.2 Log Evaluation/Conversion",  "file_path": "questions/exp-log/q2-log-evaluation-and-conversion.php",                          "title": "Compute log_b(x) and convert log<->exp form",                                "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 6,  "sub_topic": "5.3 Exp Growth/Decay Model",     "file_path": "questions/exp-log/q3-exp-model-growth-decay.php",                                  "title": "Exp model: A(t), growth vs decay, time to reach target",                     "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5,  "source": "draft", "qid": null },
+    { "slot": 7,  "sub_topic": "6.1 Compound Interest",          "file_path": "questions/finance/compound-interest/q10-annual-vs-monthly-comparison.php",         "title": "Compound interest: annual vs monthly comparison",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5,  "source": "draft", "qid": null },
+    { "slot": 8,  "sub_topic": "6.2 Annuities",                  "file_path": "questions/finance/annuities/q10-ordinary-annuity-future-value.php",                "title": "Ordinary annuity future value (FV and contributions)",                       "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5,  "source": "draft", "qid": null },
+    { "slot": 9,  "sub_topic": "6.4 Loans",                      "file_path": "questions/finance/installment-payment/q11-loan-payment-and-total-interest.php",    "title": "Loan monthly payment and total interest",                                    "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5,  "source": "draft", "qid": null },
+    { "slot": 10, "sub_topic": "7.1 Set Operations",             "file_path": "questions/sets/q14-set-ops-union-intersection-compare.php",                        "title": "A union B vs A intersection B (and which is larger)",                        "role": "multipart",   "difficulty": "easy",     "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 11, "sub_topic": "7.2 Venn 2-Circle",              "file_path": "questions/sets/q15-venn-2circle-exactly-one-and-neither.php",                      "title": "2-circle Venn: exactly-one and neither counts",                              "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 12, "sub_topic": "8.2 Conditional Probability",    "file_path": "questions/probability/q21-conditional-2x2-with-independence.php",                  "title": "2x2 conditional probability + independence check",                           "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5,  "source": "draft", "qid": null },
+    { "slot": 13, "sub_topic": "8.4 Expected Value",             "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php",                      "title": "Expected value E(X) and E(X^2) of a discrete RV",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4,  "source": "draft", "qid": null },
+    { "slot": 14, "sub_topic": "5.3 Exp Growth/Decay (FRQ)",     "file_path": "questions/frq/test-b/q1-exp-growth-decay-interpretation.php",                      "title": "FRQ: Exponential Growth/Decay Interpretation",                               "role": "multipart",   "difficulty": "moderate", "is_frq": true,  "est_minutes": 10, "source": "draft", "qid": null },
+    { "slot": 15, "sub_topic": "6.1 Compound vs Simple (FRQ)",   "file_path": "questions/frq/test-b/q2-compound-vs-simple-interest.php",                          "title": "FRQ: Compound vs Simple Interest Comparison",                                "role": "multipart",   "difficulty": "moderate", "is_frq": true,  "est_minutes": 10, "source": "draft", "qid": null },
+    { "slot": 16, "sub_topic": "8.2 Conditional + Bayes (FRQ)",  "file_path": "questions/frq/test-b/q3-conditional-bayes-interpretation.php",                     "title": "FRQ: Conditional Probability and Bayes Interpretation",                      "role": "multipart",   "difficulty": "moderate", "is_frq": true,  "est_minutes": 10, "source": "draft", "qid": null }
+  ],
+  "aid": null,
+  "transferred_at": null,
+  "status": "draft"
+}

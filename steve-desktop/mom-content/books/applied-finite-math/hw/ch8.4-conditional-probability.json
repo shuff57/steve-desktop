@@ -1,0 +1,37 @@
+{
+  "name": "Homework: Ch8.4 Conditional Probability",
+  "kind": "hw",
+  "chapter_section": "8.4",
+  "slug": "ch8.4-conditional-probability",
+  "source": {
+    "url": "http://127.0.0.1:4000/docs/applied-finite-math/chapter-8-probability/8.4_Conditional_Probability.html",
+    "coverage_spec": [
+      "8.4.1 What 'Given That' Means — interpret conditional language; identify B in P(A|B)",
+      "8.4.2 Computing Conditional Probability from a Reduced Sample Space — restrict S to B; recompute",
+      "8.4.3 The Conditional Probability Formula — apply P(A|B) = P(A ∩ B) / P(B)",
+      "8.4.4 Conditional Probability from Two-Way Tables — read joint and marginal counts; compute conditionals"
+    ]
+  },
+  "created_at": "2026-04-26",
+  "target": {
+    "cid": "TODO",
+    "block": "TODO"
+  },
+  "mom_settings": {
+    "subtype": "Homework",
+    "defattempts": 3,
+    "versions_per_question": 20,
+    "penalty": { "type": "none", "reduction_pct": 0 },
+    "gbcategory": "Homework",
+    "displaymethod": "One question at a time",
+    "show_solutions": "after each attempt",
+    "review_before_due": true,
+    "available": null,
+    "due": "TODO",
+    "default_points": 1,
+    "intro": null
+  },
+  "questions": [],
+  "aid": null,
+  "transferred_at": null
+}

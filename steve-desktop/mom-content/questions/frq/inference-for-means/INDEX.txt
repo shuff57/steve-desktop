@@ -1,0 +1,13 @@
+Inference for Means — Question Index
+=====================================
+
+#   | Topic                    | Angle
+----|--------------------------|--------------------------------------------------
+q1  | Single Mean              | Concept: explain what the test answers, give example, state hypotheses
+q2  | Single Mean              | Interpret p-value: given data + p-value, decide and conclude in context
+q3  | Single Mean              | Interpret CI: given confidence interval, explain meaning and assess a claim
+q4  | Paired Means             | Concept: explain paired design, why we use differences, state hypotheses
+q5  | Paired Means             | Interpret results: given paired summary stats + p-value, conclude in context
+q6  | Two-Sample Means         | Concept: explain independent design, give example, state hypotheses
+q7  | Two-Sample Means         | Interpret results: given two-group data + p-value, conclude in context
+q8  | Paired vs Two-Sample     | Classify scenarios as paired or independent, explain why test choice matters
