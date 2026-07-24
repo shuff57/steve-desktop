@@ -92,7 +92,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    transition: all 0.2s;
+    /* Explicit props (not `all`): only what hover actually changes, so a theme
+       switch doesn't drag every property through a 0.2s cross-fade. */
+    transition: transform 0.2s ease-out, box-shadow 0.2s, border-color 0.2s, background-color 0.2s;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
 
@@ -104,15 +106,16 @@
   }
 
   .action-card.primary {
-    /* primary-hover bumps the blue/text contrast to WCAG AA in both themes. */
-    background: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
-    color: var(--color-primary-text);
+    /* Bright-gold hero fill in both themes; dark text (AA 8.5:1). Bronze border
+       (--color-primary) keeps the card edge visible against light paper. */
+    background: var(--accent-fill);
+    border-color: var(--color-primary);
+    color: var(--accent-fill-text);
   }
 
   .action-card.primary .action-desc {
-    color: var(--color-primary-text);
-    opacity: 0.92;
+    color: var(--accent-fill-text);
+    opacity: 0.9;
   }
 
   .action-card.primary:hover {

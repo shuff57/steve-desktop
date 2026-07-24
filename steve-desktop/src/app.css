@@ -1,27 +1,34 @@
 :root {
-  /* Light theme (default) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e8e8e8;
-  --bg-sidebar: #1a1a2e;
-  --bg-panel: #ffffff;
-  --bg-input: #f0f0f0;
-  --bg-card: #ffffff;
-  --bg-hover: #e2e8f0;
-  --bg-active: #dbeafe;
+  /* Light theme — "Playful & Friendly": warm paper ground, never pure #fff */
+  --bg-primary: #faf8f3;
+  --bg-secondary: #f1ede4;
+  --bg-tertiary: #e6e0d3;
+  --bg-sidebar: #1a1626;
+  --bg-panel: #fffdf8;
+  --bg-input: #f1ede4;
+  --bg-card: #fffdf8;
+  --bg-hover: #ebe5d8;
+  --bg-active: rgba(201, 162, 39, 0.14);
 
-  --text-primary: #1a1a2e;
-  --text-secondary: #4a5568;
-  --text-tertiary: #718096;
+  --text-primary: #241f16;
+  --text-secondary: #5a5240;
+  --text-tertiary: #857c67;
   --text-on-primary: #ffffff;
-  --text-on-sidebar: #e2e8f0;
+  --text-on-sidebar: #e8e3d5;
 
-  --border-color: #e2e8f0;
-  --border-light: #f1f5f9;
+  --border-color: #e2dbcb;
+  --border-light: #efe9dc;
 
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
+  /* Brand accent = warm brass-gold ("the glow of the screen STEVE never looks away
+     from"). Light theme uses a DEEP bronze so the accent clears >=4.5:1 as text/link
+     on paper; the dark theme (below) swaps in bright gold. */
+  --color-primary: #7a5f17;
+  --color-primary-hover: #5f4a11;
   --color-primary-text: #ffffff;
+  /* Featured/hero fill — bright gold in BOTH themes with dark text (AA 8.5:1).
+     Kept separate from --color-primary, which must stay AA-safe as text/links. */
+  --accent-fill: #e6b84d;
+  --accent-fill-text: #2a2205;
   --color-success: #10b981;
   --color-success-hover: #059669;
   --color-danger: #ef4444;
@@ -44,18 +51,20 @@
   --spacing-6: 24px;
   --spacing-8: 32px;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', monospace;
+  /* System fonts only — no bundled webfonts, so it renders on any Chromium build
+     (each OS supplies its native UI face; ui-* are Chromium generic keywords). */
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Consolas, 'SF Mono', monospace;
 
   /* Sidebar palette — sidebar is dark navy in BOTH themes, so it needs its
      own colors (the canonical text/hover tokens are light-theme values and
      vanish on dark navy). Defined once; not overridden per theme. */
-  --sidebar-text: #cbd5e1;
-  --sidebar-text-active: #ffffff;
-  --sidebar-text-muted: #94a3b8;
-  --sidebar-hover-bg: rgba(255, 255, 255, 0.08);
-  --sidebar-active-bg: rgba(96, 165, 250, 0.22);
-  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-text: #b8b1c4;
+  --sidebar-text-active: #f5efe0;
+  --sidebar-text-muted: #7d7690;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
+  --sidebar-active-bg: rgba(230, 184, 77, 0.18);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
 
   /* Semantic aliases — several components use a --color-* naming scheme.
      Map them to the canonical tokens above so they theme automatically. */
@@ -76,7 +85,7 @@
   /* Status palette — saturated hues read on both light and dark; translucent
      bg/border tints work over either theme. One source of truth for the
      green/amber/orange/red/purple that components had hardcoded. */
-  --color-primary-bg: rgba(59, 130, 246, 0.12);
+  --color-primary-bg: rgba(201, 162, 39, 0.14);
   --color-success: #22c55e;
   --color-success-bg: rgba(34, 197, 94, 0.1);
   --color-success-border: rgba(34, 197, 94, 0.25);
@@ -113,28 +122,29 @@
 }
 
 [data-theme="dark"] {
-  --bg-primary: #0f0f1a;
-  --bg-secondary: #1a1a2e;
-  --bg-tertiary: #252540;
-  --bg-sidebar: #0a0a15;
-  --bg-panel: #1a1a2e;
-  --bg-input: #252540;
-  --bg-card: #1e1e35;
-  --bg-hover: #2a2a45;
-  --bg-active: #1e3a5f;
+  /* Dark theme — "Technical & Precise" (default): deep indigo-ink ground, bright gold accent */
+  --bg-primary: #14121c;
+  --bg-secondary: #1c1930;
+  --bg-tertiary: #272238;
+  --bg-sidebar: #100e18;
+  --bg-panel: #1a1728;
+  --bg-input: #221e33;
+  --bg-card: #1a1728;
+  --bg-hover: #2a2540;
+  --bg-active: rgba(230, 184, 77, 0.16);
 
-  --text-primary: #e2e8f0;
-  --text-secondary: #a0aec0;
-  --text-tertiary: #718096;
-  --text-on-primary: #ffffff;
-  --text-on-sidebar: #e2e8f0;
+  --text-primary: #ece7d9;
+  --text-secondary: #b3ab97;
+  --text-tertiary: #7d7663;
+  --text-on-primary: #14121c;
+  --text-on-sidebar: #ece7d9;
 
-  --border-color: #2d3748;
-  --border-light: #1e293b;
+  --border-color: #2f2a42;
+  --border-light: #241f36;
 
-  --color-primary: #60a5fa;
-  --color-primary-hover: #93bbfd;
-  --color-primary-text: #0f0f1a;
+  --color-primary: #e6b84d;
+  --color-primary-hover: #f0c968;
+  --color-primary-text: #14121c;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
@@ -180,7 +190,7 @@ button {
   font-weight: 500;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: all 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   border: 1px solid transparent;
 }
 
@@ -238,7 +248,7 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 2px rgba(230, 184, 77, 0.28);
 }
 
 /* Utility classes — referenced across pages (card, mb-*, text-muted) but were
