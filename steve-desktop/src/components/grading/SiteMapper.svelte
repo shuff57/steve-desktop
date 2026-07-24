@@ -36,9 +36,22 @@
   let { pageUrl = '', provider = '', model = '' } = $props<{ pageUrl?: string; provider?: string; model?: string }>();
 
   // Reopening the panel restores the saved site map for whatever domain you're on.
+  // Set when the grading panel handed off a crawl to us: on completion we derive the
+  // grading profile for the start page and switch back. See the crawl() finally below.
+  const CRAWL_REQUEST = 'steve:crawl-for-grading';
+  const DERIVE_ON_RETURN = 'steve:derive-after-crawl';
+  let startedForGrading = false;
+
   onMount(async () => {
     const domain = domainFromUrl(pageUrl);
     if (domain) siteMap = await loadSiteMap(domain);
+
+    // The grading panel asked us to map this site, then switched here. Pick it up and start.
+    if (sessionStorage.getItem(CRAWL_REQUEST) === pageUrl) {
+      sessionStorage.removeItem(CRAWL_REQUEST);
+      startedForGrading = true;
+      void crawl();
+    }
   });
 
   // ponytail: no page cap — crawl the whole reachable site, then suggest pages to trim. SAFETY is
@@ -475,6 +488,14 @@
       siteMsg = `Crawl failed: ${e instanceof Error ? e.message : String(e)}`;
     } finally {
       crawling = false;
+      // Grading kicked this off: the crawl has returned to the start page, so hand back —
+      // flag the page for derivation and switch the drawer to the grading tab, where onMount
+      // learns the selectors. Even a stopped/failed crawl returns here so grading isn't stranded.
+      if (startedForGrading) {
+        startedForGrading = false;
+        sessionStorage.setItem(DERIVE_ON_RETURN, normalizeUrl(pageUrl));
+        window.dispatchEvent(new CustomEvent('steve:action-panel', { detail: { mode: 'ogre' } }));
+      }
     }
   }
 
