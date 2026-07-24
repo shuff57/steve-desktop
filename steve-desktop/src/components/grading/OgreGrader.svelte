@@ -331,20 +331,25 @@
 </script>
 
 <div class="grader">
-  <div class="row">
-    <select bind:value={rubricId} disabled={grading} title="Rubric">
-      {#each rubrics as r (r.id)}<option value={r.id}>{r.name}</option>{/each}
-      {#if rubrics.length === 0}<option value={null}>No rubrics yet</option>{/if}
-    </select>
-    <button onclick={importRubric} disabled={importing || grading} title="Import the grading checklist off the question on screen">
-      {importing ? '…' : 'Import'}
-    </button>
-  </div>
-  {#if importMsg}<p class="note">{importMsg}</p>{/if}
+  <div class="card">
+    <div class="field">
+      <span class="lbl">Rubric</span>
+      <div class="row">
+        <select bind:value={rubricId} disabled={grading} title="Rubric">
+          {#each rubrics as r (r.id)}<option value={r.id}>{r.name}</option>{/each}
+          {#if rubrics.length === 0}<option value={null}>No rubrics yet</option>{/if}
+        </select>
+        <button onclick={importRubric} disabled={importing || grading} title="Import the grading checklist off the question on screen">
+          {importing ? '…' : 'Import'}
+        </button>
+      </div>
+    </div>
+    {#if importMsg}<p class="note">{importMsg}</p>{/if}
 
-  <div class="field">
-    <span class="lbl">Leniency <em class:changed={leniency !== 50}>{describeLeniency(leniency)}</em></span>
-    <input type="range" min="0" max="100" step="5" bind:value={leniency} disabled={grading} />
+    <div class="field">
+      <span class="lbl">Leniency <em class:changed={leniency !== 50}>{describeLeniency(leniency)}</em></span>
+      <input type="range" min="0" max="100" step="5" bind:value={leniency} disabled={grading} />
+    </div>
   </div>
 
   {#if anchors}
@@ -594,6 +599,13 @@
     border-radius: var(--radius-md); font-size: 0.8rem;
   }
   .err p { margin: var(--spacing-1) 0 0; color: var(--color-text-secondary); }
+
+  /* ── Cards ── */
+  .card {
+    border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    background: var(--color-bg-card); padding: var(--spacing-3);
+    display: flex; flex-direction: column; gap: var(--spacing-3);
+  }
 
   /* ── Collapsible cards: anchors, weights ── */
   .anchors {

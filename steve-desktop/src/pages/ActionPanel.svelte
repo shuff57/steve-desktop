@@ -342,7 +342,7 @@
   }
 
   .panel-tabs {
-    display: grid; grid-template-columns: repeat(3, 1fr); padding: var(--spacing-2); gap: var(--spacing-1);
+    display: grid; grid-template-columns: repeat(5, 1fr); padding: var(--spacing-2); gap: var(--spacing-1);
     background-color: var(--bg-sidebar);
     border-bottom: 1px solid var(--border-color); flex-shrink: 0;
   }
@@ -350,15 +350,19 @@
     grid-template-columns: 1fr; padding: var(--spacing-2) var(--spacing-1);
   }
 
+  /* Five tabs in one row: stack icon over label so a wide label ("Discovery") stops
+     clipping at the panel's usual width, instead of wrapping the strip to two rows. */
   .mode-tab {
-    display: flex; align-items: center; justify-content: center;
-    gap: var(--spacing-2); padding: var(--spacing-2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px; padding: var(--spacing-2) 2px;
     background: transparent; border: none; border-radius: var(--radius-md);
     cursor: pointer; color: var(--text-secondary);
-    font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+    font-size: 0.72rem; font-weight: 500; transition: all 0.2s;
   }
-  .action-panel.collapsed .mode-tab { padding: var(--spacing-2); justify-content: center; }
+  .action-panel.collapsed .mode-tab { flex-direction: row; padding: var(--spacing-2); justify-content: center; }
   .action-panel.collapsed .mode-icon { font-size: 1.2rem; }
+  .mode-icon { font-size: 1.05rem; line-height: 1; }
+  .mode-label { white-space: nowrap; }
   .mode-tab:hover { background-color: var(--bg-hover); color: var(--text-primary); }
   .mode-tab.active { background-color: var(--bg-active); color: var(--color-primary); font-weight: 600; }
 
