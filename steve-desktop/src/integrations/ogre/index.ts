@@ -26,6 +26,8 @@ import type { ReviewOutcome } from './grade';
 import type { AnchorExample } from './anchors';
 import { matchProfile, profileFromRow } from './load-students';
 import type { ExtractionProfile } from './load-students';
+import { mapPageForGrading } from './map-page';
+import type { MapPageResult } from './map-page';
 import { importRubricFromPage } from './import-rubric';
 import type { ImportedRubric } from './import-rubric';
 import { gradeableFrom, loadStudents, toGradingStudents } from './load-students';
@@ -96,6 +98,12 @@ export interface OgreMethods {
   /** First profile matching the URL, or null — never a guess. */
   matchProfile(url: string, profiles: ExtractionProfile[]): ExtractionProfile | null;
   /**
+   * Learn a grading profile from the page the browser is on: snapshot its structure,
+   * derive the student/name/answer/score selectors, and save a site_profiles row. Read-only
+   * against the page. Throws when the page has no repeating student layout to learn from.
+   */
+  mapPageForGrading(evaluate: (expression: string) => Promise<unknown>, url: string): Promise<MapPageResult>;
+  /**
    * Read student responses off a MyOpenMath gradeallq2 page. Read-only — it evaluates
    * one expression and touches nothing. Defaults to students who answered and are not
    * yet graded, so a re-run never overwrites a human's scores.
@@ -135,6 +143,7 @@ export const ogreIsland = defineIsland<OgreMethods>({
     generateAnchorExamples,
     listExtractionProfiles,
     matchProfile,
+    mapPageForGrading,
     loadStudents,
     gradeableFrom,
     toGradingStudents,
