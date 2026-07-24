@@ -214,6 +214,9 @@
     }
   }
 
+  // True once a load has run, so "found no students" can be told apart from "not tried yet".
+  let loadAttempted = $state(false);
+
   async function loadFromPage() {
     loadingStudents = true;
     loadError = null;
@@ -223,6 +226,7 @@
         includeGraded,
         selectors: activeProfile?.selectors,
       });
+      loadAttempted = true;
     } catch (e) {
       students = [];
       loadError = e instanceof Error ? e.message : String(e);
@@ -342,7 +346,7 @@
         </select>
         <button class="btn-secondary small" onclick={importRubric} disabled={importing || grading}
           title="Import the grading checklist off the question on screen">
-          {importing ? '\u2026' : 'Import'}
+          {importing ? '…' : 'Import'}
         </button>
       </div>
       {#if importMsg}<span class="status-hint">{importMsg}</span>{/if}
@@ -374,11 +378,11 @@
               <span>Minimal <b>{anchors.minimal.score}</b></span>
             </div>
             <p class="hint">
-              Score levels out of {effectiveRubric?.maxScore ?? 10} \u2014 if these read wrong, the max score is wrong.
+              Score levels out of {effectiveRubric?.maxScore ?? 10} — if these read wrong, the max score is wrong.
               Generate examples to show what an actual answer looks like at each level; edit them freely, they go to the grader verbatim.
             </p>
             <button class="btn-secondary small" onclick={generateAnchors} disabled={anchorBusy || grading || !parsedRubric}>
-              {anchorBusy ? 'Writing examples\u2026' : anchorText ? 'Regenerate examples' : 'Generate examples'}
+              {anchorBusy ? 'Writing examples…' : anchorText ? 'Regenerate examples' : 'Generate examples'}
             </button>
             {#if anchorError}<span class="hint err-text">{anchorError}</span>{/if}
             {#if anchorText}
@@ -435,15 +439,11 @@
   <details class="section" open>
     <summary class="section-summary"><span>Page &amp; students</span><svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
     <div class="section-content">
-      <label class="fld-label">
-        Page profile
-        <select class="fld" bind:value={profileId} disabled={grading || loadingStudents}>
-          <option value="auto">Auto-detect{activeProfile && profileId === 'auto' ? ` \u2014 ${activeProfile.name}` : ''}</option>
-          {#each profiles as p (p.id)}<option value={p.id}>{p.name}</option>{/each}
-        </select>
-      </label>
-      {#if profileId === 'auto' && !activeProfile}
-        <span class="status-hint">No saved profile matches this page \u2014 using the built-in MyOpenMath selectors.</span>
+      <!-- The page profile is auto-detected from the URL; when a saved one matches it is
+           named here, otherwise the built-in MyOpenMath selectors are used silently. No
+           picker — the teacher shouldn't have to know which profile a page needs. -->
+      {#if activeProfile}
+        <span class="status-hint">Reading with the “{activeProfile.name}” profile.</span>
       {/if}
 
       <label class="fld-label">
@@ -469,16 +469,23 @@
       </label>
 
       <button class="btn-secondary full-width" onclick={loadFromPage} disabled={loadingStudents || grading}>
-        {loadingStudents ? 'Reading page\u2026' : 'Load students from page'}
+        {loadingStudents ? 'Reading page…' : 'Load students from page'}
       </button>
 
       {#if students.length > 0 && results.length === 0 && !grading && !onlyStudent.trim()}
         <span class="status-hint">{students.length} student{students.length === 1 ? '' : 's'} loaded.</span>
+      {:else if loadAttempted && students.length === 0 && !loadError}
+        <!-- No profile fit this page. This is where the site-mapping flow will hook in:
+             the teacher confirms it's gradeable, mapping derives the selectors, and the
+             run comes back here. Not wired yet — see the design note. -->
+        <span class="status-hint warn">
+          No students found on this page. Its layout isn't one the grader recognises yet.
+        </span>
       {/if}
       {#if onlyStudent.trim() && students.length > 0}
         <span class="status-hint" class:warn={targetStudents.length === 0}>
           {targetStudents.length === 0
-            ? `No loaded student matches \u201c${onlyStudent.trim()}\u201d.`
+            ? `No loaded student matches “${onlyStudent.trim()}”.`
             : `${targetStudents.length} of ${students.length} match: ${targetStudents.map((s) => s.name).join(', ')}`}
         </span>
       {/if}
@@ -502,7 +509,7 @@
         <div class="status-left">
           <span class="label">Status:</span>
           {#if grading && stopRequested}
-            <span class="value paused">Stopping\u2026</span>
+            <span class="value paused">Stopping…</span>
           {:else if grading}
             <span class="spinner" aria-hidden="true"></span><span class="value running">Grading</span>
           {:else if stopped}
@@ -522,7 +529,7 @@
       {#if outliers && results.length > 0}
         <div class="agg-stats">
           <span>mean <b>{outliers.mean}</b></span>
-          <span>\u03c3 <b>{outliers.stdDev}</b></span>
+          <span>σ <b>{outliers.stdDev}</b></span>
           <span class:flag={outliers.outliers.length > 0}>{outliers.outliers.length} outlier{outliers.outliers.length === 1 ? '' : 's'}</span>
         </div>
       {/if}
@@ -536,7 +543,7 @@
         <span class="log-title">Results ({results.length})</span>
         {#if outliers && outliers.outliers.length > 0}
           <button class="btn-secondary small" onclick={runReview} disabled={reviewing || grading}>
-            {reviewing ? 'Re-reading\u2026' : `Review ${outliers.outliers.length} outlier${outliers.outliers.length === 1 ? '' : 's'}`}
+            {reviewing ? 'Re-reading…' : `Review ${outliers.outliers.length} outlier${outliers.outliers.length === 1 ? '' : 's'}`}
           </button>
         {/if}
       </div>
@@ -546,7 +553,7 @@
           {@const isOutlier = outliers?.outliers.some((o) => o.studentIndex === r.studentIndex)}
           <div class="log-entry" class:outlier={isOutlier}>
             <button class="log-row" onclick={() => (expanded = expanded === r.studentIndex ? null : r.studentIndex)}>
-              <span class="log-icon-col" class:err={isOutlier}>{isOutlier ? '\u26a0' : '\u2713'}</span>
+              <span class="log-icon-col" class:err={isOutlier}>{isOutlier ? '⚠' : '✓'}</span>
               <span class="log-name">{nameFor(r.studentIndex)}</span>
               <span class="log-score">{r.score}</span>
             </button>
@@ -563,7 +570,7 @@
   <div class="action-bar">
     {#if grading}
       <button class="btn-danger full-width" onclick={() => (stopRequested = true)} disabled={stopRequested}>
-        {stopRequested ? 'Stopping\u2026' : 'Stop grading'}
+        {stopRequested ? 'Stopping…' : 'Stop grading'}
       </button>
     {:else}
       <button class="btn-primary full-width" onclick={runGrading}
