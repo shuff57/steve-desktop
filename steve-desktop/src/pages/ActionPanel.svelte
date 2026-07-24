@@ -238,7 +238,7 @@
     </button>
     <button class="mode-tab" class:active={activeMode === 'ogre'} onclick={() => activeMode = 'ogre'}>
       <span class="mode-icon">📝</span>
-      {#if !isCollapsed}<span class="mode-label">OGRE</span>{/if}
+      {#if !isCollapsed}<span class="mode-label">Grading</span>{/if}
     </button>
   </div>
   
