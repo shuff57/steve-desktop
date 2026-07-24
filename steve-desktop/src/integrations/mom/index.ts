@@ -7,7 +7,16 @@
  */
 import { invoke } from '@tauri-apps/api/core';
 import { defineIsland } from '../_shared/island';
-import { loadMOMIndex, type MOMFamily, type MOMIndex, type MOMQuestion } from './loader';
+import {
+  loadMOMIndex,
+  loadMOMBooks,
+  loadMOMDefaultRoot,
+  type MOMFamily,
+  type MOMIndex,
+  type MOMQuestion,
+  type MomBook,
+  type MomBookQuestion,
+} from './loader';
 import {
   getFrqSetStats,
   parseManifest,
@@ -18,8 +27,8 @@ import {
 import { createDraft as draftCreate, type CreateDraftOpts, type DraftResult } from './draft';
 import { uploadToMOM as uploadRun, type UploadOpts } from './upload';
 
-export type { MOMFamily, MOMIndex, MOMQuestion, FrqSetStats, MOMManifest };
-export { loadMOMIndex } from './loader';
+export type { MOMFamily, MOMIndex, MOMQuestion, FrqSetStats, MOMManifest, MomBook, MomBookQuestion };
+export { loadMOMIndex, loadMOMBooks, loadMOMDefaultRoot } from './loader';
 export { getFrqSetStats, readManifest } from './manifest';
 export { createDraft, isValidSlug, type CreateDraftOpts, type DraftResult } from './draft';
 export { uploadToMOM, type UploadOpts } from './upload';
@@ -47,6 +56,10 @@ export interface MomMethods {
   getQuestion(family: string, slug: string, root: string): Promise<MomQuestionDetail>;
   /** Read one family's questions + aggregate manifest stats. */
   getFamily(family: string, root: string): Promise<MomFamilyDetail>;
+  /** Read + parse every assignment manifest under `<root>/books/` (the organizing spine). */
+  listBooks(root: string): Promise<MomBook[]>;
+  /** The in-repo mom-content path, so the browser can default there. '' if unresolved. */
+  getDefaultRoot(): Promise<string>;
   /** Copy a template into the drafts dir, returning the new file's path. */
   createDraft(family: string, opts: CreateDraftOpts): Promise<DraftResult>;
   /** Drive the in-app browser to MyOpenMath's modquestion.php and paste. */
@@ -92,6 +105,14 @@ export const momIsland = defineIsland<MomMethods>({
         pending += s.pending;
       }
       return { name: fam.name, count: fam.count, questions: fam.questions, manifest: { completed, pending, total: completed + pending } };
+    },
+
+    listBooks(root) {
+      return loadMOMBooks(root);
+    },
+
+    getDefaultRoot() {
+      return loadMOMDefaultRoot();
     },
 
     createDraft(family, opts) {

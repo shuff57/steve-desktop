@@ -9,7 +9,7 @@
    */
   import { onMount } from 'svelte';
   import { getSetting, setSetting } from '../lib/db';
-  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
+  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
   import MomDraft from './MomDraft.svelte';
 
   const ROOT_SETTING = 'mom_root';
@@ -26,6 +26,12 @@
   let selectedQuestion = $state<MomQuestionDetail | null>(null);
   let loadingQuestion = $state(false);
   let questionErr = $state<string | null>(null);
+
+  // Books = the assignment manifests (the organizing spine). A top-level view toggle
+  // switches the left/center panes between the question bank and the book/assignment list.
+  let view = $state<'questions' | 'books'>('questions');
+  let books = $state<MomBook[]>([]);
+  let selectedBook = $state<MomBook | null>(null);
 
   // Phase 3: draft modal state. When `draftingFamily` is set, the modal opens
   // for that family. draftsDir is the working dir the user has set.
@@ -72,13 +78,37 @@
     selectedFamily = null;
     selectedQuestion = null;
     try {
-      const idx = await momIsland.methods.browse(momRoot);
+      const [idx, bookList] = await Promise.all([
+        momIsland.methods.browse(momRoot),
+        momIsland.methods.listBooks(momRoot).catch(() => [] as MomBook[]),
+      ]);
       families = idx.families;
+      books = bookList;
     } catch (e) {
       err = e instanceof Error ? e.message : String(e);
       families = [];
+      books = [];
     } finally {
       loading = false;
+    }
+  }
+
+  /** Open a question referenced by a book entry. filePath is `questions/<family>/<slug>`. */
+  async function openBookQuestion(filePath: string) {
+    const rel = filePath.replace(/^questions\//, '');
+    const slash = rel.indexOf('/');
+    if (slash < 0 || !momRoot) return;
+    const family = rel.slice(0, slash);
+    const slug = rel.slice(slash + 1);
+    loadingQuestion = true;
+    questionErr = null;
+    try {
+      selectedQuestion = await momIsland.methods.getQuestion(family, slug, momRoot);
+    } catch (e) {
+      questionErr = e instanceof Error ? e.message : String(e);
+      selectedQuestion = null;
+    } finally {
+      loadingQuestion = false;
     }
   }
 
@@ -103,9 +133,18 @@
   }
 
   onMount(async () => {
-    const root = await getSetting(ROOT_SETTING).catch(() => null);
+    let root = await getSetting(ROOT_SETTING).catch(() => null);
+    // First run: default to the in-repo mom-content/ so the bank is there without a paste.
+    if (!root) {
+      const fallback = await momIsland.methods.getDefaultRoot().catch(() => '');
+      if (fallback) {
+        root = fallback;
+        await setSetting(ROOT_SETTING, fallback).catch(() => {});
+      }
+    }
     if (root) {
       momRoot = root;
+      rootInput = root;
       await loadIndex();
     }
     const drafts = await getSetting(DRAFTS_DIR_SETTING).catch(() => null);
@@ -164,6 +203,10 @@
     </div>
     <div class="header-actions">
       {#if momRoot}
+        <div class="view-toggle">
+          <button class:active={view === 'questions'} onclick={() => (view = 'questions')}>Questions</button>
+          <button class:active={view === 'books'} onclick={() => (view = 'books')}>Books ({books.length})</button>
+        </div>
         <button class="refresh" onclick={refresh} disabled={loading}>↻ Refresh</button>
         <button class="change" onclick={clearRoot}>Change root</button>
       {/if}
@@ -194,52 +237,94 @@
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
     <div class="panes">
-      <aside class="families">
-        <h2>Families</h2>
-        <ul>
-          {#each families as f (f.name)}
-            <li>
-              <button
-                class="fam"
-                class:active={selectedFamily === f.name}
-                onclick={() => selectFamily(f.name)}
-              >
-                <span class="fam-name">{f.name}</span>
-                <span class="fam-count">{f.count}</span>
-              </button>
-              {#if templateFor(f.name)}
-                <button
-                  class="new-q"
-                  title="New question in {f.name}"
-                  onclick={() => openDraftModal(f.name)}
-                >+ New</button>
-              {/if}
-            </li>
-          {/each}
-        </ul>
-      </aside>
-
-      <section class="questions">
-        <h2>Questions {currentFamily ? `· ${currentFamily.name}` : ''}</h2>
-        {#if !currentFamily}
-          <p class="empty">Select a family.</p>
-        {:else}
+      {#if view === 'questions'}
+        <aside class="families">
+          <h2>Families</h2>
           <ul>
-            {#each currentFamily.questions as q (q.slug)}
+            {#each families as f (f.name)}
               <li>
                 <button
-                  class="q"
-                  class:active={selectedQuestion?.slug === q.slug}
-                  onclick={() => selectQuestion(q)}
+                  class="fam"
+                  class:active={selectedFamily === f.name}
+                  onclick={() => selectFamily(f.name)}
                 >
-                  <span class="q-slug">{q.slug}</span>
-                  {#if q.hasManifest}<span class="badge">manifest</span>{/if}
+                  <span class="fam-name">{f.name}</span>
+                  <span class="fam-count">{f.count}</span>
                 </button>
+                {#if templateFor(f.name)}
+                  <button
+                    class="new-q"
+                    title="New question in {f.name}"
+                    onclick={() => openDraftModal(f.name)}
+                  >+ New</button>
+                {/if}
               </li>
             {/each}
           </ul>
-        {/if}
-      </section>
+        </aside>
+
+        <section class="questions">
+          <h2>Questions {currentFamily ? `· ${currentFamily.name}` : ''}</h2>
+          {#if !currentFamily}
+            <p class="empty">Select a family.</p>
+          {:else}
+            <ul>
+              {#each currentFamily.questions as q (q.slug)}
+                <li>
+                  <button
+                    class="q"
+                    class:active={selectedQuestion?.slug === q.slug}
+                    onclick={() => selectQuestion(q)}
+                  >
+                    <span class="q-slug">{q.slug}</span>
+                    {#if q.hasManifest}<span class="badge">manifest</span>{/if}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </section>
+      {:else}
+        <aside class="families">
+          <h2>Books</h2>
+          {#if books.length === 0}
+            <p class="empty">No assignment manifests under <code>books/</code>.</p>
+          {:else}
+            <ul>
+              {#each books as b (b.path)}
+                <li>
+                  <button class="fam" class:active={selectedBook?.path === b.path} onclick={() => (selectedBook = b)}>
+                    <span class="fam-name">{b.name}</span>
+                    <span class="fam-count">{b.questions.length}</span>
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </aside>
+
+        <section class="questions">
+          <h2>Assignment {selectedBook ? `· ${selectedBook.name}` : ''}</h2>
+          {#if !selectedBook}
+            <p class="empty">Select an assignment.</p>
+          {:else}
+            <p class="stats muted">
+              {selectedBook.kind ?? ''}{selectedBook.chapterSection ? ` · §${selectedBook.chapterSection}` : ''}{selectedBook.cid ? ` · cid ${selectedBook.cid}` : ''}
+            </p>
+            <ul>
+              {#each selectedBook.questions as q (q.slot ?? q.filePath)}
+                <li>
+                  <button class="q" class:active={selectedQuestion?.path?.replace(/\\/g, '/').endsWith(q.filePath.replace(/^questions\//, ''))} onclick={() => openBookQuestion(q.filePath)}>
+                    <span class="q-slug">{q.slot ? `${q.slot}. ` : ''}{q.title ?? q.filePath}</span>
+                    {#if q.qid}<span class="badge">qid {q.qid}</span>{/if}
+                    {#if q.verifyStatus}<span class="badge status-{q.verifyStatus}">{q.verifyStatus}</span>{/if}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </section>
+      {/if}
 
       <section class="preview">
         <h2>Preview</h2>
@@ -304,7 +389,10 @@
   h1 { margin: 0 0 4px; font-size: 22px; }
   .sub { margin: 0; opacity: .7; font-size: 13px; }
   .sub code { font-size: 12px; }
-  .header-actions { display: flex; gap: 8px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .view-toggle { display: inline-flex; border: 1px solid var(--color-border, #3333); border-radius: 6px; overflow: hidden; }
+  .view-toggle button { background: none; border: none; padding: 4px 10px; font: inherit; font-size: 13px; color: var(--color-text-secondary, #888); cursor: pointer; }
+  .view-toggle button.active { background: var(--color-primary-hover, #4a9eff); color: var(--color-primary-text, #fff); }
   .refresh, .change { padding: 6px 12px; border-radius: 6px; cursor: pointer; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; font-size: 13px; }
   .refresh:disabled, .change:disabled { opacity: .5; cursor: default; }
   .change { opacity: .7; }
@@ -327,6 +415,8 @@
   .fam-count { font-size: 11px; opacity: .6; }
   .q-slug { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .badge { font-size: 10px; padding: 1px 6px; border-radius: 999px; background: rgba(34,197,94,.18); color: #22c55e; flex-shrink: 0; }
+  /* verify_status colouring: in-mom = live/green (default badge), pending/other = amber. */
+  .badge.status-pending, .badge.status-draft { background: rgba(245,158,11,.18); color: #f59e0b; }
 
   .preview pre { flex: 1; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; padding: 12px; border-radius: 6px; background: rgba(0,0,0,.25); margin: 0; white-space: pre; }
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }

@@ -13,6 +13,8 @@ describe('momIsland', () => {
     expect(typeof m.browse).toBe('function');
     expect(typeof m.getQuestion).toBe('function');
     expect(typeof m.getFamily).toBe('function');
+    expect(typeof m.listBooks).toBe('function');
+    expect(typeof m.getDefaultRoot).toBe('function');
     expect(typeof m.createDraft).toBe('function');
     expect(typeof m.upload).toBe('function');
   });

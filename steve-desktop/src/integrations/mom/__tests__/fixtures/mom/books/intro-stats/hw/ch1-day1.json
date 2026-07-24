@@ -1,0 +1,12 @@
+{
+  "name": "Homework 1.1",
+  "book": "intro-stats",
+  "kind": "hw",
+  "chapter_section": "1.1",
+  "slug": "ch1-day1",
+  "target": { "cid": "99999", "block": "" },
+  "questions": [
+    { "slot": 1, "file_path": "questions/descriptive-stats/q1-mean.php", "title": "Mean", "points": 1, "qid": "111", "verify_status": "in-mom" },
+    { "slot": 2, "file_path": "questions/descriptive-stats/q2-median.php", "title": "Median", "points": 1, "qid": "112", "verify_status": "pending" }
+  ]
+}

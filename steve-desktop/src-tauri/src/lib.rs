@@ -2270,6 +2270,15 @@ struct MomQuestionRead {
     manifest_text: Option<String>,
 }
 
+/// One assignment manifest under `books/`: its path relative to `books/` and its raw JSON.
+/// The TS side parses; Rust only reads (the WebView can't touch the filesystem).
+#[derive(serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+struct MomBookFile {
+    path: String,
+    text: String,
+}
+
 #[derive(serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 struct MomDraftResult {
@@ -2295,9 +2304,42 @@ fn mom_is_valid_slug(slug: &str) -> bool {
     chars.all(|c| c.is_ascii_alphanumeric() || c == '.' || c == '_' || c == '-')
 }
 
-/// Walk `<root>/questions/<family>/<slug>/`. A question is any folder holding at least one
-/// .php file. A missing questions dir yields an empty list rather than an error — the UI
-/// renders "nothing here yet" instead of failing.
+/// Recursively collect every `.php` FILE under `dir`, one MomQuestion each. `slug` is the
+/// file's path relative to the family root, with forward slashes — this matches how the book
+/// manifests reference questions (`questions/<family>/<slug>`), so a book entry and the bank
+/// share one identity.
+fn mom_collect_php(dir: &std::path::Path, family_root: &std::path::Path, out: &mut Vec<MomQuestion>) {
+    let entries = match std::fs::read_dir(dir) {
+        Ok(e) => e,
+        Err(_) => return,
+    };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            mom_collect_php(&path, family_root, out);
+        } else if path.extension().and_then(|e| e.to_str()) == Some("php") {
+            let slug = path
+                .strip_prefix(family_root)
+                .unwrap_or(&path)
+                .to_string_lossy()
+                .replace('\\', "/");
+            let has_manifest = path
+                .parent()
+                .map(|d| d.join("manifest.json").exists())
+                .unwrap_or(false);
+            out.push(MomQuestion {
+                slug,
+                path: path.to_string_lossy().to_string(),
+                has_manifest,
+            });
+        }
+    }
+}
+
+/// Walk `<root>/questions/<family>/…`. A question is any `.php` FILE anywhere under a family,
+/// flat or nested (the real bank mixes both, and `frq/` nests by subtopic). A missing
+/// questions dir yields an empty list rather than an error — the UI renders "nothing here
+/// yet" instead of failing.
 fn mom_walk(root: &std::path::Path) -> Vec<MomFamily> {
     let questions_dir = root.join("questions");
     let mut families: Vec<MomFamily> = Vec::new();
@@ -2317,29 +2359,7 @@ fn mom_walk(root: &std::path::Path) -> Vec<MomFamily> {
         }
 
         let mut questions: Vec<MomQuestion> = Vec::new();
-        if let Ok(slugs) = std::fs::read_dir(&family_path) {
-            for slug_entry in slugs.flatten() {
-                let slug_path = slug_entry.path();
-                if !slug_path.is_dir() {
-                    continue;
-                }
-                let files: Vec<String> = std::fs::read_dir(&slug_path)
-                    .map(|rd| {
-                        rd.flatten()
-                            .map(|f| f.file_name().to_string_lossy().to_string())
-                            .collect()
-                    })
-                    .unwrap_or_default();
-                if !files.iter().any(|f| f.ends_with(".php")) {
-                    continue;
-                }
-                questions.push(MomQuestion {
-                    slug: slug_entry.file_name().to_string_lossy().to_string(),
-                    path: slug_path.to_string_lossy().to_string(),
-                    has_manifest: files.iter().any(|f| f == "manifest.json"),
-                });
-            }
-        }
+        mom_collect_php(&family_path, &family_path, &mut questions);
 
         if questions.is_empty() {
             continue;
@@ -2356,9 +2376,62 @@ fn mom_walk(root: &std::path::Path) -> Vec<MomFamily> {
     families
 }
 
+/// Recursively collect every `.json` assignment manifest under `books/`.
+fn mom_collect_books(dir: &std::path::Path, books_root: &std::path::Path, out: &mut Vec<MomBookFile>) {
+    let entries = match std::fs::read_dir(dir) {
+        Ok(e) => e,
+        Err(_) => return,
+    };
+    for entry in entries.flatten() {
+        let path = entry.path();
+        if path.is_dir() {
+            mom_collect_books(&path, books_root, out);
+        } else if path.extension().and_then(|e| e.to_str()) == Some("json") {
+            if let Ok(text) = std::fs::read_to_string(&path) {
+                let rel = path
+                    .strip_prefix(books_root)
+                    .unwrap_or(&path)
+                    .to_string_lossy()
+                    .replace('\\', "/");
+                out.push(MomBookFile { path: rel, text });
+            }
+        }
+    }
+}
+
 #[tauri::command]
 async fn mom_load_index(root: String) -> Result<Vec<MomFamily>, String> {
     Ok(mom_walk(std::path::Path::new(&root)))
+}
+
+/// Read every assignment manifest under `<root>/books/`, raw. TS parses the JSON.
+#[tauri::command]
+async fn mom_load_books(root: String) -> Result<Vec<MomBookFile>, String> {
+    let books_dir = std::path::Path::new(&root).join("books");
+    let mut out: Vec<MomBookFile> = Vec::new();
+    mom_collect_books(&books_dir, &books_dir, &mut out);
+    out.sort_by(|a, b| a.path.cmp(&b.path));
+    Ok(out)
+}
+
+/// Resolve the in-repo `mom-content/` dir, so the app defaults there instead of making the
+/// user paste a path. Searches the working dir and its ancestors for a `mom-content/questions`
+/// (dev runs from the app dir or src-tauri, so an ancestor always holds it); "" if not found,
+/// in which case the user supplies `mom_root` by hand as before.
+#[tauri::command]
+async fn mom_default_root() -> Result<String, String> {
+    let mut dir = std::env::current_dir().map_err(|e| e.to_string())?;
+    loop {
+        for cand in [dir.join("mom-content"), dir.join("steve-desktop").join("mom-content")] {
+            if cand.join("questions").is_dir() {
+                return Ok(cand.to_string_lossy().to_string());
+            }
+        }
+        match dir.parent() {
+            Some(p) => dir = p.to_path_buf(),
+            None => return Ok(String::new()),
+        }
+    }
 }
 
 #[tauri::command]
@@ -2390,21 +2463,16 @@ async fn mom_read_question(
         .find(|q| q.slug == slug)
         .ok_or_else(|| format!("Unknown question: {}/{}", family, slug))?;
 
-    let dir = std::path::Path::new(&question.path);
-    let php = std::fs::read_dir(dir)
-        .map_err(|e| format!("Failed to read {}: {}", dir.display(), e))?
-        .flatten()
-        .map(|f| f.file_name().to_string_lossy().to_string())
-        .find(|f| f.ends_with(".php"))
-        .ok_or_else(|| format!("No .php file in {}", dir.display()))?;
-
-    let path = dir.join(&php);
-    let contents = std::fs::read_to_string(&path)
+    // question.path is the .php file itself now (walk collects files, not folders).
+    let path = std::path::Path::new(&question.path);
+    let contents = std::fs::read_to_string(path)
         .map_err(|e| format!("Failed to read {}: {}", path.display(), e))?;
-    let manifest_text = std::fs::read_to_string(dir.join("manifest.json")).ok();
+    let manifest_text = path
+        .parent()
+        .and_then(|d| std::fs::read_to_string(d.join("manifest.json")).ok());
 
     Ok(MomQuestionRead {
-        path: path.to_string_lossy().to_string(),
+        path: question.path.clone(),
         contents,
         manifest_text,
     })
@@ -2492,20 +2560,36 @@ mod mom_tests {
     }
 
     #[test]
-    fn walks_questions_into_families() {
+    fn walks_php_files_into_families_flat_and_nested() {
         let families = mom_walk(&fixture_root());
-        assert_eq!(families.len(), 1, "fixture has one family");
-        let fam = &families[0];
-        assert_eq!(fam.name, "frq");
-        assert_eq!(fam.count, 1);
-        assert_eq!(fam.questions[0].slug, "descriptive-statistics");
-        assert!(fam.questions[0].has_manifest);
+        let by = |n: &str| families.iter().find(|f| f.name == n);
+
+        // Nested family: frq/descriptive-statistics/*.php — slug carries the subtopic path.
+        let frq = by("frq").expect("frq family");
+        assert_eq!(frq.questions[0].slug, "descriptive-statistics/q1-test.php");
+        assert!(frq.questions[0].has_manifest, "manifest sits beside the .php");
+
+        // Flat family: each .php file directly under the topic is its own question.
+        let stats = by("descriptive-stats").expect("descriptive-stats family");
+        assert_eq!(stats.count, 2, "two .php files -> two questions, not one folder");
+        assert_eq!(stats.questions[0].slug, "q1-mean.php");
+        assert!(!stats.questions[0].has_manifest);
     }
 
     #[test]
     fn missing_questions_dir_yields_empty() {
         let families = mom_walk(std::path::Path::new("/no/such/mom/root"));
         assert!(families.is_empty());
+    }
+
+    #[test]
+    fn loads_book_manifests() {
+        let books_dir = fixture_root().join("books");
+        let mut out = Vec::new();
+        mom_collect_books(&books_dir, &books_dir, &mut out);
+        assert_eq!(out.len(), 1, "one assignment manifest in the fixture");
+        assert!(out[0].path.ends_with(".json"));
+        assert!(out[0].text.contains("\"questions\""));
     }
 }
 
@@ -2751,6 +2835,8 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             #[cfg(not(target_os = "linux"))]
             _eval_callback,
             mom_load_index,
+            mom_load_books,
+            mom_default_root,
             mom_read_manifest,
             mom_read_question,
             mom_create_draft,
