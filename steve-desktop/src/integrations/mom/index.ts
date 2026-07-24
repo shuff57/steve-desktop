@@ -85,9 +85,16 @@ export const momIsland = defineIsland<MomMethods>({
       // Rust resolves family+slug against the walked index (caller paths are never trusted),
       // reads the .php, and returns the sibling manifest in the same round trip.
       const read = await invoke<MomQuestionRead>('mom_read_question', { root, family, slug });
-      const manifest = read.manifestText
-        ? aggregateStats(parseManifest(read.manifestText, family))
-        : { completed: 0, pending: 0, total: 0 };
+      // Manifest stats are decorative. A foreign/legacy manifest shape (e.g. frq's
+      // {source, questions:{...}}) must never block viewing or rendering the question.
+      let manifest = { completed: 0, pending: 0, total: 0 };
+      if (read.manifestText) {
+        try {
+          manifest = aggregateStats(parseManifest(read.manifestText, family));
+        } catch {
+          /* leave zeroed stats */
+        }
+      }
       return { family, slug, path: read.path, contents: read.contents, manifest };
     },
 

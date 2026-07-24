@@ -1,4 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+const { invokeMock } = vi.hoisted(() => ({ invokeMock: vi.fn() }));
+vi.mock('@tauri-apps/api/core', () => ({ invoke: invokeMock }));
+
 import { momIsland, type MomMethods } from './index';
 
 describe('momIsland', () => {
@@ -17,5 +21,22 @@ describe('momIsland', () => {
     expect(typeof m.getDefaultRoot).toBe('function');
     expect(typeof m.createDraft).toBe('function');
     expect(typeof m.upload).toBe('function');
+  });
+});
+
+describe('getQuestion manifest tolerance', () => {
+  beforeEach(() => invokeMock.mockReset());
+
+  it('returns the question even when the sibling manifest has a foreign shape', async () => {
+    // frq manifests are {source, questions:{...}} — incompatible with the {version, questions:[]}
+    // parser. A bad manifest must NOT block viewing/rendering the question.
+    invokeMock.mockResolvedValue({
+      path: '/mom/questions/frq/descriptive-statistics/q1.php',
+      contents: '// === COMMON CONTROL ===\n$x=1;',
+      manifestText: '{"source":"prompts.txt","questions":{"1":{"status":"completed"}}}',
+    });
+    const q = await momIsland.methods.getQuestion('frq', 'descriptive-statistics/q1.php', '/mom');
+    expect(q.contents).toContain('COMMON CONTROL');
+    expect(q.manifest).toEqual({ completed: 0, pending: 0, total: 0 });
   });
 });
