@@ -55,6 +55,7 @@
 <button
   class="nav-item nav-parent"
   class:active={holdsActive}
+  class:collapsed
   onclick={toggle}
   title={label}
   aria-expanded={collapsed ? undefined : open}
@@ -82,6 +83,29 @@
 {/if}
 
 <style>
+  /*
+   * The sidebar's .nav-item styles live in App.svelte and are component-scoped, so they
+   * never reach these buttons — without this block the parent renders as a bare white
+   * button with centred text, nothing like the items around it. Mirror App's sidebar
+   * item using the same shared tokens so the section reads as part of the same list.
+   */
+  .nav-item {
+    background: none; border: none; color: var(--sidebar-text);
+    text-align: left; padding: 0.75rem 1rem; cursor: pointer;
+    font-size: 1rem; border-radius: var(--radius-sm); transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.75rem;
+    white-space: nowrap; overflow: hidden; width: 100%;
+  }
+  .nav-item:hover { background: var(--sidebar-hover-bg); color: var(--sidebar-text-active); }
+  .nav-item.active { background: var(--sidebar-active-bg); color: var(--sidebar-text-active); font-weight: 500; }
+  .icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .label { overflow: hidden; text-overflow: ellipsis; }
+
+  /* Collapsed rail: icon only, matching App's `.sidebar.collapsed .nav-item` which cannot
+     reach this component. Without it the label ("Grading") overflows the ~60px rail. */
+  .nav-item.collapsed { justify-content: center; padding: 0.75rem; }
+  .nav-item.collapsed .label { display: none; }
+
   .chevron {
     margin-left: auto;
     transition: transform 0.15s ease;
