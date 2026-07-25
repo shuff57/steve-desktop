@@ -1,5 +1,28 @@
 import { describe, expect, it } from 'vitest';
-import { tabMarker, markerScript } from './tab-control';
+import { mayAct, tabMarker, markerScript } from './tab-control';
+
+describe('mayAct — tab session ownership', () => {
+  it('legacy caller (no session id) may act on anything', () => {
+    expect(mayAct(null).ok).toBe(true);
+    expect(mayAct('sess-a').ok).toBe(true);
+  });
+
+  it('a session may act on its own tab', () => {
+    expect(mayAct('sess-a', 'sess-a').ok).toBe(true);
+  });
+
+  it("a session may NOT act on another session's tab", () => {
+    const v = mayAct('sess-a', 'sess-b');
+    expect(v.ok).toBe(false);
+    expect(v.reason).toContain('another agent session');
+  });
+
+  it('a session may NOT grab an unowned (manual) tab', () => {
+    const v = mayAct(null, 'sess-b');
+    expect(v.ok).toBe(false);
+    expect(v.reason).toContain('newTab');
+  });
+});
 
 describe('tabMarker', () => {
   it('prefixes the tab id', () => {

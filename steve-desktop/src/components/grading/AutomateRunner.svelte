@@ -205,12 +205,13 @@
   /** window.name marker of the tab being driven — pins the spawned agent to the exact tab. */
   const markerNow = (): string | undefined => { const id = getActiveTabId(); return id ? tabMarker(id) : undefined; };
 
-  /** Spawn the engine CLI with streamed progress; returns its final text. */
-  async function spawn(prompt: string, label: string): Promise<string> {
+  /** Spawn the engine CLI with streamed progress; returns its final text. Pass the sessionId that
+   *  was baked into the prompt (tab ownership) so run/stop/progress and tab ownership all share
+   *  one run identity. */
+  async function spawn(prompt: string, label: string, sessionId: string = crypto.randomUUID()): Promise<string> {
     const port = await invoke<number | null>('get_cdp_port');
     if (!port) throw new Error('CDP debug port unavailable — restart the app.');
     const engine = engineForProvider(provider);
-    const sessionId = crypto.randomUUID();
     currentSessionId = sessionId; // expose it so Stop can terminate this run
     // Batch progress updates (~150ms) so a burst of stream events doesn't re-render per line and
     // starve the main thread — the confirmed cause of the WebView2 CDP wedge.
@@ -241,9 +242,10 @@
       onWedge: () => { msg = `⚠ Browser debug endpoint has been unresponsive for ~${wedgeSecs}s — the run may be stuck. It can still recover on its own; restart the app only if it stays frozen.`; },
     });
     watchdog.start();
-    // Show the "agent connected" overlay (border ring + arrow cursor) on the driven tab.
+    // Show the "agent connected" overlay (border ring + arrow cursor) on the driven tab, and
+    // register the run's session so tabs it opens are OWNED by this sessionId (no tab fights).
     const drivenTab = getActiveTabId();
-    await showAgentConnected(drivenTab);
+    await showAgentConnected(drivenTab, sessionId);
     try {
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -260,7 +262,7 @@
     } finally {
       progressBuf.flush(); // emit any buffered progress lines
       watchdog.stop();
-      await hideAgentConnected(drivenTab);
+      await hideAgentConnected(drivenTab, sessionId);
       unlisten();
       currentSessionId = null;
     }
@@ -298,7 +300,8 @@
       phase = 'planning';
       msg = 'Planning (read-only)…';
       progress = [];
-      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab }), 'plan');
+      const sid = crypto.randomUUID(); // minted BEFORE the prompt so the run's tab ownership id is baked into it
+      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, sessionId: sid }), 'plan', sid);
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -338,9 +341,11 @@
       phase = 'executing';
       msg = 'Running the task directly — no plan was reviewed.';
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
+      const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
         'exec',
+        sid,
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };
@@ -369,9 +374,11 @@
       const map = domain ? await loadMappingDoc(domain) : null;
       const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
+      const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir }),
+        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
         'exec',
+        sid,
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };

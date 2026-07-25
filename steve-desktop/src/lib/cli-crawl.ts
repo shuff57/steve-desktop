@@ -41,23 +41,37 @@ export function cdpTargetInstruction(host: string, marker?: string): string {
  * can open, log into, activate, and switch between several tabs — the sanctioned way to span sites
  * in one run. Tabs are still made ONLY through the bridge; raw Target.createTarget / window.open /
  * self-launched browsers stay banned. `primaryHost` is the host the run starts on and returns to.
+ *
+ * `sessionId` is this run's identity. Tabs the run opens are OWNED by it: the bridge throws on any
+ * call carrying a different session id, so concurrent runs can never fight over one tab. When
+ * present, the agent is told to pass it on every call and to touch only its own tabs.
  */
-export function cdpMultiTabInstruction(primaryHost: string): string {
+export function cdpMultiTabInstruction(primaryHost: string, sessionId?: string): string {
+  const sid = sessionId ? `, ${JSON.stringify(sessionId)}` : '';
   return [
     '- Two kinds of target share this debug port:',
     '  1. The APP UI window (its url starts with http://localhost) exposes window.__steveControl —',
     '     your ONLY sanctioned way to manage tabs and log in. Reach it with Runtime.evaluate on that',
     '     target; never use it to act on a site. Its methods (all async — await them):',
-    '       - __steveControl.listTabs() -> [{id,url,title,active,ready,marker}]',
-    '       - __steveControl.newTab(url) -> opens a tab, returns its id',
-    "       - __steveControl.login(id) -> submits the SAVED on-device credentials for that tab's site",
+    '       - __steveControl.listTabs() -> [{id,url,title,active,ready,marker,session}]',
+    `       - __steveControl.newTab(url${sid}) -> opens a tab, returns its id`,
+    `       - __steveControl.login(id${sid}) -> submits the SAVED on-device credentials for that tab's site`,
     '         and returns true if one matched. Credentials never leave the machine, you never see',
     '         them, and no MFA is expected. Always log in this way — never type a password yourself.',
-    '       - __steveControl.activate(id) -> bring tab id to the front (what the user sees)',
-    '       - __steveControl.navigate(id, url), __steveControl.closeTab(id)',
+    `       - __steveControl.activate(id${sid}) -> bring tab id to the front (what the user sees)`,
+    `       - __steveControl.navigate(id, url${sid}), __steveControl.closeTab(id${sid})`,
     '  2. One PAGE target per tab, each stamped window.name === "steve-tab-<id>". Do ALL reading,',
     '     clicking, and filling on the page target whose window.name matches the tab you are on',
     '     (evaluate window.name over each candidate target to find it).',
+    ...(sessionId
+      ? [
+          `- YOUR SESSION ID is ${JSON.stringify(sessionId)}. Pass it as the LAST argument to every`,
+          '  __steveControl call, exactly as shown above. Tabs you open belong to your session',
+          '  (listTabs shows each tab\'s session). Act ONLY on tabs whose session equals your id —',
+          "  a call on another session's tab (or a user's manual tab) throws an ownership error;",
+          '  if that happens, open your own tab instead of retrying.',
+        ]
+      : []),
     '- Make tabs ONLY via __steveControl.newTab. Never call Target.createTarget / window.open or',
     '  launch your own browser (no playwright/puppeteer.launch).',
     '- Before each visible action, __steveControl.activate(id) the tab you are working so the user',

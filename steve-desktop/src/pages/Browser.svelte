@@ -21,7 +21,7 @@
   } from '../lib/browser';
   import { matchCredentialsToUrl, generateAutoFillScript, loginFieldSelectors } from '../lib/autofill';
   import { totpNow } from '../lib/totp';
-  import { connectCDP, isConnected, evalScript as cdpEval } from '../lib/cdp-actions';
+  import { connectCDP, evalScript as cdpEval } from '../lib/cdp-actions';
   import { calculateWebviewBounds } from '../lib/webview-layout';
   import {
     shouldTriggerSidebarAnimation,
@@ -30,7 +30,7 @@
   } from '../lib/webview-lifecycle';
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
-  import { tabMarker, markerScript, type TabInfo } from '../lib/tab-control';
+  import { tabMarker, markerScript, mayAct, type TabInfo } from '../lib/tab-control';
   import { agentOverlayScript, AGENT_OVERLAY_REMOVE, DIALOG_SUPPRESS_SCRIPT, SESSION_COLORS, type AgentActiveDetail } from '../lib/agent-overlay';
   import { startRecording, stopRecording } from '../lib/artifacts-api';
   import ActionPanel from './ActionPanel.svelte';
@@ -40,17 +40,20 @@
   // tab-management logic lives here.
   // (svelte-check rejects a top-level `declare global` inside a component script, so the
   // shape is a local type and `window` is cast at the use sites instead.)
+  // Every mutating method takes a trailing sessionId — the spawned run's id. A call on a tab owned
+  // by a DIFFERENT session throws (mayAct), so concurrent agents cannot fight over a tab. Omitting
+  // it keeps legacy single-run behaviour.
   interface SteveControl {
     listTabs: () => TabInfo[];
-    newTab: (url?: string) => Promise<string>;
-    closeTab: (id: string) => Promise<void>;
-    navigate: (id: string, url: string) => Promise<void>;
-    activate: (id: string) => Promise<void>;
+    newTab: (url?: string, sessionId?: string) => Promise<string>;
+    closeTab: (id: string, sessionId?: string) => Promise<void>;
+    navigate: (id: string, url: string, sessionId?: string) => Promise<void>;
+    activate: (id: string, sessionId?: string) => Promise<void>;
     /** Fill + submit the login form on a tab using saved creds. Returns true if a credential
      *  matched the tab's URL (creds stay on-device — never sent to the model). */
-    login: (id?: string) => Promise<boolean>;
+    login: (id?: string, sessionId?: string) => Promise<boolean>;
     /** Start/stop an app-window screen recording (ffmpeg) — saved to the Artifacts gallery. */
-    startRecording: () => Promise<string>;
+    startRecording: (sessionId?: string) => Promise<string>;
     stopRecording: () => Promise<string | null>;
   }
   const steveWindow = window as Window & { __steveControl?: SteveControl };
@@ -65,12 +68,18 @@
   // The tab an agent is currently driving — highlights its tab and keeps the connection overlay
   // (border ring + arrow cursor) re-injected across the agent's navigations.
   // Concurrent agent sessions, each colour-coded so two running at once are distinguishable. A session
-  // is owned by the tab that started the run; it grows as the agent opens/switches tabs (each new tab
-  // inherits the session of the tab the agent came from).
-  interface AgentSession { owner: string; tabs: string[]; color: string; activeTab: string; }
+  // is owned by the tab that started the run; it grows as the agent opens/switches tabs. `id` is the
+  // spawned run's session id — tabs are OWNED by that id, and the __steveControl bridge rejects calls
+  // carrying a different session id (mayAct), so concurrent agents can never fight over one tab.
+  interface AgentSession { id: string; owner: string; tabs: string[]; color: string; activeTab: string; }
   let sessions = $state<AgentSession[]>([]);
   function sessionOf(tabId: string): AgentSession | undefined {
     return sessions.find((s) => s.tabs.includes(tabId));
+  }
+  /** Throw (into the calling agent's Runtime.evaluate) when `sessionId` may not act on tab `id`. */
+  function guardTab(id: string, sessionId?: string) {
+    const v = mayAct(sessionOf(id)?.id ?? null, sessionId);
+    if (!v.ok) throw new Error(`Tab ${id}: ${v.reason}`);
   }
   function nextSessionColor(): string {
     const used = new Set(sessions.map((s) => s.color));
@@ -233,7 +242,7 @@
     if (!url && activeTabId) { try { url = await getEmbeddedUrl(activeTabId); } catch { /* ignore */ } }
     if (!url) { showToast('Open the login page first.'); return; }
     try {
-      if (!isConnected() && !(await connectCDP())) {
+      if (!(await connectCDP())) { // re-targets to the ACTIVE tab if the client is on another
         showToast('Could not read the page — is it loaded?');
         return;
       }
@@ -413,15 +422,20 @@
     const detail = e.detail;
     if (detail?.active) {
       const owner = detail.tabId;
-      if (owner && !sessions.some((s) => s.owner === owner)) {
+      const id = detail.sessionId ?? crypto.randomUUID(); // legacy callers get a minted id
+      if (owner && !sessions.some((s) => s.owner === owner || s.id === id)) {
         const color = nextSessionColor();
-        sessions = [...sessions, { owner, tabs: [owner], color, activeTab: owner }];
+        sessions = [...sessions, { id, owner, tabs: [owner], color, activeTab: owner }];
         injectScript(DIALOG_SUPPRESS_SCRIPT, owner).catch(() => {});
         injectScript(agentOverlayScript(color), owner).catch(() => {});
       }
     } else {
-      // Run ended — end the session owned by this tab and strip its overlay from every tab it touched.
-      const s = sessions.find((x) => x.owner === detail?.tabId) ?? sessionOf(detail?.tabId ?? '');
+      // Run ended — end the session (by run id first, else owner tab) and strip its overlay from
+      // every tab it touched. Its tabs become unowned: adoptable by a later run, never reassigned.
+      const s =
+        (detail?.sessionId && sessions.find((x) => x.id === detail.sessionId)) ||
+        sessions.find((x) => x.owner === detail?.tabId) ||
+        sessionOf(detail?.tabId ?? '');
       if (s) {
         for (const t of s.tabs) injectScript(AGENT_OVERLAY_REMOVE, t).catch(() => {});
         sessions = sessions.filter((x) => x !== s);
@@ -443,6 +457,22 @@
     s.activeTab = toTabId;
     await injectScript(DIALOG_SUPPRESS_SCRIPT, toTabId).catch(() => {});
     await injectScript(agentOverlayScript(s.color), toTabId).catch(() => {});
+  }
+
+  /** Attach `tabId` to the session with run id `sessionId` — the explicit (race-free) version of
+   *  followAgentTo: ownership comes from the caller's run id, never inferred from which tab happens
+   *  to be active. Creates the session if the run started with no tab open. */
+  async function joinSession(sessionId: string, tabId: string) {
+    let s = sessions.find((x) => x.id === sessionId);
+    if (!s) {
+      s = { id: sessionId, owner: tabId, tabs: [tabId], color: nextSessionColor(), activeTab: tabId };
+      sessions = [...sessions, s];
+    } else {
+      if (!s.tabs.includes(tabId)) s.tabs = [...s.tabs, tabId];
+      s.activeTab = tabId;
+    }
+    await injectScript(DIALOG_SUPPRESS_SCRIPT, tabId).catch(() => {});
+    await injectScript(agentOverlayScript(s.color), tabId).catch(() => {});
   }
 
   function handleSidebarChanged() {
@@ -542,17 +572,45 @@
         active: t.id === activeTabId,
         ready: t.browserCreated,
         marker: tabMarker(t.id),
+        session: sessionOf(t.id)?.id ?? null,
       })),
-      // When a session is active, the coloured overlay follows the agent onto the tab it opens/
-      // switches to. Capture the CURRENT tab first (the agent came from it) so the new tab inherits
-      // that tab's session — this is how concurrent sessions keep their tabs (and colours) separate.
-      newTab: async (url?: string) => { const from = activeTabId; await openNewTab(url); if (sessions.length) await followAgentTo(from, activeTabId); return activeTabId; },
-      closeTab: async (id: string) => { await closeTab(id); },
-      navigate: async (id: string, url: string) => { const from = activeTabId; await switchTab(id); urlInput = url; await handleNavigate(); if (sessions.length) await followAgentTo(from, id); },
-      activate: async (id: string) => { const from = activeTabId; await switchTab(id); if (sessions.length) await followAgentTo(from, id); },
-      login: (id?: string) => loginNow(id),
-      // Record the tab the agent is on — pass its URL so the right target is captured with several open.
-      startRecording: () => startRecording(tabs.find(t => t.id === activeTabId)?.url),
+      // With a sessionId, the new tab joins THAT run's session (race-free — two concurrent agents
+      // interleaving newTab calls each keep their own tabs). Legacy path: the overlay follows the
+      // agent from whichever tab was active, which is inference and can misattribute under
+      // concurrency — that's exactly what sessionId replaces.
+      newTab: async (url?: string, sessionId?: string) => {
+        const from = activeTabId;
+        await openNewTab(url);
+        if (sessionId) await joinSession(sessionId, activeTabId);
+        else if (sessions.length) await followAgentTo(from, activeTabId);
+        return activeTabId;
+      },
+      closeTab: async (id: string, sessionId?: string) => { guardTab(id, sessionId); await closeTab(id); },
+      navigate: async (id: string, url: string, sessionId?: string) => {
+        guardTab(id, sessionId);
+        const from = activeTabId;
+        await switchTab(id);
+        urlInput = url;
+        await handleNavigate();
+        if (sessionId) await joinSession(sessionId, id);
+        else if (sessions.length) await followAgentTo(from, id);
+      },
+      activate: async (id: string, sessionId?: string) => {
+        guardTab(id, sessionId);
+        const from = activeTabId;
+        await switchTab(id);
+        if (sessionId) await joinSession(sessionId, id);
+        else if (sessions.length) await followAgentTo(from, id);
+      },
+      login: (id?: string, sessionId?: string) => { if (id) guardTab(id, sessionId); return loginNow(id); },
+      // Record the SESSION's driven tab, not whichever tab is visible — with two agents running,
+      // activeTabId may be the other agent's tab.
+      // ponytail: Rust resolves the target by URL — two tabs on the same URL are still ambiguous;
+      // add marker-based resolve in resolve_browser_and_target if that ever bites.
+      startRecording: (sessionId?: string) => {
+        const tabId = (sessionId && sessions.find((s) => s.id === sessionId)?.activeTab) || activeTabId;
+        return startRecording(tabs.find(t => t.id === tabId)?.url);
+      },
       stopRecording: () => stopRecording(),
     };
 

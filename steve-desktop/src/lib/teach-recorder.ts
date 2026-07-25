@@ -6,7 +6,7 @@
 // resolvable kinds (data-testid / #id / role=name / [name] / css path) so replay can heal on drift.
 
 import { cdp } from './cdp-client';
-import { connectCDP, isConnected } from './cdp-actions';
+import { connectCDP } from './cdp-actions';
 import type { Workflow, WorkflowStep } from './types/site-profile';
 
 const BINDING = '__steveTeach';
@@ -154,7 +154,7 @@ export class TeachRecorder {
 
   async start(onStep?: (steps: WorkflowStep[]) => void): Promise<void> {
     this.onStep = onStep;
-    if (!isConnected() && !(await connectCDP())) {
+    if (!(await connectCDP())) { // re-targets to the ACTIVE tab if the client is on another
       throw new Error('Could not connect to the browser — open a page first.');
     }
     await cdp.send('Runtime.enable');

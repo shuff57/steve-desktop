@@ -31,6 +31,10 @@ export interface AutomatePlanOptions {
    * a normal run stays confined to one tab.
    */
   multiTab?: boolean;
+  /** This run's session id — tabs it opens are owned by it; the bridge rejects calls carrying a
+   *  different id, so concurrent runs never fight over a tab. Same id the spawner uses for
+   *  run_agent_cli / stop / progress. */
+  sessionId?: string;
 }
 
 function hostOf(url: string): string {
@@ -49,7 +53,7 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
     `TASK: ${o.task}`,
     '',
     `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :`,
-    o.multiTab ? cdpMultiTabInstruction(host) : cdpTargetInstruction(host, o.marker),
+    o.multiTab ? cdpMultiTabInstruction(host, o.sessionId) : cdpTargetInstruction(host, o.marker),
     '- Navigate with Page.navigate and read with Runtime.evaluate to inspect what the task needs.',
     '',
     'THIS IS A PLANNING PHASE — STRICTLY READ-ONLY:',
@@ -124,7 +128,7 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     planned ? o.approvedPlan : '',
     '',
     `Drive the logged-in browser over CDP at http://127.0.0.1:${o.cdpPort}:`,
-    o.multiTab ? cdpMultiTabInstruction(host) : cdpTargetInstruction(host, o.marker),
+    o.multiTab ? cdpMultiTabInstruction(host, o.sessionId) : cdpTargetInstruction(host, o.marker),
     'The user watches it happen in the app.',
     planned
       ? 'You MAY now click, fill, select, and submit — but ONLY to perform the approved steps.'
@@ -139,7 +143,7 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     o.artifactsDir
       ? `Save any screenshots you take into ${o.artifactsDir} — they appear in the app's Artifacts gallery.`
       : '',
-    'You MAY record the run as a video: call window.__steveControl.startRecording() when you begin',
+    `You MAY record the run as a video: call window.__steveControl.startRecording(${o.sessionId ? JSON.stringify(o.sessionId) : ''}) when you begin`,
     'and window.__steveControl.stopRecording() when done (on the app-UI target). It records ONLY the',
     "tab you are driving and saves to the Artifacts gallery. Only record if the task calls for it.",
     '',

@@ -62,20 +62,22 @@ export const DIALOG_SUPPRESS_SCRIPT = `(function(){
   try{window.addEventListener('beforeunload',function(e){e.stopImmediatePropagation();delete e['returnValue'];},true);}catch(_){}
 })();`;
 
-/** Dispatched so Browser.svelte can highlight the active tab and re-inject the overlay on nav. */
-export interface AgentActiveDetail { active: boolean; tabId: string }
+/** Dispatched so Browser.svelte can highlight the active tab and re-inject the overlay on nav.
+ *  `sessionId` is the spawned run's id — it becomes the AgentSession id so tabs the run opens are
+ *  owned by that exact run (omitted → Browser.svelte mints one; legacy single-run flows). */
+export interface AgentActiveDetail { active: boolean; tabId: string; sessionId?: string }
 
 // Announce a run (dis)connecting from its owner tab. Browser.svelte owns the session model — it
 // assigns the session colour and does the actual overlay injection/removal (and colour-follow across
 // tabs), because only it knows how many sessions are running and which colours are free.
-export async function showAgentConnected(tabId: string): Promise<void> {
+export async function showAgentConnected(tabId: string, sessionId?: string): Promise<void> {
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('steve:agent-active', { detail: { active: true, tabId } satisfies AgentActiveDetail }));
+    window.dispatchEvent(new CustomEvent('steve:agent-active', { detail: { active: true, tabId, sessionId } satisfies AgentActiveDetail }));
   }
 }
 
-export async function hideAgentConnected(tabId: string): Promise<void> {
+export async function hideAgentConnected(tabId: string, sessionId?: string): Promise<void> {
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('steve:agent-active', { detail: { active: false, tabId } satisfies AgentActiveDetail }));
+    window.dispatchEvent(new CustomEvent('steve:agent-active', { detail: { active: false, tabId, sessionId } satisfies AgentActiveDetail }));
   }
 }

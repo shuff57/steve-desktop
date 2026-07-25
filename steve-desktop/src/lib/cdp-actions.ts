@@ -1,6 +1,8 @@
 import { invoke } from '@tauri-apps/api/core';
-import { cdp } from './cdp-client';
+import { cdp, CDPClient, MAIN_APP_PATTERNS, type CDPTarget } from './cdp-client';
 import { selectorToElementExpr } from './selector-resolve';
+import { getActiveTabId } from './browser';
+import { tabMarker } from './tab-control';
 
 export interface ActionResult {
   success: boolean;
@@ -26,8 +28,52 @@ function checkDangerousPatterns(code: string): string | null {
   return null;
 }
 
-export async function connectCDP(port?: number): Promise<boolean> {
+// Which tab the singleton `cdp` is connected to. The old behaviour ("first non-app-UI target,
+// connect once, reuse forever") silently kept acting on whichever tab connected first after a tab
+// switch — with several tabs (or several agents) open, in-app tools read/wrote the wrong tab.
+let connectedTabId: string | null = null;
+
+/** ws url of the page target stamped with `marker` (window.name) — the only reliable disambiguator
+ *  when several tabs share a URL. Probes each candidate over a throwaway ws connection. */
+async function findTargetWsByMarker(port: number, marker: string): Promise<string | null> {
   try {
+    const resp = await fetch(`http://127.0.0.1:${port}/json`);
+    if (!resp.ok) return null;
+    const targets: CDPTarget[] = await resp.json();
+    for (const t of targets) {
+      if (t.type !== 'page' || !t.webSocketDebuggerUrl) continue;
+      if (MAIN_APP_PATTERNS.some((p) => p.test(t.url))) continue;
+      const probe = new CDPClient();
+      try {
+        if (!(await probe.connectToUrl(t.webSocketDebuggerUrl))) continue;
+        const res = (await probe.send('Runtime.evaluate', {
+          expression: 'window.name',
+          returnByValue: true,
+        })) as { result?: { value?: unknown } };
+        if (res.result?.value === marker) return t.webSocketDebuggerUrl;
+      } catch {
+        /* unreadable target — skip */
+      } finally {
+        await probe.disconnect();
+      }
+    }
+  } catch {
+    /* endpoint unreachable — caller falls back */
+  }
+  return null;
+}
+
+/**
+ * Connect the singleton client to the tab's page target — `tabId` explicit, else the active tab.
+ * Already connected to that tab → no-op true. Connected to a DIFFERENT tab → re-targets, so a call
+ * after a tab switch acts on the tab the user/agent means. Falls back to first-found discovery when
+ * the tab has no marker yet (fresh tab before its first page load) or no tab context exists.
+ */
+export async function connectCDP(port?: number, tabId?: string): Promise<boolean> {
+  try {
+    const desired = tabId ?? getActiveTabId();
+    if (cdp.isConnected() && (!desired || connectedTabId === desired)) return true;
+
     let resolvedPort = port;
     if (resolvedPort === undefined || resolvedPort === null) {
       const tauriPort = await invoke<number | null>('get_cdp_port');
@@ -35,10 +81,13 @@ export async function connectCDP(port?: number): Promise<boolean> {
       resolvedPort = tauriPort;
     }
 
-    const wsUrl = await invoke<string | null>('discover_cdp_target', { port: resolvedPort });
+    let wsUrl: string | null = desired ? await findTargetWsByMarker(resolvedPort, tabMarker(desired)) : null;
+    if (!wsUrl) wsUrl = await invoke<string | null>('discover_cdp_target', { port: resolvedPort });
     if (!wsUrl) return false;
 
-    return await cdp.connectToUrl(wsUrl);
+    const ok = await cdp.connectToUrl(wsUrl);
+    connectedTabId = ok ? desired || null : null;
+    return ok;
   } catch {
     return false;
   }
@@ -49,6 +98,7 @@ export async function connect(port?: number): Promise<boolean> {
 }
 
 export async function disconnectCDP(): Promise<void> {
+  connectedTabId = null;
   await cdp.disconnect();
 }
 
@@ -147,6 +197,40 @@ export async function pwType(selector: string, text: string, clear?: boolean): P
   } catch (error: unknown) {
     return { success: false, error: error instanceof Error ? error.message : String(error) };
   }
+}
+
+/**
+ * Deep-capture settle, run BEFORE any DOM/AX snapshot. Modern JS index pages (React/Vue lists)
+ * render their real content only once scrolled into view — a Canvas assignments page collapsed
+ * via CSS measured 0 links on a plain snapshot and 33-39 after this. The items are already in
+ * the DOM; scrolling is what triggers the lazy-load, not clicking. Repeatedly scroll to the
+ * bottom, letting each scroll's lazy content settle, until the link count stops growing or the
+ * scroll ceiling is hit, then return to the top. Never throws — a stuck settle must not abort
+ * the capture it exists to help.
+ */
+export async function deepCapture(maxScrolls = 8, settleMs = 600): Promise<void> {
+  const linkCount = async (): Promise<number> => {
+    const res = await evalScript('document.querySelectorAll("a[href]").length').catch(() => null);
+    return Number(res?.data) || 0;
+  };
+
+  // Wait for the initial load — async frameworks keep painting well past DOMContentLoaded.
+  const started = Date.now();
+  while (Date.now() - started < 5000) {
+    const res = await evalScript('document.readyState').catch(() => null);
+    if (res?.data === 'complete') break;
+    await new Promise((r) => setTimeout(r, 150));
+  }
+
+  let last = await linkCount();
+  for (let i = 0; i < maxScrolls; i++) {
+    await evalScript('window.scrollTo(0, (document.body && document.body.scrollHeight) || 0)').catch(() => undefined);
+    await new Promise((r) => setTimeout(r, settleMs));
+    const count = await linkCount();
+    if (count === last) break; // stabilized — that scroll surfaced nothing new
+    last = count;
+  }
+  await evalScript('window.scrollTo(0, 0)').catch(() => undefined);
 }
 
 export async function pwGetText(selector?: string): Promise<ActionResult> {

@@ -93,6 +93,15 @@ describe('buildAutomateExecPrompt', () => {
       expect(m).toContain('# Result');
       expect(m).toContain('## Changed');
     });
+    it('bakes the run session id into the bridge instructions and recording call', () => {
+      const ms = buildAutomateExecPrompt({ ...base, approvedPlan: '1. go', multiTab: true, sessionId: 'run-77' });
+      expect(ms).toContain('YOUR SESSION ID is "run-77"');
+      expect(ms).toContain('startRecording("run-77")');
+    });
+    it('plan phase carries the same session id', () => {
+      const ps = buildAutomatePlanPrompt({ ...base, multiTab: true, sessionId: 'run-77' });
+      expect(ps).toContain('YOUR SESSION ID is "run-77"');
+    });
   });
 
   describe('multi-tab plan (read-only with a login carve-out)', () => {

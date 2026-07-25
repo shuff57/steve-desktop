@@ -15,6 +15,7 @@ vi.mock('./cdp-client', () => ({
 
 import { invoke } from '@tauri-apps/api/core';
 import { cdp } from './cdp-client';
+import { setActiveTabId } from './browser';
 import {
   captureWebviewScreenshot,
   connectCDP,
@@ -80,5 +81,32 @@ describe('cdp-actions', () => {
     expect(result.success).toBe(true);
     expect(result.data).toBe('ZmFrZS1iYXNlNjQ=');
     expect(mockInvoke).toHaveBeenCalledWith('capture_webview_screenshot');
+  });
+
+  describe('per-tab targeting', () => {
+    test('connectCDP() is a no-op when already connected with no tab context', async () => {
+      setActiveTabId('');
+      mockCdp.isConnected.mockReturnValueOnce(true);
+
+      expect(await connectCDP()).toBe(true);
+      expect(mockInvoke).not.toHaveBeenCalled();
+      expect(mockCdp.connectToUrl).not.toHaveBeenCalled();
+    });
+
+    test('connectCDP() re-targets when the active tab is not the connected one', async () => {
+      setActiveTabId('tab-9');
+      mockCdp.isConnected.mockReturnValueOnce(true); // connected — but to some other tab
+      // Marker probe unreachable → falls back to first-found discovery, but still reconnects.
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('endpoint down')));
+      mockInvoke.mockResolvedValueOnce(9222).mockResolvedValueOnce('ws://127.0.0.1:9222/devtools/page/t9');
+      mockCdp.connectToUrl.mockResolvedValueOnce(true);
+
+      expect(await connectCDP()).toBe(true);
+      expect(mockInvoke).toHaveBeenCalledWith('discover_cdp_target', { port: 9222 });
+      expect(mockCdp.connectToUrl).toHaveBeenCalledWith('ws://127.0.0.1:9222/devtools/page/t9');
+
+      vi.unstubAllGlobals();
+      setActiveTabId('');
+    });
   });
 });

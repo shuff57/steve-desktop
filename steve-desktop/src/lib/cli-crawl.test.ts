@@ -32,6 +32,27 @@ describe('cdpMultiTabInstruction', () => {
     expect(s).toContain('OWN working notes');
     expect(s).toContain('www.safecolleges.com');
   });
+  it('has no ownership rules without a session id (legacy single-run behaviour)', () => {
+    expect(s).not.toContain('YOUR SESSION ID');
+  });
+
+  describe('with a session id (tab ownership)', () => {
+    const sid = 'run-1234';
+    const o = cdpMultiTabInstruction('www.safecolleges.com', sid);
+    it('names the session id and tells the agent to pass it on every bridge call', () => {
+      expect(o).toContain(`YOUR SESSION ID is "${sid}"`);
+      expect(o).toContain(`newTab(url, "${sid}")`);
+      expect(o).toContain(`activate(id, "${sid}")`);
+      expect(o).toContain(`navigate(id, url, "${sid}")`);
+      expect(o).toContain(`closeTab(id, "${sid}")`);
+      expect(o).toContain(`login(id, "${sid}")`);
+    });
+    it('states the ownership rule: only tabs whose session equals your id', () => {
+      expect(o).toContain('session equals your id');
+      expect(o).toContain('ownership error');
+      expect(o).toContain('{id,url,title,active,ready,marker,session}');
+    });
+  });
 });
 
 describe('buildCliCrawlPrompt', () => {

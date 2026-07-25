@@ -14,7 +14,7 @@
   import { getSkills, addRunEntry, getRunEntries, saveSkill, type Skill, type RunEntry } from '../../lib/db';
   import { skillToWorkflow } from '../../lib/workflow-skill';
   import { replayLive } from '../../lib/replay-live';
-  import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
+  import { connectCDP, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
   import { markPageDirty, recordPageDrift } from '../../lib/site-profiles';
   import type { Workflow } from '../../lib/types/site-profile';
@@ -70,7 +70,7 @@
   }
 
   async function ensureConnected(): Promise<boolean> {
-    if (isConnected() || (await connectCDP())) return true;
+    if (await connectCDP()) return true; // re-targets to the ACTIVE tab if the client is on another
     message = 'Could not connect to the browser — load a page first.';
     return false;
   }
