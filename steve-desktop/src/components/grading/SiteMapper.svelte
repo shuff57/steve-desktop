@@ -7,14 +7,14 @@
    */
   import { onMount, onDestroy } from 'svelte';
   import { cdp } from '../../lib/cdp-client';
-  import { connectCDP, isConnected, evalScript } from '../../lib/cdp-actions';
+  import { connectCDP, evalScript, deepCapture } from '../../lib/cdp-actions';
   import { captureMergedTree, mergedToProfile, summarizeMerged, type CaptureStats } from '../../lib/merged-tree';
   import { redactTree, redactProfileForStorage } from '../../lib/redact-tree';
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -90,6 +90,8 @@
   /** Frontier links the model chose not to visit — a decision, never a silent gap. */
   let aiSkips = $state<{ url: string; reason: string }[]>([]);
   let synthesis = $state<MapSynthesis | null>(null);
+  /** Pages the post-crawl self-audit flagged as suspect (referenced elsewhere, captured empty) and re-checked. */
+  let selfAudited = $state<{ url: string; pageName: string }[]>([]);
 
   // Claude-driven crawl: the model picks every hop and writes the mapping doc itself.
   let aiDriving = $state(false);
@@ -122,9 +124,13 @@
   /** Capture the current page over CDP → profile (+ refresh the single-page display).
    * Returns the redactor too, so the profile can be redacted before it's persisted. */
   async function captureCurrent(url: string): Promise<{ profile: SiteProfile; redact: (t: string) => string; secrets: Record<string, string> }> {
-    if (!isConnected() && !(await connectCDP())) {
+    if (!(await connectCDP())) { // re-targets to the ACTIVE tab if the client is on another
       throw new Error('Could not connect to the browser. Open a page in the browser first.');
     }
+    // Scroll to trigger lazy-loaded content BEFORE reading the tree — an async index page
+    // (Canvas assignments) measures 0 links on a plain snapshot and 30+ after this settles.
+    // Covers every capture path: map(), crawl() via mapHere(), and verifyMap().
+    await deepCapture();
     const { snapshot, merged } = await captureMergedTree(cdp);
     const profile = mergedToProfile(merged, url);
     // Record the page's durable anchors while we're already looking at it — verify later resolves
@@ -291,6 +297,7 @@
     outOfScope = 0;
     aiSkips = [];
     synthesis = null;
+    selfAudited = [];
     activeScope = scopeOf(pageUrl);
     siteMsg = 'Crawling…';
     const visited = new Set<string>();
@@ -336,7 +343,10 @@
       };
 
       while (queue.length && !stopRequested && visited.size < SAFETY_MAX) {
-        const target = queue.shift()!;
+        // Template-diversity pick: a link from a template not yet sampled jumps the queue
+        // ahead of FIFO order, so one template's fan-out (a roster, a question bank) can't
+        // drain the whole page budget before a different part of the site is ever reached.
+        const target = queue.splice(nextFrontierIndex(queue, tplMapped), 1)[0];
 
         // Re-check saturation HERE, not just at enqueue. A listing page fans out its whole
         // family in one burst — one gradebook lists 12 students, one course page lists 26
@@ -477,6 +487,31 @@
         for (const p of siteMap.pages) cards[p.url] = p.card ?? cardCache.get(p.url);
         synthesis = await fetchMapSynthesis(siteMap, cards, allSecrets, ai);
       }
+
+      // AI self-audit: cross-reference the finished link graph. A page other pages point to
+      // (e.g. listed in a module) but which itself captured with nothing on it is more likely
+      // a load-timing miss than a genuinely blank page — worth one re-capture, not a full
+      // second crawl. Deterministic graph check; gated on the same AI toggle as the rest of
+      // this layer so it costs nothing when off.
+      if (ai && siteMap && !stopRequested) {
+        const suspects = findSuspectPages(siteMap);
+        if (suspects.length) {
+          siteMsg = `Self-audit: re-checking ${suspects.length} page(s) referenced elsewhere but captured empty…`;
+          for (const s of suspects) {
+            try {
+              const loaded = await armPageLoad();
+              await navigateEmbedded(tabId, s.url);
+              await loaded();
+              await settle();
+              await mapHere(s.url, visited);
+            } catch (e) {
+              failures.push({ url: s.url, error: e instanceof Error ? e.message : String(e) });
+            }
+          }
+          await navigateEmbedded(tabId, start).catch(() => {});
+          selfAudited = suspects.map((s) => ({ url: s.url, pageName: s.pageName }));
+        }
+      }
       if (siteMap) {
         trimSuggestions = suggestTrim(siteMap);
         for (const t of synthesis?.trim ?? []) {
@@ -491,6 +526,7 @@
         + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope?.key}=${activeScope?.value} not followed.` : '')
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (aiSkips.length ? ` ${aiSkips.length} link(s) skipped by AI — see below.` : '')
+        + (selfAudited.length ? ` ${selfAudited.length} suspect page(s) re-checked by AI self-audit.` : '')
         + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
         + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
     } catch (e) {
@@ -512,7 +548,15 @@
     stopRequested = true;
   }
 
-  // ── Spawned-agent crawl ──────────────────────────────────────────────────────────────
+  // ── Spawned-agent crawl — TARGETED tool, opt-in, NOT the default mapper ────────────────
+  // A single agent holding the whole site in one context blew up to 1.39M tokens on a real
+  // crawl, and a validated head-to-head test found it adds ~0 extra discovery over
+  // deterministic deep-capture (captureCurrent's deepCapture pass) for ~176k tokens spent on
+  // 4 pages — deep-capture found the same links in ~4s. `crawl()` + deep-capture is the
+  // default full-site path now (see the "Map this site" button); reach for this only for a
+  // specific page deep-capture can't get into (content behind a click-to-expand/accordion
+  // gate that scrolling alone won't trigger), not for mapping a whole site.
+  //
   // The chosen engine CLI is spawned full-shell and handed the app's CDP debug port: the
   // crawl runs INSIDE the agent against the already-logged-in webview, and its final
   // stdout IS the mapping document. Safety here is prompt-level (the deny regexes are
@@ -915,13 +959,20 @@
     <div class="head">
       <span class="hdr">Map this site</span>
       <div class="site-btns">
-        <!-- On this branch, Map this site IS the agent-driven mapping: it spawns the chosen
-             engine CLI with the CDP debug port. The BFS crawl() machinery stays for the
-             deterministic path but has no button here. -->
-        <button class="map" disabled={crawling || aiDriving || aiVerifying || !provider} onclick={aiDriveCrawl}
-          title="Spawns the chosen engine CLI full-shell with the app's CDP debug port: the agent drives the logged-in browser itself (read-only rules + deny-list in its prompt, max {CLI_CRAWL_MAX_PAGES} pages), writes the mapping document, and reports the pages it visited so the app can capture their selectors for verification. Cannot be stopped mid-run; bounded by a 15 min timeout. Needs an engine selected above.">
-          {aiDriving ? '🤖 Agent crawling…' : '🕸 Map this site'}
+        <!-- Default full-site path: deterministic BFS crawl() — deep-capture (scroll to trigger
+             lazy-loaded content) each page, plus batched AI template labeling when an engine is
+             selected. aiDriveCrawl (single spawned agent) is demoted to a targeted, opt-in tool
+             below — see its doc comment for why. -->
+        <button class="map" disabled={crawling || aiDriving || aiVerifying} onclick={crawl}
+          title="Visits the site's links breadth-first, deep-captures each page (scrolls to trigger lazy-loaded content before reading it), and labels templates with AI when an engine is selected above. No page cap; repeating templates are sampled a couple of times then skipped.">
+          {crawling ? '⏳ Crawling…' : '🕸 Map this site'}
         </button>
+        {#if !crawling && !aiVerifying}
+          <button class="map" disabled={aiDriving || !provider} onclick={aiDriveCrawl}
+            title="Targeted, opt-in — not for mapping a whole site (see comment on aiDriveCrawl in code: a full-site run cost 1.39M tokens for ~0 extra discovery over deep-capture). Spawns the chosen engine CLI full-shell to drive one ambiguous or click-gated page/area itself (read-only rules + deny-list in its prompt, max {CLI_CRAWL_MAX_PAGES} pages). Cannot be stopped mid-run; bounded by a 15 min timeout. Needs an engine selected above.">
+            {aiDriving ? '🤖 Agent driving…' : '🤖 AI-drive (targeted)'}
+          </button>
+        {/if}
         {#if aiDoc && !aiDriving}
           <button class="map" disabled={aiVerifying || !provider} onclick={aiVerifyDoc}
             title="Spawns the agent again to re-read the pages it mapped and check its own document against the live site (read-only browsing). Produces a verification report, then heals: rewrites the mapping doc with its corrections (prior kept as .prev.md) and re-captures any pages whose URL it corrected.">
@@ -960,6 +1011,19 @@
         {#each collapsed as c (c.template)}
           <li class="row site-row">
             <span class="label" title={c.template}>{c.template}: <span class="kind">{c.skipped} repeat page(s) skipped, shape already mapped</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+
+    {#if selfAudited.length}
+      <div class="head">
+        <span class="hdr">AI self-audit: re-checked ({selfAudited.length})</span>
+      </div>
+      <ul class="list">
+        {#each selfAudited as s (s.url)}
+          <li class="row site-row">
+            <span class="label" title={s.url}>{s.pageName}: <span class="kind">referenced elsewhere, was captured empty</span></span>
           </li>
         {/each}
       </ul>

@@ -281,3 +281,40 @@ export function upsertPage(map: SiteMap, node: SitePageNode): SiteMap {
   pages.push(node);
   return { ...map, pages };
 }
+
+/**
+ * Index of the next URL to dequeue from the crawl frontier, biased toward template diversity:
+ * a queued link whose template has never been sampled jumps ahead of plain FIFO order. Without
+ * this, one listing page that fans out a single template (a 325-URL question bank, a roster)
+ * can drain the entire page budget before the crawl ever reaches a different part of the site —
+ * a validated head-to-head crawl spent all 18 pages on ONE template family this way.
+ * Falls back to FIFO (index 0) once every template already queued has at least one sample.
+ */
+export function nextFrontierIndex(queue: string[], tplMapped: Map<string, number>): number {
+  if (!queue.length) return -1;
+  const idx = queue.findIndex((u) => !(tplMapped.get(urlTemplate(u)) ?? 0));
+  return idx === -1 ? 0 : idx;
+}
+
+/**
+ * Pages other mapped pages link to but which themselves captured with nothing on them — the
+ * AI self-audit candidate list. A page referenced by, say, a course's module index yet mapped
+ * with zero buttons/inputs/links is more likely a load-timing miss than a genuinely blank page,
+ * and is worth one re-capture. "Referenced" is an exact URL match against other pages' outbound
+ * links, not a template match — it's the specific reference that is suspicious, not the shape.
+ */
+export function findSuspectPages(map: SiteMap): SitePageNode[] {
+  const referenced = new Set<string>();
+  for (const p of map.pages) {
+    for (const l of p.links) {
+      try {
+        referenced.add(normalizeUrl(new URL(l.href, p.url).toString()));
+      } catch {
+        /* not a URL — skip */
+      }
+    }
+  }
+  return map.pages.filter(
+    (p) => referenced.has(p.url) && p.counts.buttons === 0 && p.counts.inputs === 0 && p.links.length === 0,
+  );
+}

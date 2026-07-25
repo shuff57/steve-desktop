@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
 
 describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
   it('collapses a family once its shape repeats', () => {
@@ -63,6 +63,47 @@ describe('template saturation under fan-out — where the check has to happen', 
 
   it('re-checking on dequeue caps the family at the ceiling', () => {
     expect(runCrawl(students, true)).toBe(MAX_SAMPLES_PER_TEMPLATE);
+  });
+});
+
+describe('nextFrontierIndex — template-diversity frontier ordering', () => {
+  it('picks a link from an unseen template ahead of one already sampled', () => {
+    const rosterA = 'https://x.com/roster.php?uid=1';
+    const rosterB = 'https://x.com/roster.php?uid=2';
+    const settings = 'https://x.com/settings.php';
+    const queue = [rosterA, rosterB, settings];
+    const tplMapped = new Map([[urlTemplate(rosterA), 2]]); // roster template already sampled
+    expect(queue[nextFrontierIndex(queue, tplMapped)]).toBe(settings);
+  });
+  it('falls back to FIFO once every queued template already has a sample', () => {
+    const a = 'https://x.com/a.php';
+    const b = 'https://x.com/b.php';
+    const tplMapped = new Map([[urlTemplate(a), 1], [urlTemplate(b), 1]]);
+    expect(nextFrontierIndex([a, b], tplMapped)).toBe(0);
+  });
+  it('returns -1 for an empty queue', () => {
+    expect(nextFrontierIndex([], new Map())).toBe(-1);
+  });
+});
+
+describe('findSuspectPages — AI self-audit candidates', () => {
+  const node = (url: string, pageName: string, links: { label: string; href: string }[], counts: { buttons: number; inputs: number; links: number }) =>
+    ({ url, pageName, links, counts });
+
+  it('flags a page referenced elsewhere but captured with nothing on it', () => {
+    let map = emptySiteMap('x.com', '2026-06-24T00:00:00Z');
+    map.pages.push(node('https://x.com/modules', 'modules', [{ label: 'Assignments', href: 'https://x.com/assignments' }], { buttons: 2, inputs: 0, links: 1 }));
+    map.pages.push(node('https://x.com/assignments', 'assignments', [], { buttons: 0, inputs: 0, links: 0 })); // suspect: referenced, empty
+    const suspects = findSuspectPages(map);
+    expect(suspects.map((s) => s.url)).toEqual(['https://x.com/assignments']);
+  });
+
+  it('does not flag an unreferenced empty page or a referenced non-empty page', () => {
+    let map = emptySiteMap('x.com', '2026-06-24T00:00:00Z');
+    map.pages.push(node('https://x.com/modules', 'modules', [{ label: 'Grades', href: 'https://x.com/grades' }], { buttons: 1, inputs: 0, links: 1 }));
+    map.pages.push(node('https://x.com/grades', 'grades', [], { buttons: 3, inputs: 0, links: 0 })); // referenced, not empty
+    map.pages.push(node('https://x.com/orphan', 'orphan', [], { buttons: 0, inputs: 0, links: 0 })); // empty, unreferenced
+    expect(findSuspectPages(map)).toHaveLength(0);
   });
 });
 
