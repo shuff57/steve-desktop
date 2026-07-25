@@ -28,7 +28,7 @@
   import { fetchMapSynthesis, applicableAiTrims, type MapSynthesis } from '../../lib/map-synthesis';
   import { sidecarTransport } from '../../lib/replay-live';
   import type { ModelTransport } from '../../lib/model-gate';
-  import { gradePage, selectorsToProbe, summarize, pagesToPrune, type PageVerdict, type VerifySummary, type PruneDecision } from '../../lib/crawl-verify';
+  import { gradePage, selectorsToProbe, summarize, pagesToPrune, isErrorPage, type PageVerdict, type VerifySummary, type PruneDecision } from '../../lib/crawl-verify';
   import { selectorToCountExpr } from '../../lib/selector-resolve';
   import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
@@ -798,13 +798,49 @@
 
         // Same guard as the crawl: one unreachable page must not end the pass.
         try {
-          const loaded = await armPageLoad();
-          await navigateEmbedded(tabId, node.url);
-          await loaded();
-          await settle();
+          // Retry navigation: a verdict feeds an irreversible delete, so a page gets real chances
+          // before being called unreachable. Under crawl load a single attempt failed on pages
+          // that load fine (a live course lost its gradebook, roster and home page this way).
+          let navErr: unknown = null;
+          for (let attempt = 0; attempt < 3; attempt++) {
+            if (stopRequested) break;
+            try {
+              if (attempt) {
+                verifyMsg = `Verifying ${i + 1}/${pages.length}: ${node.pageName} — retry ${attempt}…`;
+                await new Promise((r) => setTimeout(r, 1500 * attempt));
+              }
+              const loaded = await armPageLoad();
+              await navigateEmbedded(tabId, node.url);
+              await loaded();
+              await settle();
+              navErr = null;
+              break;
+            } catch (e) {
+              navErr = e;
+            }
+          }
+          if (navErr) throw navErr;
           if (stopRequested) break;
 
           const landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => node.url));
+
+          // Proven dead? Only a served error page justifies deleting the entry later.
+          const errText = await evalScript(
+            '(function(){return JSON.stringify({t:document.title||"",b:(document.body&&document.body.innerText||"").slice(0,400)});})()',
+          ).catch(() => null);
+          if (errText?.success && typeof errText.data === 'string') {
+            try {
+              const { t, b } = JSON.parse(errText.data) as { t: string; b: string };
+              if (isErrorPage(t, b)) {
+                verdicts = [...verdicts, {
+                  url: node.url, pageName: node.pageName, status: 'unreachable' as const,
+                  landedUrl: landed, signatureMatch: false, checks: [], errorPage: true,
+                  error: `server error page: ${t.slice(0, 60)}`,
+                }];
+                continue;
+              }
+            } catch { /* unparseable probe — fall through and verify normally */ }
+          }
           const priorProfile = await loadProfile(domainFromUrl(landed) || '', node.pageName).catch(() => null);
 
           // Key-node spot check first: if every durable anchor still resolves, the page is

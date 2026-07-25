@@ -51,6 +51,25 @@ export interface PageVerdict {
   signatureMatch: boolean;
   checks: ElementCheck[];
   error?: string;
+  /**
+   * The page was PROVEN dead — it loaded and served an error (404 / "Not Found"). Only this
+   * justifies deleting an unreachable page. A nav/capture timeout leaves this false: on a live
+   * MyOpenMath course, load-time flakiness marked the gradebook, roster, course home and
+   * coursemap "unreachable", and auto-pruning deleted all four. A page that merely failed to
+   * answer in time is kept and flagged for a re-check.
+   */
+  errorPage?: boolean;
+  /**
+   * We failed to OBSERVE the page (capture collapsed mid-render), so no verdict about its
+   * contents is trustworthy. The pruner skips these entirely — an unverified page is kept.
+   */
+  unverified?: boolean;
+}
+
+/** Does this look like the server's own error page rather than the page we asked for? */
+export function isErrorPage(title: string, bodyText: string): boolean {
+  const t = `${title}\n${bodyText.slice(0, 400)}`;
+  return /\b(404|403|500)\b|\bnot found\b|\bpage (?:not|no longer) available\b|\baccess denied\b/i.test(t);
 }
 
 /** Every actionable target a profile recorded, flattened for checking. */
@@ -108,7 +127,14 @@ export function gradePage(
   });
 
   const signatureMatch = !!baseline && structuralSignature(baseline) === structuralSignature(subject);
-  const drifted = checks.some((c) => c.status === 'broken');
+  // A capture that collapsed (page not finished rendering) makes EVERY target look broken. That
+  // is a failure to observe, not drift — on a live course it condemned the course home, roster
+  // and forums, all of which load fine. Treat an all-broken page whose baseline had real targets
+  // as unverified: not drifted, so the pruner leaves it alone.
+  const allBroken = checks.length > 0 && checks.every((c) => c.status === 'broken');
+  const baselineHadTargets = !!baseline && targetsOf(baseline).length >= 3;
+  const captureCollapsed = allBroken && baselineHadTargets;
+  const drifted = !captureCollapsed && checks.some((c) => c.status === 'broken');
   return {
     url: subject.url,
     pageName: subject.pageName,
@@ -116,6 +142,7 @@ export function gradePage(
     landedUrl,
     signatureMatch,
     checks,
+    ...(captureCollapsed ? { unverified: true } : {}),
   };
 }
 
@@ -137,7 +164,8 @@ export interface PruneDecision {
 
 /**
  * Which verified pages to drop so the map lands "good" without a human pass:
- * - unreachable — navigation/capture failed; a dead entry misleads the agent.
+ * - unreachable AND proven dead (errorPage) — the server served a 404/error. A page that merely
+ *   timed out is KEPT: deletion is irreversible and a slow page is not a bad page.
  * - drifted — a target BROKE and nothing healed it; the page's recorded actions are stale.
  * - no reliable anchors — it has targets but not one resolves uniquely (every check ambiguous);
  *   an agent could not act on anything there without guessing.
@@ -149,9 +177,10 @@ export function pagesToPrune(verdicts: PageVerdict[]): PruneDecision[] {
   const seenLanded = new Set<string>();
   for (const v of verdicts) {
     const landed = (v.landedUrl ?? v.url).replace(/\/+$/, '');
+    if (v.unverified) continue; // never delete on a failure to observe
     if (v.status === 'unreachable') {
-      out.push({ url: v.url, pageName: v.pageName, reason: 'unreachable' });
-      continue;
+      if (v.errorPage) out.push({ url: v.url, pageName: v.pageName, reason: 'dead — server returned an error page' });
+      continue; // timed out / failed to capture → keep it, never delete on a flake
     }
     if (v.status === 'drifted') {
       out.push({ url: v.url, pageName: v.pageName, reason: 'broken targets' });

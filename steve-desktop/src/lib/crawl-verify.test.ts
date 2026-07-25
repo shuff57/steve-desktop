@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { gradePage, pagesToPrune, selectorsToProbe, summarize, targetsOf, type PageVerdict } from './crawl-verify';
+import { gradePage, isErrorPage, pagesToPrune, selectorsToProbe, summarize, targetsOf, type PageVerdict } from './crawl-verify';
 import type { SiteProfile } from './types/site-profile';
 
 function profile(over: Partial<SiteProfile['interactive']> = {}, url = 'https://x.com/g?cid=1'): SiteProfile {
@@ -67,7 +67,7 @@ describe('gradePage — does every recorded control still resolve?', () => {
     const ok = (u: string) => v({ url: u, landedUrl: u, checks: [{ kind: 'button', label: 'b', selector: '#b', status: 'ok', matches: 1 }] });
     const verdicts: PageVerdict[] = [
       ok('https://x.com/keep'),
-      v({ url: 'https://x.com/dead', status: 'unreachable' }),
+      v({ url: 'https://x.com/dead', status: 'unreachable', errorPage: true }), // proven 404
       v({ url: 'https://x.com/stale', status: 'drifted' }),
       v({ url: 'https://x.com/weak', checks: [{ kind: 'link', label: 'l', selector: '.t', status: 'ambiguous', matches: 9 }] }),
       v({ url: 'https://x.com/content', checks: [] }), // nothing interactive — still a valid map entry
@@ -78,6 +78,38 @@ describe('gradePage — does every recorded control still resolve?', () => {
       'https://x.com/dead', 'https://x.com/stale', 'https://x.com/weak', 'https://x.com/page/1/',
     ]);
     expect(drop.find((d) => d.url.endsWith('/page/1/'))?.reason).toContain('duplicate');
+  });
+
+  it('keeps a page that merely timed out — only a PROVEN error page is deleted', () => {
+    // A live course lost its gradebook, roster, home page and coursemap to load-time flakiness
+    // being read as "unreachable". Deletion is irreversible; a slow page is not a bad page.
+    const flaky: PageVerdict = {
+      url: 'https://x.com/course/gradebook.php', pageName: 'gradebook', status: 'unreachable',
+      signatureMatch: false, checks: [], error: 'timed out',
+    };
+    const dead: PageVerdict = { ...flaky, url: 'https://x.com/gone', pageName: 'gone', errorPage: true };
+    expect(pagesToPrune([flaky])).toEqual([]);
+    expect(pagesToPrune([dead])[0].reason).toContain('error page');
+  });
+
+  it('does not call a page drifted when the CAPTURE collapsed', () => {
+    // Every target broken + a baseline that had real targets = we failed to observe the page,
+    // not the page changed. Grading it drifted deleted pages that load fine.
+    const baseline = profile({
+      buttons: [{ text: 'Save', selector: '#save' }, { text: 'Post', selector: '#post' }],
+      inputs: [{ label: 'Score', selector: '#score' }],
+    });
+    const collapsed = profile({ buttons: [{ text: 'Save', selector: '#save' }] });
+    const v = gradePage(collapsed, baseline, { '#save': 0 });
+    expect(v.checks[0].status).toBe('broken');
+    expect(v.status).toBe('ok'); // unverified, not condemned
+    expect(pagesToPrune([v])).toEqual([]);
+  });
+
+  it('isErrorPage spots served errors without flagging ordinary pages', () => {
+    expect(isErrorPage('404 Not Found', 'The requested URL was not found on this server.')).toBe(true);
+    expect(isErrorPage('Access Denied', '')).toBe(true);
+    expect(isErrorPage('MyOpenMath - Gradebook', 'Student scores for 3, 5 Intro to Stats')).toBe(false);
   });
 
   it('does not heal onto an ambiguous candidate', () => {
