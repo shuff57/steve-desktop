@@ -205,43 +205,9 @@ export function emptySiteMap(domain: string, startedAt: string): SiteMap {
   return { domain, startedAt, pages: [] };
 }
 
-export interface TrimSuggestion {
-  url: string;
-  pageName: string;
-  reason: string;
-}
-
-/**
- * Post-crawl cleanup hints (instead of a hard page cap): flag pages that are likely noise —
- * structural duplicates (same button/input/link signature → probably one template) and
- * dead-ends (no buttons or inputs → nothing to automate). The first of each duplicate group
- * is kept; the rest are suggested for trimming.
- */
-export function suggestTrim(map: SiteMap): TrimSuggestion[] {
-  const out: TrimSuggestion[] = [];
-  const flagged = new Set<string>();
-  const sig = (p: SitePageNode) => `${p.counts.buttons}|${p.counts.inputs}|${p.links.length}`;
-
-  const groups = new Map<string, SitePageNode[]>();
-  for (const p of map.pages) {
-    const g = groups.get(sig(p));
-    if (g) g.push(p); else groups.set(sig(p), [p]);
-  }
-  for (const group of groups.values()) {
-    if (group.length < 2) continue;
-    for (const p of group.slice(1)) {
-      out.push({ url: p.url, pageName: p.pageName, reason: `same layout as "${group[0].pageName}" — likely duplicate` });
-      flagged.add(p.url);
-    }
-  }
-  for (const p of map.pages) {
-    if (flagged.has(p.url)) continue;
-    if (p.counts.buttons === 0 && p.counts.inputs === 0) {
-      out.push({ url: p.url, pageName: p.pageName, reason: 'no buttons or inputs — nothing to automate' });
-    }
-  }
-  return out;
-}
+// suggestTrim (similarity-based "likely duplicate" hints) was removed: verify verdicts are the
+// only deletion authority now — its count-signature heuristic flagged 55 of 64 genuinely
+// distinct pages in a live trial, and a one-click "Trim all" over that ruins mappings.
 
 /**
  * How many pages of one URL family to map before trusting it's a template. Two, not one:

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, suggestTrim, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
 
 describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
   it('collapses a family once its shape repeats', () => {
@@ -178,26 +178,6 @@ describe('structuralSignature — same template, different data', () => {
     const extra = page('Doe, Jane', 41) as { interactive: { buttons: unknown[] } };
     extra.interactive.buttons = [...extra.interactive.buttons, { text: 'Delete', selector: '#del' }];
     expect(structuralSignature(extra as never)).not.toBe(structuralSignature(page('Roe, Rick', 42)));
-  });
-});
-
-describe('suggestTrim — post-crawl cleanup hints', () => {
-  const node = (url: string, pageName: string, buttons: number, inputs: number, links: number) => ({
-    url, pageName, links: Array.from({ length: links }, (_, i) => ({ label: 'l', href: `/l${i}` })),
-    counts: { buttons, inputs, links },
-  });
-  it('flags structural duplicates (keeping the first) and dead-ends', () => {
-    let map = emptySiteMap('x.com', '2026-06-24T00:00:00Z');
-    map.pages.push(node('https://x.com/a', 'a', 3, 1, 5)); // template original
-    map.pages.push(node('https://x.com/b', 'b', 3, 1, 5)); // dup layout → trim
-    map.pages.push(node('https://x.com/help', 'help', 0, 0, 4)); // dead-end → trim
-    map.pages.push(node('https://x.com/form', 'form', 2, 4, 9)); // keep
-    const sug = suggestTrim(map);
-    const urls = sug.map((s) => s.url);
-    expect(urls).toContain('https://x.com/b');
-    expect(urls).toContain('https://x.com/help');
-    expect(urls).not.toContain('https://x.com/a');
-    expect(urls).not.toContain('https://x.com/form');
   });
 });
 

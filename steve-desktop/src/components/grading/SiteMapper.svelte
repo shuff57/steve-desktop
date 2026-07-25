@@ -14,7 +14,7 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, suggestTrim, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode, type TrimSuggestion } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -73,7 +73,6 @@
   let crawling = $state(false);
   let siteMsg = $state<string | null>(null);
   let stopRequested = false;
-  let trimSuggestions = $state<TrimSuggestion[]>([]);
   /** Pages that threw during capture — surfaced so a skip is diagnosable, not silent. */
   let failures = $state<{ url: string; error: string }[]>([]);
   /** URL families collapsed after their shape repeated — never a silent truncation. */
@@ -291,7 +290,6 @@
     if (crawling) return;
     crawling = true;
     stopRequested = false;
-    trimSuggestions = [];
     failures = [];
     collapsed = [];
     outOfScope = 0;
@@ -512,14 +510,6 @@
           selfAudited = suspects.map((s) => ({ url: s.url, pageName: s.pageName }));
         }
       }
-      if (siteMap) {
-        trimSuggestions = suggestTrim(siteMap);
-        for (const t of synthesis?.trim ?? []) {
-          if (trimSuggestions.some((s) => s.url === t.url)) continue;
-          const page = siteMap.pages.find((p) => p.url === t.url);
-          if (page) trimSuggestions = [...trimSuggestions, { url: t.url, pageName: page.pageName, reason: `AI: ${t.reason}` }];
-        }
-      }
       const n = siteMap?.pages.length ?? 0;
       const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
       siteMsg = (stopRequested ? `Stopped: ${n} pages mapped.` : `Crawl done: ${n} pages mapped.`)
@@ -527,8 +517,7 @@
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (aiSkips.length ? ` ${aiSkips.length} link(s) skipped by AI — see below.` : '')
         + (selfAudited.length ? ` ${selfAudited.length} suspect page(s) re-checked by AI self-audit.` : '')
-        + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '')
-        + (trimSuggestions.length ? ` ${trimSuggestions.length} suggested to trim below.` : '');
+        + (failures.length ? ` ${failures.length} page(s) skipped — see below.` : '');
     } catch (e) {
       siteMsg = `Crawl failed: ${e instanceof Error ? e.message : String(e)}`;
     } finally {
@@ -880,20 +869,6 @@
   // crawl so it can't keep navigating your browser headlessly with no UI/Stop button.
   onDestroy(() => { stopRequested = true; });
 
-  async function trimOne(s: TrimSuggestion) {
-    const page = siteMap?.pages.find((p) => p.url === s.url);
-    if (page) await clearPage(page);
-    trimSuggestions = trimSuggestions.filter((t) => t.url !== s.url);
-  }
-
-  async function trimAll() {
-    for (const s of [...trimSuggestions]) {
-      const page = siteMap?.pages.find((p) => p.url === s.url);
-      if (page) await clearPage(page);
-    }
-    trimSuggestions = [];
-  }
-
   /** Pages the one-click pipeline pruned after verify — shown so a removal is a decision, not a gap. */
   let pruned = $state<PruneDecision[]>([]);
 
@@ -901,9 +876,10 @@
    * One-click "Map this site" pipeline: crawl → verify every page → prune what verify PROVED bad
    * (unreachable / broken / all-ambiguous / redirect-duplicates) → save. Long on a big site
    * (20-30 min) but one-time: it lands on a map an agent can trust without a human pass.
-   * Deliberately does NOT auto-apply trimSuggestions: those are similarity heuristics for human
-   * review — auto-applying them once deleted 55 of 64 genuinely distinct pages that merely shared
-   * a count signature. Only verify verdicts carry enough proof to delete unsupervised.
+   * Verify is the ONLY deletion authority: a page that verifies stays, however similar it looks
+   * to another. Similarity-based trimming (the old suggestTrim list + "Trim all") was removed
+   * outright — a live trial showed it deleting 55 of 64 genuinely distinct pages that merely
+   * shared a count signature, and handing users that button ruins mappings by accident.
    * Stop at any phase keeps what's done and skips the rest.
    */
   async function mapSite() {
@@ -918,9 +894,7 @@
       if (page) await clearPage(page);
     }
     pruned = drop;
-    siteMsg =
-      `Good map: ${siteMap?.pages.length ?? 0} page(s) kept · ${drop.length} pruned by verify (bad/weak/duplicate).` +
-      (trimSuggestions.length ? ` ${trimSuggestions.length} similar-looking page(s) suggested to trim below — review, then Trim all if you agree.` : '');
+    siteMsg = `Good map: ${siteMap?.pages.length ?? 0} page(s) kept · ${drop.length} pruned by verify (bad/weak/duplicate).`;
   }
 
   // Review a saved page: load its profile JSON and show its interactive elements. (The redacted
@@ -993,7 +967,7 @@
              selected. aiDriveCrawl (single spawned agent) is demoted to a targeted, opt-in tool
              below — see its doc comment for why. -->
         <button class="map" disabled={crawling || verifying || aiDriving || aiVerifying} onclick={mapSite}
-          title="One run that lands on a trustworthy map: crawls the site breadth-first (deep-capturing each page), then re-visits every page to verify its recorded controls and auto-prunes what verify proves bad (unreachable, broken, all-ambiguous, redirect-duplicates). Similar-looking pages are only SUGGESTED for trimming — you review those. Can take 20-30 minutes on a big site — it's a one-time run. Stop keeps what's done.">
+          title="One run that lands on a trustworthy map: crawls the site breadth-first (deep-capturing each page), then re-visits every page to verify its recorded controls and prunes ONLY what verify proves bad (unreachable, broken, all-ambiguous, redirect-duplicates). A page that verifies stays, however similar it looks. Can take 20-30 minutes on a big site — it's a one-time run. Stop keeps what's done.">
           {crawling ? '⏳ Crawling…' : verifying ? '⏳ Verifying…' : '🕸 Map this site'}
         </button>
         {#if !crawling && !aiVerifying}
@@ -1167,20 +1141,6 @@
       </ul>
     {/if}
 
-    {#if trimSuggestions.length}
-      <div class="head">
-        <span class="hdr">Suggested to trim ({trimSuggestions.length})</span>
-        <button class="link-btn" onclick={trimAll} title="Remove all suggested pages">Trim all</button>
-      </div>
-      <ul class="list">
-        {#each trimSuggestions as s (s.url)}
-          <li class="row site-row">
-            <span class="label" title={s.url}>{s.pageName}: <span class="kind">{s.reason}</span></span>
-            <button class="x" onclick={() => trimOne(s)} title="Trim this page">✕</button>
-          </li>
-        {/each}
-      </ul>
-    {/if}
     {#if siteMap && siteMap.pages.length}
       <div class="head">
         <span class="hdr">{siteMap.domain} · {siteMap.pages.length} pages</span>
