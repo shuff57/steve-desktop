@@ -3,6 +3,7 @@ import {
   flattenDom,
   mergeAxIntoDom,
   mergedToCandidates,
+  candidateMatchCounts,
   mergedToSnapshot,
   mergedToProfile,
   captureMergedTree,
@@ -107,6 +108,49 @@ describe('mergedToCandidates — ranked selectors with role+name as a top anchor
     expect(kinds).toContain('id');
     // sorted by score descending
     expect(cands[0].score).toBeGreaterThanOrEqual(cands[cands.length - 1].score);
+  });
+
+  it('gives links an href candidate — the identity a bare <a class="tag"> actually has', () => {
+    const cands = mergedToCandidates({
+      frameId: 'f', backendNodeId: 1, tag: 'a', text: 'love', attrs: { href: '/tag/love/', class: 'tag' },
+    });
+    const href = cands.find((c) => c.type === 'href');
+    expect(href?.value).toBe('a[href="/tag/love/"]');
+    // identity attrs (id/testid) still outrank it; class ranks below it
+    expect(cands.findIndex((c) => c.type === 'href')).toBeLessThan(cands.findIndex((c) => c.type === 'class'));
+  });
+});
+
+describe('unique-primary selection — the verify false-ambiguity fix', () => {
+  // Ten listing rows share class .tag; each link's href is distinct. The primary used to be
+  // `.tag` for every one of them (highest-scored candidate available), so verify graded every
+  // link ambiguous and called the page drifted. The primary must be the best UNIQUE candidate.
+  const row = (n: number, href: string): MergedNode => ({
+    frameId: 'f', backendNodeId: n, tag: 'a', text: `t${n}`, attrs: { href, class: 'tag' },
+  });
+
+  it('promotes a unique href over a class shared by every row', () => {
+    const merged = [row(1, '/tag/love/'), row(2, '/tag/life/'), row(3, '/tag/books/')];
+    const p = mergedToProfile(merged, 'https://q.com/');
+    expect(p.interactive.links.map((l) => l.selector)).toEqual([
+      'a[href="/tag/love/"]', 'a[href="/tag/life/"]', 'a[href="/tag/books/"]',
+    ]);
+  });
+
+  it('falls back to the best-ranked candidate when nothing is unique (duplicate-destination links)', () => {
+    const merged = [row(1, '/tag/love/'), row(2, '/tag/love/')]; // sidebar + in-quote, same dest
+    const p = mergedToProfile(merged, 'https://q.com/');
+    // both candidates non-unique — keeps the top-ranked one; verify reports it ambiguous, honestly
+    expect(p.interactive.links[0].selector).toBe('a[href="/tag/love/"]');
+  });
+
+  it('candidateMatchCounts counts class membership across the whole classList, not just the first class', () => {
+    const counts = candidateMatchCounts([
+      { frameId: 'f', backendNodeId: 1, tag: 'a', text: '', attrs: { class: 'btn primary' } },
+      { frameId: 'f', backendNodeId: 2, tag: 'a', text: '', attrs: { class: 'primary' } },
+    ]);
+    expect(counts.get('.primary')).toBe(2); // second class of node 1 still counted
+    expect(counts.get('.btn')).toBe(1);
   });
 });
 

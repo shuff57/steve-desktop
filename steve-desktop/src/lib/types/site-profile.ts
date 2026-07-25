@@ -1,5 +1,5 @@
 export interface SelectorCandidate {
-  type: 'data-testid' | 'id' | 'role-name' | 'name' | 'placeholder' | 'class';
+  type: 'data-testid' | 'id' | 'role-name' | 'name' | 'placeholder' | 'class' | 'href';
   value: string;
   score: number;
 }

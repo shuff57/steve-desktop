@@ -32,14 +32,19 @@ describe('gradePage — does every recorded control still resolve?', () => {
     expect(v.signatureMatch).toBe(true);
   });
 
-  it('flags an AMBIGUOUS selector — the failure that looks like success', () => {
-    // nth-child style selectors captured off a roster match every row on a return visit.
-    // A click silently hits row 1, i.e. the wrong student. This must never grade as ok.
+  it('flags an AMBIGUOUS selector on the check, without calling the page drifted', () => {
+    // A multi-match is a statement about the element's anchorability (dangerous to ACT through —
+    // a click hits row 1, maybe the wrong student), not about the page having changed: verify
+    // grades the fresh capture against its own live page, so it was multi-match at capture too.
+    // It must stay visible on the check and in the summary, but treating it as page drift marked
+    // 130/178 pages of a completely static site as drifted.
     const p = profile({ buttons: [{ text: 'Grade', selector: 'tr td:nth-child(2) button' }] });
     const v = gradePage(p, p, { 'tr td:nth-child(2) button': 24 });
     expect(v.checks[0].status).toBe('ambiguous');
     expect(v.checks[0].matches).toBe(24);
-    expect(v.status).toBe('drifted');
+    expect(v.status).toBe('ok'); // weak anchor ≠ drift
+    expect(summarize([v]).ambiguous).toBe(1); // still surfaced
+    expect(summarize([v]).clean).toBe(false); // and still blocks a clean bill
   });
 
   it('marks a missing selector broken, but healed when a candidate resolves uniquely', () => {

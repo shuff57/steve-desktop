@@ -110,17 +110,43 @@ export function mergeAxIntoDom(domNodes: RawDomNode[], axNodes: RawAxNode[]): Me
   });
 }
 
-/** Ranked selector candidates — role+name is the durable anchor, then id/testid/name/class. */
+/** Ranked selector candidates — role+name is the durable anchor, then id/testid/href/name/class. */
 export function mergedToCandidates(node: MergedNode): SelectorCandidate[] {
   const c: SelectorCandidate[] = [];
   if (node.role && node.name) c.push({ type: 'role-name', value: `role=${node.role}[name="${node.name}"]`, score: 90 });
   if (node.attrs['data-testid']) c.push({ type: 'data-testid', value: `[data-testid="${node.attrs['data-testid']}"]`, score: 85 });
   if (node.attrs['id']) c.push({ type: 'id', value: `#${node.attrs['id']}`, score: 80 });
+  // A link's destination is its identity — usually the only distinguishing anchor a plain
+  // <a class="tag"> on a listing page has.
+  if (node.tag === 'a' && node.attrs['href']) c.push({ type: 'href', value: `a[href="${node.attrs['href']}"]`, score: 75 });
   if (node.attrs['name']) c.push({ type: 'name', value: `${node.tag}[name="${node.attrs['name']}"]`, score: 70 });
   if (node.attrs['placeholder']) c.push({ type: 'placeholder', value: `${node.tag}[placeholder="${node.attrs['placeholder']}"]`, score: 50 });
   const cls = node.attrs['class']?.trim().split(/\s+/)[0];
   if (cls) c.push({ type: 'class', value: `.${cls}`, score: 40 });
   return c.sort((a, b) => b.score - a.score);
+}
+
+/**
+ * How many captured nodes each candidate selector would match — an in-tree approximation of the
+ * live document.querySelectorAll count, used to pick a UNIQUE primary selector at capture time.
+ * Without it the primary was blindly the highest-scored candidate, and on listing pages that was
+ * `.someClass` matching a dozen rows — every one graded "ambiguous" at verify. Approximate on
+ * purpose (class membership + exact attr equality; role-name counted by exact role+name): the
+ * live probe stays the authority, this only has to be close enough to pick well.
+ */
+export function candidateMatchCounts(merged: MergedNode[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  const bump = (k: string) => counts.set(k, (counts.get(k) ?? 0) + 1);
+  for (const node of merged) {
+    if (node.role && node.name) bump(`role=${node.role}[name="${node.name}"]`);
+    if (node.attrs['data-testid']) bump(`[data-testid="${node.attrs['data-testid']}"]`);
+    if (node.attrs['id']) bump(`#${node.attrs['id']}`);
+    if (node.tag === 'a' && node.attrs['href']) bump(`a[href="${node.attrs['href']}"]`);
+    if (node.attrs['name']) bump(`${node.tag}[name="${node.attrs['name']}"]`);
+    if (node.attrs['placeholder']) bump(`${node.tag}[placeholder="${node.attrs['placeholder']}"]`);
+    for (const cls of (node.attrs['class'] ?? '').trim().split(/\s+/).filter(Boolean)) bump(`.${cls}`);
+  }
+  return counts;
 }
 
 /**
@@ -200,11 +226,15 @@ export function mergedToProfile(merged: MergedNode[], url: string): SiteProfile 
   const buttons: ButtonElement[] = [];
   const links: LinkElement[] = [];
   const inputs: InputElement[] = [];
+  const treeCounts = candidateMatchCounts(merged);
 
   for (const node of merged) {
     const role = node.role ?? '';
     const candidates = mergedToCandidates(node);
-    const selector = candidates[0]?.value ?? node.tag;
+    // Primary = the best-ranked candidate that is UNIQUE on this page; only when no candidate
+    // is unique (e.g. two identical links to the same tag) fall back to the best-ranked one.
+    const selector =
+      candidates.find((c) => treeCounts.get(c.value) === 1)?.value ?? candidates[0]?.value ?? node.tag;
     const label = node.name || node.text || node.attrs['aria-label'] || '';
 
     if (node.tag === 'button' || role === 'button') {

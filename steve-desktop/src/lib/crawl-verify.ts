@@ -18,8 +18,12 @@ export type CheckStatus =
   /** Nothing matched. The agent cannot reach this control. */
   | 'broken'
   /**
-   * Several elements matched. WORSE than broken: a click silently hits the first match, which
-   * may be a different student's row. This is the failure mode that looks like success.
+   * Several elements matched. Dangerous to ACT through — a click silently hits the first match,
+   * which may be a different student's row. But it is a statement about the element's
+   * anchorability (no unique selector exists for it), not about the page having changed:
+   * verify grades the FRESH capture against its own live page, so a multi-match here was
+   * multi-match at capture time too. Reported per element and in the summary; it does not make
+   * the page "drifted".
    */
   | 'ambiguous';
 
@@ -36,7 +40,10 @@ export interface ElementCheck {
 export interface PageVerdict {
   url: string;
   pageName: string;
-  /** ok = every target resolves uniquely; drifted = some broken/ambiguous; unreachable = nav/capture failed. */
+  /** ok = every target resolves (uniquely or not); drifted = some target BROKE (nothing matched
+   *  and no candidate rescued it); unreachable = nav/capture failed. Ambiguous targets are
+   *  weak anchors, surfaced per check + in the summary — they never flip a page to drifted,
+   *  which used to mark 130/178 pages of a static site as drifted. */
   status: 'ok' | 'drifted' | 'unreachable';
   /** Where we actually landed. A redirect away from `url` means the map's path no longer holds. */
   landedUrl?: string;
@@ -101,7 +108,7 @@ export function gradePage(
   });
 
   const signatureMatch = !!baseline && structuralSignature(baseline) === structuralSignature(subject);
-  const drifted = checks.some((c) => c.status === 'broken' || c.status === 'ambiguous');
+  const drifted = checks.some((c) => c.status === 'broken');
   return {
     url: subject.url,
     pageName: subject.pageName,
