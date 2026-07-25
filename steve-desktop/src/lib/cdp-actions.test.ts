@@ -108,5 +108,22 @@ describe('cdp-actions', () => {
       vi.unstubAllGlobals();
       setActiveTabId('');
     });
+
+    test('a fallback (unverified) connection is never cached as the tab — next call re-probes', async () => {
+      // The previous test connected to tab-9 via FALLBACK discovery (marker probe unreachable).
+      // Had that been cached as "connected to tab-9", this call would early-return and a whole
+      // crawl could stay glued to the wrong tab. It must attempt a fresh connection instead.
+      setActiveTabId('tab-9');
+      mockCdp.isConnected.mockReturnValueOnce(true);
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('still down')));
+      mockInvoke.mockResolvedValueOnce(9222).mockResolvedValueOnce('ws://127.0.0.1:9222/devtools/page/t9');
+      mockCdp.connectToUrl.mockResolvedValueOnce(true);
+
+      expect(await connectCDP()).toBe(true);
+      expect(mockInvoke).toHaveBeenCalledWith('discover_cdp_target', { port: 9222 }); // re-probed, no early return
+
+      vi.unstubAllGlobals();
+      setActiveTabId('');
+    });
   });
 });

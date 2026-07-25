@@ -34,31 +34,36 @@ function checkDangerousPatterns(code: string): string | null {
 let connectedTabId: string | null = null;
 
 /** ws url of the page target stamped with `marker` (window.name) — the only reliable disambiguator
- *  when several tabs share a URL. Probes each candidate over a throwaway ws connection. */
-async function findTargetWsByMarker(port: number, marker: string): Promise<string | null> {
-  try {
-    const resp = await fetch(`http://127.0.0.1:${port}/json`);
-    if (!resp.ok) return null;
-    const targets: CDPTarget[] = await resp.json();
-    for (const t of targets) {
-      if (t.type !== 'page' || !t.webSocketDebuggerUrl) continue;
-      if (MAIN_APP_PATTERNS.some((p) => p.test(t.url))) continue;
-      const probe = new CDPClient();
-      try {
-        if (!(await probe.connectToUrl(t.webSocketDebuggerUrl))) continue;
-        const res = (await probe.send('Runtime.evaluate', {
-          expression: 'window.name',
-          returnByValue: true,
-        })) as { result?: { value?: unknown } };
-        if (res.result?.value === marker) return t.webSocketDebuggerUrl;
-      } catch {
-        /* unreadable target — skip */
-      } finally {
-        await probe.disconnect();
+ *  when several tabs share a URL. Probes each candidate over a throwaway ws connection. Retries
+ *  briefly: the marker is re-stamped by the page-loaded handler, so a capture racing a navigation
+ *  can probe before the stamp lands — one miss must not silently divert to the wrong tab. */
+async function findTargetWsByMarker(port: number, marker: string, attempts = 3): Promise<string | null> {
+  for (let i = 0; i < attempts; i++) {
+    if (i > 0) await new Promise((r) => setTimeout(r, 500));
+    try {
+      const resp = await fetch(`http://127.0.0.1:${port}/json`);
+      if (!resp.ok) continue;
+      const targets: CDPTarget[] = await resp.json();
+      for (const t of targets) {
+        if (t.type !== 'page' || !t.webSocketDebuggerUrl) continue;
+        if (MAIN_APP_PATTERNS.some((p) => p.test(t.url))) continue;
+        const probe = new CDPClient();
+        try {
+          if (!(await probe.connectToUrl(t.webSocketDebuggerUrl))) continue;
+          const res = (await probe.send('Runtime.evaluate', {
+            expression: 'window.name',
+            returnByValue: true,
+          })) as { result?: { value?: unknown } };
+          if (res.result?.value === marker) return t.webSocketDebuggerUrl;
+        } catch {
+          /* unreadable target — skip */
+        } finally {
+          await probe.disconnect();
+        }
       }
+    } catch {
+      /* endpoint unreachable — retry, then caller falls back */
     }
-  } catch {
-    /* endpoint unreachable — caller falls back */
   }
   return null;
 }
@@ -81,12 +86,16 @@ export async function connectCDP(port?: number, tabId?: string): Promise<boolean
       resolvedPort = tauriPort;
     }
 
-    let wsUrl: string | null = desired ? await findTargetWsByMarker(resolvedPort, tabMarker(desired)) : null;
-    if (!wsUrl) wsUrl = await invoke<string | null>('discover_cdp_target', { port: resolvedPort });
+    const marked: string | null = desired ? await findTargetWsByMarker(resolvedPort, tabMarker(desired)) : null;
+    const wsUrl = marked ?? (await invoke<string | null>('discover_cdp_target', { port: resolvedPort }));
     if (!wsUrl) return false;
 
     const ok = await cdp.connectToUrl(wsUrl);
-    connectedTabId = ok ? desired || null : null;
+    // Only a marker-verified connection may claim the tab. Caching a fallback (first-found)
+    // connection as `desired` once glued a whole crawl to the wrong tab: every later call saw
+    // "already connected to that tab" and read one stale page 32 times. A fallback connection
+    // stays unclaimed so the next call re-probes for the real target.
+    connectedTabId = ok && marked ? desired : null;
     return ok;
   } catch {
     return false;
