@@ -33,8 +33,12 @@ export function buildSynthesisPrompt(map: SiteMap, cards: Record<string, PageCar
     '\n\nOrganize the site for a teacher-automation agent. Reply with ONLY JSON, page ' +
     'references are the numeric indices above:\n' +
     '{"sections": [{"name": "<area, e.g. Gradebook>", "pages": [<indices>]}],\n' +
-    ' "trim": [{"i": <index>, "reason": "<why this page adds nothing for automation>"}],\n' +
-    ' "workflows": ["<up to 5 automation workflows this site map supports>"]}'
+    ' "trim": [{"i": <index>, "reason": "<why>"}],\n' +
+    ' "workflows": ["<up to 5 automation workflows this site map supports>"]}\n' +
+    'Pages you list in "trim" are DELETED from the map automatically — list ONLY pages that are ' +
+    'truly redundant (another kept page already covers the same function) or incorrect (an error ' +
+    'page, a wrong capture, chatter with no automation use). Similar-looking is NOT enough; ' +
+    'when unsure, keep the page.'
   );
 }
 
@@ -78,6 +82,17 @@ export function parseSynthesis(reply: string, map: SiteMap): MapSynthesis | null
 
   if (!sections.length && !trim.length && !workflows.length) return null;
   return { sections, trim, workflows };
+}
+
+/**
+ * AI trim verdicts that may be applied without a human: only pages still in the map, and none at
+ * all when the model wants more than a third of the map gone — that reads as a bad reply, not
+ * judgment (the removed similarity heuristic once flagged 55/64 distinct pages; the cap keeps an
+ * equally wrong model reply from doing the same damage).
+ */
+export function applicableAiTrims(map: SiteMap, trim: MapSynthesis['trim']): MapSynthesis['trim'] {
+  const inMap = trim.filter((t) => map.pages.some((p) => p.url === t.url));
+  return inMap.length > Math.ceil(map.pages.length / 3) ? [] : inMap;
 }
 
 /** Gated call; every failure returns null so the deterministic trim path stands alone. */

@@ -25,7 +25,7 @@
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
   import { planFrontier, fetchTemplateTiebreak, type FrontierCandidate } from '../../lib/crawl-planner';
-  import { fetchMapSynthesis, type MapSynthesis } from '../../lib/map-synthesis';
+  import { fetchMapSynthesis, applicableAiTrims, type MapSynthesis } from '../../lib/map-synthesis';
   import { sidecarTransport } from '../../lib/replay-live';
   import type { ModelTransport } from '../../lib/model-gate';
   import { gradePage, selectorsToProbe, summarize, pagesToPrune, type PageVerdict, type VerifySummary, type PruneDecision } from '../../lib/crawl-verify';
@@ -874,13 +874,14 @@
 
   /**
    * One-click "Map this site" pipeline: crawl → verify every page → prune what verify PROVED bad
-   * (unreachable / broken / all-ambiguous / redirect-duplicates) → save. Long on a big site
-   * (20-30 min) but one-time: it lands on a map an agent can trust without a human pass.
-   * Verify is the ONLY deletion authority: a page that verifies stays, however similar it looks
-   * to another. Similarity-based trimming (the old suggestTrim list + "Trim all") was removed
-   * outright — a live trial showed it deleting 55 of 64 genuinely distinct pages that merely
-   * shared a count signature, and handing users that button ruins mappings by accident.
-   * Stop at any phase keeps what's done and skips the rest.
+   * (unreachable / broken / all-ambiguous / redirect-duplicates) → apply the AI's redundancy
+   * verdicts → save. Long on a big site (20-30 min) but one-time: it lands on a map an agent can
+   * trust without a human pass.
+   *
+   * Deletion authority is verify + the AI's per-page judgment (synthesis.trim: truly redundant or
+   * incorrect pages, capped by applicableAiTrims so one bad reply can't gut the map) — never a
+   * similarity heuristic and never a user bulk-button; both were removed after a live trial
+   * deleted 55 of 64 genuinely distinct pages. Stop at any phase keeps what's done.
    */
   async function mapSite() {
     pruned = [];
@@ -893,8 +894,19 @@
       const page = siteMap?.pages.find((p) => p.url === d.url);
       if (page) await clearPage(page);
     }
+    // The AI's own trim verdicts (computed at crawl end, with page cards for context) — its call,
+    // not the user's: pages it judged truly redundant or incorrect are removed, with the reason
+    // shown in the pruned list. No engine selected → no verdicts → verify alone decides.
+    const aiDrop = siteMap ? applicableAiTrims(siteMap, synthesis?.trim ?? []) : [];
+    for (const t of aiDrop) {
+      const page = siteMap?.pages.find((p) => p.url === t.url);
+      if (page) await clearPage(page);
+      drop.push({ url: t.url, pageName: page?.pageName ?? t.url, reason: `AI: ${t.reason}` });
+    }
     pruned = drop;
-    siteMsg = `Good map: ${siteMap?.pages.length ?? 0} page(s) kept · ${drop.length} pruned by verify (bad/weak/duplicate).`;
+    siteMsg =
+      `Good map: ${siteMap?.pages.length ?? 0} page(s) kept · ${drop.length - aiDrop.length} pruned by verify` +
+      (aiDrop.length ? ` · ${aiDrop.length} removed by AI as redundant/incorrect.` : '.');
   }
 
   // Review a saved page: load its profile JSON and show its interactive elements. (The redacted

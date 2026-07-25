@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { buildSynthesisPrompt, parseSynthesis, fetchMapSynthesis } from './map-synthesis';
+import { buildSynthesisPrompt, parseSynthesis, fetchMapSynthesis, applicableAiTrims } from './map-synthesis';
 import type { SiteMap } from './site-map';
 
 const map: SiteMap = {
@@ -47,5 +47,32 @@ describe('buildSynthesisPrompt', () => {
     });
     expect(p).toContain('0: Gradebook [gradebook-roster, value:high]');
     expect(p).toContain('1: Forum — /forum.php?cid=1');
+  });
+  it('tells the model its trims delete automatically, with a keep-when-unsure bar', () => {
+    const p = buildSynthesisPrompt(map, {});
+    expect(p).toContain('DELETED from the map automatically');
+    expect(p).toContain('truly redundant');
+    expect(p).toContain('when unsure, keep the page');
+  });
+});
+
+describe('applicableAiTrims — the AI decides, within a sanity cap', () => {
+  const bigMap: SiteMap = {
+    domain: 'x.edu', startedAt: '2026-07-20T00:00:00Z',
+    pages: Array.from({ length: 9 }, (_, i) => ({
+      url: `https://x.edu/p${i}`, pageName: `p${i}`, links: [], counts: { buttons: 1, links: 1, inputs: 0 },
+    })),
+  };
+  it('passes through verdicts for pages still in the map, drops stale ones', () => {
+    const out = applicableAiTrims(bigMap, [
+      { url: 'https://x.edu/p1', reason: 'duplicate of p0' },
+      { url: 'https://x.edu/gone', reason: 'already pruned by verify' },
+    ]);
+    expect(out).toEqual([{ url: 'https://x.edu/p1', reason: 'duplicate of p0' }]);
+  });
+  it('applies NOTHING when the model wants more than a third of the map gone', () => {
+    const greedy = bigMap.pages.slice(0, 4).map((p) => ({ url: p.url, reason: 'meh' }));
+    expect(applicableAiTrims(bigMap, greedy)).toEqual([]); // 4 > ceil(9/3)
+    expect(applicableAiTrims(bigMap, greedy.slice(0, 3)).length).toBe(3); // at the cap: fine
   });
 });
