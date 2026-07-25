@@ -28,7 +28,7 @@
   import { fetchMapSynthesis, type MapSynthesis } from '../../lib/map-synthesis';
   import { sidecarTransport } from '../../lib/replay-live';
   import type { ModelTransport } from '../../lib/model-gate';
-  import { gradePage, selectorsToProbe, summarize, type PageVerdict, type VerifySummary } from '../../lib/crawl-verify';
+  import { gradePage, selectorsToProbe, summarize, pagesToPrune, type PageVerdict, type VerifySummary, type PruneDecision } from '../../lib/crawl-verify';
   import { selectorToCountExpr } from '../../lib/selector-resolve';
   import { getActiveTabId, getEmbeddedUrl, navigateEmbedded, listenBrowserPageLoaded } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
@@ -894,6 +894,35 @@
     trimSuggestions = [];
   }
 
+  /** Pages the one-click pipeline pruned after verify — shown so a removal is a decision, not a gap. */
+  let pruned = $state<PruneDecision[]>([]);
+
+  /**
+   * One-click "Map this site" pipeline: crawl → verify every page → prune what verify PROVED bad
+   * (unreachable / broken / all-ambiguous / redirect-duplicates) → save. Long on a big site
+   * (20-30 min) but one-time: it lands on a map an agent can trust without a human pass.
+   * Deliberately does NOT auto-apply trimSuggestions: those are similarity heuristics for human
+   * review — auto-applying them once deleted 55 of 64 genuinely distinct pages that merely shared
+   * a count signature. Only verify verdicts carry enough proof to delete unsupervised.
+   * Stop at any phase keeps what's done and skips the rest.
+   */
+  async function mapSite() {
+    pruned = [];
+    await crawl();
+    if (!siteMap || stopRequested) return;
+    await verifyMap();
+    if (!siteMap || stopRequested || !verdicts.length) return;
+    const drop = pagesToPrune(verdicts);
+    for (const d of drop) {
+      const page = siteMap?.pages.find((p) => p.url === d.url);
+      if (page) await clearPage(page);
+    }
+    pruned = drop;
+    siteMsg =
+      `Good map: ${siteMap?.pages.length ?? 0} page(s) kept · ${drop.length} pruned by verify (bad/weak/duplicate).` +
+      (trimSuggestions.length ? ` ${trimSuggestions.length} similar-looking page(s) suggested to trim below — review, then Trim all if you agree.` : '');
+  }
+
   // Review a saved page: load its profile JSON and show its interactive elements. (The redacted
   // snapshot isn't persisted — the saved SiteProfile is the durable, model-facing artifact.)
   async function reviewPage(p: SitePageNode) {
@@ -963,9 +992,9 @@
              lazy-loaded content) each page, plus batched AI template labeling when an engine is
              selected. aiDriveCrawl (single spawned agent) is demoted to a targeted, opt-in tool
              below — see its doc comment for why. -->
-        <button class="map" disabled={crawling || aiDriving || aiVerifying} onclick={crawl}
-          title="Visits the site's links breadth-first, deep-captures each page (scrolls to trigger lazy-loaded content before reading it), and labels templates with AI when an engine is selected above. No page cap; repeating templates are sampled a couple of times then skipped.">
-          {crawling ? '⏳ Crawling…' : '🕸 Map this site'}
+        <button class="map" disabled={crawling || verifying || aiDriving || aiVerifying} onclick={mapSite}
+          title="One run that lands on a trustworthy map: crawls the site breadth-first (deep-capturing each page), then re-visits every page to verify its recorded controls and auto-prunes what verify proves bad (unreachable, broken, all-ambiguous, redirect-duplicates). Similar-looking pages are only SUGGESTED for trimming — you review those. Can take 20-30 minutes on a big site — it's a one-time run. Stop keeps what's done.">
+          {crawling ? '⏳ Crawling…' : verifying ? '⏳ Verifying…' : '🕸 Map this site'}
         </button>
         {#if !crawling && !aiVerifying}
           <button class="map" disabled={aiDriving || !provider} onclick={aiDriveCrawl}
@@ -1024,6 +1053,19 @@
         {#each selfAudited as s (s.url)}
           <li class="row site-row">
             <span class="label" title={s.url}>{s.pageName}: <span class="kind">referenced elsewhere, was captured empty</span></span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+
+    {#if pruned.length}
+      <div class="head">
+        <span class="hdr">Pruned by verify ({pruned.length})</span>
+      </div>
+      <ul class="list">
+        {#each pruned as p (p.url)}
+          <li class="row site-row">
+            <span class="label" title={p.url}>{p.pageName}: <span class="kind">{p.reason}</span></span>
           </li>
         {/each}
       </ul>

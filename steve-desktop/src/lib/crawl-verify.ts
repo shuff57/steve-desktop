@@ -129,6 +129,47 @@ export function selectorsToProbe(profile: SiteProfile): string[] {
   return [...out];
 }
 
+export interface PruneDecision {
+  url: string;
+  pageName: string;
+  reason: string;
+}
+
+/**
+ * Which verified pages to drop so the map lands "good" without a human pass:
+ * - unreachable — navigation/capture failed; a dead entry misleads the agent.
+ * - drifted — a target BROKE and nothing healed it; the page's recorded actions are stale.
+ * - no reliable anchors — it has targets but not one resolves uniquely (every check ambiguous);
+ *   an agent could not act on anything there without guessing.
+ * - duplicate — it redirected to a landed URL another kept page already covers (/page/1/ ≡ /).
+ * Pages with NO checks are kept: a content page with nothing interactive is a valid map entry.
+ */
+export function pagesToPrune(verdicts: PageVerdict[]): PruneDecision[] {
+  const out: PruneDecision[] = [];
+  const seenLanded = new Set<string>();
+  for (const v of verdicts) {
+    const landed = (v.landedUrl ?? v.url).replace(/\/+$/, '');
+    if (v.status === 'unreachable') {
+      out.push({ url: v.url, pageName: v.pageName, reason: 'unreachable' });
+      continue;
+    }
+    if (v.status === 'drifted') {
+      out.push({ url: v.url, pageName: v.pageName, reason: 'broken targets' });
+      continue;
+    }
+    if (v.checks.length && !v.checks.some((c) => c.status === 'ok' || c.status === 'healed')) {
+      out.push({ url: v.url, pageName: v.pageName, reason: 'no reliable anchors — every target ambiguous' });
+      continue;
+    }
+    if (seenLanded.has(landed)) {
+      out.push({ url: v.url, pageName: v.pageName, reason: `duplicate — lands on already-kept ${landed}` });
+      continue;
+    }
+    seenLanded.add(landed);
+  }
+  return out;
+}
+
 export interface VerifySummary {
   pages: number;
   ok: number;

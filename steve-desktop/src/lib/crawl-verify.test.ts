@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { gradePage, selectorsToProbe, summarize, targetsOf } from './crawl-verify';
+import { gradePage, pagesToPrune, selectorsToProbe, summarize, targetsOf, type PageVerdict } from './crawl-verify';
 import type { SiteProfile } from './types/site-profile';
 
 function profile(over: Partial<SiteProfile['interactive']> = {}, url = 'https://x.com/g?cid=1'): SiteProfile {
@@ -58,6 +58,26 @@ describe('gradePage — does every recorded control still resolve?', () => {
     expect(v.checks[0]).toMatchObject({ status: 'healed', healedWith: '#save' });
     expect(v.checks[1].status).toBe('broken');
     expect(v.status).toBe('drifted');
+  });
+
+  it('prunes the pages verify condemned and keeps everything else', () => {
+    const v = (over: Partial<PageVerdict>): PageVerdict => ({
+      url: 'https://x.com/a', pageName: 'a', status: 'ok', signatureMatch: true, checks: [], ...over,
+    });
+    const ok = (u: string) => v({ url: u, landedUrl: u, checks: [{ kind: 'button', label: 'b', selector: '#b', status: 'ok', matches: 1 }] });
+    const verdicts: PageVerdict[] = [
+      ok('https://x.com/keep'),
+      v({ url: 'https://x.com/dead', status: 'unreachable' }),
+      v({ url: 'https://x.com/stale', status: 'drifted' }),
+      v({ url: 'https://x.com/weak', checks: [{ kind: 'link', label: 'l', selector: '.t', status: 'ambiguous', matches: 9 }] }),
+      v({ url: 'https://x.com/content', checks: [] }), // nothing interactive — still a valid map entry
+      v({ url: 'https://x.com/page/1/', landedUrl: 'https://x.com/keep' }), // redirect-duplicate
+    ];
+    const drop = pagesToPrune(verdicts);
+    expect(drop.map((d) => d.url)).toEqual([
+      'https://x.com/dead', 'https://x.com/stale', 'https://x.com/weak', 'https://x.com/page/1/',
+    ]);
+    expect(drop.find((d) => d.url.endsWith('/page/1/'))?.reason).toContain('duplicate');
   });
 
   it('does not heal onto an ambiguous candidate', () => {
