@@ -134,11 +134,51 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
  * `url` and `pageName` stay redacted: a URL carries uid=/stu= student identifiers and a page
  * title can carry a name, and neither is worth un-redacting to tidy a filename.
  */
+/**
+ * Fields that are STRUCTURE, not data: selectors and their ranked candidate values are how an
+ * agent finds an element, and any PII inside them was already tokenized during tree redaction.
+ * Rewriting them again corrupts them.
+ */
+const STRUCTURAL_KEYS = new Set(['selector', 'domain', 'profiledAt', 'type', 'href', 'url']);
+
+/**
+ * Redact every DATA string in an object graph, walking it structurally.
+ *
+ * Replaces the old `JSON.parse(redact(JSON.stringify(profile)))`, which string-replaced over
+ * SERIALIZED JSON and corrupted it two ways on a live MyOpenMath course — enough that the
+ * gradebook, coursemap and course home never captured at all:
+ *   - a captured value containing a double quote ate the JSON's own delimiters, producing
+ *     `"selector":⟦D526⟧` (unquoted) → JSON.parse threw → the whole capture failed;
+ *   - a short numeric value (e.g. `163`) matched INSIDE unrelated numbers, rewriting the course
+ *     id in every URL: `cid=3⟦D526⟧41`, a URL that can never load.
+ * Walking the graph touches only string values, so JSON syntax and URLs can't be damaged.
+ * `href`/`url` are exempt here and redacted by redactUrlForStorage, which keeps the path
+ * navigable and tokenizes only the query, where identifiers live.
+ */
+function redactStrings(value: unknown, redact: (t: string) => string, key?: string, inCandidates = false): unknown {
+  if (typeof value === 'string') {
+    // A candidate's `value` is a selector, not data.
+    if (STRUCTURAL_KEYS.has(key ?? '') || (inCandidates && key === 'value')) return value;
+    return redact(value);
+  }
+  if (Array.isArray(value)) return value.map((v) => redactStrings(v, redact, key, inCandidates || key === 'candidates'));
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([k, v]) => [
+        k,
+        redactStrings(v, redact, k, inCandidates || k === 'candidates'),
+      ]),
+    );
+  }
+  return value; // numbers, booleans, null — never carry text
+}
+
 export function redactProfileForStorage<T extends { domain: string; url?: string; pageName?: string }>(
   profile: T,
   redact: (t: string) => string,
 ): T {
-  const safe = { ...(JSON.parse(redact(JSON.stringify(profile))) as T), domain: profile.domain };
+  const redactValues = (p: T) => redactStrings(p, redact) as T;
+  const safe = { ...(redactValues(profile) as T), domain: profile.domain };
   if (profile.url) {
     const r = redactUrlForStorage(profile.url, redact);
     safe.url = r.url;
@@ -162,6 +202,37 @@ export function redactProfileForStorage<T extends { domain: string; url?: string
  * local map; same-origin, own-session capture bounds that exposure. Widen to per-segment
  * redaction if a target site is found that puts ids in the path.
  */
+/**
+ * Redact a query string per PARAMETER VALUE rather than as flat text.
+ *
+ * Flat replacement corrupted live URLs: a captured page value of `163` matched inside the course
+ * id `316341`, yielding `cid=3⟦D526⟧41` — a URL that can never load, which the mapper then
+ * reported as unreachable. A numeric id that is only PARTIALLY rewritten is therefore kept whole;
+ * a value the dictionary matches outright (a name, a student id) is still tokenized.
+ */
+function redactQuery(rawQuery: string, redact: (t: string) => string): string {
+  const lead = rawQuery.startsWith('?') ? '?' : '';
+  const body = lead ? rawQuery.slice(1) : rawQuery;
+  if (!body) return rawQuery;
+  return (
+    lead +
+    body
+      .split('&')
+      .map((pair) => {
+        const eq = pair.indexOf('=');
+        if (eq === -1) return pair;
+        const key = pair.slice(0, eq);
+        const value = pair.slice(eq + 1);
+        const red = redact(value);
+        if (red === value) return pair;
+        // A bare numeric id rewritten only in part is corruption, not redaction — keep it.
+        if (/^\d+$/.test(value) && !/^⟦D\d+⟧$/.test(red)) return pair;
+        return `${key}=${red}`;
+      })
+      .join('&')
+  );
+}
+
 export function redactUrlForStorage(
   rawUrl: string,
   redact: (t: string) => string,
@@ -173,7 +244,7 @@ export function redactUrlForStorage(
   const rawQuery = qIdx === -1 ? '' : rawUrl.slice(qIdx);
   try {
     const u = new URL(pathPart);
-    const redQuery = rawQuery ? redact(rawQuery) : '';
+    const redQuery = rawQuery ? redactQuery(rawQuery, redact) : '';
     const file = decodeURIComponent(u.pathname.split('/').filter(Boolean).pop() ?? 'home');
     // pageName = filename + the ALREADY-redacted query, so a secret in the query stays a token
     // in the name too, while the query still disambiguates same-filename pages.

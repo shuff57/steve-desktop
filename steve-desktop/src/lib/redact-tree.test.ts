@@ -133,6 +133,33 @@ describe('redactProfileForStorage — the hostname must survive redaction', () =
     expect(safe.note).not.toContain('Math');
   });
 
+  it('survives a captured value containing a double quote', () => {
+    // Live MyOpenMath: redaction ran over SERIALIZED JSON, so a page value carrying a quote ate
+    // the JSON's own delimiters -> `"selector":⟦D…⟧` -> JSON.parse threw -> the entire capture
+    // failed. The gradebook, coursemap and course home never made it into the map because of it.
+    const quoted = (t: string) => t.replace(/"Top" student/g, '⟦D9⟧');
+    const profile = {
+      domain: 'x.edu',
+      note: '"Top" student',
+      interactive: { buttons: [{ text: 'Save', selector: '#save', candidates: [{ type: 'id', value: '#save', score: 80 }] }] },
+    };
+    const safe = redactProfileForStorage(profile, quoted);
+    expect(safe.note).toBe('⟦D9⟧');
+    expect(safe.interactive.buttons[0].selector).toBe('#save'); // structure survives intact
+    expect(safe.interactive.buttons[0].candidates[0].value).toBe('#save');
+    expect(() => JSON.parse(JSON.stringify(safe))).not.toThrow();
+  });
+
+  it('does not let a short numeric value rewrite ids inside the url', () => {
+    // `163` captured as data matched INSIDE the course id 316341, producing cid=3⟦D526⟧41 —
+    // a URL that can never load, later reported as unreachable.
+    const shortNum = (t: string) => t.replace(/163/g, '⟦D526⟧');
+    const profile = { domain: 'www.myopenmath.com', url: 'https://www.myopenmath.com/course/gradebook.php?cid=316341', score: '163' };
+    const safe = redactProfileForStorage(profile, shortNum);
+    expect(safe.url).toContain('cid=316341'); // id intact → page still navigable
+    expect(safe.score).toBe('⟦D526⟧');        // the actual data value still scrubbed
+  });
+
   it('keeps the url navigable while still redacting its query', () => {
     // The host lives inside the url string too, so the same swap corrupted it: the site map
     // ended up full of https://www.⟦D15⟧.com/... which resolves to nothing.
