@@ -160,6 +160,35 @@ describe('redactProfileForStorage — the hostname must survive redaction', () =
     expect(safe.score).toBe('⟦D526⟧');        // the actual data value still scrubbed
   });
 
+  it('keeps cid legible (a course id is not personal data) while scrubbing student ids', () => {
+    // A live re-map left /msgs/* unloadable as cid=⟦D34⟧: the course id appeared as page TEXT
+    // there, so the whole param value matched the dictionary. cid identifies a COURSE, so it
+    // stays legible; uid/stu do not.
+    const r = (t: string) => t.replace(/316341/g, '⟦D34⟧').replace(/7158619/g, '⟦D7⟧');
+    const profile = {
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/msgs/msglist.php?cid=316341&uid=7158619',
+    };
+    const safe = redactProfileForStorage(profile, r);
+    expect(safe.url).toContain('cid=316341');   // navigable
+    expect(safe.url).not.toContain('7158619');  // student id still gone
+  });
+
+  it('scrubs a student id inside a link href instead of storing it raw', () => {
+    // hrefs are navigation, but a gradebook link carries stu=/uid=. Exempting them wholesale
+    // would write a student id straight into the saved site map.
+    const r = (t: string) => t.replace(/7158619/g, '⟦D7⟧');
+    const profile = {
+      domain: 'www.myopenmath.com',
+      interactive: { links: [{ text: 'x', selector: '#a', href: '/course/gradebook.php?cid=316341&uid=7158619' }] },
+    };
+    const safe = redactProfileForStorage(profile, r);
+    const href = safe.interactive.links[0].href;
+    expect(href).toContain('/course/gradebook.php'); // path intact
+    expect(href).toContain('cid=316341');
+    expect(href).not.toContain('7158619');
+  });
+
   it('keeps the url navigable while still redacting its query', () => {
     // The host lives inside the url string too, so the same swap corrupted it: the site map
     // ended up full of https://www.⟦D15⟧.com/... which resolves to nothing.

@@ -139,7 +139,17 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
  * agent finds an element, and any PII inside them was already tokenized during tree redaction.
  * Rewriting them again corrupts them.
  */
-const STRUCTURAL_KEYS = new Set(['selector', 'domain', 'profiledAt', 'type', 'href', 'url']);
+const STRUCTURAL_KEYS = new Set(['selector', 'domain', 'profiledAt', 'type']);
+
+/** Keys whose value is a URL: the path stays navigable, the query is redacted per parameter. */
+const URL_KEYS = new Set(['href', 'url']);
+
+/**
+ * Query parameters that are NOT personal data and must stay legible, or the stored map stops
+ * working: `cid` identifies a COURSE, not a student (confirmed with the account owner). Student
+ * identifiers — uid, stu, filteruid, and anything else — are still tokenized on a full match.
+ */
+const NON_PII_PARAMS = new Set(['cid', 'filtercid']);
 
 /**
  * Redact every DATA string in an object graph, walking it structurally.
@@ -159,6 +169,9 @@ function redactStrings(value: unknown, redact: (t: string) => string, key?: stri
   if (typeof value === 'string') {
     // A candidate's `value` is a selector, not data.
     if (STRUCTURAL_KEYS.has(key ?? '') || (inCandidates && key === 'value')) return value;
+    // A link's href is navigation, but its query can carry a student id — keep the path, scrub
+    // the query. Exempting hrefs wholesale would write `stu=7158619` straight into the site map.
+    if (URL_KEYS.has(key ?? '')) return redactUrlString(value, redact);
     return redact(value);
   }
   if (Array.isArray(value)) return value.map((v) => redactStrings(v, redact, key, inCandidates || key === 'candidates'));
@@ -210,6 +223,12 @@ export function redactProfileForStorage<T extends { domain: string; url?: string
  * reported as unreachable. A numeric id that is only PARTIALLY rewritten is therefore kept whole;
  * a value the dictionary matches outright (a name, a student id) is still tokenized.
  */
+function redactUrlString(raw: string, redact: (t: string) => string): string {
+  const q = raw.indexOf('?');
+  if (q === -1) return raw; // no query → nothing but structure
+  return raw.slice(0, q) + redactQuery(raw.slice(q), redact);
+}
+
 function redactQuery(rawQuery: string, redact: (t: string) => string): string {
   const lead = rawQuery.startsWith('?') ? '?' : '';
   const body = lead ? rawQuery.slice(1) : rawQuery;
@@ -223,6 +242,7 @@ function redactQuery(rawQuery: string, redact: (t: string) => string): string {
         if (eq === -1) return pair;
         const key = pair.slice(0, eq);
         const value = pair.slice(eq + 1);
+        if (NON_PII_PARAMS.has(key)) return pair; // course id — structural, not personal
         const red = redact(value);
         if (red === value) return pair;
         // A bare numeric id rewritten only in part is corruption, not redaction — keep it.
