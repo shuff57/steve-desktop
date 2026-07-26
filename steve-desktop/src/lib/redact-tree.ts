@@ -269,6 +269,26 @@ function redactQuery(rawQuery: string, redact: (t: string) => string): string {
   );
 }
 
+/**
+ * Page name from the WHOLE path, not just its last segment.
+ *
+ * The last segment alone collides catastrophically on path-based sites: a regression crawl of
+ * quotes.toscrape mapped 177 pages into 61 profile files because `/page/1/`, `/tag/love/page/1/`
+ * and 110 others all reduced to "1". Each collision silently overwrote a profile, so the map
+ * pointed 111 pages at selectors captured from a different page — an agent acting on that map
+ * would drive the wrong page. Query-based sites (MyOpenMath) hid it because the query
+ * disambiguated. Long paths are truncated with a hash of the full path so they stay unique.
+ */
+function pathSlug(pathname: string): string {
+  const segs = decodeURIComponent(pathname).split('/').filter(Boolean);
+  if (!segs.length) return 'home';
+  const full = segs.join('-');
+  if (full.length <= 80) return full;
+  let h = 5381;
+  for (let i = 0; i < full.length; i++) h = ((h << 5) + h + full.charCodeAt(i)) >>> 0;
+  return `${full.slice(0, 72)}-${h.toString(36)}`;
+}
+
 export function redactUrlForStorage(
   rawUrl: string,
   redact: (t: string) => string,
@@ -281,7 +301,7 @@ export function redactUrlForStorage(
   try {
     const u = new URL(pathPart);
     const redQuery = rawQuery ? redactQuery(rawQuery, redact) : '';
-    const file = decodeURIComponent(u.pathname.split('/').filter(Boolean).pop() ?? 'home');
+    const file = pathSlug(u.pathname);
     // pageName = filename + the ALREADY-redacted query, so a secret in the query stays a token
     // in the name too, while the query still disambiguates same-filename pages.
     return { url: u.origin + u.pathname + redQuery, pageName: file + redQuery };

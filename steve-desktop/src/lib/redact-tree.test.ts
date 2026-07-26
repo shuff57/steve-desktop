@@ -248,7 +248,7 @@ describe('redactProfileForStorage — the hostname must survive redaction', () =
     };
     const safe = redactProfileForStorage(profile, withFile);
     expect(safe.url).toBe('https://www.myopenmath.com/course/course.php?cid=316341&folder=0');
-    expect(safe.pageName).toBe('course.php?cid=316341&folder=0'); // legible AND query-disambiguated
+    expect(safe.pageName).toBe('course-course.php?cid=316341&folder=0'); // full path: last segment alone collided 112 ways // legible AND query-disambiguated
   });
 
   it('two same-filename pages get distinct names (no collision into one file)', () => {
@@ -267,16 +267,42 @@ describe('redactUrlForStorage', () => {
   it('restores scheme+host+path and redacts only the query', () => {
     const r = redactUrlForStorage('https://www.myopenmath.com/course/math.php?a=Jane Doe', redact);
     expect(r.url).toBe('https://www.myopenmath.com/course/math.php?a=⟦D2⟧'); // math.php legible, query scrubbed
-    expect(r.pageName).toBe('math.php?a=⟦D2⟧');
+    expect(r.pageName).toBe('course-math.php?a=⟦D2⟧');
   });
 
   it('a query-less url stays fully legible', () => {
     const r = redactUrlForStorage('https://x.edu/a/b/gradebook.php', redact);
     expect(r.url).toBe('https://x.edu/a/b/gradebook.php');
-    expect(r.pageName).toBe('gradebook.php');
+    expect(r.pageName).toBe('a-b-gradebook.php'); // whole path — the last segment alone collided
   });
 
   it('falls back to a fully redacted string when the url will not parse', () => {
     expect(redactUrlForStorage('not a url with Jane Doe', redact).url).not.toContain('Jane');
+  });
+});
+
+describe('redactUrlForStorage — page names must not collide across paths', () => {
+  const noop = (t: string) => t;
+  it('keeps sibling paginated pages distinct (the 112-way collision)', () => {
+    // quotes.toscrape mapped 177 pages into 61 files: /page/1/, /tag/love/page/1/ and 110 more
+    // all reduced to "1", so each overwrote the last and the map pointed pages at another
+    // page's selectors.
+    const names = ['/page/1/', '/tag/love/page/1/', '/tag/life/page/1/', '/tag/humor/page/2/']
+      .map((p) => redactUrlForStorage('https://quotes.toscrape.com' + p, noop).pageName);
+    expect(new Set(names).size).toBe(4);
+    expect(names[1]).toBe('tag-love-page-1');
+  });
+  it('still disambiguates query-based pages and names a root page', () => {
+    const a = redactUrlForStorage('https://x.edu/course/course.php?cid=1', noop).pageName;
+    const b = redactUrlForStorage('https://x.edu/course/course.php?cid=2', noop).pageName;
+    expect(a).not.toBe(b);
+    expect(redactUrlForStorage('https://x.edu/', noop).pageName).toBe('home');
+  });
+  it('truncates a very long path but keeps it unique', () => {
+    const long = (n: number) => 'https://x.edu/' + Array.from({ length: 30 }, (_, i) => `seg${i}${n}`).join('/');
+    const a = redactUrlForStorage(long(1), noop).pageName;
+    const b = redactUrlForStorage(long(2), noop).pageName;
+    expect(a.length).toBeLessThanOrEqual(90);
+    expect(a).not.toBe(b);
   });
 });
