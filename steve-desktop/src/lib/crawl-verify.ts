@@ -72,6 +72,12 @@ export function isErrorPage(title: string, bodyText: string): boolean {
   return /\b(404|403|500)\b|\bnot found\b|\bpage (?:not|no longer) available\b|\baccess denied\b/i.test(t);
 }
 
+/**
+ * Share of a page's targets that must be BROKEN before the page counts as drifted (and so becomes
+ * eligible for deletion). Above zero on purpose: see the note in gradePage.
+ */
+export const DRIFT_SHARE = 0.25;
+
 /** Every actionable target a profile recorded, flattened for checking. */
 export function targetsOf(
   profile: SiteProfile,
@@ -134,7 +140,13 @@ export function gradePage(
   const allBroken = checks.length > 0 && checks.every((c) => c.status === 'broken');
   const baselineHadTargets = !!baseline && targetsOf(baseline).length >= 3;
   const captureCollapsed = allBroken && baselineHadTargets;
-  const drifted = !captureCollapsed && checks.some((c) => c.status === 'broken');
+  // A live page legitimately differs between two visits — a collapsed folder hides its links, a
+  // list re-orders — so a couple of stale targets is not drift worth DELETING the page over. On a
+  // real course home, 3 of 83 links (a folder that had been expanded at capture) condemned an
+  // otherwise perfectly healthy page. Individual broken targets stay visible on the checks either
+  // way; only a substantial share makes the page itself untrustworthy.
+  const brokenShare = checks.length ? checks.filter((c) => c.status === 'broken').length / checks.length : 0;
+  const drifted = !captureCollapsed && brokenShare > DRIFT_SHARE;
   return {
     url: subject.url,
     pageName: subject.pageName,

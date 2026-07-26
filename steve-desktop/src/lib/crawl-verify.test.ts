@@ -92,6 +92,25 @@ describe('gradePage — does every recorded control still resolve?', () => {
     expect(pagesToPrune([dead])[0].reason).toContain('error page');
   });
 
+  it('tolerates a few stale targets on a live page, but not wholesale breakage', () => {
+    // A real course home had 3 of 83 links broken (a folder expanded at capture, collapsed at
+    // verify). Deleting the page over that is wrong; deleting it when most targets are gone is
+    // right. Both cases keep the individual broken checks visible.
+    const many = (broken: number, total: number) =>
+      profile({ links: Array.from({ length: total }, (_, i) => ({ text: `l${i}`, selector: `#l${i}` })) });
+    const counts = (broken: number, total: number) =>
+      Object.fromEntries(Array.from({ length: total }, (_, i) => [`#l${i}`, i < broken ? 0 : 1]));
+
+    const mild = gradePage(many(3, 83), null, counts(3, 83));
+    expect(mild.status).toBe('ok');
+    expect(mild.checks.filter((c) => c.status === 'broken')).toHaveLength(3); // still reported
+    expect(pagesToPrune([mild])).toEqual([]);
+
+    const severe = gradePage(many(40, 83), null, counts(40, 83));
+    expect(severe.status).toBe('drifted');
+    expect(pagesToPrune([severe])).toHaveLength(1);
+  });
+
   it('does not call a page drifted when the CAPTURE collapsed', () => {
     // Every target broken + a baseline that had real targets = we failed to observe the page,
     // not the page changed. Grading it drifted deleted pages that load fine.
