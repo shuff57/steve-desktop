@@ -160,6 +160,42 @@ describe('redactProfileForStorage — the hostname must survive redaction', () =
     expect(safe.score).toBe('⟦D526⟧');        // the actual data value still scrubbed
   });
 
+  it('keeps course/category/assignment ids legible — they carry no student information', () => {
+    // Each of these was tokenized in a live run because its value appeared as page text, which
+    // made the URL unloadable and got the page pruned as dead: cid=⟦D34⟧, cat=⟦D105⟧.
+    const r = (t: string) => t.replace(/316341/g, '⟦D34⟧').replace(/105/g, '⟦D105⟧').replace(/21935970/g, '⟦D9⟧');
+    const profile = {
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/course/gradebook.php?cid=316341&cat=105&aid=21935970&catcollapse=0&folder=0-2',
+    };
+    const safe = redactProfileForStorage(profile, r);
+    for (const part of ['cid=316341', 'cat=105', 'aid=21935970', 'catcollapse=0', 'folder=0-2']) {
+      expect(safe.url).toContain(part);
+    }
+  });
+
+  it('drops a student id from a query even when it never appeared as page text', () => {
+    // The dictionary only holds visible text, so an id living solely in a URL would otherwise be
+    // stored raw. Student parameters are dropped unconditionally; a 0 means "no filter".
+    const noop = (t: string) => t;
+    const profile = {
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/course/gradebook.php?cid=316341&uid=7158619&filteruid=0',
+    };
+    const safe = redactProfileForStorage(profile, noop);
+    expect(safe.url).not.toContain('7158619');
+    expect(safe.url).toContain('cid=316341');
+    expect(safe.url).toContain('filteruid=0'); // 0 identifies nobody — stays navigable
+  });
+
+  it('still redacts a textual query value in an unrecognized parameter', () => {
+    const r = (t: string) => t.replace(/Jane Doe/g, '⟦D2⟧');
+    const profile = { domain: 'x.edu', url: 'https://x.edu/p.php?who=Jane Doe&cid=12' };
+    const safe = redactProfileForStorage(profile, r);
+    expect(safe.url).not.toContain('Jane');
+    expect(safe.url).toContain('cid=12');
+  });
+
   it('keeps cid legible (a course id is not personal data) while scrubbing student ids', () => {
     // A live re-map left /msgs/* unloadable as cid=⟦D34⟧: the course id appeared as page TEXT
     // there, so the whole param value matched the dictionary. cid identifies a COURSE, so it

@@ -145,11 +145,23 @@ const STRUCTURAL_KEYS = new Set(['selector', 'domain', 'profiledAt', 'type']);
 const URL_KEYS = new Set(['href', 'url']);
 
 /**
- * Query parameters that are NOT personal data and must stay legible, or the stored map stops
- * working: `cid` identifies a COURSE, not a student (confirmed with the account owner). Student
- * identifiers — uid, stu, filteruid, and anything else — are still tokenized on a full match.
+ * Query parameters that name a STUDENT. Their values are never stored, whether or not the value
+ * happened to appear as page text — the dictionary only holds visible text, so relying on it to
+ * catch an id that lives solely in a URL would leak.
  */
-const NON_PII_PARAMS = new Set(['cid', 'filtercid']);
+const STUDENT_PARAM = /^(uid|stu|stuid|student|studentid|user|userid|filteruid|sid|learner)$/i;
+
+/** Placeholder for a dropped student identifier — deliberately not navigable. */
+const STUDENT_TOKEN = '⟦STU⟧';
+
+/**
+ * A bare structural id: course, category, assignment, folder, page number. Confirmed with the
+ * account owner that course/category/assignment ids carry no student information, so these stay
+ * legible — tokenizing them only broke navigation (cid=⟦D34⟧, cat=⟦D105⟧ made pages unloadable
+ * and got them pruned as dead). Anything TEXTUAL in a query is still redacted, so a name or a
+ * free-text value in an unrecognized parameter is caught even without naming that parameter.
+ */
+const STRUCTURAL_ID = /^[\d][\d.\-_]*$/;
 
 /**
  * Redact every DATA string in an object graph, walking it structurally.
@@ -242,12 +254,16 @@ function redactQuery(rawQuery: string, redact: (t: string) => string): string {
         if (eq === -1) return pair;
         const key = pair.slice(0, eq);
         const value = pair.slice(eq + 1);
-        if (NON_PII_PARAMS.has(key)) return pair; // course id — structural, not personal
+        let decoded = value;
+        try { decoded = decodeURIComponent(value); } catch { /* keep raw */ }
+
+        // A student identifier never reaches disk. `0`/empty means "no filter", not a person.
+        if (STUDENT_PARAM.test(key)) return decoded && Number(decoded) !== 0 ? `${key}=${STUDENT_TOKEN}` : pair;
+        // Course / category / assignment / folder ids are structure — keep them navigable.
+        if (STRUCTURAL_ID.test(decoded)) return pair;
+
         const red = redact(value);
-        if (red === value) return pair;
-        // A bare numeric id rewritten only in part is corruption, not redaction — keep it.
-        if (/^\d+$/.test(value) && !/^⟦D\d+⟧$/.test(red)) return pair;
-        return `${key}=${red}`;
+        return red === value ? pair : `${key}=${red}`;
       })
       .join('&')
   );
