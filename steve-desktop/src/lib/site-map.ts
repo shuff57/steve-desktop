@@ -109,10 +109,41 @@ export function scopeOf(url: string): { key: string; value: string } | null {
  */
 export function withinScope(href: string, startUrl: string): boolean {
   const s = scopeOf(startUrl);
-  if (!s) return true; // nothing to enforce
+  if (s) {
+    try {
+      const v = new URL(href).searchParams.get(s.key);
+      return v === null || v === s.value;
+    } catch {
+      return true;
+    }
+  }
+  return withinPathFence(href, startUrl);
+}
+
+/**
+ * Containment for sites with no scope param: stay inside the DIRECTORY the crawl started in.
+ *
+ * Without this the crawl is bounded only by the 1000-page safety backstop. Starting on
+ * w3.org/WAI/ARIA/apg/patterns/ escaped into the whole of w3.org — the frontier grew past 4200
+ * queued links and was still climbing, i.e. "Map this site" would have run for hours and mapped
+ * a domain instead of the area asked for. Every earlier target hid this: MyOpenMath carries
+ * cid=, and the rest were small sites.
+ *
+ * The fence is the start URL's directory, so /WAI/ARIA/apg/patterns/ also admits
+ * /WAI/ARIA/apg/patterns/toolbar/examples/. A start URL at the site root fences nothing, which
+ * is the honest reading of "map this whole site".
+ */
+export function withinPathFence(href: string, startUrl: string): boolean {
   try {
-    const v = new URL(href).searchParams.get(s.key);
-    return v === null || v === s.value;
+    const start = new URL(startUrl);
+    const u = new URL(href, startUrl);
+    if (u.origin !== start.origin) return false;
+    // Directory of the start URL: drop a trailing filename (anything with a dot in the last segment).
+    const segs = start.pathname.split('/').filter(Boolean);
+    if (segs.length && segs[segs.length - 1].includes('.')) segs.pop();
+    if (!segs.length) return true; // started at the root — the whole origin IS the area
+    const dir = '/' + segs.join('/') + '/';
+    return (u.pathname + '/').startsWith(dir);
   } catch {
     return true;
   }

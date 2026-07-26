@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
 
 describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
   it('collapses a family once its shape repeats', () => {
@@ -134,8 +134,11 @@ describe('withinScope — keep the crawl inside one course', () => {
     expect(withinScope('https://www.myopenmath.com/course/gradebook.php?cid=301265&stu=5', start)).toBe(true);
     expect(withinScope('https://www.myopenmath.com/index.php', start)).toBe(true); // no cid = shared nav
   });
-  it('enforces nothing when the start page has no course id', () => {
-    expect(withinScope('https://x.com/a?cid=9', 'https://x.com/home')).toBe(true);
+  it('falls back to a directory fence when the start page has no course id', () => {
+    // Used to enforce nothing at all, which let a crawl of one w3.org section escape into the
+    // whole domain (4200+ queued and climbing). No scope param now means "stay in this area".
+    expect(withinScope('https://x.com/a?cid=9', 'https://x.com/home')).toBe(false);
+    expect(withinScope('https://x.com/home/sub?cid=9', 'https://x.com/home')).toBe(true);
   });
 });
 
@@ -271,5 +274,31 @@ describe('site map accumulation', () => {
     map = upsertPage(map, profileToNode(profile('https://app.example.com/a', [{ text: 'X', href: '/x' }])));
     expect(map.pages).toHaveLength(1);
     expect(map.pages[0].links).toHaveLength(1);
+  });
+});
+
+describe('withinPathFence — containment when the site has no scope param', () => {
+  const start = 'https://www.w3.org/WAI/ARIA/apg/patterns/';
+  it('keeps links inside the directory the crawl started in', () => {
+    expect(withinPathFence('https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/', start)).toBe(true);
+    expect(withinPathFence('/WAI/ARIA/apg/patterns/toolbar/examples/toolbar/', start)).toBe(true);
+  });
+  it('blocks the rest of the domain — the 4200-link runaway', () => {
+    expect(withinPathFence('https://www.w3.org/blog/2026/some-post/', start)).toBe(false);
+    expect(withinPathFence('https://www.w3.org/WAI/ARIA/', start)).toBe(false);
+    expect(withinPathFence('https://example.com/WAI/ARIA/apg/patterns/', start)).toBe(false);
+  });
+  it('treats a filename start URL as its directory', () => {
+    expect(withinPathFence('https://x.com/app/list.php?p=2', 'https://x.com/app/index.php')).toBe(true);
+    expect(withinPathFence('https://x.com/other/', 'https://x.com/app/index.php')).toBe(false);
+  });
+  it('fences nothing when the crawl starts at the site root', () => {
+    expect(withinPathFence('https://x.com/anywhere/deep', 'https://x.com/')).toBe(true);
+  });
+  it('withinScope falls back to the fence only when there is no scope param', () => {
+    const mom = 'https://www.myopenmath.com/course/course.php?cid=316341';
+    // scope param present → cross-directory shared nav still allowed, as before
+    expect(withinScope('https://www.myopenmath.com/msgs/msglist.php?cid=316341', mom)).toBe(true);
+    expect(withinScope('https://www.myopenmath.com/course/course.php?cid=999', mom)).toBe(false);
   });
 });
