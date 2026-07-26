@@ -107,7 +107,7 @@ export function scopeOf(url: string): { key: string; value: string } | null {
  * param is shared navigation (home, help) and stays allowed — it's a DIFFERENT value for the
  * same key that means we've wandered into another course.
  */
-export function withinScope(href: string, startUrl: string): boolean {
+export function withinScope(href: string, startUrl: string, fence?: string | null): boolean {
   const s = scopeOf(startUrl);
   if (s) {
     try {
@@ -117,7 +117,75 @@ export function withinScope(href: string, startUrl: string): boolean {
       return true;
     }
   }
-  return withinPathFence(href, startUrl);
+  if (!fence) return withinPathFence(href, startUrl);
+  // `fence` is a path prefix from deriveFence, not a URL — resolve href against the start page
+  // and compare paths directly (feeding a bare path to new URL() throws and would allow all).
+  try {
+    const s = new URL(startUrl);
+    const u = new URL(href, startUrl);
+    if (u.origin !== s.origin) return false;
+    return fence === '/' || (u.pathname + '/').startsWith(fence);
+  } catch {
+    return true;
+  }
+}
+
+/** Directory prefix of a URL — `/a/b/page.html` and `/a/b/` both give `/a/b/`. */
+function dirOf(pathname: string): string {
+  const segs = pathname.split('/').filter(Boolean);
+  if (segs.length && segs[segs.length - 1].includes('.')) segs.pop();
+  return segs.length ? '/' + segs.join('/') + '/' : '/';
+}
+
+/**
+ * Choose the crawl fence from EVIDENCE rather than assuming the start URL's own directory.
+ *
+ * The start page's links say what area it belongs to. Using the start directory alone is wrong
+ * whenever you begin on a leaf: from `/courses/34903/assignments` a directory fence excludes
+ * `/courses/34903/grades` and `/modules` — the siblings that ARE the course. Widening blindly to
+ * the parent is equally wrong: from `/WAI/ARIA/apg/patterns/` the parent re-opens most of w3.org.
+ *
+ * The signal is SIBLINGS, not a majority. A majority vote over all links widens far too far —
+ * tried on an APG pattern page, the W3C/WAI header and footer outvoted the section and the fence
+ * became /WAI/, queueing 645 pages instead of 62. Instead:
+ *   1. if the start directory already holds several links, the start page is the index OF its
+ *      area — fence there (this is /WAI/ARIA/apg/patterns/, which lists every pattern);
+ *   2. otherwise the start page is a leaf, so look one level up: if its PARENT holds several
+ *      links that aren't under the start directory, those siblings are the area
+ *      (/courses/34903/assignments → /courses/34903/, alongside grades and modules);
+ *   3. otherwise keep the start directory.
+ * Only ever widens by one level, and errs narrow: too narrow is fixed by starting a level up,
+ * too wide costs hours of crawling.
+ */
+const FENCE_EVIDENCE = 3;
+
+export function deriveFence(startUrl: string, links: string[]): string {
+  let start: URL;
+  try {
+    start = new URL(startUrl);
+  } catch {
+    return startUrl;
+  }
+  const startDir = dirOf(start.pathname);
+  const paths: string[] = [];
+  for (const l of links) {
+    try {
+      const u = new URL(l, startUrl);
+      if (u.origin === start.origin && u.pathname !== start.pathname) paths.push(u.pathname + '/');
+    } catch {
+      /* skip unparseable */
+    }
+  }
+  if (!paths.length) return startDir;
+
+  const under = (dir: string) => paths.filter((p) => p.startsWith(dir)).length;
+  if (under(startDir) >= FENCE_EVIDENCE) return startDir; // an index of its own area
+
+  const segs = startDir.split('/').filter(Boolean);
+  if (segs.length < 2) return startDir; // parent would be the origin root — never widen to that
+  const parent = '/' + segs.slice(0, -1).join('/') + '/';
+  const siblings = under(parent) - under(startDir);
+  return siblings >= FENCE_EVIDENCE ? parent : startDir;
 }
 
 /**
@@ -138,11 +206,8 @@ export function withinPathFence(href: string, startUrl: string): boolean {
     const start = new URL(startUrl);
     const u = new URL(href, startUrl);
     if (u.origin !== start.origin) return false;
-    // Directory of the start URL: drop a trailing filename (anything with a dot in the last segment).
-    const segs = start.pathname.split('/').filter(Boolean);
-    if (segs.length && segs[segs.length - 1].includes('.')) segs.pop();
-    if (!segs.length) return true; // started at the root — the whole origin IS the area
-    const dir = '/' + segs.join('/') + '/';
+    const dir = dirOf(start.pathname);
+    if (dir === '/') return true; // started at the root — the whole origin IS the area
     return (u.pathname + '/').startsWith(dir);
   } catch {
     return true;

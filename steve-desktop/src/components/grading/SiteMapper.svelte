@@ -14,7 +14,7 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -318,6 +318,11 @@
       const queue: string[] = [start];
       const queued = new Set<string>([start]);
       let first = true;
+      // Containment area for sites with no scope param, derived from the START PAGE'S OWN LINKS
+      // once it has been captured (see deriveFence). Assuming the start URL's directory breaks
+      // the common case of beginning on a leaf page — /courses/<id>/assignments would exclude
+      // that course's own grades and modules. Null until the first page is mapped.
+      let fence: string | null = null;
 
       // Template collapsing: a roster of 200 students is 200 pages of ONE template. Once
       // we've mapped SAMPLES_PER_TEMPLATE pages of a URL family AND they came back
@@ -427,6 +432,12 @@
         siteMsg = `Crawling: ${siteMap?.pages.length ?? 0} mapped · ${queue.length} queued…`
           + (collapsed.length ? ` · ${collapsed.reduce((n, c) => n + c.skipped, 0)} repeats skipped` : '');
 
+        // Derive the containment area from the START page's own links, once. Only matters when
+        // the site has no scope param; withinScope ignores it otherwise.
+        if (fence === null && landed === start) {
+          fence = deriveFence(start, profile.interactive.links.map((l) => l.href ?? '').filter(Boolean));
+        }
+
         // Deterministic filters first (gate, scope, saturation) — the AI planner only ever
         // sees links that already passed every one of them.
         const fresh: FrontierCandidate[] = [];
@@ -439,7 +450,7 @@
 
           // Stay in the course you started in — always. Without this the crawl reaches your
           // home page and follows it into every other course on the account.
-          if (!withinScope(abs, start)) {
+          if (!withinScope(abs, start, fence)) {
             queued.add(abs);
             outOfScope += 1;
             continue;
@@ -513,7 +524,12 @@
       const n = siteMap?.pages.length ?? 0;
       const repeats = collapsed.reduce((sum, c) => sum + c.skipped, 0);
       siteMsg = (stopRequested ? `Stopped: ${n} pages mapped.` : `Crawl done: ${n} pages mapped.`)
-        + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope?.key}=${activeScope?.value} not followed.` : '')
+        // Say WHICH area the crawl confined itself to. Without this a small map reads as a
+        // failure, when the honest cause can be that the start page doesn't link to its own
+        // section (an APG pattern page links its examples and nothing sideways, so a crawl from
+        // it legitimately maps 2 pages). Seeing the area tells you to start a level higher.
+        + (fence && fence !== '/' && !activeScope ? ` Stayed inside ${fence} — start higher to widen.` : '')
+        + (outOfScope ? ` ${outOfScope} link(s) outside ${activeScope ? `${activeScope.key}=${activeScope.value}` : (fence ?? 'the start area')} not followed.` : '')
         + (repeats ? ` ${repeats} repeat page(s) skipped across ${collapsed.length} template(s).` : '')
         + (aiSkips.length ? ` ${aiSkips.length} link(s) skipped by AI — see below.` : '')
         + (selfAudited.length ? ` ${selfAudited.length} suspect page(s) re-checked by AI self-audit.` : '')

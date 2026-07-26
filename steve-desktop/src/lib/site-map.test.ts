@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
 
 describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
   it('collapses a family once its shape repeats', () => {
@@ -300,5 +300,56 @@ describe('withinPathFence — containment when the site has no scope param', () 
     // scope param present → cross-directory shared nav still allowed, as before
     expect(withinScope('https://www.myopenmath.com/msgs/msglist.php?cid=316341', mom)).toBe(true);
     expect(withinScope('https://www.myopenmath.com/course/course.php?cid=999', mom)).toBe(false);
+  });
+});
+
+describe('deriveFence — pick the containment area from the start page\'s own links', () => {
+  it('widens to the course when you start on a leaf page (the Canvas case)', () => {
+    // Start-directory fencing would have excluded the course's own grades/modules — the very
+    // pages you want — because they are SIBLINGS of the page you happened to open.
+    const start = 'https://canvas.butte.edu/courses/34903/assignments';
+    const links = [
+      '/courses/34903/grades', '/courses/34903/modules', '/courses/34903/users',
+      '/courses/34903/assignments/501', '/courses/34903/announcements', '/about',
+    ];
+    expect(deriveFence(start, links)).toBe('/courses/34903/');
+    expect(withinScope('https://canvas.butte.edu/courses/34903/grades', start, deriveFence(start, links))).toBe(true);
+    expect(withinScope('https://canvas.butte.edu/courses/99999/grades', start, deriveFence(start, links))).toBe(false);
+  });
+
+  it('does NOT widen when the start directory already covers its own links (the w3.org case)', () => {
+    const start = 'https://www.w3.org/WAI/ARIA/apg/patterns/';
+    const links = [
+      '/WAI/ARIA/apg/patterns/accordion/', '/WAI/ARIA/apg/patterns/alert/',
+      '/WAI/ARIA/apg/patterns/button/', '/WAI/ARIA/apg/patterns/dialog/',
+      '/WAI/ARIA/apg/practices/', '/WAI/', '/blog/2026/post/',
+    ];
+    expect(deriveFence(start, links)).toBe('/WAI/ARIA/apg/patterns/');
+  });
+
+  it('is not dragged wide by site chrome — the 645-page over-widening', () => {
+    // A leaf pattern page whose header/footer link all over W3C. A majority vote picked /WAI/
+    // and queued 645 pages; only genuine SIBLINGS may widen the fence, and one level at most.
+    const start = 'https://www.w3.org/WAI/ARIA/apg/patterns/accordion/';
+    const chrome = ['/', '/WAI/', '/standards-guidelines/', '/about/', '/contact/', '/blog/', '/news/'];
+    expect(deriveFence(start, [...chrome, '/WAI/ARIA/apg/patterns/accordion/examples/accordion/']))
+      .toBe('/WAI/ARIA/apg/patterns/accordion/'); // no siblings → stay put, never jump to /WAI/
+    // with real siblings present, it widens exactly one level to the pattern list
+    expect(deriveFence(start, [...chrome, '/WAI/ARIA/apg/patterns/alert/', '/WAI/ARIA/apg/patterns/button/', '/WAI/ARIA/apg/patterns/dialog/']))
+      .toBe('/WAI/ARIA/apg/patterns/');
+  });
+
+  it('never widens to the origin root', () => {
+    expect(deriveFence('https://x.com/section/', ['/a', '/b', '/c', '/d'])).toBe('/section/');
+  });
+
+  it('keeps the start directory when the page offers too little evidence', () => {
+    expect(deriveFence('https://x.com/a/b/', ['/a/b/c'])).toBe('/a/b/');
+    expect(deriveFence('https://x.com/a/b/', [])).toBe('/a/b/');
+  });
+
+  it('handles a root start page and an unparseable url', () => {
+    expect(deriveFence('https://x.com/', ['/a', '/b', '/c', '/d'])).toBe('/');
+    expect(deriveFence('not a url', ['/a'])).toBe('not a url');
   });
 });
