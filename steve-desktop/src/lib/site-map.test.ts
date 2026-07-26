@@ -353,3 +353,22 @@ describe('deriveFence — pick the containment area from the start page\'s own l
     expect(deriveFence('not a url', ['/a'])).toBe('not a url');
   });
 });
+
+describe('urlTemplate — slug-with-id segments are one family', () => {
+  it('collapses a catalogue of slugged product pages', () => {
+    // books.toscrape: 1000 books, each /catalogue/<slug>_<id>/index.html. Replacing only the
+    // digits kept every slug distinct, so saturation never fired — a live crawl sat at 208
+    // pages with 438 queued and barely draining.
+    const a = 'https://books.toscrape.com/catalogue/a-paris-apartment_612/index.html';
+    const b = 'https://books.toscrape.com/catalogue/sharp-objects_997/index.html';
+    expect(urlTemplate(a)).toBe(urlTemplate(b));
+  });
+  it('still separates genuinely different areas, and still collapses pagination', () => {
+    expect(urlTemplate('https://x.com/catalogue/thing_1/index.html'))
+      .not.toBe(urlTemplate('https://x.com/reviews/thing_1/index.html'));
+    expect(urlTemplate('https://x.com/catalogue/page-2.html')).toBe(urlTemplate('https://x.com/catalogue/page-9.html'));
+  });
+  it('leaves a plain slug with no id alone', () => {
+    expect(urlTemplate('https://x.com/about-us/')).not.toBe(urlTemplate('https://x.com/contact-us/'));
+  });
+});

@@ -226,7 +226,15 @@ export function withinPathFence(href: string, startUrl: string): boolean {
 export function urlTemplate(url: string): string {
   try {
     const u = new URL(url);
-    const path = u.pathname.replace(/\d+/g, '#');
+    // A slug carrying an id is ONE family, not a thousand. Replacing only the digits left
+    // /catalogue/a-paris-apartment_612/ and /catalogue/sharp-objects_997/ as distinct templates,
+    // so a 1000-book catalogue never saturated: a live crawl was at 208 pages with 438 still
+    // queued and barely draining. A segment ending in -123 or _123 collapses whole; other
+    // segments keep the digit-level replacement (page-2.html -> page-#.html).
+    const path = u.pathname
+      .split('/')
+      .map((seg) => (/^.+[-_]\d+$/.test(seg) ? '#' : seg.replace(/\d+/g, '#')))
+      .join('/');
     const scope = scopeOf(url);
     const keys = [...u.searchParams.keys()]
       .sort()
