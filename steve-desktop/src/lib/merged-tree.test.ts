@@ -198,6 +198,32 @@ describe('mergedToProfile — unify into a persistable SiteProfile with candidat
   });
 });
 
+describe('anchors that cannot navigate are actions, not links', () => {
+  const anchor = (id: number, href: string | undefined, text: string): MergedNode =>
+    ({ frameId: 'f', backendNodeId: id, tag: 'a', attrs: href === undefined ? {} : { href }, text, role: 'link', name: text });
+
+  it('records href="#" and javascript: anchors as clickable buttons', () => {
+    // scrapethissite /pages/ajax-javascript/ shows six year tabs as <a href="#"> with a click
+    // handler. They mapped as links to nowhere, so the page captured 0 buttons — an empty shell
+    // that told the agent there was nothing to do.
+    const profile = mergedToProfile([
+      anchor(1, '#', '2015'),
+      anchor(2, 'javascript:void(0)', 'Filter'),
+      anchor(3, undefined, 'Tab'),
+      anchor(4, '/real/page', 'Real link'),
+    ], 'https://x.com/');
+    expect(profile.interactive.buttons.map((b) => b.text).sort()).toEqual(['2015', 'Filter', 'Tab']);
+    expect(profile.interactive.links.map((l) => l.href)).toEqual(['/real/page']);
+    expect(profile.summary.buttons).toBe(3);
+  });
+
+  it('leaves in-page fragments as links — a table of contents is navigation', () => {
+    const profile = mergedToProfile([anchor(1, '#section-2', 'Section 2')], 'https://x.com/');
+    expect(profile.interactive.links.map((l) => l.href)).toEqual(['#section-2']);
+    expect(profile.interactive.buttons).toHaveLength(0);
+  });
+});
+
 describe('summarizeMerged — coverage stats for the mapper UI', () => {
   it('counts frames, role coverage, and interactive role-name anchors', () => {
     const merged: MergedNode[] = [

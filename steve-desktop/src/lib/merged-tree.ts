@@ -222,6 +222,18 @@ export function summarizeMerged(merged: MergedNode[]): CaptureStats {
  * the unification: one merged DOM+AX tree feeds both redaction (mergedToSnapshot) and the
  * stored profile/skill.
  */
+/**
+ * Can following this href actually take you to another page?
+ *
+ * Missing, empty, bare "#" and javascript: hrefs cannot. A bare "#fragment" CAN (it moves you
+ * within the page), so it stays a link — see the note at the call site.
+ */
+export function isNavigableHref(href: string | undefined): boolean {
+  const h = (href ?? '').trim();
+  if (!h || h === '#') return false;
+  return !/^javascript:/i.test(h);
+}
+
 export function mergedToProfile(merged: MergedNode[], url: string): SiteProfile {
   const buttons: ButtonElement[] = [];
   const links: LinkElement[] = [];
@@ -240,7 +252,19 @@ export function mergedToProfile(merged: MergedNode[], url: string): SiteProfile 
     if (node.tag === 'button' || role === 'button') {
       buttons.push({ text: label, selector, candidates, disabled: node.attrs['disabled'] === 'true' });
     } else if (node.tag === 'a' || role === 'link') {
-      links.push({ text: label, selector, href: node.attrs['href'], candidates });
+      // An anchor that cannot navigate is an ACTION, not a link. Sites drive tabs and filters
+      // with <a href="#"> plus a click handler, and recording those as links made them useless
+      // twice over: the crawler skips them (they resolve to the current page) AND the agent
+      // never sees them as something to click. scrapethissite's /pages/ajax-javascript/ mapped
+      // as an empty shell — 0 buttons — while showing six clickable year tabs on screen.
+      //
+      // In-page fragments (#section) stay links on purpose: a table of contents is navigation,
+      // and reclassifying every one of them would be a much wider change than this fixes.
+      if (isNavigableHref(node.attrs['href'])) {
+        links.push({ text: label, selector, href: node.attrs['href'], candidates });
+      } else {
+        buttons.push({ text: label, selector, candidates, disabled: node.attrs['disabled'] === 'true' });
+      }
     } else if (['input', 'textarea', 'select'].includes(node.tag) || INTERACTIVE_INPUT_ROLES.has(role)) {
       inputs.push({
         label,
