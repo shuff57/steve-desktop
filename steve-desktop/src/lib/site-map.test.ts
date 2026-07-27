@@ -273,12 +273,21 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
     expect(isCrawlableLink('/Pages/View.aspx', base)).toBe(true);
     expect(isCrawlableLink('/courses/12/modules', base)).toBe(true);
   });
-  it('blocks /assignments as collateral of the "assign" verb guard — known trade-off', () => {
-    // Not an endorsement: on Canvas this is a core listing page, so the guard costs real
-    // coverage. It stays because MUTATING_VERB is deliberately substring-matched against a
-    // LIVE gradebook, where under-blocking can mutate student data and over-blocking cannot.
-    // Pinned so that loosening it is a deliberate decision with a failing test, not a drift.
-    expect(isCrawlableLink('/courses/12/assignments', base)).toBe(false);
+  it('allows the assignment NOUN — Canvas addresses its core listing that way', () => {
+    // A real Canvas map had 14 /assignments links, every one refused by the "assign" substring.
+    expect(isCrawlableLink('/courses/12/assignments', base)).toBe(true);
+    expect(isCrawlableLink('/courses/12/assignments/syllabus', base)).toBe(true);
+    expect(isCrawlableLink('/courses/12/assignments/5', base)).toBe(true);
+  });
+  it('still blocks the assign VERB, which is what mutates', () => {
+    expect(isCrawlableLink('/course/assign?uid=3', base)).toBe(false);
+    expect(isCrawlableLink('/assign_grade.php?sid=9', base)).toBe(false);
+    expect(isCrawlableLink('/admin/assignrole.php', base)).toBe(false);
+    expect(isCrawlableLink('/course/x.php?do=assign', base)).toBe(false);
+    // The noun paired with a real verb is still caught by that verb, not by "assign".
+    expect(isCrawlableLink('/assignmentdelete.php?id=4', base)).toBe(false);
+    expect(isCrawlableLink('/assignments/5/remove', base)).toBe(false);
+    expect(isCrawlableLink('/assignments/5?action=submit', base)).toBe(false);
   });
   it('does not mistake a version-ish segment for a file extension', () => {
     expect(isCrawlableLink('/api/v2.0/overview', base)).toBe(true);

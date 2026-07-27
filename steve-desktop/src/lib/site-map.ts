@@ -36,10 +36,18 @@ export const DENY_LINK =
  *
  * This is a read-only mapper against someone's live gradebook, so the asymmetry is stark:
  * over-blocking costs a few unmapped pages, under-blocking can mutate real student data.
- * Deny aggressively. 'address' is the one carve-out, since it is a common benign noun.
+ * Deny aggressively. The carve-outs are benign NOUNS that merely contain a verb:
+ *
+ *  - 'address' (contains "add")
+ *  - 'assignment' (contains "assign") — Canvas addresses its core listing as
+ *    /courses/N/assignments, and blocking it cost the whole assignment surface: one real
+ *    Canvas map had 14 such links, every one refused. The verb form that actually mutates
+ *    (/assign, assign_grade.php, ?do=assign, assignrole) still matches, and anything that
+ *    pairs the noun with a real verb is still caught by that verb — assignmentdelete.php by
+ *    'delete', ?action=… by ACTION_PARAM.
  */
 export const MUTATING_VERB =
-  /(delete|destroy|remove|discard|submit|drop|unenroll|enroll|transfer|archive|restore|merge|import|reset|revoke|grant|promote|demote|assign|copy|duplicate|unhide|hide|reorder|modcourse|chg|change|add(?!ress))/i;
+  /(delete|destroy|remove|discard|submit|drop|unenroll|enroll|transfer|archive|restore|merge|import|reset|revoke|grant|promote|demote|assign(?!ment)|copy|duplicate|unhide|hide|reorder|modcourse|chg|change|add(?!ress))/i;
 
 /** The admin surface is never needed to map a course for automation — and is all mutation. */
 export const ADMIN_PATH = /\/admin\//i;
