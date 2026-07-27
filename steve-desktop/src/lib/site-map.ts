@@ -407,6 +407,28 @@ export function isFamilySaturated(mapped: number, distinctShapes: number, distin
   return mapped >= FAMILY_EVIDENCE && distinctShapes === 1;
 }
 
+/**
+ * Is the loaded site map for a DIFFERENT site than the page currently on screen?
+ *
+ * The panel loads a map once, on mount, so navigating afterwards leaves the previous site's map
+ * in memory. Any destructive action then aims at the wrong site: "Clear all" deleted three
+ * whole profile directories during testing — quotes twice, scrapethissite once — because it
+ * fired just after a navigation and `siteMap.domain` still named the site left behind.
+ *
+ * Unknown/unparseable current URL returns false: refusing to clear when we cannot tell where we
+ * are would strand the user with a map they cannot delete.
+ */
+export function mapIsStale(mapDomain: string | null | undefined, currentUrl: string): boolean {
+  if (!mapDomain) return false;
+  try {
+    // about:blank parses but has no hostname — that is "don't know", not "different site".
+    const host = new URL(currentUrl).hostname;
+    return host ? host !== mapDomain : false;
+  } catch {
+    return false;
+  }
+}
+
 /** Fold a page into the map, replacing any existing entry for the same URL. */
 export function upsertPage(map: SiteMap, node: SitePageNode): SiteMap {
   const pages = map.pages.filter((p) => p.url !== node.url);

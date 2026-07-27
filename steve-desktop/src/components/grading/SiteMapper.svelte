@@ -14,7 +14,7 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -1005,6 +1005,10 @@
   // Clear one mapped page: delete its profile JSON and drop it from the site map.
   async function clearPage(p: SitePageNode) {
     if (!siteMap) return;
+    if (mapIsStale(siteMap.domain, pageUrl)) {
+      siteMsg = `Not cleared: the loaded map is for ${siteMap.domain}, but you're on ${domainFromUrl(pageUrl)}.`;
+      return;
+    }
     try {
       await deleteProfile(siteMap.domain, p.pageName);
     } catch {
@@ -1026,6 +1030,13 @@
   async function clearAll() {
     if (!siteMap) return;
     const domain = siteMap.domain;
+    // The map is loaded once, on mount, so after navigating it can still be the PREVIOUS site's.
+    // Clearing then deletes that site's whole profile directory with no warning — it happened
+    // three times during testing. Refuse and say which site the loaded map belongs to.
+    if (mapIsStale(domain, pageUrl)) {
+      siteMsg = `Not cleared: the loaded map is for ${domain}, but you're on ${domainFromUrl(pageUrl)}. Reopen this panel to load the current site's map.`;
+      return;
+    }
     for (const p of siteMap.pages) {
       try { await deleteProfile(domain, p.pageName); } catch { /* ignore */ }
     }

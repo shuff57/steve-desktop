@@ -1,5 +1,22 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+
+describe('mapIsStale — a destructive action must not aim at the site you just left', () => {
+  it('flags a map belonging to a different site than the page on screen', () => {
+    // Real data loss: "Clear all" deleted three whole profile directories this way, because the
+    // panel loads its map once on mount and the click landed just after a navigation.
+    expect(mapIsStale('quotes.toscrape.com', 'https://books.toscrape.com/catalogue/')).toBe(true);
+  });
+  it('allows the ordinary case', () => {
+    expect(mapIsStale('quotes.toscrape.com', 'https://quotes.toscrape.com/js/')).toBe(false);
+  });
+  it('does not strand the user when the current URL is unknown', () => {
+    // Refusing here would leave a map that can never be deleted.
+    expect(mapIsStale('quotes.toscrape.com', 'about:blank')).toBe(false);
+    expect(mapIsStale('quotes.toscrape.com', '')).toBe(false);
+    expect(mapIsStale(null, 'https://x.com/')).toBe(false);
+  });
+});
 
 describe('siblingFamily — group slug-named siblings that no id collapses', () => {
   it('groups slug siblings under their parent directory', () => {
