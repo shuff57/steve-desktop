@@ -293,6 +293,19 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
     expect(isCrawlableLink('/api/v2.0/overview', base)).toBe(true);
     expect(isCrawlableLink('/course/1.5', base)).toBe(true);
   });
+  it('rejects unrendered client-side template placeholders', () => {
+    // Canvas ships Handlebars templates in the live DOM, so these reach the frontier as real
+    // hrefs. Every one costs a page visit and can only 404 or redirect — four showed up in a
+    // single sandbox course. Braces arrive percent-encoded about as often as raw.
+    expect(isCrawlableLink('/courses/34903/modules/items/{{ id }}', base)).toBe(false);
+    expect(isCrawlableLink('/courses/34903/modules/items/%7B%7B%20id%20%7D%7D', base)).toBe(false);
+    expect(isCrawlableLink('/courses/34903/assignments/{{ assignment_id }}/submissions/137493', base)).toBe(false);
+    expect(isCrawlableLink('/courses/34903/external_tools/3144?files%5B%5D=%7B%7B+content_id+%7D%7D', base)).toBe(false);
+    expect(isCrawlableLink('/page/${id}', base)).toBe(false);
+  });
+  it('does not reject an ordinary URL that merely contains a brace', () => {
+    expect(isCrawlableLink('/search?q=%7Bstats%7D', base)).toBe(true);
+  });
   it('rejects logout / sign-out / destructive links', () => {
     expect(isCrawlableLink('/logout.php', base)).toBe(false);
     expect(isCrawlableLink('/account/sign-out', base)).toBe(false);

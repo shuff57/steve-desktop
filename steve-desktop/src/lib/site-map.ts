@@ -71,6 +71,16 @@ export const ACTION_PARAM = /[?&](action|act|do|op|cmd|task|mode|delete|remove)=
  */
 const PAGE_EXT = /^(html?|php\d?|aspx?|jspx?|s?html|xhtml|cfm|do|action|cgi|pl|py|rb|erb)$/i;
 
+/**
+ * A client-side template placeholder that was never filled in.
+ *
+ * Canvas ships unrendered Handlebars templates in the live DOM, so capture picks up hrefs like
+ * /courses/34903/modules/items/{{ id }} and ?files[]={{ content_id }}. They are not URLs — every
+ * one costs a page visit and can only 404 or redirect. Matched before and after URL parsing
+ * because the braces arrive percent-encoded (%7B%7B) about as often as raw.
+ */
+const UNRENDERED_TEMPLATE = /\{\{|%7B%7B|\$\{|<%=/i;
+
 /** The file extension of a URL's last path segment, or null when it has none. */
 function pathExtension(pathname: string): string | null {
   const last = pathname.split('/').pop() ?? '';
@@ -300,6 +310,7 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   if (u.host !== base.host) return false; // same-origin only
   const ext = pathExtension(u.pathname);
   if (ext && !PAGE_EXT.test(ext)) return false; // a file download, not a page
+  if (UNRENDERED_TEMPLATE.test(href) || UNRENDERED_TEMPLATE.test(u.href)) return false;
   const target = u.pathname + u.search;
   if (DENY_LINK.test(target)) return false; // session / role-switch
   if (ADMIN_PATH.test(u.pathname)) return false; // admin surface
