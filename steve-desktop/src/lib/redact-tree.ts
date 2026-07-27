@@ -164,6 +164,20 @@ const STUDENT_TOKEN = '⟦STU⟧';
 const STRUCTURAL_ID = /^[\d][\d.\-_]*$/;
 
 /**
+ * A structural KEYWORD value: an enum, slug or filter token that routes the page.
+ *
+ * Numeric ids alone weren't enough. On scrapethissite.com the crawl stored
+ * /pages/frames/?frame=i&family=⟦D5⟧ — the value "Cheloniidae" also appeared in the page's
+ * table, so the content-token dictionary substituted it inside the URL and made the page
+ * unloadable. Sibling params ?gotcha=headers and ?frame=i survived only because their values
+ * happened not to appear in the page text, which is not a property worth relying on.
+ *
+ * Deliberately narrow: one bare token, no whitespace, no @, no comma. A student name
+ * ("John Smith"), an email, or any free-text search value fails this and is still tokenized.
+ */
+const KEYWORD_VALUE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/;
+
+/**
  * Redact every DATA string in an object graph, walking it structurally.
  *
  * Replaces the old `JSON.parse(redact(JSON.stringify(profile)))`, which string-replaced over
@@ -261,6 +275,9 @@ function redactQuery(rawQuery: string, redact: (t: string) => string): string {
         if (STUDENT_PARAM.test(key)) return decoded && Number(decoded) !== 0 ? `${key}=${STUDENT_TOKEN}` : pair;
         // Course / category / assignment / folder ids are structure — keep them navigable.
         if (STRUCTURAL_ID.test(decoded)) return pair;
+        // So are keyword values (?frame=i, ?gotcha=headers, ?family=Cheloniidae). The key is not
+        // student-ish or STUDENT_PARAM would have caught it above.
+        if (KEYWORD_VALUE.test(decoded)) return pair;
 
         const red = redact(value);
         return red === value ? pair : `${key}=${red}`;

@@ -279,6 +279,28 @@ describe('redactUrlForStorage', () => {
   it('falls back to a fully redacted string when the url will not parse', () => {
     expect(redactUrlForStorage('not a url with Jane Doe', redact).url).not.toContain('Jane');
   });
+
+  it('keeps keyword query values the content dictionary would otherwise eat', () => {
+    // Live defect: a crawl stored /pages/frames/?frame=i&family=⟦D5⟧ because "Cheloniidae"
+    // also appeared in the page's table, so the token dictionary rewrote it inside the URL and
+    // the page could no longer be loaded. Sibling params survived only by luck of not appearing
+    // in the page text.
+    const eats = (t: string) => t.replace(/Cheloniidae/g, '⟦D5⟧');
+    const r = redactUrlForStorage('https://www.scrapethissite.com/pages/frames/?frame=i&family=Cheloniidae', eats);
+    expect(r.url).toBe('https://www.scrapethissite.com/pages/frames/?frame=i&family=Cheloniidae');
+  });
+
+  it('still tokenizes free-text and email query values — keyword rule is not a bypass', () => {
+    const r = redactUrlForStorage('https://x.edu/s.php?q=Jane Doe', redact);
+    expect(r.url).not.toContain('Jane');
+    const mail = (t: string) => t.replace(/jane@x\.edu/g, '⟦D9⟧');
+    expect(redactUrlForStorage('https://x.edu/s.php?email=jane@x.edu', mail).url).not.toContain('jane@');
+  });
+
+  it('still tokenizes a student id however structural its value looks', () => {
+    const r = redactUrlForStorage('https://x.edu/gradebook.php?cid=316341&stu=8842', (t) => t);
+    expect(r.url).toBe('https://x.edu/gradebook.php?cid=316341&stu=⟦STU⟧'); // course legible, student not
+  });
 });
 
 describe('redactUrlForStorage — page names must not collide across paths', () => {
