@@ -14,7 +14,7 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -338,6 +338,22 @@
         isTemplateSaturated(tplMapped.get(t) ?? 0, tplSigs.get(t)?.size ?? 0) ||
         (tiebreak.get(t) === true && (tplMapped.get(t) ?? 0) >= SAMPLES_PER_TEMPLATE);
 
+      // Sibling collapsing: the same idea one level up, for families whose URLs are slugs with
+      // no id to collapse (/author/albert-einstein/). Tracked per parent directory.
+      const famSigs = new Map<string, Set<string>>();
+      const famTpls = new Map<string, Set<string>>();
+      const famMapped = new Map<string, number>();
+      const famSaturated = (fam: string) =>
+        isFamilySaturated(famMapped.get(fam) ?? 0, famSigs.get(fam)?.size ?? 0, famTpls.get(fam)?.size ?? 0);
+
+      /** Whichever rule says this URL is already known — returns the label to report it under. */
+      const saturatedAs = (url: string): string | null => {
+        const t = urlTemplate(url);
+        if (isSaturated(t)) return t;
+        const fam = siblingFamily(url);
+        return fam && famSaturated(fam) ? fam : null;
+      };
+
       /** Note a page we chose not to visit, so a collapsed family is always visible in the UI. */
       const noteCollapsed = (tpl: string) => {
         const hit = collapsed.find((c) => c.template === tpl);
@@ -357,9 +373,9 @@
         // tplMapped is still 0. The enqueue-time check cannot bound that; by the time the
         // count is meaningful the queue is already full. Checking again on dequeue, when the
         // counts are current, is what actually caps the family.
-        const queuedTpl = urlTemplate(target);
-        if (isSaturated(queuedTpl)) {
-          noteCollapsed(queuedTpl);
+        const known = saturatedAs(target);
+        if (known) {
+          noteCollapsed(known);
           continue;
         }
 
@@ -403,10 +419,18 @@
         // Record this page's shape against its URL family, so a repeating template is
         // recognised after SAMPLES_PER_TEMPLATE consistent samples.
         const landedTpl = urlTemplate(landed);
+        const landedSig = structuralSignature(profile);
         tplMapped.set(landedTpl, (tplMapped.get(landedTpl) ?? 0) + 1);
         const sigs = tplSigs.get(landedTpl) ?? new Set<string>();
-        sigs.add(structuralSignature(profile));
+        sigs.add(landedSig);
         tplSigs.set(landedTpl, sigs);
+
+        const landedFam = siblingFamily(landed);
+        if (landedFam) {
+          famMapped.set(landedFam, (famMapped.get(landedFam) ?? 0) + 1);
+          famSigs.set(landedFam, (famSigs.get(landedFam) ?? new Set()).add(landedSig));
+          famTpls.set(landedFam, (famTpls.get(landedFam) ?? new Set()).add(landedTpl));
+        }
 
         if (ai) {
           Object.assign(allSecrets, secrets);
@@ -457,10 +481,10 @@
           }
 
           // Already know this family's shape? Don't spend a page visit re-learning it.
-          const tpl = urlTemplate(abs);
-          if (isSaturated(tpl)) {
+          const knownShape = saturatedAs(abs);
+          if (knownShape) {
             queued.add(abs); // mark handled so we don't re-evaluate it from another page
-            noteCollapsed(tpl);
+            noteCollapsed(knownShape);
             continue;
           }
 

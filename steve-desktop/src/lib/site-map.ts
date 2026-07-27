@@ -51,6 +51,27 @@ export const ADMIN_PATH = /\/admin\//i;
 export const ACTION_PARAM = /[?&](action|act|do|op|cmd|task|mode|delete|remove)=/i;
 
 /**
+ * Page-serving extensions. Anything else with an extension is a FILE, not a page.
+ *
+ * Navigating the embedded browser to a .zip/.pdf/.png does not render a page — it downloads
+ * the file to the user's real Downloads folder. One the-internet.herokuapp.com run dumped 33
+ * files there (and the "(3)" suffixes showed earlier runs had done it too) while spending a
+ * page visit on each. Extensionless paths are pages (Canvas, most modern routing).
+ *
+ * Allow-list, not a deny-list of binary types: a new media format must not silently become
+ * crawlable, and the cost of over-blocking is one unmapped page against writing junk to disk.
+ */
+const PAGE_EXT = /^(html?|php\d?|aspx?|jspx?|s?html|xhtml|cfm|do|action|cgi|pl|py|rb|erb)$/i;
+
+/** The file extension of a URL's last path segment, or null when it has none. */
+function pathExtension(pathname: string): string | null {
+  const last = pathname.split('/').pop() ?? '';
+  // Require a leading letter so version-ish segments (/v2.0, /course/1.5) aren't read as files.
+  const m = last.match(/\.([a-z][a-z0-9]{0,4})$/i);
+  return m ? m[1] : null;
+}
+
+/**
  * Strip the data out of a string so two pages of the same template compare equal:
  * redaction tokens (⟦D1⟧) and digit runs both become placeholders.
  */
@@ -269,6 +290,8 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   }
   if (u.protocol !== 'http:' && u.protocol !== 'https:') return false;
   if (u.host !== base.host) return false; // same-origin only
+  const ext = pathExtension(u.pathname);
+  if (ext && !PAGE_EXT.test(ext)) return false; // a file download, not a page
   const target = u.pathname + u.search;
   if (DENY_LINK.test(target)) return false; // session / role-switch
   if (ADMIN_PATH.test(u.pathname)) return false; // admin surface
@@ -343,6 +366,45 @@ export const MAX_SAMPLES_PER_TEMPLATE = 3;
 export function isTemplateSaturated(mapped: number, distinctShapes: number): boolean {
   if (mapped >= MAX_SAMPLES_PER_TEMPLATE) return true;
   return mapped >= SAMPLES_PER_TEMPLATE && distinctShapes === 1;
+}
+
+/**
+ * The sibling family a URL belongs to — everything sharing one parent directory.
+ *
+ * Slug-named siblings (/author/albert-einstein/, /author/bob-marley/) carry no id for
+ * urlTemplate to collapse, so each reads as its own template: a live crawl spent 46 page
+ * visits on one author index learning a single shape.
+ *
+ * Top-level pages return null. /about/ and /contact/ share a parent but are not a family,
+ * and the-internet.herokuapp.com is 43 genuinely different demo pages hanging off the root.
+ * Only a real subdirectory counts as evidence of a collection.
+ */
+export function siblingFamily(url: string): string | null {
+  try {
+    const u = new URL(url);
+    const segs = new URL(urlTemplate(url)).pathname.split('/').filter(Boolean);
+    if (segs.length < 2) return null;
+    segs.pop();
+    return `${u.origin}/${segs.join('/')}/*`;
+  } catch {
+    return null;
+  }
+}
+
+/** Distinct URL templates under one parent before it counts as a collection, not a coincidence. */
+export const FAMILY_EVIDENCE = 3;
+
+/**
+ * Has a sibling family been sampled enough to stop enqueueing more of it?
+ *
+ * Stricter than the per-template rule on purpose: it needs FAMILY_EVIDENCE *different*
+ * templates that all came back the same shape. Two sibling pages are not a collection, and a
+ * family whose URLs already collapse to one template can never trip this — which is what keeps
+ * it inert on the sites where per-template saturation is already doing the work.
+ */
+export function isFamilySaturated(mapped: number, distinctShapes: number, distinctTemplates: number): boolean {
+  if (distinctTemplates < FAMILY_EVIDENCE) return false;
+  return mapped >= FAMILY_EVIDENCE && distinctShapes === 1;
 }
 
 /** Fold a page into the map, replacing any existing entry for the same URL. */

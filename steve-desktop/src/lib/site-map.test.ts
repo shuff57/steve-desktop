@@ -1,5 +1,44 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE } from './site-map';
+import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+
+describe('siblingFamily — group slug-named siblings that no id collapses', () => {
+  it('groups slug siblings under their parent directory', () => {
+    // The real cost: 46 /author/<name>/ pages, all one shape, none collapsible by urlTemplate.
+    expect(siblingFamily('https://quotes.toscrape.com/author/albert-einstein/'))
+      .toBe(siblingFamily('https://quotes.toscrape.com/author/bob-marley/'));
+    expect(siblingFamily('https://quotes.toscrape.com/author/albert-einstein/'))
+      .toBe('https://quotes.toscrape.com/author/*');
+  });
+  it('leaves top-level pages alone — /about/ and /contact/ are not a family', () => {
+    // the-internet.herokuapp.com is 43 genuinely different demo pages hanging off the root.
+    expect(siblingFamily('https://the-internet.herokuapp.com/login')).toBeNull();
+    expect(siblingFamily('https://the-internet.herokuapp.com/dynamic_loading')).toBeNull();
+  });
+  it('ignores query-addressed sites, which have no directory to group by', () => {
+    expect(siblingFamily('https://www.myopenmath.com/course.php?cid=301265')).toBeNull();
+  });
+  it('separates different parents', () => {
+    expect(siblingFamily('https://quotes.toscrape.com/tag/love/'))
+      .not.toBe(siblingFamily('https://quotes.toscrape.com/author/bob-marley/'));
+  });
+});
+
+describe('isFamilySaturated — stricter than per-template, on purpose', () => {
+  it('collapses a parent whose children are several templates of one shape', () => {
+    expect(isFamilySaturated(FAMILY_EVIDENCE, 1, FAMILY_EVIDENCE)).toBe(true);
+  });
+  it('will not collapse two siblings — that is a coincidence, not a collection', () => {
+    expect(isFamilySaturated(FAMILY_EVIDENCE, 1, FAMILY_EVIDENCE - 1)).toBe(false);
+  });
+  it('will not collapse while the children still differ in shape', () => {
+    expect(isFamilySaturated(FAMILY_EVIDENCE, 2, FAMILY_EVIDENCE)).toBe(false);
+  });
+  it('stays inert where urlTemplate already collapsed the family', () => {
+    // /courses/#/assignments/# is ONE template however many pages it has, so the distinct-
+    // template evidence never accrues and this rule can never double-collapse it.
+    expect(isFamilySaturated(99, 1, 1)).toBe(false);
+  });
+});
 
 describe('isTemplateSaturated — stop re-crawling one page per row of data', () => {
   it('collapses a family once its shape repeats', () => {
@@ -201,6 +240,32 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
   it('allows same-origin http(s) navigation links', () => {
     expect(isCrawlableLink('/course/lesson?id=2', base)).toBe(true);
     expect(isCrawlableLink('https://app.example.com/grades', base)).toBe(true);
+  });
+  it('rejects file downloads — navigating one writes to the user\'s disk, not the screen', () => {
+    // A the-internet.herokuapp.com run dumped 33 files into the real Downloads folder this way,
+    // spending a page visit on each. The map gains nothing; the user gains junk.
+    expect(isCrawlableLink('/download/sample-zip-file.zip', base)).toBe(false);
+    expect(isCrawlableLink('/download/pdf-1mb.pdf', base)).toBe(false);
+    expect(isCrawlableLink('/download/background.jpg', base)).toBe(false);
+    expect(isCrawlableLink('/download/testUpload.json', base)).toBe(false);
+    expect(isCrawlableLink('/download/menu.xls', base)).toBe(false);
+  });
+  it('still allows real page extensions and extensionless routes', () => {
+    expect(isCrawlableLink('/course/gradebook.php?cid=1', base)).toBe(true);
+    expect(isCrawlableLink('/catalogue/page-2.html', base)).toBe(true);
+    expect(isCrawlableLink('/Pages/View.aspx', base)).toBe(true);
+    expect(isCrawlableLink('/courses/12/modules', base)).toBe(true);
+  });
+  it('blocks /assignments as collateral of the "assign" verb guard — known trade-off', () => {
+    // Not an endorsement: on Canvas this is a core listing page, so the guard costs real
+    // coverage. It stays because MUTATING_VERB is deliberately substring-matched against a
+    // LIVE gradebook, where under-blocking can mutate student data and over-blocking cannot.
+    // Pinned so that loosening it is a deliberate decision with a failing test, not a drift.
+    expect(isCrawlableLink('/courses/12/assignments', base)).toBe(false);
+  });
+  it('does not mistake a version-ish segment for a file extension', () => {
+    expect(isCrawlableLink('/api/v2.0/overview', base)).toBe(true);
+    expect(isCrawlableLink('/course/1.5', base)).toBe(true);
   });
   it('rejects logout / sign-out / destructive links', () => {
     expect(isCrawlableLink('/logout.php', base)).toBe(false);
