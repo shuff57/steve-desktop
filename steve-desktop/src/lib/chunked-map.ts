@@ -10,6 +10,7 @@
 // one, it just makes more calls.
 
 import { DENY_LINK, ADMIN_PATH, ACTION_PARAM, MUTATING_VERB, urlTemplate } from './site-map';
+import { callModelTree, type ModelTransport } from './model-gate';
 
 /** Pages per capture chunk. 25 keeps a fragment prompt small even at Canvas's page weight. */
 export const CHUNK_SIZE = 25;
@@ -192,4 +193,49 @@ export function buildManifest(domain: string, chunks: MapChunk[], size: number =
 /** Chunks still to do, so a resumed run skips what already landed. */
 export function pendingChunks(m: ChunkManifest): number[] {
   return m.chunks.filter((c) => c.status !== 'done').map((c) => c.index);
+}
+
+/**
+ * One chunk → one markdown section. Goes through the same gated transport as the rest of the
+ * model path, so the leak check applies here too. Failure returns null and the caller keeps the
+ * other fragments — a bad chunk costs its own section, not the whole document.
+ */
+export async function fetchFragment(
+  o: { domain: string; section: string; index: number; total: number; lines: string },
+  secrets: Record<string, string>,
+  transport: ModelTransport,
+): Promise<string | null> {
+  try {
+    const reply = await callModelTree(
+      { redactedText: buildFragmentPrompt(o), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+      transport,
+    );
+    const text = reply.trim();
+    return text || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Fragments → the finished doc. Null falls back to concatenating the fragments verbatim. */
+export async function fetchMergedDoc(
+  o: { domain: string; fragments: string[] },
+  secrets: Record<string, string>,
+  transport: ModelTransport,
+): Promise<string | null> {
+  try {
+    const reply = await callModelTree(
+      { redactedText: buildMergePrompt(o), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+      transport,
+    );
+    const text = reply.trim();
+    return text || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Deterministic fallback document, used when the merge call fails. Never loses a fragment. */
+export function concatFragments(domain: string, fragments: string[]): string {
+  return [`# Site map: ${domain}`, '', ...fragments].join('\n');
 }

@@ -14,9 +14,13 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
+  import {
+    buildSurveyPrompt, parseSurveyOutput, planChunks, fetchFragment, fetchMergedDoc, concatFragments,
+    CHUNK_SIZE, type MapChunk,
+  } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
   import { tabMarker } from '../../lib/tab-control';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
@@ -103,6 +107,16 @@
   let aiVerifyReport = $state<string | null>(null);
   /** Page list from the last agent crawl, reused by the agent-verify pass. */
   let aiPages = $state<{ name: string; url: string }[]>([]);
+
+  // ── Chunked mapping (survey → plan → capture per chunk → merge) ─────────────
+  // The model never sees a page snapshot here: it sees a link list once (survey) and one compact
+  // line per page (fragment). Peak context follows CHUNK_SIZE, not site size.
+  let surveying = $state(false);
+  let chunking = $state(false);
+  /** Sections the survey found, with the member URLs enumerated deterministically from each index. */
+  let chunkSections = $state<{ name: string; pages: { name: string; url: string }[]; include: boolean }[]>([]);
+  let chunkPlan = $state<MapChunk[]>([]);
+  let chunkStep = $state('');
 
   // Post-crawl verification: re-visit each mapped page and check the agent could actually act
   // on it. Read-only — resolves selectors and compares shape, never clicks. Clicking to prove
@@ -683,6 +697,179 @@
     }
   }
 
+  /**
+   * Pass 1 — survey. One spawned agent opens index pages only and reports SECTIONS; the app then
+   * enumerates each section's members deterministically by reading the links off its index page.
+   * The agent never enumerates, which is the step that cost 1.09M/1.00M context on Canvas.
+   */
+  async function surveyAndPlan() {
+    if (crawling || aiDriving || surveying || chunking) return;
+    if (!provider) { siteMsg = 'Pick an engine above first.'; return; }
+    surveying = true;
+    chunkSections = [];
+    chunkPlan = [];
+    aiProgress = [];
+    failures = [];
+    activeScope = scopeOf(pageUrl);
+    const tabId = getActiveTabId();
+    const sessionId = crypto.randomUUID();
+    let unlisten: (() => void) | undefined;
+    let progressBuf: ReturnType<typeof createThrottledBuffer<string>> | undefined;
+    try {
+      const port = await invoke<number | null>('get_cdp_port');
+      if (!port) throw new Error('CDP debug port unavailable. Restart the app.');
+      const engine = engineForProvider(provider);
+      const start = normalizeUrl(pageUrl);
+
+      progressBuf = createThrottledBuffer<string>((lines) => { aiProgress = [...aiProgress, ...lines].slice(-40); });
+      unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
+        if (ev.payload.sessionId !== sessionId) return;
+        const summary = summarizeCliLine(ev.payload.line);
+        if (summary) progressBuf!.push(summary);
+      });
+
+      chunkStep = 'Surveying the site structure…';
+      siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} for a structure survey (index pages only).`;
+      await showAgentConnected(getActiveTabId());
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt: buildSurveyPrompt({ cdpPort: port, startUrl: start, marker: tabId ? tabMarker(tabId) : undefined }),
+        sessionId,
+        resume: false,
+        model: cliModelArg(engine, model),
+        systemPrompt: null,
+        bypassPermissions: true,
+        timeoutSecs: 900,
+        stream: true,
+      }).finally(() => hideAgentConnected(getActiveTabId()));
+
+      const sections = parseSurveyOutput(extractCliText(engine, stdout));
+      if (!sections.length) throw new Error('survey returned no sections — use "Map this site" instead');
+
+      // Enumerate each section from its OWN index page, deterministically. Every href is re-gated
+      // by the same rules the crawler uses; the agent's URLs are never trusted.
+      const visited = new Set<string>();
+      const found: typeof chunkSections = [];
+      for (const [i, sec] of sections.entries()) {
+        const idx = normalizeUrl(sec.indexUrl);
+        if (!isCrawlableLink(idx, start) || !withinScope(idx, start)) continue;
+        chunkStep = `Reading section ${i + 1}/${sections.length}: ${sec.name}…`;
+        try {
+          const loaded = await armPageLoad();
+          await navigateEmbedded(activeTabIdOr(tabId), idx);
+          await loaded();
+          await settle();
+          const { profile } = await mapHere(idx, visited);
+          const pages = profileLinks(profile)
+            .map((l) => ({ name: l.label || l.href, url: normalizeUrl(l.href) }))
+            .filter((p) => isCrawlableLink(p.url, start) && withinScope(p.url, start));
+          const seen = new Set<string>();
+          found.push({
+            name: sec.name,
+            include: true,
+            pages: [{ name: sec.name, url: idx }, ...pages].filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))),
+          });
+        } catch (e) {
+          failures.push({ url: idx, error: e instanceof Error ? e.message : String(e) });
+        }
+      }
+      await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
+      chunkSections = found;
+      const total = found.reduce((n, s) => n + s.pages.length, 0);
+      chunkStep = '';
+      siteMsg = found.length
+        ? `Survey found ${found.length} section(s), ${total} page(s). Pick what to map, then run the capture.`
+        : 'Survey found no reachable sections.';
+    } catch (e) {
+      siteMsg = `Survey failed: ${e instanceof Error ? e.message : String(e)}`;
+      chunkStep = '';
+    } finally {
+      progressBuf?.flush();
+      unlisten?.();
+      surveying = false;
+    }
+  }
+
+  /**
+   * Passes 2-4 — capture each chunk with the deterministic crawler (no model), turn each chunk
+   * into one markdown section from compact per-page lines, then merge the fragments into the doc.
+   * A failed fragment costs its own section; a failed merge falls back to concatenation.
+   */
+  async function runChunkedMap() {
+    if (crawling || aiDriving || surveying || chunking) return;
+    const chosen = chunkSections.filter((s) => s.include && s.pages.length);
+    if (!chosen.length) { siteMsg = 'Nothing selected to map.'; return; }
+    chunking = true;
+    failures = [];
+    const tabId = getActiveTabId();
+    const start = normalizeUrl(pageUrl);
+    const allSecrets: Record<string, string> = {};
+    try {
+      chunkPlan = planChunks(chosen.map((s) => ({ name: s.name, pages: s.pages })), CHUNK_SIZE);
+      const ai: ModelTransport | null = provider ? sidecarTransport({ provider, model }) : null;
+      const fragments: string[] = [];
+      const visited = new Set<string>();
+
+      for (const chunk of chunkPlan) {
+        const captured: string[] = [];
+        for (const [i, p] of chunk.pages.entries()) {
+          chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — capturing ${i + 1}/${chunk.pages.length}: ${p.name}`;
+          if (visited.has(p.url) || !isCrawlableLink(p.url, start)) continue;
+          try {
+            const loaded = await armPageLoad();
+            await navigateEmbedded(activeTabIdOr(tabId), p.url);
+            await loaded();
+            await settle();
+            const { secrets } = await mapHere(p.url, visited);
+            Object.assign(allSecrets, secrets);
+            captured.push(p.url);
+          } catch (e) {
+            failures.push({ url: p.url, error: e instanceof Error ? e.message : String(e) });
+          }
+        }
+        if (!captured.length || !ai) continue;
+
+        // Compact lines ONLY — the same shape map-synthesis uses. No page content reaches the model.
+        const lines = captured
+          .map((u, i) => {
+            const node = siteMap?.pages.find((n) => n.url === u);
+            if (!node) return '';
+            let path = u;
+            try { const parsed = new URL(u); path = parsed.pathname + parsed.search; } catch { /* keep */ }
+            return `${i}: ${node.pageName} — ${path} — ${node.counts.buttons}btn/${node.counts.inputs}in/${node.links.length}lnk`;
+          })
+          .filter(Boolean)
+          .join('\n');
+        chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — writing its section…`;
+        const frag = await fetchFragment(
+          { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
+          allSecrets,
+          ai,
+        );
+        if (frag) fragments.push(frag);
+      }
+
+      await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
+      const domain = domainFromUrl(pageUrl);
+      if (fragments.length && domain) {
+        chunkStep = 'Merging sections into one document…';
+        const ai2: ModelTransport | null = provider ? sidecarTransport({ provider, model }) : null;
+        const merged = ai2 ? await fetchMergedDoc({ domain, fragments }, allSecrets, ai2) : null;
+        aiDoc = merged ?? concatFragments(domain, fragments);
+        aiDocPath = await saveMappingDoc(domain, aiDoc).catch(() => null);
+      }
+      chunkStep = '';
+      siteMsg = `Chunked map done: ${chunkPlan.length} chunk(s), ${siteMap?.pages.length ?? 0} page(s) captured`
+        + (fragments.length ? `, ${fragments.length} section(s) written.` : ', no sections written.')
+        + (failures.length ? ` ${failures.length} capture(s) failed.` : '');
+    } catch (e) {
+      siteMsg = `Chunked map failed: ${e instanceof Error ? e.message : String(e)}`;
+      chunkStep = '';
+    } finally {
+      chunking = false;
+    }
+  }
+
   /** getActiveTabId can momentarily return '' during capture; fall back to the id we started with. */
   function activeTabIdOr(fallback: string): string {
     return getActiveTabId() || fallback;
@@ -1075,6 +1262,17 @@
             {aiDriving ? '🤖 Agent driving…' : '🤖 AI-drive (targeted)'}
           </button>
         {/if}
+        {#if !crawling && !aiDriving && !aiVerifying}
+          <!-- Big-site path. One survey agent reads index pages only, the app enumerates each
+               section deterministically, then captures in chunks of {CHUNK_SIZE} and writes one
+               markdown section per chunk. The model never sees a page snapshot, so peak context
+               follows the chunk size rather than the site — the single-shot AI-drive ended a
+               Canvas run at 1.09M/1.00M because one page snapshot is ~270K chars. -->
+          <button class="map" disabled={surveying || chunking || !provider} onclick={surveyAndPlan}
+            title="For sites too big for one agent run. Pass 1 spawns the engine to survey STRUCTURE only (index pages, max 12) — it never enumerates members. The app then reads each section's links itself, you pick which sections to map, and capture runs deterministically in chunks of {CHUNK_SIZE} pages. Each chunk becomes one markdown section from compact per-page lines; the fragments are merged into the mapping doc. Needs an engine selected above.">
+            {surveying ? '🧭 Surveying…' : '🧭 Survey & chunk'}
+          </button>
+        {/if}
         {#if aiDoc && !aiDriving}
           <button class="map" disabled={aiVerifying || !provider} onclick={aiVerifyDoc}
             title="Spawns the agent again to re-read the pages it mapped and check its own document against the live site (read-only browsing). Produces a verification report, then heals: rewrites the mapping doc with its corrections (prior kept as .prev.md) and re-captures any pages whose URL it corrected.">
@@ -1092,6 +1290,27 @@
         {/if}
       </div>
     </div>
+
+    {#if chunkStep}<div class="msg">{chunkStep}</div>{/if}
+
+    <!-- Approval gate: the survey proposes, you dispose. Nothing is captured until you say so, so
+         a section you don't want (Files, People) is never even visited. -->
+    {#if chunkSections.length && !chunking}
+      <div class="chunk-plan">
+        <div class="hdr">Survey found {chunkSections.length} section(s) — pick what to map</div>
+        {#each chunkSections as sec (sec.name)}
+          <label class="chunk-row">
+            <input type="checkbox" bind:checked={sec.include} />
+            <span class="label">{sec.name}</span>
+            <span class="kind">{sec.pages.length} page(s) · {Math.ceil(sec.pages.length / CHUNK_SIZE)} chunk(s)</span>
+          </label>
+        {/each}
+        <button class="map" disabled={chunking} onclick={runChunkedMap}
+          title="Captures the selected pages with the deterministic crawler in chunks, writes one markdown section per chunk, then merges them into the mapping doc.">
+          🧩 Capture {chunkSections.filter((s) => s.include).reduce((n, s) => n + s.pages.length, 0)} page(s) in chunks
+        </button>
+      </div>
+    {/if}
     <!-- AI-guided BFS toggle hidden with the BFS button on this branch; state + crawl() kept. -->
     <p class="muted">Maps this site page by page, starting from where you are now, so each class near the top is mapped first.</p>
     <ul class="how">
@@ -1303,6 +1522,9 @@
   .map:hover:not(:disabled) { background: var(--color-primary-bg); }
   .map:disabled { opacity: 0.5; cursor: not-allowed; }
   .map.stop { border-color: var(--color-danger); color: var(--color-danger); }
+  .chunk-plan { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; padding: 10px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+  .chunk-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer; }
+  .chunk-row .label { flex: 1; color: var(--text-primary); }
   .map.stop:hover:not(:disabled) { background: var(--color-danger-bg); }
   .site { padding-top: var(--spacing-2); border-top: 1px solid var(--border-color); }
   .site-btns { display: flex; gap: var(--spacing-2); flex-shrink: 0; }
