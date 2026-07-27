@@ -66,10 +66,25 @@ export interface PageVerdict {
   unverified?: boolean;
 }
 
-/** Does this look like the server's own error page rather than the page we asked for? */
+/**
+ * Does this look like the server's own error page rather than the page we asked for?
+ *
+ * This verdict DELETES the page, so the evidence has to be language a server uses to announce
+ * a failure — not a number that happens to appear in the content. The old rule matched a bare
+ * \b(404|403|500)\b anywhere in the first 400 characters and deleted
+ * the-internet.herokuapp.com/status_codes, an HTTP 200 page whose entire subject is listing
+ * "200, 301, 404, 500". The same trap is live on a gradebook: "500 points" would have condemned
+ * the page.
+ *
+ * A status number now only counts when it is worn as one ("Error 404", "HTTP 500"), or when the
+ * title opens with it. Real error pages are still caught by their prose: the-internet's own 404
+ * body is <h1>Not Found</h1>.
+ */
 export function isErrorPage(title: string, bodyText: string): boolean {
   const t = `${title}\n${bodyText.slice(0, 400)}`;
-  return /\b(404|403|500)\b|\bnot found\b|\bpage (?:not|no longer) available\b|\baccess denied\b/i.test(t);
+  if (/\bnot found\b|\bpage (?:not|no longer) available\b|\baccess denied\b|\bforbidden\b|\binternal server error\b|\bservice unavailable\b|\bbad gateway\b/i.test(t)) return true;
+  if (/\b(?:error|http)\s*[:#-]?\s*(?:400|401|403|404|405|408|410|429|500|502|503|504)\b/i.test(t)) return true;
+  return /^\s*(?:error\s*[:#-]?\s*)?(?:400|401|403|404|405|408|410|429|500|502|503|504)\b/i.test(title);
 }
 
 /**

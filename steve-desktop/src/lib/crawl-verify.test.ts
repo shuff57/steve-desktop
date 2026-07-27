@@ -131,6 +131,22 @@ describe('gradePage — does every recorded control still resolve?', () => {
     expect(isErrorPage('MyOpenMath - Gradebook', 'Student scores for 3, 5 Intro to Stats')).toBe(false);
   });
 
+  it('still catches a bare server error page with no status number in it', () => {
+    // the-internet.herokuapp.com serves exactly this for a 404 — prose only.
+    expect(isErrorPage('The Internet', '<h1>Not Found</h1>')).toBe(true);
+    expect(isErrorPage('', 'Internal Server Error')).toBe(true);
+    expect(isErrorPage('500 - Service Unavailable', '')).toBe(true);
+    expect(isErrorPage('Error 403', 'You do not have permission')).toBe(true);
+  });
+
+  it('does not condemn a page for merely CONTAINING a status number', () => {
+    // Live false positive: /status_codes is HTTP 200 and its whole subject is listing codes.
+    // Auto-prune deleted it. This verdict deletes pages, so a bare number is not evidence.
+    expect(isErrorPage('The Internet', 'Status Codes This page has links to pages with the given status codes: 200, 301, 404, 500')).toBe(false);
+    // The same trap on a real gradebook, which is where it would actually cost something.
+    expect(isErrorPage('Assignments', 'Final Project — 500 points possible, 404 submissions')).toBe(false);
+  });
+
   it('does not heal onto an ambiguous candidate', () => {
     const p = profile({
       buttons: [{ text: 'Save', selector: '.gone', candidates: [{ type: 'class', value: '.row-btn', score: 3 }] }],
