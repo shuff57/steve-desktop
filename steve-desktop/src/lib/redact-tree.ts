@@ -251,8 +251,11 @@ export function redactProfileForStorage<T extends { domain: string; url?: string
  */
 function redactUrlString(raw: string, redact: (t: string) => string): string {
   const q = raw.indexOf('?');
-  if (q === -1) return raw; // no query → nothing but structure
-  return raw.slice(0, q) + redactQuery(raw.slice(q), redact);
+  // The path is NOT automatically "just structure" — Canvas addresses people positionally as
+  // /users/12345, and a query-only rule wrote 53 real student ids to disk.
+  const path = redactUserPath(q === -1 ? raw : raw.slice(0, q));
+  if (q === -1) return path;
+  return path + redactQuery(raw.slice(q), redact);
 }
 
 function redactQuery(rawQuery: string, redact: (t: string) => string): string {
@@ -306,6 +309,28 @@ function pathSlug(pathname: string): string {
   return `${full.slice(0, 72)}-${h.toString(36)}`;
 }
 
+/** Path segments whose NEXT segment names a person, not a piece of course structure. */
+const PERSON_PATH_SEGMENT = /^(users?|students?|learners?|people|profiles?|enrollments?)$/i;
+
+/**
+ * Tokenize a person's id when it lives in the PATH rather than the query.
+ *
+ * STUDENT_PARAM only ever covered `?uid=`/`?stu=`. Canvas addresses people positionally —
+ * /users/12345 — so a Student View crawl of one real course wrote 53 distinct student ids to
+ * disk across 9 pages. No names came with them (the links are avatars with empty text), but a
+ * Canvas user id identifies a student just as well as `stu=` does.
+ *
+ * Only a numeric segment directly after a person-ish segment is replaced, so /courses/31407 and
+ * /modules/items/1904067 stay legible — the id is course structure there, not a person.
+ */
+export function redactUserPath(pathname: string): string {
+  const segs = pathname.split('/');
+  for (let i = 1; i < segs.length; i++) {
+    if (PERSON_PATH_SEGMENT.test(segs[i - 1]) && /^\d+$/.test(segs[i])) segs[i] = STUDENT_TOKEN;
+  }
+  return segs.join('/');
+}
+
 export function redactUrlForStorage(
   rawUrl: string,
   redact: (t: string) => string,
@@ -318,10 +343,11 @@ export function redactUrlForStorage(
   try {
     const u = new URL(pathPart);
     const redQuery = rawQuery ? redactQuery(rawQuery, redact) : '';
-    const file = pathSlug(u.pathname);
+    const path = redactUserPath(u.pathname);
+    const file = pathSlug(path);
     // pageName = filename + the ALREADY-redacted query, so a secret in the query stays a token
     // in the name too, while the query still disambiguates same-filename pages.
-    return { url: u.origin + u.pathname + redQuery, pageName: file + redQuery };
+    return { url: u.origin + path + redQuery, pageName: file + redQuery };
   } catch {
     const red = redact(rawUrl); // not a parseable URL — leave it fully redacted
     return { url: red, pageName: red };

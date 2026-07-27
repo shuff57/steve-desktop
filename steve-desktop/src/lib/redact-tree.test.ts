@@ -297,6 +297,27 @@ describe('redactUrlForStorage', () => {
     expect(redactUrlForStorage('https://x.edu/s.php?email=jane@x.edu', mail).url).not.toContain('jane@');
   });
 
+  it('tokenizes a person id that lives in the PATH, not the query', () => {
+    // Live leak: a Student View crawl of one real Canvas course wrote 53 distinct student ids
+    // to disk as /users/<id>. No names came with them — the links are avatars with empty text —
+    // but a Canvas user id identifies a student exactly as well as stu= does. redactUrlString
+    // returned early on any URL without a query, assuming the path was only structure.
+    const id = (t: string) => t;
+    expect(redactUrlForStorage('https://canvas.butte.edu/users/9182734', id).url)
+      .toBe('https://canvas.butte.edu/users/⟦STU⟧');
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/users/9182734', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/users/⟦STU⟧'); // course id stays legible
+  });
+
+  it('leaves structural ids in the path alone', () => {
+    const id = (t: string) => t;
+    // Only a number directly after a person-ish segment is a person.
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/modules/items/1904067', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/modules/items/1904067');
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/assignments/844636', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/assignments/844636');
+  });
+
   it('still tokenizes a student id however structural its value looks', () => {
     const r = redactUrlForStorage('https://x.edu/gradebook.php?cid=316341&stu=8842', (t) => t);
     expect(r.url).toBe('https://x.edu/gradebook.php?cid=316341&stu=⟦STU⟧'); // course legible, student not
