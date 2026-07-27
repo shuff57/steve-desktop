@@ -259,6 +259,17 @@ export async function loadSiteMap(domain: string): Promise<SiteMap | null> {
   }
 }
 
+/**
+ * A stored URL is navigable only if it carries no redaction token.
+ *
+ * `⟦STU⟧` is the CORRECT stored form of a per-student page — the id is gone on purpose — but the
+ * URL can no longer be loaded, so handing it to verify produces a page that "fails" every time and
+ * reads as drift. (`⟦D<n>⟧` in a URL is the corruption class from 7719039; equally unloadable.)
+ */
+export function isNavigableUrl(url: string): boolean {
+  return !/⟦[^⟧]*⟧/.test(url);
+}
+
 export async function deleteSiteMap(domain: string): Promise<void> {
   try {
     await invoke('delete_file', { path: getSiteMapPath(domain) });

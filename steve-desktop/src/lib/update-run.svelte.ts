@@ -5,7 +5,7 @@
 
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
-import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, getMappingDocPath, getDirtyPages, filterToDirty, clearDirtyPages } from './site-profiles';
+import { listProfiles, loadProfile, loadMappingDoc, loadSiteMap, getMappingDocPath, getDirtyPages, filterToDirty, clearDirtyPages, isNavigableUrl } from './site-profiles';
 import { buildCliVerifyPrompt, parseCliVerifyOutput } from './cli-crawl';
 import { cliModelArg, extractCliText, summarizeCliLine, engineForProvider } from './agent-cli';
 import { listProviderConfigs } from './db';
@@ -30,6 +30,7 @@ export const updateRun = $state({
   now: 0,
   ctxTokens: 0,
   ctxMax: 0, // model context window, so the meter reads "used / max" like the Agent panel
+  skippedRedacted: 0, // pages verify cannot re-check because their URL carries a redaction token
 });
 
 let tick: ReturnType<typeof setInterval> | undefined;
@@ -47,6 +48,7 @@ export async function startUpdate(domain: string): Promise<void> {
   updateRun.startedAt = Date.now();
   updateRun.now = Date.now();
   updateRun.ctxTokens = 0;
+  updateRun.skippedRedacted = 0;
   tick = setInterval(() => (updateRun.now = Date.now()), 1000);
   let tabId = '';
   let unlisten: (() => void) | undefined;
@@ -79,6 +81,11 @@ export async function startUpdate(domain: string): Promise<void> {
       );
       pages = loaded.filter((p): p is { name: string; url: string } => !!p);
     }
+    // Never hand verify a tokenized URL — it cannot load, so it would be condemned as dead every
+    // run. Report the count instead of dropping them silently.
+    const navigable = pages.filter((p) => isNavigableUrl(p.url));
+    updateRun.skippedRedacted = pages.length - navigable.length;
+    pages = navigable;
     if (!pages.length) throw new Error('No mapped pages to re-check.');
 
     // Heals mark pages dirty; when any exist, re-map ONLY those — never the full site.
@@ -105,7 +112,8 @@ export async function startUpdate(domain: string): Promise<void> {
     await injectScript(markerScript(tabId), tabId).catch(() => {});
     await hideWebview(tabId).catch(() => {}); // belt + braces: fully hidden once registered
 
-    updateRun.step = `Re-mapping ${pages.length} ${isTargeted ? 'dirty ' : ''}page(s) with ${engine}…`;
+    const skipNote = updateRun.skippedRedacted ? ` (${updateRun.skippedRedacted} redacted page(s) skipped)` : '';
+    updateRun.step = `Re-mapping ${pages.length} ${isTargeted ? 'dirty ' : ''}page(s) with ${engine}…${skipNote}`;
     const sessionId = globalThis.crypto.randomUUID();
     unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
       if (ev.payload.sessionId !== sessionId) return;

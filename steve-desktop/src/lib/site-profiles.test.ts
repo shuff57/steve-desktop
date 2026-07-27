@@ -14,6 +14,7 @@ import {
   listProfiles,
   loadProfile,
   saveProfile,
+  isNavigableUrl,
 } from './site-profiles';
 
 const sampleProfile: SiteProfile = {
@@ -195,5 +196,25 @@ describe('dirty pages — heal-driven targeted re-map', () => {
     expect(filterToDirty(pages, ['https://x.edu/gb?cid=2'])).toEqual(pages);
     // no dirty entries → untouched
     expect(filterToDirty(pages, [])).toEqual(pages);
+  });
+});
+
+describe('isNavigableUrl', () => {
+  it('rejects a URL whose person id was tokenized', () => {
+    // Correct storage, unloadable page: verify would condemn these as dead on every run.
+    expect(isNavigableUrl('https://canvas.butte.edu/courses/31407/grades/⟦STU⟧')).toBe(false);
+    expect(isNavigableUrl('https://canvas.butte.edu/courses/31407/assignments/844633/submissions/⟦STU⟧')).toBe(false);
+    expect(isNavigableUrl('https://www.myopenmath.com/gradebook.php?cid=316341&stu=⟦STU⟧')).toBe(false);
+  });
+
+  it('rejects the content-token corruption class too', () => {
+    // ⟦D<n>⟧ in a URL is the 7719039 bug — also unloadable, so also not worth verifying.
+    expect(isNavigableUrl('https://www.myopenmath.com/course/course.php?cid=⟦D7⟧')).toBe(false);
+  });
+
+  it('keeps ordinary URLs, including structural ids that merely look person-ish', () => {
+    expect(isNavigableUrl('https://canvas.butte.edu/courses/31407/grades')).toBe(true);
+    expect(isNavigableUrl('https://canvas.butte.edu/courses/31407/modules/items/1904067')).toBe(true);
+    expect(isNavigableUrl('https://www.myopenmath.com/gradebook.php?cid=316341&stu=0')).toBe(true);
   });
 });
