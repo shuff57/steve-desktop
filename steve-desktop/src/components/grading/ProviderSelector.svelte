@@ -30,9 +30,9 @@
   // Each entry is a CLI engine, not an HTTP provider: anthropic runs through the claude CLI,
   // opencode fronts Ollama Cloud. Each model is [value, label]: value feeds the CLI's --model/-m
   // flag (a stale value makes the CLI exit "model may not exist"), label is what's shown. Claude
-  // uses the same models the bookshelf studio lists — CLI aliases, default = the 1M-context tier
-  // `opus[1m]` (verified accepted by `claude --model`). opencode uses the Ollama Cloud tool+vision
-  // ids from model-list.ts.
+  // uses BARE CLI aliases — the CLI resolves each to the current model in that tier, so no version
+  // lives here to go stale. Default = `opus`, first in the list. opencode uses the Ollama Cloud
+  // tool+vision ids from model-list.ts.
   type ModelOpt = readonly [value: string, label: string];
   const PROVIDERS: ReadonlyArray<{ id: string; label: string; models: ReadonlyArray<ModelOpt> }> = [
     {
@@ -44,11 +44,10 @@
       id: 'anthropic',
       label: 'Claude CLI',
       models: [
-        ['opus[1m]', 'Opus 4.8 · 1M ctx (default)'],
-        ['opus', 'Opus 4.8 · 200K session'],
-        ['fable', 'Fable 5 · 1M ctx'],
-        ['sonnet', 'Sonnet 5 · 1M ctx'],
-        ['haiku', 'Haiku 4.5 · 200K ctx'],
+        ['opus', 'Opus'],
+        ['fable', 'Fable'],
+        ['sonnet', 'Sonnet'],
+        ['haiku', 'Haiku'],
       ],
     },
   ];

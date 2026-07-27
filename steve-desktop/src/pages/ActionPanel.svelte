@@ -102,8 +102,8 @@
 
   function ctxWindow(model: string): number | null {
     const m = (model || '').toLowerCase();
-    if (m === 'opus[1m]' || m === 'fable' || m === 'sonnet') return 1_000_000;
-    if (m === 'opus' || m === 'haiku') return 200_000;
+    if (m === 'opus' || m === 'opus[1m]' || m === 'fable' || m === 'sonnet') return 1_000_000;
+    if (m === 'haiku') return 200_000;
     return null; // opencode / unknown window
   }
 
