@@ -293,6 +293,15 @@ describe('isCrawlableLink — crawl frontier trust boundary', () => {
     expect(isCrawlableLink('/api/v2.0/overview', base)).toBe(true);
     expect(isCrawlableLink('/course/1.5', base)).toBe(true);
   });
+  it('rejects Canvas Student View however it is spelled', () => {
+    // A live crawl followed /courses/31407/student_view/1 because the guard only had
+    // "studentview". Canvas then switched the whole session into Student View and denied every
+    // other course, which read as the account losing authorisation entirely.
+    expect(isCrawlableLink('/courses/31407/student_view/1', base)).toBe(false);
+    expect(isCrawlableLink('/courses/31407/studentview', base)).toBe(false);
+    expect(isCrawlableLink('/courses/31407/student-view', base)).toBe(false);
+    expect(isCrawlableLink('/courses/31407/test_student', base)).toBe(false);
+  });
   it('rejects unrendered client-side template placeholders', () => {
     // Canvas ships Handlebars templates in the live DOM, so these reach the frontier as real
     // hrefs. Every one costs a page visit and can only 404 or redirect — four showed up in a

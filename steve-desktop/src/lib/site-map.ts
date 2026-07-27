@@ -24,8 +24,14 @@ export interface SiteMap {
 // preview, after which every teacher-only page 403s with "you must be a teacher". Deny-by-default
 // on the crawl frontier is the trust boundary — accumulate mode never navigates, so this only
 // gates crawl.
+// `studentview` did not match Canvas's actual spelling, /courses/N/student_view/1, so a live
+// crawl walked into Student View. Canvas then denies everything outside that one course, which
+// looked like the whole account had lost authorisation. Separator-tolerant now, same lesson as
+// the addremoveteachers escape: match how endpoints are really spelled, not how we'd spell them.
+// Entering Student View deliberately (before starting a crawl) still works — only the link is
+// gated, and the pages inside carry ordinary course URLs.
 export const DENY_LINK =
-  /(log[\s_-]?out|sign[\s_-]?out|log[\s_-]?off|logon|sign[\s_-]?in|stuview|studentview|view[_-]?as|viewas|impersonate|masquerade|loginas|become[_-]?user)/i;
+  /(log[\s_-]?out|sign[\s_-]?out|log[\s_-]?off|logon|sign[\s_-]?in|stuview|student[\s_-]?view|test[\s_-]?student|view[_-]?as|viewas|impersonate|masquerade|loginas|become[_-]?user)/i;
 
 /**
  * Verbs that mark a URL as potentially state-changing. Matched as SUBSTRINGS, deliberately
