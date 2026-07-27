@@ -57,11 +57,11 @@ export async function startUpdate(domain: string): Promise<void> {
     // model from a configured claude provider if present, else the default.
     const engine = 'claude' as const;
     const configs = await listProviderConfigs().catch(() => []);
-    const model = configs.find((c) => engineForProvider(c.id) === 'claude')?.model ?? 'claude-opus-4-8';
-    // Opus 4.x / Sonnet / Fable carry a 1M window; older opus + haiku are 200k. Powers the
-    // "used / max" meter — same windows the Agent panel uses.
+    const model = configs.find((c) => engineForProvider(c.id) === 'claude')?.model ?? 'claude-opus-5';
+    // Opus 5 / Opus 4.6+ / Sonnet / Fable carry a 1M window; haiku and pre-4.6 opus are 200k.
+    // Powers the "used / max" meter — same windows the Agent panel uses.
     // ponytail: coarse id match, refine if a non-1M claude model is ever configured here.
-    updateRun.ctxMax = /opus-4|sonnet|fable/.test(model) ? 1_000_000 : 200_000;
+    updateRun.ctxMax = /opus-(4-[678]|5)|sonnet|fable/.test(model) ? 1_000_000 : 200_000;
 
     const doc = await loadMappingDoc(domain);
     if (!doc) throw new Error('No mapping doc for this site to verify.');

@@ -11,7 +11,7 @@ const OLLAMA_DEFAULT_URL = 'http://localhost:11434';
 // per provider if/when one is wired (fetchAvailableModels in oauth.ts is still a stub).
 const STATIC_MODELS: Record<string, string[]> = {
   openai: ['gpt-4o', 'gpt-4o-mini', 'o3', 'o1'],
-  anthropic: ['claude-opus-4-8', 'claude-sonnet-4-6', 'claude-haiku-4-5-20251001'],
+  anthropic: ['claude-opus-5', 'claude-sonnet-5', 'claude-opus-4-8', 'claude-haiku-4-5-20251001'],
 };
 
 // Ollama Cloud models that support BOTH tool-calling AND vision, as the ids opencode runs
@@ -47,7 +47,9 @@ type Tier = 'best' | 'better' | 'good';
 // ponytail: hardcoded ranking — refresh when model names change.
 const MODEL_TIERS: Record<string, Tier> = {
   // Anthropic
+  'claude-opus-5': 'best',
   'claude-opus-4-8': 'best',
+  'claude-sonnet-5': 'better',
   'claude-sonnet-4-6': 'better',
   'claude-haiku-4-5-20251001': 'good',
   // OpenAI
