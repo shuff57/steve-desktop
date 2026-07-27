@@ -193,8 +193,11 @@ const KEYWORD_VALUE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/;
  */
 function redactStrings(value: unknown, redact: (t: string) => string, key?: string, inCandidates = false): unknown {
   if (typeof value === 'string') {
-    // A candidate's `value` is a selector, not data.
-    if (STRUCTURAL_KEYS.has(key ?? '') || (inCandidates && key === 'value')) return value;
+    // A candidate's `value` is a selector, not data — but a selector can EMBED data. Canvas
+    // links to people as /users/12345, so `a[href="/users/12345"]` carried 178 real student ids
+    // to disk (53 distinct) even after the href beside it was correctly tokenized. Selectors
+    // keep their structure; only person ids inside them are replaced.
+    if (STRUCTURAL_KEYS.has(key ?? '') || (inCandidates && key === 'value')) return scrubPersonIds(value);
     // A link's href is navigation, but its query can carry a student id — keep the path, scrub
     // the query. Exempting hrefs wholesale would write `stu=7158619` straight into the site map.
     if (URL_KEYS.has(key ?? '')) return redactUrlString(value, redact);
@@ -309,8 +312,37 @@ function pathSlug(pathname: string): string {
   return `${full.slice(0, 72)}-${h.toString(36)}`;
 }
 
-/** Path segments whose NEXT segment names a person, not a piece of course structure. */
-const PERSON_PATH_SEGMENT = /^(users?|students?|learners?|people|profiles?|enrollments?)$/i;
+/**
+ * Strip person ids out of a string that is STRUCTURE (a selector), not prose.
+ *
+ * Kept separate from the text dictionary on purpose: an id that never appeared as visible page
+ * text is not in the dictionary, so redact() cannot see it. Only the id changes — the selector
+ * around it survives, because a selector aimed at one student's row is not reusable anyway.
+ */
+function scrubPersonIds(s: string): string {
+  return redactUserPath(s)
+    // ?uid=123 / &stu=123, the query form, inside a selector string
+    .replace(
+      /\b(uid|stu|stuid|student|studentid|user|userid|filteruid|sid|learner)=\d+/gi,
+      (_m, k) => `${k}=${STUDENT_TOKEN}`,
+    )
+    // #student_123 / #submission_123 — Canvas builds DOM ids this way, so a CSS candidate can
+    // carry a person id with no slash anywhere in it.
+    .replace(
+      /\b(user|student|learner|enrollment|profile|submission)[_-]\d+/gi,
+      (_m, k) => `${k}_${STUDENT_TOKEN}`,
+    );
+}
+
+/**
+ * A person id addressed positionally: /users/12345, /people/99, /enrollments/7.
+ *
+ * Matched as a regex rather than by splitting on "/" because the same id has to be found inside
+ * strings that are not bare paths — `a[href="/users/12345"]` splits into a final segment of
+ * `12345"]`, which no numeric test matches, and that is exactly how 178 ids survived in
+ * candidate selectors after the href beside them was already tokenized.
+ */
+const PERSON_ID_IN_PATH = /\b(users?|students?|learners?|people|profiles?|enrollments?)\/(\d+)/gi;
 
 /**
  * Tokenize a person's id when it lives in the PATH rather than the query.
@@ -324,11 +356,7 @@ const PERSON_PATH_SEGMENT = /^(users?|students?|learners?|people|profiles?|enrol
  * /modules/items/1904067 stay legible — the id is course structure there, not a person.
  */
 export function redactUserPath(pathname: string): string {
-  const segs = pathname.split('/');
-  for (let i = 1; i < segs.length; i++) {
-    if (PERSON_PATH_SEGMENT.test(segs[i - 1]) && /^\d+$/.test(segs[i])) segs[i] = STUDENT_TOKEN;
-  }
-  return segs.join('/');
+  return pathname.replace(PERSON_ID_IN_PATH, (_m, seg: string) => `${seg}/${STUDENT_TOKEN}`);
 }
 
 export function redactUrlForStorage(

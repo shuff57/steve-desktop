@@ -309,6 +309,33 @@ describe('redactUrlForStorage', () => {
       .toBe('https://canvas.butte.edu/courses/31407/users/⟦STU⟧'); // course id stays legible
   });
 
+  it('scrubs a person id EMBEDDED in a selector or candidate', () => {
+    // The href beside these was already tokenized, yet 178 raw ids (53 distinct) still reached
+    // disk through interactive.links[].candidates[].value — selectors were returned verbatim as
+    // "structure, not data". A selector can embed data.
+    const profile = {
+      domain: 'canvas.butte.edu',
+      url: 'https://canvas.butte.edu/courses/31407',
+      pageName: 'courses-31407',
+      interactive: {
+        links: [{
+          text: 'x',
+          href: 'https://canvas.butte.edu/users/9182734',
+          selector: 'a[href="/users/9182734"]',
+          candidates: [
+            { type: 'href', value: 'a[href="/users/9182734"]' },
+            { type: 'css', value: '#student_9182734 .name' },
+            { type: 'href', value: 'a[href="/courses/31407/modules/items/1904067"]' },
+          ],
+        }],
+      },
+    };
+    const out = JSON.stringify(redactProfileForStorage(profile, (t: string) => t));
+    expect(out).not.toMatch(/9182734/);           // the person id is gone everywhere
+    expect(out).toContain('modules/items/1904067'); // course structure survives
+    expect(out).toContain('a[href=');               // the selector shape survives
+  });
+
   it('leaves structural ids in the path alone', () => {
     const id = (t: string) => t;
     // Only a number directly after a person-ish segment is a person.
