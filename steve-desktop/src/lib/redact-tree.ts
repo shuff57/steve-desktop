@@ -341,8 +341,13 @@ function scrubPersonIds(s: string): string {
  * strings that are not bare paths — `a[href="/users/12345"]` splits into a final segment of
  * `12345"]`, which no numeric test matches, and that is exactly how 178 ids survived in
  * candidate selectors after the href beside them was already tokenized.
+ *
+ * `submissions/` and `grades/` are here because Canvas addresses a person's WORK the same way it
+ * addresses the person: /assignments/844633/submissions/127333 and /courses/31407/grades/127333
+ * both end in a user id. Naming only the people-ish nouns missed 89 of them on disk.
  */
-const PERSON_ID_IN_PATH = /\b(users?|students?|learners?|people|profiles?|enrollments?)\/(\d+)/gi;
+const PERSON_ID_IN_PATH =
+  /\b(users?|students?|learners?|people|profiles?|enrollments?|submissions?|grades?)\/(\d+)/gi;
 
 /**
  * Tokenize a person's id when it lives in the PATH rather than the query.

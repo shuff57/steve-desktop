@@ -309,6 +309,20 @@ describe('redactUrlForStorage', () => {
       .toBe('https://canvas.butte.edu/courses/31407/users/⟦STU⟧'); // course id stays legible
   });
 
+  it('tokenizes the user id Canvas hides behind submissions/ and grades/', () => {
+    // Second live leak, found by sweeping the stored profiles after the /users/ fix shipped:
+    // Canvas addresses a person's work by the person's id too, so 89 copies of one user id sat
+    // on disk under people-less nouns. The assignment id in front of it is structure and stays.
+    const id = (t: string) => t;
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/assignments/844633/submissions/127333', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/assignments/844633/submissions/⟦STU⟧');
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/grades/127333', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/grades/⟦STU⟧');
+    // The whole-course gradebook has no id after it — it is a page, not a person.
+    expect(redactUrlForStorage('https://canvas.butte.edu/courses/31407/grades', id).url)
+      .toBe('https://canvas.butte.edu/courses/31407/grades');
+  });
+
   it('scrubs a person id EMBEDDED in a selector or candidate', () => {
     // The href beside these was already tokenized, yet 178 raw ids (53 distinct) still reached
     // disk through interactive.links[].candidates[].value — selectors were returned verbatim as
