@@ -11,6 +11,8 @@ import {
   buildManifest,
   pendingChunks,
   tokenizeSecrets,
+  peopleSections,
+  PEOPLE_SURFACE,
 } from './chunked-map';
 
 const survey = (extra = '') =>
@@ -57,6 +59,43 @@ describe('parseSurveyOutput', () => {
   it('drops duplicate index urls', () => {
     const dup = '---SECTIONS---\n[{"indexUrl":"https://c.edu/a"},{"indexUrl":"https://c.edu/a"}]';
     expect(parseSurveyOutput(dup)).toHaveLength(1);
+  });
+});
+
+describe('people surfaces', () => {
+  // A live MyOpenMath survey navigated to gradebook.php 29x and roster pages 26x — the agent read
+  // a class list to learn a URL the app already had. It is now barred from opening them, and the
+  // app seeds them from the start page's links instead, so automation keeps its access.
+  it('bars the agent from opening anything that lists people', () => {
+    const p = buildSurveyPrompt({ cdpPort: 1, startUrl: 'https://www.myopenmath.com/course/course.php?cid=1' });
+    expect(p).toContain('NEVER open a page that LISTS PEOPLE');
+    expect(p).toContain('Do not report them either');
+  });
+
+  it('matches the surfaces that cost us, and leaves content pages alone', () => {
+    for (const u of ['/course/gradebook.php?cid=1', '/roster.php', '/msgs/msglist.php', '/courses/31407/users/9']) {
+      expect(PEOPLE_SURFACE.test(u)).toBe(true);
+    }
+    for (const u of ['/course/course.php?cid=1', '/course/showcalendar.php', '/forums/forums.php']) {
+      expect(PEOPLE_SURFACE.test(u)).toBe(false);
+    }
+  });
+
+  it('seeds them index-only so the crawler never walks one per student', () => {
+    const secs = peopleSections([
+      { label: 'Gradebook', href: 'https://m.com/course/gradebook.php?cid=1' },
+      { label: 'Roster', href: 'https://m.com/roster.php?cid=1' },
+      { label: 'Course Map', href: 'https://m.com/course/coursemap.php?cid=1' },
+    ]);
+    expect(secs.map((s) => s.name)).toEqual(['Gradebook', 'Roster']);
+    // Empty sampleUrl => no template is derived => the section captures as a single page.
+    expect(secs.every((s) => s.sampleUrl === '')).toBe(true);
+    expect(secs.every((s) => sectionTemplate(s) === null)).toBe(true);
+  });
+
+  it('drops duplicate hrefs', () => {
+    const dup = [{ href: 'https://m.com/gradebook.php' }, { href: 'https://m.com/gradebook.php' }];
+    expect(peopleSections(dup)).toHaveLength(1);
   });
 });
 

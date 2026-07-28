@@ -18,6 +18,40 @@ export const CHUNK_SIZE = 25;
 /** Index pages the survey may open. Enough to see a site's shape, far too few to blow context. */
 export const SURVEY_MAX_PAGES = 12;
 
+/**
+ * Surfaces whose INDEX is a list of people rather than a list of content.
+ *
+ * Automation still needs these mapped — a grading agent has to reach the gradebook. But a model
+ * does not have to READ a roster to learn that /course/gradebook.php?cid=N exists: that link is
+ * on the course home the app already captures. So the survey agent is told never to open them,
+ * and the app seeds them itself from the start page's own links.
+ *
+ * This exists because a live survey of MyOpenMath course 316341 navigated to gradebook.php 29
+ * times and roster/user pages 26 times. Nothing leaked to the fragment prompts — those carry only
+ * "pageName — path — counts" — but the browsing agent's own context held the student list, which
+ * is precisely what the redaction path is supposed to prevent.
+ */
+export const PEOPLE_SURFACE =
+  /(gradebook|roster|listusers|showuser|studentlist|msglist|msgs\/|\/users?\/|enrollments?|participants)/i;
+
+/**
+ * Sections for the people surfaces linked from the start page. Index page only — sampleUrl is
+ * empty so the section captures as a single page and the crawler never enumerates its members.
+ * Mapping the gradebook's shape is useful; walking it student by student is not.
+ */
+export function peopleSections(links: { label?: string; href: string }[]): SurveySection[] {
+  const seen = new Set<string>();
+  return links
+    .filter((l) => l.href && PEOPLE_SURFACE.test(l.href))
+    .filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true)))
+    .map((l) => ({
+      name: (l.label || l.href).slice(0, 120),
+      indexUrl: l.href,
+      sampleUrl: '',
+      estimatedPages: 1,
+    }));
+}
+
 export interface SurveySection {
   /** Human name taken from what the survey actually saw, e.g. "Assignments". */
   name: string;
@@ -68,6 +102,10 @@ export function buildSurveyPrompt(o: { cdpPort: number; startUrl: string; marker
     '  modules list, an assignments list, a pages index). Open ONE member page per section at most,',
     '  purely to learn its URL shape. Never enumerate a section by visiting its members.',
     '- Do NOT collect names, ids, or any per-person data. Sections and URL shapes only.',
+    `- NEVER open a page that LISTS PEOPLE — gradebook, roster, user list, message list:`,
+    `  /${PEOPLE_SURFACE.source}/i`,
+    '  The app maps those itself from links it already has. You do not need to load one to know it',
+    '  exists, and loading it would put a class roster in your context. Do not report them either.',
     '',
     'OUTPUT — on its OWN line the exact marker:',
     '---SECTIONS---',

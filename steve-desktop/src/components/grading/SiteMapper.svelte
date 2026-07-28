@@ -18,7 +18,7 @@
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
-    buildSurveyPrompt, parseSurveyOutput, planChunks, fetchFragment, fetchMergedDoc, concatFragments,
+    buildSurveyPrompt, parseSurveyOutput, planChunks, peopleSections, fetchFragment, fetchMergedDoc, concatFragments,
     tokenizeSecrets, CHUNK_SIZE, type MapChunk,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -773,12 +773,28 @@
         stream: true,
       }).finally(() => hideAgentConnected(getActiveTabId()));
 
-      const sections = parseSurveyOutput(extractCliText(engine, stdout));
+      const reported = parseSurveyOutput(extractCliText(engine, stdout));
+
+      // The agent is forbidden from opening people surfaces, so it cannot report them — but
+      // automation still has to reach the gradebook and roster. Seed those from the START PAGE's
+      // own links: the app learns the URL exists without any model reading a class list. Index
+      // page only (sampleUrl ''), so the crawler maps the surface and never walks it per student.
+      const visited = new Set<string>();
+      let seeded: typeof reported = [];
+      try {
+        const { profile: startProfile } = await mapHere(start, visited);
+        const known = new Set(reported.map((s) => normalizeUrl(s.indexUrl)));
+        seeded = peopleSections(profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) })))
+          .filter((s) => !known.has(s.indexUrl));
+      } catch (e) {
+        failures.push({ url: start, error: `could not seed people surfaces: ${e instanceof Error ? e.message : String(e)}` });
+      }
+      const indexOnly = new Set(seeded.map((s) => s.indexUrl));
+      const sections = [...reported, ...seeded];
       if (!sections.length) throw new Error('survey returned no sections — use "Map this site" instead');
 
       // Enumerate each section from its OWN index page, deterministically. Every href is re-gated
       // by the same rules the crawler uses; the agent's URLs are never trusted.
-      const visited = new Set<string>();
       const found: typeof chunkSections = [];
       for (const [i, sec] of sections.entries()) {
         const idx = normalizeUrl(sec.indexUrl);
@@ -796,9 +812,14 @@
           await loaded();
           await settle();
           const { profile } = await mapHere(idx, visited);
-          const pages = profileLinks(profile)
-            .map((l) => ({ name: l.label || l.href, url: normalizeUrl(l.href) }))
-            .filter((p) => isCrawlableLink(p.url, start) && withinScope(p.url, start));
+          // A people surface is mapped for its SHAPE, never walked per person: enumerating a
+          // gradebook's links means a profile per student. The index page alone tells an
+          // automation agent the URL and its controls, which is all it needs.
+          const pages = indexOnly.has(idx)
+            ? []
+            : profileLinks(profile)
+                .map((l) => ({ name: l.label || l.href, url: normalizeUrl(l.href) }))
+                .filter((p) => isCrawlableLink(p.url, start) && withinScope(p.url, start));
           const seen = new Set<string>();
           found.push({
             name: sec.name,
