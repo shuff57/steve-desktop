@@ -63,8 +63,26 @@ export function urlTail(href: string): string {
   }
 }
 
-/** Does this link point at a surface that lists people? Tested on the path, never the host. */
-export const isPeopleSurface = (href: string): boolean => PEOPLE_SURFACE.test(urlTail(href));
+/**
+ * A query parameter that SELECTS a person. Structural, so it catches scripts the name list has
+ * never heard of: MyOpenMath's `gbcomments.php?stu=` is per-student and matches nothing in
+ * PEOPLE_SURFACE.
+ */
+const PERSON_SELECTOR_PARAM = /(?:^|[?&])(uid|stu|stuid|student|studentid|userid|filteruid|learner)=/i;
+
+/**
+ * Does this link point at a surface about people? Tested on the path+query, never the host.
+ *
+ * Two signals, because a name list alone cannot be complete. A live MyOpenMath course exposes
+ * `latepasses.php`, `logingrid.php`, `gbcomments.php`, `coursereports.php` and
+ * `gb-itemresults2.php` — all per-student, none matching PEOPLE_SURFACE by name. The parameter
+ * test catches any script that selects a person by id; `looksLikeRoster` in people-pointer.ts
+ * catches the rest by what the captured page actually contains.
+ */
+export const isPeopleSurface = (href: string): boolean => {
+  const tail = urlTail(href);
+  return PEOPLE_SURFACE.test(tail) || PERSON_SELECTOR_PARAM.test(tail);
+};
 
 export function peopleSections(links: { label?: string; href: string }[]): SurveySection[] {
   const seen = new Set<string>();
@@ -259,6 +277,57 @@ export function tokenizeSecrets(outbound: string, secrets: Record<string, string
     (text, [token, value]) => (value.trim().length >= 3 ? text.split(value).join(token) : text),
     outbound,
   );
+}
+
+/** Query params that select a PERSON. Their values are never structural, whatever else is true. */
+const PERSON_PARAM = /^(uid|stu|stuid|student|studentid|user|userid|filteruid|sid|learner)$/i;
+
+/**
+ * The identifiers a URL is BUILT from: query keys, non-person query values, and path segments.
+ *
+ * Harvested from the app's own stored page URLs, which have already been through storage
+ * redaction (person params are `⟦STU⟧` by the time they land here), so nothing personal is
+ * reachable from this set.
+ */
+export function structuralValues(urls: string[]): Set<string> {
+  const out = new Set<string>();
+  for (const raw of urls) {
+    let u: URL;
+    try { u = new URL(raw); } catch { continue; }
+    for (const seg of u.pathname.split('/')) if (seg && !seg.includes('⟦')) out.add(seg);
+    for (const [k, v] of u.searchParams) {
+      out.add(k);
+      if (!PERSON_PARAM.test(k) && v && !v.includes('⟦')) out.add(v);
+    }
+  }
+  return out;
+}
+
+/**
+ * Drop dictionary entries that are structural, so they are neither tokenized nor refused by the
+ * gate — and therefore survive into the finished document.
+ *
+ * Why this exists: a 306-page capture of a live course produced a map whose every URL was
+ * `/course/course.php?cid=⟦D34⟧&⟦D47⟧=0-2`. The course id and the *parameter name* `folder` had
+ * been swept into the value dictionary merely because they also appear as text on some page, so
+ * an automation agent could not navigate a single URL the document described. It got WORSE as
+ * the crawl got better: 306 real pages contribute far more structural strings than 84 wedged
+ * ones did.
+ *
+ * The guard is that a structural value must contain NO WHITESPACE. "316341", "folder" and
+ * "quickview" qualify; "Doe, Jane" and "Jane Doe" cannot, so a person's name can never be
+ * exempted by this path even if it somehow appeared in a URL. Person-selecting params are
+ * excluded by name as well — belt and braces.
+ */
+export function keepStructural(secrets: Record<string, string>, urls: string[]): Record<string, string> {
+  const structural = structuralValues(urls);
+  const out: Record<string, string> = {};
+  for (const [token, value] of Object.entries(secrets)) {
+    const v = value.trim();
+    if (v && !/\s/.test(v) && structural.has(v)) continue; // structural — let it through intact
+    out[token] = value;
+  }
+  return out;
 }
 
 /**

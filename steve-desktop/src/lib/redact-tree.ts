@@ -233,12 +233,28 @@ const LABEL_WORD = new Set(
   `total score last login first name due date late work best attempt raw points final grade
    time spent user settings my classes log out skip navigation home page course map data sets
    letter grade extra credit drop lowest all students by student per question item analysis
-   message board send message view all show all hide all export csv print view class list`
+   message board send message view all show all hide all export csv print view class list
+   late passes login grid item results course reports content stats question errors
+   non locked add tutors copy emails un lock course home site home skip navigation`
     .split(/\s+/),
 );
 
 const isCommonLabel = (m: string) =>
   m.split(/[\s,]+/).every((w) => LABEL_WORD.has(w.toLowerCase()));
+
+/** Non-global twin of PERSON_LABEL, anchored, for testing a single label. */
+const ONE_PERSON_LABEL = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+(?:[-'][A-Za-z]+)?$/;
+
+/**
+ * Does this single label read as a person's name rather than UI wording?
+ *
+ * Exported so there is ONE definition: people-pointer.ts classifies whole pages with it, and a
+ * second copy would inevitably drift from the allowlist that keeps "Total Score" readable.
+ */
+export function looksLikePersonName(label: string): boolean {
+  const t = label.trim();
+  return ONE_PERSON_LABEL.test(t) && !isCommonLabel(t);
+}
 
 /**
  * Tokenize person-shaped runs on a page that lists people.

@@ -12,14 +12,15 @@
   import { redactTree, redactProfileForStorage } from '../../lib/redact-tree';
   import {
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
-    saveMappingDoc, saveVerifyReport, healMappingDoc,
+    saveMappingDoc, saveVerifyReport, healMappingDoc, savePeoplePointers, loadPeoplePointers,
   } from '../../lib/site-profiles';
+  import { buildPeoplePointer, upsertPointer, pointerLeaks, looksLikeRoster, type PeoplePointer } from '../../lib/people-pointer';
   import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
     buildSurveyPrompt, parseSurveyOutput, planChunks, peopleSections, isPeopleSurface, fetchFragment, fetchMergedDoc, concatFragments,
-    tokenizeSecrets, CHUNK_SIZE, type MapChunk,
+    tokenizeSecrets, keepStructural, CHUNK_SIZE, type MapChunk,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
   import { tabMarker } from '../../lib/tab-control';
@@ -194,10 +195,18 @@
    * raw labels/selectors (e.g. a roster name in role=…[name="Doe, Jane"]); this swaps the
    * value dictionary over the whole JSON so the saved artifact holds ⟦D…⟧, never names. */
   // Keeps the hostname intact through redaction — see redactProfileForStorage.
+  /**
+   * Is this page about people? By URL (name or person-selecting param) OR by what was captured.
+   * The content test is what catches `latepasses.php` and friends — per-student pages whose names
+   * appear in no deny list.
+   */
+  const isPeoplePage = (p: SiteProfile): boolean =>
+    isPeopleSurface(p.url ?? '') || looksLikeRoster(p);
+
   // On a people surface the control label IS the person, and redactTree keeps labels by design —
   // so the third argument turns name-shaped labels into ⟦STU⟧ before anything is written.
   const redactProfile = (p: SiteProfile, redact: (t: string) => string): SiteProfile =>
-    redactProfileForStorage(p, redact, isPeopleSurface(p.url ?? ''));
+    redactProfileForStorage(p, redact, isPeoplePage(p));
 
   async function map() {
     if (mapping) return;
@@ -207,7 +216,11 @@
     savedPath = null;
     try {
       const { profile, redact } = await captureCurrent(pageUrl);
-      savedPath = await saveProfile(redactProfile(profile, redact));
+      const safe = redactProfile(profile, redact);
+      savedPath = await saveProfile(safe);
+      // Single-page mapping takes the same people-surface route as the crawl — otherwise the
+      // pointer only ever exists for pages reached by a full run.
+      if (isPeoplePage(profile)) await writePeoplePointer(safe); // judge on the RAW capture, write the SAFE one
       message = `Mapped ${profile.domain} · saved profile`;
     } catch (e) {
       message = `Map failed: ${e instanceof Error ? e.message : String(e)}`;
@@ -351,11 +364,38 @@
     siteMap = map;
     await saveSiteMap(map);
     await saveProfile(safe); // per-page JSON — feeds replay/skills and the review panel
+    // A people surface also gets a POINTER: index + a {studentId} template + action labels, with
+    // row labels dropped rather than tokenized. That is what automation actually needs to reach a
+    // student's grades, and it holds no person — see people-pointer.ts.
+    if (isPeoplePage(profile)) await writePeoplePointer(safe); // judge on the RAW capture, write the SAFE one
     // Return the RAW profile: the crawler reads its links to navigate the frontier,
     // and a tokenized href would break that. Only persisted artifacts are redacted.
     // `safe` + `secrets` feed the AI layer: safe is what the model may see, secrets is
     // the gate's leak dictionary.
     return { profile, safe, secrets };
+  }
+
+  /**
+   * Write/refresh this domain's people pointers.
+   *
+   * Never throws into the crawl: a pointer is an extra, and losing one must not cost a page. The
+   * leak assertion runs BEFORE the write — this file exists precisely so a roster is not stored,
+   * so it is worth proving rather than assuming.
+   */
+  async function writePeoplePointer(safe: SiteProfile): Promise<void> {
+    try {
+      const roster = (siteMap?.pages ?? []).map((p) => p.url).find((u) => /listusers|roster|\/users?\b|participants/i.test(u)) ?? '';
+      const pointer = buildPeoplePointer(safe, roster);
+      const leaks = pointerLeaks([pointer]);
+      if (leaks.length) {
+        failures.push({ url: safe.url ?? '', error: `people pointer withheld: ${leaks[0]}` });
+        return;
+      }
+      const existing = (await loadPeoplePointers(safe.domain)) as PeoplePointer[];
+      await savePeoplePointers(safe.domain, upsertPointer(existing, pointer));
+    } catch (e) {
+      failures.push({ url: safe.url ?? '', error: `people pointer not written: ${e instanceof Error ? e.message : String(e)}` });
+    }
   }
 
   /** Short context for the frontier planner: what's mapped, so "already represented" is decidable. */
@@ -936,10 +976,16 @@
       // the cap rarely binds; it exists to stop a fast crawl stacking CLI processes on the account.
       const MAX_INFLIGHT = 3;
 
+      // The identifiers our own URLs are built from — course id, `folder`, `quickview` — must
+      // survive redaction, or every URL in the finished document is a token and none of it can
+      // be navigated. Read off the stored map, which is already storage-redacted, so no person
+      // value is reachable here. See keepStructural.
+      const structuralUrls = () => (siteMap?.pages ?? []).map((p) => p.url);
+
       const queueFragment = (chunk: MapChunk, lines: string) => {
         // Snapshot the secret map: it keeps growing as later chunks capture, and fetchFragment
         // both tokenizes and gate-checks against it. A live reference would let those two disagree.
-        const secrets = { ...allSecrets };
+        const secrets = keepStructural({ ...allSecrets }, structuralUrls());
         const label = `chunk ${chunk.index + 1} (${chunk.section})`;
         inflight.push(
           fetchFragment(
@@ -1009,13 +1055,16 @@
       if (written.length && domain) {
         chunkStep = 'Merging sections into one document…';
         const ai2: ModelTransport | null = provider ? cliTransport(engineForProvider(provider), model) : null;
-        const merged = ai2 ? await fetchMergedDoc({ domain, fragments: written }, allSecrets, ai2) : null;
+        // Same exemption as the fragments: the merge prompt and the SAVED doc must keep the
+        // identifiers the URLs are built from, or the document describes pages nobody can open.
+        const docSecrets = keepStructural(allSecrets, structuralUrls());
+        const merged = ai2 ? await fetchMergedDoc({ domain, fragments: written }, docSecrets, ai2) : null;
         // Scrub the finished doc, not just the outbound prompts. The gate stops redacted values
         // being SENT, but the model can infer one from surrounding context and write it back: a
         // live scrapethissite.com merge announced 'Recovered the two redacted spans from context:
         // ⟦D5⟧ → "Podocnemididae"' and persisted it. Harmless on a test site; on Canvas the same
         // move reconstructs a student name into a file on disk.
-        aiDoc = tokenizeSecrets(merged ?? concatFragments(domain, written), allSecrets);
+        aiDoc = tokenizeSecrets(merged ?? concatFragments(domain, written), docSecrets);
         aiDocPath = await saveMappingDoc(domain, aiDoc).catch(() => null);
       }
       chunkStep = '';

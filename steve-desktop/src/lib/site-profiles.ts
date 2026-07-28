@@ -120,6 +120,31 @@ export async function saveMappingDoc(domain: string, contents: string): Promise<
   return path;
 }
 
+/**
+ * People pointers, beside the map. Deliberately its OWN file so "never send this to a model" is
+ * one exclusion rather than a per-field audit of every profile — see people-pointer.ts.
+ */
+export function getPeoplePointerPath(domain: string): string {
+  return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_people.json`;
+}
+
+export async function savePeoplePointers(domain: string, pointers: unknown[]): Promise<string> {
+  const path = getPeoplePointerPath(domain);
+  await invoke('create_dir', { path: path.split('/').slice(0, -1).join('/'), recursive: true });
+  await invoke('write_file', { path, contents: JSON.stringify(pointers, null, 2) });
+  return path;
+}
+
+export async function loadPeoplePointers(domain: string): Promise<unknown[]> {
+  try {
+    const contents = await invoke<string>('read_file', { path: getPeoplePointerPath(domain) });
+    const parsed = contents?.trim() ? JSON.parse(contents) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 // Agent verification report, beside the mapping doc.
 export function getVerifyReportPath(domain: string): string {
   return `${SITE_PROFILES_DIR}/${domainToPath(domain)}/_sitemap-verify.md`;

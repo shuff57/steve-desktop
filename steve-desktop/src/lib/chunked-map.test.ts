@@ -4,6 +4,8 @@ import {
   SURVEY_MAX_PAGES,
   isPeopleSurface,
   firstJsonArray,
+  keepStructural,
+  structuralValues,
   buildSurveyPrompt,
   parseSurveyOutput,
   sectionTemplate,
@@ -169,6 +171,48 @@ describe('parseSurveyOutput — trailing prose must not swallow the array', () =
   });
 });
 
+// A 306-page capture of a live course produced a document whose every URL read
+// `/course/course.php?cid=⟦D34⟧&⟦D47⟧=0-2`: the course id and the PARAMETER NAME `folder` had
+// been swept into the value dictionary because they also occur as page text. The map was
+// accurate and completely un-navigable.
+describe('keepStructural — redaction must not eat the URL scaffolding', () => {
+  const urls = [
+    'https://www.myopenmath.com/course/course.php?cid=316341&folder=0-5',
+    'https://www.myopenmath.com/course/gradebook.php?cid=316341&stu=%E2%9F%A6STU%E2%9F%A7',
+  ];
+
+  it('lets the course id and the parameter names through', () => {
+    const kept = keepStructural({ '⟦D34⟧': '316341', '⟦D47⟧': 'folder', '⟦D9⟧': 'course.php' }, urls);
+    expect(kept).toEqual({});
+  });
+
+  it('still tokenizes ordinary page content', () => {
+    const kept = keepStructural({ '⟦D1⟧': 'Chapter 4 average score' }, urls);
+    expect(kept['⟦D1⟧']).toBe('Chapter 4 average score');
+  });
+
+  // The load-bearing guard. Even if a name somehow reached a stored URL, it contains
+  // whitespace and can never be exempted.
+  it('NEVER exempts a person name, whitespace is the guard', () => {
+    const withName = [...urls, 'https://m.com/x?q=Jane%20Doe'];
+    const kept = keepStructural({ '⟦D2⟧': 'Jane Doe', '⟦D3⟧': 'Doe, Jane' }, withName);
+    expect(kept['⟦D2⟧']).toBe('Jane Doe');
+    expect(kept['⟦D3⟧']).toBe('Doe, Jane');
+  });
+
+  it('never exempts the value of a person-selecting param', () => {
+    const kept = keepStructural({ '⟦D5⟧': '7158619' }, ['https://m.com/g.php?cid=1&uid=7158619']);
+    expect(kept['⟦D5⟧']).toBe('7158619');
+  });
+
+  it('a kept structural value survives tokenizeSecrets, so the URL stays navigable', () => {
+    const secrets = keepStructural({ '⟦D34⟧': '316341', '⟦D1⟧': 'Jane Doe' }, urls);
+    const out = tokenizeSecrets('open /course/course.php?cid=316341 for Jane Doe', secrets);
+    expect(out).toContain('cid=316341');
+    expect(out).not.toContain('Jane Doe');
+  });
+});
+
 describe('sectionTemplate', () => {
   it('derives a shape from the sample, null when the section is a leaf', () => {
     const [assignments, syllabus] = parseSurveyOutput(survey());
@@ -320,5 +364,18 @@ describe('manifest', () => {
     expect(pendingChunks(m)).toEqual([0]);
     m.chunks[0].status = 'done';
     expect(pendingChunks(m)).toEqual([]);
+  });
+});
+
+// A deny list of script names only covers surfaces someone already thought of. These five are
+// real per-student MyOpenMath pages that matched nothing in PEOPLE_SURFACE by name.
+describe('isPeopleSurface — a person-selecting param is enough', () => {
+  it('catches a script it has never heard of, by its parameter', () => {
+    expect(isPeopleSurface('https://www.myopenmath.com/course/gbcomments.php?cid=1&stu=0')).toBe(true);
+    expect(isPeopleSurface('https://www.myopenmath.com/course/anything.php?cid=1&uid=99')).toBe(true);
+  });
+
+  it('leaves a course-scoped content page alone', () => {
+    expect(isPeopleSurface('https://www.myopenmath.com/course/course.php?cid=1&folder=0-5')).toBe(false);
   });
 });
