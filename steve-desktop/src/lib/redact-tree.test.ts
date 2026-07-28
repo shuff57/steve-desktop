@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { redactTree, isChromeNode, redactProfileForStorage, redactUrlForStorage } from './redact-tree';
+import { redactTree, isChromeNode, redactProfileForStorage, redactUrlForStorage, sweepPattern } from './redact-tree';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
 function node(tag: string, text: string, attrs: Record<string, string> = {}): SnapshotNode {
@@ -11,6 +11,40 @@ function snap(nodes: SnapshotNode[]): SnapshotResult {
     meta: { totalVisited: nodes.length, nodesIncluded: nodes.length, nodesDropped: 0, wasTruncated: false, charCount: 0, capturedAt: '2026-06-23T00:00:00.000Z' },
   };
 }
+
+// Every case below was measured on a live MyOpenMath document, not invented. The item-type column
+// of a course listing put "Forum" and "Assessment" into the dictionary as DATA, and substring
+// matching then rewrote the site's own vocabulary everywhere it appeared.
+describe('sweepPattern — vocabulary matches on word boundaries, identifiers do not', () => {
+  const swap = (value: string, text: string) => text.replace(sweepPattern(value), '<T>');
+
+  it('stops a data word from eating URL paths and plurals', () => {
+    expect(swap('Forum', 'https://m.com/forums/forums.php?cid=1')).toBe('https://m.com/forums/forums.php?cid=1');
+    expect(swap('Assess', '/course/showassess.php?cid=1')).toBe('/course/showassess.php?cid=1');
+    expect(swap('assignment', 'Enumerate assignments and links')).toBe('Enumerate assignments and links');
+  });
+
+  it('still redacts a name in free text, and as a whole label', () => {
+    expect(swap('Doe, Jane', 'Contact Doe, Jane about the quiz')).toBe('Contact <T> about the quiz');
+    expect(swap('Doe, Jane', 'Doe, Jane')).toBe('<T>');
+  });
+
+  it('does not touch a DIFFERENT person who merely shares a prefix', () => {
+    expect(swap('Jane', 'Janet Wilson')).toBe('Janet Wilson');
+  });
+
+  // The FERPA-critical half: ids keep substring matching, because an id can be fused into a
+  // longer token with no boundary to anchor to.
+  it('redacts an identifier even with no word boundary around it', () => {
+    expect(swap('7158619', 'gradebook.php?cid=1&stu=7158619')).toBe('gradebook.php?cid=1&stu=<T>');
+    expect(swap('7158619', 'user7158619profile')).toBe('user<T>profile');
+    expect(swap('a7f3b21', 'xa7f3b21x')).toBe('x<T>x');
+  });
+
+  it('handles a value whose own edges are punctuation', () => {
+    expect(swap('(Copy)', 'Template (Copy) here')).toBe('Template <T> here');
+  });
+});
 
 describe('isChromeNode (allow-list of labels/controls)', () => {
   it('keeps interactive controls, headings, and field labels', () => {

@@ -27,6 +27,34 @@ export function isChromeNode(node: SnapshotNode): boolean {
   return CHROME_TAGS.has((node.tag ?? '').toLowerCase());
 }
 
+/**
+ * How the defense-in-depth sweep matches a known value in free text.
+ *
+ * Plain substring matching poisons the whole site from one data cell. A course listing has an
+ * item-type column reading "Forum" / "Assessment", so those WORDS enter the dictionary as data —
+ * and every later occurrence is swapped, including the "Forums" nav label and the `/forums/`
+ * path segment. A live document came out describing `/⟦D41⟧s/⟦D41⟧s.php` and telling the reader to
+ * "enumerate ⟦D100⟧s". Accurate, and impossible to act on.
+ *
+ * The split is between VOCABULARY and IDENTIFIERS, and a digit tells them apart:
+ *
+ *   no digit ("Forum", "Doe, Jane") — a word. Match on word boundaries, so "Forums" and
+ *     "showassess.php" survive while "Contact Doe, Jane" is still caught. A name is bounded by
+ *     punctuation or space wherever it appears, so nothing identifying is given up.
+ *   has a digit ("7158619", "a7f3b21") — an identifier. Keep plain substring matching, because an
+ *     id can be fused into a longer token ("user7158619profile") with no boundary to anchor to.
+ *
+ * So this fixes the vocabulary breakage without weakening id redaction at all — deliberately, since
+ * that is the FERPA-critical half. The `< 3 chars` skip above is the same instinct, one size cruder.
+ */
+export function sweepPattern(value: string): RegExp {
+  const escaped = escapeRegExp(value);
+  if (/\d/.test(value)) return new RegExp(escaped, 'gi'); // identifier — substring, as before
+  const pre = /^\w/.test(value) ? '\\b' : '';
+  const suf = /\w$/.test(value) ? '\\b' : '';
+  return new RegExp(pre + escaped + suf, 'gi');
+}
+
 export interface TreeRedaction {
   /** Serialized, safe-to-send representation: every data slot is a token. */
   redactedText: string;
@@ -101,7 +129,7 @@ export function redactTree(snapshot: SnapshotResult, opts: RedactTreeOptions = {
     let out = text;
     for (const [value, token] of byLongest) {
       if (value.trim().length < 3) continue;
-      out = out.replace(new RegExp(escapeRegExp(value), 'gi'), token);
+      out = out.replace(sweepPattern(value), token);
     }
     return out;
   };
