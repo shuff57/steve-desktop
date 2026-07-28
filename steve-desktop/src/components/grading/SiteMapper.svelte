@@ -843,8 +843,39 @@
     try {
       chunkPlan = planChunks(chosen.map((s) => ({ name: s.name, pages: s.pages })), CHUNK_SIZE);
       const ai: ModelTransport | null = provider ? cliTransport(engineForProvider(provider), model) : null;
-      const fragments: string[] = [];
       const visited = new Set<string>();
+
+      // Fragments are independent by construction — chunk 7's call knows nothing about chunk 6's
+      // (new session id, resume:false). So a chunk's section is written WHILE the next chunk is
+      // being captured, instead of the crawl sitting idle waiting on the model. Slots are indexed
+      // by chunk so the merge still sees them in site order however they finish.
+      const fragments: (string | null)[] = [];
+      let inflight: Promise<void>[] = [];
+      // ponytail: batch barrier at 3, not a proper semaphore. Capture staggers these naturally, so
+      // the cap rarely binds; it exists to stop a fast crawl stacking CLI processes on the account.
+      const MAX_INFLIGHT = 3;
+
+      const queueFragment = (chunk: MapChunk, lines: string) => {
+        // Snapshot the secret map: it keeps growing as later chunks capture, and fetchFragment
+        // both tokenizes and gate-checks against it. A live reference would let those two disagree.
+        const secrets = { ...allSecrets };
+        const label = `chunk ${chunk.index + 1} (${chunk.section})`;
+        inflight.push(
+          fetchFragment(
+            { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
+            secrets,
+            ai!,
+          )
+            .then((frag) => {
+              fragments[chunk.index] = frag ?? null;
+              if (!frag) failures.push({ url: label, error: 'model returned empty section text' });
+            })
+            .catch((e) => {
+              fragments[chunk.index] = null;
+              failures.push({ url: label, error: e instanceof Error ? e.message : String(e) });
+            }),
+        );
+      };
 
       for (const chunk of chunkPlan) {
         const captured: string[] = [];
@@ -876,42 +907,39 @@
           })
           .filter(Boolean)
           .join('\n');
-        chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — writing its section…`;
-        // Record why a chunk produced nothing. Ten silent nulls once looked exactly like a
-        // successful crawl that happened to write no document.
-        let frag: string | null = null;
-        try {
-          frag = await fetchFragment(
-            { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
-            allSecrets,
-            ai,
-          );
-        } catch (e) {
-          failures.push({ url: `chunk ${chunk.index + 1} (${chunk.section})`, error: e instanceof Error ? e.message : String(e) });
-        }
-        if (frag) fragments.push(frag);
-        else if (!failures.some((f) => f.url.startsWith(`chunk ${chunk.index + 1} `))) {
-          failures.push({ url: `chunk ${chunk.index + 1} (${chunk.section})`, error: 'model returned empty section text' });
+        // Fire and keep crawling — the section gets written while the next chunk is captured.
+        // Failures are recorded by the job itself, so a bad chunk still costs only its section.
+        queueFragment(chunk, lines);
+        if (inflight.length >= MAX_INFLIGHT) {
+          chunkStep = `Waiting on ${inflight.length} section(s) before capturing more…`;
+          await Promise.all(inflight);
+          inflight = [];
         }
       }
 
+      if (inflight.length) {
+        chunkStep = `Finishing ${inflight.length} section(s)…`;
+        await Promise.all(inflight);
+      }
+      const written = fragments.filter((f): f is string => !!f);
+
       await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
       const domain = domainFromUrl(pageUrl);
-      if (fragments.length && domain) {
+      if (written.length && domain) {
         chunkStep = 'Merging sections into one document…';
         const ai2: ModelTransport | null = provider ? cliTransport(engineForProvider(provider), model) : null;
-        const merged = ai2 ? await fetchMergedDoc({ domain, fragments }, allSecrets, ai2) : null;
+        const merged = ai2 ? await fetchMergedDoc({ domain, fragments: written }, allSecrets, ai2) : null;
         // Scrub the finished doc, not just the outbound prompts. The gate stops redacted values
         // being SENT, but the model can infer one from surrounding context and write it back: a
         // live scrapethissite.com merge announced 'Recovered the two redacted spans from context:
         // ⟦D5⟧ → "Podocnemididae"' and persisted it. Harmless on a test site; on Canvas the same
         // move reconstructs a student name into a file on disk.
-        aiDoc = tokenizeSecrets(merged ?? concatFragments(domain, fragments), allSecrets);
+        aiDoc = tokenizeSecrets(merged ?? concatFragments(domain, written), allSecrets);
         aiDocPath = await saveMappingDoc(domain, aiDoc).catch(() => null);
       }
       chunkStep = '';
       siteMsg = `Chunked map done: ${chunkPlan.length} chunk(s), ${siteMap?.pages.length ?? 0} page(s) captured`
-        + (fragments.length ? `, ${fragments.length} section(s) written.` : ', no sections written.')
+        + (written.length ? `, ${written.length} section(s) written.` : ', no sections written.')
         + (failures.length ? ` ${failures.length} capture(s) failed.` : '');
     } catch (e) {
       siteMsg = `Chunked map failed: ${e instanceof Error ? e.message : String(e)}`;
