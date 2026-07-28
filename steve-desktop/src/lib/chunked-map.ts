@@ -142,6 +142,28 @@ export function planChunks(
 }
 
 /**
+ * Apply the value->token dictionary to an outbound prompt.
+ *
+ * callModelTree refuses to send any text that still contains a redacted VALUE, but the page names,
+ * paths and SECTION NAMES in a prompt are read straight off the live page while the secret map
+ * accumulates across every page captured so far. A nav label that was data on one page is a
+ * section heading on the next, so the collision is routine.
+ *
+ * Apply this to the FINISHED prompt, not to one field. Tokenizing only the page lines still left
+ * the section name raw, and a live webscraper.io run refused every chunk with "a redacted data
+ * value leaked into the outbound payload" — the leak was the word "Home".
+ *
+ * Values under 3 chars are left alone: the gate ignores them too, and blind-replacing them would
+ * shred ordinary words.
+ */
+export function tokenizeSecrets(outbound: string, secrets: Record<string, string>): string {
+  return Object.entries(secrets).reduce(
+    (text, [token, value]) => (value.trim().length >= 3 ? text.split(value).join(token) : text),
+    outbound,
+  );
+}
+
+/**
  * Fragment prompt for ONE chunk. `lines` are the compact per-page lines the app already builds
  * for synthesis (`pageName [type] — path — Nbtn/Nin/Nlnk`) — never raw page content.
  */
@@ -205,16 +227,15 @@ export async function fetchFragment(
   secrets: Record<string, string>,
   transport: ModelTransport,
 ): Promise<string | null> {
-  try {
-    const reply = await callModelTree(
-      { redactedText: buildFragmentPrompt(o), map: secrets, rehydrate: (t) => t, redact: (t) => t },
-      transport,
-    );
-    const text = reply.trim();
-    return text || null;
-  } catch {
-    return null;
-  }
+  // Deliberately does NOT swallow. A blanket catch here hid a dead sidecar, then a redaction-gate
+  // refusal, through three live runs — each looked like "the crawl worked but wrote nothing".
+  // The caller records the message against the chunk; one bad chunk still costs only its section.
+  const reply = await callModelTree(
+    { redactedText: tokenizeSecrets(buildFragmentPrompt(o), secrets), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+    transport,
+  );
+  const text = reply.trim();
+  return text || null;
 }
 
 /** Fragments → the finished doc. Null falls back to concatenating the fragments verbatim. */
@@ -225,7 +246,7 @@ export async function fetchMergedDoc(
 ): Promise<string | null> {
   try {
     const reply = await callModelTree(
-      { redactedText: buildMergePrompt(o), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+      { redactedText: tokenizeSecrets(buildMergePrompt(o), secrets), map: secrets, rehydrate: (t) => t, redact: (t) => t },
       transport,
     );
     const text = reply.trim();

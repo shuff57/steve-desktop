@@ -19,13 +19,13 @@
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
     buildSurveyPrompt, parseSurveyOutput, planChunks, fetchFragment, fetchMergedDoc, concatFragments,
-    CHUNK_SIZE, type MapChunk,
+    tokenizeSecrets, CHUNK_SIZE, type MapChunk,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
   import { tabMarker } from '../../lib/tab-control';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
-  import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
+  import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine, type AgentEngine } from '../../lib/agent-cli';
   import { invoke } from '@tauri-apps/api/core';
   import { listen } from '@tauri-apps/api/event';
   import { planFrontier, fetchTemplateTiebreak, type FrontierCandidate } from '../../lib/crawl-planner';
@@ -39,6 +39,32 @@
   import type { SiteProfile } from '../../lib/types/site-profile';
 
   let { pageUrl = '', provider = '', model = '' } = $props<{ pageUrl?: string; provider?: string; model?: string }>();
+
+  /**
+   * Model transport for the chunked fragment/merge passes.
+   *
+   * These used to go through sidecarTransport, which POSTs to a sidecar on :3456. Nothing in this
+   * app serves that port — we authenticate by CLI login, not an API key — so every fragment call
+   * threw, fetchFragment swallowed it, and a live 153-page capture of webscraper.io finished with
+   * "no sections written". Spawning the same CLI the survey uses is the only authenticated path
+   * here. One spawn per chunk is the cost; the prompts are compact lines, not page content.
+   */
+  function cliTransport(engine: AgentEngine, mdl: string): ModelTransport {
+    return async (prompt: string) => {
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt,
+        sessionId: crypto.randomUUID(),
+        resume: false,
+        model: cliModelArg(engine, mdl),
+        systemPrompt: null,
+        bypassPermissions: true,
+        timeoutSecs: 300,
+        stream: false,
+      });
+      return extractCliText(engine, stdout);
+    };
+  }
 
   // Reopening the panel restores the saved site map for whatever domain you're on.
   // Set when the grading panel handed off a crawl to us: on completion we derive the
@@ -720,6 +746,10 @@
       if (!port) throw new Error('CDP debug port unavailable. Restart the app.');
       const engine = engineForProvider(provider);
       const start = normalizeUrl(pageUrl);
+      // Without this the prompt goes out as "Survey the STRUCTURE of ." and the empty scope fence
+      // rejects every section the agent finds — a guaranteed zero-section result, after paying for
+      // a full 900s run. Three of those were spent before the guard existed.
+      if (!start) throw new Error('No page loaded in this tab — open the site first.');
 
       progressBuf = createThrottledBuffer<string>((lines) => { aiProgress = [...aiProgress, ...lines].slice(-40); });
       unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
@@ -752,7 +782,13 @@
       const found: typeof chunkSections = [];
       for (const [i, sec] of sections.entries()) {
         const idx = normalizeUrl(sec.indexUrl);
-        if (!isCrawlableLink(idx, start) || !withinScope(idx, start)) continue;
+        // Say which sections the gate rejected. A bare continue here reported six dropped sections
+        // as a flat "no reachable sections", and the reason was only recoverable from the CLI's
+        // own transcript on disk.
+        if (!isCrawlableLink(idx, start) || !withinScope(idx, start)) {
+          failures.push({ url: idx, error: `outside the crawl scope of ${start}` });
+          continue;
+        }
         chunkStep = `Reading section ${i + 1}/${sections.length}: ${sec.name}…`;
         try {
           const loaded = await armPageLoad();
@@ -806,7 +842,7 @@
     const allSecrets: Record<string, string> = {};
     try {
       chunkPlan = planChunks(chosen.map((s) => ({ name: s.name, pages: s.pages })), CHUNK_SIZE);
-      const ai: ModelTransport | null = provider ? sidecarTransport({ provider, model }) : null;
+      const ai: ModelTransport | null = provider ? cliTransport(engineForProvider(provider), model) : null;
       const fragments: string[] = [];
       const visited = new Set<string>();
 
@@ -841,21 +877,36 @@
           .filter(Boolean)
           .join('\n');
         chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — writing its section…`;
-        const frag = await fetchFragment(
-          { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
-          allSecrets,
-          ai,
-        );
+        // Record why a chunk produced nothing. Ten silent nulls once looked exactly like a
+        // successful crawl that happened to write no document.
+        let frag: string | null = null;
+        try {
+          frag = await fetchFragment(
+            { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
+            allSecrets,
+            ai,
+          );
+        } catch (e) {
+          failures.push({ url: `chunk ${chunk.index + 1} (${chunk.section})`, error: e instanceof Error ? e.message : String(e) });
+        }
         if (frag) fragments.push(frag);
+        else if (!failures.some((f) => f.url.startsWith(`chunk ${chunk.index + 1} `))) {
+          failures.push({ url: `chunk ${chunk.index + 1} (${chunk.section})`, error: 'model returned empty section text' });
+        }
       }
 
       await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
       const domain = domainFromUrl(pageUrl);
       if (fragments.length && domain) {
         chunkStep = 'Merging sections into one document…';
-        const ai2: ModelTransport | null = provider ? sidecarTransport({ provider, model }) : null;
+        const ai2: ModelTransport | null = provider ? cliTransport(engineForProvider(provider), model) : null;
         const merged = ai2 ? await fetchMergedDoc({ domain, fragments }, allSecrets, ai2) : null;
-        aiDoc = merged ?? concatFragments(domain, fragments);
+        // Scrub the finished doc, not just the outbound prompts. The gate stops redacted values
+        // being SENT, but the model can infer one from surrounding context and write it back: a
+        // live scrapethissite.com merge announced 'Recovered the two redacted spans from context:
+        // ⟦D5⟧ → "Podocnemididae"' and persisted it. Harmless on a test site; on Canvas the same
+        // move reconstructs a student name into a file on disk.
+        aiDoc = tokenizeSecrets(merged ?? concatFragments(domain, fragments), allSecrets);
         aiDocPath = await saveMappingDoc(domain, aiDoc).catch(() => null);
       }
       chunkStep = '';

@@ -10,6 +10,7 @@ import {
   buildMergePrompt,
   buildManifest,
   pendingChunks,
+  tokenizeSecrets,
 } from './chunked-map';
 
 const survey = (extra = '') =>
@@ -100,6 +101,88 @@ describe('planChunks', () => {
     const all = pages(53);
     const got = planChunks([{ name: 'A', pages: all }], 10).flatMap((c) => c.pages.map((p) => p.url));
     expect(got.sort()).toEqual(all.map((p) => p.url).sort());
+  });
+});
+
+describe('tokenizeSecrets', () => {
+  // The gate (callModelTree) throws if any redacted value >= 3 chars survives in the outbound
+  // text. These are the exact conditions that killed all ten chunks of a live run.
+  const gateWouldRefuse = (text: string, secrets: Record<string, string>) =>
+    Object.values(secrets).some((v) => v.trim().length >= 3 && text.includes(v));
+
+  it('replaces a secret value that reappears as a page title', () => {
+    const secrets = { '⟦D1⟧': 'Prestigio SmartBook' };
+    const lines = '0: Prestigio SmartBook — /product/545 — 2btn/0in/9lnk';
+    const out = tokenizeSecrets(lines, secrets);
+    expect(out).toContain('⟦D1⟧');
+    expect(gateWouldRefuse(out, secrets)).toBe(false);
+  });
+
+  it('replaces every occurrence, not just the first', () => {
+    const out = tokenizeSecrets('Acme — /a — Acme', { '⟦D1⟧': 'Acme' });
+    expect(out).toBe('⟦D1⟧ — /a — ⟦D1⟧');
+  });
+
+  it('leaves short values alone — the gate ignores them and replacing shreds ordinary words', () => {
+    expect(tokenizeSecrets('a laptop at /a', { '⟦D1⟧': 'a' })).toBe('a laptop at /a');
+  });
+
+  it('is a no-op when nothing collides', () => {
+    const lines = '0: Home — / — 1btn/0in/5lnk';
+    expect(tokenizeSecrets(lines, { '⟦D1⟧': 'Nowhere To Be Found' })).toBe(lines);
+  });
+
+  it('clears the gate across a whole accumulated map', () => {
+    const secrets = { '⟦D1⟧': 'Lenovo V110-15', '⟦D2⟧': 'Dell Inspiron', '⟦STU⟧': '127333' };
+    const lines = ['0: Lenovo V110-15 — /p/1', '1: Dell Inspiron — /p/2 — user 127333'].join('\n');
+    expect(gateWouldRefuse(lines, secrets)).toBe(true);
+    expect(gateWouldRefuse(tokenizeSecrets(lines, secrets), secrets)).toBe(false);
+  });
+});
+
+describe('outbound prompts clear the redaction gate', () => {
+  // callModelTree throws when any redacted value >= 3 chars survives in the outbound text. The
+  // live failure was NOT in the page lines: the section name "Home" was itself a captured nav
+  // label, so tokenizing only `lines` left the leak in the prompt's heading.
+  const leaks = (text: string, secrets: Record<string, string>) =>
+    Object.values(secrets).filter((v) => v.trim().length >= 3 && text.includes(v));
+
+  it('tokenizes a secret that appears only in the section name', () => {
+    const secrets = { '⟦D1⟧': 'Home' };
+    const prompt = buildFragmentPrompt({ domain: 'c.edu', section: 'Home', index: 0, total: 1, lines: '0: x — /x — 0btn/0in/0lnk' });
+    expect(leaks(prompt, secrets)).toEqual(['Home']); // the bug, before tokenizing
+    expect(leaks(tokenizeSecrets(prompt, secrets), secrets)).toEqual([]);
+  });
+
+  it('tokenizes a secret that appears only in the domain', () => {
+    const secrets = { '⟦D1⟧': 'c.edu' };
+    const prompt = buildFragmentPrompt({ domain: 'c.edu', section: 'S', index: 0, total: 1, lines: '0: x — /x — 0btn/0in/0lnk' });
+    expect(leaks(tokenizeSecrets(prompt, secrets), secrets)).toEqual([]);
+  });
+
+  it('clears the gate for the merge prompt too', () => {
+    const secrets = { '⟦D1⟧': 'Assignments' };
+    const prompt = buildMergePrompt({ domain: 'c.edu', fragments: ['## Assignments\nrow'] });
+    expect(leaks(prompt, secrets)).toEqual(['Assignments']);
+    expect(leaks(tokenizeSecrets(prompt, secrets), secrets)).toEqual([]);
+  });
+});
+
+describe('saved document is scrubbed, not just the prompts', () => {
+  // Observed live on scrapethissite.com: the merge model inferred redacted values from context
+  // and wrote them into the document it returned ("⟦D5⟧ → Podocnemididae"). The gate only guards
+  // what is SENT, so the doc gets the same dictionary applied before it is persisted.
+  it('re-tokenizes a value the model reconstructed into its reply', () => {
+    const secrets = { '⟦D5⟧': 'Podocnemididae' };
+    const modelReply = '# Site map: x\n\nRecovered ⟦D5⟧ → "Podocnemididae" from context.';
+    const scrubbed = tokenizeSecrets(modelReply, secrets);
+    expect(scrubbed).not.toContain('Podocnemididae');
+    expect(scrubbed).toContain('⟦D5⟧');
+  });
+
+  it('leaves a clean document untouched', () => {
+    const doc = '# Site map: x\n\n## A\n| Page | URL |\n|---|---|\n| Home | `/` |';
+    expect(tokenizeSecrets(doc, { '⟦D1⟧': 'Nothing here' })).toBe(doc);
   });
 });
 
