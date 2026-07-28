@@ -302,6 +302,35 @@ export function normalizeUrl(url: string): string {
   }
 }
 
+/**
+ * Did navigation actually land on the page we asked for?
+ *
+ * The embedded webview's navigate resolves even when the page never moves, so a caller that
+ * trusts it captures whatever was already on screen and files it under the URL it requested.
+ * One live run stored 82 distinct URLs against a single wedged page and reported zero failures.
+ *
+ * A landing is: same origin, same path (trailing slash and #fragment ignored), and every query
+ * param we asked for still present with its value. That admits a site adding its own params
+ * (MyOpenMath appends &r=<session>) without a deny-list, and rejects a redirect to a different
+ * path — which is a different page, however legitimate the redirect.
+ */
+export function landedOn(intended: string, actual: string): boolean {
+  let want: URL;
+  let got: URL;
+  try {
+    want = new URL(intended);
+    got = new URL(actual);
+  } catch {
+    return false;
+  }
+  const path = (u: URL) => u.pathname.replace(/\/+$/, '');
+  if (want.origin !== got.origin || path(want) !== path(got)) return false;
+  for (const [k, v] of want.searchParams) {
+    if (!got.searchParams.getAll(k).includes(v)) return false;
+  }
+  return true;
+}
+
 /** Same-origin http(s) link that isn't a logout/destructive action — safe to auto-navigate to. */
 export function isCrawlableLink(href: string, baseUrl: string): boolean {
   let u: URL;

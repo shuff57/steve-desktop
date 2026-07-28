@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   CHUNK_SIZE,
   SURVEY_MAX_PAGES,
+  isPeopleSurface,
   buildSurveyPrompt,
   parseSurveyOutput,
   sectionTemplate,
@@ -79,6 +80,35 @@ describe('people surfaces', () => {
     for (const u of ['/course/course.php?cid=1', '/course/showcalendar.php', '/forums/forums.php']) {
       expect(PEOPLE_SURFACE.test(u)).toBe(false);
     }
+  });
+
+  // These five are REAL paths taken from the 125 stored canvas.butte.edu profiles. The first
+  // version of PEOPLE_SURFACE matched none of them — including the roster — because its
+  // `\/users?\/` alternative required a trailing slash. Regression fixture, not invention.
+  it('classifies the real Canvas people surfaces found on disk', () => {
+    for (const u of [
+      '/courses/31407/users',                                   // THE ROSTER — no trailing slash
+      '/courses/31407/grades',
+      '/courses/31407/grades/12345',
+      '/courses/31407/assignments/844633/submissions/12345',
+      '/courses/31407/gradebook/speed_grader?assignment_id=8',
+    ]) {
+      expect(isPeopleSurface(`https://canvas.butte.edu${u}`)).toBe(true);
+    }
+  });
+
+  it('leaves Canvas content pages alone', () => {
+    for (const u of ['/courses/31407', '/courses/31407/modules', '/courses/31407/assignments',
+                     '/courses/31407/pages/syllabus', '/courses/31407/announcements']) {
+      expect(isPeopleSurface(`https://canvas.butte.edu${u}`)).toBe(false);
+    }
+  });
+
+  // Matching the whole URL lets the HOST decide: every page on gradebook.example.com would be
+  // classified a people surface, and the entire site would be captured index-only.
+  it('matches on the path, never the hostname', () => {
+    expect(isPeopleSurface('https://gradebook.example.com/courses/1/modules')).toBe(false);
+    expect(isPeopleSurface('https://example.com/courses/1/gradebook')).toBe(true);
   });
 
   it('seeds them index-only so the crawler never walks one per student', () => {

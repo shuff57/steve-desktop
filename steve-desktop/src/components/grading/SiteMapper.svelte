@@ -14,7 +14,7 @@
     saveProfile, saveSiteMap, loadSiteMap, deleteSiteMap, loadProfile, deleteProfile, getProfilePath,
     saveMappingDoc, saveVerifyReport, healMappingDoc,
   } from '../../lib/site-profiles';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
@@ -288,8 +288,52 @@
     await delay(150);
   }
 
+  /**
+   * Navigate, wait for load, settle — and PROVE we arrived before anyone captures.
+   *
+   * `navigate_embedded` resolves even when the webview ignores it and stays put, so every caller
+   * that trusted it captured the page already on screen and filed it under the URL it asked for.
+   * A live MyOpenMath run stored 82 distinct URLs against one wedged page, produced a confident
+   * site map describing that page seven different ways, and reported "0 failures".
+   *
+   * On a miss, retry once over CDP (Page.navigate lands where the app's navigate no-ops — that
+   * asymmetry is exactly what the wedge looks like), then throw. A recorded failure is worth far
+   * more than a plausible, wrong profile. Returns the URL actually landed on.
+   */
+  async function navigateAndLand(tabId: string, url: string): Promise<string> {
+    // Where we were BEFORE is what separates the two ways a navigation can miss:
+    //   - a WEDGE leaves us on the previous page (the request was simply ignored)
+    //   - a REDIRECT puts us on a new page (the URL genuinely serves something else)
+    // the-internet.herokuapp.com/notification_message 302s to …_rendered; treating that as a
+    // failure threw away a real page. Only the wedge is a failure.
+    const before = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => ''));
+    let where = '';
+    for (const attempt of [0, 1]) {
+      const loaded = await armPageLoad();
+      if (attempt === 0) await navigateEmbedded(tabId, url);
+      else await cdp.send('Page.navigate', { url }).catch(() => undefined);
+      await loaded();
+      await settle();
+      if (stopRequested) return url;
+      where = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => ''));
+      if (landedOn(url, where)) return where;
+      // Moved somewhere new and still in bounds: that IS the page this URL serves. Capture it
+      // under the URL it really is — the caller's `visited` set dedupes if we've been there.
+      // isCrawlableLink also rejects chrome-error:// and off-origin bounces.
+      if (where && where !== before && isCrawlableLink(where, url)) return where;
+    }
+    throw new Error(`navigation did not land: asked for ${url}, browser is still on ${where || 'an unknown page'}`);
+  }
+
   /** Capture the current page, save its profile, and fold it into the per-domain site map. */
   async function mapHere(url: string, visited: Set<string>): Promise<{ profile: SiteProfile; safe: SiteProfile; secrets: Record<string, string> }> {
+    // Last line of defence for the wedge above: whatever route got us here, a profile is never
+    // stored under a URL the browser isn't actually on. Callers that navigate via navigateAndLand
+    // have already proven this; the ones that assume the tab is "already there" have not.
+    const at = normalizeUrl(await getEmbeddedUrl().catch(() => ''));
+    if (at && !landedOn(url, at)) {
+      throw new Error(`refusing to store ${url} — the browser is on ${at}`);
+    }
     const { profile, redact, secrets } = await captureCurrent(url);
     visited.add(url);
     const domain = profile.domain;
@@ -427,20 +471,19 @@
         let secrets: Record<string, string>;
         let landed = target;
         try {
-          if (!first) {
+          if (first) {
+            // Start page: no navigation, we're already on it — read where the browser really is,
+            // which is not always the URL the address bar was seeded with.
+            first = false;
+            landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
+          } else {
             // Belt and suspenders: the queue only ever holds gate-passed links, but the
             // navigator re-checks anyway — no code path may navigate an unsafe URL.
             if (!isCrawlableLink(target, start)) continue;
-            // Arm the load listener BEFORE navigating so a fast load can't be missed.
-            const loaded = await armPageLoad();
-            await navigateEmbedded(tabId, target);
-            await loaded();
-            await settle();
+            // Arms the load listener before navigating, and proves the page actually moved.
+            landed = await navigateAndLand(tabId, target);
             if (stopRequested) break;
           }
-          first = false;
-
-          landed = normalizeUrl(await getEmbeddedUrl(tabId).catch(() => target));
           if (visited.has(landed)) continue;
           ({ profile, safe, secrets } = await mapHere(landed, visited));
         } catch (e) {
@@ -572,11 +615,7 @@
           siteMsg = `Self-audit: re-checking ${suspects.length} page(s) referenced elsewhere but captured empty…`;
           for (const s of suspects) {
             try {
-              const loaded = await armPageLoad();
-              await navigateEmbedded(tabId, s.url);
-              await loaded();
-              await settle();
-              await mapHere(s.url, visited);
+              await mapHere(await navigateAndLand(tabId, s.url), visited);
             } catch (e) {
               failures.push({ url: s.url, error: e instanceof Error ? e.message : String(e) });
             }
@@ -700,11 +739,8 @@
           if (visited.has(u) || !isCrawlableLink(u, start)) continue;
           siteMsg = `Capturing page ${i + 1}/${pages.length} for verification: ${p.name}…`;
           try {
-            const loaded = await armPageLoad();
-            await navigateEmbedded(activeTabIdOr(tabId), u);
-            await loaded();
-            await settle();
-            await mapHere(u, visited); // writes profile JSON + folds into siteMap
+            // writes profile JSON + folds into siteMap, under the URL we PROVABLY landed on
+            await mapHere(await navigateAndLand(activeTabIdOr(tabId), u), visited);
           } catch (e) {
             failures.push({ url: u, error: e instanceof Error ? e.message : String(e) });
           }
@@ -781,8 +817,14 @@
       // page only (sampleUrl ''), so the crawler maps the surface and never walks it per student.
       const visited = new Set<string>();
       let seeded: typeof reported = [];
+      // Links present on the START page are site-wide chrome (nav bar, footer, breadcrumbs), not
+      // members of whatever section we happen to be reading. Without subtracting them, six
+      // MyOpenMath sections each "contained" 42-43 pages that were the same nav bar, so
+      // "Course Content" listed the Gradebook, the Calendar and Site home as its members.
+      const chrome = new Set<string>();
       try {
         const { profile: startProfile } = await mapHere(start, visited);
+        for (const l of profileLinks(startProfile)) chrome.add(normalizeUrl(l.href));
         const known = new Set(reported.map((s) => normalizeUrl(s.indexUrl)));
         seeded = peopleSections(profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) })))
           .filter((s) => !known.has(s.indexUrl));
@@ -807,18 +849,21 @@
         }
         chunkStep = `Reading section ${i + 1}/${sections.length}: ${sec.name}…`;
         try {
-          const loaded = await armPageLoad();
-          await navigateEmbedded(activeTabIdOr(tabId), idx);
-          await loaded();
-          await settle();
-          const { profile } = await mapHere(idx, visited);
+          // The section keeps its canonical index URL below; only the stored profile is filed
+          // under whatever the browser actually reached (a site may append its own session param).
+          const { profile } = await mapHere(await navigateAndLand(activeTabIdOr(tabId), idx), visited);
           // A people surface is mapped for its SHAPE, never walked per person: enumerating a
           // gradebook's links means a profile per student. The index page alone tells an
           // automation agent the URL and its controls, which is all it needs.
+          // Drop site-wide chrome (see `chrome` above) so a section's pages are its own members.
+          // Skipped when the section IS the start page — there, every link is fair game and
+          // subtracting would leave the section empty.
+          const isStart = idx === start;
           const pages = indexOnly.has(idx)
             ? []
             : profileLinks(profile)
                 .map((l) => ({ name: l.label || l.href, url: normalizeUrl(l.href) }))
+                .filter((p) => isStart || !chrome.has(p.url))
                 .filter((p) => isCrawlableLink(p.url, start) && withinScope(p.url, start));
           const seen = new Set<string>();
           found.push({
@@ -904,13 +949,13 @@
           chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — capturing ${i + 1}/${chunk.pages.length}: ${p.name}`;
           if (visited.has(p.url) || !isCrawlableLink(p.url, start)) continue;
           try {
-            const loaded = await armPageLoad();
-            await navigateEmbedded(activeTabIdOr(tabId), p.url);
-            await loaded();
-            await settle();
-            const { secrets } = await mapHere(p.url, visited);
+            // Capture under the URL we PROVED we reached. Filing pages under the URL we merely
+            // asked for is what let one wedged page become 82 "distinct" profiles and a
+            // confident, entirely fictional site map.
+            const landed = await navigateAndLand(activeTabIdOr(tabId), p.url);
+            const { secrets } = await mapHere(landed, visited);
             Object.assign(allSecrets, secrets);
-            captured.push(p.url);
+            captured.push(landed);
           } catch (e) {
             failures.push({ url: p.url, error: e instanceof Error ? e.message : String(e) });
           }
@@ -1048,11 +1093,7 @@
           if (visited.has(u) || !isCrawlableLink(u, start)) continue;
           siteMsg = `Healing profile ${i + 1}/${recapture.length}: ${p.name}…`;
           try {
-            const loaded = await armPageLoad();
-            await navigateEmbedded(activeTabIdOr(tabId), u);
-            await loaded();
-            await settle();
-            await mapHere(u, visited);
+            await mapHere(await navigateAndLand(activeTabIdOr(tabId), u), visited);
             recaptured += 1;
           } catch (e) {
             failures.push({ url: u, error: e instanceof Error ? e.message : String(e) });

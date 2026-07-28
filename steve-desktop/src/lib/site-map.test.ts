@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+import { isCrawlableLink, normalizeUrl, landedOn, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
 
 describe('mapIsStale — a destructive action must not aim at the site you just left', () => {
   it('flags a map belonging to a different site than the page on screen', () => {
@@ -250,6 +250,37 @@ describe('normalizeUrl — collapse anchor/popover URLs to the same page', () =>
     expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
   });
 });
+// Regression: a live run stored 82 distinct URLs against one wedged page because nothing ever
+// checked where the browser actually was. This predicate is the check.
+describe('landedOn — did navigation actually reach the page', () => {
+  const at = 'https://www.myopenmath.com/course/course.php?cid=316341';
+  it('accepts the same page', () => {
+    expect(landedOn(at, at)).toBe(true);
+  });
+  it('accepts a session param the site appended itself', () => {
+    expect(landedOn(at, `${at}&r=8827`)).toBe(true);
+  });
+  it('accepts a trailing-slash or #fragment difference', () => {
+    expect(landedOn('https://x.com/a/', 'https://x.com/a')).toBe(true);
+    expect(landedOn('https://x.com/a', 'https://x.com/a#top')).toBe(true);
+  });
+  it('rejects a page that never moved — the wedge', () => {
+    expect(landedOn(at, 'https://www.myopenmath.com/course/managelibs.php?cid=316341')).toBe(false);
+  });
+  it('rejects a redirect to a different path, however legitimate', () => {
+    expect(landedOn(at, 'https://www.myopenmath.com/login.php')).toBe(false);
+    expect(landedOn('https://x.com/a', 'https://y.com/a')).toBe(false);
+  });
+  it('rejects a dropped or changed query param — a different course is a different page', () => {
+    expect(landedOn(at, 'https://www.myopenmath.com/course/course.php?cid=999999')).toBe(false);
+    expect(landedOn(at, 'https://www.myopenmath.com/course/course.php')).toBe(false);
+  });
+  it('rejects an unparseable or empty actual URL rather than assuming success', () => {
+    expect(landedOn(at, '')).toBe(false);
+    expect(landedOn(at, 'chrome-error://chromewebdata')).toBe(false);
+  });
+});
+
 import type { SiteProfile } from './types/site-profile';
 
 describe('isCrawlableLink — crawl frontier trust boundary', () => {

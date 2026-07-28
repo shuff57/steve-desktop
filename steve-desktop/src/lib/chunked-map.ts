@@ -26,23 +26,50 @@ export const SURVEY_MAX_PAGES = 12;
  * on the course home the app already captures. So the survey agent is told never to open them,
  * and the app seeds them itself from the start page's own links.
  *
- * This exists because a live survey of MyOpenMath course 316341 navigated to gradebook.php 29
- * times and roster/user pages 26 times. Nothing leaked to the fragment prompts — those carry only
- * "pageName — path — counts" — but the browsing agent's own context held the student list, which
- * is precisely what the redaction path is supposed to prevent.
+ * This exists because a live survey of MyOpenMath course 316341 navigated to gradebook.php and
+ * roster/user pages (6 full-URL references each). Nothing leaked to the fragment prompts — those
+ * carry only "pageName — path — counts" — but the browsing agent's own context held the student
+ * list, which is precisely what the redaction path is supposed to prevent.
+ *
+ * Widened 2026-07-28 after measuring the first version against the 125 stored canvas.butte.edu
+ * profiles: it matched 3 where a Canvas-aware pattern matched 8. It missed the ROSTER itself,
+ * because `\/users?\/` requires a trailing slash and Canvas serves /courses/<id>/users. Also
+ * missed: /courses/<id>/grades, /grades/<student>, /assignments/<id>/submissions/<student>.
+ * (Redaction had tokenized the ids to ⟦STU⟧, but the SURFACE was never classified — so the
+ * survey agent was free to open it and the crawler would walk it per student.)
+ *
+ * Match against the path+query, not the whole URL: testing the full string lets a host like
+ * "gradebook.example.com" classify every page on the site as a people surface.
+ *
+ * Broadening is the safe direction. A false positive only makes a surface index-only, which
+ * still satisfies the standing rule that automation must be able to REACH the gradebook and
+ * roster — it maps their shape without walking them person by person.
  */
 export const PEOPLE_SURFACE =
-  /(gradebook|roster|listusers|showuser|studentlist|msglist|msgs\/|\/users?\/|enrollments?|participants)/i;
+  /(gradebook|roster|listusers|showuser|studentlist|msglist|msgs\/|\/users?\b|\/people\b|\/grades\b|\/submissions?\b|speed_?grader|\/analytics\/(users|student)|enrollments?|participants)/i;
 
 /**
  * Sections for the people surfaces linked from the start page. Index page only — sampleUrl is
  * empty so the section captures as a single page and the crawler never enumerates its members.
  * Mapping the gradebook's shape is useful; walking it student by student is not.
  */
+/** Path + query of a URL, for matching. Falls back to the raw string on a relative/odd href. */
+export function urlTail(href: string): string {
+  try {
+    const u = new URL(href);
+    return u.pathname + u.search;
+  } catch {
+    return href;
+  }
+}
+
+/** Does this link point at a surface that lists people? Tested on the path, never the host. */
+export const isPeopleSurface = (href: string): boolean => PEOPLE_SURFACE.test(urlTail(href));
+
 export function peopleSections(links: { label?: string; href: string }[]): SurveySection[] {
   const seen = new Set<string>();
   return links
-    .filter((l) => l.href && PEOPLE_SURFACE.test(l.href))
+    .filter((l) => l.href && isPeopleSurface(l.href))
     .filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true)))
     .map((l) => ({
       name: (l.label || l.href).slice(0, 120),
