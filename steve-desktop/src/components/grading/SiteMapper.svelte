@@ -963,7 +963,9 @@
     const chosen = chunkSections.filter((s) => s.include && s.pages.length);
     if (!chosen.length) { siteMsg = 'Nothing selected to map.'; return; }
     chunking = true;
+    stopRequested = false;
     failures = [];
+    collapsed = [];
     const tabId = getActiveTabId();
     const start = normalizeUrl(pageUrl);
     const allSecrets: Record<string, string> = {};
@@ -1010,19 +1012,67 @@
         );
       };
 
+      // Template collapsing, same rule `crawl()` uses — the enumerated plan is a LIST OF URLS and
+      // walking it verbatim maps the same page shape over and over. Measured on a live course:
+      // 243 of the first 323 pages were one script, `moddataset.php?id=`, in three view modes. The
+      // survey enumerates faithfully; nothing downstream asked whether the shape was already known,
+      // so 75% of the crawl re-learned a page it had mapped 80 times. The panel has always told the
+      // user "repeating pages are sampled a couple of times, then skipped" — true of "Map this
+      // site", and until now not true here.
+      const tplSigs = new Map<string, Set<string>>();
+      const tplMapped = new Map<string, number>();
+      const famSigs = new Map<string, Set<string>>();
+      const famTpls = new Map<string, Set<string>>();
+      const famMapped = new Map<string, number>();
+      /** Whichever rule already knows this URL's shape — returns the label to report it under. */
+      const saturatedAs = (url: string): string | null => {
+        const t = urlTemplate(url);
+        if (isTemplateSaturated(tplMapped.get(t) ?? 0, tplSigs.get(t)?.size ?? 0)) return t;
+        const fam = siblingFamily(url);
+        if (fam && isFamilySaturated(famMapped.get(fam) ?? 0, famSigs.get(fam)?.size ?? 0, famTpls.get(fam)?.size ?? 0)) return fam;
+        return null;
+      };
+      /** Record a page we chose not to visit, so a collapsed family is never a silent truncation. */
+      const noteCollapsed = (tpl: string) => {
+        const hit = collapsed.find((c) => c.template === tpl);
+        if (hit) hit.skipped += 1;
+        else collapsed.push({ template: tpl, skipped: 1 });
+      };
+
       for (const chunk of chunkPlan) {
+        if (stopRequested) break;
         const captured: string[] = [];
+        let collapsedHere = 0;
         for (const [i, p] of chunk.pages.entries()) {
+          if (stopRequested) break;
           chunkStep = `Chunk ${chunk.index + 1}/${chunkPlan.length} — capturing ${i + 1}/${chunk.pages.length}: ${p.name}`;
           if (visited.has(p.url) || !isCrawlableLink(p.url, start)) continue;
+          const known = saturatedAs(p.url);
+          if (known) {
+            noteCollapsed(known);
+            collapsedHere += 1;
+            continue;
+          }
           try {
             // Capture under the URL we PROVED we reached. Filing pages under the URL we merely
             // asked for is what let one wedged page become 82 "distinct" profiles and a
             // confident, entirely fictional site map.
             const landed = await navigateAndLand(activeTabIdOr(tabId), p.url);
-            const { secrets } = await mapHere(landed, visited);
+            const { profile, secrets } = await mapHere(landed, visited);
             Object.assign(allSecrets, secrets);
             captured.push(landed);
+            // Score the shape against its families, so the next member of a repeating template is
+            // recognised. Keyed on the LANDED url — a redirect lands in a different family.
+            const tpl = urlTemplate(landed);
+            const sig = structuralSignature(profile);
+            tplMapped.set(tpl, (tplMapped.get(tpl) ?? 0) + 1);
+            tplSigs.set(tpl, (tplSigs.get(tpl) ?? new Set<string>()).add(sig));
+            const fam = siblingFamily(landed);
+            if (fam) {
+              famMapped.set(fam, (famMapped.get(fam) ?? 0) + 1);
+              famSigs.set(fam, (famSigs.get(fam) ?? new Set<string>()).add(sig));
+              famTpls.set(fam, (famTpls.get(fam) ?? new Set<string>()).add(tpl));
+            }
           } catch (e) {
             failures.push({ url: p.url, error: e instanceof Error ? e.message : String(e) });
           }
@@ -1040,9 +1090,15 @@
           })
           .filter(Boolean)
           .join('\n');
+        // Tell the model the section's REAL size. It is asked to collapse repeats into one row, but
+        // it can only count what it was shown — so a section of 81 data sets sampled down to 3
+        // would be written up as a section of 3. Collapsing must shrink the crawl, not the truth.
+        const sized = collapsedHere
+          ? `${lines}\n(+${collapsedHere} further page(s) in this section share these same templates and were not captured separately — identical structure, different data.)`
+          : lines;
         // Fire and keep crawling — the section gets written while the next chunk is captured.
         // Failures are recorded by the job itself, so a bad chunk still costs only its section.
-        queueFragment(chunk, lines);
+        queueFragment(chunk, sized);
         if (inflight.length >= MAX_INFLIGHT) {
           chunkStep = `Waiting on ${inflight.length} section(s) before capturing more…`;
           await Promise.all(inflight);
@@ -1496,7 +1552,10 @@
             {verifying ? '⏳ Verifying…' : '✅ Verify map'}
           </button>
         {/if}
-        {#if crawling || verifying}
+        {#if crawling || verifying || chunking || surveying}
+          <!-- chunking/surveying were missing, so the panel's own "Press Stop anytime" was a lie
+               for the longest-running mode in the app: aborting a chunked capture meant killing
+               the process. The loop already honours stopRequested. -->
           <button class="map stop" onclick={stopCrawl} title="Stop after the current page">⏹ Stop</button>
         {/if}
       </div>
