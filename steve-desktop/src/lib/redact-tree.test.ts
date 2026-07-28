@@ -133,6 +133,79 @@ describe('redactProfileForStorage — the hostname must survive redaction', () =
     expect(safe.note).not.toContain('Math');
   });
 
+  // Measured on a fresh 306-page capture of a live course: 3 distinct student names reached
+  // disk in course-gradebook-*.json and course-listusers-*.json. redactTree keeps control
+  // labels on purpose (a map of ⟦D7⟧ buttons is useless), but on a roster the label IS the
+  // person, so those strings were never in the value dictionary.
+  describe('people surfaces — the label is the person', () => {
+    const noop = (t: string) => t;
+    const roster = () => ({
+      domain: 'www.myopenmath.com',
+      url: 'https://www.myopenmath.com/course/listusers.php?cid=316341',
+      interactive: {
+        buttons: [
+          { text: 'Doe, Jane', selector: 'tr:nth-child(2) button' },
+          { text: 'Export CSV', selector: '#export' },
+        ],
+        links: [{ text: 'Alice Nguyen', selector: 'tr:nth-child(3) a' }],
+        inputs: [{ label: 'Search', selector: '#q' }],
+      },
+    });
+
+    it('tokenizes name-shaped control labels when the page lists people', () => {
+      const safe = redactProfileForStorage(roster(), noop, true);
+      expect(safe.interactive.buttons[0].text).toBe('⟦STU⟧');
+      expect(safe.interactive.links[0].text).toBe('⟦STU⟧');
+    });
+
+    it('keeps real action labels — the map still has to be usable', () => {
+      const safe = redactProfileForStorage(roster(), noop, true);
+      expect(safe.interactive.buttons[1].text).toBe('Export CSV');
+      expect(safe.interactive.inputs[0].label).toBe('Search');
+    });
+
+    it('leaves a positional selector alone, so automation can still drive the page', () => {
+      const safe = redactProfileForStorage(roster(), noop, true);
+      expect(safe.interactive.buttons[0].selector).toBe('tr:nth-child(2) button');
+    });
+
+    // Fixing only the visible label left 2 of the 3 measured names on disk: they were in the
+    // accessible-name selector and its role-name candidate.
+    it('tokenizes a name embedded in a selector or a selector candidate', () => {
+      const p = {
+        domain: 'm.com',
+        url: 'https://m.com/course/listusers.php?cid=1',
+        interactive: {
+          buttons: [{
+            text: 'Doe, Jane',
+            selector: '[role=button][name="Doe, Jane"]',
+            candidates: [{ type: 'role-name', value: 'Doe, Jane', score: 9 }],
+          }],
+          links: [], inputs: [],
+        },
+      };
+      const safe = redactProfileForStorage(p, noop, true);
+      const json = JSON.stringify(safe);
+      expect(json).not.toContain('Doe');
+      expect(json).not.toContain('Jane');
+      expect(safe.interactive.buttons[0].selector).toContain('role=button');
+    });
+
+    it('keeps a gradebook column header that merely looks like two names', () => {
+      const p = {
+        domain: 'm.com',
+        url: 'https://m.com/course/gradebook.php?cid=1',
+        interactive: { buttons: [{ text: 'Total Score', selector: '#t' }], links: [], inputs: [] },
+      };
+      expect(redactProfileForStorage(p, noop, true).interactive.buttons[0].text).toBe('Total Score');
+    });
+
+    it('does NOT touch labels on an ordinary content page', () => {
+      const safe = redactProfileForStorage(roster(), noop, false);
+      expect(safe.interactive.buttons[0].text).toBe('Doe, Jane');
+    });
+  });
+
   it('survives a captured value containing a double quote', () => {
     // Live MyOpenMath: redaction ran over SERIALIZED JSON, so a page value carrying a quote ate
     // the JSON's own delimiters -> `"selector":⟦D…⟧` -> JSON.parse threw -> the entire capture

@@ -215,12 +215,78 @@ function redactStrings(value: unknown, redact: (t: string) => string, key?: stri
   return value; // numbers, booleans, null — never carry text
 }
 
+/**
+ * A control label shaped like a person's name: "Jane Doe" or "Doe, Jane".
+ *
+ * Deliberately narrow — it is applied ONLY on people surfaces (see redactProfileForStorage),
+ * where a row's label is the person, so over-matching costs a legible label on a page that is
+ * mapped for its shape anyway. Applying it everywhere would tokenize "Chapter Summary".
+ */
+const PERSON_LABEL = /[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+(?:[-'][A-Za-z]+)?/g;
+
+/**
+ * Two capitalised words that are ordinary UI wording, not a person. Without this, a gradebook's
+ * own column headers ("Total Score", "Last Login") tokenize to ⟦STU⟧ and the map of the page
+ * stops being readable. A match is kept only when BOTH words are in here.
+ */
+const LABEL_WORD = new Set(
+  `total score last login first name due date late work best attempt raw points final grade
+   time spent user settings my classes log out skip navigation home page course map data sets
+   letter grade extra credit drop lowest all students by student per question item analysis
+   message board send message view all show all hide all export csv print view class list`
+    .split(/\s+/),
+);
+
+const isCommonLabel = (m: string) =>
+  m.split(/[\s,]+/).every((w) => LABEL_WORD.has(w.toLowerCase()));
+
+/**
+ * Tokenize person-shaped runs on a page that lists people.
+ *
+ * Covers every place a name was measured on disk after a live 306-page capture, not just the
+ * obvious one:
+ *   interactive.buttons[].text / inputs[].label   — the visible row label
+ *   interactive.*[].selector                      — `[role=button][name="Doe, Jane"]`
+ *   interactive.*[].candidates[].value            — the role-name candidate IS the name
+ * Fixing only the first left 2 of 3 names on disk.
+ *
+ * A selector keyed by a student's name is not worth preserving anyway: it breaks next term, and
+ * automation should address roster rows positionally. Mapping the SHAPE is the goal.
+ */
+function tokenizePersonLabels<T>(profile: T): T {
+  const FIELDS = new Set(['text', 'label', 'selector', 'value', 'purpose', 'nearestHeading']);
+  const swap = (s: string) =>
+    s.replace(PERSON_LABEL, (m) => (isCommonLabel(m) ? m : STUDENT_TOKEN));
+  const walk = (v: unknown, key = ''): unknown => {
+    if (typeof v === 'string') return FIELDS.has(key) ? swap(v) : v;
+    if (Array.isArray(v)) return v.map((x) => walk(x, key));
+    if (v && typeof v === 'object') {
+      const out: Record<string, unknown> = {};
+      for (const [k, x] of Object.entries(v as Record<string, unknown>)) out[k] = walk(x, k);
+      return out;
+    }
+    return v;
+  };
+  return walk(profile) as T;
+}
+
+/**
+ * @param peopleSurface true when this page LISTS PEOPLE (gradebook, roster, message list).
+ *
+ * `redactTree` keeps control labels on purpose — a map is useless if every button reads ⟦D7⟧.
+ * But on a roster the label IS the person, so those labels never entered the value dictionary
+ * and survived to disk. A fresh 306-page capture of a live course stored 3 distinct student
+ * names this way, in `course-gradebook-*.json` and `course-listusers-*.json`. They never reach
+ * a model — fragment prompts carry only "pageName — path — counts" — but they were on disk.
+ */
 export function redactProfileForStorage<T extends { domain: string; url?: string; pageName?: string }>(
   profile: T,
   redact: (t: string) => string,
+  peopleSurface = false,
 ): T {
+  const source = peopleSurface ? tokenizePersonLabels(profile) : profile;
   const redactValues = (p: T) => redactStrings(p, redact) as T;
-  const safe = { ...(redactValues(profile) as T), domain: profile.domain };
+  const safe = { ...(redactValues(source) as T), domain: profile.domain };
   if (profile.url) {
     const r = redactUrlForStorage(profile.url, redact);
     safe.url = r.url;

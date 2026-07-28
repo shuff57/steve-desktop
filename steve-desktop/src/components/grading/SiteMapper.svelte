@@ -18,7 +18,7 @@
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
-    buildSurveyPrompt, parseSurveyOutput, planChunks, peopleSections, fetchFragment, fetchMergedDoc, concatFragments,
+    buildSurveyPrompt, parseSurveyOutput, planChunks, peopleSections, isPeopleSurface, fetchFragment, fetchMergedDoc, concatFragments,
     tokenizeSecrets, CHUNK_SIZE, type MapChunk,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -194,8 +194,10 @@
    * raw labels/selectors (e.g. a roster name in role=…[name="Doe, Jane"]); this swaps the
    * value dictionary over the whole JSON so the saved artifact holds ⟦D…⟧, never names. */
   // Keeps the hostname intact through redaction — see redactProfileForStorage.
+  // On a people surface the control label IS the person, and redactTree keeps labels by design —
+  // so the third argument turns name-shaped labels into ⟦STU⟧ before anything is written.
   const redactProfile = (p: SiteProfile, redact: (t: string) => string): SiteProfile =>
-    redactProfileForStorage(p, redact);
+    redactProfileForStorage(p, redact, isPeopleSurface(p.url ?? ''));
 
   async function map() {
     if (mapping) return;
@@ -823,7 +825,15 @@
       // "Course Content" listed the Gradebook, the Calendar and Site home as its members.
       const chrome = new Set<string>();
       try {
-        const { profile: startProfile } = await mapHere(start, visited);
+        // Go BACK to the start page first. The survey agent drives the same tab and leaves it on
+        // whatever it looked at last (a live run ended on coursereports.php), so this used to
+        // capture that page, file it under the start URL, and seed the people surfaces and the
+        // chrome set from the wrong page's links. The landed-URL assert turned that silent
+        // mis-capture into a hard failure, which is how it was found.
+        const { profile: startProfile } = await mapHere(
+          await navigateAndLand(activeTabIdOr(tabId), start),
+          visited,
+        );
         for (const l of profileLinks(startProfile)) chrome.add(normalizeUrl(l.href));
         const known = new Set(reported.map((s) => normalizeUrl(s.indexUrl)));
         seeded = peopleSections(profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) })))
@@ -858,7 +868,12 @@
           // Drop site-wide chrome (see `chrome` above) so a section's pages are its own members.
           // Skipped when the section IS the start page — there, every link is fair game and
           // subtracting would leave the section empty.
-          const isStart = idx === start;
+          //
+          // Compared with landedOn, not ===. The survey reports the clean course.php?cid=316341
+          // while `start` carries the session param the site appended on login
+          // (…&r=6a68fcddf0b8a), so string equality said "not the start page" and subtracted the
+          // course home's own 232 links from itself: the richest section came back as 1 page.
+          const isStart = landedOn(idx, start) || landedOn(start, idx);
           const pages = indexOnly.has(idx)
             ? []
             : profileLinks(profile)

@@ -145,15 +145,48 @@ export function buildSurveyPrompt(o: { cdpPort: number; startUrl: string; marker
     .join('\n');
 }
 
+/**
+ * The first complete JSON array in `text`, by bracket depth — or null.
+ *
+ * This replaces `/\[[\s\S]*\]/`, which is GREEDY and therefore ran to the last `]` anywhere in
+ * the reply. A live MyOpenMath survey returned five perfectly good sections and was thrown away
+ * because the agent's closing note mentioned `folder=<0-N[-M]>`: the match swallowed the array
+ * plus two paragraphs of prose, JSON.parse threw, and the run failed as "survey returned no
+ * sections". Making it lazy instead would break the opposite way — it would stop at the first
+ * `]` inside the array. Depth-counting is the only version that is right both ways.
+ *
+ * Brackets inside JSON strings are skipped, so a URL containing one cannot end the scan early.
+ */
+export function firstJsonArray(text: string): string | null {
+  const start = text.indexOf('[');
+  if (start === -1) return null;
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = start; i < text.length; i++) {
+    const c = text[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (c === '\\') escaped = true;
+      else if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') inString = true;
+    else if (c === '[') depth++;
+    else if (c === ']' && --depth === 0) return text.slice(start, i + 1);
+  }
+  return null;
+}
+
 /** Parse the survey reply. A garbled list yields [] — the caller falls back to a plain crawl. */
 export function parseSurveyOutput(raw: string): SurveySection[] {
   const idx = raw.indexOf('---SECTIONS---');
   const after = idx === -1 ? raw : raw.slice(idx + '---SECTIONS---'.length);
-  const m = after.match(/\[[\s\S]*\]/);
-  if (!m) return [];
+  const block = firstJsonArray(after);
+  if (!block) return [];
   let arr: unknown;
   try {
-    arr = JSON.parse(m[0]);
+    arr = JSON.parse(block);
   } catch {
     return [];
   }

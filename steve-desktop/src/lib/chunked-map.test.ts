@@ -3,6 +3,7 @@ import {
   CHUNK_SIZE,
   SURVEY_MAX_PAGES,
   isPeopleSurface,
+  firstJsonArray,
   buildSurveyPrompt,
   parseSurveyOutput,
   sectionTemplate,
@@ -126,6 +127,45 @@ describe('people surfaces', () => {
   it('drops duplicate hrefs', () => {
     const dup = [{ href: 'https://m.com/gradebook.php' }, { href: 'https://m.com/gradebook.php' }];
     expect(peopleSections(dup)).toHaveLength(1);
+  });
+});
+
+// A live MyOpenMath survey returned five good sections and the app reported "survey returned no
+// sections". The reply is reproduced here down to the bracket that broke it: the closing note
+// mentions `folder=<0-N[-M]>`, and the old greedy /\[[\s\S]*\]/ ran the match all the way to that
+// `]`, so JSON.parse threw and a 3-minute agent run was discarded.
+describe('parseSurveyOutput — trailing prose must not swallow the array', () => {
+  const reply = [
+    'Loaded 7 pages, all index/landing. Roster/gradebook links were never opened.',
+    '',
+    '---SECTIONS---',
+    '[',
+    '{"name": "Course (blocks / modules home)", "indexUrl": "https://m.com/course/course.php?cid=1", "sampleUrl": "https://m.com/course/getblockitems.php?cid=1&folder=0-7", "estimatedPages": 19},',
+    '{"name": "Course Map", "indexUrl": "https://m.com/course/coursemap.php?cid=1", "sampleUrl": "https://m.com/assess2/?cid=1&aid=2", "estimatedPages": 88},',
+    '{"name": "Forums", "indexUrl": "https://m.com/forums/forums.php?cid=1", "sampleUrl": "", "estimatedPages": 0}',
+    ']',
+    '',
+    'Notes for the crawler: `getblockitems.php?cid=1&folder=<0-N[-M]>` is the fragment endpoint',
+    'for each block body — 19 fetches covers the whole tree.',
+  ].join('\n');
+
+  it('recovers every section despite a bracket in the trailing note', () => {
+    const secs = parseSurveyOutput(reply);
+    expect(secs).toHaveLength(3);
+    expect(secs.map((s) => s.name)).toEqual(['Course (blocks / modules home)', 'Course Map', 'Forums']);
+    expect(secs[0].estimatedPages).toBe(19);
+  });
+
+  it('scans by bracket depth, so a nested array does not end it early', () => {
+    expect(firstJsonArray('x [1, [2, 3], 4] y ]')).toBe('[1, [2, 3], 4]');
+  });
+
+  it('ignores brackets inside strings — URLs carry them', () => {
+    expect(firstJsonArray('[{"u": "https://m.com/?f=a]b"}] trailing ]')).toBe('[{"u": "https://m.com/?f=a]b"}]');
+  });
+
+  it('returns null on an unterminated array rather than a truncated one', () => {
+    expect(firstJsonArray('[1, 2, 3')).toBeNull();
   });
 });
 
