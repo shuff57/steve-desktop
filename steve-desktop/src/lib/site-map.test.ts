@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, landedOn, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+import { isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
 
 describe('mapIsStale — a destructive action must not aim at the site you just left', () => {
   it('flags a map belonging to a different site than the page on screen', () => {
@@ -250,6 +250,28 @@ describe('normalizeUrl — collapse anchor/popover URLs to the same page', () =>
     expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
   });
 });
+// Regression: a live run captured MyOpenMath's LOGIN PAGE and stored it as the course home. The
+// session had expired and the site serves the login form at the course URL with no redirect, so
+// every URL check passed. Nothing asked whether we were still signed in.
+describe('asksForAPassword — the URL is right, the page is a login wall', () => {
+  const page = (inputs: { type?: string }[]): SiteProfile =>
+    ({ url: 'https://www.myopenmath.com/course/course.php?cid=316341',
+       interactive: { buttons: [], links: [], inputs: inputs.map((i, n) => ({ ...i, label: '', selector: `#i${n}` })) } }) as unknown as SiteProfile;
+
+  it('catches the expired-session login form', () => {
+    expect(asksForAPassword(page([{ type: 'text' }, { type: 'password' }, { type: 'hidden' }]))).toBe(true);
+  });
+
+  it('leaves an ordinary course page alone', () => {
+    expect(asksForAPassword(page([{ type: 'text' }, { type: 'checkbox' }, { type: 'hidden' }]))).toBe(false);
+  });
+
+  it('is case-insensitive and survives a profile with no inputs at all', () => {
+    expect(asksForAPassword(page([{ type: 'PASSWORD' }]))).toBe(true);
+    expect(asksForAPassword({ url: 'https://x.com', interactive: {} } as unknown as SiteProfile)).toBe(false);
+  });
+});
+
 // Regression: a live run stored 82 distinct URLs against one wedged page because nothing ever
 // checked where the browser actually was. This predicate is the check.
 describe('landedOn — did navigation actually reach the page', () => {

@@ -44,6 +44,15 @@ describe('looksLikeRoster — classify by what the page holds, not what it is ca
   it('needs three — one or two capitalised pairs are just labels', () => {
     expect(looksLikeRoster(page(['Doe, Jane', 'Course Map']))).toBe(false);
   });
+
+  // Measured on the live site, not invented. This exact footer appears on MyOpenMath's login page
+  // and on 66 of 305 real course pages; under the old "5 plain names" rule every one of them
+  // scored as a roster and would have had its labels scrubbed and a junk pointer written.
+  it('does not flag the site footer, however many capitalised pairs it has', () => {
+    const footer = ['For Instructors', 'About Us', 'Forgot Password', 'Forgot Username', 'Privacy Policy'];
+    expect(looksLikeRoster(page(footer))).toBe(false);
+    expect(looksLikeRoster(page([...footer, 'Course Map', 'Data Sets']))).toBe(false);
+  });
 });
 
 describe('people pointers — record the route, never the person', () => {

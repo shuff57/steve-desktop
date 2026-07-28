@@ -354,6 +354,24 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   return true;
 }
 
+/**
+ * Does this captured page ask for a password?
+ *
+ * The one thing every checked-URL guard misses. `landedOn` proves the browser is on the URL we
+ * asked for — but MyOpenMath serves its LOGIN PAGE at `course.php?cid=316341` when the session has
+ * expired, with no redirect. So the URL matched, the assert passed, and a 14 KB profile of a login
+ * form was stored as the course home: `password` input, "Login with Passkey", 17 links of footer.
+ * The whole crawl would then have mapped a logged-out site and reported success.
+ *
+ * A password field is the signal because it cannot appear on a page we have any business storing:
+ * either we are logged out, or it is a credential form, and a structural map of one is worth
+ * nothing in the first place. Change-password URLs are already unreachable — MUTATING_VERB blocks
+ * `chg|change` — so this does not cost the crawl a legitimate page.
+ */
+export function asksForAPassword(profile: SiteProfile): boolean {
+  return (profile.interactive?.inputs ?? []).some((i) => (i.type ?? '').toLowerCase() === 'password');
+}
+
 /** Absolute, deduped outbound links from a captured profile (all of them — for the nav graph). */
 export function profileLinks(profile: SiteProfile): { label: string; href: string }[] {
   const out: { label: string; href: string }[] = [];

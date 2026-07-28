@@ -15,7 +15,7 @@
     saveMappingDoc, saveVerifyReport, healMappingDoc, savePeoplePointers, loadPeoplePointers,
   } from '../../lib/site-profiles';
   import { buildPeoplePointer, upsertPointer, pointerLeaks, looksLikeRoster, type PeoplePointer } from '../../lib/people-pointer';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
@@ -350,6 +350,12 @@
       throw new Error(`refusing to store ${url} — the browser is on ${at}`);
     }
     const { profile, redact, secrets } = await captureCurrent(url);
+    // The URL can be right and the page still wrong. An expired session makes MyOpenMath serve its
+    // login form AT the course URL, so landedOn passes and we file a login wall as the course home.
+    // Stop the run here rather than map a logged-out site and call it a map.
+    if (asksForAPassword(profile)) {
+      throw new Error(`not signed in — ${url} is showing a password prompt. Sign in to the site in the browser, then run this again.`);
+    }
     visited.add(url);
     const domain = profile.domain;
     // Redact before persisting: both the per-page profile and the site-map node are

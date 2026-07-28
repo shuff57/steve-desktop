@@ -45,28 +45,36 @@ const PERSON_LABEL = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+/;
  * recognisable from their names. Any deny list of script names is a list of the surfaces someone
  * already thought of; this one asks what is actually on the page.
  *
- * Two thresholds, because "two capitalised words" alone is far too loose — an early version
- * classified a page holding "Course Map", "Data Sets" and "Late Passes" as a roster, which would
- * have scrubbed the labels off ordinary content pages.
+ * COMMA FORM ONLY — "Doe, Jane". Roster tables render it and almost nothing else does.
  *
- *   "Doe, Jane"  — the comma form is what roster tables actually render, and almost nothing else
- *                  does, so THREE is enough.
- *   "Jane Doe"   — indistinguishable from a title, so require FIVE distinct ones.
+ * The plain form ("Jane Doe") was tried twice and is not a person signal at all; it is the shape
+ * of ordinary UI wording, and each threshold only moved which pages it was wrong about:
+ *
+ *   >= 3 — classified a page of "Course Map" / "Data Sets" / "Late Passes" as a roster.
+ *   >= 5 — measured against the live course: MyOpenMath's own footer ("For Instructors",
+ *          "About Us", "Forgot Password", "Forgot Username", "Privacy Policy") is exactly five,
+ *          so the LOGIN PAGE scored as a roster, and so did 66 of 305 real course pages, which
+ *          carry that same footer. A fifth of the site would have had its labels scrubbed.
+ *
+ * No threshold can separate them either: the footer is 5 person-shaped labels out of 18 (28%),
+ * a real gradebook is 31%. The distributions overlap, so the rule goes rather than gets tuned.
+ *
+ * What this gives up: a roster that renders "Jane Doe" with no comma is not caught HERE. Such a
+ * site is still covered by URL — `isPeopleSurface` matches both the script name and any
+ * person-selecting query param — which is the signal that caught every MyOpenMath surface anyway.
  */
 export function looksLikeRoster(profile: SiteProfile): boolean {
   const commaForm = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?,\s+[A-Z][a-z]+/;
   const comma = new Set<string>();
-  const plain = new Set<string>();
   const labels = [
     ...(profile.interactive?.buttons ?? []).map((b) => b.text),
     ...(profile.interactive?.links ?? []).map((l) => l.text),
   ];
   for (const raw of labels) {
     const t = (raw ?? '').trim();
-    if (!t || !looksLikePersonName(t)) continue;
-    (commaForm.test(t) ? comma : plain).add(t);
+    if (t && looksLikePersonName(t) && commaForm.test(t)) comma.add(t);
   }
-  return comma.size >= 3 || plain.size >= 5;
+  return comma.size >= 3;
 }
 
 export interface PeoplePointer {
