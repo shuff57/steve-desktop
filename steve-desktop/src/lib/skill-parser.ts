@@ -1,5 +1,5 @@
 import matter from 'gray-matter';
-import { marked } from 'marked';
+import { Marked } from 'marked';
 
 export interface ParsedSkill {
   name: string;
@@ -89,20 +89,78 @@ export function parseSkillMarkdown(rawContent: string): ParsedSkill {
   };
 }
 
-export async function renderSkillPreview(content: string): Promise<string> {
-  const html = await marked.parse(content);
-  return sanitizeHtml(html);
+/**
+ * Markdown → HTML for the {@html} previews (skill cards, agent run reports, site-profile
+ * reports). Every one of those renders model output that can echo markup from a crawled page,
+ * inside a webview holding Tauri IPC — so this is a real trust boundary.
+ *
+ * Safe by construction rather than by blacklist: the only tags that survive are the ones marked
+ * itself emits from markdown syntax, whose text content marked escapes. Raw HTML in the source
+ * is escaped to literal text, and link/image URLs are scheme-checked. The previous version
+ * pattern-matched known-bad strings, which missed unquoted handlers (<svg onload=x>), tags it
+ * had no rule for (<object>, <embed>), and entity-encoded javascript: URLs.
+ *
+ * Tradeoff: a skill that embeds literal HTML now shows the tags instead of rendering them.
+ * That is the intended direction for a preview of untrusted content.
+ */
+const ESCAPES: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+};
+
+const escapeHtml = (s: string): string => s.replace(/[&<>"']/g, (c) => ESCAPES[c]);
+
+const SAFE_SCHEMES = new Set(['http', 'https', 'mailto', 'tel']);
+
+/** Decode the entity forms an attribute value would decode to before the browser navigates it. */
+function decodeEntities(url: string): string {
+  return url
+    .replace(/&#x([0-9a-f]+);?/gi, (_, hex) => codePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);?/g, (_, dec) => codePoint(parseInt(dec, 10)))
+    .replace(/&colon;/gi, ':')
+    .replace(/&Tab;|&NewLine;/gi, '');
 }
 
-function sanitizeHtml(html: string): string {
-  let safeHtml = html;
+const codePoint = (n: number): string =>
+  Number.isFinite(n) && n >= 0 && n <= 0x10ffff ? String.fromCodePoint(n) : '';
 
-  safeHtml = safeHtml.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-  safeHtml = safeHtml.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-  safeHtml = safeHtml.replace(/\son\w+\s*=\s*["'][^"']*["']/gi, '');
-  safeHtml = safeHtml.replace(/%20on\w+%3D/gi, '');
-  safeHtml = safeHtml.replace(/onerror=/gi, '');
-  safeHtml = safeHtml.replace(/href\s*=\s*["']\s*javascript:[^"']*["']/gi, 'href="#"');
+/**
+ * Allow relative/anchor URLs and the four schemes a document legitimately links to; send
+ * everything else (javascript:, data:, vbscript:, blob:) to '#'.
+ */
+function safeUrl(href: string): string {
+  // Browsers strip ASCII whitespace and control characters inside a URL before resolving it,
+  // so "java\tscript:alert(1)" navigates exactly like "javascript:alert(1)". Test the string
+  // the browser will act on, not the one that was written.
+  const normalized = decodeEntities(href).replace(/[\u0000-\u0020\u00a0]/g, '');
+  const scheme = /^([a-zA-Z][a-zA-Z0-9+.-]*):/.exec(normalized);
+  if (!scheme) return href; // relative, anchor, or protocol-relative — no scheme to abuse
+  return SAFE_SCHEMES.has(scheme[1].toLowerCase()) ? href : '#';
+}
 
-  return safeHtml;
+// A private instance, so overriding the renderer never leaks into the shared `marked` singleton.
+const safeMarked = new Marked({
+  renderer: {
+    // Raw HTML — block-level and inline both arrive here. Show it, never run it.
+    html(token: { raw: string }) {
+      return escapeHtml(token.raw);
+    },
+    link(token: { href: string; title?: string | null; tokens: unknown[] }) {
+      const title = token.title ? ` title="${escapeHtml(token.title)}"` : '';
+      // @ts-expect-error — marked types `this.parser` loosely on renderer overrides
+      const text = this.parser.parseInline(token.tokens);
+      return `<a href="${escapeHtml(safeUrl(token.href))}"${title}>${text}</a>`;
+    },
+    image(token: { href: string; title?: string | null; text: string }) {
+      const title = token.title ? ` title="${escapeHtml(token.title)}"` : '';
+      return `<img src="${escapeHtml(safeUrl(token.href))}" alt="${escapeHtml(token.text)}"${title}>`;
+    },
+  },
+});
+
+export async function renderSkillPreview(content: string): Promise<string> {
+  return await safeMarked.parse(content);
 }

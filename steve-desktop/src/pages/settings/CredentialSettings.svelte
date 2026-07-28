@@ -276,7 +276,7 @@
   .icon-btn.danger:hover { background: var(--color-danger-bg); color: var(--color-danger); }
 
   /* Button variants — used in markup but otherwise undefined (browser default). */
-  .primary, .secondary, .ghost {
+  .primary, .ghost {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -290,11 +290,9 @@
   }
   .primary { background: var(--color-primary); color: var(--color-primary-text); }
   .primary:hover:not(:disabled) { background: var(--color-primary-hover); }
-  .secondary { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color); }
-  .secondary:hover:not(:disabled) { background: var(--bg-hover); }
   .ghost { background: transparent; color: var(--text-secondary); border-color: var(--border-color); }
   .ghost:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-primary); }
-  .primary:disabled, .secondary:disabled, .ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+  .primary:disabled, .ghost:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .small {
     padding: 0.25rem 0.6rem;
