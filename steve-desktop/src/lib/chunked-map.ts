@@ -369,11 +369,18 @@ export function structuralValues(urls: string[]): Set<string> {
  * excluded by name as well — belt and braces.
  */
 export function keepStructural(secrets: Record<string, string>, urls: string[]): Record<string, string> {
-  const structural = structuralValues(urls);
+  // Case-insensitively, because a URL is lowercase and its label is not. Canvas serves
+  // `/assignments` and titles the section "Assignments", so an exact-match set exempted the path
+  // and tokenized the heading — a live document came back with headings reading `## ⟦D30⟧`, and a
+  // section list nobody can read is barely a map. Same word, same structure, different case.
+  const structural = new Set([...structuralValues(urls)].map((s) => s.toLowerCase()));
   const out: Record<string, string> = {};
   for (const [token, value] of Object.entries(secrets)) {
     const v = value.trim();
-    if (v && !/\s/.test(v) && structural.has(v)) continue; // structural — let it through intact
+    // Singular/plural is the other half of the same mismatch: the segment is `pages`, the label
+    // is "Page". Only a trailing `s` — anything cleverer starts guessing at English.
+    const forms = [v, v.endsWith('s') ? v.slice(0, -1) : `${v}s`].map((s) => s.toLowerCase());
+    if (v && !/\s/.test(v) && forms.some((f) => structural.has(f))) continue; // structural — let it through intact
     out[token] = value;
   }
   return out;

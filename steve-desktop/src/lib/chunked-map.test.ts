@@ -96,6 +96,19 @@ describe('structuralValues — the PARTS of a URL vocabulary are structural too'
     expect(structuralValues(urls).has('id')).toBe(false);
   });
 
+  // A live Canvas document came back with headings reading `## ⟦D30⟧`. The URL is lowercase and
+  // plural (/assignments); the section is titled "Assignments", and exact matching missed it.
+  it('matches a label against its URL segment across case and a trailing s', () => {
+    const kept = keepStructural(
+      { a: 'Assignments', b: 'Pages', c: 'Page', d: 'Discussion', e: 'Modules' },
+      ['https://canvas.butte.edu/courses/31407/assignments',
+       'https://canvas.butte.edu/courses/31407/pages/unit-3-notes',
+       'https://canvas.butte.edu/courses/31407/discussion_topics/1',
+       'https://canvas.butte.edu/courses/31407/modules'],
+    );
+    for (const k of ['a', 'b', 'c', 'd', 'e']) expect(kept[k]).toBeUndefined();
+  });
+
   it('can never exempt a person — the no-whitespace guard still rules', () => {
     const kept = keepStructural({ a: 'module', b: 'Doe, Jane', c: 'Jane Doe', d: '7158619' }, urls);
     expect(kept.a).toBeUndefined(); // structural, stays readable
