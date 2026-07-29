@@ -62,12 +62,16 @@ Note there is no `window.__TAURI__.sql` — go through `core.invoke`.
 - **`SetupWizard.saveAndComplete` swallows all errors** and calls `oncomplete()`
   regardless, so the wizard reports success even when it saved nothing. Do not
   trust the UI advancing — check `app_settings` / `provider_configs` in the DB.
-- **The agent needs a server on `localhost:3456`** (`agent-api.ts:9`,
-  hardcoded). Nothing in this repo provides it. To drive the agent loop, stand up
-  a mock that accepts `POST /api/agent` and returns
-  `{"action":"click","params":{"ref":"e12"},"reasoning":"..."}`. The request body
-  carries the `dom` field — the snapshot exactly as the model sees it, which is
-  the best evidence available for capture changes.
+- **The agent runs via `run_agent_cli`** (`src-tauri/src/lib.rs`), a Tauri
+  command that spawns the `claude`/`opencode` CLI through Rust — no server, no
+  mock. To smoke-test the agent path, watch for it to spawn (or invoke
+  `run_agent_cli` directly with `engine`/`prompt`) rather than standing up
+  anything on a port.
+- **Never edit frontend source while a `run_agent_cli` run is in flight.** Vite
+  HMR remounts the owning `.svelte` component; the Rust side keeps running and
+  its result still lands, but into the destroyed instance's state — the report
+  modal silently never shows. Make zero source edits until the result has
+  rendered and been dismissed; queue fixes and apply them after.
 
 ## Driving the agent against a page
 
