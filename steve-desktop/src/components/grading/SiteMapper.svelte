@@ -15,7 +15,7 @@
     saveMappingDoc, saveVerifyReport, healMappingDoc, savePeoplePointers, loadPeoplePointers,
   } from '../../lib/site-profiles';
   import { buildPeoplePointer, upsertPointer, pointerLeaks, looksLikeRoster, type PeoplePointer } from '../../lib/people-pointer';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, chromeByFrequency, CHROME_MIN_SECTIONS, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, chromeByFrequency, CHROME_MIN_SECTIONS, aliasKey, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
@@ -882,14 +882,23 @@
           visited,
         );
         for (const l of profileLinks(startProfile)) chrome.add(normalizeUrl(l.href));
-        const known = new Set(reported.map((s) => normalizeUrl(s.indexUrl)));
+        // aliasKey, not normalizeUrl: the agent reported Messages as `/msgs/msglist.php?cid=N` while
+        // the start page links it as `…&folder=0`. Compared by URL those are two surfaces, so the
+        // seeded copy survived and the survey returned TWO sections named "Messages".
+        const known = new Set(reported.map((s) => aliasKey(s.indexUrl)));
         seeded = peopleSections(profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) })))
-          .filter((s) => !known.has(s.indexUrl));
+          .filter((s) => !known.has(aliasKey(s.indexUrl)));
       } catch (e) {
         failures.push({ url: start, error: `could not seed people surfaces: ${e instanceof Error ? e.message : String(e)}` });
       }
       const indexOnly = new Set(seeded.map((s) => s.indexUrl));
-      const sections = [...reported, ...seeded];
+      // One surface, one section — even when the agent itself reports it twice under two address
+      // forms. First mention wins, so the agent's own naming survives.
+      const bySurface = new Set<string>();
+      const sections = [...reported, ...seeded].filter((s) => {
+        const k = aliasKey(s.indexUrl);
+        return bySurface.has(k) ? false : (bySurface.add(k), true);
+      });
       // An empty section list almost never means "this site has no sections". Twice in one day it
       // meant something the agent had already diagnosed in plain English and we threw away: an
       // expired MyOpenMath session ("PHPSESSID exists but the server treats it as
@@ -953,8 +962,21 @@
       const isChrome = (u: string) => (raw.length >= CHROME_MIN_SECTIONS ? frequent.has(u) : chrome.has(u));
       const threshold = Math.max(CHROME_MIN_SECTIONS, Math.ceil(raw.length / 2));
 
+      // ANOTHER section's index is never a member of this one. Frequency alone cannot enforce that:
+      // MyOpenMath renders a different nav per script, so a genuine nav link never reaches "half the
+      // section indexes", and lowering that threshold is what stripped a section of its own 232
+      // members once already. This states criterion 6 directly instead, and it cannot over-subtract
+      // — a section index belongs to its own section by definition. Matched on aliasKey, because
+      // Course Content cited `/msgs/msglist.php?cid=N&folder=0` while the Messages section's index
+      // is the bare `?cid=N`: the same surface, and the reason all three cross-listings survived.
+      const ownIndex = new Map(raw.map((r) => [aliasKey(r.idx), r.name]));
+      const isForeignIndex = (u: string, sectionName: string) => {
+        const owner = ownIndex.get(aliasKey(u));
+        return owner !== undefined && owner !== sectionName;
+      };
+
       const found: typeof chunkSections = raw.map((r) => {
-        const kept = r.pages.filter((p) => !isChrome(p.url));
+        const kept = r.pages.filter((p) => !isChrome(p.url) && !isForeignIndex(p.url, r.name));
         const seen = new Set<string>();
         return {
           name: r.name,
@@ -963,6 +985,8 @@
           pages: [{ name: r.name, url: r.idx }, ...kept].filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))),
         };
       });
+      const droppedIndexes = raw.reduce((n, r) => n + r.pages.filter((p) => !isChrome(p.url) && isForeignIndex(p.url, r.name)).length, 0);
+      if (droppedIndexes) failures.push({ url: start, error: `cross-listings removed: ${droppedIndexes} link(s) that are another section's index` });
       const droppedChrome = raw.reduce((n, r) => n + r.pages.filter((p) => isChrome(p.url)).length, 0);
       if (droppedChrome) failures.push({ url: start, error: `chrome subtracted: ${droppedChrome} link(s) carried by ${threshold}+ of ${raw.length} section indexes` });
 
@@ -1660,7 +1684,7 @@
         <span class="hdr">Pruned by verify ({pruned.length})</span>
       </div>
       <ul class="list">
-        {#each pruned as p (p.url)}
+        {#each pruned as p, i (`${p.url}|${i}`)}
           <li class="row site-row">
             <span class="label" title={p.url}>{p.pageName}: <span class="kind">{p.reason}</span></span>
           </li>
@@ -1699,7 +1723,7 @@
         <span class="hdr">Skipped by AI ({aiSkips.length})</span>
       </div>
       <ul class="list">
-        {#each aiSkips as s (s.url)}
+        {#each aiSkips as s, i (`${s.url}|${i}`)}
           <li class="row site-row">
             <span class="label" title={s.url}>{s.url}: <span class="kind">{s.reason}</span></span>
           </li>
@@ -1756,7 +1780,12 @@
         <span class="hdr">Skipped: capture failed ({failures.length})</span>
       </div>
       <ul class="list">
-        {#each failures as f (f.url)}
+        <!-- Position in the key, because a URL is NOT unique in these diagnostic lists: one page can
+             fail twice, and two whole-run notes (chrome subtracted, cross-listings removed) are both
+             filed against the start URL. Svelte 5 makes a duplicate key fatal, which kills the whole
+             panel render and leaves the previous state painted — that cost two runs and an app
+             restart to diagnose once already. Append-only lists, so index keys reconcile fine. -->
+        {#each failures as f, i (`${f.url}|${i}`)}
           <li class="row site-row">
             <span class="label" title={f.url}>{f.url}: <span class="kind">{f.error}</span></span>
           </li>
