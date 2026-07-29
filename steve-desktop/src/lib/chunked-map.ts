@@ -132,7 +132,17 @@ export function buildSurveyPrompt(o: { cdpPort: number; startUrl: string; marker
     'is indexed. Do NOT map the site page by page — a deterministic crawler does that next.',
     '',
     `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} .`,
-    o.marker ? `Drive ONLY the tab whose window.name === ${JSON.stringify(o.marker)}.` : '',
+    // A tab you open yourself is NOT the logged-in one. Measured on a live Canvas survey: the
+    // agent could not find the marked tab, opened its own, and both navigations 302'd to the
+    // Microsoft SSO wall — so it correctly reported "that browser has no Canvas session" and the
+    // run came back as a survey that found nothing. The session lives in the app's webview, and a
+    // CDP-created tab does not share it. Failing loudly here costs one message; opening a tab
+    // costs a whole run and looks like an empty site.
+    o.marker
+      ? `Drive ONLY the existing tab whose window.name === ${JSON.stringify(o.marker)}. If no such tab exists, ` +
+        'STOP and say so in one line. Do NOT open, create, or navigate a new tab: only that tab ' +
+        'carries the login session, and any tab you open will hit a login wall.'
+      : '',
     '',
     'HARD CONSTRAINTS — this is a LIVE, logged-in account with real data:',
     '- READ-ONLY: never click, never submit, never POST, never evaluate JS that changes state.',
@@ -194,6 +204,30 @@ export function firstJsonArray(text: string): string | null {
     else if (c === ']' && --depth === 0) return text.slice(start, i + 1);
   }
   return null;
+}
+
+/**
+ * The agent's own explanation for an empty survey, in one line.
+ *
+ * When `parseSurveyOutput` returns nothing, the reason is usually sitting in the prose right
+ * above the marker — and it is usually the actual problem. Both empty surveys on 2026-07-28 were
+ * diagnosed correctly by the agent and reported to the user as "use Map this site instead":
+ *
+ *   "PHPSESSID exists, but the server treats it as unauthenticated — stale/expired session."
+ *   "found no tab with window.name === steve-tab-… so I opened one … that browser has no session"
+ *
+ * Takes the FIRST substantial line, since the agent leads with the blocker and then elaborates.
+ */
+export function surveyComplaint(reply: string, max = 240): string {
+  const marker = reply.indexOf('---SECTIONS---');
+  const prose = (marker === -1 ? reply : reply.slice(0, marker)).trim();
+  if (!prose) return '(no explanation — the reply was empty)';
+  const line = prose
+    .split('\n')
+    .map((l) => l.replace(/^[#>*\-\s]+/, '').replace(/[*`]/g, '').trim())
+    .find((l) => l.length > 20);
+  const out = (line ?? prose).slice(0, max);
+  return out.length < (line ?? prose).length ? `${out}…` : out;
 }
 
 /** Parse the survey reply. A garbled list yields [] — the caller falls back to a plain crawl. */

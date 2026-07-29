@@ -19,7 +19,7 @@
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
-    buildSurveyPrompt, parseSurveyOutput, planChunks, peopleSections, isPeopleSurface, fetchFragment, fetchMergedDoc, concatFragments,
+    buildSurveyPrompt, parseSurveyOutput, surveyComplaint, planChunks, peopleSections, isPeopleSurface, fetchFragment, fetchMergedDoc, concatFragments,
     tokenizeSecrets, keepStructural, CHUNK_SIZE, type MapChunk,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
@@ -857,7 +857,8 @@
         stream: true,
       }).finally(() => hideAgentConnected(getActiveTabId()));
 
-      const reported = parseSurveyOutput(extractCliText(engine, stdout));
+      const replyText = extractCliText(engine, stdout);
+      const reported = parseSurveyOutput(replyText);
 
       // The agent is forbidden from opening people surfaces, so it cannot report them — but
       // automation still has to reach the gradebook and roster. Seed those from the START PAGE's
@@ -889,7 +890,13 @@
       }
       const indexOnly = new Set(seeded.map((s) => s.indexUrl));
       const sections = [...reported, ...seeded];
-      if (!sections.length) throw new Error('survey returned no sections — use "Map this site" instead');
+      // An empty section list almost never means "this site has no sections". Twice in one day it
+      // meant something the agent had already diagnosed in plain English and we threw away: an
+      // expired MyOpenMath session ("PHPSESSID exists but the server treats it as
+      // unauthenticated"), and a Canvas run where it could not find the marked tab and the one it
+      // opened hit the SSO wall. Both times the user was told to "use Map this site instead",
+      // which is useless advice for a login problem. Carry the agent's own last words.
+      if (!sections.length) throw new Error(`survey returned no sections. The agent reported: ${surveyComplaint(replyText)}`);
 
       // Enumerate each section from its OWN index page, deterministically. Every href is re-gated
       // by the same rules the crawler uses; the agent's URLs are never trusted.

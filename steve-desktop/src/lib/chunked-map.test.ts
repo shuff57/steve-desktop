@@ -8,6 +8,7 @@ import {
   structuralValues,
   buildSurveyPrompt,
   parseSurveyOutput,
+  surveyComplaint,
   sectionTemplate,
   planChunks,
   buildFragmentPrompt,
@@ -40,6 +41,36 @@ describe('survey prompt', () => {
   it('pins the agent to a marked tab when one is given', () => {
     expect(buildSurveyPrompt({ cdpPort: 1, startUrl: 'https://c.edu/', marker: 'steve-tab-7' })).toContain('steve-tab-7');
     expect(buildSurveyPrompt({ cdpPort: 1, startUrl: 'https://c.edu/' })).not.toContain('window.name');
+  });
+});
+
+// Both strings below are verbatim from live runs on 2026-07-28. Each time, the app discarded the
+// explanation and told the user to "use Map this site instead" — useless advice for a login fault.
+describe('surveyComplaint — carry the agent\'s own diagnosis, not a generic failure', () => {
+  it('surfaces the expired-session finding (MyOpenMath)', () => {
+    const reply = '**Blocked: browser is not logged in.**\n\nA `PHPSESSID` cookie exists, but the server treats it as unauthenticated — stale/expired session.\n\n---SECTIONS---\n[]';
+    expect(surveyComplaint(reply)).toBe('Blocked: browser is not logged in.');
+  });
+
+  it('surfaces the wrong-tab finding (Canvas SSO)', () => {
+    const reply = 'Blocked at the front door. The site root 302s to Microsoft SSO. That browser has no Canvas session.\n---SECTIONS---\n[]';
+    expect(surveyComplaint(reply)).toContain('no Canvas session');
+  });
+
+  it('skips markdown noise and short lines to reach the real sentence', () => {
+    expect(surveyComplaint('###\n\nok\n\nThe course page redirected to a sign-in form.\n---SECTIONS---\n[]'))
+      .toBe('The course page redirected to a sign-in form.');
+  });
+
+  it('says so plainly when there is nothing to report', () => {
+    expect(surveyComplaint('---SECTIONS---\n[]')).toContain('no explanation');
+    expect(surveyComplaint('')).toContain('no explanation');
+  });
+
+  it('truncates a wall of prose rather than flooding the panel', () => {
+    const long = surveyComplaint(`${'x'.repeat(400)}\n---SECTIONS---\n[]`, 100);
+    expect(long.length).toBeLessThanOrEqual(101);
+    expect(long.endsWith('…')).toBe(true);
   });
 });
 
