@@ -20,9 +20,10 @@
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
     buildSurveyPrompt, parseSurveyOutput, surveyComplaint, planChunks, peopleSections, isPeopleSurface, fetchFragment, fetchMergedDoc, concatFragments,
-    tokenizeSecrets, keepStructural, CHUNK_SIZE, type MapChunk,
+    tokenizeSecrets, keepStructural, CHUNK_SIZE, type MapChunk, type SurveySection,
   } from '../../lib/chunked-map';
   import { deriveKeyNodes, verifyKeyNodes } from '../../lib/key-nodes';
+  import { canvasSections } from '../../lib/canvas-profile';
   import { tabMarker } from '../../lib/tab-control';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
@@ -842,55 +843,71 @@
         if (summary) progressBuf!.push(summary);
       });
 
-      chunkStep = 'Surveying the site structure…';
-      siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} for a structure survey (index pages only).`;
-      await showAgentConnected(getActiveTabId());
-      const stdout = await invoke<string>('run_agent_cli', {
-        engine,
-        prompt: buildSurveyPrompt({ cdpPort: port, startUrl: start, marker: tabId ? tabMarker(tabId) : undefined }),
-        sessionId,
-        resume: false,
-        model: cliModelArg(engine, model),
-        systemPrompt: null,
-        bypassPermissions: true,
-        timeoutSecs: 900,
-        stream: true,
-      }).finally(() => hideAgentConnected(getActiveTabId()));
-
-      const replyText = extractCliText(engine, stdout);
-      const reported = parseSurveyOutput(replyText);
-
-      // The agent is forbidden from opening people surfaces, so it cannot report them — but
-      // automation still has to reach the gradebook and roster. Seed those from the START PAGE's
-      // own links: the app learns the URL exists without any model reading a class list. Index
-      // page only (sampleUrl ''), so the crawler maps the surface and never walks it per student.
+      // The START PAGE is captured FIRST, before any model is spawned, because its links answer
+      // three questions at once: what the site's chrome is, which people surfaces to seed, and
+      // whether a built-in profile already knows this site's sections. Previously this ran after
+      // the survey and had to navigate back, since the agent leaves the tab wherever it finished.
       const visited = new Set<string>();
-      let seeded: typeof reported = [];
+      let seeded: SurveySection[] = [];
+      let startLinks: { label?: string; href: string }[] = [];
       // Links present on the START page are site-wide chrome (nav bar, footer, breadcrumbs), not
       // members of whatever section we happen to be reading. Without subtracting them, six
       // MyOpenMath sections each "contained" 42-43 pages that were the same nav bar, so
       // "Course Content" listed the Gradebook, the Calendar and Site home as its members.
       const chrome = new Set<string>();
       try {
-        // Go BACK to the start page first. The survey agent drives the same tab and leaves it on
-        // whatever it looked at last (a live run ended on coursereports.php), so this used to
-        // capture that page, file it under the start URL, and seed the people surfaces and the
-        // chrome set from the wrong page's links. The landed-URL assert turned that silent
-        // mis-capture into a hard failure, which is how it was found.
+        chunkStep = 'Reading the start page…';
         const { profile: startProfile } = await mapHere(
           await navigateAndLand(activeTabIdOr(tabId), start),
           visited,
         );
-        for (const l of profileLinks(startProfile)) chrome.add(normalizeUrl(l.href));
-        // aliasKey, not normalizeUrl: the agent reported Messages as `/msgs/msglist.php?cid=N` while
-        // the start page links it as `…&folder=0`. Compared by URL those are two surfaces, so the
-        // seeded copy survived and the survey returned TWO sections named "Messages".
-        const known = new Set(reported.map((s) => aliasKey(s.indexUrl)));
-        seeded = peopleSections(profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) })))
-          .filter((s) => !known.has(aliasKey(s.indexUrl)));
+        startLinks = profileLinks(startProfile).map((l) => ({ label: l.label, href: normalizeUrl(l.href) }));
+        for (const l of startLinks) chrome.add(l.href);
       } catch (e) {
-        failures.push({ url: start, error: `could not seed people surfaces: ${e instanceof Error ? e.message : String(e)}` });
+        failures.push({ url: start, error: `could not read the start page: ${e instanceof Error ? e.message : String(e)}` });
       }
+
+      // A recognised site skips the survey entirely. Canvas's sections are the same at every
+      // institution, so paying an agent ~4 minutes to rediscover them is waste. The start page's nav
+      // decides only WHETHER this is a signed-in Canvas course, never which surfaces to seed — a tab
+      // hidden from students still serves for a teacher, and gating on the nav dropped a real section
+      // (`/pages`) on the verified course. Capture still verifies each seeded index through the same
+      // gate and landed-URL assert, so a surface that does not exist records a failure.
+      const builtin = canvasSections(start, startLinks);
+      let replyText = '';
+      let reported: SurveySection[] = [];
+      if (builtin) {
+        reported = builtin;
+        siteMsg = `Canvas course recognised — ${builtin.length} section(s) seeded from the built-in profile, no survey needed.`;
+      } else {
+        chunkStep = 'Surveying the site structure…';
+        siteMsg = `Spawned ${engine}${model ? ` (${model})` : ''} for a structure survey (index pages only).`;
+        await showAgentConnected(getActiveTabId());
+        const stdout = await invoke<string>('run_agent_cli', {
+          engine,
+          prompt: buildSurveyPrompt({ cdpPort: port, startUrl: start, marker: tabId ? tabMarker(tabId) : undefined }),
+          sessionId,
+          resume: false,
+          model: cliModelArg(engine, model),
+          systemPrompt: null,
+          bypassPermissions: true,
+          timeoutSecs: 900,
+          stream: true,
+        }).finally(() => hideAgentConnected(getActiveTabId()));
+        replyText = extractCliText(engine, stdout);
+        reported = parseSurveyOutput(replyText);
+      }
+
+      // The agent is forbidden from opening people surfaces, so it cannot report them — and the
+      // built-in profile deliberately does not list them either. Seed those from the START PAGE's
+      // own links: the app learns the URL exists without any model reading a class list. Index
+      // page only (sampleUrl ''), so the crawler maps the surface and never walks it per student.
+      //
+      // aliasKey, not normalizeUrl: the agent reported Messages as `/msgs/msglist.php?cid=N` while
+      // the start page links it as `…&folder=0`. Compared by URL those are two surfaces, so the
+      // seeded copy survived and the survey returned TWO sections named "Messages".
+      const known = new Set(reported.map((s) => aliasKey(s.indexUrl)));
+      seeded = peopleSections(startLinks).filter((s) => !known.has(aliasKey(s.indexUrl)));
       const indexOnly = new Set(seeded.map((s) => s.indexUrl));
       // One surface, one section — even when the agent itself reports it twice under two address
       // forms. First mention wins, so the agent's own naming survives.
@@ -905,7 +922,13 @@
       // unauthenticated"), and a Canvas run where it could not find the marked tab and the one it
       // opened hit the SSO wall. Both times the user was told to "use Map this site instead",
       // which is useless advice for a login problem. Carry the agent's own last words.
-      if (!sections.length) throw new Error(`survey returned no sections. The agent reported: ${surveyComplaint(replyText)}`);
+      if (!sections.length) {
+        throw new Error(builtin
+          // Not reachable today (a profile match means >= MIN_SURFACES sections), but reporting the
+          // agent's "last words" when no agent ran would be a lie about where the failure was.
+          ? 'the built-in profile matched but no section survived the scope gate.'
+          : `survey returned no sections. The agent reported: ${surveyComplaint(replyText)}`);
+      }
 
       // Enumerate each section from its OWN index page, deterministically. Every href is re-gated
       // by the same rules the crawler uses; the agent's URLs are never trusted.
