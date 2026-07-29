@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, chromeByFrequency, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+import { isCrawlableLink, normalizeUrl, aliasKey, landedOn, asksForAPassword, chromeByFrequency, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
 
 describe('mapIsStale — a destructive action must not aim at the site you just left', () => {
   it('flags a map belonging to a different site than the page on screen', () => {
@@ -248,6 +248,36 @@ describe('normalizeUrl — collapse anchor/popover URLs to the same page', () =>
   it('leaves a fragmentless URL unchanged and is idempotent', () => {
     expect(normalizeUrl('https://x.com/a')).toBe('https://x.com/a');
     expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
+  });
+  it('sorts query params, so one page linked two ways is one page', () => {
+    // Real capture: MyOpenMath's course home was stored TWICE, as ?cid=N&folder=0 and
+    // ?folder=0&cid=N, and the second copy was stale — that was criterion 3's only genuine miss.
+    expect(normalizeUrl('https://x.com/course.php?folder=0&cid=193698'))
+      .toBe(normalizeUrl('https://x.com/course.php?cid=193698&folder=0'));
+  });
+  it('does not reorder repeated keys, whose order is meaningful', () => {
+    expect(normalizeUrl('https://x.com/a?k=1&k=2')).toBe('https://x.com/a?k=1&k=2');
+  });
+});
+
+describe('aliasKey — the same SURFACE reached by two addresses', () => {
+  it('treats a zero-valued default param as absent', () => {
+    // The bug this exists for: Course Content cited /msgs/msglist.php?cid=N&folder=0 while the
+    // Messages section's own index is the bare ?cid=N. Counted apart, neither variant reached the
+    // chrome threshold, so Messages was cross-listed AND surveyed as a second section named
+    // "Messages" — which crashed the approval gate on a duplicate Svelte key.
+    expect(aliasKey('https://x.com/msgs/msglist.php?cid=193698&folder=0'))
+      .toBe(aliasKey('https://x.com/msgs/msglist.php?cid=193698'));
+  });
+  it('keeps a NON-zero value distinct — those select real content', () => {
+    // course.php?folder=3 is a content folder, not the home page. Folding it in would hand a
+    // section's own members to the chrome test, the over-subtraction failure hit twice before.
+    expect(aliasKey('https://x.com/course.php?cid=1&folder=3'))
+      .not.toBe(aliasKey('https://x.com/course.php?cid=1'));
+  });
+  it('does not touch capture identity — normalizeUrl still separates them', () => {
+    expect(normalizeUrl('https://x.com/m.php?cid=1&folder=0'))
+      .not.toBe(normalizeUrl('https://x.com/m.php?cid=1'));
   });
 });
 // Found on the first live Canvas run: the mutating-verb guard was matching words inside

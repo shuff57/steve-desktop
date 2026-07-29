@@ -296,6 +296,15 @@ export function normalizeUrl(url: string): string {
   try {
     const u = new URL(url);
     u.hash = '';
+    // Sort query params: a site links the SAME page both ways. MyOpenMath's course home is reached
+    // as `course.php?cid=N&folder=0` from one page and `course.php?folder=0&cid=N` from another, and
+    // every dedupe key here is the normalized URL — so one page was captured twice, stored as two
+    // profiles, and described twice in the document. The second copy was also stale (47b/2i/179a
+    // against 10b/21i/140a live), which is what failed criterion 3 on 2026-07-29.
+    //
+    // Order is not semantic in a query string; VALUES are, and those are untouched. Repeated keys
+    // keep their relative order (sort is stable), so `?a=1&a=2` is not reordered into `?a=2&a=1`.
+    u.searchParams.sort();
     return u.toString();
   } catch {
     return url;
@@ -388,6 +397,36 @@ export function pathHasMutatingVerb(pathname: string): boolean {
     if (segment.split(/[-_]/).filter(Boolean).length <= ACTION_SEGMENT_MAX_WORDS) return true;
   }
   return false;
+}
+
+/**
+ * The key under which two URLs are the SAME SURFACE, even when they are not the same page.
+ *
+ * A site reaches one surface several ways. MyOpenMath links Messages as `/msgs/msglist.php?cid=N`
+ * from one page and `…&folder=0` from another; both render the inbox. Keyed by URL, those are two
+ * things, and on 2026-07-29 that produced: two survey sections both named "Messages" (which crashed
+ * the approval gate on a duplicate Svelte key), and three criterion-6 cross-listings, because
+ * `chromeByFrequency` counted each variant separately so neither reached the "carried by half the
+ * indexes" threshold.
+ *
+ * Rule: drop params whose value is empty or `0` — a zero-valued param is a DEFAULT, not a
+ * selection. `folder=0` is the default folder, `stu=0` and `filteruid=0` are unset filters. What it
+ * deliberately does NOT do is drop non-zero values, because those pick real content:
+ * `course.php?folder=3` is a different page from the course home and must stay distinct, or a
+ * section loses its own members — the over-subtraction failure this file has hit twice.
+ *
+ * For grouping only. Capture identity stays `normalizeUrl`: what is stored is what was fetched.
+ */
+export function aliasKey(url: string): string {
+  try {
+    const u = new URL(normalizeUrl(url));
+    for (const [k, v] of [...u.searchParams]) {
+      if (v === '' || v === '0') u.searchParams.delete(k, v);
+    }
+    return u.toString();
+  } catch {
+    return url;
+  }
 }
 
 /** Below this many sections there is no majority to reason about, so frequency says nothing. */
