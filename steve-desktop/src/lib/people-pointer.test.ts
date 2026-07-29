@@ -60,7 +60,34 @@ describe('people pointers — record the route, never the person', () => {
     expect(toTemplate('https://m.com/g.php?cid=1&stu=⟦STU⟧')).toEqual({
       template: 'https://m.com/g.php?cid=1&stu={studentId}',
       param: 'stu',
+      in: 'query',
     });
+  });
+
+  // Canvas puts the person in the PATH. A live run produced the right template and slot:null,
+  // because the slot finder only ever read searchParams — the shape without what fills it.
+  it('locates a person id held in a path segment, naming the segment before it', () => {
+    expect(toTemplate('https://canvas.butte.edu/courses/31407/users/⟦STU⟧')).toEqual({
+      template: 'https://canvas.butte.edu/courses/31407/users/{studentId}',
+      param: 'users',
+      in: 'path',
+    });
+    expect(toTemplate('https://canvas.butte.edu/courses/31407/assignments/844633/submissions/⟦STU⟧')?.param)
+      .toBe('submissions');
+  });
+
+  it('carries the path slot through to the pointer', () => {
+    const roster = 'https://canvas.butte.edu/courses/31407/users';
+    const canvas = {
+      domain: 'canvas.butte.edu',
+      url: roster,
+      interactive: {
+        buttons: [{ text: 'Settings', selector: '#s' }],
+        links: [{ text: '⟦STU⟧', selector: 'tr a', href: 'https://canvas.butte.edu/courses/31407/users/⟦STU⟧' }],
+        inputs: [],
+      },
+    } as unknown as SiteProfile;
+    expect(buildPeoplePointer(canvas, roster).slot).toEqual({ param: 'users', in: 'path', resolveFrom: roster });
   });
 
   it('ignores a URL that addresses nobody', () => {
@@ -73,6 +100,7 @@ describe('people pointers — record the route, never the person', () => {
     expect(toTemplate('gradebook.php?cid=1&stu=⟦STU⟧', 'https://m.com/course/gradebook.php?cid=1')).toEqual({
       template: 'https://m.com/course/gradebook.php?cid=1&stu={studentId}',
       param: 'stu',
+      in: 'query',
     });
   });
 
@@ -94,7 +122,7 @@ describe('people pointers — record the route, never the person', () => {
     const roster = 'https://www.myopenmath.com/course/listusers.php?cid=316341';
     const p = buildPeoplePointer(gradebook(), roster);
     expect(p.perPerson).toEqual(['https://www.myopenmath.com/course/gradebook.php?cid=316341&stu={studentId}']);
-    expect(p.slot).toEqual({ param: 'stu', resolveFrom: roster });
+    expect(p.slot).toEqual({ param: 'stu', in: 'query', resolveFrom: roster });
   });
 
   it('falls back to its own index when no roster is known', () => {

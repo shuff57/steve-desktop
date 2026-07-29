@@ -84,8 +84,17 @@ export interface PeoplePointer {
   index: string;
   /** URL shapes that address ONE person, with {studentId} where the id goes. */
   perPerson: string[];
-  /** Which query parameter selects the person, and where to resolve one at runtime. */
-  slot: { param: string; resolveFrom: string } | null;
+  /**
+   * Where the person id goes, and where to resolve one at run time.
+   *
+   * `in` matters because the two LMSs disagree. MyOpenMath selects a student with a query
+   * parameter (`?stu=…`), Canvas with a path segment (`/users/12345`) — and a Canvas pointer came
+   * back with `slot: null` because this only ever inspected `searchParams`, leaving the template
+   * correct but unusable: it showed the shape without saying what filled it.
+   * For `in: 'path'`, `param` is the segment BEFORE the id (`users`), which is what an automation
+   * agent needs to recognise the route.
+   */
+  slot: { param: string; in: 'query' | 'path'; resolveFrom: string } | null;
   /** Action labels only. A label that reads as a person is discarded, not tokenized. */
   controls: string[];
   /** How many controls were dropped for reading as people — evidence the filter ran. */
@@ -114,7 +123,7 @@ export function surfaceName(url: string): string {
  * without resolving them the template is not navigable and `new URL()` throws, which silently
  * left `slot: null` on the first real pointer written.
  */
-export function toTemplate(url: string, base = ''): { template: string; param: string } | null {
+export function toTemplate(url: string, base = ''): { template: string; param: string; in: 'query' | 'path' } | null {
   if (!url.includes(STUDENT_TOKEN) && !url.includes(encodeURIComponent(STUDENT_TOKEN))) return null;
   let absolute = url;
   try { absolute = new URL(url, base || undefined).toString(); } catch { /* keep as captured */ }
@@ -122,13 +131,23 @@ export function toTemplate(url: string, base = ''): { template: string; param: s
   const template = absolute
     .split(STUDENT_TOKEN).join(SLOT)
     .split(encodeURIComponent(STUDENT_TOKEN)).join(SLOT);
-  let param = '';
   try {
-    for (const [k, v] of new URL(template).searchParams) {
-      if (v.includes(SLOT) || (PERSON_PARAM.test(k) && v.includes(SLOT))) { param = k; break; }
+    const u = new URL(template);
+    for (const [k, v] of u.searchParams) {
+      if (v.includes(SLOT) || (PERSON_PARAM.test(k) && v.includes(SLOT))) return { template, param: k, in: 'query' };
     }
-  } catch { /* keep param empty */ }
-  return { template, param };
+    // Canvas addresses people by PATH — /courses/31407/users/12345. The id is a segment, so name
+    // the segment BEFORE it ("users"): that is what identifies the route to an automation agent.
+    // Decode first: `new URL()` percent-encodes the braces, so the raw pathname holds
+    // `%7BstudentId%7D` and a scan for the literal slot silently finds nothing.
+    let path = u.pathname;
+    try { path = decodeURIComponent(u.pathname); } catch { /* keep as-is if it will not decode */ }
+    const segs = path.split('/').filter(Boolean);
+    const at = segs.findIndex((s) => s.includes(SLOT));
+    if (at > 0) return { template, param: segs[at - 1], in: 'path' };
+    if (at === 0) return { template, param: '/', in: 'path' };
+  } catch { /* fall through — an unparseable template still yields its shape */ }
+  return { template, param: '', in: 'query' };
 }
 
 /**
@@ -139,10 +158,10 @@ export function toTemplate(url: string, base = ''): { template: string; param: s
  */
 export function buildPeoplePointer(profile: SiteProfile, rosterUrl = ''): PeoplePointer {
   const index = profile.url ?? '';
-  const templates = new Map<string, string>(); // template -> param
+  const templates = new Map<string, { param: string; in: 'query' | 'path' }>();
   for (const l of profile.interactive?.links ?? []) {
     const t = toTemplate(l.href ?? '', index);
-    if (t) templates.set(t.template, t.param);
+    if (t) templates.set(t.template, { param: t.param, in: t.in });
   }
   const controls: string[] = [];
   let dropped = 0;
@@ -153,12 +172,12 @@ export function buildPeoplePointer(profile: SiteProfile, rosterUrl = ''): People
     if (PERSON_LABEL.test(text)) { dropped++; continue; }
     if (!controls.includes(text)) controls.push(text);
   }
-  const firstParam = [...templates.values()].find(Boolean) ?? '';
+  const located = [...templates.values()].find((s) => s.param);
   return {
     surface: surfaceName(index),
     index,
     perPerson: [...templates.keys()],
-    slot: firstParam ? { param: firstParam, resolveFrom: rosterUrl || index } : null,
+    slot: located ? { param: located.param, in: located.in, resolveFrom: rosterUrl || index } : null,
     controls: controls.slice(0, 40),
     droppedPersonLabels: dropped,
     policy: POLICY,
