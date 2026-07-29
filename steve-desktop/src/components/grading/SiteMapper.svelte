@@ -1054,6 +1054,7 @@
             { domain: domainFromUrl(pageUrl) || '', section: chunk.section, index: chunk.index, total: chunkPlan.length, lines },
             secrets,
             ai!,
+            structuralUrls(), // leave the site's own URLs intact inside the prompt — see urlSpans
           )
             .then((frag) => {
               fragments[chunk.index] = frag ?? null;
@@ -1174,7 +1175,7 @@
         // Same exemption as the fragments: the merge prompt and the SAVED doc must keep the
         // identifiers the URLs are built from, or the document describes pages nobody can open.
         const docSecrets = keepStructural(allSecrets, structuralUrls());
-        const merged = ai2 ? await fetchMergedDoc({ domain, fragments: written }, docSecrets, ai2) : null;
+        const merged = ai2 ? await fetchMergedDoc({ domain, fragments: written }, docSecrets, ai2, structuralUrls()) : null;
         // Scrub the finished doc, not just the outbound prompts. The gate stops redacted values
         // being SENT, but the model can infer one from surrounding context and write it back: a
         // live scrapethissite.com merge announced 'Recovered the two redacted spans from context:

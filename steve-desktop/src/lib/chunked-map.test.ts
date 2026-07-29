@@ -16,6 +16,8 @@ import {
   buildManifest,
   pendingChunks,
   tokenizeSecrets,
+  urlSpans,
+  gateSecrets,
   peopleSections,
   PEOPLE_SURFACE,
 } from './chunked-map';
@@ -452,5 +454,61 @@ describe('isPeopleSurface — a person-selecting param is enough', () => {
 
   it('leaves a course-scoped content page alone', () => {
     expect(isPeopleSurface('https://www.myopenmath.com/course/course.php?cid=1&folder=0-5')).toBe(false);
+  });
+});
+
+describe('urlSpans + tokenizeSecrets — a dictionary word inside the site\'s own URL', () => {
+  // Live MyOpenMath: "Thread" is a data cell on the forums page, so "thread" entered the value
+  // dictionary; the sweep is a plain substring replace, and the document came out citing
+  // `/forums/new⟦D29⟧s.php`, which navigates nowhere. keepStructural cannot reach it — `newthreads`
+  // is a compound with no separator to split on, and the corpus has no bare `thread` segment.
+  const urls = ['https://www.myopenmath.com/forums/newthreads.php?cid=193698'];
+  const secrets = { '⟦D29⟧': 'thread' };
+
+  it('leaves the URL navigable', () => {
+    const out = tokenizeSecrets('see /forums/newthreads.php?cid=193698 for posts', secrets, urlSpans(urls));
+    expect(out).toContain('/forums/newthreads.php?cid=193698');
+    expect(out).not.toContain('⟦D29⟧');
+  });
+
+  it('still tokenizes the same word everywhere else', () => {
+    const out = tokenizeSecrets('row: thread — /forums/newthreads.php?cid=193698', secrets, urlSpans(urls));
+    expect(out).toContain('/forums/newthreads.php?cid=193698'); // URL intact
+    expect(out).toContain('⟦D29⟧');                             // the data cell is not
+    expect(out.replace('/forums/newthreads.php?cid=193698', '')).not.toContain('thread');
+  });
+
+  it('does NOT untokenize a person just because a URL contains their name', () => {
+    // The reason this protects a SPAN instead of dropping the value: exempting any substring of a
+    // segment would drop "Mark" from the dictionary entirely on a site serving /bookmarks.php,
+    // and "Ann" on one serving /announcements.
+    const nameSecrets = { '⟦D7⟧': 'Mark' };
+    const bookmarks = ['https://x.edu/course/bookmarks.php?cid=1'];
+    const out = tokenizeSecrets('1: Mark — /course/bookmarks.php?cid=1 — 2btn', nameSecrets, urlSpans(bookmarks));
+    expect(out).toContain('/course/bookmarks.php?cid=1');
+    expect(out).toContain('⟦D7⟧');
+    expect(out.startsWith('1: ⟦D7⟧ —')).toBe(true);
+  });
+
+  it('does not corrupt prompt text that looks like a placeholder', () => {
+    // The mask has to be something prompt text cannot contain: a readable ` 0 ` marker would
+    // collide with the prompt's own "Chunk 1 of 10".
+    const text = 'Chunk 1 of 10 — /forums/newthreads.php?cid=193698';
+    expect(tokenizeSecrets(text, secrets, urlSpans(urls))).toBe(text);
+  });
+});
+
+describe('gateSecrets — the outbound gate must agree with what was left intact', () => {
+  // callModelTree refuses if any dictionary value survives in the payload, so protecting a URL
+  // that contains "thread" would refuse every chunk — the "crawl worked, wrote nothing" failure.
+  const spans = urlSpans(['https://www.myopenmath.com/forums/newthreads.php?cid=193698']);
+
+  it('drops a value that only survives inside a protected URL', () => {
+    expect(gateSecrets({ '⟦D29⟧': 'thread' }, spans)).toEqual({});
+  });
+
+  it('keeps every value the URLs do not contain', () => {
+    const kept = gateSecrets({ '⟦D1⟧': 'Doe, Jane', '⟦D29⟧': 'thread' }, spans);
+    expect(kept).toEqual({ '⟦D1⟧': 'Doe, Jane' });
   });
 });

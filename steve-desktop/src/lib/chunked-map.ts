@@ -306,11 +306,76 @@ export function planChunks(
  * Values under 3 chars are left alone: the gate ignores them too, and blind-replacing them would
  * shred ordinary words.
  */
-export function tokenizeSecrets(outbound: string, secrets: Record<string, string>): string {
-  return Object.entries(secrets).reduce(
-    (text, [token, value]) => (value.trim().length >= 3 ? text.split(value).join(token) : text),
-    outbound,
+export function tokenizeSecrets(outbound: string, secrets: Record<string, string>, protect: string[] = []): string {
+  // Protected spans are masked first, tokenized around, then restored — so a dictionary word that
+  // happens to sit INSIDE one of the site's own URLs does not shred it. See urlSpans.
+  const spans = [...new Set(protect.filter((s) => s && s.length >= 3))].sort((a, b) => b.length - a.length);
+  const held: string[] = [];
+  let text = outbound;
+  for (const span of spans) {
+    if (!text.includes(span)) continue;
+    // NUL-delimited: the placeholder must be something prompt text cannot contain. A
+    // readable marker like ` 0 ` collides with the prompt's own "Chunk 1 of 10".
+    text = text.split(span).join(`\u0000${held.length}\u0000`);
+    held.push(span);
+  }
+  text = Object.entries(secrets).reduce(
+    (t, [token, value]) => (value.trim().length >= 3 ? t.split(value).join(token) : t),
+    text,
   );
+  held.forEach((span, i) => { text = text.split(`\u0000${i}\u0000`).join(span); });
+  return text;
+}
+
+/**
+ * The URL spans a document must be able to state verbatim, in the forms a prompt shows them.
+ *
+ * The defect this exists for: MyOpenMath serves `/forums/newthreads.php`, and the word "thread" was
+ * in the value dictionary because a forums page has a data cell reading "Thread". The sweep is a
+ * plain substring replace (deliberately — over-redaction is the right direction outbound), so the
+ * document came out citing `/forums/new⟦D29⟧s.php`, which navigates nowhere. `keepStructural` could
+ * not save it: it exempts a value that IS a URL segment, across case and plural, but `newthreads`
+ * is a compound with no separator to split on and the corpus has no bare `thread` segment.
+ *
+ * Broadening keepStructural to "substring of any segment" was the obvious fix and is unsafe: it
+ * drops the value from the dictionary ENTIRELY, so `/bookmarks.php` would untokenize a student
+ * named Mark on every page, and `/announcements` would untokenize an Ann. There is no syntactic
+ * rule that separates a site's vocabulary from a short given name.
+ *
+ * Protecting the URL span instead keeps the value tokenized everywhere else and leaves it intact
+ * only where it is the site's own address. That trusts these URLs no further than the file already
+ * does — `structuralValues` harvests its whole exemption set from this same list, which is
+ * storage-redacted (person params are `⟦STU⟧` before they get here).
+ */
+export function urlSpans(urls: string[]): string[] {
+  const out = new Set<string>();
+  for (const raw of urls) {
+    let u: URL;
+    try { u = new URL(raw); } catch { continue; }
+    for (const form of [raw, u.pathname + u.search, u.pathname]) {
+      if (form.length >= 3) out.add(form);
+    }
+  }
+  return [...out];
+}
+
+/**
+ * The dictionary the outbound GATE checks, given the spans left intact.
+ *
+ * `callModelTree` refuses the call if any dictionary value still appears in the payload, so
+ * protecting a URL that contains "thread" would refuse every chunk — the exact "crawl worked, wrote
+ * nothing" failure that a blanket catch once hid for three runs. A value that occurs inside a
+ * protected span is dropped from the gate's map ONLY: every occurrence outside one was already
+ * replaced by tokenizeSecrets, so what survives is the site's own URL text, never page data.
+ */
+export function gateSecrets(secrets: Record<string, string>, protect: string[]): Record<string, string> {
+  const hay = protect.join('\n');
+  const out: Record<string, string> = {};
+  for (const [token, value] of Object.entries(secrets)) {
+    if (value.trim().length >= 3 && hay.includes(value)) continue;
+    out[token] = value;
+  }
+  return out;
 }
 
 /** Query params that select a PERSON. Their values are never structural, whatever else is true. */
@@ -449,12 +514,21 @@ export async function fetchFragment(
   o: { domain: string; section: string; index: number; total: number; lines: string },
   secrets: Record<string, string>,
   transport: ModelTransport,
+  urls: string[] = [],
 ): Promise<string | null> {
   // Deliberately does NOT swallow. A blanket catch here hid a dead sidecar, then a redaction-gate
   // refusal, through three live runs — each looked like "the crawl worked but wrote nothing".
   // The caller records the message against the chunk; one bad chunk still costs only its section.
+  const spans = urlSpans(urls);
   const reply = await callModelTree(
-    { redactedText: tokenizeSecrets(buildFragmentPrompt(o), secrets), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+    {
+      redactedText: tokenizeSecrets(buildFragmentPrompt(o), secrets, spans),
+      // The gate must agree with what was left intact, or a URL containing a dictionary word
+      // refuses the whole chunk. See gateSecrets.
+      map: gateSecrets(secrets, spans),
+      rehydrate: (t) => t,
+      redact: (t) => t,
+    },
     transport,
   );
   const text = reply.trim();
@@ -466,10 +540,17 @@ export async function fetchMergedDoc(
   o: { domain: string; fragments: string[] },
   secrets: Record<string, string>,
   transport: ModelTransport,
+  urls: string[] = [],
 ): Promise<string | null> {
   try {
+    const spans = urlSpans(urls);
     const reply = await callModelTree(
-      { redactedText: tokenizeSecrets(buildMergePrompt(o), secrets), map: secrets, rehydrate: (t) => t, redact: (t) => t },
+      {
+        redactedText: tokenizeSecrets(buildMergePrompt(o), secrets, spans),
+        map: gateSecrets(secrets, spans),
+        rehydrate: (t) => t,
+        redact: (t) => t,
+      },
       transport,
     );
     const text = reply.trim();
