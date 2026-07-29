@@ -2,12 +2,21 @@
   import { SKILL_CREATION_PROMPT } from "../../lib/skill-creation-prompt";
   import { sendAgentMessage } from "../../lib/agent-api";
   import { parseSkillMarkdown } from "../../lib/skill-parser";
+  import { splitChatSegments } from "../../lib/chat-segments";
   import { saveSkill } from "../../lib/db";
 
   interface ChatMessage {
+    /** Stable key so appending a reply never re-renders the bubbles above it. */
+    id: string;
     role: "user" | "assistant";
     content: string;
   }
+
+  const message = (role: ChatMessage["role"], content: string): ChatMessage => ({
+    id: crypto.randomUUID(),
+    role,
+    content,
+  });
 
   let messages: ChatMessage[] = $state([]);
   let inputValue = $state("");
@@ -58,7 +67,7 @@
     lastAssistantHasMarkdown = false;
 
     // Add user message
-    messages = [...messages, { role: "user", content: text }];
+    messages = [...messages, message("user", text)];
     scrollToBottom();
 
     isLoading = true;
@@ -78,10 +87,7 @@
           },
           onDone: () => {
             if (aiContent) {
-              messages = [
-                ...messages,
-                { role: "assistant", content: aiContent },
-              ];
+              messages = [...messages, message("assistant", aiContent)];
               scrollToBottom();
               if (hasMarkdownBlock(aiContent)) {
                 lastAssistantHasMarkdown = true;
@@ -99,10 +105,7 @@
         aiContent &&
         messages[messages.length - 1]?.content !== aiContent
       ) {
-        messages = [
-          ...messages,
-          { role: "assistant", content: aiContent },
-        ];
+        messages = [...messages, message("assistant", aiContent)];
         scrollToBottom();
         if (hasMarkdownBlock(aiContent)) {
           lastAssistantHasMarkdown = true;
@@ -151,10 +154,7 @@
       // Success message
       messages = [
         ...messages,
-        {
-          role: "assistant",
-          content: `\u2713 Skill "${name}" saved! Find it in My Skills.`,
-        },
+        message("assistant", `\u2713 Skill "${name}" saved! Find it in My Skills.`),
       ];
       lastAssistantHasMarkdown = false;
       saveSuccess = name;
@@ -201,13 +201,33 @@
   </div>
 
   <div class="chat-interface">
-    <div class="chat-messages" bind:this={chatContainer}>
-      {#each messages as msg}
+    <!-- role=log + polite: a screen reader announces each reply as it lands, without
+         stealing focus from the composer mid-typing. -->
+    <div
+      class="chat-messages"
+      bind:this={chatContainer}
+      role="log"
+      aria-live="polite"
+      aria-label="Conversation"
+    >
+      {#each messages as msg (msg.id)}
         <div class="message {msg.role}">
           <div class="message-label">
             {msg.role === "user" ? "You" : "SHREK"}
           </div>
-          <div class="message-content">{msg.content}</div>
+          <div class="message-content">
+            <!-- Segments are plain text on purpose — see lib/chat-segments.ts. Fenced blocks
+                 get <pre> styling so a generated skill is readable, with no {@html} sink. -->
+            {#each splitChatSegments(msg.content) as seg, i (i)}
+              {#if seg.kind === "code"}
+                <pre class="code-block">{#if seg.lang}<span class="code-lang"
+                    >{seg.lang}</span
+                  >{/if}<code>{seg.content}</code></pre>
+              {:else}
+                <p class="prose">{seg.content}</p>
+              {/if}
+            {/each}
+          </div>
         </div>
       {/each}
 
@@ -243,7 +263,8 @@
     <div class="chat-input-area">
       <textarea
         placeholder="Describe your skill needs... (Enter to send, Shift+Enter for newline)"
-        rows="3"
+        rows="2"
+        aria-label="Message"
         bind:value={inputValue}
         onkeydown={handleKeydown}
         disabled={isLoading}
@@ -377,8 +398,47 @@
   }
 
   .message-content {
-    white-space: pre-wrap;
     word-break: break-word;
+  }
+
+  /* Prose keeps the model's own line breaks; margins only between stacked segments. */
+  .prose {
+    white-space: pre-wrap;
+    margin: 0;
+  }
+
+  .prose + .prose,
+  .code-block + .prose,
+  .prose + .code-block {
+    margin-top: var(--spacing-2);
+  }
+
+  /* Fenced blocks: scroll sideways rather than forcing the bubble wide. */
+  .code-block {
+    position: relative;
+    margin: 0;
+    padding: var(--spacing-2);
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .code-block code {
+    font-family: var(--font-mono, monospace);
+    white-space: pre;
+  }
+
+  .code-lang {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
   }
 
   /* Save Skill bar */
@@ -464,6 +524,7 @@
 
   textarea {
     width: 100%;
+    box-sizing: border-box;
     min-height: 60px;
     background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
@@ -473,6 +534,17 @@
     font-family: var(--font-body);
     font-size: 0.9rem;
     resize: vertical;
+  }
+
+  /* Grow with the text, capped so a long prompt can't swallow the transcript. Native, so no
+     ResizeObserver — but the manual drag handle stays wherever field-sizing is unsupported. */
+  @supports (field-sizing: content) {
+    textarea {
+      field-sizing: content;
+      max-height: 40vh;
+      overflow-y: auto;
+      resize: none;
+    }
   }
 
   textarea:focus {
