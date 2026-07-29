@@ -350,8 +350,44 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   if (DENY_LINK.test(target)) return false; // session / role-switch
   if (ADMIN_PATH.test(u.pathname)) return false; // admin surface
   if (ACTION_PARAM.test(u.search)) return false; // GET-triggered action
-  if (MUTATING_VERB.test(target)) return false; // anything that reads as a write
+  if (MUTATING_VERB.test(u.search)) return false; // a verb in the QUERY is an instruction
+  if (pathHasMutatingVerb(u.pathname)) return false; // …in the path, only where it reads as an action
   return true;
+}
+
+/**
+ * A path segment that is longer than this many hyphen/underscore words reads as a TITLE, not an
+ * action, so a mutating verb inside it is prose. `delete-all` is an action; `how-to-submit-your-
+ * homework` is a page someone wrote.
+ */
+const ACTION_SEGMENT_MAX_WORDS = 2;
+
+/**
+ * Does a PATH contain a mutating verb where it actually reads as an action?
+ *
+ * `MUTATING_VERB.test(pathname)` is too blunt for any site with human-readable slugs. Measured on
+ * a live Canvas course, these real content pages were all refused:
+ *
+ *   /pages/how-to-submit-your-homework                        ← "submit"
+ *   /pages/dropping-the-course-deadlines                      ← "drop"
+ *   /pages/adding-and-removing-calculators                    ← "remove"
+ *   /pages/center-for-academic-success-cas-and-enrolling-…    ← "enroll"
+ *
+ * That is not over-blocking a few pages, it is deleting course content from the map — and the
+ * standing constraint is explicit that deny-listing the things automation needs is not an
+ * acceptable fix. MyOpenMath never exposed it because its URLs are `modcourse.php`, not prose.
+ *
+ * An action verb IS the segment, or nearly all of it. So test per segment and only where the
+ * segment is short: `modcourse.php` (1 word) and `delete-all` (2) still deny, a five-word title
+ * does not. The QUERY keeps the blunt test — a verb there is an instruction, not a name.
+ */
+export function pathHasMutatingVerb(pathname: string): boolean {
+  for (const segment of pathname.split('/')) {
+    if (!segment) continue;
+    if (!MUTATING_VERB.test(segment)) continue;
+    if (segment.split(/[-_]/).filter(Boolean).length <= ACTION_SEGMENT_MAX_WORDS) return true;
+  }
+  return false;
 }
 
 /** Below this many sections there is no majority to reason about, so frequency says nothing. */

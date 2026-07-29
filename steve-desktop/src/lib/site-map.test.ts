@@ -250,6 +250,38 @@ describe('normalizeUrl — collapse anchor/popover URLs to the same page', () =>
     expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
   });
 });
+// Found on the first live Canvas run: the mutating-verb guard was matching words inside
+// human-readable page slugs, refusing real course content. Every DENIED case below is a URL the
+// crawler actually refused; every allowed case is a real action URL that must stay refused.
+describe('mutating verbs in a path — an action is the segment, a title merely contains one', () => {
+  const base = 'https://canvas.butte.edu/courses/31407';
+  const ok = (p: string) => isCrawlableLink(`https://canvas.butte.edu${p}`, base);
+
+  it('stops refusing course pages whose slug happens to contain a verb', () => {
+    expect(ok('/courses/31407/pages/how-to-submit-your-homework')).toBe(true);
+    expect(ok('/courses/31407/pages/dropping-the-course-deadlines')).toBe(true);
+    expect(ok('/courses/31407/pages/adding-and-removing-calculators')).toBe(true);
+    expect(ok('/courses/31407/pages/center-for-academic-success-cas-and-enrolling-in-educ310-to-get-free-tutoring')).toBe(true);
+  });
+
+  it('still refuses a verb that IS the segment — the whole point of the guard', () => {
+    expect(ok('/courses/31407/assignments/844644/submit')).toBe(false);
+    expect(ok('/courses/31407/users/12345/delete')).toBe(false);
+    expect(ok('/courses/31407/enrollments/99')).toBe(false);
+    expect(ok('/course/modcourse.php')).toBe(false); // MyOpenMath: one word, no hyphens
+    expect(ok('/courses/31407/pages/x/delete-all')).toBe(false); // two words is still an action
+  });
+
+  it('keeps the query strict — a verb there is an instruction, not a name', () => {
+    expect(ok('/courses/31407/pages/syllabus?do=delete')).toBe(false);
+    expect(ok('/courses/31407/pages/syllabus?mode=remove')).toBe(false);
+  });
+
+  it('leaves the redirect target that started this alone', () => {
+    expect(ok('/courses/31407/pages/center-for-academic-success-cas-and-enrolling-in-educ310-to-get-free-tutoring?module_item_id=1904076')).toBe(true);
+  });
+});
+
 // Criterion 6 of the hybrid-mapping plan. Modelled on the real failure: "Course Content" IS the
 // course home, and exempting the start page from chrome subtraction handed that section the whole
 // nav bar — Roster, Gradebook and Forums were listed as its members AND under their own headings.
