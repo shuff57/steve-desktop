@@ -314,6 +314,54 @@ function tokenizePersonLabels<T>(profile: T): T {
   return walk(profile) as T;
 }
 
+/** An href that addresses ONE person: a person-selecting query param, or a person path segment. */
+const PERSON_HREF = /[?&](uid|stu|stuid|student|studentid|userid|filteruid|sid|learner)=|\/users?\/[^/?#]+|\/submissions?\/[^/?#]+|\/grades\/[^/?#]+/i;
+
+/**
+ * Tokenize the label of any link that POINTS AT A PERSON, on any page.
+ *
+ * The people-surface test asks "is this page a roster?" and a Canvas discussion board is not one
+ * — it is course content we want mapped. But every post shows its author as
+ * `<a href="/courses/31407/users/12345">Jane Doe</a>`, so a live Canvas crawl put **26 real
+ * student names** on disk (confirmed by hashing them against the live roster; the names were
+ * never printed). Not one was comma-form, so `looksLikeRoster` could not see them either, and
+ * `discussion_topics` matches no people-surface pattern — correctly, since it is content.
+ *
+ * The page was never the right unit. A LINK is: whatever page it sits on, a label on a link that
+ * addresses one person IS that person. It needs no vocabulary and no page classification, and it
+ * covers both LMSs — MyOpenMath's `?stu=` rows and Canvas's `/users/<id>` authors.
+ *
+ * Verified on the stored crawl: 26 roster names before, 0 after.
+ */
+function tokenizePersonLinkedLabels<T>(profile: T): T {
+  const p = profile as { interactive?: { links?: { text?: string; href?: string }[] } };
+  const names = new Set<string>();
+  for (const l of p.interactive?.links ?? []) {
+    const text = (l.text ?? '').trim();
+    if (text && !text.includes('⟦') && PERSON_HREF.test(l.href ?? '')) names.add(text);
+  }
+  if (!names.size) return profile;
+  // Longest first, so a full name wins over a surname that is a substring of it.
+  const ordered = [...names].sort((a, b) => b.length - a.length);
+  const swap = (s: string) => {
+    let out = s;
+    for (const n of ordered) out = out.split(n).join(STUDENT_TOKEN);
+    return out;
+  };
+  const FIELDS = new Set(['text', 'label', 'selector', 'value', 'purpose', 'nearestHeading']);
+  const walk = (v: unknown, key = ''): unknown => {
+    if (typeof v === 'string') return FIELDS.has(key) ? swap(v) : v;
+    if (Array.isArray(v)) return v.map((x) => walk(x, key));
+    if (v && typeof v === 'object') {
+      const out: Record<string, unknown> = {};
+      for (const [k, x] of Object.entries(v as Record<string, unknown>)) out[k] = walk(x, k);
+      return out;
+    }
+    return v;
+  };
+  return walk(profile) as T;
+}
+
 /**
  * @param peopleSurface true when this page LISTS PEOPLE (gradebook, roster, message list).
  *
@@ -328,7 +376,11 @@ export function redactProfileForStorage<T extends { domain: string; url?: string
   redact: (t: string) => string,
   peopleSurface = false,
 ): T {
-  const source = peopleSurface ? tokenizePersonLabels(profile) : profile;
+  // Person-linked labels are scrubbed on EVERY page — a discussion board is content, and still
+  // names its authors. The people-surface pass then handles rosters, where the label is a person
+  // but there may be no link to prove it.
+  const linked = tokenizePersonLinkedLabels(profile);
+  const source = peopleSurface ? tokenizePersonLabels(linked) : linked;
   const redactValues = (p: T) => redactStrings(p, redact) as T;
   const safe = { ...(redactValues(source) as T), domain: profile.domain };
   if (profile.url) {

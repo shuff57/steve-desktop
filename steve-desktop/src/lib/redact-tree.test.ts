@@ -46,6 +46,43 @@ describe('sweepPattern — vocabulary matches on word boundaries, identifiers do
   });
 });
 
+// A live Canvas crawl put 26 real student names on disk — discussion-board post authors. The page
+// is course content (correctly not a people surface) and the names are plain "Jane Doe", so
+// neither the URL test nor looksLikeRoster could see them. The LINK could: every author is
+// <a href="/courses/31407/users/12345">. Verified against the stored crawl: 26 before, 0 after.
+describe('person-linked labels — a label on a link that addresses one person IS that person', () => {
+  const page = (links: { text: string; href: string }[], extra: Record<string, unknown> = {}) =>
+    ({ domain: 'canvas.butte.edu', url: 'https://canvas.butte.edu/courses/31407/discussion_topics/416993',
+       interactive: { links, buttons: [], inputs: [] }, ...extra }) as never;
+  const store = (p: never) => JSON.stringify(redactProfileForStorage(p, (t) => t, false));
+
+  it('scrubs a discussion author, on a page that is NOT a people surface', () => {
+    const out = store(page([
+      { text: 'Jane Doe', href: 'https://canvas.butte.edu/courses/31407/users/12345' },
+      { text: 'Unit 4 Discussion', href: 'https://canvas.butte.edu/courses/31407/discussion_topics/416994' },
+    ]));
+    expect(out).not.toContain('Jane Doe');
+    expect(out).toContain('⟦STU⟧');
+    expect(out).toContain('Unit 4 Discussion'); // content titles must survive
+  });
+
+  it('covers the MyOpenMath shape too — a person-selecting query parameter', () => {
+    expect(store(page([{ text: 'Doe, Jane', href: '/course/gradebook.php?cid=1&stu=7158619' }]))).not.toContain('Doe');
+  });
+
+  it('scrubs the same name everywhere on the page, not just on the link', () => {
+    const out = store(page([{ text: 'Jane Doe', href: '/courses/31407/users/12345' }],
+      { interactive: { links: [{ text: 'Jane Doe', href: '/courses/31407/users/12345', selector: 'a[title="Jane Doe"]' }], buttons: [], inputs: [] } }));
+    expect(out).not.toContain('Jane Doe');
+  });
+
+  it('leaves a page with no person-pointing links untouched', () => {
+    const out = store(page([{ text: 'Course Syllabus', href: '/courses/31407/assignments/syllabus' }]));
+    expect(out).toContain('Course Syllabus');
+    expect(out).not.toContain('⟦STU⟧');
+  });
+});
+
 describe('isChromeNode (allow-list of labels/controls)', () => {
   it('keeps interactive controls, headings, and field labels', () => {
     expect(isChromeNode(node('button', 'Submit'))).toBe(true);
