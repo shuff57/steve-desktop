@@ -354,6 +354,37 @@ export function isCrawlableLink(href: string, baseUrl: string): boolean {
   return true;
 }
 
+/** Below this many sections there is no majority to reason about, so frequency says nothing. */
+export const CHROME_MIN_SECTIONS = 3;
+
+/**
+ * Site-wide chrome, identified by how many DIFFERENT section indexes carry a link.
+ *
+ * A nav bar is on every section index; a section's own members are on one. That is the whole
+ * signal, and it needs no vocabulary and no special case for the start page.
+ *
+ * Both earlier tests failed, in opposite directions. "A link that is also on the start page"
+ * over-subtracts, because a course home legitimately lists the course's own items — the richest
+ * section lost its own 232 links and came back as 1 page. Exempting the start page to fix that
+ * under-subtracts: the "Course Content" section IS the course home, so it was handed the entire
+ * nav bar and listed Roster, Gradebook, Messages and Forums as its members, each of which also
+ * had its own heading.
+ *
+ * Returns the set of URLs to drop. Empty when there are too few sections to judge — the caller
+ * falls back to the start page's links there.
+ */
+export function chromeByFrequency(sectionPages: string[][], minSections = CHROME_MIN_SECTIONS): Set<string> {
+  const out = new Set<string>();
+  if (sectionPages.length < minSections) return out;
+  const carriedBy = new Map<string, number>();
+  for (const pages of sectionPages) {
+    for (const u of new Set(pages)) carriedBy.set(u, (carriedBy.get(u) ?? 0) + 1);
+  }
+  const threshold = Math.max(minSections, Math.ceil(sectionPages.length / 2));
+  for (const [url, n] of carriedBy) if (n >= threshold) out.add(url);
+  return out;
+}
+
 /**
  * Does this captured page ask for a password?
  *

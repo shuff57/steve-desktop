@@ -15,7 +15,7 @@
     saveMappingDoc, saveVerifyReport, healMappingDoc, savePeoplePointers, loadPeoplePointers,
   } from '../../lib/site-profiles';
   import { buildPeoplePointer, upsertPointer, pointerLeaks, looksLikeRoster, type PeoplePointer } from '../../lib/people-pointer';
-  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
+  import { profileToNode, upsertPage, emptySiteMap, isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, chromeByFrequency, CHROME_MIN_SECTIONS, structuralSignature, urlTemplate, scopeOf, withinScope, deriveFence, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, profileLinks, SAMPLES_PER_TEMPLATE, MAX_SAMPLES_PER_TEMPLATE, type SiteMap, type SitePageNode } from '../../lib/site-map';
   import { fetchPageCard, PageCardCache, type PageCard } from '../../lib/page-card';
   import { buildCliCrawlPrompt, parseCliCrawlOutput, buildCliVerifyPrompt, parseCliVerifyOutput, CLI_CRAWL_MAX_PAGES } from '../../lib/cli-crawl';
   import {
@@ -893,7 +893,12 @@
 
       // Enumerate each section from its OWN index page, deterministically. Every href is re-gated
       // by the same rules the crawler uses; the agent's URLs are never trusted.
-      const found: typeof chunkSections = [];
+      //
+      // Two passes, because chrome cannot be recognised from one page. Pass 1 captures each
+      // section index and collects its candidate links; pass 2 drops the ones that turned out to
+      // be site-wide furniture. See `isChrome` below for why "links on the start page" was the
+      // wrong test.
+      const raw: { name: string; idx: string; pages: { name: string; url: string }[] }[] = [];
       for (const [i, sec] of sections.entries()) {
         const idx = normalizeUrl(sec.indexUrl);
         // Say which sections the gate rejected. A bare continue here reported six dropped sections
@@ -911,31 +916,49 @@
           // A people surface is mapped for its SHAPE, never walked per person: enumerating a
           // gradebook's links means a profile per student. The index page alone tells an
           // automation agent the URL and its controls, which is all it needs.
-          // Drop site-wide chrome (see `chrome` above) so a section's pages are its own members.
-          // Skipped when the section IS the start page — there, every link is fair game and
-          // subtracting would leave the section empty.
-          //
-          // Compared with landedOn, not ===. The survey reports the clean course.php?cid=316341
-          // while `start` carries the session param the site appended on login
-          // (…&r=6a68fcddf0b8a), so string equality said "not the start page" and subtracted the
-          // course home's own 232 links from itself: the richest section came back as 1 page.
-          const isStart = landedOn(idx, start) || landedOn(start, idx);
           const pages = indexOnly.has(idx)
             ? []
             : profileLinks(profile)
                 .map((l) => ({ name: l.label || l.href, url: normalizeUrl(l.href) }))
-                .filter((p) => isStart || !chrome.has(p.url))
                 .filter((p) => isCrawlableLink(p.url, start) && withinScope(p.url, start));
-          const seen = new Set<string>();
-          found.push({
-            name: sec.name,
-            include: true,
-            pages: [{ name: sec.name, url: idx }, ...pages].filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))),
-          });
+          raw.push({ name: sec.name, idx, pages });
         } catch (e) {
           failures.push({ url: idx, error: e instanceof Error ? e.message : String(e) });
         }
       }
+
+      // Pass 2 — subtract site-wide chrome, by FREQUENCY rather than by membership of the start
+      // page.
+      //
+      // "A link that is also on the start page" was the old test, and it fails at both ends. It
+      // over-subtracts, because the course home legitimately lists the course's own items, so the
+      // richest section lost its own 232 links and came back as 1 page. Patching that by exempting
+      // the start page then under-subtracts, which is what criterion 6 caught: "Course Content" IS
+      // the course home, so exempting it handed that section the entire nav bar — Roster,
+      // Gradebook, Messages and Forums were listed as its members, each also appearing under its
+      // own heading.
+      //
+      // What actually distinguishes furniture from members is how many DIFFERENT section indexes
+      // carry the link. A nav bar is on all of them; a course item is on one. That test needs no
+      // special case for the start page and no vocabulary.
+      // Below 3 sections there is no majority to speak of, so fall back to the start page's links.
+      const frequent = chromeByFrequency(raw.map((r) => r.pages.map((p) => p.url)));
+      const isChrome = (u: string) => (raw.length >= CHROME_MIN_SECTIONS ? frequent.has(u) : chrome.has(u));
+      const threshold = Math.max(CHROME_MIN_SECTIONS, Math.ceil(raw.length / 2));
+
+      const found: typeof chunkSections = raw.map((r) => {
+        const kept = r.pages.filter((p) => !isChrome(p.url));
+        const seen = new Set<string>();
+        return {
+          name: r.name,
+          include: true,
+          // The index always leads, and survives even if every one of its links was chrome.
+          pages: [{ name: r.name, url: r.idx }, ...kept].filter((p) => (seen.has(p.url) ? false : (seen.add(p.url), true))),
+        };
+      });
+      const droppedChrome = raw.reduce((n, r) => n + r.pages.filter((p) => isChrome(p.url)).length, 0);
+      if (droppedChrome) failures.push({ url: start, error: `chrome subtracted: ${droppedChrome} link(s) carried by ${threshold}+ of ${raw.length} section indexes` });
+
       await navigateEmbedded(activeTabIdOr(tabId), start).catch(() => {});
       chunkSections = found;
       const total = found.reduce((n, s) => n + s.pages.length, 0);

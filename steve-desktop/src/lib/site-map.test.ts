@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
+import { isCrawlableLink, normalizeUrl, landedOn, asksForAPassword, chromeByFrequency, profileToNode, upsertPage, emptySiteMap, withinPathFence, deriveFence, structuralSignature, urlTemplate, withinScope, isTemplateSaturated, siblingFamily, isFamilySaturated, mapIsStale, nextFrontierIndex, findSuspectPages, MAX_SAMPLES_PER_TEMPLATE, SAMPLES_PER_TEMPLATE, FAMILY_EVIDENCE } from './site-map';
 
 describe('mapIsStale — a destructive action must not aim at the site you just left', () => {
   it('flags a map belonging to a different site than the page on screen', () => {
@@ -250,6 +250,42 @@ describe('normalizeUrl — collapse anchor/popover URLs to the same page', () =>
     expect(normalizeUrl(normalizeUrl('https://x.com/a#b'))).toBe('https://x.com/a');
   });
 });
+// Criterion 6 of the hybrid-mapping plan. Modelled on the real failure: "Course Content" IS the
+// course home, and exempting the start page from chrome subtraction handed that section the whole
+// nav bar — Roster, Gradebook and Forums were listed as its members AND under their own headings.
+describe('chromeByFrequency — furniture is what many sections carry, not what the start page has', () => {
+  const NAV = ['https://m.com/home', 'https://m.com/roster', 'https://m.com/gradebook'];
+  const sections = [
+    [...NAV, 'https://m.com/item1', 'https://m.com/item2'], // the course home: nav + its own items
+    [...NAV, 'https://m.com/thread1'],
+    [...NAV, 'https://m.com/cal1'],
+    [...NAV, 'https://m.com/report1'],
+  ];
+
+  it('drops the nav carried by every section', () => {
+    const chrome = chromeByFrequency(sections);
+    for (const u of NAV) expect(chrome.has(u)).toBe(true);
+  });
+
+  it("keeps the start page's OWN items — the over-subtraction that left one section at 1 page", () => {
+    const chrome = chromeByFrequency(sections);
+    expect(chrome.has('https://m.com/item1')).toBe(false);
+    expect(chrome.has('https://m.com/item2')).toBe(false);
+    expect(chrome.has('https://m.com/thread1')).toBe(false);
+  });
+
+  it('says nothing when there are too few sections to have a majority', () => {
+    expect(chromeByFrequency([[...NAV], [...NAV]]).size).toBe(0);
+  });
+
+  it('needs a real majority, not merely two sections agreeing', () => {
+    const six = [['a'], ['a'], ['b'], ['b'], ['b'], ['b']].map((s) => s.map((x) => `https://m.com/${x}`));
+    const chrome = chromeByFrequency(six); // threshold = max(3, 3) = 3
+    expect(chrome.has('https://m.com/a')).toBe(false); // carried by 2
+    expect(chrome.has('https://m.com/b')).toBe(true); // carried by 4
+  });
+});
+
 // Regression: a live run captured MyOpenMath's LOGIN PAGE and stored it as the course home. The
 // session had expired and the site serves the login form at the course URL with no redirect, so
 // every URL check passed. Nothing asked whether we were still signed in.
