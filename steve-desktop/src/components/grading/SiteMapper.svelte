@@ -1598,7 +1598,12 @@
     {#if chunkSections.length && !chunking}
       <div class="chunk-plan">
         <div class="hdr">Survey found {chunkSections.length} section(s) — pick what to map</div>
-        {#each chunkSections as sec (sec.name)}
+        <!-- Keyed by index URL, not name: a real MyOpenMath survey returned TWO sections called
+             "Messages" (msglist.php?cid=… and the same with &folder=0). Svelte 5 makes a duplicate
+             key fatal, so the whole gate failed to render — the survey had completed and set its
+             state, but nothing painted, which reads exactly like "the flow stopped after the
+             survey". The trailing index keeps the key unique even if two sections share an index. -->
+        {#each chunkSections as sec, i (`${sec.pages[0]?.url ?? sec.name}|${i}`)}
           <label class="chunk-row">
             <input type="checkbox" bind:checked={sec.include} />
             <span class="label">{sec.name}</span>
