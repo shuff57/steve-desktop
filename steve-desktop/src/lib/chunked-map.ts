@@ -325,13 +325,28 @@ const PERSON_PARAM = /^(uid|stu|stuid|student|studentid|user|userid|filteruid|si
  */
 export function structuralValues(urls: string[]): Set<string> {
   const out = new Set<string>();
+  /**
+   * Add the string AND its `_`/`-` separated words.
+   *
+   * A compound name only exempts itself, which is not enough: Canvas addresses pages with
+   * `?module_item_id=1904071`, and the dictionary held the plain word "module". Exempting only
+   * the whole key left it tokenized, and a live Canvas document came out full of
+   * `?⟦D482⟧_item_id=…` — 40 unusable URLs, the same defect `cid=⟦D34⟧` was on MyOpenMath.
+   * The parts of a URL's own vocabulary are as structural as the whole.
+   */
+  const addWords = (s: string) => {
+    if (!s || s.includes('⟦')) return;
+    out.add(s);
+    if (!/[-_]/.test(s)) return;
+    for (const w of s.split(/[-_]/)) if (w.length >= 3) out.add(w);
+  };
   for (const raw of urls) {
     let u: URL;
     try { u = new URL(raw); } catch { continue; }
-    for (const seg of u.pathname.split('/')) if (seg && !seg.includes('⟦')) out.add(seg);
+    for (const seg of u.pathname.split('/')) addWords(seg);
     for (const [k, v] of u.searchParams) {
-      out.add(k);
-      if (!PERSON_PARAM.test(k) && v && !v.includes('⟦')) out.add(v);
+      addWords(k);
+      if (!PERSON_PARAM.test(k) && v) addWords(v);
     }
   }
   return out;

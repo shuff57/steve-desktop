@@ -74,6 +74,37 @@ describe('surveyComplaint — carry the agent\'s own diagnosis, not a generic fa
   });
 });
 
+// Canvas addresses pages with ?module_item_id=…, and the dictionary held the plain word "module".
+// Exempting only the whole key left it tokenized: a live document came out with 40 URLs reading
+// ?⟦D482⟧_item_id=… — the same unusable-URL defect cid=⟦D34⟧ was on MyOpenMath.
+describe('structuralValues — the PARTS of a URL vocabulary are structural too', () => {
+  const urls = [
+    'https://canvas.butte.edu/courses/31407/pages/unit-3-notes?module_item_id=1904119',
+    'https://canvas.butte.edu/courses/31407/discussion_topics/416993',
+  ];
+
+  it('exempts the words a compound key or segment is built from', () => {
+    const v = structuralValues(urls);
+    for (const w of ['module', 'item', 'discussion', 'topics', 'courses', '31407']) expect(v.has(w)).toBe(true);
+  });
+
+  it('keeps the whole form as well', () => {
+    expect(structuralValues(urls).has('module_item_id')).toBe(true);
+  });
+
+  it('ignores fragments shorter than three characters', () => {
+    expect(structuralValues(urls).has('id')).toBe(false);
+  });
+
+  it('can never exempt a person — the no-whitespace guard still rules', () => {
+    const kept = keepStructural({ a: 'module', b: 'Doe, Jane', c: 'Jane Doe', d: '7158619' }, urls);
+    expect(kept.a).toBeUndefined(); // structural, stays readable
+    expect(kept.b).toBe('Doe, Jane'); // still redacted
+    expect(kept.c).toBe('Jane Doe');
+    expect(kept.d).toBe('7158619');
+  });
+});
+
 describe('parseSurveyOutput', () => {
   it('reads sections after the marker', () => {
     const s = parseSurveyOutput(survey());
