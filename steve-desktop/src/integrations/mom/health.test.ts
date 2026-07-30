@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderProblems, undefinedVars, questionHealth } from './health';
+import { renderProblems, undefinedVars, questionHealth, rendersBlank } from './health';
 
 /**
  * Every string here came off the live sandbox during the 418-question sweep, not from
@@ -110,6 +110,41 @@ describe('undefinedVars', () => {
 
   it('returns nothing for a file with no QUESTION TEXT marker', () => {
     expect(undefinedVars('$a = 1')).toEqual([]);
+  });
+});
+
+describe('rendersBlank', () => {
+  const page = (body: string) => `<html><head><style>p{color:red}</style></head><body>${body}</body></html>`;
+
+  it('flags a page whose body has no visible text', () => {
+    expect(rendersBlank(page('<div class="question"></div>'))).toBe(true);
+  });
+
+  it('flags a page holding only an answer box — an input with no prompt asks nothing', () => {
+    expect(rendersBlank(page('<div><input type="text" id="qn0" /></div>'))).toBe(true);
+  });
+
+  it('does not count scripts or styles as question text', () => {
+    expect(rendersBlank(page('<script>var x = "some long string";</script>'))).toBe(true);
+  });
+
+  it('is quiet for a real question', () => {
+    expect(rendersBlank(page('<p>Find the interest. <input /></p>'))).toBe(false);
+  });
+
+  it('does not count &nbsp; padding as content', () => {
+    expect(rendersBlank(page('<p>&nbsp;&nbsp;</p>'))).toBe(true);
+  });
+
+  /** Nothing fetched yet is a loading state, not a defect — the banner must not flash on it. */
+  it('returns false for empty input rather than reporting a blank question', () => {
+    expect(rendersBlank('')).toBe(false);
+    expect(rendersBlank('   ')).toBe(false);
+  });
+
+  it('works on a fragment with no body tag', () => {
+    expect(rendersBlank('<div><span></span></div>')).toBe(true);
+    expect(rendersBlank('<div>text</div>')).toBe(false);
   });
 });
 

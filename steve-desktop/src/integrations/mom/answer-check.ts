@@ -189,14 +189,14 @@ const CHECKER = `<script>
         else if (v) { out.textContent = 'correct'; out.style.color = '#1b5e20'; }
         else { out.textContent = 'not correct'; out.style.color = '#b91c1c'; }
       };
-      // The slot was substituted right after this part's $answerbox, so the button lands with its
+      // The slot was substituted right after this part's answer box, so the button lands with its
       // box rather than wherever the input element happened to sit. Fall back to inserting after
-      // the field only if the question has no slot (no $answerbox marker to attach to).
+      // the field only if the question has no slot (no answer-box marker to attach to).
       var wrap = document.querySelector('.momcheck[data-part="' + p + '"]');
       if (!wrap) {
         wrap = document.createElement('span');
         wrap.className = 'momcheck';
-        // A choices question has no $answerbox to substitute a slot after, so anchor to the WHOLE
+        // A choices question has no answer-box marker to substitute a slot after, so anchor to the
         // radio group. Anchoring to the nearest container instead lands on the first option's
         // <li>, dropping the button between option 1 and option 2 — visibly mid-question.
         var anchor = f.radio

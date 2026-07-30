@@ -87,6 +87,30 @@ export function renderProblems(html: string): string[] {
   return [...new Set(found)];
 }
 
+/**
+ * Does the page actually show a question?
+ *
+ * A question that renders to nothing passes every other check — there is no diagnostic to find and
+ * no variable printed literally, so the preview shows an empty pane that looks like it is still
+ * loading. Same class of failure as a truncated question: valid output, no content.
+ *
+ * Only the visible body text counts; `<script>`/`<style>` and the sandbox's own chrome are not the
+ * question. Answer boxes alone do not count either — a page with an input and no prompt asks
+ * nothing.
+ */
+export function rendersBlank(html: string): boolean {
+  if (!html.trim()) return false; // nothing fetched yet is not the same as a blank question
+  const body = html.replace(/[\s\S]*?<body[^>]*>/i, '').replace(/<\/body>[\s\S]*/i, '');
+  const text = body
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length === 0;
+}
+
 /** Supplied by MOM/IMathAS itself, so absence from the control block is not a defect. */
 const BUILTINS = new Set(['answerbox', 'answer', 'anstypes', 'questions', 'solutionguide', 'ansprompt']);
 
@@ -125,8 +149,12 @@ export function undefinedVars(source: string): string[] {
 /** Everything the preview knows about whether this question is sound. */
 export function questionHealth(source: string, html: string): QuestionHealth {
   const undef = undefinedVars(source);
+  const errors = renderProblems(html);
+  if (rendersBlank(html)) {
+    errors.unshift('This question renders no text at all — the preview is empty, not still loading.');
+  }
   return {
-    errors: renderProblems(html),
+    errors,
     warnings: undef.length
       ? [
           `Never assigned, so ${undef.length === 1 ? 'it renders' : 'they render'} as blank: ` +
