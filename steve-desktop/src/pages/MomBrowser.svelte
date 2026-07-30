@@ -16,6 +16,7 @@
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
+  import MomChat from '../components/mom/MomChat.svelte';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -61,6 +62,21 @@
   let rendering = $state(false);
   let renderErr = $state<string | null>(null);
   let lastRenderedPath = '';
+
+  // Revision rail. Collapsed by default so it costs nothing until wanted.
+  let chatOpen = $state(false);
+
+  /** Re-read the edited file and force a re-render. The agent's summary is not evidence. */
+  async function reloadSelected() {
+    const q = selectedQuestion;
+    if (!q || !momRoot || !selectedFamily) return;
+    try {
+      selectedQuestion = await momIsland.methods.getQuestion(selectedFamily, q.slug, momRoot);
+      lastRenderedPath = '';
+    } catch (e) {
+      questionErr = e instanceof Error ? e.message : String(e);
+    }
+  }
 
   async function renderQuestion(contents: string) {
     rendering = true;
@@ -294,7 +310,7 @@
   {:else if families.length === 0}
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
-    <div class="panes" class:drilled={view === 'questions'}>
+    <div class="panes" class:drilled={view === 'questions'} class:chat={chatOpen}>
       {#if view === 'questions'}
         <!-- One column, drilled: families REPLACE themselves with their questions rather than
              opening a second sidebar. A laptop only has so much horizontal room, and the preview
@@ -438,6 +454,14 @@
           <pre>{selectedQuestion.contents}</pre>
         {/if}
       </section>
+
+      <MomChat
+        bind:open={chatOpen}
+        path={selectedQuestion?.path ?? null}
+        label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
+        contents={selectedQuestion?.contents ?? ''}
+        onRevised={reloadSelected}
+      />
     </div>
 
     <footer class="drafts-config">
@@ -501,6 +525,12 @@
   /* Questions view drills in place, so it needs one list column, not two. Reclaiming the second
      column gives the preview ~200px more — the pane that actually benefits on a laptop. */
   .panes.drilled { grid-template-columns: 260px 1fr; }
+  /* The rail adds a column when open and a thin strip when not, so collapsing really does give
+     the width back rather than just hiding content. */
+  .panes.drilled { grid-template-columns: 260px 1fr auto; }
+  .panes.drilled.chat { grid-template-columns: 260px 1fr 320px; }
+  .panes:not(.drilled) { grid-template-columns: 200px 260px 1fr auto; }
+  .panes:not(.drilled).chat { grid-template-columns: 200px 260px 1fr 320px; }
   .drill-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-shrink: 0; }
   .preview-toggles { display: flex; align-items: center; gap: 10px; }
   .key-toggle { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: .8; cursor: pointer; user-select: none; }
