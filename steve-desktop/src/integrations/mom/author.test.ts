@@ -5,12 +5,13 @@ import {
   sectionCommand,
   shouldRetry,
   hasSource,
+  isUrl,
   questionPath,
   MAX_ATTEMPTS,
 } from './author';
 
 const req = {
-  section: '1.1_definitions_of_statistics_probability_and_key_terms.html',
+  link: '1.1_definitions_of_statistics_probability_and_key_terms.html',
   family: 'descriptive-stats',
   slug: 'q1-key-terms',
   targetPath: 'C:/mom-content/questions/descriptive-stats/q1-key-terms.php',
@@ -18,11 +19,11 @@ const req = {
 
 describe('sectionCommand', () => {
   it('escapes the spaces in the project directory', () => {
-    expect(sectionCommand(req.section)).toContain('projects/Introduction%20to%20Stats/html/');
+    expect(sectionCommand(req.link)).toContain('projects/Introduction%20to%20Stats/html/');
   });
 
   it('reads through gh, because the book repo is private', () => {
-    const cmd = sectionCommand(req.section);
+    const cmd = sectionCommand(req.link);
     expect(cmd).toContain('gh api');
     expect(cmd).toContain('base64 -d'); // contents API returns base64
   });
@@ -109,19 +110,19 @@ describe('questionPath', () => {
 describe('sources', () => {
   it('requires at least one source — otherwise there is nothing to write about', () => {
     expect(hasSource({})).toBe(false);
-    expect(hasSource({ section: '  ' })).toBe(false);
+    expect(hasSource({ link: '  ' })).toBe(false);
     expect(hasSource({ brief: 'a CI question' })).toBe(true);
     expect(hasSource({ imagePath: 'C:/shot.png' })).toBe(true);
   });
 
   it('omits the section block entirely when no section is given', () => {
-    const p = buildAuthorPrompt({ ...req, section: undefined, brief: 'ask about sampling bias' });
+    const p = buildAuthorPrompt({ ...req, link: undefined, brief: 'ask about sampling bias' });
     expect(p).not.toContain('gh api');
     expect(p).toContain('ask about sampling bias');
   });
 
   it('tells the agent to open a supplied example image', () => {
-    const p = buildAuthorPrompt({ ...req, section: undefined, imagePath: 'C:/shot.png' });
+    const p = buildAuthorPrompt({ ...req, link: undefined, imagePath: 'C:/shot.png' });
     expect(p).toContain('C:/shot.png');
     expect(p).toMatch(/open this image/i);
   });
@@ -138,5 +139,30 @@ describe('sources', () => {
     expect(p).toContain('gh api');
     expect(p).toContain('make it two-part');
     expect(p).toContain('C:/shot.png');
+  });
+});
+
+describe('problem-set link', () => {
+  it('tells a URL apart from a bookSHelf section file name', () => {
+    expect(isUrl('https://example.com/set-3')).toBe(true);
+    expect(isUrl('  http://example.com  ')).toBe(true);
+    expect(isUrl('1.1_definitions.html')).toBe(false);
+  });
+
+  it('sends the agent to the URL, not to gh, when given a link', () => {
+    const p = buildAuthorPrompt({ ...req, link: 'https://example.com/problem-set-3' });
+    expect(p).toContain('https://example.com/problem-set-3');
+    expect(p).not.toContain('gh api');
+  });
+
+  /** Mirroring a problem set verbatim would ship one fixed question to every student. */
+  it('requires a NEW question when working from an existing set', () => {
+    const p = buildAuthorPrompt({ ...req, link: 'https://example.com/set' });
+    expect(p).toMatch(/write a NEW question/i);
+    expect(p).toMatch(/randomize the values/i);
+  });
+
+  it('still uses gh for a bare section file name', () => {
+    expect(buildAuthorPrompt({ ...req, link: '1.1_defs.html' })).toContain('gh api');
   });
 });

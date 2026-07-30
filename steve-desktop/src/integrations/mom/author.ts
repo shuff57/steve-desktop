@@ -26,8 +26,11 @@ export const BOOK_PROJECT = 'projects/Introduction to Stats';
 export const MAX_ATTEMPTS = 3;
 
 export interface AuthorRequest {
-  /** File name under the project's `html/`, e.g. `1.1_definitions_...html`. Optional. */
-  section?: string;
+  /**
+   * Where the problem set lives: either a full URL, or a bookSHelf section file name under the
+   * project's `html/` (e.g. `1.1_definitions_...html`). Optional.
+   */
+  link?: string;
   /** What to write, in the teacher's words. Optional, but required when there is no section. */
   brief?: string;
   /** An example question to imitate — a local image path the agent can open. Optional. */
@@ -41,8 +44,13 @@ export interface AuthorRequest {
 }
 
 /** At least one source is required — otherwise there is nothing to write a question about. */
-export function hasSource(req: Pick<AuthorRequest, 'section' | 'brief' | 'imagePath'>): boolean {
-  return !!(req.section?.trim() || req.brief?.trim() || req.imagePath?.trim());
+export function hasSource(req: Pick<AuthorRequest, 'link' | 'brief' | 'imagePath'>): boolean {
+  return !!(req.link?.trim() || req.brief?.trim() || req.imagePath?.trim());
+}
+
+/** A pasted link is a URL; anything else is treated as a bookSHelf section file name. */
+export function isUrl(link: string): boolean {
+  return /^https?:\/\//i.test(link.trim());
 }
 
 /** The `gh` call that reads a private-repo file as text. */
@@ -59,11 +67,19 @@ export function sectionCommand(section: string): string {
  */
 export function buildAuthorPrompt(req: AuthorRequest): string {
   const sources: string[] = [];
-  if (req.section?.trim()) {
+  const link = req.link?.trim();
+  if (link && isUrl(link)) {
+    sources.push(
+      `SOURCE — open this problem set and base the question on what it actually asks: ${link}`,
+      'Read it before writing anything. Match its topic and difficulty, but write a NEW question:',
+      'randomize the values so each student sees a different version.',
+      '',
+    );
+  } else if (link) {
     sources.push(
       'SOURCE — read this bookSHelf section first and base the question on what it actually teaches:',
       '```',
-      sectionCommand(req.section.trim()),
+      sectionCommand(link),
       '```',
       'It is a private repo, so use `gh` exactly as above. Read the section before writing anything.',
       'The question must test a concept the section genuinely covers.',

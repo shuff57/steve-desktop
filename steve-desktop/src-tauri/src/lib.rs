@@ -2443,6 +2443,51 @@ async fn mom_write_book(root: String, path: String, text: String) -> Result<(), 
         .map_err(|e| format!("Failed to write {}: {}", canon_target.display(), e))
 }
 
+/// Save an image pasted into the question writer, returning the path the agent can open.
+///
+/// The agent reads an example screenshot from a FILE, so a clipboard image has to be spilled to
+/// disk. It goes to the OS temp dir, never into `mom-content/` — a scratch screenshot is not
+/// course content and must not end up committed alongside the question bank.
+///
+/// The bytes are checked against the real image magic numbers rather than trusting the extension,
+/// so this cannot be used to drop arbitrary content somewhere with a `.png` on the end.
+#[tauri::command]
+async fn mom_save_pasted_image(bytes: Vec<u8>) -> Result<String, String> {
+    const MAX: usize = 20 * 1024 * 1024;
+    if bytes.is_empty() {
+        return Err("empty image".into());
+    }
+    if bytes.len() > MAX {
+        return Err(format!("image is {} bytes; limit is {}", bytes.len(), MAX));
+    }
+
+    let ext = if bytes.starts_with(&[0x89, b'P', b'N', b'G', 0x0D, 0x0A, 0x1A, 0x0A]) {
+        "png"
+    } else if bytes.starts_with(&[0xFF, 0xD8, 0xFF]) {
+        "jpg"
+    } else if bytes.starts_with(b"GIF87a") || bytes.starts_with(b"GIF89a") {
+        "gif"
+    } else if bytes.len() > 12 && bytes.starts_with(b"RIFF") && &bytes[8..12] == b"WEBP" {
+        "webp"
+    } else {
+        return Err("clipboard content is not a PNG, JPEG, GIF or WebP image".into());
+    };
+
+    let dir = std::env::temp_dir().join("steve-mom-paste");
+    std::fs::create_dir_all(&dir).map_err(|e| format!("Failed to create {}: {}", dir.display(), e))?;
+    let name = format!(
+        "paste-{}.{}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_millis())
+            .unwrap_or(0),
+        ext
+    );
+    let path = dir.join(name);
+    std::fs::write(&path, &bytes).map_err(|e| format!("Failed to write {}: {}", path.display(), e))?;
+    Ok(path.to_string_lossy().to_string())
+}
+
 /// Resolve the in-repo `mom-content/` dir, so the app defaults there instead of making the
 /// user paste a path. Searches the working dir and its ancestors for a `mom-content/questions`
 /// (dev runs from the app dir or src-tauri, so an ancestor always holds it); "" if not found,
@@ -2869,6 +2914,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             mom_read_manifest,
             mom_read_question,
             mom_create_draft,
+            mom_save_pasted_image,
             mom_write_book,
             inject_webview_script,
             scan_local_skills,

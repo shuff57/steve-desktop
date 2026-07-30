@@ -1,6 +1,7 @@
 <script lang="ts">
   /**
-   * Write one question from a bookSHelf section, then loop until the sandbox renders it clean.
+   * Write one question from a problem-set link, a description, or a pasted example, then loop
+   * until the sandbox renders it clean.
    *
    * The agent writes the file through the CLI's own tools; this component does the half the agent
    * cannot do honestly — render the result and judge it — and hands any failure back. The run is
@@ -45,9 +46,13 @@
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
 
-  let section = $state(DEFAULT_SECTION);
+  let link = $state(DEFAULT_SECTION);
   let brief = $state('');
+  /** Path on disk of the example image; set by pasting, or typed by hand. */
   let imagePath = $state('');
+  /** Object URL for the pasted image, so the thumbnail shows what was actually captured. */
+  let imagePreview = $state<string | null>(null);
+  let pasteErr = $state<string | null>(null);
   let family = $state('descriptive-stats');
   /** Typing a new family instead of picking one. */
   let newFamily = $state(false);
@@ -63,7 +68,7 @@
 
   const engine = $derived<AgentEngine>(engineForProvider(provider ?? undefined));
   const target = $derived(root ? questionPath(root, family.trim(), slug.trim()) : '');
-  const sourced = $derived(hasSource({ section, brief, imagePath }));
+  const sourced = $derived(hasSource({ link, brief, imagePath }));
   const chosenBook = $derived(placements.find((p: { slug: string }) => p.slug === placeBook) ?? null);
   // Changing book must clear a stale assignment, or the question files into the previous book's.
   $effect(() => {
@@ -75,6 +80,37 @@
 
   function log(text: string) {
     lines = [...lines, text];
+  }
+
+  /**
+   * Take an image off the clipboard and spill it to disk, because the agent opens a FILE.
+   *
+   * Bound to the whole panel rather than one input: Ctrl+V after a screenshot should just work,
+   * without first having to find and focus the right box.
+   */
+  async function onPaste(e: ClipboardEvent) {
+    if (running) return;
+    const items = Array.from(e.clipboardData?.items ?? []);
+    const item = items.find((i) => i.type.startsWith('image/'));
+    const file = item?.getAsFile();
+    if (!file) return; // a normal text paste — leave it to the focused field
+    e.preventDefault();
+    pasteErr = null;
+    try {
+      const bytes = [...new Uint8Array(await file.arrayBuffer())];
+      imagePath = await invoke<string>('mom_save_pasted_image', { bytes });
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+      imagePreview = URL.createObjectURL(file);
+    } catch (err) {
+      pasteErr = err instanceof Error ? err.message : String(err);
+    }
+  }
+
+  function clearImage() {
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    imagePreview = null;
+    imagePath = '';
+    pasteErr = null;
   }
 
   /** Run one agent turn, streaming its output into the log. */
@@ -138,7 +174,7 @@
       log(`Writing ${family}/${slug}.php`);
       let reply = await turn(
         buildAuthorPrompt({
-          section: section.trim() || undefined,
+          link: link.trim() || undefined,
           brief: brief.trim() || undefined,
           imagePath: imagePath.trim() || undefined,
           family: family.trim(),
@@ -189,13 +225,14 @@
   }
 </script>
 
-<div class="author">
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+<div class="author" onpaste={onPaste}>
   <div class="fields">
-    <label>Book section <span class="opt">optional</span>
-      <input bind:value={section} disabled={running} spellcheck="false" placeholder="1.1_….html" />
+    <label>Problem set link <span class="opt">optional</span>
+      <input bind:value={link} disabled={running} spellcheck="false" placeholder="https://… or 1.1_….html" />
     </label>
 
-    <label>Describe the question <span class="opt">{section.trim() ? 'optional' : 'required'}</span>
+    <label>Describe the question <span class="opt">{link.trim() ? 'optional' : 'required'}</span>
       <textarea
         rows="2"
         bind:value={brief}
@@ -204,9 +241,19 @@
       ></textarea>
     </label>
 
-    <label>Example screenshot <span class="opt">optional</span>
-      <input bind:value={imagePath} disabled={running} spellcheck="false" placeholder="C:\path\to\question.png" />
-    </label>
+    <div class="shot">
+      <span class="lbl">Example question <span class="opt">optional — paste a screenshot</span></span>
+      {#if imagePreview}
+        <div class="thumb">
+          <img src={imagePreview} alt="Pasted example question" />
+          <button class="x" title="Remove" disabled={running} onclick={clearImage}>×</button>
+        </div>
+      {:else}
+        <div class="dropzone" class:err={!!pasteErr}>
+          {pasteErr ?? 'Copy an image, then press Ctrl+V anywhere in this panel.'}
+        </div>
+      {/if}
+    </div>
 
     <div class="pair">
       <label>Family
@@ -254,7 +301,7 @@
       {running ? 'Writing…' : 'Write question'}
     </button>
     {#if !sourced && !running}
-      <p class="hint">Give it a book section, a description, or an example screenshot.</p>
+      <p class="hint">Give it a link, a description, or a pasted example.</p>
     {/if}
   </div>
 
@@ -290,6 +337,16 @@
           background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
   .plus:disabled { opacity: .45; cursor: default; }
   .hint { margin: 0; font-size: 11px; opacity: .6; text-transform: none; letter-spacing: 0; }
+  .shot { display: flex; flex-direction: column; gap: 2px; }
+  .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; opacity: .6; }
+  .dropzone { font-size: 11px; opacity: .55; padding: 8px; border-radius: 6px; text-align: center;
+              border: 1px dashed rgba(128,128,128,.4); }
+  .dropzone.err { color: #b91c1c; opacity: 1; border-color: rgba(185,28,28,.5); }
+  .thumb { position: relative; }
+  .thumb img { display: block; width: 100%; max-height: 120px; object-fit: contain;
+               border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: rgba(128,128,128,.08); }
+  .x { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%;
+       border: none; background: rgba(0,0,0,.6); color: #fff; cursor: pointer; font-size: 13px; line-height: 1; }
   .target { margin: 0; font-size: 11px; opacity: .5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .go { padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
