@@ -39,6 +39,20 @@ describe('checker on a real multipart number question', () => {
     expect(buttons().length).toBe(3);
   });
 
+  /**
+   * Placement, not just presence. The button belongs WITH its box — the first version inserted it
+   * after the input element wherever that fell, which read as "somewhere in the middle".
+   */
+  it('puts each button in the slot substituted after its own answer box', () => {
+    const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=text]'));
+    buttons().forEach((btn, i) => {
+      const wrap = btn.parentElement!;
+      expect(wrap.getAttribute('data-part')).toBe(String(i)); // came from the source, not the fallback
+      // The slot follows this part's input, so the input precedes it in document order.
+      expect(inputs[i].compareDocumentPosition(wrap) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+  });
+
   it('says "not correct" for a wrong value in each part', () => {
     const inputs = document.querySelectorAll<HTMLInputElement>('input[type=text]');
     buttons().forEach((btn, i) => {
@@ -86,6 +100,19 @@ describe('checker on a real choices question', () => {
   it('treats the four radios as ONE part, not four', () => {
     expect(document.querySelectorAll('input[type=radio]').length).toBe(4);
     expect(buttons().length).toBe(1);
+  });
+
+  /**
+   * A choices question has no $answerbox marker to substitute a slot after, so this takes the
+   * fallback path. Anchoring to the nearest container put the button after the FIRST option's
+   * <li> — between option 1 and option 2. It must sit after the whole group.
+   */
+  it('puts the button after every option, not between two of them', () => {
+    const radios = Array.from(document.querySelectorAll<HTMLInputElement>('input[type=radio]'));
+    const wrap = buttons()[0].parentElement!;
+    for (const r of radios) {
+      expect(r.compareDocumentPosition(wrap) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    }
   });
 
   it('marks a wrong option wrong', () => {

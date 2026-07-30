@@ -64,6 +64,8 @@
   // values must come from the render you are typing into, or randomization makes them disagree.
   let checkAnswers = $state(false);
   let renderedHtml = $state('');
+  /** What the sandbox returned, before the checker is injected — what health is judged on. */
+  let sandboxHtml = $state('');
   let rendering = $state(false);
   let renderErr = $state<string | null>(null);
   let lastRenderedPath = '';
@@ -96,10 +98,15 @@
       // The sandbox's MathJax config makes `(` and `$` math delimiters, which italicises ordinary
       // prose and currency. Repair it before the iframe runs MathJax.
       const prepared = prepareRenderHtml(await res.text());
+      // Health judges what the SANDBOX returned, before our own additions. The checker script
+      // mentions `$answerbox` in a comment, and scanning the injected page reported the question
+      // as broken because of our own markup.
+      sandboxHtml = prepared;
       renderedHtml = checkAnswers ? injectChecker(prepared) : prepared;
     } catch (e) {
       renderErr = e instanceof Error ? e.message : String(e);
       renderedHtml = '';
+      sandboxHtml = '';
     } finally {
       rendering = false;
     }
@@ -109,8 +116,8 @@
   // body, so `renderErr` stays null and the iframe looks fine. Of the 418 bank questions, 21 are
   // broken this way. Surface it above the frame instead of leaving it buried in the render.
   const health = $derived(
-    renderedHtml && selectedQuestion
-      ? questionHealth(selectedQuestion.contents, renderedHtml)
+    sandboxHtml && selectedQuestion
+      ? questionHealth(selectedQuestion.contents, sandboxHtml)
       : { errors: [], warnings: [] },
   );
 

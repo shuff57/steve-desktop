@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { fixMathDelimiters, prepareRenderHtml, fitToPane } from './render-html';
+import { fixMathDelimiters, prepareRenderHtml, fitToPane, stripEngineNoise } from './render-html';
 
 // The exact config the sandbox returned on 2026-07-30.
 const SANDBOX_HEAD =
@@ -76,5 +76,35 @@ describe('fixMathDelimiters', () => {
     const out = prepareRenderHtml(SANDBOX_HEAD);
     expect(out).toContain('inlineMath:[["\\\\(","\\\\)"]]');
     expect(out).toContain('data-pane-css');
+  });
+});
+
+describe('stripEngineNoise', () => {
+  /**
+   * The exact banner a teacher reported seeing on a healthy question. IMathAS emits it because the
+   * sandbox runs with no session, not because anything is wrong with the question.
+   */
+  it('removes IMathAS complaining about its own internals', () => {
+    const html =
+      '<body><div class="qerr">Caught warning in the question code: Undefined global variable $myrights on line 486 in parsers.php</div><div class="question"><p>A researcher…</p></div></body>';
+    const out = stripEngineNoise(html);
+    expect(out).not.toContain('myrights');
+    expect(out).not.toContain('qerr');
+    expect(out).toContain('A researcher');
+  });
+
+  it('KEEPS a failure attributed to the question itself', () => {
+    const html =
+      '<div class="qerr">Caught error while evaluating the code in this question: syntax error on line 94 of Common Control</div>';
+    expect(stripEngineNoise(html)).toBe(html);
+  });
+
+  it('leaves a page with no diagnostics alone', () => {
+    expect(stripEngineNoise('<p>fine</p>')).toBe('<p>fine</p>');
+  });
+
+  it('is applied by prepareRenderHtml', () => {
+    const html = '<head></head><body><div class="qerr">Undefined global variable $myrights in parsers.php</div></body>';
+    expect(prepareRenderHtml(html)).not.toContain('myrights');
   });
 });

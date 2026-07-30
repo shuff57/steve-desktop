@@ -41,6 +41,18 @@ describe('renderProblems', () => {
   });
 
   /**
+   * Guards the ORDER the preview must use. The answer checker's script mentions `$answerbox` in a
+   * comment, so scanning the page after injection reported a healthy question as broken. Health is
+   * judged on what the sandbox returned, before anything of ours is added — this test states the
+   * hazard so the ordering is not "simplified" away.
+   */
+  it('would flag our own injected script, which is why health runs on the sandbox HTML', () => {
+    const ours = "<script>// the slot goes after $answerbox<\/script>";
+    expect(renderProblems(ours).length).toBe(1);
+    expect(renderProblems('<p>clean</p>')).toEqual([]);
+  });
+
+  /**
    * Regression: `probability/q14-twoway-conditional` writes "Notice:" as PROSE in its solution
    * guide. A bare /Notice:/ match reported it as broken, and because the guide only renders with
    * the answer key appended, it looked like the answer-key transform was at fault.

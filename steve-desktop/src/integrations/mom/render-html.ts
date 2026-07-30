@@ -21,6 +21,8 @@
  * ever corrected upstream this becomes a no-op: the replacement is idempotent.
  */
 
+import { isEngineNoise } from './health';
+
 /** `\(…\)` and `\[…\]`, written so the emitted JS string really is a backslash followed by a paren. */
 const FIXED_TEX = String.raw`tex:{inlineMath:[["\\(","\\)"]],displayMath:[["\\[","\\]"]]}`;
 
@@ -59,7 +61,23 @@ export function fitToPane(html: string): string {
   return html.includes('</head>') ? html.replace('</head>', `${css}</head>`) : css + html;
 }
 
+/**
+ * Drop the sandbox's complaints about ITSELF from the rendered page.
+ *
+ * Running stateless with no session, IMathAS prints things like
+ * `<div class="qerr">Caught warning in the question code: Undefined global variable $myrights on
+ * line 486 in parsers.php</div>` at the top of questions that are perfectly healthy. It reads as
+ * though the teacher's question is broken when nothing is wrong with it, and there is no action
+ * they could take.
+ *
+ * A question's OWN failures are kept — those are attributed to "Common Control" rather than to a
+ * `.php` file, and they are exactly what the preview exists to show.
+ */
+export function stripEngineNoise(html: string): string {
+  return html.replace(/<div class="qerr">([\s\S]*?)<\/div>/g, (m, inner) => (isEngineNoise(inner) ? '' : m));
+}
+
 /** Everything the preview does to sandbox HTML before it becomes the iframe's `srcdoc`. */
 export function prepareRenderHtml(html: string): string {
-  return fitToPane(fixMathDelimiters(html));
+  return fitToPane(fixMathDelimiters(stripEngineNoise(html)));
 }

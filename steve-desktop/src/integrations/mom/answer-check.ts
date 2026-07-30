@@ -58,9 +58,34 @@ function tolerance(source: string): string {
 }
 
 /**
- * Append a hidden element carrying the correct answers to the QUESTION TEXT section.
+ * An empty slot the script fills with that part's Check button.
+ *
+ * Substituted right after `$answerbox[i]`, exactly where the answer-key chip goes, so the button
+ * sits WITH the box it belongs to. Inserting it after the input element instead put it wherever
+ * the field happened to fall — mid-sentence for an inline box, and after the first option's
+ * container for a radio group, which read as "somewhere in the middle of the question".
+ */
+function slot(i: number): string {
+  return `<span class="momcheck" data-part="${i}"></span>`;
+}
+
+/**
+ * Put a Check slot after every answer box in the body.
+ *
+ * Indexed boxes are matched first: a bare `$answerbox` pattern would otherwise also match the
+ * `$answerbox` prefix of `$answerbox[0]` and split it. Same rule as the answer key.
+ */
+function annotateBoxes(body: string): string {
+  const out = body.replace(/\$answerbox\[(\d+)\]/g, (m, d) => m + slot(Number(d)));
+  return out.replace(/\$answerbox(?!\[|<span)/g, (m) => m + slot(0));
+}
+
+/**
+ * Add the answers and the per-part Check slots to the QUESTION TEXT section.
  *
  * Values go through MOM's own substitution (`$answer[0]`), so they are the values from this render.
+ * Only the BODY is annotated — the control block is code, and the ANSWER section is dropped by the
+ * sandbox, so a slot in either place would be wrong or invisible.
  */
 export function withCheckData(source: string): string {
   const qtIndex = source.indexOf(QUESTION_TEXT);
@@ -77,10 +102,13 @@ export function withCheckData(source: string): string {
     attrs.push(`data-a${i}="${n === 0 ? '$answer' : `$answer[${i}]`}"`);
   }
 
-  const marker = `\n<div id="__momcheck" style="display:none" ${attrs.join(' ')}></div>\n`;
-  const ansIndex = source.indexOf(ANSWER, qtIndex);
-  const at = ansIndex < 0 ? source.length : ansIndex;
-  return source.slice(0, at) + marker + source.slice(at);
+  const bodyStart = qtIndex + QUESTION_TEXT.length;
+  const ansIndex = source.indexOf(ANSWER, bodyStart);
+  const bodyEnd = ansIndex < 0 ? source.length : ansIndex;
+
+  const body = annotateBoxes(source.slice(bodyStart, bodyEnd));
+  const meta = `\n<div id="__momcheck" style="display:none" ${attrs.join(' ')}></div>\n`;
+  return source.slice(0, bodyStart) + body.replace(/\s*$/, '') + meta + source.slice(bodyEnd);
 }
 
 /** True when at least one part can be judged — used to explain an inert Check button. */
@@ -161,16 +189,24 @@ const CHECKER = `<script>
         else if (v) { out.textContent = 'correct'; out.style.color = '#1b5e20'; }
         else { out.textContent = 'not correct'; out.style.color = '#b91c1c'; }
       };
-      // Button and verdict live in ONE wrapper, so the pairing does not depend on sibling walking
-      // — a radio group's anchor is a container, and whitespace text nodes sit between elements.
-      var wrap = document.createElement('span');
-      wrap.className = 'momcheck';
+      // The slot was substituted right after this part's $answerbox, so the button lands with its
+      // box rather than wherever the input element happened to sit. Fall back to inserting after
+      // the field only if the question has no slot (no $answerbox marker to attach to).
+      var wrap = document.querySelector('.momcheck[data-part="' + p + '"]');
+      if (!wrap) {
+        wrap = document.createElement('span');
+        wrap.className = 'momcheck';
+        // A choices question has no $answerbox to substitute a slot after, so anchor to the WHOLE
+        // radio group. Anchoring to the nearest container instead lands on the first option's
+        // <li>, dropping the button between option 1 and option 2 — visibly mid-question.
+        var anchor = f.radio
+          ? f.el.closest('[role=radiogroup]') || f.el.closest('ul,ol,table,fieldset') || f.el.parentNode
+          : f.el;
+        if (!anchor || !anchor.parentNode) return;
+        anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
+      }
       wrap.appendChild(btn);
       wrap.appendChild(out);
-      var anchor = f.radio
-        ? (f.el.closest('div,p,li,form,table') || f.el.parentNode)
-        : f.el;
-      if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
     })(p);
   }
 })();

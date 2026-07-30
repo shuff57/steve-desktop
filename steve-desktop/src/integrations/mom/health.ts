@@ -46,7 +46,7 @@ function decode(s: string): string {
  * would train them to ignore the banner. The tell is the file: a question is evaluated TEXT and
  * its own errors are attributed to "Common Control", never to a `.php` file.
  */
-function isEngineNoise(msg: string): boolean {
+export function isEngineNoise(msg: string): boolean {
   return /\bin\s+[\w./-]+\.php\b/i.test(msg);
 }
 
