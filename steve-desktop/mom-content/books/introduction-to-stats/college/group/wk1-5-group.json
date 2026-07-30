@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Group Test: Weeks 1-5 (Data, Sampling, Displays, Describing Distributions, Normal)",
   "book": "introduction-to-stats",
   "kind": "group",

@@ -1,0 +1,8 @@
+{
+  "_purpose": "The books that exist, independent of whether any assignment is in one yet. A book is otherwise only implied by its assignments, so a NEW course would be invisible until its first assignment existed. Leading underscore keeps this out of the assignment list.",
+  "books": [
+    { "slug": "applied-finite-math",           "title": "Applied Finite Math" },
+    { "slug": "introduction-to-stats-sh",      "title": "Introduction to Stats — SH" },
+    { "slug": "introduction-to-stats-archive", "title": "Introduction to Stats (Archive)", "archived": true }
+  ]
+}

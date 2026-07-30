@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Homework: Ch8.4 Inference for the Slope of a Regression Line",
   "book": "introduction-to-stats",
   "kind": "hw",

@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Unit 3 Test: Expected Value, Chi-Square, Linear Regression Huff",
   "book": "introduction-to-stats",
   "kind": "ind",

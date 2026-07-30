@@ -114,6 +114,45 @@ export function isAssignmentManifest(path: string, j: Record<string, unknown>): 
   return typeof j.name === 'string' && j.name.trim().length > 0;
 }
 
+/** A course, as declared in `books/_books.json`. */
+export interface MomBookEntry {
+  slug: string;
+  title?: string;
+  /** Kept for reference but no longer taught — sorted last and marked in the UI. */
+  archived?: boolean;
+}
+
+/** The registry file, which is deliberately not an assignment. */
+const REGISTRY = '_books.json';
+
+/**
+ * The books that exist, independent of whether anything is in one yet.
+ *
+ * Without this a book is only implied by its assignments, so a NEW course is invisible until its
+ * first assignment exists — which makes "create the book, then fill it" impossible. Also carries
+ * real titles: slug-casing turns `introduction-to-stats` into "Introduction To Stats", which is
+ * wrong, and cannot know that `-sh` is a suffix rather than a word.
+ */
+export async function loadMOMBookRegistry(root: string): Promise<MomBookEntry[]> {
+  const files = (await invoke<{ path: string; text: string }[]>('mom_load_books', { root })) ?? [];
+  const hit = files.find((f) => (f.path.replace(/\\/g, '/').split('/').pop() ?? '') === REGISTRY);
+  if (!hit) return [];
+  try {
+    const j = JSON.parse(hit.text) as { books?: unknown };
+    if (!Array.isArray(j.books)) return [];
+    return j.books
+      .filter((b): b is Record<string, unknown> => !!b && typeof b === 'object')
+      .map((b) => ({
+        slug: typeof b.slug === 'string' ? b.slug.trim() : '',
+        title: typeof b.title === 'string' ? b.title : undefined,
+        archived: b.archived === true,
+      }))
+      .filter((b) => b.slug.length > 0);
+  } catch {
+    return []; // a malformed registry must not take the whole Books view down
+  }
+}
+
 /** Read + parse every assignment manifest under `<root>/books/`. Unparseable files are
  *  skipped rather than failing the whole load. */
 export async function loadMOMBooks(root: string): Promise<MomBook[]> {

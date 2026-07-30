@@ -4,7 +4,8 @@
    * Questions view is TWO panes: one list that drills families -> questions in place (a laptop has
    * limited horizontal room, and the preview is the pane that needs it), plus the preview on the
    * right — PHP source, or the sandbox-rendered question with an optional answer key.
-   * Books view keeps three panes: books | assignment | preview.
+   * Books view drills the same way: book -> assignments -> questions, each level replacing the
+   * last, plus the shared preview.
    * MOM_ROOT is read from a Tauri setting; on first run the user picks a folder.
    *
    * Phase 3: "New question" per family opens a modal where the user picks a
@@ -12,7 +13,7 @@
    */
   import { onMount } from 'svelte';
   import { getSetting, setSetting } from '../lib/db';
-  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
+  import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, type MomBookEntry, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
@@ -53,12 +54,13 @@
       .join(' ');
   }
 
-  // The books pane listed all 26 assignments flat, so there was no sign of which course each
-  // belonged to. Group by book; within a book order by kind then name, so homework, group work and
-  // practice stay together instead of interleaving alphabetically.
   /** Which book the Books view has drilled into; null = showing the book list. */
   let selectedBookSlug = $state<string | null>(null);
+  /** Declared books, so a course with no assignments yet is still listed and selectable. */
+  let bookRegistry = $state<MomBookEntry[]>([]);
 
+  // Group by book; within a book order by kind then name, so homework, group work and practice
+  // stay together instead of interleaving alphabetically.
   const KIND_ORDER = ['hw', 'practice', 'group', 'ind'];
   const booksByBook = $derived.by(() => {
     // An assignment appears under EVERY book it belongs to, so sharing one across courses shows
@@ -70,16 +72,25 @@
         groups.get(key)!.push(b);
       }
     }
+    // Declared-but-empty books still list, or a new course could never be filled — it would be
+    // invisible until it already had an assignment.
+    for (const entry of bookRegistry) {
+      if (!groups.has(entry.slug)) groups.set(entry.slug, []);
+    }
+
+    const declared = new Map(bookRegistry.map((e) => [e.slug, e]));
     return [...groups.entries()]
-      .sort((a, b) => a[0].localeCompare(b[0]))
       .map(([slug, items]) => ({
         slug,
-        title: slug ? bookTitle(slug) : 'Ungrouped',
+        title: declared.get(slug)?.title ?? (slug ? bookTitle(slug) : 'Ungrouped'),
+        archived: declared.get(slug)?.archived === true,
         items: items.sort((x, y) => {
           const k = KIND_ORDER.indexOf(x.kind ?? '') - KIND_ORDER.indexOf(y.kind ?? '');
           return k !== 0 ? k : x.name.localeCompare(y.name);
         }),
-      }));
+      }))
+      // Archived courses sort last: they are kept for reference, not taught from.
+      .sort((a, b) => Number(a.archived) - Number(b.archived) || a.title.localeCompare(b.title));
   });
 
   const currentBook = $derived(booksByBook.find((g) => g.slug === selectedBookSlug) ?? null);
@@ -226,12 +237,14 @@
     selectedFamily = null;
     selectedQuestion = null;
     try {
-      const [idx, bookList] = await Promise.all([
+      const [idx, bookList, registry] = await Promise.all([
         momIsland.methods.browse(momRoot),
         momIsland.methods.listBooks(momRoot).catch(() => [] as MomBook[]),
+        momIsland.methods.listBookRegistry(momRoot).catch(() => [] as MomBookEntry[]),
       ]);
       families = idx.families;
       books = bookList;
+      bookRegistry = registry;
     } catch (e) {
       err = e instanceof Error ? e.message : String(e);
       families = [];
@@ -249,6 +262,7 @@
     if (!momRoot) return;
     const keep = selectedBook?.path;
     books = await momIsland.methods.listBooks(momRoot).catch(() => books);
+    bookRegistry = await momIsland.methods.listBookRegistry(momRoot).catch(() => bookRegistry);
     selectedBook = keep ? (books.find((b) => b.path === keep) ?? null) : null;
   }
 
@@ -474,6 +488,7 @@
                 <li>
                   <button class="fam" onclick={() => selectBookGroup(group.slug)}>
                     <span class="fam-name">{group.title}</span>
+                    {#if group.archived}<span class="badge archived">archived</span>{/if}
                     <span class="fam-count">{group.items.length}</span>
                   </button>
                 </li>
@@ -484,6 +499,12 @@
               <button class="back" onclick={backToBooks}>← Books</button>
             </div>
             <h2>{currentBook.title} · {currentBook.items.length}</h2>
+            {#if currentBook.items.length === 0}
+              <p class="empty">
+                No assignments in this book yet. Open one under another book and use
+                <strong>Change</strong> to add it here.
+              </p>
+            {/if}
             <ul>
               {#each currentBook.items as b (b.path)}
                 <li>

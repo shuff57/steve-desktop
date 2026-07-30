@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Group Test: Ch8 Introduction to Linear Regression",
   "book": "introduction-to-stats",
   "kind": "group",

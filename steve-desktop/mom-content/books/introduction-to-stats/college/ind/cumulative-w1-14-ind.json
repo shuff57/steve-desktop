@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Cumulative Test: Weeks 1-14 (Data -> Regression) Huff",
   "book": "introduction-to-stats",
   "kind": "ind",

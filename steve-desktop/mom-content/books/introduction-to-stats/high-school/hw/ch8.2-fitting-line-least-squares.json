@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Homework: Ch8.2 Fitting a Line by Least Squares Regression",
   "book": "introduction-to-stats",
   "kind": "hw",

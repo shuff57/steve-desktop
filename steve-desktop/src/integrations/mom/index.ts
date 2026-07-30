@@ -10,12 +10,14 @@ import { defineIsland } from '../_shared/island';
 import {
   loadMOMIndex,
   loadMOMBooks,
+  loadMOMBookRegistry,
   loadMOMDefaultRoot,
   type MOMFamily,
   type MOMIndex,
   type MOMQuestion,
   type MomBook,
   type MomBookQuestion,
+  type MomBookEntry,
 } from './loader';
 import {
   getFrqSetStats,
@@ -27,7 +29,7 @@ import {
 import { createDraft as draftCreate, type CreateDraftOpts, type DraftResult } from './draft';
 import { uploadToMOM as uploadRun, type UploadOpts } from './upload';
 
-export type { MOMFamily, MOMIndex, MOMQuestion, FrqSetStats, MOMManifest, MomBook, MomBookQuestion };
+export type { MOMFamily, MOMIndex, MOMQuestion, FrqSetStats, MOMManifest, MomBook, MomBookQuestion, MomBookEntry };
 export { loadMOMIndex, loadMOMBooks, loadMOMDefaultRoot } from './loader';
 export { getFrqSetStats, readManifest } from './manifest';
 export { createDraft, isValidSlug, type CreateDraftOpts, type DraftResult } from './draft';
@@ -58,6 +60,8 @@ export interface MomMethods {
   getFamily(family: string, root: string): Promise<MomFamilyDetail>;
   /** Read + parse every assignment manifest under `<root>/books/` (the organizing spine). */
   listBooks(root: string): Promise<MomBook[]>;
+  /** The declared books, so a course with no assignments yet is still selectable. */
+  listBookRegistry(root: string): Promise<MomBookEntry[]>;
   /** The in-repo mom-content path, so the browser can default there. '' if unresolved. */
   getDefaultRoot(): Promise<string>;
   /** Copy a template into the drafts dir, returning the new file's path. */
@@ -116,6 +120,10 @@ export const momIsland = defineIsland<MomMethods>({
 
     listBooks(root) {
       return loadMOMBooks(root);
+    },
+
+    listBookRegistry(root) {
+      return loadMOMBookRegistry(root);
     },
 
     getDefaultRoot() {

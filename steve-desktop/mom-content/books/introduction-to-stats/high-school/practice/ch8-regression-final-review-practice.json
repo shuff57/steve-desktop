@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Practice: Ch8 Regression (Final-Exam Review)",
   "book": "introduction-to-stats",
   "kind": "practice",

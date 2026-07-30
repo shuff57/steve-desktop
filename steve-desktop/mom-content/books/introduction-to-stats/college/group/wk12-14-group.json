@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Group Test: Weeks 12-14 (Expected Value, Chi-Square, Linear Regression)",
   "book": "introduction-to-stats",
   "kind": "group",

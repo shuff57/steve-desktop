@@ -1,4 +1,5 @@
 {
+  "books": ["introduction-to-stats-archive"],
   "name": "Test: Ch8 Introduction to Linear Regression",
   "book": "introduction-to-stats",
   "kind": "ind",
