@@ -177,19 +177,19 @@ $solutionguide = $css_block . '
 // === QUESTION TEXT ===
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
-<p>A factory makes <b>$item1</b> ($x_1$ per unit) and <b>$item2</b> ($x_2$ per unit). Each unit uses the resources shown below, subject to the daily limits given.</p>
+<p>A factory makes <b>$item1</b> (`x_1` per unit) and <b>$item2</b> (`x_2` per unit). Each unit uses the resources shown below, subject to the daily limits given.</p>
 
 $resourcetbl
 
 <p>Set up the linear-programming problem to <b>maximize profit</b>. Fill in the missing coefficients.</p>
 
-<p><b>Objective:</b> Maximize $Z =$ $answerbox[0] $x_1 \;+\;$ $answerbox[1] $x_2$</p>
+<p><b>Objective:</b> Maximize `Z =` $answerbox[0] `x_1` `+` $answerbox[1] `x_2`</p>
 
-<p><b>Constraint 1 ($r1):</b> &nbsp; $answerbox[2] $x_1 \;+\;$ $answerbox[3] $x_2 \;\le\;$ $R1</p>
+<p><b>Constraint 1 ($r1):</b> &nbsp; $answerbox[2] `x_1` `+` $answerbox[3] `x_2` `<=` $R1</p>
 
-<p><b>Constraint 2 ($r2):</b> &nbsp; $answerbox[4] $x_1 \;+\;$ $answerbox[5] $x_2 \;\le\;$ $R2</p>
+<p><b>Constraint 2 ($r2):</b> &nbsp; $answerbox[4] `x_1` `+` $answerbox[5] `x_2` `<=` $R2</p>
 
-<p>with $x_1 \ge 0, \; x_2 \ge 0$.</p>
+<p>with `x_1 >= 0`, `x_2 >= 0`.</p>
 </div>
 
 
