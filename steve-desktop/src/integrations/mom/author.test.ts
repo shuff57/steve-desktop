@@ -4,6 +4,7 @@ import {
   buildRepairPrompt,
   sectionCommand,
   shouldRetry,
+  hasSource,
   questionPath,
   MAX_ATTEMPTS,
 } from './author';
@@ -102,5 +103,40 @@ describe('questionPath', () => {
 
   it('tolerates a trailing separator and a typed .php', () => {
     expect(questionPath('C:/mom-content/', 'stats', 'q1.php')).toBe('C:/mom-content/questions/stats/q1.php');
+  });
+});
+
+describe('sources', () => {
+  it('requires at least one source — otherwise there is nothing to write about', () => {
+    expect(hasSource({})).toBe(false);
+    expect(hasSource({ section: '  ' })).toBe(false);
+    expect(hasSource({ brief: 'a CI question' })).toBe(true);
+    expect(hasSource({ imagePath: 'C:/shot.png' })).toBe(true);
+  });
+
+  it('omits the section block entirely when no section is given', () => {
+    const p = buildAuthorPrompt({ ...req, section: undefined, brief: 'ask about sampling bias' });
+    expect(p).not.toContain('gh api');
+    expect(p).toContain('ask about sampling bias');
+  });
+
+  it('tells the agent to open a supplied example image', () => {
+    const p = buildAuthorPrompt({ ...req, section: undefined, imagePath: 'C:/shot.png' });
+    expect(p).toContain('C:/shot.png');
+    expect(p).toMatch(/open this image/i);
+  });
+
+  /** Copying an example verbatim would ship one fixed question to every student. */
+  it('requires an imitated example to be randomized, not copied', () => {
+    const p = buildAuthorPrompt({ ...req, imagePath: 'C:/shot.png' });
+    expect(p).toMatch(/Do not copy its wording or/i);
+    expect(p).toMatch(/randomize the values/i);
+  });
+
+  it('combines all three sources when all are given', () => {
+    const p = buildAuthorPrompt({ ...req, brief: 'make it two-part', imagePath: 'C:/shot.png' });
+    expect(p).toContain('gh api');
+    expect(p).toContain('make it two-part');
+    expect(p).toContain('C:/shot.png');
   });
 });

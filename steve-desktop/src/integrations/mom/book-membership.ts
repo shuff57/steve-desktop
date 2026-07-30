@@ -49,6 +49,51 @@ export function setBooksInManifest(text: string, books: string[]): string {
   return text.slice(0, at) + '\n' + render('  ', unique, true) + text.slice(at);
 }
 
+/**
+ * Append a question to an assignment's ordered list, formatting preserved.
+ *
+ * Inserted before the array's closing bracket with the indentation of the entry above it, so a
+ * hand-aligned one-entry-per-line manifest stays that way. The slot number continues the sequence
+ * rather than being guessed, because slots are what the teacher reads back.
+ */
+export function appendQuestionSlot(text: string, filePath: string, title: string): string {
+  const open = /"questions"\s*:\s*\[/.exec(text);
+  if (!open) throw new Error('manifest has no questions array');
+
+  // Walk to the matching close, respecting strings and nesting.
+  let depth = 0, inStr = false, esc = false, close = -1;
+  for (let i = open.index + open[0].length - 1; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+      continue;
+    }
+    if (c === '"') inStr = true;
+    else if (c === '[' || c === '{') depth++;
+    else if (c === ']' || c === '}') {
+      depth--;
+      if (depth === 0) { close = i; break; }
+    }
+  }
+  if (close < 0) throw new Error('unterminated questions array');
+
+  const body = text.slice(open.index + open[0].length, close);
+  const slots = [...body.matchAll(/"slot"\s*:\s*(\d+)/g)].map((m) => Number(m[1]));
+  const slot = slots.length ? Math.max(...slots) + 1 : 1;
+
+  const entry =
+    `{ "slot": ${slot}, "file_path": ${JSON.stringify(filePath)}, "title": ${JSON.stringify(title)} }`;
+  const indent = /\n([ \t]+)\{/.exec(body)?.[1] ?? '    ';
+  const empty = body.trim().length === 0;
+  const insert = empty ? `\n${indent}${entry}\n${indent.slice(0, -2)}` : `,\n${indent}${entry}\n${indent.slice(0, -2)}`;
+
+  // Drop the whitespace that preceded the bracket, so the new entry lands where it belongs.
+  const head = empty ? text.slice(0, open.index + open[0].length) : text.slice(0, close).replace(/\s*$/, '');
+  return head + insert + text.slice(close);
+}
+
 /** Read a manifest's raw text (the loader hands back parsed books, not the source). */
 export async function readBookManifest(root: string, path: string): Promise<string> {
   const files = (await invoke<{ path: string; text: string }[]>('mom_load_books', { root })) ?? [];
@@ -68,5 +113,18 @@ export async function saveBookMembership(root: string, path: string, books: stri
   const before = await readBookManifest(root, path);
   const after = setBooksInManifest(before, books);
   JSON.parse(after); // refuse to write something unparseable
+  await invoke('mom_write_book', { root, path, text: after });
+}
+
+/** Add a freshly-written question to one assignment. Same refuse-if-unparseable rule. */
+export async function addQuestionToAssignment(
+  root: string,
+  path: string,
+  filePath: string,
+  title: string,
+): Promise<void> {
+  const before = await readBookManifest(root, path);
+  const after = appendQuestionSlot(before, filePath, title);
+  JSON.parse(after);
   await invoke('mom_write_book', { root, path, text: after });
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { setBooksInManifest } from './book-membership';
+import { setBooksInManifest, appendQuestionSlot } from './book-membership';
 
 /**
  * The point of editing text rather than re-serialising is that everything else stays byte-for-byte
@@ -51,5 +51,51 @@ describe('setBooksInManifest', () => {
     const out = setBooksInManifest(src, ['b', 'c']);
     expect(() => JSON.parse(out)).not.toThrow();
     expect(JSON.parse(out).books).toEqual(['b', 'c']);
+  });
+});
+
+describe('appendQuestionSlot', () => {
+  const withTwo = [
+    '{',
+    '  "name": "HW",',
+    '  "questions": [',
+    '    { "slot": 1, "file_path": "questions/a/q1.php", "title": "One" },',
+    '    { "slot": 2, "file_path": "questions/a/q2.php", "title": "Two" }',
+    '  ]',
+    '}',
+  ].join('\n');
+
+  it('continues the slot sequence rather than guessing', () => {
+    const out = appendQuestionSlot(withTwo, 'questions/a/q3.php', 'Three');
+    const qs = JSON.parse(out).questions;
+    expect(qs).toHaveLength(3);
+    expect(qs[2]).toEqual({ slot: 3, file_path: 'questions/a/q3.php', title: 'Three' });
+  });
+
+  it('leaves the existing entries untouched', () => {
+    const out = appendQuestionSlot(withTwo, 'questions/a/q3.php', 'Three');
+    expect(out).toContain('{ "slot": 1, "file_path": "questions/a/q1.php", "title": "One" },');
+    expect(JSON.parse(out).name).toBe('HW');
+  });
+
+  it('starts at slot 1 in an empty assignment', () => {
+    const out = appendQuestionSlot('{\n  "name": "HW",\n  "questions": []\n}', 'questions/a/q1.php', 'One');
+    expect(JSON.parse(out).questions).toEqual([{ slot: 1, file_path: 'questions/a/q1.php', title: 'One' }]);
+  });
+
+  it('is not confused by a bracket inside a title string', () => {
+    const src = '{\n  "questions": [\n    { "slot": 1, "file_path": "a.php", "title": "Brackets ] and }" }\n  ]\n}';
+    const out = appendQuestionSlot(src, 'b.php', 'Next');
+    expect(JSON.parse(out).questions).toHaveLength(2);
+    expect(JSON.parse(out).questions[0].title).toBe('Brackets ] and }');
+  });
+
+  it('escapes a title containing quotes', () => {
+    const out = appendQuestionSlot(withTwo, 'questions/a/q3.php', 'He said "hi"');
+    expect(JSON.parse(out).questions[2].title).toBe('He said "hi"');
+  });
+
+  it('throws rather than corrupting a manifest with no questions array', () => {
+    expect(() => appendQuestionSlot('{"name":"x"}', 'a.php', 'A')).toThrow(/no questions array/);
   });
 });

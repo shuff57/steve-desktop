@@ -13,9 +13,11 @@
     buildRepairPrompt,
     questionPath,
     shouldRetry,
+    hasSource,
     MAX_ATTEMPTS,
     type AttemptResult,
   } from '../../integrations/mom/author';
+  import { addQuestionToAssignment } from '../../integrations/mom/book-membership';
   import { momIsland } from '../../integrations/mom';
   import { questionHealth } from '../../integrations/mom/health';
   import { prepareRenderHtml } from '../../integrations/mom/render-html';
@@ -24,12 +26,18 @@
   let {
     root,
     sandboxUrl,
+    families = [],
+    placements = [],
     provider = null,
     model = null,
     onDone = (_: string) => {},
   } = $props<{
     root: string;
     sandboxUrl: string;
+    /** Existing question families, for the picker. */
+    families?: string[];
+    /** Assignments the new question can be added to, grouped by book. */
+    placements?: { book: string; items: { path: string; name: string }[] }[];
     provider?: string | null;
     model?: string | null;
     onDone?: (path: string) => void | Promise<void>;
@@ -38,7 +46,13 @@
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
 
   let section = $state(DEFAULT_SECTION);
+  let brief = $state('');
+  let imagePath = $state('');
   let family = $state('descriptive-stats');
+  /** Typing a new family instead of picking one. */
+  let newFamily = $state(false);
+  /** Manifest paths to append the finished question to. */
+  let placeIn = $state<string[]>([]);
   let slug = $state('q1-key-terms');
   let running = $state(false);
   let lines = $state<string[]>([]);
@@ -48,7 +62,8 @@
 
   const engine = $derived<AgentEngine>(engineForProvider(provider ?? undefined));
   const target = $derived(root ? questionPath(root, family.trim(), slug.trim()) : '');
-  const canRun = $derived(!running && !!root && !!family.trim() && !!slug.trim() && !!section.trim());
+  const sourced = $derived(hasSource({ section, brief, imagePath }));
+  const canRun = $derived(!running && !!root && !!family.trim() && !!slug.trim() && sourced);
 
   function log(text: string) {
     lines = [...lines, text];
@@ -112,8 +127,17 @@
     fatal = null;
     const path = target;
     try {
-      log(`Writing ${family}/${slug}.php from ${section}`);
-      let reply = await turn(buildAuthorPrompt({ section: section.trim(), family: family.trim(), slug: slug.trim(), targetPath: path }));
+      log(`Writing ${family}/${slug}.php`);
+      let reply = await turn(
+        buildAuthorPrompt({
+          section: section.trim() || undefined,
+          brief: brief.trim() || undefined,
+          imagePath: imagePath.trim() || undefined,
+          family: family.trim(),
+          slug: slug.trim(),
+          targetPath: path,
+        }),
+      );
       if (reply) log(reply);
 
       for (;;) {
@@ -123,6 +147,16 @@
         if (errors.length === 0) {
           log(`Attempt ${n}: renders clean.`);
           finalPath = path;
+          // Only add it to an assignment once it actually renders — a broken question must never
+          // be filed into a book.
+          for (const manifest of placeIn) {
+            try {
+              await addQuestionToAssignment(root, manifest, `questions/${family.trim()}/${slug.trim().replace(/\.php$/i, '')}.php`, reply || slug.trim());
+              log(`Added to ${manifest}`);
+            } catch (e) {
+              log(`Could not add to ${manifest}: ${e instanceof Error ? e.message : String(e)}`);
+            }
+          }
           await onDone(path);
           return;
         }
@@ -144,15 +178,65 @@
 
 <div class="author">
   <div class="fields">
-    <label>Section<input bind:value={section} disabled={running} spellcheck="false" /></label>
+    <label>Book section <span class="opt">optional</span>
+      <input bind:value={section} disabled={running} spellcheck="false" placeholder="1.1_….html" />
+    </label>
+
+    <label>Describe the question <span class="opt">{section.trim() ? 'optional' : 'required'}</span>
+      <textarea
+        rows="2"
+        bind:value={brief}
+        disabled={running}
+        placeholder="e.g. two-part: build a 95% CI, then interpret it"
+      ></textarea>
+    </label>
+
+    <label>Example screenshot <span class="opt">optional</span>
+      <input bind:value={imagePath} disabled={running} spellcheck="false" placeholder="C:\path\to\question.png" />
+    </label>
+
     <div class="pair">
-      <label>Family<input bind:value={family} disabled={running} spellcheck="false" /></label>
+      <label>Family
+        {#if newFamily}
+          <input bind:value={family} disabled={running} spellcheck="false" placeholder="new-family" />
+        {:else}
+          <select bind:value={family} disabled={running}>
+            {#each families as f (f)}<option value={f}>{f}</option>{/each}
+          </select>
+        {/if}
+      </label>
+      <button class="plus" title={newFamily ? 'Pick an existing family' : 'New family'} disabled={running} onclick={() => (newFamily = !newFamily)}>
+        {newFamily ? '↩' : '+'}
+      </button>
       <label>Slug<input bind:value={slug} disabled={running} spellcheck="false" /></label>
     </div>
+
+    {#if placements.length}
+      <details class="place">
+        <summary>Add to an assignment <span class="opt">optional{placeIn.length ? ` · ${placeIn.length}` : ''}</span></summary>
+        {#each placements as group (group.book)}
+          <p class="grp">{group.book}</p>
+          {#each group.items as it (it.path)}
+            <label class="chk">
+              <input
+                type="checkbox"
+                disabled={running}
+                checked={placeIn.includes(it.path)}
+                onchange={() => (placeIn = placeIn.includes(it.path) ? placeIn.filter((p) => p !== it.path) : [...placeIn, it.path])}
+              />
+              {it.name}
+            </label>
+          {/each}
+        {/each}
+      </details>
+    {/if}
     <p class="target" title={target}>{target || 'Set the MOM root first.'}</p>
     <button class="go" onclick={run} disabled={!canRun}>
       {running ? 'Writing…' : 'Write question'}
     </button>
+    {#if !sourced && !running}
+      <p class="hint">Give it a book section, a description, or an example screenshot.</p>
+    {/if}
   </div>
 
   {#if lines.length}
@@ -177,7 +261,21 @@
           letter-spacing: .05em; opacity: .6; }
   input { font: inherit; font-size: 12px; padding: 4px 7px; border-radius: 6px; text-transform: none;
           border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; }
-  input:disabled { opacity: .55; }
+  input:disabled, select:disabled, textarea:disabled { opacity: .55; }
+  select, textarea { font: inherit; font-size: 12px; padding: 4px 7px; border-radius: 6px; text-transform: none;
+                     border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; }
+  textarea { resize: vertical; }
+  .opt { text-transform: none; letter-spacing: 0; opacity: .6; font-weight: 400; }
+  .pair { align-items: flex-end; }
+  .plus { flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
+          background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
+  .plus:disabled { opacity: .45; cursor: default; }
+  .place { font-size: 12px; }
+  .place summary { cursor: pointer; opacity: .7; }
+  .grp { margin: 6px 0 2px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; opacity: .5; }
+  .chk { flex-direction: row; align-items: center; gap: 6px; font-size: 12px; text-transform: none;
+         letter-spacing: 0; opacity: 1; }
+  .hint { margin: 0; font-size: 11px; opacity: .6; }
   .target { margin: 0; font-size: 11px; opacity: .5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .go { padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);

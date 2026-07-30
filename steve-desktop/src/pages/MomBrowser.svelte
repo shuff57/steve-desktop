@@ -626,6 +626,10 @@
             <MomAuthor
               root={momRoot ?? ''}
               sandboxUrl={SANDBOX_URL}
+              families={families.map((f) => f.name)}
+              placements={booksByBook
+                .filter((g) => g.items.length > 0)
+                .map((g) => ({ book: g.title, items: g.items.map((b) => ({ path: b.path, name: b.name })) }))}
               onDone={() => loadIndex()}
             />
           {:else}

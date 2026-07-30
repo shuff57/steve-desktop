@@ -26,14 +26,23 @@ export const BOOK_PROJECT = 'projects/Introduction to Stats';
 export const MAX_ATTEMPTS = 3;
 
 export interface AuthorRequest {
-  /** File name under the project's `html/`, e.g. `1.1_definitions_...html`. */
-  section: string;
+  /** File name under the project's `html/`, e.g. `1.1_definitions_...html`. Optional. */
+  section?: string;
+  /** What to write, in the teacher's words. Optional, but required when there is no section. */
+  brief?: string;
+  /** An example question to imitate — a local image path the agent can open. Optional. */
+  imagePath?: string;
   /** Question family the file belongs in, e.g. `descriptive-stats`. */
   family: string;
   /** File slug without extension, e.g. `q1-key-terms`. */
   slug: string;
   /** Absolute path the agent must write. */
   targetPath: string;
+}
+
+/** At least one source is required — otherwise there is nothing to write a question about. */
+export function hasSource(req: Pick<AuthorRequest, 'section' | 'brief' | 'imagePath'>): boolean {
+  return !!(req.section?.trim() || req.brief?.trim() || req.imagePath?.trim());
 }
 
 /** The `gh` call that reads a private-repo file as text. */
@@ -49,16 +58,35 @@ export function sectionCommand(section: string): string {
  * filesystem tools and the question bank is a live teaching asset.
  */
 export function buildAuthorPrompt(req: AuthorRequest): string {
+  const sources: string[] = [];
+  if (req.section?.trim()) {
+    sources.push(
+      'SOURCE — read this bookSHelf section first and base the question on what it actually teaches:',
+      '```',
+      sectionCommand(req.section.trim()),
+      '```',
+      'It is a private repo, so use `gh` exactly as above. Read the section before writing anything.',
+      'The question must test a concept the section genuinely covers.',
+      '',
+    );
+  }
+  if (req.brief?.trim()) {
+    sources.push('WHAT THE TEACHER WANTS (verbatim):', req.brief.trim(), '');
+  }
+  if (req.imagePath?.trim()) {
+    sources.push(
+      `EXAMPLE QUESTION — open this image and read it: ${req.imagePath.trim()}`,
+      'Reproduce its STRUCTURE and difficulty as a MyOpenMath question. Do not copy its wording or',
+      'numbers verbatim — randomize the values so each student sees a different version.',
+      '',
+    );
+  }
+
   return [
     `Write ONE MyOpenMath question and save it to: ${req.targetPath}`,
     '',
-    'SOURCE — read this bookSHelf section first and base the question on what it actually teaches:',
-    '```',
-    sectionCommand(req.section),
-    '```',
-    'It is a private repo, so use `gh` exactly as above. Read the section before writing anything.',
-    '',
-    'The question must test a concept the section genuinely covers. One question, not a set.',
+    ...sources,
+    'One question, not a set.',
     '',
     'FORMAT — a MOM question file has these markers, in this order:',
     '  // === NAME - DESCRIPTION: <short title> ===',
