@@ -1,7 +1,10 @@
 <script lang="ts">
   /**
-   * mom-island browser — three-pane read-only question browser.
-   * Left: families. Center: questions. Right: PHP preview + manifest stats.
+   * mom-island browser — read-only question browser.
+   * Questions view is TWO panes: one list that drills families -> questions in place (a laptop has
+   * limited horizontal room, and the preview is the pane that needs it), plus the preview on the
+   * right — PHP source, or the sandbox-rendered question with an optional answer key.
+   * Books view keeps three panes: books | assignment | preview.
    * MOM_ROOT is read from a Tauri setting; on first run the user picks a folder.
    *
    * Phase 3: "New question" per family opens a modal where the user picks a
@@ -11,6 +14,7 @@
   import { getSetting, setSetting } from '../lib/db';
   import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
   import MomDraft from './MomDraft.svelte';
+  import { withAnswerKey } from '../integrations/mom/answer-key';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -50,6 +54,8 @@
 
   // Preview pane can show the raw PHP or the sandbox-rendered question ("as if in MyOpenMath").
   let renderMode = $state<'php' | 'rendered'>('php');
+  // Preview-only: appends the computed answers + solution guide into the SAME render pass.
+  let showKey = $state(false);
   let renderedHtml = $state('');
   let rendering = $state(false);
   let renderErr = $state<string | null>(null);
@@ -74,12 +80,15 @@
     }
   }
 
-  // Render lazily: only when the Rendered tab is showing, and only once per question.
+  // Render lazily: only when the Rendered tab is showing, and only once per question. The key flag
+  // is part of the cache token, so toggling it re-renders instead of showing the previous pass.
+  // Re-rendering also re-randomizes, which is fine — question and key come from the SAME pass.
   $effect(() => {
     const q = selectedQuestion;
-    if (renderMode === 'rendered' && q && q.path !== lastRenderedPath) {
-      lastRenderedPath = q.path;
-      renderQuestion(q.contents);
+    const token = q ? `${q.path}|${showKey ? 'key' : 'plain'}` : '';
+    if (renderMode === 'rendered' && q && token !== lastRenderedPath) {
+      lastRenderedPath = token;
+      renderQuestion(showKey ? withAnswerKey(q.contents) : q.contents);
     }
   });
 
@@ -166,6 +175,14 @@
 
   function selectFamily(name: string) {
     selectedFamily = name;
+    selectedQuestion = null;
+    questionErr = null;
+  }
+
+  /** Drill back out to the family list. Clears the selected question too, so the preview pane
+   *  does not keep showing a question from a family that is no longer on screen. */
+  function backToFamilies() {
+    selectedFamily = null;
     selectedQuestion = null;
     questionErr = null;
   }
@@ -274,52 +291,61 @@
   {:else if families.length === 0}
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
-    <div class="panes">
+    <div class="panes" class:drilled={view === 'questions'}>
       {#if view === 'questions'}
-        <aside class="families">
-          <h2>Families</h2>
-          <ul>
-            {#each families as f (f.name)}
-              <li>
-                <button
-                  class="fam"
-                  class:active={selectedFamily === f.name}
-                  onclick={() => selectFamily(f.name)}
-                >
-                  <span class="fam-name">{f.name}</span>
-                  <span class="fam-count">{f.count}</span>
-                </button>
-                {#if templateFor(f.name)}
-                  <button
-                    class="new-q"
-                    title="New question in {f.name}"
-                    onclick={() => openDraftModal(f.name)}
-                  >+ New</button>
-                {/if}
-              </li>
-            {/each}
-          </ul>
-        </aside>
-
-        <section class="questions">
-          <h2>Questions {currentFamily ? `· ${currentFamily.name}` : ''}</h2>
+        <!-- One column, drilled: families REPLACE themselves with their questions rather than
+             opening a second sidebar. A laptop only has so much horizontal room, and the preview
+             pane is the one that actually needs it. -->
+        <section class="browse">
           {#if !currentFamily}
-            <p class="empty">Select a family.</p>
-          {:else}
+            <h2>Families</h2>
             <ul>
-              {#each currentFamily.questions as q (q.slug)}
+              {#each families as f (f.name)}
                 <li>
-                  <button
-                    class="q"
-                    class:active={selectedQuestion?.slug === q.slug}
-                    onclick={() => selectQuestion(q)}
-                  >
-                    <span class="q-slug">{q.slug}</span>
-                    {#if q.hasManifest}<span class="badge">manifest</span>{/if}
+                  <button class="fam" onclick={() => selectFamily(f.name)}>
+                    <span class="fam-name">{f.name}</span>
+                    <span class="fam-count">{f.count}</span>
                   </button>
+                  {#if templateFor(f.name)}
+                    <button
+                      class="new-q"
+                      title="New question in {f.name}"
+                      onclick={() => openDraftModal(f.name)}
+                    >+ New</button>
+                  {/if}
                 </li>
               {/each}
             </ul>
+          {:else}
+            <div class="drill-head">
+              <button class="back" onclick={backToFamilies}>← Families</button>
+              {#if templateFor(currentFamily.name)}
+                <button
+                  class="new-q"
+                  title="New question in {currentFamily.name}"
+                  onclick={() => openDraftModal(currentFamily.name)}
+                >+ New</button>
+              {/if}
+            </div>
+            <h2>{currentFamily.name} · {currentFamily.count}</h2>
+            {#if currentFamily.questions.length === 0}
+              <p class="empty">No questions in this family yet.</p>
+            {:else}
+              <ul>
+                {#each currentFamily.questions as q (q.slug)}
+                  <li>
+                    <button
+                      class="q"
+                      class:active={selectedQuestion?.slug === q.slug}
+                      onclick={() => selectQuestion(q)}
+                    >
+                      <span class="q-slug">{q.slug}</span>
+                      {#if q.hasManifest}<span class="badge">manifest</span>{/if}
+                    </button>
+                  </li>
+                {/each}
+              </ul>
+            {/if}
           {/if}
         </section>
       {:else}
@@ -368,9 +394,17 @@
         <div class="preview-head">
           <h2>Preview</h2>
           {#if selectedQuestion}
-            <div class="view-toggle">
-              <button class:active={renderMode === 'php'} onclick={() => (renderMode = 'php')}>PHP</button>
-              <button class:active={renderMode === 'rendered'} onclick={() => (renderMode = 'rendered')}>Rendered</button>
+            <div class="preview-toggles">
+              {#if renderMode === 'rendered'}
+                <label class="key-toggle" title="Append the computed answers and solution guide to this same render">
+                  <input type="checkbox" bind:checked={showKey} />
+                  Key
+                </label>
+              {/if}
+              <div class="view-toggle">
+                <button class:active={renderMode === 'php'} onclick={() => (renderMode = 'php')}>PHP</button>
+                <button class:active={renderMode === 'rendered'} onclick={() => (renderMode = 'rendered')}>Rendered</button>
+              </div>
             </div>
           {/if}
         </div>
@@ -385,7 +419,7 @@
             <p class="empty">Rendering in sandbox…</p>
           {:else if renderErr}
             <p class="err">Sandbox unreachable: {renderErr}</p>
-            <p class="muted small">Renders at <code>{SANDBOX_URL}</code> — live once its DNS/cert are up.</p>
+            <p class="muted small">Renders at <code>{SANDBOX_URL}</code> — verified reachable 2026-07-30, so check the tunnel/origin rather than DNS.</p>
           {:else}
             <iframe class="render-frame" title="Rendered question" srcdoc={renderedHtml} sandbox="allow-scripts"></iframe>
           {/if}
@@ -461,6 +495,15 @@
   .empty code { font-size: 12px; }
 
   .panes { display: grid; grid-template-columns: 200px 260px 1fr; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
+  /* Questions view drills in place, so it needs one list column, not two. Reclaiming the second
+     column gives the preview ~200px more — the pane that actually benefits on a laptop. */
+  .panes.drilled { grid-template-columns: 260px 1fr; }
+  .drill-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-shrink: 0; }
+  .preview-toggles { display: flex; align-items: center; gap: 10px; }
+  .key-toggle { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: .8; cursor: pointer; user-select: none; }
+  .key-toggle input { cursor: pointer; }
+  .back { padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; cursor: pointer; font-size: 12px; }
+  .back:hover { background: rgba(128,128,128,.12); }
   aside, section { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; overflow: hidden; display: flex; flex-direction: column; }
   h2 { margin: 0 0 8px; font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
   ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
