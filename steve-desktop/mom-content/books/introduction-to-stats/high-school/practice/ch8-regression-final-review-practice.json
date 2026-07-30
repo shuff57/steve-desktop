@@ -224,10 +224,7 @@
       "role": "multipart",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827936",
-      "notes": "From existing ch8-regression-practice slot 1.",
-      "verify_status": "uploaded"
+      "notes": "From existing ch8-regression-practice slot 1."
     },
     {
       "slot": 2,
@@ -237,10 +234,7 @@
       "role": "conceptual",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827937",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 3,
@@ -250,10 +244,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827938",
-      "notes": "New context (sleep/GPA/exercise/typing), replaces advertising reuse.",
-      "verify_status": "uploaded"
+      "notes": "New context (sleep/GPA/exercise/typing), replaces advertising reuse."
     },
     {
       "slot": 4,
@@ -263,10 +254,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827939",
-      "notes": "Replaces q7-prediction-and-interpret. r² completely absent from prior practice.",
-      "verify_status": "uploaded"
+      "notes": "Replaces q7-prediction-and-interpret. r² completely absent from prior practice."
     },
     {
       "slot": 5,
@@ -276,10 +264,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827940",
-      "notes": "Template-copy variant exists (qid 1816305) if original is Private.",
-      "verify_status": "uploaded"
+      "notes": "Template-copy variant exists (qid 1816305) if original is Private."
     },
     {
       "slot": 6,
@@ -289,10 +274,7 @@
       "role": "multipart",
       "diff": "hard",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827941",
-      "notes": "Template-copy variant exists (qid 1816306) if original is Private.",
-      "verify_status": "uploaded"
+      "notes": "Template-copy variant exists (qid 1816306) if original is Private."
     },
     {
       "slot": 7,
@@ -302,10 +284,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827942",
-      "notes": "Drill: IND q9 (77%) / group q3 (61%). Auto-graded counterpart to FRQ slot 21.",
-      "verify_status": "uploaded"
+      "notes": "Drill: IND q9 (77%) / group q3 (61%). Auto-graded counterpart to FRQ slot 21."
     },
     {
       "slot": 8,
@@ -315,10 +294,7 @@
       "role": "conceptual",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827943",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 9,
@@ -328,10 +304,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827944",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 10,
@@ -341,10 +314,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827945",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 11,
@@ -354,10 +324,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827946",
-      "notes": "4 randomized contexts (PT/tutoring/fertilizer/training), replaces old library question.",
-      "verify_status": "uploaded"
+      "notes": "4 randomized contexts (PT/tutoring/fertilizer/training), replaces old library question."
     },
     {
       "slot": 12,
@@ -367,10 +334,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827947",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 13,
@@ -380,10 +344,7 @@
       "role": "multipart",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827948",
-      "draft_note": "Drill: HW 8.2 q6 (51%, 34.8% incomplete) — single lowest item in Ch8. Different context (not coffee), clean slope+intercept interpretation.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: HW 8.2 q6 (51%, 34.8% incomplete) — single lowest item in Ch8. Different context (not coffee), clean slope+intercept interpretation."
     },
     {
       "slot": 14,
@@ -393,10 +354,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827949",
-      "notes": "Tests H0:beta1=0 conceptual understanding; targets IND 65% / group 43% miss.",
-      "verify_status": "uploaded"
+      "notes": "Tests H0:beta1=0 conceptual understanding; targets IND 65% / group 43% miss."
     },
     {
       "slot": 15,
@@ -406,10 +364,7 @@
       "role": "multipart",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827950",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 16,
@@ -419,10 +374,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827951",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 17,
@@ -432,10 +384,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827952",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 18,
@@ -445,10 +394,7 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827953",
-      "draft_note": "Drill: IND q10 (65%) / group q14 (43%). Auto-graded MC counterpart to FRQ slot 20.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: IND q10 (65%) / group q14 (43%). Auto-graded MC counterpart to FRQ slot 20."
     },
     {
       "slot": 19,
@@ -458,10 +404,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827955",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 20,
@@ -471,10 +414,7 @@
       "role": "essay",
       "diff": "hard",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827956",
-      "notes": "Drill: IND q10 (65%) / group q14 (43%) — top Ch8 miss.",
-      "verify_status": "uploaded"
+      "notes": "Drill: IND q10 (65%) / group q14 (43%) — top Ch8 miss."
     },
     {
       "slot": 21,
@@ -484,10 +424,7 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827957",
-      "notes": "Drill: IND q9 (77%) / group q3 (61%).",
-      "verify_status": "uploaded"
+      "notes": "Drill: IND q9 (77%) / group q3 (61%)."
     },
     {
       "slot": 22,
@@ -497,13 +434,7 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827959",
-      "notes": "Drill: group q2 (77%).",
-      "verify_status": "uploaded"
+      "notes": "Drill: group q2 (77%)."
     }
-  ],
-  "aid": "22594159",
-  "status": "transferred",
-  "transferred_at": "2026-05-16T23:12:35.133790+00:00"
+  ]
 }

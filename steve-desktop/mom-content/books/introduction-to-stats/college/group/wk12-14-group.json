@@ -27,9 +27,6 @@
   "frq_count": 3,
   "estimated_minutes": 75,
   "time_budget_minutes": 88,
-  "aid": "22551860",
-  "transferred_at": "2026-05-12",
-  "status": "transferred",
   "planning_notes": [
     "Selection approved 2026-05-12. 8 drafts pending: 4 chi-square auto-graded, 3 EV auto-graded, 1 EV FRQ.",
     "Chi-square auto-graded gap: repo has 0 auto-graded chi-square; 4 new files to draft under questions/stats-tests/chi-square/.",
@@ -57,9 +54,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1823685",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 2,
@@ -69,10 +64,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1825138",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 3,
@@ -82,10 +74,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1825140",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 4,
@@ -95,10 +84,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1825141",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 5,
@@ -108,10 +94,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1825133",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 6,
@@ -121,10 +104,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1825134",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 7,
@@ -134,10 +114,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 5,
-      "is_frq": false,
-      "qid": "1825135",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 8,
@@ -147,10 +124,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1825137",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": false
     },
     {
       "slot": 9,
@@ -161,9 +135,6 @@
       "diff": "easy",
       "est_minutes": 2,
       "is_frq": false,
-      "qid": "1825147",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Repo file existed but never pushed to MOM; created fresh in this transfer."
     },
     {
@@ -175,9 +146,6 @@
       "diff": "mod",
       "est_minutes": 3,
       "is_frq": false,
-      "qid": "1825185",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Original qid 1804882 was not searchable in addquestions2 (Private). Re-uploaded as fresh copy."
     },
     {
@@ -189,9 +157,6 @@
       "diff": "mod",
       "est_minutes": 3,
       "is_frq": false,
-      "qid": "1825188",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Original qid 1804702 was not searchable in addquestions2 (Private). Re-uploaded as fresh copy."
     },
     {
@@ -203,9 +168,6 @@
       "diff": "mod",
       "est_minutes": 3,
       "is_frq": false,
-      "qid": "1807060",
-      "source": "reuse",
-      "verify_status": "in-mom",
       "note": "Original Private qid 1807060 has been bumped to public previously; searchable now."
     },
     {
@@ -217,9 +179,6 @@
       "diff": "easy",
       "est_minutes": 2,
       "is_frq": false,
-      "qid": "1825201",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Original qid 1809002 was not searchable in this course; re-uploaded as fresh copy."
     },
     {
@@ -231,9 +190,6 @@
       "diff": "mod",
       "est_minutes": 4,
       "is_frq": false,
-      "qid": "1825202",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Original qid 1815974 was not searchable in this course; re-uploaded as fresh copy."
     },
     {
@@ -244,10 +200,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1825142",
-      "source": "draft",
-      "verify_status": "rendered_ok"
+      "is_frq": true
     },
     {
       "slot": 16,
@@ -258,9 +211,6 @@
       "diff": "mod",
       "est_minutes": 10,
       "is_frq": true,
-      "qid": "1825150",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Repo file existed but never pushed to MOM; created fresh in this transfer."
     },
     {
@@ -272,9 +222,6 @@
       "diff": "mod",
       "est_minutes": 10,
       "is_frq": true,
-      "qid": "1825204",
-      "source": "draft",
-      "verify_status": "rendered_ok",
       "note": "Original qid 1816295 was not searchable in this course; re-uploaded as fresh copy."
     }
   ]

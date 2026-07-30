@@ -68,9 +68,6 @@
       "role": "conceptual+computation",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1825483",
-      "verify_status": "uploaded",
       "draft_status": "written 2026-05-12 — TOP-miss drill",
       "chapter": "Ch4-5",
       "est_min": 4
@@ -83,9 +80,6 @@
       "role": "computation+conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827995",
-      "verify_status": "uploaded",
       "notes": "GAP: existing tests only had decisions, not full HT computation. Patched $arr[$dir] interpolation to precomputed scalars 2026-05-12.",
       "chapter": "Ch4-5",
       "est_min": 4
@@ -98,9 +92,6 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1825501",
-      "verify_status": "uploaded",
       "draft_status": "written 2026-05-12 — TOP-miss drill",
       "chapter": "Ch4-5",
       "est_min": 3
@@ -113,9 +104,6 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827996",
-      "verify_status": "uploaded",
       "draft_status": "written 2026-05-12",
       "chapter": "Ch4-5",
       "est_min": 3
@@ -128,9 +116,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826149",
-      "verify_status": "uploaded",
       "notes": null,
       "chapter": "Ch6",
       "est_min": 5
@@ -143,9 +128,6 @@
       "role": "computation+conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827997",
-      "verify_status": "uploaded",
       "draft_note": "Drill: group test q14 (67%) — students confuse single-prop, diff-of-props, GOF, and independence tests.",
       "chapter": "Ch6",
       "est_min": 3
@@ -158,9 +140,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827998",
-      "verify_status": "uploaded",
       "draft_note": "Drill: group test q16 (57%) — drill conclusion-writing in auto-graded multiple-choice form.",
       "chapter": "Ch6",
       "est_min": 5
@@ -173,9 +152,6 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826184",
-      "verify_status": "uploaded",
       "draft_note": "Drill: group test q15 (46%) — single lowest item in Ch6 data. Convert the FRQ prompt to auto-graded multiple-choice.",
       "chapter": "Ch6",
       "est_min": 3
@@ -188,10 +164,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827921",
       "draft_note": "Drill: pre-requisite for FRQ q21. Auto-graded MC alternative.",
-      "verify_status": "uploaded",
       "chapter": "Ch7",
       "est_min": 3
     },
@@ -203,10 +176,7 @@
       "role": "computation",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827999",
       "draft_note": "Drill: mixed-review q12 (50%, 47.8% incomplete) — single lowest item in Ch7 dataset.",
-      "verify_status": "uploaded",
       "chapter": "Ch7",
       "est_min": 5
     },
@@ -218,10 +188,7 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1828000",
       "draft_note": "Drill: IND q7 (56%) + group q13 (44%) — largest IND miss. Auto-graded MC alternative to FRQ q22.",
-      "verify_status": "uploaded",
       "chapter": "Ch7",
       "est_min": 3
     },
@@ -233,10 +200,7 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827927",
       "draft_note": "Drill: IND q4 (93%, 8.6% incomplete) + group q8 (92%, 13.7% incomplete).",
-      "verify_status": "uploaded",
       "chapter": "Ch7",
       "est_min": 4
     },
@@ -248,10 +212,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827939",
       "notes": "Replaces q7-prediction-and-interpret. r² completely absent from prior practice.",
-      "verify_status": "uploaded",
       "chapter": "Ch8",
       "est_min": 3
     },
@@ -263,10 +224,7 @@
       "role": "multipart",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827948",
       "draft_note": "Drill: HW 8.2 q6 (51%, 34.8% incomplete) — single lowest item in Ch8. Different context (not coffee), clean slope+intercept interpretation.",
-      "verify_status": "uploaded",
       "chapter": "Ch8",
       "est_min": 4
     },
@@ -278,10 +236,7 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827953",
       "draft_note": "Drill: IND q10 (65%) / group q14 (43%). Auto-graded MC counterpart to FRQ slot 20.",
-      "verify_status": "uploaded",
       "chapter": "Ch8",
       "est_min": 3
     },
@@ -294,11 +249,8 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "draft",
-      "qid": "1827988",
       "est_min": 10,
-      "notes": "New scenario (vaccine/attendance/training); covers Ch6 two-proportion TOP-MISS",
-      "verify_status": "uploaded"
+      "notes": "New scenario (vaccine/attendance/training); covers Ch6 two-proportion TOP-MISS"
     },
     {
       "slot": 17,
@@ -309,11 +261,8 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "draft",
-      "qid": "1827989",
       "est_min": 10,
-      "notes": "New scenario (screen time/sugar/sleep); CI contains 0 → FtR → Type II error",
-      "verify_status": "uploaded"
+      "notes": "New scenario (screen time/sugar/sleep); CI contains 0 → FtR → Type II error"
     },
     {
       "slot": 18,
@@ -324,14 +273,8 @@
       "role": "essay",
       "diff": "hard",
       "is_frq": true,
-      "source": "draft",
-      "qid": "1827990",
       "est_min": 10,
-      "notes": "New scenario (altitude/sunlight/vehicle age); covers all 3 Ch8 FRQ miss areas in one question",
-      "verify_status": "uploaded"
+      "notes": "New scenario (altitude/sunlight/vehicle age); covers all 3 Ch8 FRQ miss areas in one question"
     }
-  ],
-  "aid": "22594423",
-  "status": "transferred",
-  "transferred_at": "2026-05-17T00:21:50.188624+00:00"
+  ]
 }

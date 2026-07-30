@@ -63,9 +63,7 @@
       "role": "conceptual",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "draft",
-      "qid": "1828461"
+      "est_minutes": 3
     },
     {
       "slot": 2,
@@ -75,9 +73,7 @@
       "role": "computation",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1828462"
+      "est_minutes": 4
     },
     {
       "slot": 3,
@@ -87,9 +83,7 @@
       "role": "computation",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1828463"
+      "est_minutes": 4
     },
     {
       "slot": 4,
@@ -99,9 +93,7 @@
       "role": "multipart",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1823647"
+      "est_minutes": 4
     },
     {
       "slot": 5,
@@ -111,9 +103,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1823648"
+      "est_minutes": 5
     },
     {
       "slot": 6,
@@ -123,9 +113,7 @@
       "role": "computation",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1823649"
+      "est_minutes": 4
     },
     {
       "slot": 7,
@@ -135,9 +123,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1823651"
+      "est_minutes": 5
     },
     {
       "slot": 8,
@@ -147,9 +133,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1828464"
+      "est_minutes": 4
     },
     {
       "slot": 9,
@@ -159,9 +143,7 @@
       "role": "computation",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1823658"
+      "est_minutes": 4
     },
     {
       "slot": 10,
@@ -171,9 +153,7 @@
       "role": "multipart",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1828226"
+      "est_minutes": 4
     },
     {
       "slot": 11,
@@ -183,9 +163,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1828227"
+      "est_minutes": 5
     },
     {
       "slot": 12,
@@ -195,9 +173,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1823659"
+      "est_minutes": 5
     },
     {
       "slot": 13,
@@ -207,9 +183,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1823660"
+      "est_minutes": 5
     },
     {
       "slot": 14,
@@ -219,9 +193,7 @@
       "role": "multipart",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1828465"
+      "est_minutes": 4
     },
     {
       "slot": 15,
@@ -231,12 +203,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 5,
-      "source": "draft",
-      "qid": "1823662"
+      "est_minutes": 5
     }
-  ],
-  "aid": "22534730",
-  "transferred_at": "2026-05-18T12:00:00Z",
-  "status": "transferred"
+  ]
 }

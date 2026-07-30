@@ -245,9 +245,6 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826145",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5 foundations practice \u2014 well-vetted."
     },
     {
@@ -258,9 +255,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826147",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5."
     },
     {
@@ -271,9 +265,6 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826148",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5."
     },
     {
@@ -284,9 +275,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826149",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -297,9 +285,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826151",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -310,10 +295,7 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826120",
-      "draft_note": "Gap-fill: HW 6.2 q8 was the only two-prop CI item and had 21.9% incomplete rate.",
-      "verify_status": "rendered_clean"
+      "draft_note": "Gap-fill: HW 6.2 q8 was the only two-prop CI item and had 21.9% incomplete rate."
     },
     {
       "slot": 7,
@@ -323,9 +305,6 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826154",
-      "verify_status": "rendered_clean_after_nonrepeatrand_to_diffrands_fix",
       "draft_note": "Drill: group test q14 (67%) \u2014 students confuse single-prop, diff-of-props, GOF, and independence tests."
     },
     {
@@ -336,9 +315,6 @@
       "role": "computation",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826157",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -349,9 +325,6 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826160",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -362,9 +335,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826162",
-      "verify_status": "rendered_clean",
       "draft_note": "Drill: group test q16 (57%) \u2014 drill conclusion-writing in auto-graded multiple-choice form."
     },
     {
@@ -375,9 +345,6 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826165",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -388,9 +355,6 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826166",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -401,9 +365,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826167",
-      "verify_status": "rendered_clean",
       "notes": null
     },
     {
@@ -414,9 +375,6 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826168",
-      "verify_status": "rendered_clean",
       "draft_note": "Drill: IND q9/q10 interpretation deficit applied to chi-square independence context."
     },
     {
@@ -427,9 +385,6 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1826184",
-      "verify_status": "rendered_clean",
       "draft_note": "Drill: group test q15 (46%) \u2014 single lowest item in Ch6 data. Convert the FRQ prompt to auto-graded multiple-choice."
     },
     {
@@ -440,9 +395,6 @@
       "role": "multipart",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826185",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5."
     },
     {
@@ -453,9 +405,6 @@
       "role": "computation",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826186",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5."
     },
     {
@@ -466,9 +415,6 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826187",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5 \u2014 chapter-agnostic, applies here."
     },
     {
@@ -479,9 +425,6 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1826188",
-      "verify_status": "rendered_clean",
       "notes": "Reuse from Ch4-5."
     },
     {
@@ -492,9 +435,6 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1826189",
-      "verify_status": "rendered_clean",
       "notes": "Drill: IND q9 (59%). Same file used as slot 22 in ch4-5 final-review practice. Fresh qid created (description-collision risk mitigated via Advanced Search by qid)."
     },
     {
@@ -505,9 +445,6 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1826190",
-      "verify_status": "rendered_clean",
       "notes": "Drill: IND q10 (58%)."
     },
     {
@@ -518,15 +455,9 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1826191",
-      "verify_status": "rendered_clean",
       "notes": "Drill: group q16 (57%) GOF conclusion-writing."
     }
   ],
-  "aid": "22567602",
-  "status": "transferred",
-  "transferred_at": "2026-05-13T00:00:00",
   "assessment_url": "https://www.myopenmath.com/course/addassessment2.php?id=22567602&cid=301265",
   "addquestions_url": "https://www.myopenmath.com/course/addquestions2.php?cid=301265&aid=22567602"
 }

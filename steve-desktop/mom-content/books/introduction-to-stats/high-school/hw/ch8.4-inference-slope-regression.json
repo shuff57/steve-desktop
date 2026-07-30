@@ -33,15 +33,13 @@
     "intro": null
   },
   "questions": [
-    { "slot": 1, "file_path": "questions/regression/slope-inference/q7-role-of-inference.php",       "title": "Role of Inference for the Slope",            "sub_topic": "8.4.1", "role": "conceptual","difficulty": "easy",     "is_frq": false, "points": 1, "source": "draft", "qid": "1815971", "verify_status": "Correct" },
-    { "slot": 2, "file_path": "questions/regression/slope-inference/q5-line-conditions.php",         "title": "LINE Conditions for Regression",             "sub_topic": "8.4.2", "role": "multipart", "difficulty": "easy",     "is_frq": false, "points": 1, "source": "reuse", "qid": "1815973", "verify_status": "render-ok" },
-    { "slot": 3, "file_path": "questions/regression/slope-inference/q1-ci-for-slope.php",            "title": "CI for the Slope",                           "sub_topic": "8.4.3", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1815974", "verify_status": "added" },
-    { "slot": 4, "file_path": "questions/regression/slope-inference/q3-ci-interpret-slope.php",      "title": "Interpret a CI for the Slope",               "sub_topic": "8.4.3", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1815975", "verify_status": "added" },
-    { "slot": 5, "file_path": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",   "title": "Hypothesis Test for the Slope",              "sub_topic": "8.4.5", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1815976", "verify_status": "added" },
-    { "slot": 6, "file_path": "questions/regression/slope-inference/q8-tech-ci-from-output.php",     "title": "CI from Technology Output",                  "sub_topic": "8.4.6", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "draft", "qid": "1815972", "verify_status": "Correct" },
-    { "slot": 7, "file_path": "questions/regression/slope-inference/q4-paired-vs-regression.php",    "title": "Pick the Right Test (Paired vs Regression)", "sub_topic": "8.4.7", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1815977", "verify_status": "added" },
-    { "slot": 8, "file_path": "questions/regression/slope-inference/q6-full-regression-workflow.php","title": "Full Regression Workflow",                   "sub_topic": "8.4.5", "role": "multipart", "difficulty": "hard",     "is_frq": false, "points": 1, "source": "reuse", "qid": "1815978", "verify_status": "added" }
-  ],
-  "aid": "22449243",
-  "transferred_at": "2026-04-27"
+    { "slot": 1, "file_path": "questions/regression/slope-inference/q7-role-of-inference.php",       "title": "Role of Inference for the Slope",            "sub_topic": "8.4.1", "role": "conceptual","difficulty": "easy",     "is_frq": false, "points": 1 },
+    { "slot": 2, "file_path": "questions/regression/slope-inference/q5-line-conditions.php",         "title": "LINE Conditions for Regression",             "sub_topic": "8.4.2", "role": "multipart", "difficulty": "easy",     "is_frq": false, "points": 1 },
+    { "slot": 3, "file_path": "questions/regression/slope-inference/q1-ci-for-slope.php",            "title": "CI for the Slope",                           "sub_topic": "8.4.3", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 4, "file_path": "questions/regression/slope-inference/q3-ci-interpret-slope.php",      "title": "Interpret a CI for the Slope",               "sub_topic": "8.4.3", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 5, "file_path": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",   "title": "Hypothesis Test for the Slope",              "sub_topic": "8.4.5", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 6, "file_path": "questions/regression/slope-inference/q8-tech-ci-from-output.php",     "title": "CI from Technology Output",                  "sub_topic": "8.4.6", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 7, "file_path": "questions/regression/slope-inference/q4-paired-vs-regression.php",    "title": "Pick the Right Test (Paired vs Regression)", "sub_topic": "8.4.7", "role": "multipart", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 8, "file_path": "questions/regression/slope-inference/q6-full-regression-workflow.php","title": "Full Regression Workflow",                   "sub_topic": "8.4.5", "role": "multipart", "difficulty": "hard",     "is_frq": false, "points": 1 }
+  ]
 }

@@ -63,9 +63,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823543"
+      "points": 10
     },
     {
       "slot": 2,
@@ -77,9 +75,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823545"
+      "points": 10
     },
     {
       "slot": 3,
@@ -91,9 +87,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823547"
+      "points": 10
     },
     {
       "slot": 4,
@@ -105,9 +99,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823548"
+      "points": 10
     },
     {
       "slot": 5,
@@ -119,9 +111,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823549"
+      "points": 10
     },
     {
       "slot": 6,
@@ -133,9 +123,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823550"
+      "points": 10
     },
     {
       "slot": 7,
@@ -148,8 +136,6 @@
       "is_high_impact": true,
       "est_minutes": 5,
       "points": 10,
-      "source": "library",
-      "qid": "1824651",
       "note": "Added 2026-05-11. MOM library question (no repo file)."
     },
     {
@@ -162,9 +148,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823551"
+      "points": 10
     },
     {
       "slot": 9,
@@ -176,9 +160,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "est_minutes": 5,
-      "points": 10,
-      "source": "draft",
-      "qid": "1823552"
+      "points": 10
     },
     {
       "slot": 10,
@@ -191,14 +173,9 @@
       "is_high_impact": true,
       "est_minutes": 5,
       "points": 10,
-      "source": "library",
-      "qid": "1824664",
       "note": "Added 2026-05-11. MOM library question (no repo file)."
     }
   ],
-  "aid": "22533384",
-  "transferred_at": "2026-05-11T00:00:00Z",
-  "status": "transferred",
   "revision_history": [
     {
       "date": "2026-05-11",

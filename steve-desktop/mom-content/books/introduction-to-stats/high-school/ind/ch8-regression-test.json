@@ -42,9 +42,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1808999"
+      "points": 10
     },
     {
       "slot": 2,
@@ -56,9 +54,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1809006"
+      "points": 10
     },
     {
       "slot": 3,
@@ -70,9 +66,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1815982"
+      "points": 10
     },
     {
       "slot": 4,
@@ -84,9 +78,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1815974"
+      "points": 10
     },
     {
       "slot": 5,
@@ -98,9 +90,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1815976"
+      "points": 10
     },
     {
       "slot": 6,
@@ -112,9 +102,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1804882"
+      "points": 10
     },
     {
       "slot": 7,
@@ -126,9 +114,7 @@
       "role": "computation",
       "is_frq": false,
       "is_high_impact": true,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1804702"
+      "points": 10
     },
     {
       "slot": 8,
@@ -141,9 +127,7 @@
       "is_frq": false,
       "is_high_impact": true,
       "points": 10,
-      "source": "template-copy",
       "original_qid": "1807060",
-      "qid": "1816273",
       "note": "Original qid 1807060 was Private and not surfacing in addquestions2 search; template-copied to 1816273 for both group and ind tests."
     },
     {
@@ -156,9 +140,7 @@
       "role": "frq",
       "is_frq": true,
       "is_high_impact": false,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1816241"
+      "points": 10
     },
     {
       "slot": 10,
@@ -170,13 +152,9 @@
       "role": "frq",
       "is_frq": true,
       "is_high_impact": false,
-      "points": 10,
-      "source": "reuse",
-      "qid": "1816243"
+      "points": 10
     }
   ],
-  "aid": "22488516",
-  "transferred_at": "2026-05-04T13:00:00",
   "history": [
     {
       "ts": "2026-05-04T13:00:00",

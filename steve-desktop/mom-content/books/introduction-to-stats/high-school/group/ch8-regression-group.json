@@ -27,9 +27,6 @@
   "frq_count": 3,
   "estimated_minutes": 74,
   "time_budget_minutes": 88,
-  "aid": "22450202",
-  "transferred_at": "2026-04-27",
-  "status": "transferred",
   "post_transfer_notes": [
     "Question order in MOM does NOT match manifest slot order. MOM has slots [1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 3, 4, 5] (positions 15-17 hold the 8.1 mid-chapter questions). Re-order in MOM via the position dropdowns or drag handles. Programmatic reorder via Playwriter crashed the relay twice; left as manual.",
     "Q3 FRQ source had a ternary operator that MOM's pseudo-PHP rejects; auto-fixed by rewriting as if/else (also patched in repo q3-interpret-correlation-coefficient.php).",
@@ -46,9 +43,7 @@
       "role": "multipart",
       "diff": "easy",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1804693",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 2,
@@ -58,9 +53,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1816233",
-      "source": "draft"
+      "is_frq": true
     },
     {
       "slot": 3,
@@ -70,9 +63,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1804882",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 4,
@@ -82,9 +73,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1804702",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 5,
@@ -95,8 +84,6 @@
       "diff": "mod",
       "est_minutes": 3,
       "is_frq": false,
-      "qid": "1816273",
-      "source": "template-copy",
       "original_qid": "1807060",
       "note": "Original qid 1807060 was Private and not surfacing in addquestions2 search. Template-copied to qid 1816273 for the assessment. Original kept Private."
     },
@@ -108,9 +95,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1816241",
-      "source": "draft"
+      "is_frq": true
     },
     {
       "slot": 7,
@@ -120,9 +105,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1808993",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 8,
@@ -132,9 +115,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1808999",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 9,
@@ -144,9 +125,7 @@
       "role": "conceptual",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1809011",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 10,
@@ -156,9 +135,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1809006",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 11,
@@ -168,9 +145,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1809002",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 12,
@@ -180,9 +155,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1815982",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 13,
@@ -192,9 +165,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1815971",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 14,
@@ -204,9 +175,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1815974",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 15,
@@ -216,9 +185,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1815976",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 16,
@@ -228,9 +195,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1815972",
-      "source": "reuse"
+      "is_frq": false
     },
     {
       "slot": 17,
@@ -240,9 +205,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1816243",
-      "source": "draft"
+      "is_frq": true
     }
   ]
 }

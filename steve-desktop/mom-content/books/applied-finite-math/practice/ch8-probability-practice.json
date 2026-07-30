@@ -39,7 +39,5 @@
     "frq_count": 3,
     "selection_priority": "Full coverage of every section + over-weight any topics flagged in source.high_miss_topics"
   },
-  "questions": [],
-  "aid": null,
-  "transferred_at": null
+  "questions": []
 }

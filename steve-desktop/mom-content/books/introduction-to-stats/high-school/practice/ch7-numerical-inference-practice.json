@@ -223,10 +223,7 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827914",
-      "notes": "Reuse from Ch4-5.",
-      "verify_status": "uploaded"
+      "notes": "Reuse from Ch4-5."
     },
     {
       "slot": 2,
@@ -236,10 +233,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827915",
-      "notes": "Reuse from Ch4-5.",
-      "verify_status": "uploaded"
+      "notes": "Reuse from Ch4-5."
     },
     {
       "slot": 3,
@@ -249,10 +243,7 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827916",
-      "draft_note": "Drill: HW 7.1 q11 (90%) + q13 (86%). Abstract no-context drill.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: HW 7.1 q11 (90%) + q13 (86%). Abstract no-context drill."
     },
     {
       "slot": 4,
@@ -262,10 +253,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827917",
-      "draft_note": "Drill: HW 7.1 q9 (85%). Auto-graded interpretation alternative to FRQ.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: HW 7.1 q9 (85%). Auto-graded interpretation alternative to FRQ."
     },
     {
       "slot": 5,
@@ -275,10 +263,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827918",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 6,
@@ -288,10 +273,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827919",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 7,
@@ -301,10 +283,7 @@
       "role": "multipart",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827920",
-      "draft_note": "Drill: HW 7.2 q6 (88%) + mixed q15/q18 (43-54% incomplete).",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: HW 7.2 q6 (88%) + mixed q15/q18 (43-54% incomplete)."
     },
     {
       "slot": 8,
@@ -314,10 +293,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827921",
-      "draft_note": "Drill: pre-requisite for FRQ q21. Auto-graded MC alternative.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: pre-requisite for FRQ q21. Auto-graded MC alternative."
     },
     {
       "slot": 9,
@@ -327,10 +303,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827922",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 10,
@@ -340,10 +313,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827923",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 11,
@@ -353,10 +323,7 @@
       "role": "computation",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827924",
-      "draft_note": "Drill: mixed-review q12 (50%, 47.8% incomplete) — single lowest item in Ch7 dataset.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: mixed-review q12 (50%, 47.8% incomplete) — single lowest item in Ch7 dataset."
     },
     {
       "slot": 12,
@@ -366,10 +333,7 @@
       "role": "multipart",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827925",
-      "draft_note": "Drill: mixed q9 (72%, 44.8% incomplete). Integration with two-sample inference.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: mixed q9 (72%, 44.8% incomplete). Integration with two-sample inference."
     },
     {
       "slot": 13,
@@ -379,10 +343,7 @@
       "role": "conceptual",
       "diff": "hard",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827926",
-      "draft_note": "Drill: IND q7 (56%) + group q13 (44%) — largest IND miss. Auto-graded MC alternative to FRQ q22.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: IND q7 (56%) + group q13 (44%) — largest IND miss. Auto-graded MC alternative to FRQ q22."
     },
     {
       "slot": 14,
@@ -392,10 +353,7 @@
       "role": "computation",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827927",
-      "draft_note": "Drill: IND q4 (93%, 8.6% incomplete) + group q8 (92%, 13.7% incomplete).",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: IND q4 (93%, 8.6% incomplete) + group q8 (92%, 13.7% incomplete)."
     },
     {
       "slot": 15,
@@ -405,10 +363,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827928",
-      "draft_note": "Drill: group q13 (44%) conclusion-writing as auto-graded MC.",
-      "verify_status": "uploaded"
+      "draft_note": "Drill: group q13 (44%) conclusion-writing as auto-graded MC."
     },
     {
       "slot": 16,
@@ -418,10 +373,7 @@
       "role": "multipart",
       "diff": "easy",
       "is_frq": false,
-      "source": "draft",
-      "qid": "1827929",
-      "draft_note": "Mean-specific version of Ch4-5 q6 (which was proportion-focused).",
-      "verify_status": "uploaded"
+      "draft_note": "Mean-specific version of Ch4-5 q6 (which was proportion-focused)."
     },
     {
       "slot": 17,
@@ -431,10 +383,7 @@
       "role": "computation",
       "diff": "easy",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827930",
-      "notes": "Reuse from Ch4-5.",
-      "verify_status": "uploaded"
+      "notes": "Reuse from Ch4-5."
     },
     {
       "slot": 18,
@@ -444,10 +393,7 @@
       "role": "conceptual",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827931",
-      "notes": "Reuse from Ch4-5.",
-      "verify_status": "uploaded"
+      "notes": "Reuse from Ch4-5."
     },
     {
       "slot": 19,
@@ -457,10 +403,7 @@
       "role": "multipart",
       "diff": "mod",
       "is_frq": false,
-      "source": "reuse",
-      "qid": "1827932",
-      "notes": null,
-      "verify_status": "uploaded"
+      "notes": null
     },
     {
       "slot": 20,
@@ -470,10 +413,7 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827933",
-      "notes": "Drill: IND q6 (68%).",
-      "verify_status": "uploaded"
+      "notes": "Drill: IND q6 (68%)."
     },
     {
       "slot": 21,
@@ -483,10 +423,7 @@
       "role": "essay",
       "diff": "mod",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827934",
-      "notes": "Drill: group q12 (55%).",
-      "verify_status": "uploaded"
+      "notes": "Drill: group q12 (55%)."
     },
     {
       "slot": 22,
@@ -496,13 +433,7 @@
       "role": "essay",
       "diff": "hard",
       "is_frq": true,
-      "source": "reuse",
-      "qid": "1827935",
-      "notes": "Drill: IND q7 (56%) + group q13 (44%) — top miss across Ch7.",
-      "verify_status": "uploaded"
+      "notes": "Drill: IND q7 (56%) + group q13 (44%) — top miss across Ch7."
     }
-  ],
-  "aid": "22594158",
-  "status": "transferred",
-  "transferred_at": "2026-05-16T23:09:13.657497"
+  ]
 }

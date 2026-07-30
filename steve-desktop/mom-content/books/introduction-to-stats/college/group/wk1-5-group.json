@@ -30,9 +30,6 @@
   "frq_count": 3,
   "estimated_minutes": 72,
   "time_budget_minutes": 88,
-  "aid": "22618261",
-  "transferred_at": "2026-05-19T15:00:00",
-  "status": "transferred",
   "post_transfer_notes": [
     "Assessment URL: https://www.myopenmath.com/course/addassessment2.php?id=22618261&cid=314128",
     "Render-error review 2026-05-19: 3 questions had IMathAS CC parser errors; fixed and re-pushed via moddataset.php, all verified clean. qid 1829213 (slot 4) — multi-line ternary in $why → if/else. qid 1829217 (slot 6) — C-style for-loop → Pascal-style `for ($k=0..4)`. qid 1829218 (slot 7) — nested multi-line ternary in $outlierWhy → if/else.",
@@ -55,10 +52,7 @@
       "role": "conceptual",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1829206",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 2,
@@ -68,10 +62,7 @@
       "role": "conceptual",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1829210",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 3,
@@ -81,10 +72,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1829212",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 4,
@@ -94,10 +82,7 @@
       "role": "conceptual",
       "diff": "mod",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1829213",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 5,
@@ -107,10 +92,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 2,
-      "is_frq": false,
-      "qid": "1829216",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 6,
@@ -120,10 +102,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1829217",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 7,
@@ -133,10 +112,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 5,
-      "is_frq": false,
-      "qid": "1829218",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 8,
@@ -146,10 +122,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 5,
-      "is_frq": false,
-      "qid": "1829219",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 9,
@@ -159,10 +132,7 @@
       "role": "conceptual",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1829220",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 10,
@@ -172,10 +142,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1829221",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 11,
@@ -185,10 +152,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 4,
-      "is_frq": false,
-      "qid": "1829222",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 12,
@@ -198,10 +162,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 5,
-      "is_frq": false,
-      "qid": "1829223",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 13,
@@ -211,10 +172,7 @@
       "role": "computation",
       "diff": "mod",
       "est_minutes": 5,
-      "is_frq": false,
-      "qid": "1829224",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 14,
@@ -224,10 +182,7 @@
       "role": "conceptual",
       "diff": "easy",
       "est_minutes": 3,
-      "is_frq": false,
-      "qid": "1829225",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": false
     },
     {
       "slot": 15,
@@ -237,10 +192,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1829226",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": true
     },
     {
       "slot": 16,
@@ -250,10 +202,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1829227",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": true
     },
     {
       "slot": 17,
@@ -263,10 +212,7 @@
       "role": "multipart",
       "diff": "mod",
       "est_minutes": 10,
-      "is_frq": true,
-      "qid": "1829228",
-      "source": "draft",
-      "verify_status": "added"
+      "is_frq": true
     }
   ]
 }

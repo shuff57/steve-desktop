@@ -27,9 +27,6 @@
   "frq_count": 2,
   "estimated_minutes": 55,
   "time_budget_minutes": 60,
-  "aid": "22575957",
-  "transferred_at": "2026-05-13T00:00:00",
-  "status": "transferred",
   "transfer_notes": "gbcategory left as Default (Tests category absent in cid 314128). hidden_from_students managed on course outline; no avail field on addassessment2.php. Slots 4, 5, 9 reuse-tagged but qids lived only in cid 301265 library; created fresh in cid 314128. Manifest source flipped to draft.",
   "questions": [
     {
@@ -42,9 +39,7 @@
       "est_minutes": 4,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826792",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 2,
@@ -56,9 +51,7 @@
       "est_minutes": 4,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826800",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 3,
@@ -70,9 +63,7 @@
       "est_minutes": 5,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826809",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 4,
@@ -84,9 +75,7 @@
       "est_minutes": 4,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826816",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 5,
@@ -98,9 +87,7 @@
       "est_minutes": 4,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826818",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 6,
@@ -112,9 +99,7 @@
       "est_minutes": 5,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826821",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 7,
@@ -126,9 +111,7 @@
       "est_minutes": 5,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826822",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 8,
@@ -140,9 +123,7 @@
       "est_minutes": 5,
       "is_frq": false,
       "is_high_impact": true,
-      "qid": "1826823",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 9,
@@ -154,9 +135,7 @@
       "est_minutes": 10,
       "is_frq": true,
       "is_high_impact": false,
-      "qid": "1826826",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     },
     {
       "slot": 10,
@@ -168,9 +147,7 @@
       "est_minutes": 10,
       "is_frq": true,
       "is_high_impact": false,
-      "qid": "1826829",
-      "points": 10,
-      "source": "draft"
+      "points": 10
     }
   ]
 }

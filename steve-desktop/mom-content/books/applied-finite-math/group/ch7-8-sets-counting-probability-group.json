@@ -54,9 +54,7 @@
       "role": "conceptual",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810806"
+      "est_minutes": 3
     },
     {
       "slot": 2,
@@ -66,9 +64,7 @@
       "role": "conceptual",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810816"
+      "est_minutes": 3
     },
     {
       "slot": 3,
@@ -78,9 +74,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1823517"
+      "est_minutes": 3
     },
     {
       "slot": 4,
@@ -90,9 +84,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810822"
+      "est_minutes": 3
     },
     {
       "slot": 5,
@@ -102,9 +94,7 @@
       "role": "computation",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810938"
+      "est_minutes": 3
     },
     {
       "slot": 6,
@@ -114,9 +104,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810942"
+      "est_minutes": 3
     },
     {
       "slot": 7,
@@ -126,9 +114,7 @@
       "role": "computation",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810947"
+      "est_minutes": 3
     },
     {
       "slot": 8,
@@ -138,9 +124,7 @@
       "role": "conceptual",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1810955"
+      "est_minutes": 3
     },
     {
       "slot": 9,
@@ -150,9 +134,7 @@
       "role": "computation",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1820833"
+      "est_minutes": 3
     },
     {
       "slot": 10,
@@ -162,9 +144,7 @@
       "role": "set notation",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1820852"
+      "est_minutes": 3
     },
     {
       "slot": 11,
@@ -174,9 +154,7 @@
       "role": "concept check",
       "difficulty": "easy",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1820853"
+      "est_minutes": 3
     },
     {
       "slot": 12,
@@ -186,9 +164,7 @@
       "role": "table reading",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 3,
-      "source": "reuse",
-      "qid": "1820863"
+      "est_minutes": 3
     },
     {
       "slot": 13,
@@ -198,9 +174,7 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1824646"
+      "est_minutes": 4
     },
     {
       "slot": 14,
@@ -210,9 +184,7 @@
       "role": "computation",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1824651"
+      "est_minutes": 4
     },
     {
       "slot": 15,
@@ -222,13 +194,8 @@
       "role": "multipart",
       "difficulty": "moderate",
       "is_frq": false,
-      "est_minutes": 4,
-      "source": "draft",
-      "qid": "1824664"
+      "est_minutes": 4
     }
   ],
-  "aid": "22533205",
-  "transferred_at": "2026-05-09T17:00:00",
-  "frq_replacement_transferred_at": "2026-05-11T13:30:00",
-  "status": "transferred"
+  "frq_replacement_transferred_at": "2026-05-11T13:30:00"
 }

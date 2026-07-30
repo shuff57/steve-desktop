@@ -33,13 +33,11 @@
     "note": "Manifest reflects existing MOM assignment state. mom_settings are kind-contract defaults — actual MOM settings were NOT audited or modified by sync. To audit, navigate to addassessment2.php?id=22402789 in the MOM UI."
   },
   "questions": [
-    { "slot": 1, "file_path": "questions/regression/residuals-correlation/q1-compute-residual.php",        "title": "Compute a Residual",          "sub_topic": "8.1.3", "role": "multipart",  "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1807060", "verify_status": "in-mom" },
-    { "slot": 2, "file_path": "questions/regression/residuals-correlation/q2-residual-sign-interpret.php", "title": "Residual Sign Interpretation","sub_topic": "8.1.3", "role": "multipart",  "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1807064", "verify_status": "in-mom" },
-    { "slot": 3, "file_path": "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php",  "title": "Residual Plot Good Fit",      "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "easy",     "is_frq": false, "points": 1, "source": "reuse", "qid": "1807069", "verify_status": "in-mom" },
-    { "slot": 4, "file_path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php", "title": "Identify Nonlinearity from Residual Plots", "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "moderate", "is_frq": false, "points": 1, "source": "reuse", "qid": "1807073", "verify_status": "in-mom" },
-    { "slot": 5, "file_path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",       "title": "Estimate Residual Standard Deviation",     "sub_topic": "8.1.3", "role": "multipart",  "difficulty": "hard",     "is_frq": false, "points": 1, "source": "reuse", "qid": "1807074", "verify_status": "in-mom" },
-    { "slot": 6, "file_path": "questions/regression/residuals-correlation/q6-residual-concepts.php",      "title": "Residual Concepts",            "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "easy",     "is_frq": false, "points": 1, "source": "reuse", "qid": "1807075", "verify_status": "in-mom" }
-  ],
-  "aid": "22402789",
-  "transferred_at": "pre-existing"
+    { "slot": 1, "file_path": "questions/regression/residuals-correlation/q1-compute-residual.php",        "title": "Compute a Residual",          "sub_topic": "8.1.3", "role": "multipart",  "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 2, "file_path": "questions/regression/residuals-correlation/q2-residual-sign-interpret.php", "title": "Residual Sign Interpretation","sub_topic": "8.1.3", "role": "multipart",  "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 3, "file_path": "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php",  "title": "Residual Plot Good Fit",      "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "easy",     "is_frq": false, "points": 1 },
+    { "slot": 4, "file_path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php", "title": "Identify Nonlinearity from Residual Plots", "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "moderate", "is_frq": false, "points": 1 },
+    { "slot": 5, "file_path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",       "title": "Estimate Residual Standard Deviation",     "sub_topic": "8.1.3", "role": "multipart",  "difficulty": "hard",     "is_frq": false, "points": 1 },
+    { "slot": 6, "file_path": "questions/regression/residuals-correlation/q6-residual-concepts.php",      "title": "Residual Concepts",            "sub_topic": "8.1.3", "role": "conceptual", "difficulty": "easy",     "is_frq": false, "points": 1 }
+  ]
 }
