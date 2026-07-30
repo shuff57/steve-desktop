@@ -46,9 +46,9 @@
     "frq_count": 0,
     "selection_priority": "Simplex (slots 1-3), Finance (slots 4-6), Sets/Venn (slots 7-8), Counting (slots 9-11), Probability (slots 12-13). Restructured 2026-05-10: replaced 6 misfit quad/poly/exp/log questions with 3 simplex + 3 counting questions. Designed to fit one ~88-minute class period."
   },
-  "auto_graded_count": 13,
+  "auto_graded_count": 12,
   "frq_count": 0,
-  "estimated_minutes": 59,
+  "estimated_minutes": 55,
   "time_budget_minutes": 88,
   "questions": [
     { "slot": 1,  "sub_topic": "4.1–4.2 Simplex Max (2-var)",    "file_path": "questions/linear-programming/q6-simplex-coffee-roaster.php",                    "title": "Simplex max: coffee roaster (2 variables)",                                  "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823699" },
@@ -61,9 +61,8 @@
     { "slot": 8,  "sub_topic": "7.2 Venn 2-Circle",               "file_path": "questions/sets/q15-venn-2circle-exactly-one-and-neither.php",                     "title": "2-circle Venn: exactly-one and neither counts",                              "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823682" },
     { "slot": 9,  "sub_topic": "7.3 Permutations Word Problem",   "file_path": "questions/combinatorics/q18-permutations-word-problem.php",                      "title": "Permutations: ordered arrangements in podium scenario",                      "role": "computation", "difficulty": "easy",     "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823702" },
     { "slot": 10, "sub_topic": "7.5 Combinations w/ Condition",   "file_path": "questions/combinatorics/q19-combinations-with-condition.php",                    "title": "Combinations: committees with required member",                              "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823703" },
-    { "slot": 11, "sub_topic": "7.5 Perm vs Comb Diagnostic",     "file_path": "questions/combinatorics/q20-perm-or-comb-three-scenarios.php",                   "title": "Classify three counting scenarios: perm or comb?",                           "role": "conceptual",  "difficulty": "easy",     "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823705" },
-    { "slot": 12, "sub_topic": "8.2 Conditional Probability",     "file_path": "questions/probability/q21-conditional-2x2-with-independence.php",                 "title": "2x2 conditional probability + independence check",                           "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823683" },
-    { "slot": 13, "sub_topic": "8.4 Expected Value",              "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php",                     "title": "Expected value E(X) and E(X^2) of a discrete RV",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823685" }
+    { "slot": 11, "sub_topic": "8.2 Conditional Probability",     "file_path": "questions/probability/q21-conditional-2x2-with-independence.php",                 "title": "2x2 conditional probability + independence check",                           "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 5, "source": "draft", "qid": "1823683" },
+    { "slot": 12, "sub_topic": "8.4 Expected Value",              "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php",                     "title": "Expected value E(X) and E(X^2) of a discrete RV",                            "role": "multipart",   "difficulty": "moderate", "is_frq": false, "est_minutes": 4, "source": "draft", "qid": "1823685" }
   ],
   "aid": "22534731",
   "transferred_at": "2026-05-10T19:45:00Z",
