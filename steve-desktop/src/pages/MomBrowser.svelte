@@ -42,6 +42,38 @@
   // switches the left/center panes between the question bank and the book/assignment list.
   let view = $state<'questions' | 'books'>('questions');
   let books = $state<MomBook[]>([]);
+
+  /** `applied-finite-math` -> `Applied Finite Math`. Works for any future book slug. */
+  function bookTitle(slug: string): string {
+    return slug
+      .split(/[-_/]/)
+      .filter(Boolean)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+  }
+
+  // The books pane listed all 26 assignments flat, so there was no sign of which course each
+  // belonged to. Group by book; within a book order by kind then name, so homework, group work and
+  // practice stay together instead of interleaving alphabetically.
+  const KIND_ORDER = ['hw', 'practice', 'group', 'ind'];
+  const booksByBook = $derived.by(() => {
+    const groups = new Map<string, MomBook[]>();
+    for (const b of books) {
+      const key = b.book ?? '';
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(b);
+    }
+    return [...groups.entries()]
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([slug, items]) => ({
+        slug,
+        title: slug ? bookTitle(slug) : 'Ungrouped',
+        items: items.sort((x, y) => {
+          const k = KIND_ORDER.indexOf(x.kind ?? '') - KIND_ORDER.indexOf(y.kind ?? '');
+          return k !== 0 ? k : x.name.localeCompare(y.name);
+        }),
+      }));
+  });
   let selectedBook = $state<MomBook | null>(null);
 
   // Phase 3: draft modal state. When `draftingFamily` is set, the modal opens
@@ -402,16 +434,24 @@
           {#if books.length === 0}
             <p class="empty">No assignment manifests under <code>books/</code>.</p>
           {:else}
-            <ul>
-              {#each books as b (b.path)}
-                <li>
-                  <button class="fam" class:active={selectedBook?.path === b.path} onclick={() => (selectedBook = b)}>
-                    <span class="fam-name">{b.name}</span>
-                    <span class="fam-count">{b.questions.length}</span>
-                  </button>
-                </li>
-              {/each}
-            </ul>
+            {#each booksByBook as group (group.slug)}
+              <div class="book-group">
+                <h3 class="book-title">
+                  {group.title}
+                  <span class="book-count">{group.items.length}</span>
+                </h3>
+                <ul>
+                  {#each group.items as b (b.path)}
+                    <li>
+                      <button class="fam" class:active={selectedBook?.path === b.path} onclick={() => (selectedBook = b)}>
+                        <span class="fam-name">{b.name}</span>
+                        <span class="fam-count">{b.questions.length}</span>
+                      </button>
+                    </li>
+                  {/each}
+                </ul>
+              </div>
+            {/each}
           {/if}
         </aside>
 
@@ -598,6 +638,14 @@
 
   .preview-head { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
   .preview-head h2 { margin: 0; }
+  /* Book headings in the assignments pane — the course each assignment belongs to. */
+  .book-group + .book-group { margin-top: 14px; }
+  .book-title { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+                margin: 0 0 4px; padding: 0 2px 3px; font-size: 11px; font-weight: 700;
+                letter-spacing: .06em; text-transform: uppercase; opacity: .55;
+                border-bottom: 1px solid rgba(128,128,128,.22); }
+  .book-count { font-weight: 600; opacity: .8; }
+
   .render-frame { flex: 1; width: 100%; border: none; border-radius: 6px; background: #fff; }
   /* Amber = renders but is suspect; red = the sandbox refused it. Both sit ABOVE the frame,
      because the whole point is that the render itself looks convincing. */

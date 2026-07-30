@@ -70,6 +70,31 @@ export interface MomBook {
   questions: MomBookQuestion[];
 }
 
+/**
+ * Which book an assignment belongs to.
+ *
+ * The `book` field is NOT reliable — six real assignments under `applied-finite-math/` never had
+ * one, so grouping on the field alone silently drops them into an "unknown" pile. The directory is
+ * the actual organising fact, so it wins when the field is missing.
+ */
+export function bookOf(path: string, declared?: unknown): string {
+  if (typeof declared === 'string' && declared.trim()) return declared.trim();
+  const first = path.replace(/\\/g, '/').split('/').filter(Boolean)[0];
+  return first && first.endsWith('.json') ? '' : (first ?? '');
+}
+
+/**
+ * Is this manifest an assignment, or a working file that happens to live under `books/`?
+ *
+ * The `_scrape-*.json` files are item-analysis and inventory dumps — no name, no kind, no
+ * questions, keys that are raw MyOpenMath ids. They were being listed as if they were assignments.
+ */
+export function isAssignmentManifest(path: string, j: Record<string, unknown>): boolean {
+  const base = path.replace(/\\/g, '/').split('/').pop() ?? '';
+  if (base.startsWith('_')) return false;
+  return typeof j.name === 'string' && j.name.trim().length > 0;
+}
+
 /** Read + parse every assignment manifest under `<root>/books/`. Unparseable files are
  *  skipped rather than failing the whole load. */
 export async function loadMOMBooks(root: string): Promise<MomBook[]> {
@@ -78,12 +103,13 @@ export async function loadMOMBooks(root: string): Promise<MomBook[]> {
   for (const f of files) {
     try {
       const j = JSON.parse(f.text) as Record<string, unknown>;
+      if (!isAssignmentManifest(f.path, j)) continue;
       const target = (j.target ?? {}) as { cid?: string };
       const rawQs = Array.isArray(j.questions) ? (j.questions as Record<string, unknown>[]) : [];
       books.push({
         path: f.path,
         name: typeof j.name === 'string' ? j.name : f.path,
-        book: j.book as string | undefined,
+        book: bookOf(f.path, j.book) || undefined,
         kind: j.kind as string | undefined,
         chapterSection: j.chapter_section as string | undefined,
         slug: j.slug as string | undefined,

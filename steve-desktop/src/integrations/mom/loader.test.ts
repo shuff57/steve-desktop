@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 const { invokeMock } = vi.hoisted(() => ({ invokeMock: vi.fn() }));
 vi.mock('@tauri-apps/api/core', () => ({ invoke: invokeMock }));
 
-import { loadMOMIndex, loadMOMBooks, loadMOMDefaultRoot, isJunkFamily } from './loader';
+import { loadMOMIndex, loadMOMBooks, loadMOMDefaultRoot, isJunkFamily, bookOf, isAssignmentManifest } from './loader';
 
 // The real filesystem walk now lives in Rust (mom_load_index) and is covered by cargo test
 // `mom_tests::walks_questions_into_families` against the same fixture. Here we test the pure
@@ -111,5 +111,48 @@ describe('loadMOMDefaultRoot', () => {
     expect(await loadMOMDefaultRoot()).toBe('/repo/mom-content');
     invokeMock.mockResolvedValue(null);
     expect(await loadMOMDefaultRoot()).toBe('');
+  });
+});
+
+/**
+ * Grouping the Books pane by course exposed two facts about the real content: the `book` field is
+ * missing on six real assignments under applied-finite-math, and four `_scrape-*` working files
+ * were being listed as if they were assignments.
+ */
+describe('bookOf', () => {
+  it('uses the declared field when there is one', () => {
+    expect(bookOf('applied-finite-math/hw/x.json', 'introduction-to-stats')).toBe('introduction-to-stats');
+  });
+
+  it('falls back to the directory, because six real assignments declare no book', () => {
+    expect(bookOf('applied-finite-math/hw/ch8.1-sample-spaces-probability.json', undefined)).toBe('applied-finite-math');
+  });
+
+  it('treats a blank or non-string field as missing', () => {
+    expect(bookOf('applied-finite-math/hw/x.json', '   ')).toBe('applied-finite-math');
+    expect(bookOf('applied-finite-math/hw/x.json', 42)).toBe('applied-finite-math');
+  });
+
+  it('handles Windows separators from the Rust walk', () => {
+    expect(bookOf(String.raw`introduction-to-stats\high-school\hw\a.json`, undefined)).toBe('introduction-to-stats');
+  });
+
+  it('returns empty for a manifest sitting directly in books/', () => {
+    expect(bookOf('loose.json', undefined)).toBe('');
+  });
+});
+
+describe('isAssignmentManifest', () => {
+  it('rejects the _scrape working files, which have no name and no questions', () => {
+    expect(isAssignmentManifest('introduction-to-stats/high-school/practice/_scrape-ch678-inventory.json', { _purpose: 'x' })).toBe(false);
+  });
+
+  it('rejects a manifest with no name', () => {
+    expect(isAssignmentManifest('a/b/c.json', { kind: 'hw' })).toBe(false);
+    expect(isAssignmentManifest('a/b/c.json', { name: '  ' })).toBe(false);
+  });
+
+  it('accepts a real assignment', () => {
+    expect(isAssignmentManifest('applied-finite-math/hw/ch8.1.json', { name: 'Homework: Ch8.1' })).toBe(true);
   });
 });
