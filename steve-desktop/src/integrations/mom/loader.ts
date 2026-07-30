@@ -63,6 +63,8 @@ export interface MomBook {
   path: string;
   name: string;
   book?: string;
+  /** Every book this assignment belongs to; an assignment may be shared across courses. */
+  books: string[];
   kind?: string;
   chapterSection?: string;
   slug?: string;
@@ -81,6 +83,23 @@ export function bookOf(path: string, declared?: unknown): string {
   if (typeof declared === 'string' && declared.trim()) return declared.trim();
   const first = path.replace(/\\/g, '/').split('/').filter(Boolean)[0];
   return first && first.endsWith('.json') ? '' : (first ?? '');
+}
+
+/**
+ * Every book an assignment belongs to.
+ *
+ * An assignment can be shared — the same probability homework is reasonable in more than one
+ * course — so membership is a LIST. `books` wins when present; otherwise it degrades to the single
+ * `book` field, and finally to the directory, so nothing has to be migrated to keep working.
+ */
+export function booksOf(path: string, j: Record<string, unknown>): string[] {
+  const raw = j.books;
+  if (Array.isArray(raw)) {
+    const list = raw.filter((b): b is string => typeof b === 'string' && b.trim().length > 0).map((b) => b.trim());
+    if (list.length) return [...new Set(list)];
+  }
+  const single = bookOf(path, j.book);
+  return single ? [single] : [];
 }
 
 /**
@@ -110,6 +129,7 @@ export async function loadMOMBooks(root: string): Promise<MomBook[]> {
         path: f.path,
         name: typeof j.name === 'string' ? j.name : f.path,
         book: bookOf(f.path, j.book) || undefined,
+        books: booksOf(f.path, j),
         kind: j.kind as string | undefined,
         chapterSection: j.chapter_section as string | undefined,
         slug: j.slug as string | undefined,

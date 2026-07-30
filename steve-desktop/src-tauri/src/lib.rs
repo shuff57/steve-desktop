@@ -2414,6 +2414,35 @@ async fn mom_load_books(root: String) -> Result<Vec<MomBookFile>, String> {
     Ok(out)
 }
 
+/// Overwrite one assignment manifest under `<root>/books/`.
+///
+/// TS does the edit, because these files are hand-formatted and only the caller knows how to
+/// change a field without reflowing the rest. This command's job is the guard: the target must
+/// resolve to an existing `.json` INSIDE the books dir, so a crafted path cannot write elsewhere.
+#[tauri::command]
+async fn mom_write_book(root: String, path: String, text: String) -> Result<(), String> {
+    let books_dir = std::path::Path::new(&root).join("books");
+    let canon_books = books_dir
+        .canonicalize()
+        .map_err(|e| format!("books dir unavailable: {}", e))?;
+
+    let target = books_dir.join(&path);
+    // Canonicalize the EXISTING file: this command updates manifests, it does not create them,
+    // so a path that does not resolve is a mistake rather than something to be helpful about.
+    let canon_target = target
+        .canonicalize()
+        .map_err(|_| format!("manifest not found: {}", path))?;
+    if !canon_target.starts_with(&canon_books) {
+        return Err(format!("path escapes books dir: {}", path));
+    }
+    if canon_target.extension().and_then(|e| e.to_str()) != Some("json") {
+        return Err(format!("refusing to write a non-json file: {}", path));
+    }
+
+    std::fs::write(&canon_target, text)
+        .map_err(|e| format!("Failed to write {}: {}", canon_target.display(), e))
+}
+
 /// Resolve the in-repo `mom-content/` dir, so the app defaults there instead of making the
 /// user paste a path. Searches the working dir and its ancestors for a `mom-content/questions`
 /// (dev runs from the app dir or src-tauri, so an ancestor always holds it); "" if not found,
@@ -2840,6 +2869,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             mom_read_manifest,
             mom_read_question,
             mom_create_draft,
+            mom_write_book,
             inject_webview_script,
             scan_local_skills,
             start_oauth_callback_server,

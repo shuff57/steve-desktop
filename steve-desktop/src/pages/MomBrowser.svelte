@@ -19,6 +19,7 @@
   import { questionHealth } from '../integrations/mom/health';
   import { withCheckData, injectChecker, checkableParts } from '../integrations/mom/answer-check';
   import MomChat from '../components/mom/MomChat.svelte';
+  import BookShelf from '../components/mom/BookShelf.svelte';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -55,13 +56,19 @@
   // The books pane listed all 26 assignments flat, so there was no sign of which course each
   // belonged to. Group by book; within a book order by kind then name, so homework, group work and
   // practice stay together instead of interleaving alphabetically.
+  /** Which book the Books view has drilled into; null = showing the book list. */
+  let selectedBookSlug = $state<string | null>(null);
+
   const KIND_ORDER = ['hw', 'practice', 'group', 'ind'];
   const booksByBook = $derived.by(() => {
+    // An assignment appears under EVERY book it belongs to, so sharing one across courses shows
+    // up in both rather than forcing a duplicate file.
     const groups = new Map<string, MomBook[]>();
     for (const b of books) {
-      const key = b.book ?? '';
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key)!.push(b);
+      for (const key of b.books.length ? b.books : ['']) {
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key)!.push(b);
+      }
     }
     return [...groups.entries()]
       .sort((a, b) => a[0].localeCompare(b[0]))
@@ -74,6 +81,20 @@
         }),
       }));
   });
+
+  const currentBook = $derived(booksByBook.find((g) => g.slug === selectedBookSlug) ?? null);
+
+  function selectBookGroup(slug: string) {
+    selectedBookSlug = slug;
+    selectedBook = null;
+  }
+  function backToBooks() {
+    selectedBookSlug = null;
+    selectedBook = null;
+  }
+  function backToAssignments() {
+    selectedBook = null;
+  }
   let selectedBook = $state<MomBook | null>(null);
 
   // Phase 3: draft modal state. When `draftingFamily` is set, the modal opens
@@ -218,6 +239,17 @@
     } finally {
       loading = false;
     }
+  }
+
+  /**
+   * Re-read the manifests after a membership change and re-point `selectedBook` at the fresh
+   * object — the old one is a stale copy, so the chips would keep showing the previous books.
+   */
+  async function reloadBooks() {
+    if (!momRoot) return;
+    const keep = selectedBook?.path;
+    books = await momIsland.methods.listBooks(momRoot).catch(() => books);
+    selectedBook = keep ? (books.find((b) => b.path === keep) ?? null) : null;
   }
 
   /** Open a question referenced by a book entry. filePath is `questions/<family>/<slug>`. */
@@ -429,51 +461,68 @@
           {/if}
         </section>
       {:else}
-        <aside class="families">
-          <h2>Books</h2>
+        <!-- Same one-column drill as Families: book -> assignments -> questions, each level
+             REPLACING the last. Two panes instead of three, so the preview keeps the width. -->
+        <section class="browse">
           {#if books.length === 0}
+            <h2>Books</h2>
             <p class="empty">No assignment manifests under <code>books/</code>.</p>
-          {:else}
-            {#each booksByBook as group (group.slug)}
-              <div class="book-group">
-                <h3 class="book-title">
-                  {group.title}
-                  <span class="book-count">{group.items.length}</span>
-                </h3>
-                <ul>
-                  {#each group.items as b (b.path)}
-                    <li>
-                      <button class="fam" class:active={selectedBook?.path === b.path} onclick={() => (selectedBook = b)}>
-                        <span class="fam-name">{b.name}</span>
-                        <span class="fam-count">{b.questions.length}</span>
-                      </button>
-                    </li>
-                  {/each}
-                </ul>
-              </div>
-            {/each}
-          {/if}
-        </aside>
-
-        <section class="questions">
-          <h2>Assignment {selectedBook ? `· ${selectedBook.name}` : ''}</h2>
-          {#if !selectedBook}
-            <p class="empty">Select an assignment.</p>
-          {:else}
-            <p class="stats muted">
-              {selectedBook.kind ?? ''}{selectedBook.chapterSection ? ` · §${selectedBook.chapterSection}` : ''}{selectedBook.cid ? ` · cid ${selectedBook.cid}` : ''}
-            </p>
+          {:else if !currentBook}
+            <h2>Books</h2>
             <ul>
-              {#each selectedBook.questions as q (q.slot ?? q.filePath)}
+              {#each booksByBook as group (group.slug)}
                 <li>
-                  <button class="q" class:active={selectedQuestion?.path?.replace(/\\/g, '/').endsWith(q.filePath.replace(/^questions\//, ''))} onclick={() => openBookQuestion(q.filePath)}>
-                    <span class="q-slug">{q.slot ? `${q.slot}. ` : ''}{q.title ?? q.filePath}</span>
-                    {#if q.qid}<span class="badge">qid {q.qid}</span>{/if}
-                    {#if q.verifyStatus}<span class="badge status-{q.verifyStatus}">{q.verifyStatus}</span>{/if}
+                  <button class="fam" onclick={() => selectBookGroup(group.slug)}>
+                    <span class="fam-name">{group.title}</span>
+                    <span class="fam-count">{group.items.length}</span>
                   </button>
                 </li>
               {/each}
             </ul>
+          {:else if !selectedBook}
+            <div class="drill-head">
+              <button class="back" onclick={backToBooks}>← Books</button>
+            </div>
+            <h2>{currentBook.title} · {currentBook.items.length}</h2>
+            <ul>
+              {#each currentBook.items as b (b.path)}
+                <li>
+                  <button class="fam" onclick={() => (selectedBook = b)}>
+                    <span class="fam-name">{b.name}</span>
+                    <span class="fam-count">{b.questions.length}</span>
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <div class="drill-head">
+              <button class="back" onclick={backToAssignments}>← {currentBook.title}</button>
+            </div>
+            <h2>{selectedBook.name}</h2>
+            <p class="stats muted">
+              {selectedBook.kind ?? ''}{selectedBook.chapterSection ? ` · §${selectedBook.chapterSection}` : ''}{selectedBook.cid ? ` · cid ${selectedBook.cid}` : ''}
+            </p>
+            <BookShelf
+              book={selectedBook}
+              allBooks={booksByBook.map((g) => g.slug)}
+              root={momRoot ?? ''}
+              onSaved={reloadBooks}
+            />
+            {#if selectedBook.questions.length === 0}
+              <p class="empty">This assignment has no questions yet.</p>
+            {:else}
+              <ul>
+                {#each selectedBook.questions as q (q.slot ?? q.filePath)}
+                  <li>
+                    <button class="q" class:active={selectedQuestion?.path?.replace(/\\/g, '/').endsWith(q.filePath.replace(/^questions\//, ''))} onclick={() => openBookQuestion(q.filePath)}>
+                      <span class="q-slug">{q.slot ? `${q.slot}. ` : ''}{q.title ?? q.filePath}</span>
+                      {#if q.qid}<span class="badge">qid {q.qid}</span>{/if}
+                      {#if q.verifyStatus}<span class="badge status-{q.verifyStatus}">{q.verifyStatus}</span>{/if}
+                    </button>
+                  </li>
+                {/each}
+              </ul>
+            {/if}
           {/if}
         </section>
       {/if}
@@ -624,7 +673,7 @@
   .key-toggle input { cursor: pointer; }
   .back { padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; cursor: pointer; font-size: 12px; }
   .back:hover { background: rgba(128,128,128,.12); }
-  aside, section { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  section { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; overflow: hidden; display: flex; flex-direction: column; }
   h2 { margin: 0 0 8px; font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
   ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
   .fam, .q { display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: inherit; cursor: pointer; text-align: left; font-size: 13px; }
@@ -638,14 +687,6 @@
 
   .preview-head { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
   .preview-head h2 { margin: 0; }
-  /* Book headings in the assignments pane — the course each assignment belongs to. */
-  .book-group + .book-group { margin-top: 14px; }
-  .book-title { display: flex; align-items: center; justify-content: space-between; gap: 8px;
-                margin: 0 0 4px; padding: 0 2px 3px; font-size: 11px; font-weight: 700;
-                letter-spacing: .06em; text-transform: uppercase; opacity: .55;
-                border-bottom: 1px solid rgba(128,128,128,.22); }
-  .book-count { font-weight: 600; opacity: .8; }
-
   .render-frame { flex: 1; width: 100%; border: none; border-radius: 6px; background: #fff; }
   /* Amber = renders but is suspect; red = the sandbox refused it. Both sit ABOVE the frame,
      because the whole point is that the render itself looks convincing. */
@@ -661,8 +702,6 @@
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
   .stats.muted { opacity: .5; }
 
-  .families li { display: flex; gap: 4px; align-items: stretch; }
-  .families .fam { flex: 1; min-width: 0; }
   .new-q { padding: 0 8px; font-size: 11px; border-radius: 6px; border: 1px dashed rgba(128,128,128,.4); background: transparent; color: inherit; cursor: pointer; opacity: .7; }
   .new-q:hover { opacity: 1; border-color: rgba(59,130,246,.5); color: #3b82f6; }
 
