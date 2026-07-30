@@ -21,6 +21,7 @@
   import { withCheckData, injectChecker, checkableParts } from '../integrations/mom/answer-check';
   import MomChat from '../components/mom/MomChat.svelte';
   import BookShelf from '../components/mom/BookShelf.svelte';
+  import MomAuthor from '../components/mom/MomAuthor.svelte';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -136,6 +137,8 @@
 
   // Revision rail. Collapsed by default so it costs nothing until wanted.
   let chatOpen = $state(false);
+  /** The rail hosts two jobs: fix the selected question, or write a new one from the book. */
+  let railTab = $state<'revise' | 'author'>('revise');
 
   /** Re-read the edited file and force a re-render. The agent's summary is not evidence. */
   async function reloadSelected() {
@@ -417,7 +420,7 @@
   {:else if families.length === 0}
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
-    <div class="panes" class:drilled={view === 'questions'} class:chat={chatOpen}>
+    <div class="panes" class:chat={chatOpen}>
       {#if view === 'questions'}
         <!-- One column, drilled: families REPLACE themselves with their questions rather than
              opening a second sidebar. A laptop only has so much horizontal room, and the preview
@@ -612,13 +615,33 @@
         {/if}
       </section>
 
-      <MomChat
-        bind:open={chatOpen}
-        path={selectedQuestion?.path ?? null}
-        label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
-        contents={selectedQuestion?.contents ?? ''}
-        onRevised={reloadSelected}
-      />
+      {#if chatOpen}
+        <aside class="rail">
+          <div class="rail-tabs">
+            <button class:active={railTab === 'revise'} onclick={() => (railTab = 'revise')}>Revise</button>
+            <button class:active={railTab === 'author'} onclick={() => (railTab = 'author')}>Write</button>
+            <button class="collapse" title="Collapse" onclick={() => (chatOpen = false)}>›</button>
+          </div>
+          {#if railTab === 'author'}
+            <MomAuthor
+              root={momRoot ?? ''}
+              sandboxUrl={SANDBOX_URL}
+              onDone={() => loadIndex()}
+            />
+          {:else}
+            <MomChat
+              open
+              embedded
+              path={selectedQuestion?.path ?? null}
+              label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
+              contents={selectedQuestion?.contents ?? ''}
+              onRevised={reloadSelected}
+            />
+          {/if}
+        </aside>
+      {:else}
+        <button class="strip" title="Open the revise / write rail" onclick={() => (chatOpen = true)}>‹ Revise</button>
+      {/if}
     </div>
 
     <footer class="drafts-config">
@@ -678,16 +701,26 @@
   .empty { opacity: .6; text-align: center; padding: 40px 16px; }
   .empty code { font-size: 12px; }
 
-  .panes { display: grid; grid-template-columns: 200px 260px 1fr; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
-  /* Questions view drills in place, so it needs one list column, not two. Reclaiming the second
-     column gives the preview ~200px more — the pane that actually benefits on a laptop. */
-  .panes.drilled { grid-template-columns: 260px 1fr; }
-  /* The rail adds a column when open and a thin strip when not, so collapsing really does give
-     the width back rather than just hiding content. */
-  .panes.drilled { grid-template-columns: 260px 1fr auto; }
-  .panes.drilled.chat { grid-template-columns: 260px 1fr 320px; }
-  .panes:not(.drilled) { grid-template-columns: 200px 260px 1fr auto; }
-  .panes:not(.drilled).chat { grid-template-columns: 200px 260px 1fr 320px; }
+  /* BOTH views are now one drilling list + preview + rail. While Books still had three panes this
+     declared a fourth column for it, so the collapsed rail landed in the `1fr` column and stretched
+     across the pane instead of being a thin strip. */
+  .panes { display: grid; grid-template-columns: 260px 1fr auto; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
+  /* The rail takes a real column when open and only its own width when not, so collapsing gives
+     the space back rather than just hiding content. */
+  .panes.chat { grid-template-columns: 260px 1fr 320px; }
+  .rail { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; display: flex;
+          flex-direction: column; min-height: 0; overflow: hidden; gap: 8px; }
+  .rail-tabs { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+  .rail-tabs button { padding: 3px 10px; border-radius: 6px; border: 1px solid transparent;
+                      background: transparent; color: inherit; cursor: pointer; font-size: 12px; opacity: .6; }
+  .rail-tabs button.active { opacity: 1; border-color: rgba(128,128,128,.35); background: rgba(128,128,128,.12); }
+  .rail-tabs .collapse { margin-left: auto; font-size: 16px; opacity: .6; padding: 0 4px; }
+  /* Collapsed: a thin vertical strip that costs nothing until wanted. `align-self: start` keeps it
+     from stretching to the pane height. */
+  .strip { align-self: start; writing-mode: vertical-rl; padding: 12px 6px; border-radius: 8px;
+           border: 1px solid rgba(128,128,128,.25); background: rgba(128,128,128,.06); color: inherit;
+           cursor: pointer; font-size: 12px; letter-spacing: .04em; opacity: .8; }
+  .strip:hover { opacity: 1; background: rgba(128,128,128,.12); }
   .drill-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-shrink: 0; }
   .preview-toggles { display: flex; align-items: center; gap: 10px; }
   .key-toggle { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: .8; cursor: pointer; user-select: none; }

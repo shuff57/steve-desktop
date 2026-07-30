@@ -15,6 +15,8 @@
 
   let {
     open = $bindable(false),
+    /** The rail now hosts tabs, so the parent draws the frame and the collapse control. */
+    embedded = false,
     path = null,
     label = null,
     contents = '',
@@ -23,6 +25,7 @@
     onRevised = () => {},
   } = $props<{
     open?: boolean;
+    embedded?: boolean;
     path?: string | null;
     label?: string | null;
     contents?: string;
@@ -77,11 +80,13 @@
 </script>
 
 {#if open}
-  <aside class="rail">
-    <div class="rail-head">
-      <h2>Revise</h2>
-      <button class="collapse" title="Collapse" onclick={() => (open = false)}>›</button>
-    </div>
+  <div class:rail={!embedded} class:embedded>
+    {#if !embedded}
+      <div class="rail-head">
+        <h2>Revise</h2>
+        <button class="collapse" title="Collapse" onclick={() => (open = false)}>›</button>
+      </div>
+    {/if}
 
     {#if label}
       <p class="ctx" title={path ?? ''}>{label}</p>
@@ -111,13 +116,15 @@
         {busy ? 'Working…' : 'Send'}
       </button>
     </div>
-  </aside>
-{:else}
+  </div>
+{:else if !embedded}
   <button class="strip" title="Open revision chat" onclick={() => (open = true)}>‹ Revise</button>
 {/if}
 
 <style>
   .rail { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+  /* Inside the tabbed rail the parent supplies the frame; only the column layout is still needed. */
+  .embedded { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
   .rail-head { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .rail-head h2 { margin: 0 0 8px; font-size: 13px; opacity: .7; text-transform: uppercase; letter-spacing: .05em; }
   .collapse { background: transparent; border: none; color: inherit; cursor: pointer; font-size: 16px; opacity: .6; padding: 0 4px; }

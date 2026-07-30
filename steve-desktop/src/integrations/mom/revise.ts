@@ -30,6 +30,11 @@ export const MOM_DIALECT_RULES = [
   '`$anstypes`, every `$answer[i]`, every `$ansprompt[i]` and every `$answerbox[i]` must stay in agreement.',
   'Precompute every derived value so the prompt and the answer key cannot disagree.',
   'Round money with `round($v, 2)`; never `number_format`.',
+  // The four below were each found by repairing real broken questions in the bank, not guessed.
+  'The ANSWER section is CODE, not markup. Put HTML in `$solutionguide` in the control block and reference `$solutionguide` there — raw `<div>` in ANSWER is a syntax error.',
+  'Braces EVALUATE. `{$x}` in question text is parsed as an expression, so set-builder notation like `{students who own a dog}` breaks the question. Use `&#123;` / `&#125;`.',
+  'Use `&&` and `||`. The word operators `and` / `or` are rejected by the parser.',
+  'One statement per line. Two statements joined by `;` on one line fails.',
 ];
 
 /**
