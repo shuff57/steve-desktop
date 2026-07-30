@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { replayWorkflow, modelRelocator, visualRelocator, parseRelocateReply, buildRelocatePrompt, type PageDriver, type ModelHealer } from './replay';
+import { parseSelector } from './selector-resolve';
 import type { Workflow, WorkflowStep } from './types/site-profile';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
@@ -14,7 +15,16 @@ class MockPage implements PageDriver {
   acted: Array<{ selector: string; value?: string }> = [];
   constructor(public els: El[]) {}
   exists(selector: string): boolean {
-    return this.els.some((e) => e.selector === selector);
+    if (this.els.some((e) => e.selector === selector)) return true;
+    // The live driver resolves role=name through selector-resolve, so the mock has to as well.
+    // While it only did string equality, a role-anchored selector read as "missing" and replay
+    // quietly fell through to a later heal tier — the mock, not the code, failing the assertion.
+    const p = parseSelector(selector);
+    if (p.kind !== 'role' || !p.name) return false;
+    return this.snapshot().nodes.some((n) => {
+      const name = (n.attrs['aria-label'] || n.text || '').trim();
+      return (n.attrs['role'] ?? '') === p.role && name.includes(p.name!);
+    });
   }
   snapshot(): SnapshotResult {
     const nodes: SnapshotNode[] = this.els.map((e) => ({
@@ -295,9 +305,11 @@ describe('stage 3 — weighted ranking replaces stop-at-first-match', () => {
     const summary = await replayWorkflow(wf, page);
 
     expect(summary.results[0].status).toBe('recovered');
-    expect(summary.results[0].selectorUsed).toBe('#btn_9f3a'); // not #cancel
+    // Anchored by what the button SAYS, not by the id the app regenerated. "Save Grade", not
+    // "Cancel", is the assertion that matters — first-match would have taken the decoy.
+    expect(summary.results[0].selectorUsed).toBe('role=button[name="Save Grade"]');
     expect(summary.results[0].detail).toMatch(/ranked page elements/i);
-    expect(wf.steps[0].selector).toBe('#btn_9f3a'); // persisted
+    expect(wf.steps[0].selector).toBe('role=button[name="Save Grade"]'); // persisted
   });
 
   it('a ranked pick that fails its postcondition is not persisted', async () => {

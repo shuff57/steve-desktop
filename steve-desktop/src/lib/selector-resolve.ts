@@ -26,9 +26,41 @@ export function parseSelector(selector: string): ParsedSelector {
 
 // Implicit ARIA roles for the common interactive tags (enough for replay anchoring).
 const IMPLICIT_ROLE: Record<string, string> = {
-  A: 'link', BUTTON: 'button', INPUT: 'textbox', TEXTAREA: 'textbox', SELECT: 'combobox',
+  A: 'link', BUTTON: 'button', TEXTAREA: 'textbox', SELECT: 'combobox',
   H1: 'heading', H2: 'heading', H3: 'heading', H4: 'heading', H5: 'heading', H6: 'heading',
 };
+
+/**
+ * `<input>` has no single implicit role — it depends on `type`. Mapping every INPUT to `textbox`
+ * meant a recorded `role=checkbox[name="…"]` could never resolve, which matters because a gradebook
+ * is mostly checkboxes. Values follow what Chromium's AX tree reports, since the recorded name came
+ * from Accessibility.getFullAXTree and the two sides have to agree.
+ *
+ * `hidden` maps to the empty string on purpose: it has no role, so it must never match. Unknown
+ * types (date, color, file, …) keep the old `textbox` default rather than silently matching nothing.
+ */
+const INPUT_TYPE_ROLE: Record<string, string> = {
+  checkbox: 'checkbox', radio: 'radio',
+  button: 'button', submit: 'button', reset: 'button', image: 'button',
+  range: 'slider', number: 'spinbutton', search: 'searchbox',
+  hidden: '',
+  text: 'textbox', email: 'textbox', tel: 'textbox', url: 'textbox', password: 'textbox',
+};
+
+/**
+ * Page-side role resolution, shared by the resolver and the counter for the same reason
+ * ACCESSIBLE_NAME_FN is: if they disagree, the count stops describing what the action layer hits.
+ */
+const ROLE_OF_FN = `function(el){
+  var r=el.getAttribute('role');
+  if(r&&r.trim())return r.trim().toLowerCase();
+  var IMP=${JSON.stringify(IMPLICIT_ROLE)},ITR=${JSON.stringify(INPUT_TYPE_ROLE)};
+  if(el.tagName==='INPUT'){
+    var t=(el.getAttribute('type')||'text').toLowerCase();
+    return Object.prototype.hasOwnProperty.call(ITR,t)?ITR[t]:'textbox';
+  }
+  return IMP[el.tagName]||'';
+}`;
 
 /**
  * Page-side accessible-name approximation, shared by the resolver and the counter so they can
@@ -84,12 +116,11 @@ export function selectorToElementExpr(selector: string): string {
   }
 
   if (p.kind === 'role') {
-    const implicit = JSON.stringify(IMPLICIT_ROLE);
     return (
       `(function(){var role=${JSON.stringify(p.role)},NAME=${NORMALIZE_FN}(${JSON.stringify(p.name)}),` +
-      `AN=${ACCESSIBLE_NAME_FN},IMP=${implicit},els=document.querySelectorAll('*');` +
+      `AN=${ACCESSIBLE_NAME_FN},ROLE=${ROLE_OF_FN},els=document.querySelectorAll('*');` +
       `for(var i=0;i<els.length;i++){var el=els[i];` +
-      `var r=el.getAttribute('role')||IMP[el.tagName]||'';if(r!==role)continue;` +
+      `var r=ROLE(el);if(!r||r!==role)continue;` +
       `var n=AN(el);` +
       `if(n===NAME||(NAME&&n.indexOf(NAME)!==-1))return el;}return null;})()`
     );
@@ -117,12 +148,11 @@ export function selectorToCountExpr(selector: string): string {
   }
 
   if (p.kind === 'role') {
-    const implicit = JSON.stringify(IMPLICIT_ROLE);
     return (
       `(function(){var role=${JSON.stringify(p.role)},NAME=${NORMALIZE_FN}(${JSON.stringify(p.name)}),` +
-      `AN=${ACCESSIBLE_NAME_FN},IMP=${implicit},els=document.querySelectorAll('*'),n=0;` +
+      `AN=${ACCESSIBLE_NAME_FN},ROLE=${ROLE_OF_FN},els=document.querySelectorAll('*'),n=0;` +
       `for(var i=0;i<els.length;i++){var el=els[i];` +
-      `var r=el.getAttribute('role')||IMP[el.tagName]||'';if(r!==role)continue;` +
+      `var r=ROLE(el);if(!r||r!==role)continue;` +
       `var t=AN(el);` +
       `if(t===NAME||(NAME&&t.indexOf(NAME)!==-1))n++;}return n;})()`
     );

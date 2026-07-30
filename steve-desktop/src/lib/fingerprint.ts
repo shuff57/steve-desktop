@@ -174,20 +174,44 @@ export function isInteractive(node: SnapshotNode): boolean {
   return INTERACTIVE_TAGS.has((node.tag ?? '').toLowerCase()) || INTERACTIVE_ROLES.has(role);
 }
 
-/** A selector that addresses this node, preferring the anchors that survive change. */
+/** Longest text we'll accept as a role=name anchor. Past this it's prose, not a label. */
+const MAX_NAME_LEN = 80;
+
+/** A selector that addresses this node, preferring the anchors that survive change.
+ *
+ * `role=name` outranks `#id` deliberately, for two reasons that point the same way:
+ *   - Durability. `aria-label` on a merged node is often the COMPUTED accessible name —
+ *     merged-tree writes the AX name there when the element carries no literal attribute — so the
+ *     CSS form matches nothing. Live MyOpenMath produced `a[aria-label="MyOpenMath"]` resolving to
+ *     0 elements on the very page it came from, which as a key node reports drift on every run.
+ *     role=name resolves by accessible name either way (selector-resolve).
+ *   - PII. Canvas path-addresses student identity, and that reaches DOM ids. With `#id` ranked
+ *     first, a stored selector could bake a student id into a saved profile. Naming the element by
+ *     what it says, not by the row it sits in, keeps identity out of the profile.
+ * `#id` stays in the ladder, just below.
+ */
 export function selectorForNode(node: SnapshotNode): string {
   const a = node.attrs ?? {};
   if (a['data-testid']) return `[data-testid="${a['data-testid']}"]`;
+  // A role with no `aria-label` still has a name if the capture put it in `text` — that is the
+  // common shape, and requiring both attributes dropped those nodes all the way to the bare-tag
+  // fallback below.
+  const name = (a['aria-label'] || node.text || '').trim();
+  if (a['role'] && name && name.length <= MAX_NAME_LEN) return `role=${a['role']}[name="${name}"]`;
   if (a['id']) return `#${a['id']}`;
   if (a['name']) return `${node.tag}[name="${a['name']}"]`;
-  // `aria-label` on a merged node is often the COMPUTED accessible name — merged-tree writes the
-  // AX name there when the element carries no literal attribute — so the CSS form matches nothing.
-  // Live MyOpenMath produced `a[aria-label="MyOpenMath"]` resolving to 0 elements on the very page
-  // it came from, which as a key node reports drift on every single run. role=name resolves by
-  // accessible name either way (selector-resolve), so prefer it whenever we know the role.
-  if (a['aria-label'] && a['role']) return `role=${a['role']}[name="${a['aria-label']}"]`;
   if (a['aria-label']) return `${node.tag}[aria-label="${a['aria-label']}"]`;
   return node.tag;
+}
+
+/**
+ * True when selectorForNode found no anchor at all and fell back to the bare tag.
+ *
+ * A bare tag is not an address: `document.querySelector('a')` is the FIRST link on the page, not
+ * this node. Callers that resolve a selector back to a specific element must drop these.
+ */
+export function isUnanchored(node: SnapshotNode): boolean {
+  return selectorForNode(node) === node.tag;
 }
 
 export interface RankedCandidate {
@@ -201,6 +225,12 @@ export interface RankedCandidate {
  * best `k`, highest first. This is the replacement for stop-at-first-match: the caller tries them
  * in order (each still gated by its postcondition), and only escalates to the model to arbitrate
  * between these few — never over the whole tree.
+ *
+ * Unanchored nodes are dropped. Ranking used to score the RIGHT node and then hand back the bare
+ * tag that addresses it — so replay clicked the first `<a>` on the page instead. actGated catches
+ * the wrong outcome afterwards, but the click has already landed, and on a live gradebook that is
+ * not free. A node we cannot address is no candidate; falling through to the next heal tier is the
+ * correct answer, not a guess.
  */
 export function rankCandidates(
   stored: ElementFingerprint,
@@ -211,6 +241,7 @@ export function rankCandidates(
   const nodes = snapshot.nodes.filter(isInteractive);
   return nodes
     .map((node, i) => ({ selector: selectorForNode(node), score: scoreFingerprint(stored, fingerprintOf(node, i, nodes)), node }))
+    .filter((c) => c.selector !== c.node.tag)
     .filter((c) => c.score >= minScore)
     .sort((a, b) => b.score - a.score)
     .slice(0, k);

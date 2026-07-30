@@ -44,3 +44,43 @@ describe('selectorToCountExpr — counts what the action layer would hit', () =>
     expect(count('role=button[name="Nonexistent"]')).toBe(0);
   });
 });
+
+// `<input>`'s implicit role depends on `type`. Every INPUT used to resolve as `textbox`, so a
+// recorded role=checkbox anchor matched nothing — on a gradebook, which is mostly checkboxes.
+describe('implicit input roles', () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <input type="checkbox" aria-label="Excused">
+      <input type="submit" aria-label="Post grades">
+      <input type="text" aria-label="Score">
+      <input type="date" aria-label="Due">
+      <input type="hidden" aria-label="csrf">
+      <input type="checkbox" role="switch" aria-label="Late policy">`;
+  });
+
+  it('resolves a checkbox as checkbox, not textbox', () => {
+    expect(count('role=checkbox[name="Excused"]')).toBe(1);
+    expect(count('role=textbox[name="Excused"]')).toBe(0);
+  });
+
+  it('resolves submit as button', () => {
+    expect(count('role=button[name="Post grades"]')).toBe(1);
+  });
+
+  it('still resolves a text input as textbox', () => {
+    expect(count('role=textbox[name="Score"]')).toBe(1);
+  });
+
+  it('keeps the textbox default for types it has no mapping for', () => {
+    expect(count('role=textbox[name="Due"]')).toBe(1);
+  });
+
+  it('never matches a hidden input — it has no role', () => {
+    expect(count('role=textbox[name="csrf"]')).toBe(0);
+  });
+
+  it('lets an explicit role attribute win over the implicit one', () => {
+    expect(count('role=switch[name="Late policy"]')).toBe(1);
+    expect(count('role=checkbox[name="Late policy"]')).toBe(0);
+  });
+});
