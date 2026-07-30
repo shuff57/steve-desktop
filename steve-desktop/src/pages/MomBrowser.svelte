@@ -15,6 +15,7 @@
   import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
+  import { prepareRenderHtml } from '../integrations/mom/render-html';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -71,7 +72,9 @@
         body: contents,
       });
       if (!res.ok) throw new Error(`sandbox HTTP ${res.status}`);
-      renderedHtml = await res.text();
+      // The sandbox's MathJax config makes `(` and `$` math delimiters, which italicises ordinary
+      // prose and currency. Repair it before the iframe runs MathJax.
+      renderedHtml = prepareRenderHtml(await res.text());
     } catch (e) {
       renderErr = e instanceof Error ? e.message : String(e);
       renderedHtml = '';
