@@ -18,7 +18,7 @@ $dsym = $dirsym[$dir_choice]
 $dtxt = $dirtxt[$dir_choice]
 
 // Strict vs non-strict for the boundary-line answer
-$is_solid = ($dir == "le" or $dir == "ge") ? 1 : 0
+$is_solid = ($dir == "le" || $dir == "ge") ? 1 : 0
 
 // Pick a clean boundary y = mx + b with integer m, b
 $m = randfrom("-3,-2,-1,1,2,3")
@@ -34,7 +34,7 @@ $Ccoef = $bint * $Bcoef
 // Build display string for "Acoef x + Bcoef y [op] Ccoef"
 $Apart = ($Acoef == 1) ? "x" : (($Acoef == -1) ? "-x" : $Acoef . "x")
 $Bpart = ($Bcoef == 1) ? "y" : $Bcoef . "y"
-if ($Bcoef > 0 and $Acoef != 0) {
+if ($Bcoef > 0 && $Acoef != 0) {
   $sign = " + "
   $left = $Apart . $sign . $Bpart
 } else {
@@ -46,10 +46,10 @@ $ineq_latex = $left . " " . $dsym . " " . $Ccoef
 // Does the inequality region include the origin (0,0)?
 // Check: A*0 + B*0 = 0 against c.
 $zero_holds = 0
-if ($dir == "le" and 0 <= $Ccoef) { $zero_holds = 1 }
-if ($dir == "ge" and 0 >= $Ccoef) { $zero_holds = 1 }
-if ($dir == "lt" and 0 <  $Ccoef) { $zero_holds = 1 }
-if ($dir == "gt" and 0 >  $Ccoef) { $zero_holds = 1 }
+if ($dir == "le" && 0 <= $Ccoef) { $zero_holds = 1 }
+if ($dir == "ge" && 0 >= $Ccoef) { $zero_holds = 1 }
+if ($dir == "lt" && 0 <  $Ccoef) { $zero_holds = 1 }
+if ($dir == "gt" && 0 >  $Ccoef) { $zero_holds = 1 }
 
 // Answers:
 //   [0] slope of boundary line (number)

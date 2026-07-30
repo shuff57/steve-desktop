@@ -159,7 +159,7 @@ $solutionguide = $css_block . '
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
 <p><b>Two-Set Venn Diagram</b></p>
-<p>A total of <b>$n_u $ctx_noun</b> $ctx_survey. Let <b>A</b> = {$ctx_noun who $ctx_a} and <b>B</b> = {$ctx_noun who $ctx_b}.</p>
+<p>A total of <b>$n_u $ctx_noun</b> $ctx_survey. Let <b>A</b> = &#123;$ctx_noun who $ctx_a&#125; and <b>B</b> = &#123;$ctx_noun who $ctx_b&#125;.</p>
 
 <p>The survey results are summarized in the Venn diagram regions below:</p>
 

@@ -159,7 +159,7 @@ $solutionguide = $css_block . '
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
 <p><b>Addition Rule for Probability</b></p>
-<p>A survey of <b>$total $ctx_pop</b> found the following information. Let <b>A</b> = {$ctx_noun who $ctx_a} and <b>B</b> = {$ctx_noun who $ctx_b}.</p>
+<p>A survey of <b>$total $ctx_pop</b> found the following information. Let <b>A</b> = &#123;$ctx_noun who $ctx_a&#125; and <b>B</b> = &#123;$ctx_noun who $ctx_b&#125;.</p>
 
 <table style="border-collapse:collapse; margin:10px 0; font-size:medium;">
   <tr>

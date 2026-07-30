@@ -84,8 +84,10 @@ $solutionguide = '
 </div>'
 
 /* ---------- 3. Question Text ---------- */
-$questiontext = '
-<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
+
+//question text// === QUESTION TEXT ===
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <p>Use the simplex tableau below to answer the questions about the next pivot step.</p>
   <style>
     .sx-q { border-collapse:collapse; margin:12px 0; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:15px; }
@@ -110,12 +112,7 @@ $questiontext = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> What is the minimum ratio for the pivot row?
     <div style="margin-top:12px; text-align:center;">$answerbox[2]</div>
   </div>
-</div>'
+</div>
 
-//question text
-
-$questiontext
-
-///
-
+// === ANSWER ===
 $solutionguide

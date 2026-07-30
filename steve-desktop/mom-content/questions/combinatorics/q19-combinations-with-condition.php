@@ -84,25 +84,27 @@ $solutionguide = '
 </div>'
 
 /* ---------- 3. Question Text ---------- */
-$questiontext = '
-<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
+
+// Precomputed for the question text: substitution takes scalars only, and a variable
+// followed by letters would read as a different variable name.
+$__qt1 = $ilab . "s"
+$__qt2 = $ilab . "s"
+
+//question text// === QUESTION TEXT ===
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 8px 0;">From '.$grp.', the group needs to form '.$ilab.'. One member of the group is named '.$pname.'.</p>
+    <p style="margin:0 0 8px 0;">From $grp, the group needs to form $ilab. One member of the group is named $pname.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> How many different '.$ilab.'s are possible (any '.$rval.' members)?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> How many different $__qt1 are possible (any $rval members)?
     <div style="margin-top:12px; text-align:center;">$answerbox[0]</div>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> How many of those '.$ilab.'s include '.$pname.'?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> How many of those $__qt2 include $pname?
     <div style="margin-top:12px; text-align:center;">$answerbox[1]</div>
   </div>
-</div>'
+</div>
 
-//question text
-
-$questiontext
-
-///
-
+// === ANSWER ===
 $solutionguide

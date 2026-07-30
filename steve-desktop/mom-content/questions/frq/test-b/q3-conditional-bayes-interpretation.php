@@ -235,9 +235,9 @@ $rubricanswerbutton = $css_block . '
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Plain-English restatement of P(A | B).
-                    <span class="ideal-ans">Target: "P('.$A.' | '.$B.') means: among all the cases where '$B.', what fraction also '$A.'?"</span></li>
+                    <span class="ideal-ans">Target: "P('.$A.' | '.$B.') means: among all the cases where ' . $B . ', what fraction also ' . $A . '?"</span></li>
                 <li>Identify the reduced sample space.
-                    <span class="ideal-ans">Target: "We restrict attention to the '.$pAgivB_den.' cases where '$B.' (not the full '.$n.')."</span></li>
+                    <span class="ideal-ans">Target: "We restrict attention to the '.$pAgivB_den.' cases where ' . $B . ' (not the full '.$n.')."</span></li>
                 <li>Numerical value.
                     <span class="ideal-ans">Target: "P(A | B) = '.$pAgivB_num.'/'.$pAgivB_den.' = '.$pAgivB_show.'."</span></li>
               </ul>
@@ -250,7 +250,7 @@ $rubricanswerbutton = $css_block . '
                 <li>State that P(A | B) is not equal to P(B | A).
                     <span class="ideal-ans">Target: "P(A | B) = '.$pAgivB_show.' but P(B | A) = '.$pBgivA_show.'; they are not equal."</span></li>
                 <li>Why they differ.
-                    <span class="ideal-ans">Target: "Both fractions share the same numerator ('.$pAgivB_num.' joint cases) but use different denominators: P(A | B) divides by the '$B.' total ('.$pAgivB_den.'), while P(B | A) divides by the '$A.' total ('.$pBgivA_den.'). Different denominators give different answers."</span></li>
+                    <span class="ideal-ans">Target: "Both fractions share the same numerator ('.$pAgivB_num.' joint cases) but use different denominators: P(A | B) divides by the ' . $B . ' total ('.$pAgivB_den.'), while P(B | A) divides by the ' . $A . ' total ('.$pBgivA_den.'). Different denominators give different answers."</span></li>
                 <li>Value of P(B | A).
                     <span class="ideal-ans">Target: "P('.$B.' | '.$A.') = '.$pBgivA_num.'/'.$pBgivA_den.' = '.$pBgivA_show.'."</span></li>
               </ul>
@@ -261,7 +261,7 @@ $rubricanswerbutton = $css_block . '
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Which cells and why.
-                    <span class="ideal-ans">Target: "Take the joint cell where both '$A.' and '$B.' are true ('.$pAgivB_num.') and divide by the marginal total for '$B.' ('.$pAgivB_den.'). This is P(A and B) / P(B), which restricts the universe to B cases."</span></li>
+                    <span class="ideal-ans">Target: "Take the joint cell where both ' . $A . ' and ' . $B . ' are true ('.$pAgivB_num.') and divide by the marginal total for ' . $B . ' ('.$pAgivB_den.'). This is P(A and B) / P(B), which restricts the universe to B cases."</span></li>
               </ul>
             </td>
           </tr>

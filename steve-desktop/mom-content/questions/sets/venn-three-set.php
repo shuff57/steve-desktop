@@ -167,9 +167,9 @@ $solutionguide = $css_block . '
 <p><b>Three-Set Venn Diagram</b></p>
 <p>A total of <b>$n_u $ctx_noun</b> $ctx_survey. Let:</p>
 <ul>
-  <li><b>A</b> = {$ctx_noun who $ctx_a}</li>
-  <li><b>B</b> = {$ctx_noun who $ctx_b}</li>
-  <li><b>C</b> = {$ctx_noun who $ctx_c}</li>
+  <li><b>A</b> = &#123;$ctx_noun who $ctx_a&#125;</li>
+  <li><b>B</b> = &#123;$ctx_noun who $ctx_b&#125;</li>
+  <li><b>C</b> = &#123;$ctx_noun who $ctx_c&#125;</li>
 </ul>
 
 <p>The number of people in each region of the three-circle Venn diagram is given below:</p>

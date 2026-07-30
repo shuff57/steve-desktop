@@ -58,11 +58,14 @@ $rubric = '
   </div>
 </div>';
 
-$qtext_html = '
-<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif;font-size:16px;line-height:1.7;color:#21242c;max-width:720px;">
+
+
+// === QUESTION TEXT ===
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:16px;line-height:1.7;color:#21242c;max-width:720px;">
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:18px 22px;margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-    <p style="margin:0 0 10px 0;">' . $context . '</p>
-    <p style="margin:0;">The 95% two-sample t-interval for `mu_1 - mu_2` is <strong>(' . $ci_low . ', ' . $ci_high . ')</strong> ' . $unit . '.</p>
+    <p style="margin:0 0 10px 0;">$context</p>
+    <p style="margin:0;">The 95% two-sample t-interval for `mu_1 - mu_2` is <strong>($ci_low, $ci_high)</strong> $unit.</p>
   </div>
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 22px;margin:6px 0;">
     <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">a.</span> Interpret the confidence interval in the context of the study. Include the confidence level, both groups, the parameter, and units.</p>
@@ -76,10 +79,4 @@ $qtext_html = '
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 22px;margin:6px 0;">
     $answerbox[0]
   </div>
-</div>';
-
-$qtext_html = $qtext_html . $rubric;
-
-// === QUESTION TEXT ===
-
-$qtext_html
+</div>$rubric

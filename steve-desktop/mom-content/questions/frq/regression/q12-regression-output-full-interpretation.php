@@ -59,10 +59,17 @@ $rubric = '
   </div>
 </div>';
 
-$qtext_html = '
-<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif;font-size:16px;line-height:1.7;color:#21242c;max-width:720px;">
+
+// Precomputed for the question text: substitution takes scalars only, and a variable
+// followed by letters would read as a different variable name.
+$__qt1 = ucfirst($xshort)
+
+
+// === QUESTION TEXT ===
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:16px;line-height:1.7;color:#21242c;max-width:720px;">
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:18px 22px;margin:10px 0;box-shadow:0 2px 6px rgba(0,0,0,0.05);">
-    <p style="margin:0 0 12px 0;">A researcher regressed <strong>' . $yname . '</strong> on <strong>' . $xname . '</strong>. The regression output is shown below.</p>
+    <p style="margin:0 0 12px 0;">A researcher regressed <strong>$yname</strong> on <strong>$xname</strong>. The regression output is shown below.</p>
     <table style="border-collapse:collapse;width:100%;font-size:14px;">
       <tr style="background:#f3f4f6;">
         <th style="border:1px solid #d1d5db;padding:8px 12px;text-align:left;">Term</th>
@@ -72,13 +79,13 @@ $qtext_html = '
       </tr>
       <tr>
         <td style="border:1px solid #d1d5db;padding:8px 12px;">Intercept</td>
-        <td style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">' . $intercept . '</td>
-        <td rowspan="2" style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">' . $pval . '</td>
-        <td rowspan="2" style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">' . $r2 . '</td>
+        <td style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">$intercept</td>
+        <td rowspan="2" style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">$pval</td>
+        <td rowspan="2" style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">$r2</td>
       </tr>
       <tr>
-        <td style="border:1px solid #d1d5db;padding:8px 12px;">' . ucfirst($xshort) . '</td>
-        <td style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">' . $slope . '</td>
+        <td style="border:1px solid #d1d5db;padding:8px 12px;">$__qt1</td>
+        <td style="border:1px solid #d1d5db;padding:8px 12px;text-align:center;">$slope</td>
       </tr>
     </table>
     <p style="margin:10px 0 0 0;font-size:13px;color:#6b7280;">Test: H<sub>0</sub>: &beta;<sub>1</sub> = 0 vs. H<sub>a</sub>: &beta;<sub>1</sub> &ne; 0, &alpha; = 0.05</p>
@@ -87,18 +94,12 @@ $qtext_html = '
     <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">a.</span> Interpret the slope in the context of this study. Include direction, units, and the word "predicted."</p>
   </div>
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 22px;margin:6px 0;">
-    <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">b.</span> Interpret r² = ' . $r2 . ' in the context of this study.</p>
+    <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">b.</span> Interpret r² = $r2 in the context of this study.</p>
   </div>
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 22px;margin:6px 0;">
-    <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">c.</span> The p-value for the slope test is ' . $pval . '. What does this tell us about the relationship between ' . $xshort . ' and ' . $yshort . ' <em>in the population</em>?</p>
+    <p style="margin:0;"><span style="background:#e8f0fe;color:#1865f2;border-radius:6px;padding:2px 8px;font-size:13px;font-weight:700;margin-right:8px;">c.</span> The p-value for the slope test is $pval. What does this tell us about the relationship between $xshort and $yshort <em>in the population</em>?</p>
   </div>
   <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 22px;margin:6px 0;">
     $answerbox[0]
   </div>
-</div>';
-
-$qtext_html = $qtext_html . $rubric;
-
-// === QUESTION TEXT ===
-
-$qtext_html
+</div>$rubric

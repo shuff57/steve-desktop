@@ -94,8 +94,10 @@ $solutionguide = '
 </div>'
 
 /* ---------- 3. Question Text ---------- */
-$questiontext = '
-<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
+
+//question text// === QUESTION TEXT ===
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
 
   <p>A candle shop produces two products: <b>jar candles</b> (x<sub>1</sub>) and <b>pillar candles</b> (x<sub>2</sub>). Each jar candle generates $20 in profit, and each pillar candle generates $25 in profit.</p>
 
@@ -146,12 +148,7 @@ $questiontext = '
     <div style="margin-top:12px; text-align:center;">$answerbox[3]</div>
   </div>
 
-</div>'
+</div>
 
-//question text
-
-$questiontext
-
-///
-
+// === ANSWER ===
 $solutionguide

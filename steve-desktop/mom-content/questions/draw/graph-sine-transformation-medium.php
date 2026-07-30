@@ -110,6 +110,8 @@ $snaptogrid   = "15:1"
 if ($a < 0) { $a_role_max = "minimum"; $a_role_min = "maximum"; $start_dir = "downward" }
 else        { $a_role_max = "maximum"; $a_role_min = "minimum"; $start_dir = "upward" }
 
+$solutionguide = '<div style="text-align:center; margin:8px 0;">' . $solgraph . '</div>'
+
 // === QUESTION TEXT ===
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.4; color:#21242c; max-width:688px;"><p style="margin:0 0 4px 0;">Graph one full period of</p><p style="text-align:center; font-size:1.2em; font-weight:bold; background:#f0f4ff; padding:12px; border-radius:8px; border:1px solid #c5d3f0; margin:0 0 8px 0;">{$eq_show}</p><p style="margin:0 0 8px 0;">Use the <b>sine curve tool</b> to draw one full period.</p></div>
@@ -118,4 +120,4 @@ $answerbox
 
 // === ANSWER ===
 
-<div style="text-align:center; margin:8px 0;">{$solgraph}</div>
+$solutionguide
