@@ -36,8 +36,8 @@
     sandboxUrl: string;
     /** Existing question families, for the picker. */
     families?: string[];
-    /** Assignments the new question can be added to, grouped by book. */
-    placements?: { book: string; items: { path: string; name: string }[] }[];
+    /** Every book, with its assignments — including empty ones, which are still selectable. */
+    placements?: { slug: string; title: string; items: { path: string; name: string }[] }[];
     provider?: string | null;
     model?: string | null;
     onDone?: (path: string) => void | Promise<void>;
@@ -51,8 +51,9 @@
   let family = $state('descriptive-stats');
   /** Typing a new family instead of picking one. */
   let newFamily = $state(false);
-  /** Manifest paths to append the finished question to. */
-  let placeIn = $state<string[]>([]);
+  /** Where to file the finished question: pick a book, then one of its assignments. */
+  let placeBook = $state('');
+  let placeAssignment = $state('');
   let slug = $state('q1-key-terms');
   let running = $state(false);
   let lines = $state<string[]>([]);
@@ -63,6 +64,13 @@
   const engine = $derived<AgentEngine>(engineForProvider(provider ?? undefined));
   const target = $derived(root ? questionPath(root, family.trim(), slug.trim()) : '');
   const sourced = $derived(hasSource({ section, brief, imagePath }));
+  const chosenBook = $derived(placements.find((p: { slug: string }) => p.slug === placeBook) ?? null);
+  // Changing book must clear a stale assignment, or the question files into the previous book's.
+  $effect(() => {
+    if (placeBook && !chosenBook?.items.some((i: { path: string }) => i.path === placeAssignment)) {
+      placeAssignment = '';
+    }
+  });
   const canRun = $derived(!running && !!root && !!family.trim() && !!slug.trim() && sourced);
 
   function log(text: string) {
@@ -102,7 +110,7 @@
    * Reads through the island's existing question reader rather than a raw file read, so the path
    * is resolved and guarded the same way the browser does it.
    */
-  async function verify(_path: string): Promise<string[]> {
+  async function verify(): Promise<string[]> {
     const detail = await momIsland.methods
       .getQuestion(family.trim(), `${slug.trim().replace(/\.php$/i, '')}.php`, root)
       .catch(() => null);
@@ -141,20 +149,25 @@
       if (reply) log(reply);
 
       for (;;) {
-        const errors = await verify(path);
+        const errors = await verify();
         const n = attempts.length + 1;
         attempts = [...attempts, { attempt: n, errors, ok: errors.length === 0 }];
         if (errors.length === 0) {
           log(`Attempt ${n}: renders clean.`);
           finalPath = path;
-          // Only add it to an assignment once it actually renders — a broken question must never
-          // be filed into a book.
-          for (const manifest of placeIn) {
+          // File it only once it actually renders — a broken question must never enter a book.
+          // A filing failure does not fail the run: the question is already written and good.
+          if (placeAssignment) {
             try {
-              await addQuestionToAssignment(root, manifest, `questions/${family.trim()}/${slug.trim().replace(/\.php$/i, '')}.php`, reply || slug.trim());
-              log(`Added to ${manifest}`);
+              await addQuestionToAssignment(
+                root,
+                placeAssignment,
+                `questions/${family.trim()}/${slug.trim().replace(/\.php$/i, '')}.php`,
+                reply || slug.trim(),
+              );
+              log(`Added to ${chosenBook?.items.find((i: { path: string }) => i.path === placeAssignment)?.name ?? placeAssignment}`);
             } catch (e) {
-              log(`Could not add to ${manifest}: ${e instanceof Error ? e.message : String(e)}`);
+              log(`Could not file it: ${e instanceof Error ? e.message : String(e)}`);
             }
           }
           await onDone(path);
@@ -212,23 +225,29 @@
     </div>
 
     {#if placements.length}
-      <details class="place">
-        <summary>Add to an assignment <span class="opt">optional{placeIn.length ? ` · ${placeIn.length}` : ''}</span></summary>
-        {#each placements as group (group.book)}
-          <p class="grp">{group.book}</p>
-          {#each group.items as it (it.path)}
-            <label class="chk">
-              <input
-                type="checkbox"
-                disabled={running}
-                checked={placeIn.includes(it.path)}
-                onchange={() => (placeIn = placeIn.includes(it.path) ? placeIn.filter((p) => p !== it.path) : [...placeIn, it.path])}
-              />
-              {it.name}
-            </label>
+      <label>Add to book <span class="opt">optional</span>
+        <select bind:value={placeBook} disabled={running}>
+          <option value="">— don't file it —</option>
+          {#each placements as p (p.slug)}
+            <option value={p.slug}>{p.title} ({p.items.length})</option>
           {/each}
-        {/each}
-      </details>
+        </select>
+      </label>
+
+      {#if placeBook}
+        <label>Assignment
+          {#if chosenBook && chosenBook.items.length}
+            <select bind:value={placeAssignment} disabled={running}>
+              <option value="">— choose —</option>
+              {#each chosenBook.items as it (it.path)}
+                <option value={it.path}>{it.name}</option>
+              {/each}
+            </select>
+          {:else}
+            <span class="hint">This book has no assignments yet, so there is nothing to file into.</span>
+          {/if}
+        </label>
+      {/if}
     {/if}
     <p class="target" title={target}>{target || 'Set the MOM root first.'}</p>
     <button class="go" onclick={run} disabled={!canRun}>
@@ -270,12 +289,7 @@
   .plus { flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
           background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
   .plus:disabled { opacity: .45; cursor: default; }
-  .place { font-size: 12px; }
-  .place summary { cursor: pointer; opacity: .7; }
-  .grp { margin: 6px 0 2px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; opacity: .5; }
-  .chk { flex-direction: row; align-items: center; gap: 6px; font-size: 12px; text-transform: none;
-         letter-spacing: 0; opacity: 1; }
-  .hint { margin: 0; font-size: 11px; opacity: .6; }
+  .hint { margin: 0; font-size: 11px; opacity: .6; text-transform: none; letter-spacing: 0; }
   .target { margin: 0; font-size: 11px; opacity: .5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
             overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .go { padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
