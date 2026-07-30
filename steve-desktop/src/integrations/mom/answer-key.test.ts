@@ -53,14 +53,24 @@ What is $a? $answerbox
 `;
 
 describe('withAnswerKey', () => {
-  it('puts the key INSIDE the question text, before the ANSWER marker', () => {
-    // The sandbox renders QUESTION TEXT and drops ANSWER, so a key after the marker is invisible.
+  it('puts each key INLINE, right after the box it answers', () => {
+    // Was a panel at the bottom; the teacher has to scroll and match up indices by eye.
     const out = withAnswerKey(MULTIPART);
-    expect(out.indexOf('Answer key')).toBeGreaterThan(out.indexOf('// === QUESTION TEXT ==='));
-    expect(out.indexOf('Answer key')).toBeLessThan(out.indexOf('// === ANSWER ==='));
+    const box0 = out.indexOf('$answerbox[0]');
+    const key0 = out.indexOf('$answer[0]', box0);
+    const box1 = out.indexOf('$answerbox[1]');
+    expect(key0).toBeGreaterThan(box0);
+    expect(key0).toBeLessThan(box1); // part 0's key lands before part 1 begins
   });
 
-  it('emits one row per answerbox for a multipart question', () => {
+  it('keeps the annotation inside the body, not the control block or ANSWER section', () => {
+    const out = withAnswerKey(MULTIPART);
+    const firstChip = out.indexOf('background:#e8f5e9');
+    expect(firstChip).toBeGreaterThan(out.indexOf('// === QUESTION TEXT ==='));
+    expect(firstChip).toBeLessThan(out.indexOf('// === ANSWER ==='));
+  });
+
+  it('emits one chip per answerbox for a multipart question', () => {
     const out = withAnswerKey(MULTIPART);
     expect(out).toContain('$answer[0]');
     expect(out).toContain('$answer[1]');
@@ -69,8 +79,14 @@ describe('withAnswerKey', () => {
 
   it('uses the scalar $answer when the body has a single unindexed answerbox', () => {
     const out = withAnswerKey(SINGLE);
-    expect(out).toContain('<b>$answer</b>');
+    expect(out).toContain('$answerbox<span');
     expect(out).not.toContain('$answer[0]');
+  });
+
+  it('does not split an indexed box by matching the bare $answerbox prefix', () => {
+    const out = withAnswerKey(MULTIPART);
+    expect(out).toContain('$answerbox[0]<span');
+    expect(out).not.toContain('$answerbox<span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:10px;background:#e8f5e9;border:1px solid #4CAF50;color:#1b5e20;font:600 13px Arial;vertical-align:middle">$answer</span>[0]');
   });
 
   it('includes $solutionguide only when the question defines it', () => {
@@ -96,8 +112,7 @@ describe('withAnswerKey', () => {
   it('appends at the end when there is no ANSWER marker', () => {
     const noAnswer = MULTIPART.slice(0, MULTIPART.indexOf('// === ANSWER ==='));
     const out = withAnswerKey(noAnswer);
-    expect(out).toContain('Answer key');
-    expect(out).toContain('$answerbox[1]');
+    expect(out).toContain('$answerbox[1]<span');
   });
 
   it('resolves a choices answer to its option TEXT, not the raw index', () => {
@@ -108,14 +123,14 @@ describe('withAnswerKey', () => {
     // so `$questions[0][$answer[0]]` in the body renders the literal string `Array[1]` (seen live).
     expect(out).toContain('$__momkey0 = $questions[0][$answer[0]]');
     expect(out.indexOf('$__momkey0 =')).toBeLessThan(out.indexOf('// === QUESTION TEXT ==='));
-    expect(out).toContain('<b>$__momkey0</b>');
+    expect(out).toContain('$__momkey0 <span');
     expect(out).not.toContain('<b>$questions[0][$answer[0]]</b>');
-    expect(out).toContain('(index $answer[0])');
+    expect(out).toContain('(#$answer[0])');
   });
 
   it('leaves a non-choices part in the same question printing its value', () => {
     const out = withAnswerKey(CHOICES);
-    expect(out).toContain('<b>$answer[1]</b>');
+    expect(out).toContain('$answerbox[1]<span');
     expect(out).not.toContain('$__momkey1');
   });
 

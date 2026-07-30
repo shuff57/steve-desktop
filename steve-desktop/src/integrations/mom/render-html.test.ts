@@ -1,10 +1,37 @@
 import { describe, it, expect } from 'vitest';
-import { fixMathDelimiters, prepareRenderHtml } from './render-html';
+import { fixMathDelimiters, prepareRenderHtml, fitToPane } from './render-html';
 
 // The exact config the sandbox returned on 2026-07-30.
 const SANDBOX_HEAD =
   '<script>window.MathJax={loader:{load:["input/asciimath","input/tex","output/chtml"]},' +
   'asciimath:{delimiters:[["`","`"]]},tex:{inlineMath:[["\\(","\\)"],["$","$"]]}};</script>';
+
+describe('fitToPane', () => {
+  const PAGE = `<!doctype html><head>${SANDBOX_HEAD}</head><body><div class="question">hi</div></body>`;
+
+  it('overrides the standalone-page body sizing so the render fills the pane', () => {
+    // The sandbox sets max-width:760px; margin:1.5rem auto — a centred column with gutters and a
+    // dead band at the top once it is inside the preview iframe.
+    const out = fitToPane(PAGE);
+    expect(out).toContain('max-width:none!important');
+    expect(out).toContain('margin:0!important');
+  });
+
+  it('puts the override last in head so it beats the sandbox block', () => {
+    const out = fitToPane(PAGE);
+    expect(out.indexOf('data-pane-css')).toBeGreaterThan(out.indexOf('window.MathJax'));
+    expect(out.indexOf('data-pane-css')).toBeLessThan(out.indexOf('</head>'));
+  });
+
+  it('is idempotent', () => {
+    const once = fitToPane(PAGE);
+    expect(fitToPane(once)).toBe(once);
+  });
+
+  it('still applies when there is no head element', () => {
+    expect(fitToPane('<div class="question">hi</div>')).toContain('data-pane-css');
+  });
+});
 
 describe('fixMathDelimiters', () => {
   it('stops a bare paren from being a math delimiter', () => {
@@ -45,7 +72,9 @@ describe('fixMathDelimiters', () => {
     expect(fixMathDelimiters(noTex)).toBe(noTex);
   });
 
-  it('prepareRenderHtml applies the delimiter fix', () => {
-    expect(prepareRenderHtml(SANDBOX_HEAD)).toBe(fixMathDelimiters(SANDBOX_HEAD));
+  it('prepareRenderHtml applies the delimiter fix AND the pane fit', () => {
+    const out = prepareRenderHtml(SANDBOX_HEAD);
+    expect(out).toContain('inlineMath:[["\\\\(","\\\\)"]]');
+    expect(out).toContain('data-pane-css');
   });
 });

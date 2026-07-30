@@ -74,26 +74,45 @@ function keyControlLines(source: string): string {
   return lines.join('\n');
 }
 
-function keyBlock(source: string): string {
-  const n = answerBoxCount(source);
-  const types = answerTypes(source);
-  // A choices answer shows the OPTION TEXT it selects, with the raw index beside it so the two can be
-  // checked against each other. The text comes from a scalar precomputed in the control block.
-  const row = (i: number) =>
-    isChoice(types[i])
-      ? `<div>[${i}] <b>${KEY_VAR}${i}</b> <span style="opacity:.6">(index $answer[${i}])</span></div>`
-      : `<div>[${i}] <b>$answer[${i}]</b></div>`;
-  const scalarRow = isChoice(types[0])
-    ? `<div><b>${KEY_VAR}</b> <span style="opacity:.6">(index $answer)</span></div>`
-    : '<div><b>$answer</b></div>';
-  const rows =
-    n > 0 ? Array.from({ length: n }, (_, i) => row(i)).join('\n    ') : scalarRow;
-  const guide = definesSolutionGuide(source) ? '\n  <div style="margin-top:8px">$solutionguide</div>' : '';
+/** Inline chip shown immediately after an answer box, so the key sits WITH the part it answers. */
+function chip(inner: string): string {
+  return (
+    '<span style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:10px;' +
+    'background:#e8f5e9;border:1px solid #4CAF50;color:#1b5e20;font:600 13px Arial;vertical-align:middle">' +
+    inner +
+    '</span>'
+  );
+}
+
+/** The key for part `i`: option text for a choices part, the value otherwise. */
+function chipFor(i: number, types: string[]): string {
+  return isChoice(types[i])
+    ? chip(`${KEY_VAR}${i} <span style="opacity:.65;font-weight:400">(#$answer[${i}])</span>`)
+    : chip(`$answer[${i}]`);
+}
+
+/** Solution guide only — the per-part answers now live inline, next to their boxes. */
+function guideBlock(source: string): string {
+  if (!definesSolutionGuide(source)) return '';
   return `
-<div style="margin-top:16px;border:2px dashed #4CAF50;border-radius:8px;padding:10px 12px;background:#f1f8f2">
-  <div style="font:bold 12px Arial;letter-spacing:.05em;text-transform:uppercase;opacity:.7;margin-bottom:6px">Answer key — preview only</div>
-    ${rows}${guide}
+<div style="margin-top:14px;border-top:1px dashed #4CAF50;padding-top:8px">
+  <div style="font:bold 11px Arial;letter-spacing:.05em;text-transform:uppercase;opacity:.6;margin-bottom:4px">Solution — preview only</div>
+  $solutionguide
 </div>`;
+}
+
+/**
+ * Put a key chip directly after every answer box in the body.
+ *
+ * Indexed boxes are matched first: a bare `$answerbox` pattern would otherwise also match the
+ * `$answerbox` prefix of `$answerbox[0]` and split it.
+ */
+function annotateBoxes(body: string, types: string[]): string {
+  let out = body.replace(/\$answerbox\[(\d+)\]/g, (m, d) => m + chipFor(Number(d), types));
+  out = out.replace(/\$answerbox(?!\[|<span)/g, (m) =>
+    m + (isChoice(types[0]) ? chip(`${KEY_VAR} <span style="opacity:.65;font-weight:400">(#$answer)</span>`) : chip('$answer')),
+  );
+  return out;
 }
 
 /**
@@ -115,10 +134,16 @@ export function withAnswerKey(source: string): string {
     : source.slice(0, qtIndex);
   const withControl = head + source.slice(qtIndex);
 
-  const qt2 = withControl.indexOf(QUESTION_TEXT);
-  const block = keyBlock(source);
-  const ansIndex = withControl.indexOf(ANSWER, qt2 + QUESTION_TEXT.length);
-  if (ansIndex < 0) return `${withControl.replace(/\s*$/, '')}\n${block}\n`;
+  // Annotate only the BODY. The control block is code, and the ANSWER section is dropped by the
+  // sandbox anyway — a chip in either place would be wrong or invisible.
+  const bodyStart = withControl.indexOf(QUESTION_TEXT) + QUESTION_TEXT.length;
+  const ansIndex = withControl.indexOf(ANSWER, bodyStart);
+  const bodyEnd = ansIndex < 0 ? withControl.length : ansIndex;
 
-  return `${withControl.slice(0, ansIndex).replace(/\s*$/, '')}\n${block}\n\n${withControl.slice(ansIndex)}`;
+  const types = answerTypes(source);
+  const body = annotateBoxes(withControl.slice(bodyStart, bodyEnd), types);
+  const guide = guideBlock(source);
+  const annotated = `${body.replace(/\s*$/, '')}\n${guide}\n`;
+
+  return withControl.slice(0, bodyStart) + annotated + withControl.slice(bodyEnd);
 }
