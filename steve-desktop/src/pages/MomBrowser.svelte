@@ -17,6 +17,7 @@
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
   import { questionHealth } from '../integrations/mom/health';
+  import { withCheckData, injectChecker, checkableParts } from '../integrations/mom/answer-check';
   import MomChat from '../components/mom/MomChat.svelte';
 
   const ROOT_SETTING = 'mom_root';
@@ -59,6 +60,9 @@
   let renderMode = $state<'php' | 'rendered'>('php');
   // Preview-only: appends the computed answers + solution guide into the SAME render pass.
   let showKey = $state(false);
+  // Type an answer in and be told whether it is right. Same one-pass rule as the key: the expected
+  // values must come from the render you are typing into, or randomization makes them disagree.
+  let checkAnswers = $state(false);
   let renderedHtml = $state('');
   let rendering = $state(false);
   let renderErr = $state<string | null>(null);
@@ -91,7 +95,8 @@
       if (!res.ok) throw new Error(`sandbox HTTP ${res.status}`);
       // The sandbox's MathJax config makes `(` and `$` math delimiters, which italicises ordinary
       // prose and currency. Repair it before the iframe runs MathJax.
-      renderedHtml = prepareRenderHtml(await res.text());
+      const prepared = prepareRenderHtml(await res.text());
+      renderedHtml = checkAnswers ? injectChecker(prepared) : prepared;
     } catch (e) {
       renderErr = e instanceof Error ? e.message : String(e);
       renderedHtml = '';
@@ -114,12 +119,19 @@
   // Re-rendering also re-randomizes, which is fine — question and key come from the SAME pass.
   $effect(() => {
     const q = selectedQuestion;
-    const token = q ? `${q.path}|${showKey ? 'key' : 'plain'}` : '';
+    const token = q ? `${q.path}|${showKey ? 'key' : 'plain'}|${checkAnswers ? 'chk' : ''}` : '';
     if (renderMode === 'rendered' && q && token !== lastRenderedPath) {
       lastRenderedPath = token;
-      renderQuestion(showKey ? withAnswerKey(q.contents) : q.contents);
+      let src = q.contents;
+      if (showKey) src = withAnswerKey(src);
+      if (checkAnswers) src = withCheckData(src);
+      renderQuestion(src);
     }
   });
+
+  // How many parts the checker can actually judge. A `numfunc` answer needs MyOpenMath to decide
+  // whether two expressions are equivalent, so it is left unchecked rather than judged by string.
+  const checkable = $derived(selectedQuestion ? checkableParts(selectedQuestion.contents) : 0);
 
   async function saveRoot() {
     if (savingRoot) return;
@@ -428,6 +440,15 @@
                 <label class="key-toggle" title="Append the computed answers and solution guide to this same render">
                   <input type="checkbox" bind:checked={showKey} />
                   Key
+                </label>
+                <label
+                  class="key-toggle"
+                  title={checkable > 0
+                    ? 'Type an answer into a box and check it against this render'
+                    : 'This question’s answer types need MyOpenMath to judge equivalence'}
+                >
+                  <input type="checkbox" bind:checked={checkAnswers} disabled={checkable === 0} />
+                  Check
                 </label>
               {/if}
               <div class="view-toggle">
