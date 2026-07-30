@@ -1,5 +1,21 @@
 import { describe, it, expect } from 'vitest';
-import { withAnswerKey } from './answer-key';
+import { withAnswerKey, answerTypes } from './answer-key';
+
+const CHOICES = `// === NAME - DESCRIPTION: perm or comb ===
+// === SET QUESTION TYPE TO: multipart ===
+
+// === COMMON CONTROL ===
+$anstypes = array("choices", "number")
+$answer[0] = 1
+$answer[1] = 42
+$questions[0] = array("Permutation", "Combination")
+
+// === QUESTION TEXT ===
+Which is it? $answerbox[0]
+How many? $answerbox[1]
+
+// === ANSWER ===
+`;
 
 const MULTIPART = `// === NAME - DESCRIPTION: 6.1 Simple Interest ===
 // === SET QUESTION TYPE TO: multipart ===
@@ -82,6 +98,40 @@ describe('withAnswerKey', () => {
     const out = withAnswerKey(noAnswer);
     expect(out).toContain('Answer key');
     expect(out).toContain('$answerbox[1]');
+  });
+
+  it('resolves a choices answer to its option TEXT, not the raw index', () => {
+    // $answer[0] is an index into $questions[0]; printing it raw shows "1" where the teacher needs
+    // "Combination". This is the case multiple-choice previews exist to check.
+    const out = withAnswerKey(CHOICES);
+    // The lookup MUST be in the control block: question-text substitution has no nested indexing,
+    // so `$questions[0][$answer[0]]` in the body renders the literal string `Array[1]` (seen live).
+    expect(out).toContain('$__momkey0 = $questions[0][$answer[0]]');
+    expect(out.indexOf('$__momkey0 =')).toBeLessThan(out.indexOf('// === QUESTION TEXT ==='));
+    expect(out).toContain('<b>$__momkey0</b>');
+    expect(out).not.toContain('<b>$questions[0][$answer[0]]</b>');
+    expect(out).toContain('(index $answer[0])');
+  });
+
+  it('leaves a non-choices part in the same question printing its value', () => {
+    const out = withAnswerKey(CHOICES);
+    expect(out).toContain('<b>$answer[1]</b>');
+    expect(out).not.toContain('$__momkey1');
+  });
+
+  it('resolves the scalar form too', () => {
+    const single = CHOICES.replace('$anstypes = array("choices", "number")', '$anstypes = "choices"')
+      .replace('Which is it? $answerbox[0]\nHow many? $answerbox[1]', 'Which is it? $answerbox');
+    const out = withAnswerKey(single);
+    expect(out).toContain('$__momkey = $questions[$answer]');
+    expect(out.indexOf('$__momkey =')).toBeLessThan(out.indexOf('// === QUESTION TEXT ==='));
+  });
+
+  it('reads $anstypes in both array and scalar form', () => {
+    expect(answerTypes(CHOICES)).toEqual(['choices', 'number']);
+    expect(answerTypes(MULTIPART)).toEqual(['number', 'number']);
+    expect(answerTypes(SINGLE)).toEqual(['number']);
+    expect(answerTypes('$a = 1')).toEqual([]);
   });
 
   it('returns a malformed source unchanged rather than guessing', () => {
