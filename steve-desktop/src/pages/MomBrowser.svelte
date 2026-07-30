@@ -16,6 +16,7 @@
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
+  import { questionHealth } from '../integrations/mom/health';
   import MomChat from '../components/mom/MomChat.svelte';
 
   const ROOT_SETTING = 'mom_root';
@@ -98,6 +99,15 @@
       rendering = false;
     }
   }
+
+  // A broken question still renders: the sandbox answers 200 and prints its diagnostics into the
+  // body, so `renderErr` stays null and the iframe looks fine. Of the 418 bank questions, 21 are
+  // broken this way. Surface it above the frame instead of leaving it buried in the render.
+  const health = $derived(
+    renderedHtml && selectedQuestion
+      ? questionHealth(selectedQuestion.contents, renderedHtml)
+      : { errors: [], warnings: [] },
+  );
 
   // Render lazily: only when the Rendered tab is showing, and only once per question. The key flag
   // is part of the cache token, so toggling it re-renders instead of showing the previous pass.
@@ -440,6 +450,15 @@
             <p class="err">Sandbox unreachable: {renderErr}</p>
             <p class="muted small">Renders at <code>{SANDBOX_URL}</code> — verified reachable 2026-07-30, so check the tunnel/origin rather than DNS.</p>
           {:else}
+            {#if health.errors.length || health.warnings.length}
+              <div class="health" class:broken={health.errors.length > 0}>
+                <strong>{health.errors.length ? 'This question is broken' : 'Check this question'}</strong>
+                <ul>
+                  {#each health.errors as e (e)}<li>{e}</li>{/each}
+                  {#each health.warnings as w (w)}<li class="warn">{w}</li>{/each}
+                </ul>
+              </div>
+            {/if}
             <iframe class="render-frame" title="Rendered question" srcdoc={renderedHtml} sandbox="allow-scripts"></iframe>
           {/if}
         {:else}
@@ -552,6 +571,15 @@
   .preview-head { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
   .preview-head h2 { margin: 0; }
   .render-frame { flex: 1; width: 100%; border: none; border-radius: 6px; background: #fff; }
+  /* Amber = renders but is suspect; red = the sandbox refused it. Both sit ABOVE the frame,
+     because the whole point is that the render itself looks convincing. */
+  .health { flex-shrink: 0; margin-bottom: 8px; padding: 8px 10px; border-radius: 6px; font-size: 12px;
+            background: rgba(217,119,6,.12); border: 1px solid rgba(217,119,6,.45); color: #b45309; }
+  .health.broken { background: rgba(185,28,28,.12); border-color: rgba(185,28,28,.5); color: #b91c1c; }
+  .health strong { display: block; margin-bottom: 4px; font-size: 12px; }
+  .health ul { margin: 0; padding-left: 16px; }
+  .health li { margin: 2px 0; line-height: 1.4; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .health li.warn { font-family: inherit; }
   .preview .muted.small { font-size: 11px; opacity: .6; margin: 6px 0 0; }
   .preview pre { flex: 1; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; padding: 12px; border-radius: 6px; background: rgba(0,0,0,.25); margin: 0; white-space: pre; }
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
