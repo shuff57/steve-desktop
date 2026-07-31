@@ -27,6 +27,7 @@ import {
   MAX_ATTEMPTS,
   type AttemptResult,
   type PlannedQuestion,
+  type PlanView,
   type SetPlanMode,
 } from '../../integrations/mom/author';
   import { addQuestionToAssignment } from '../../integrations/mom/book-membership';
@@ -66,6 +67,7 @@ import {
     selectedContents = '',
     onRevised = () => {},
     onClearSelection = () => {},
+    onPlan = (_: PlanView | null) => {},
   } = $props<{
     root: string;
     sandboxUrl: string;
@@ -88,6 +90,8 @@ import {
     onRevised?: () => void | Promise<void>;
     /** `+ new` — drop the selection so the composer means "write a new question" again. */
     onClearSelection?: () => void;
+    /** The current plan, pushed up so the preview pane can show it full width. */
+    onPlan?: (view: PlanView | null) => void;
   }>();
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
@@ -367,6 +371,22 @@ import {
     else next.add(slug);
     selected = next;
   }
+
+  // Publish the plan upward whenever it changes. One-way: the parent renders and calls the toggles
+  // back, so selection still has exactly one home.
+  $effect(() => {
+    onPlan(
+      planned
+        ? {
+            planned,
+            selected: [...selected],
+            existing: [...existingSlugs],
+            toggleOne,
+            toggleAll,
+          }
+        : null,
+    );
+  });
 
   /**
    * Take an image off the clipboard and spill it to disk, because the agent opens a FILE.
@@ -897,43 +917,6 @@ import {
   </div>
   {/if}
 
-  {#if planned && !revisingMode}
-    <div class="planned">
-      <div class="planned-head">
-        <label class="all-none">
-          <input
-            type="checkbox"
-            checked={allSelected}
-            indeterminate={selected.size > 0 && !allSelected}
-            onclick={toggleAll}
-          />
-          All
-        </label>
-        <span class="planned-count">{selected.size}/{planned.length} selected</span>
-      </div>
-      <ul>
-        {#each planned as p (p.slug)}
-          <li class="planned-item" class:exists={existingSlugs.has(p.slug)}>
-            <label>
-              <input type="checkbox" checked={selected.has(p.slug)} onclick={() => toggleOne(p.slug)} />
-              <span class="slug">{p.slug}</span>
-              <span class="brief">{p.brief}</span>
-            </label>
-            {#if existingSlugs.has(p.slug)}
-              <span class="warn-badge" title="A question with this slug already exists; writing will overwrite it.">exists</span>
-            {/if}
-          </li>
-        {/each}
-      </ul>
-      {#if !running}
-        <button class="go write-selected" onclick={writeSet} disabled={!canWriteSelected}>
-          Write selected ({selected.size})
-        </button>
-      {/if}
-      {#if setError}<p class="bad">{setError}</p>{/if}
-    </div>
-  {/if}
-
   <div class="chat-log">
     {#each lines as l, i (i)}
       <ChatMessage role={l.role} text={l.text} />
@@ -998,10 +981,17 @@ import {
       </div>
       <div class="actions">
         <button class="go" onclick={run} disabled={!canRun}>Write question</button>
+        {#if planned}
+          <!-- The list itself is in the preview pane; the rail keeps the button that acts on it. -->
+          <button class="go" onclick={writeSet} disabled={!canWriteSelected}>
+            Write selected ({selected.size})
+          </button>
+        {/if}
         <button class="go" onclick={planQuestions} disabled={!canPlan || setBusy || !planModeChosen}>
           {setBusy ? 'Planning…' : 'Plan questions'}
         </button>
       </div>
+      {#if setError}<p class="bad">{setError}</p>{/if}
     {/if}
     {#if !revisingMode && !sourced && !busy}
       <p class="hint">Give it a link, a description, or a pasted example.</p>
@@ -1065,20 +1055,8 @@ import {
   .composer { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; padding-top: 8px; border-top: 1px solid rgba(128,128,128,.15); }
   .ok { margin: 0; font-size: 12px; color: #1b5e20; }
   .bad { margin: 0; font-size: 12px; color: #b91c1c; }
-  .actions { display: flex; gap: 6px; }
+  .actions { display: flex; gap: 6px; flex-wrap: wrap; }
   .plan-mode { display: flex; gap: 12px; font-size: 12px; }
   .mode-option { display: flex; align-items: center; gap: 4px; cursor: pointer; text-transform: none; letter-spacing: 0; opacity: .85; }
   .mode-option input { cursor: pointer; }
-  .planned { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 6px; border: 1px dashed rgba(128,128,128,.4); background: rgba(128,128,128,.05); flex-shrink: 0; max-height: 220px; }
-  .planned-head { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-  .all-none { display: flex; align-items: center; gap: 4px; cursor: pointer; text-transform: none; letter-spacing: 0; font-size: 12px; opacity: .8; }
-  .planned-count { opacity: .6; font-size: 11px; }
-  .planned ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
-  .planned-item { display: flex; align-items: center; gap: 6px; padding: 4px 6px; border-radius: 4px; background: rgba(128,128,128,.08); }
-  .planned-item.exists { background: rgba(217,119,6,.08); }
-  .planned-item label { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; cursor: pointer; font-size: 12px; text-transform: none; letter-spacing: 0; opacity: 1; }
-  .planned-item .slug { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; opacity: .9; flex-shrink: 0; }
-  .planned-item .brief { opacity: .7; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .warn-badge { font-size: 10px; padding: 1px 5px; border-radius: 999px; background: rgba(217,119,6,.18); color: #b45309; flex-shrink: 0; }
-  .write-selected { align-self: flex-start; }
 </style>

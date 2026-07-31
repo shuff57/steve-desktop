@@ -14,6 +14,7 @@
   import { onMount } from 'svelte';
   import { getSetting, setSetting } from '../lib/db';
   import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, type MomBookEntry, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
+  import type { PlanView } from '../integrations/mom/author';
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
@@ -152,6 +153,15 @@
    * leaving it collapsed. Guarded by `railLoaded` so the default 420 cannot save over the stored
    * value before the restore lands.
    */
+  /**
+   * The rail may not squeeze the preview below a working width. The plan list and the rendered
+   * question both live in that pane, and a rail dragged wider than its neighbour was leaving the
+   * plan 181px to show ten briefs in.
+   */
+  let panesWidth = $state(0);
+  const BROWSE_W = 260;
+  const PREVIEW_MIN = 340;
+  const railMax = $derived(panesWidth ? Math.max(320, panesWidth - BROWSE_W - PREVIEW_MIN - 24) : null);
   const RAIL_SETTING = 'mom_rail_state';
   let railLoaded = false;
   let railSaveTimer: ReturnType<typeof setTimeout> | undefined;
@@ -170,6 +180,16 @@
    * disk yet — a distinction the pane shows differently.
    */
   let authorDraft = $state<string | null>(null);
+  /**
+   * The writer's current plan, shown in the preview pane rather than the rail — ten slugs with
+   * their briefs need the width, and truncating a brief to "Identify the population and…" is
+   * exactly the part you need to read before ticking it.
+   */
+  let planView = $state<PlanView | null>(null);
+  const showPlan = $derived(authorDraft === null && !!planView && !selectedQuestion);
+  const planAllSelected = $derived(
+    !!planView && planView.planned.length > 0 && planView.selected.length === planView.planned.length,
+  );
   /** Which CLI the rail's agents run on. Restored and persisted by ProviderSelector itself. */
   let agentProvider = $state('');
   let agentModel = $state('');
@@ -497,7 +517,7 @@
   {:else if families.length === 0}
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
-    <div class="panes">
+    <div class="panes" bind:clientWidth={panesWidth}>
       {#if view === 'questions'}
         <!-- One column, drilled: families REPLACE themselves with their questions rather than
              opening a second sidebar. A laptop only has so much horizontal room, and the preview
@@ -630,8 +650,21 @@
 
       <section class="preview">
         <div class="preview-head">
-          <h2>{authorDraft === null ? 'Preview' : 'Writing…'}</h2>
-          {#if selectedQuestion && authorDraft === null}
+          <h2>{authorDraft !== null ? 'Writing…' : showPlan ? 'Planned questions' : 'Preview'}</h2>
+          {#if showPlan && planView}
+            <div class="preview-toggles">
+              <label class="key-toggle" title="Select or clear every question in the plan">
+                <input
+                  type="checkbox"
+                  checked={planAllSelected}
+                  indeterminate={planView.selected.length > 0 && !planAllSelected}
+                  onclick={planView.toggleAll}
+                />
+                All
+              </label>
+              <span class="stats muted">{planView.selected.length}/{planView.planned.length} selected</span>
+            </div>
+          {:else if selectedQuestion && authorDraft === null}
             <div class="preview-toggles">
               {#if renderMode === 'rendered'}
                 <label class="key-toggle" title="Append the computed answers and solution guide to this same render">
@@ -667,6 +700,32 @@
           {:else}
             <pre class="live">{authorDraft}</pre>
           {/if}
+        {:else if showPlan && planView}
+          <!-- The plan, at the width its briefs need. Ticking here is the same selection the rail's
+               "Write selected" acts on — the writer owns it, this only renders it. -->
+          <ul class="plan">
+            {#each planView.planned as p (p.slug)}
+              {@const exists = planView.existing.includes(p.slug)}
+              <li class="plan-row" class:exists>
+                <label title={p.brief}>
+                  <input
+                    type="checkbox"
+                    checked={planView.selected.includes(p.slug)}
+                    onclick={() => planView?.toggleOne(p.slug)}
+                  />
+                  <!-- Slug over brief, not beside it: a non-shrinking monospace slug next to the
+                       brief left the brief a few characters wide and wrapping one letter per line. -->
+                  <span class="plan-text">
+                    <span class="plan-slug">{p.slug}</span>
+                    <span class="plan-brief">{p.brief}</span>
+                  </span>
+                </label>
+                {#if exists}
+                  <span class="badge exists-badge" title="A question with this slug already exists; writing will overwrite it.">exists</span>
+                {/if}
+              </li>
+            {/each}
+          </ul>
         {:else if loadingQuestion}
           <p class="empty">Loading…</p>
         {:else if questionErr}
@@ -719,6 +778,7 @@
         bind:provider={agentProvider}
         bind:model={agentModel}
         providerDisabled={authorDraft !== null}
+        maxWidth={railMax}
       >
         <MomAuthor
           root={momRoot ?? ''}
@@ -739,6 +799,7 @@
           selectedContents={selectedQuestion?.contents ?? ''}
           onRevised={reloadSelected}
           onClearSelection={() => (selectedQuestion = null)}
+          onPlan={(v) => (planView = v)}
         />
       </ActionShell>
     </div>
@@ -844,6 +905,22 @@
   /* The file as it is being written. Accent rather than a spinner: the content itself is the
      progress indicator, and it grows as the agent works. */
   .preview pre.live { border-left: 2px solid rgba(59,130,246,.7); }
+  /* The plan list. Briefs wrap instead of ellipsing — reading the brief is the whole reason it
+     moved out of the rail. */
+  .plan { flex: 1; overflow-y: auto; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .plan-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 6px; background: rgba(128,128,128,.08); }
+  .plan-row.exists { background: rgba(217,119,6,.1); }
+  .plan-row label { display: flex; align-items: flex-start; gap: 8px; flex: 1; min-width: 0; cursor: pointer; font-size: 13px; line-height: 1.45; }
+  .plan-row input { margin-top: 3px; flex-shrink: 0; cursor: pointer; }
+  .plan-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+  .plan-slug { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; opacity: .9; overflow-wrap: anywhere; }
+  /* The planner writes a paragraph per question — enough to write it from without the section.
+     Three lines is enough to tell them apart and tick the right ones; the rest is on hover, and
+     all of it goes to the writer regardless. Ten unclamped briefs was a 4000px wall. */
+  .plan-brief { opacity: .75; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+  .exists-badge { background: rgba(217,119,6,.18); color: #b45309; align-self: flex-start; }
+
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
   .stats.muted { opacity: .5; }
 

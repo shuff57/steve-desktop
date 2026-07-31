@@ -19,6 +19,13 @@
     provider = $bindable(''),
     model = $bindable(''),
     providerDisabled = false,
+    /**
+     * Widest this panel may get. A drawer over a webview can fairly take 80% of the window, but a
+     * column among sibling panes must leave its neighbours something to be — left unbounded, the
+     * MOM rail could squeeze the preview it exists to work alongside down to a couple of hundred
+     * pixels. null keeps the 80vw default.
+     */
+    maxWidth = null as number | null,
     // 'drawer' hangs off the window edge (the browser); 'column' is a card sitting in a row
     // of panes (MOM). Only the chrome differs — every behaviour below is shared.
     variant = 'drawer' as 'drawer' | 'column',
@@ -35,6 +42,7 @@
     provider?: string;
     model?: string;
     providerDisabled?: boolean;
+    maxWidth?: number | null;
     variant?: 'drawer' | 'column';
     active?: boolean;
     children?: Snippet;
@@ -104,6 +112,16 @@
   const ctxPct = $derived(ctxMax && ctxTokens != null ? Math.min(100, (ctxTokens / ctxMax) * 100) : null);
 
   // Resize logic
+  const MIN_WIDTH = 280;
+  const widthCap = $derived(
+    Math.max(MIN_WIDTH, maxWidth ?? (typeof window !== 'undefined' ? window.innerWidth * 0.8 : 800)),
+  );
+  // A stored width can outlive the layout that allowed it — restore 700px into a narrow window and
+  // the panel would keep it until dragged. Clamp instead of trusting what was saved.
+  $effect(() => {
+    if (width > widthCap) width = widthCap;
+  });
+
   let isResizing = $state(false);
   let panelEl: HTMLElement | undefined = $state();
 
@@ -134,28 +152,24 @@
 
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      width = Math.min(width + RESIZE_INCREMENT, window.innerWidth * 0.8);
+      width = Math.min(width + RESIZE_INCREMENT, widthCap);
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      width = Math.max(width - RESIZE_INCREMENT, 280);
+      width = Math.max(width - RESIZE_INCREMENT, MIN_WIDTH);
     } else if (e.key === 'Home') {
       e.preventDefault();
-      width = 280; // minimum width
+      width = MIN_WIDTH;
     } else if (e.key === 'End') {
       e.preventDefault();
-      width = window.innerWidth * 0.8; // maximum width
+      width = widthCap;
     }
   }
 
   function handleResizeMove(e: MouseEvent) {
     if (!isResizing) return;
 
-    let newWidth = dragAnchorX - e.clientX;
-
-    const minWidth = 280;
-    const maxWidth = window.innerWidth * 0.8;
-
-    pendingWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
+    const newWidth = dragAnchorX - e.clientX;
+    pendingWidth = Math.max(MIN_WIDTH, Math.min(newWidth, widthCap));
 
     if (rafId === undefined) {
       rafId = requestAnimationFrame(() => {
@@ -189,8 +203,8 @@
       aria-orientation="vertical"
       aria-label="Resize panel (use arrow keys, Home, or End; drag with mouse)"
       aria-valuenow={width}
-      aria-valuemin={280}
-      aria-valuemax={Math.floor(typeof window !== 'undefined' ? window.innerWidth * 0.8 : 800)}
+      aria-valuemin={MIN_WIDTH}
+      aria-valuemax={Math.floor(widthCap)}
       tabindex="0"
       onmousedown={handleResizeStart}
       onkeydown={handleResizeKeydown}

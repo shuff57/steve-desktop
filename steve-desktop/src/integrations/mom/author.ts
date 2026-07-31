@@ -178,6 +178,23 @@ export interface PlannedQuestion {
 export type SetPlanMode = 'exercises' | 'invent';
 
 /**
+ * A plan handed to whoever displays it.
+ *
+ * A plan is a table of ten slugs and briefs, and a 400px rail truncated every one of them — so the
+ * writer publishes this and the wide preview pane renders it. The toggles travel with the data
+ * rather than being re-implemented by the display, which would put selection in two places.
+ */
+export interface PlanView {
+  planned: PlannedQuestion[];
+  /** Slugs currently ticked. */
+  selected: string[];
+  /** Slugs already on disk in this family — writing one overwrites it. */
+  existing: string[];
+  toggleOne: (slug: string) => void;
+  toggleAll: () => void;
+}
+
+/**
  * Ask what a problem set should CONTAIN, before writing any of it.
  *
  * Planning is a separate turn because the alternative — "write every question in this section" in
