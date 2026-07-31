@@ -241,7 +241,14 @@ export interface PlanView {
  * goes through the same write/render/repair loop a single question does, and a failure is isolated
  * to its own file instead of poisoning the batch.
  */
-export function buildSetPlanPrompt(req: { link: string; family: string; root?: string; mode?: SetPlanMode }): string {
+export function buildSetPlanPrompt(req: {
+  link: string;
+  family: string;
+  root?: string;
+  mode?: SetPlanMode;
+  /** Same rules the writer gets. The plan decides the question type, so it needs them more. */
+  learned?: string[];
+}): string {
   const link = req.link.trim();
   const mode: SetPlanMode = req.mode ?? 'exercises';
   return [
@@ -269,12 +276,27 @@ export function buildSetPlanPrompt(req: { link: string; family: string; root?: s
           'questions would best assess those concepts. Each planned item should target one distinct skill.',
         ].join('\n'),
     '',
-    'DEFAULT QUESTION FORMAT for each planned item:',
-    '- Prefer a fill-in-the-blank (numeric or short string) answer unless the source exercise is',
-    '  explicitly multiple-choice or choose-all-that-apply.',
+    // Type is a PLANNING decision — the writer only ever sees the brief, so if the brief does not
+    // name a type the writer falls back on whatever the neighbouring files happen to do. This block
+    // used to say "prefer fill-in-the-blank", which quietly made every definition question a typing
+    // exercise no matter what the rules below said.
+    'QUESTION TYPE — pick it from what the exercise actually tests, and NAME IT in the brief:',
+    '- A calculation is FREE RESPONSE. Never offer computed values as options to choose between —',
+    '  that turns arithmetic into elimination.',
+    '- A definition is MULTIPLE CHOICE (one term against one meaning) or MATCHING (several terms',
+    '  against several meanings).',
+    '- SELECT ALL THAT APPLY is for a definition carrying SEVERAL rules — the conditions a simple',
+    '  random sample must satisfy, what makes a study ethical. A concept with one rule is not one.',
+    '- Free response otherwise, and only where there is one exact right string and no judgement',
+    '  about phrasing. Asking a student to TYPE a definition grades their wording, not their',
+    '  understanding, and no list of accepted alternatives is ever complete.',
+    '',
     '- Preserve the same variable roles and structure as the source exercise, but randomize all',
     '  numeric values and other variable parts by default so every student sees a different version.',
     '',
+    ...(req.learned?.length
+      ? ['Learned from earlier runs in this bank — these bind the plan too:', ...req.learned.map((r) => `- ${r}`), '']
+      : []),
     ...(req.root?.trim()
       ? [
           `The existing bank is at ${req.root.replace(/[\\/]+$/, '')}/questions/${req.family}/.`,
@@ -287,11 +309,12 @@ export function buildSetPlanPrompt(req: { link: string; family: string; root?: s
         ]
       : []),
     'Reply with ONLY a JSON array, no prose and no code fence:',
-    '[{"slug": "q1-short-kebab-name", "brief": "one or two sentences: what the question asks, what',
-    'is randomized, and what the student must produce"}]',
+    '[{"slug": "q1-short-kebab-name", "brief": "one or two sentences: the question type, what the',
+    'question asks, what is randomized, and what the student must produce"}]',
     '',
     'The brief is the ONLY thing the writer will see for that question — it will not have the',
-    'section in front of it — so make each one self-contained.',
+    'section in front of it, and it will not have these rules in front of it either — so make each',
+    'one self-contained and state the question type explicitly in every brief.',
   ].join('\n');
 }
 

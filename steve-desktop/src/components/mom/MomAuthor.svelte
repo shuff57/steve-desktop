@@ -347,7 +347,12 @@ import {
     selected = new Set();
     clearThread(viewKey);
     try {
-      const reply = await turn(buildSetPlanPrompt({ link: link.trim(), family: family.trim(), root, mode: planMode }));
+      // The plan decides each question's TYPE, and the writer never sees anything but the brief —
+      // so the rules have to reach the planner, not just the writer.
+      learnedRules = await loadLearnedRules(root);
+      const reply = await turn(
+        buildSetPlanPrompt({ link: link.trim(), family: family.trim(), root, mode: planMode, learned: learnedRules }),
+      );
       if (reply) log(reply, 'agent');
     const list = parseSetPlan(reply || '');
     planned = list;

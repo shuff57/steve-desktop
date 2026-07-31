@@ -227,9 +227,13 @@ describe('buildSetPlanPrompt', () => {
     expect(p).toContain('syntax.md');
   });
 
-  it('defaults questions to fill-in-the-blank with randomized values', () => {
+  /**
+   * Was "defaults questions to fill-in-the-blank". That default is gone deliberately: it outranked
+   * every rule about question type, so definitions came out as typing exercises. The randomization
+   * half of the old assertion still holds and is what this now guards.
+   */
+  it('requires randomized values so no two students see the same version', () => {
     const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
-    expect(p).toMatch(/fill-in-the-blank/i);
     expect(p).toMatch(/Randomize/i);
   });
 
@@ -414,5 +418,38 @@ describe('questionTitle', () => {
     expect(questionTitle('// === SET QUESTION TYPE TO: matching ===')).toBeNull();
     expect(questionTitle('// === NAME - DESCRIPTION:  ===')).toBeNull();
     expect(questionTitle('')).toBeNull();
+  });
+});
+
+describe('buildSetPlanPrompt question types', () => {
+  const base = { link: '1.1_definitions.html', family: 'descriptive-stats' };
+
+  /**
+   * This block used to read "prefer a fill-in-the-blank answer", which silently made every
+   * definition question a typing exercise — the writer only ever sees the brief, so a plan that
+   * does not name a type decides the type by omission.
+   */
+  it('does not tell the planner to default to fill-in-the-blank', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).not.toMatch(/prefer a fill-in-the-blank/i);
+  });
+
+  it('routes calculations to free response and definitions to choice or matching', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/calculation is FREE RESPONSE/i);
+    expect(p).toMatch(/definition is MULTIPLE CHOICE .* or MATCHING/i);
+    expect(p).toMatch(/SELECT ALL THAT APPLY is for a definition carrying SEVERAL rules/i);
+  });
+
+  it('requires the type to be named in every brief, since that is all the writer gets', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/NAME IT in the brief/i);
+    expect(p).toMatch(/state the question type explicitly in every brief/i);
+  });
+
+  it('passes the learned rules through to the plan, not just to the writer', () => {
+    const rule = 'Write "identify the key term" questions as matching, not as free-text boxes.';
+    expect(buildSetPlanPrompt({ ...base, learned: [rule] })).toContain(rule);
+    expect(buildSetPlanPrompt(base)).not.toContain('Learned from earlier runs');
   });
 });
