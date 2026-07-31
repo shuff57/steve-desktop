@@ -280,16 +280,20 @@ export function buildSetPlanPrompt(req: {
     // name a type the writer falls back on whatever the neighbouring files happen to do. This block
     // used to say "prefer fill-in-the-blank", which quietly made every definition question a typing
     // exercise no matter what the rules below said.
-    'QUESTION TYPE — pick it from what the exercise actually tests, and NAME IT in the brief:',
-    '- A calculation is FREE RESPONSE. Never offer computed values as options to choose between —',
-    '  that turns arithmetic into elimination.',
-    '- A definition is MULTIPLE CHOICE (one term against one meaning) or MATCHING (several terms',
-    '  against several meanings).',
-    '- SELECT ALL THAT APPLY is for a definition carrying SEVERAL rules — the conditions a simple',
-    '  random sample must satisfy, what makes a study ethical. A concept with one rule is not one.',
-    '- Free response otherwise, and only where there is one exact right string and no judgement',
-    '  about phrasing. Asking a student to TYPE a definition grades their wording, not their',
-    '  understanding, and no list of accepted alternatives is ever complete.',
+    'QUESTION TYPE — say in each brief what type you intend, and why if it is not obvious.',
+    'The four worth reaching for are multiple choice, select all that apply, matching, and free',
+    'response. Which one fits is your judgement about the exercise; these are starting points, not',
+    'requirements, and an exercise that clearly wants something else should get it:',
+    '- A calculation usually wants free response — offering computed values to choose between turns',
+    '  arithmetic into elimination.',
+    '- A definition usually reads better as multiple choice (one term, one meaning) or matching',
+    '  (several terms against several meanings) than as typing, which grades wording rather than',
+    '  understanding.',
+    '- Select all that apply suits a concept with several conditions to satisfy.',
+    '- A question may MIX types rather than pick one: `multipart` takes an `$anstypes` array, so',
+    '  part (a) can be a computed value typed in and part (b) multiple choice about what it means.',
+    '  For an exercise that asks the student to compute something and then interpret it, that is',
+    '  usually the honest shape — better than splitting it into two questions.',
     '',
     '- Preserve the same variable roles and structure as the source exercise, but randomize all',
     '  numeric values and other variable parts by default so every student sees a different version.',
@@ -314,7 +318,7 @@ export function buildSetPlanPrompt(req: {
     '',
     'The brief is the ONLY thing the writer will see for that question — it will not have the',
     'section in front of it, and it will not have these rules in front of it either — so make each',
-    'one self-contained and state the question type explicitly in every brief.',
+    'one self-contained, and say what type it should be (or what types, if it has mixed parts).',
   ].join('\n');
 }
 

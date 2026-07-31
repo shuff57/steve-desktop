@@ -434,17 +434,32 @@ describe('buildSetPlanPrompt question types', () => {
     expect(p).not.toMatch(/prefer a fill-in-the-blank/i);
   });
 
-  it('routes calculations to free response and definitions to choice or matching', () => {
+  it('offers all four types as the ones worth reaching for', () => {
     const p = buildSetPlanPrompt(base);
-    expect(p).toMatch(/calculation is FREE RESPONSE/i);
-    expect(p).toMatch(/definition is MULTIPLE CHOICE .* or MATCHING/i);
-    expect(p).toMatch(/SELECT ALL THAT APPLY is for a definition carrying SEVERAL rules/i);
+    for (const t of ['multiple choice', 'select all that apply', 'matching', 'free response']) {
+      expect(p.toLowerCase()).toContain(t);
+    }
   });
 
-  it('requires the type to be named in every brief, since that is all the writer gets', () => {
+  /** Guidance, not law: the planner has to be free to follow the exercise. */
+  it('frames the type leanings as starting points rather than requirements', () => {
     const p = buildSetPlanPrompt(base);
-    expect(p).toMatch(/NAME IT in the brief/i);
-    expect(p).toMatch(/state the question type explicitly in every brief/i);
+    expect(p).toMatch(/starting points, not\s+requirements/i);
+    expect(p).toMatch(/calculation usually wants free response/i);
+    expect(p).toMatch(/definition usually reads better/i);
+  });
+
+  /** One exercise that computes and then interprets should stay one question. */
+  it('allows a question to mix types across multipart parts', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/may MIX types/i);
+    expect(p).toContain('$anstypes');
+  });
+
+  it('asks the brief to state its type, since that is all the writer gets', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/say in each brief what type you intend/i);
+    expect(p).toMatch(/what types, if it has mixed parts/i);
   });
 
   it('passes the learned rules through to the plan, not just to the writer', () => {
