@@ -829,13 +829,15 @@ import {
   </div>
 
   {#if !revisingMode && contextOpen}
+  <!-- Two up. Every one of these is a short choice, and a full-width select for "descriptive-stats"
+       just made the strip tall enough to push the log off screen. -->
   <div class="context">
-    <div class="row">
+    <div class="field">
       <label>Family
         {#if newFamily}
           <input bind:value={family} disabled={running} spellcheck="false" placeholder="new-family" />
         {:else}
-          <select bind:value={family} disabled={running}>
+          <select bind:value={family} disabled={running} title={family}>
             {#each families as f (f)}<option value={f}>{f}</option>{/each}
           </select>
         {/if}
@@ -843,12 +845,17 @@ import {
       <button class="plus" title={newFamily ? 'Pick an existing family' : 'New family'} disabled={running} onclick={() => (newFamily = !newFamily)}>
         {newFamily ? '↩' : '+'}
       </button>
-      <label>Slug<input bind:value={slug} disabled={running} spellcheck="false" /></label>
     </div>
 
-    <div class="row">
-      <label>Add to book <span class="opt">optional</span>
-        <select bind:value={placeBook} disabled={running}>
+    <div class="field">
+      <label>Slug<input bind:value={slug} disabled={running} spellcheck="false" title={slug} /></label>
+    </div>
+
+    <div class="field">
+      <!-- Caption and "optional" on ONE line: the label is a flex column, so a bare span drops to
+           its own row and leaves this field a line taller than the one beside it. -->
+      <label><span class="cap">Book <span class="opt">optional</span></span>
+        <select bind:value={placeBook} disabled={running} title={chosenBook?.title ?? "don't file it"}>
           <option value="">— don't file it —</option>
           {#each placements as p (p.slug)}
             <option value={p.slug}>{p.title} ({p.items.length})</option>
@@ -864,17 +871,17 @@ import {
     </div>
 
     {#if placeBook}
-      <div class="row">
+      <div class="field">
         <label>Assignment
           {#if chosenBook && chosenBook.items.length}
-            <select bind:value={placeAssignment} disabled={running}>
+            <select bind:value={placeAssignment} disabled={running} title={destName}>
               <option value="">— choose —</option>
               {#each chosenBook.items as it (it.path)}
                 <option value={it.path}>{it.name}</option>
               {/each}
             </select>
           {:else}
-            <span class="hint">No assignments yet — use + to make one.</span>
+            <span class="hint">None yet — use +.</span>
           {/if}
         </label>
         <button
@@ -887,7 +894,7 @@ import {
     {/if}
 
     {#if creating}
-      <div class="create">
+      <div class="create wide">
         <label>{creating === 'book' ? 'New book title' : 'New assignment name'}
           <input
             bind:value={newName}
@@ -913,7 +920,7 @@ import {
         {#if createErr}<p class="bad">{createErr}</p>{/if}
       </div>
     {/if}
-    <p class="target" title={target}>{target || 'Set the MOM root first.'}</p>
+    <p class="target wide" title={target}>{target || 'Set the MOM root first.'}</p>
   </div>
   {/if}
 
@@ -1016,9 +1023,15 @@ import {
            border: 1px dashed rgba(128,128,128,.4); background: transparent; color: inherit; cursor: pointer; opacity: .7; }
   .new-q:hover:not(:disabled) { opacity: 1; border-color: rgba(59,130,246,.5); color: #3b82f6; }
   .new-q:disabled { opacity: .4; cursor: default; }
-  .context { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(128,128,128,.15); }
-  .row { display: flex; gap: 6px; align-items: flex-end; }
-  .row label { flex: 1; min-width: 0; }
+  /* Two columns of short fields. `min-width: 0` on the whole chain matters: without it a grid
+     track refuses to shrink below its select's widest option, and one long assignment name
+     pushes the strip wider than the rail. */
+  .context { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 8px; align-items: end;
+             flex-shrink: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(128,128,128,.15); }
+  .field { display: flex; gap: 4px; align-items: flex-end; min-width: 0; }
+  .field label { flex: 1; min-width: 0; }
+  .field select, .field input { width: 100%; min-width: 0; box-sizing: border-box; }
+  .wide { grid-column: 1 / -1; }
   label { display: flex; flex-direction: column; gap: 2px; font-size: 11px; text-transform: uppercase;
           letter-spacing: .05em; opacity: .6; }
   input { font: inherit; font-size: 12px; padding: 4px 7px; border-radius: 6px; text-transform: none;
@@ -1028,6 +1041,7 @@ import {
                      border: 1px solid rgba(128,128,128,.3); background: var(--color-bg-card); color: var(--color-text-primary); }
   option { background: var(--color-bg-card); color: var(--color-text-primary); }
   textarea { resize: vertical; }
+  .cap { display: flex; align-items: baseline; gap: 4px; white-space: nowrap; }
   .opt { text-transform: none; letter-spacing: 0; opacity: .6; font-weight: 400; }
   .plus { flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
           background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
