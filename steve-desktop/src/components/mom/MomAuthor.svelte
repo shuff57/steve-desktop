@@ -1,11 +1,18 @@
 <script lang="ts">
   /**
-   * Write one question from a problem-set link, a description, or a pasted example, then loop
-   * until the sandbox renders it clean.
+   * The question rail: one surface for writing a question and for revising one.
    *
-   * The agent writes the file through the CLI's own tools; this component does the half the agent
-   * cannot do honestly — render the result and judge it — and hands any failure back. The run is
-   * streamed line by line because the point is watching it happen, not getting a summary at the end.
+   * There is no mode switch. What you type means "change this question" when a question is
+   * selected and "write a new one" when none is — because that is already what the selection
+   * means everywhere else on the page. `+ new` clears the selection, so starting fresh is one
+   * click rather than a tab.
+   *
+   * Writing: the agent writes the file through the CLI's own tools; this component does the half
+   * the agent cannot do honestly — render the result and judge it — and hands any failure back.
+   * The run is streamed line by line because the point is watching it happen.
+   *
+   * Revising: one CLI session per question file, resumed on each follow-up, so "now do the same to
+   * part C" still knows what the last turn did.
    */
   import { invoke } from '@tauri-apps/api/core';
   import { listen, type UnlistenFn } from '@tauri-apps/api/event';
@@ -38,7 +45,7 @@ import {
     loadLearnedRules,
     saveLearnedRules,
   } from '../../integrations/mom/reflect';
-  import { MOM_DIALECT_RULES } from '../../integrations/mom/revise';
+  import { MOM_DIALECT_RULES, buildRevisePrompt, buildFollowUpPrompt } from '../../integrations/mom/revise';
 
   const PLAN_SETTING = 'mom_author_plan';
   /** Where finished questions get filed. Persisted for the same reason the plan is. */
@@ -54,6 +61,11 @@ import {
     onDone = (_: string) => {},
     onDraft = (_: string | null) => {},
     onBooksChanged = () => {},
+    selectedPath = null,
+    selectedLabel = null,
+    selectedContents = '',
+    onRevised = () => {},
+    onClearSelection = () => {},
   } = $props<{
     root: string;
     sandboxUrl: string;
@@ -68,6 +80,14 @@ import {
     onDraft?: (contents: string | null) => void;
     /** A book or assignment was created here; the parent must re-read the manifests. */
     onBooksChanged?: () => void | Promise<void>;
+    /** The question on screen. Its presence is what makes the composer mean "revise". */
+    selectedPath?: string | null;
+    selectedLabel?: string | null;
+    selectedContents?: string;
+    /** A revision turn finished — re-read from disk and re-render. */
+    onRevised?: () => void | Promise<void>;
+    /** `+ new` — drop the selection so the composer means "write a new question" again. */
+    onClearSelection?: () => void;
   }>();
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
@@ -115,7 +135,25 @@ import {
    * something anyone said — so the bubbles remain the parts worth reading.
    */
   type Line = { role: 'user' | 'agent' | 'step' | 'ok' | 'error'; text: string };
-  let lines = $state<Line[]>([]);
+  /**
+   * One conversation per question file, plus one for "nothing selected yet".
+   *
+   * Keyed by a normalised path because the same file arrives spelled two ways — `questionPath`
+   * builds it with OS separators, the browser reads it back off the island — and two spellings
+   * would split one question's history into two threads.
+   */
+  const NEW_KEY = '__new__';
+  const norm = (p: string) => p.replace(/[\\/]+/g, '/').toLowerCase();
+  let threads = $state<Record<string, Line[]>>({});
+  /** The file a write run is producing. While set, the log follows the run rather than the selection. */
+  let runKey = $state<string | null>(null);
+  const viewKey = $derived(runKey ?? (selectedPath ? norm(selectedPath) : NEW_KEY));
+  const lines = $derived(threads[viewKey] ?? []);
+  /** CLI session per question, so a follow-up resumes instead of starting cold. */
+  const sessions = new Map<string, string>();
+  let revising = $state(false);
+  /** Batch outcome — a result, not conversation, so it sits with the other banners. */
+  let batchResult = $state<string | null>(null);
   let attempts = $state<AttemptResult[]>([]);
   let finalPath = $state<string | null>(null);
   let fatal = $state<string | null>(null);
@@ -191,6 +229,20 @@ import {
   const canPlan = $derived(!running && !!root && !!family.trim() && hasLink);
   const canWriteSelected = $derived(!running && !!root && !!family.trim() && hasLink && selected.size > 0);
   const planModeChosen = $derived(!!planMode);
+  /** Anything the rail is doing. One flag so the composer disables the same way for both jobs. */
+  const busy = $derived(running || revising || setBusy);
+  /** Selection is what decides the job; there is no mode to get out of step with it. */
+  const revisingMode = $derived(!!selectedPath);
+  /**
+   * Where a new question goes. Shut by default and summarised in its own header — the destination
+   * persists between runs, so it is something you set occasionally rather than per question.
+   */
+  let contextOpen = $state(false);
+  const destName = $derived(
+    placeAssignment
+      ? (chosenBook?.items.find((i: { path: string }) => i.path === placeAssignment)?.name ?? placeAssignment)
+      : 'not filed',
+  );
   const allSelected = $derived(planned ? selected.size === planned.length && planned.length > 0 : false);
 
   // Persist whenever the plan or selection changes.
@@ -256,8 +308,17 @@ import {
     if (destLoaded) persistDest();
   });
 
+  /** Log into whatever thread is on screen — during a run that is the run's own, by construction. */
   function log(text: string, role: Line['role'] = 'step') {
-    lines = [...lines, { role, text }];
+    push(viewKey, { role, text });
+  }
+
+  function push(key: string, line: Line) {
+    threads = { ...threads, [key]: [...(threads[key] ?? []), line] };
+  }
+
+  function clearThread(key: string) {
+    threads = { ...threads, [key]: [] };
   }
 
   async function loadExistingSlugs() {
@@ -278,7 +339,7 @@ import {
     setError = null;
     planned = null;
     selected = new Set();
-    lines = [];
+    clearThread(viewKey);
     try {
       const reply = await turn(buildSetPlanPrompt({ link: link.trim(), family: family.trim(), root, mode: planMode }));
       if (reply) log(reply, 'agent');
@@ -409,6 +470,64 @@ import {
   }
 
   /**
+   * One revision turn against the selected question.
+   *
+   * The session is stored only after the CLI has actually produced it — resuming a session the CLI
+   * failed to create just errors — and dropped again if the turn was killed, because a follow-up
+   * must not resume a corpse.
+   */
+  async function revise() {
+    const key = selectedPath;
+    if (!key || busy || !brief.trim()) return;
+    const instruction = brief.trim();
+    brief = '';
+    const thread = norm(key);
+    push(thread, { role: 'user', text: instruction });
+    revising = true;
+    stopped = false;
+    fatal = null;
+    const prior = sessions.get(thread);
+    const sessionId = prior ?? crypto.randomUUID();
+    runningSession = sessionId;
+    try {
+      const stdout = await invoke<string>('run_agent_cli', {
+        engine,
+        prompt: prior
+          ? buildFollowUpPrompt(instruction)
+          : buildRevisePrompt({ path: key, label: selectedLabel ?? key, instruction, contents: selectedContents }),
+        sessionId,
+        resume: !!prior,
+        model: cliModelArg(engine, model),
+        systemPrompt: null,
+        bypassPermissions: true, // it has to edit the file, which needs tools
+        timeoutSecs: 600,
+        stream: false,
+      });
+      sessions.set(thread, sessionId);
+      push(thread, { role: 'agent', text: extractCliText(engine, stdout).trim() || '(no summary returned)' });
+      await onRevised();
+    } catch (e) {
+      push(thread, { role: 'error', text: stopped ? 'Stopped.' : e instanceof Error ? e.message : String(e) });
+      if (stopped) sessions.delete(thread);
+      // A killed turn may have half-edited the file, so re-read either way rather than trusting
+      // that stopping it left the question untouched.
+      await onRevised().catch(() => {});
+    } finally {
+      revising = false;
+      if (runningSession === sessionId) runningSession = null;
+    }
+  }
+
+  /** Enter sends; Shift+Enter is a newline, as everywhere else in the app. */
+  function onKey(e: KeyboardEvent) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (selectedPath) revise();
+      else if (canRun) run();
+    }
+  }
+
+  /**
    * Show the file being written, by re-reading it while the agent works.
    *
    * Polling the file beats parsing write payloads out of the CLI stream: the file on disk is the
@@ -510,6 +629,10 @@ import {
     slug = plannedSlug;
     if (plannedBrief !== undefined) brief = plannedBrief;
     const path = target;
+    // From here the log belongs to the file being written, not to whatever was selected. When the
+    // run finishes the parent selects this same file, so the thread simply carries on.
+    runKey = norm(path);
+    clearThread(runKey);
     try {
       log(`Writing ${family.trim()}/${slug.trim()}.php`);
       let reply = await turn(
@@ -585,10 +708,11 @@ import {
     if (!canRun) return;
     running = true;
     stopped = false;
-    lines = [];
+    clearThread(viewKey);
     attempts = [];
     finalPath = null;
     fatal = null;
+    batchResult = null;
     draft = '';
     onDraft('');
     learnedRules = await loadLearnedRules(root);
@@ -611,6 +735,7 @@ import {
     } finally {
       running = false;
       runningSession = null;
+      runKey = null;
       // Hand the pane back: the finished file is reachable through the normal selection, and a
       // stuck "Writing…" would outlive the run.
       onDraft(null);
@@ -621,10 +746,11 @@ import {
     if (!canWriteSelected) return;
     running = true;
     stopped = false;
-    lines = [];
+    clearThread(viewKey);
     attempts = [];
     finalPath = null;
     fatal = null;
+    batchResult = null;
     draft = '';
     onDraft('');
     learnedRules = await loadLearnedRules(root);
@@ -644,18 +770,18 @@ import {
         }
         if (!result.ok) failed.push(p.slug);
       }
-      if (!failed.length) log(`All ${list.length} questions render clean.`, 'ok');
-      else
-        log(
-          `${list.length - failed.length} of ${list.length} render clean. Left for you: ${failed.join(', ')}.`,
-          'error',
-        );
+      // A batch verdict is a result, not conversation: each question's log lives in its own
+      // thread, so a summary logged into the last one would be filed under a single question.
+      batchResult = failed.length
+        ? `${list.length - failed.length} of ${list.length} render clean. Left for you: ${failed.join(', ')}.`
+        : `All ${list.length} questions render clean.`;
     } catch (e) {
       if (stopped) log('Stopped. The file is left wherever the agent got to.', 'error');
       else fatal = e instanceof Error ? e.message : String(e);
     } finally {
       running = false;
       runningSession = null;
+      runKey = null;
       onDraft(null);
     }
   }
@@ -663,6 +789,26 @@ import {
 
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <div class="author" onpaste={onPaste}>
+  <!-- What the composer is pointed at. A selected question makes this a revision rail; nothing
+       selected makes it a writing one. Either way the line says which, so a typed instruction
+       never lands somewhere you did not expect. -->
+  <div class="aim">
+    {#if revisingMode}
+      <span class="aim-what" title={selectedPath ?? ''}>{selectedLabel ?? selectedPath}</span>
+      <button class="new-q" disabled={busy} title="Write a new question instead" onclick={onClearSelection}>+ new</button>
+    {:else}
+      <button
+        class="aim-what as-button"
+        title="Family, slug and where it gets filed"
+        onclick={() => (contextOpen = !contextOpen)}
+      >
+        <span class="chev">{contextOpen ? '▾' : '▸'}</span>
+        {family.trim() || 'no family'}/{slug.trim() || 'no slug'} → {destName}
+      </button>
+    {/if}
+  </div>
+
+  {#if !revisingMode && contextOpen}
   <div class="context">
     <div class="row">
       <label>Family
@@ -749,8 +895,9 @@ import {
     {/if}
     <p class="target" title={target}>{target || 'Set the MOM root first.'}</p>
   </div>
+  {/if}
 
-  {#if planned}
+  {#if planned && !revisingMode}
     <div class="planned">
       <div class="planned-head">
         <label class="all-none">
@@ -791,36 +938,53 @@ import {
     {#each lines as l, i (i)}
       <ChatMessage role={l.role} text={l.text} />
     {/each}
-    {#if running}<ChatMessage role="step" text="Working…" />{/if}
-    {#if lines.length === 0 && !running && !planned}
-      <p class="hint">Describe the question you want, paste a screenshot, or give a problem-set link.</p>
+    {#if busy}<ChatMessage role="step" text="Working…" />{/if}
+    {#if lines.length === 0 && !busy && !planned}
+      <p class="hint">
+        {#if revisingMode}
+          Ask for a fix — “part C reads awkwardly”, “make the distractors closer”, “round to cents”.
+        {:else}
+          Describe the question you want, paste a screenshot, or give a problem-set link.
+        {/if}
+      </p>
     {/if}
   </div>
 
   <div class="composer">
-    <input bind:value={link} disabled={running || setBusy} spellcheck="false" placeholder="Problem-set link or URL" />
+    <!-- One box for both jobs. What it means is decided by the selection, which is also what the
+         line at the top of the rail says — so there is nothing to switch and nothing to mis-read. -->
+    {#if !revisingMode}
+      <input bind:value={link} disabled={busy} spellcheck="false" placeholder="Problem-set link or URL" />
+    {/if}
     <textarea
       rows="2"
       bind:value={brief}
-      disabled={running || setBusy}
-      placeholder="Describe the question…"
+      disabled={busy}
+      onkeydown={onKey}
+      placeholder={revisingMode ? 'Describe the change…' : 'Describe the question…'}
     ></textarea>
 
-    <div class="shot">
-      {#if imagePreview}
-        <div class="thumb">
-          <img src={imagePreview} alt="Pasted example question" />
-          <button class="x" title="Remove" disabled={running || setBusy} onclick={clearImage}>×</button>
-        </div>
-      {:else}
-        <div class="dropzone" class:err={!!pasteErr}>
-          {pasteErr ?? 'Paste a screenshot (Ctrl+V)'}
-        </div>
-      {/if}
-    </div>
+    {#if !revisingMode}
+      <div class="shot">
+        {#if imagePreview}
+          <div class="thumb">
+            <img src={imagePreview} alt="Pasted example question" />
+            <button class="x" title="Remove" disabled={busy} onclick={clearImage}>×</button>
+          </div>
+        {:else}
+          <div class="dropzone" class:err={!!pasteErr}>
+            {pasteErr ?? 'Paste a screenshot (Ctrl+V)'}
+          </div>
+        {/if}
+      </div>
+    {/if}
 
-    {#if running}
+    {#if busy}
       <button class="go stop" onclick={stop}>Stop</button>
+    {:else if revisingMode}
+      <div class="actions">
+        <button class="go" onclick={revise} disabled={!brief.trim()}>Send</button>
+      </div>
     {:else}
       <div class="plan-mode">
         <label class="mode-option">
@@ -839,18 +1003,29 @@ import {
         </button>
       </div>
     {/if}
-    {#if !sourced && !running && !setBusy}
+    {#if !revisingMode && !sourced && !busy}
       <p class="hint">Give it a link, a description, or a pasted example.</p>
     {/if}
     {#if finalPath}
       <p class="ok">Question renders clean. Open it in the browser to preview and check answers.</p>
     {/if}
+    {#if batchResult}<p class="ok">{batchResult}</p>{/if}
     {#if fatal}<p class="bad">{fatal}</p>{/if}
   </div>
 </div>
 
 <style>
   .author { display: flex; flex-direction: column; gap: 10px; min-height: 0; flex: 1; }
+  .aim { display: flex; align-items: center; gap: 6px; flex-shrink: 0; min-width: 0; }
+  .aim-what { flex: 1; min-width: 0; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+              opacity: .8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .aim-what.as-button { text-align: left; background: transparent; border: none; color: inherit; cursor: pointer; padding: 0; }
+  .aim-what.as-button:hover { opacity: 1; }
+  .chev { opacity: .6; }
+  .new-q { flex-shrink: 0; padding: 2px 8px; font-size: 11px; border-radius: 6px;
+           border: 1px dashed rgba(128,128,128,.4); background: transparent; color: inherit; cursor: pointer; opacity: .7; }
+  .new-q:hover:not(:disabled) { opacity: 1; border-color: rgba(59,130,246,.5); color: #3b82f6; }
+  .new-q:disabled { opacity: .4; cursor: default; }
   .context { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; padding-bottom: 8px; border-bottom: 1px solid rgba(128,128,128,.15); }
   .row { display: flex; gap: 6px; align-items: flex-end; }
   .row label { flex: 1; min-width: 0; }

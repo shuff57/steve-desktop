@@ -19,7 +19,6 @@
   import { prepareRenderHtml } from '../integrations/mom/render-html';
   import { questionHealth } from '../integrations/mom/health';
   import { withCheckData, injectChecker, checkableParts } from '../integrations/mom/answer-check';
-  import MomChat from '../components/mom/MomChat.svelte';
   import BookShelf from '../components/mom/BookShelf.svelte';
   import MomAuthor from '../components/mom/MomAuthor.svelte';
   import ActionShell from '../components/shell/ActionShell.svelte';
@@ -147,12 +146,24 @@
   // Revision rail. Collapsed by default so it costs nothing until wanted.
   let railCollapsed = $state(true);
   let railWidth = $state(420);
-  /** The rail hosts two jobs: fix the selected question, or write a new one from the book. */
-  let railTab = $state<'revise' | 'author'>('revise');
-  const RAIL_MODES = [
-    { id: 'revise', icon: '✎', label: 'Revise' },
-    { id: 'author', icon: '✍', label: 'Write' },
-  ];
+  /**
+   * Width and collapsed-ness outlive the visit, the way the browser drawer's already do — dragging
+   * the rail back to a working width on every launch is the sort of thing you stop doing by just
+   * leaving it collapsed. Guarded by `railLoaded` so the default 420 cannot save over the stored
+   * value before the restore lands.
+   */
+  const RAIL_SETTING = 'mom_rail_state';
+  let railLoaded = false;
+  let railSaveTimer: ReturnType<typeof setTimeout> | undefined;
+  $effect(() => {
+    void railWidth;
+    void railCollapsed;
+    if (!railLoaded) return;
+    clearTimeout(railSaveTimer);
+    railSaveTimer = setTimeout(() => {
+      setSetting(RAIL_SETTING, JSON.stringify({ width: railWidth, collapsed: railCollapsed })).catch(() => {});
+    }, 300);
+  });
   /**
    * The file the writer is currently producing, mirrored here so you watch it appear in the preview
    * rather than reading tool-call chatter. `null` = no run in flight, `''` = started but nothing on
@@ -391,6 +402,16 @@
     if (drafts) {
       draftsDir = drafts;
       draftsDirInput = drafts;
+    }
+    try {
+      const raw = await getSetting(RAIL_SETTING).catch(() => null);
+      if (raw) {
+        const s = JSON.parse(raw) as { width?: number; collapsed?: boolean };
+        if (typeof s.width === 'number') railWidth = s.width;
+        if (typeof s.collapsed === 'boolean') railCollapsed = s.collapsed;
+      }
+    } finally {
+      railLoaded = true;
     }
   });
 
@@ -693,42 +714,32 @@
       <ActionShell
         variant="column"
         title="Question rail"
-        modes={RAIL_MODES}
-        bind:activeMode={railTab}
         bind:isCollapsed={railCollapsed}
         bind:width={railWidth}
         bind:provider={agentProvider}
         bind:model={agentModel}
         providerDisabled={authorDraft !== null}
       >
-        {#if railTab === 'author'}
-          <MomAuthor
-            root={momRoot ?? ''}
-            sandboxUrl={SANDBOX_URL}
-            families={families.map((f) => f.name)}
-            placements={booksByBook.map((g) => ({
-              slug: g.slug,
-              title: g.title,
-              items: g.items.map((b) => ({ path: b.path, name: b.name })),
-            }))}
-            provider={agentProvider}
-            model={agentModel}
-            onDone={handleAuthorDone}
-            onDraft={(c) => (authorDraft = c)}
-            onBooksChanged={reloadBooks}
-          />
-        {:else}
-          <MomChat
-            open
-            embedded
-            path={selectedQuestion?.path ?? null}
-            label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
-            contents={selectedQuestion?.contents ?? ''}
-            provider={agentProvider}
-            model={agentModel}
-            onRevised={reloadSelected}
-          />
-        {/if}
+        <MomAuthor
+          root={momRoot ?? ''}
+          sandboxUrl={SANDBOX_URL}
+          families={families.map((f) => f.name)}
+          placements={booksByBook.map((g) => ({
+            slug: g.slug,
+            title: g.title,
+            items: g.items.map((b) => ({ path: b.path, name: b.name })),
+          }))}
+          provider={agentProvider}
+          model={agentModel}
+          onDone={handleAuthorDone}
+          onDraft={(c) => (authorDraft = c)}
+          onBooksChanged={reloadBooks}
+          selectedPath={selectedQuestion?.path ?? null}
+          selectedLabel={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
+          selectedContents={selectedQuestion?.contents ?? ''}
+          onRevised={reloadSelected}
+          onClearSelection={() => (selectedQuestion = null)}
+        />
       </ActionShell>
     </div>
 
