@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOM Style Guide Demo</title>
+<style>
+    /* === $css_block (verbatim from free-response-template.php) === */
+    .rubric-container { width:100%; font-family:Arial; font-size:medium; margin:1em 0; }
+    .rubric-container details { width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; background:#fff; }
+    .rubric-container summary { cursor:pointer; display:block; width:100%; background:#f8f8f8; color:#333; padding:0.35em 0.6em; font-weight:bold; border-bottom:1px solid #ccc; list-style:none; border:none; }
+    .rubric-container details[open] summary { box-shadow: inset 0 -1px 0 #ccc; }
+    .rubric-container summary::-webkit-details-marker { display:none; }
+    .arrow-open { display:none; }
+    .rubric-container details[open] .arrow-closed { display:none; }
+    .rubric-container details[open] .arrow-open { display:inline; }
+    .rubric-content { overflow:hidden; max-height:0; opacity:0; transition:max-height 300ms ease-out, opacity 300ms ease-out, padding 200ms ease-out; margin-top:0; background:#fafafa; box-sizing:border-box; padding:0 0.75em; }
+    .rubric-container details[open] .rubric-content { max-height:2000px; opacity:1; padding:0.75em; }
+    .rubric-table { border-collapse:separate; border-spacing:0; width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; font-family:Arial; font-size:small; margin-top:10px; }
+    .rubric-table th { background:#f2f2f2; padding:8px; text-align:center; border:1px solid #ccc; }
+    .rubric-table td { padding:10px; border:1px solid #ccc; vertical-align:top; user-select:text; }
+    .row-colored { background:#fff9ea; }
+    .col-header { width:25%; border-top-left-radius:8px; }
+    .col-check { border-top-right-radius:8px; }
+    .col-cat-bot { border-bottom-left-radius:8px; }
+    .col-check-bot { border-bottom-right-radius:8px; }
+    .ideal-ans { display: block; background-color: #e8f5e9; font-style: italic; font-weight: bold; font-size: 0.95em; margin: 5px 0 10px 0; border-left: 3px solid #4CAF50; padding-left: 8px; }
+    .full-response-box { margin-top: 15px; border: 2px solid #4CAF50; background-color: #e8f5e9; padding: 15px; border-radius: 5px; }
+
+    /* === Demo page layout === */
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 2em auto; padding: 0 1em; color: #333; background: #f9f9f9; }
+    h1 { border-bottom: 2px solid #4CAF50; padding-bottom: 0.3em; }
+    h2 { margin-top: 2em; color: #2E7D32; }
+    .demo-section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; margin: 1em 0 2em; }
+    .demo-label { font-size: 0.8em; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5em; }
+    code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<h1>MOM Style Guide Demo</h1>
+<p>Interactive preview of all shared CSS components. Click any section to expand. Try selecting and copying text from table cells.</p>
+
+<!-- ========== 1. FRQ Student Rubric ========== -->
+<h2>1. Student Rubric (FRQ)</h2>
+<p>What students see during the assignment. Checkboxes only, no answers revealed.</p>
+<div class="demo-section">
+  <div class="demo-label">$rubricbutton</div>
+  <div class="rubric-container">
+    <details>
+      <summary>
+        <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+        Click to View Grading Checklist
+      </summary>
+      <div class="rubric-content">
+        <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+        <table class="rubric-table">
+          <tbody>
+            <tr>
+              <th class="col-header">Category</th>
+              <th class="col-check">Requirement</th>
+            </tr>
+            <tr class="row-colored">
+              <td style="text-align:center;"><b>The Procedure</b></td>
+              <td>
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li><label><input type="checkbox"> Describe the sampling method used.</label></li>
+                  <li><label><input type="checkbox"> Identify the statistic calculated for each sample.</label></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="row-colored">
+              <td style="text-align:center;"><b>The Transformation</b></td>
+              <td>
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li><label><input type="checkbox"> Explain why the shape of the data changes.</label></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="row-colored">
+              <td class="col-cat-bot" style="text-align:center;"><b>The Outcome</b></td>
+              <td class="col-check-bot">
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li><label><input type="checkbox"> Describe the final shape of the distribution.</label></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ========== 2. FRQ Instructor Rubric ========== -->
+<h2>2. Instructor Rubric (FRQ)</h2>
+<p>What instructors see after <code>///</code>. Includes ideal answer targets and model narrative.</p>
+<div class="demo-section">
+  <div class="demo-label">$rubricanswerbutton</div>
+  <div class="rubric-container">
+    <details>
+      <summary>
+        <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+        Rubric &amp; Model Response
+      </summary>
+      <div class="rubric-content">
+        <table class="rubric-table">
+          <tbody>
+            <tr>
+              <th class="col-header">Category</th>
+              <th class="col-check">Checklist &amp; Ideal Targets</th>
+            </tr>
+            <tr class="row-colored">
+              <td style="text-align:center;"><b>The Procedure</b></td>
+              <td>
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li>Sampling Step.
+                    <span class="ideal-ans">Target: "Take many random samples."</span></li>
+                  <li>Calculation Step.
+                    <span class="ideal-ans">Target: "Calculate the MEAN (average) of each sample."</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="row-colored">
+              <td style="text-align:center;"><b>The Transformation</b></td>
+              <td>
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li>Mechanism.
+                    <span class="ideal-ans">Target: "Averaging dilutes outliers/extremes."</span></li>
+                </ul>
+              </td>
+            </tr>
+            <tr class="row-colored">
+              <td class="col-cat-bot" style="text-align:center;"><b>The Outcome</b></td>
+              <td class="col-check-bot">
+                <ul style="list-style:none; margin:0; padding-left:0;">
+                  <li>Shape.
+                    <span class="ideal-ans">Target: "The distribution becomes Normal / Bell-shaped."</span></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="full-response-box">
+          <span style="color:#2E7D32; font-weight:bold;">Model Narrative Response:</span><br><br>
+          The Central Limit Theorem describes a specific process: We start by <b>repeatedly taking random samples and calculating the average (mean) for each one</b>. We then plot these averages on a graph. Even though the original population of annual household income is skewed, the distribution of these sample means becomes Normal. This happens because <b>the act of averaging dilutes the extreme outliers found in the skewed population</b>. As we add more averages to our plot, <b>the resulting graph of sample means forms a Normal distribution (Bell Curve)</b>.
+        </div>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ========== 3. Trig Worked Solution ========== -->
+<h2>3. Worked Solution (Trig)</h2>
+<p>Step/Work table for autograded questions. No background fill, no checkboxes. Each step includes an explanation of <em>what</em> to do and <em>why</em>. Green answer highlight in last row.</p>
+<div class="demo-section">
+  <div class="demo-label">$solutionguide (trig)</div>
+  <div class="rubric-container">
+    <details>
+      <summary>
+        <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+        Step-by-Step Solution
+      </summary>
+      <div class="rubric-content">
+        <table class="rubric-table">
+          <tbody>
+            <tr>
+              <th class="col-header">Step</th>
+              <th class="col-check">Work</th>
+            </tr>
+            <tr>
+              <td style="text-align:center;"><b>Given</b></td>
+              <td>The point P = (&#8722;&#8730;3/2, 1/2) is on the unit circle. We need to find the reference angle in both degrees and radians.</td>
+            </tr>
+            <tr>
+              <td style="text-align:center;"><b>Step 1</b></td>
+              <td><b>Identify the angle and its quadrant.</b><br>
+              Look up the coordinates on the unit circle. The x-coordinate is negative and the y-coordinate is positive, which places this point in Quadrant II. The standard angle with these coordinates is <b>150&deg;</b>.</td>
+            </tr>
+            <tr>
+              <td style="text-align:center;"><b>Step 2</b></td>
+              <td><b>Apply the reference angle rule.</b><br>
+              The reference angle is the acute angle between the terminal side and the x-axis. Each quadrant has its own formula:
+                <ul style="margin:0.3em 0 0.3em 1.2em;">
+                  <li>Quadrant I: reference angle = &theta;</li>
+                  <li>Quadrant II: reference angle = 180 &minus; &theta;</li>
+                  <li>Quadrant III: reference angle = &theta; &minus; 180</li>
+                  <li>Quadrant IV: reference angle = 360 &minus; &theta;</li>
+                </ul>
+              Since 150&deg; is in Quadrant II, we use 180 &minus; &theta;:<br>
+              Reference angle = 180 &minus; 150 = <b>30&deg;</b></td>
+            </tr>
+            <tr>
+              <td class="col-cat-bot" style="text-align:center;"><b>Step 3</b></td>
+              <td class="col-check-bot"><b>Convert degrees to radians.</b><br>
+              To convert any angle from degrees to radians, multiply by &pi;/180:<br>
+              30 &times; &pi;/180 = &pi;/6
+                <div style="margin-top:8px;padding:0.6em 1em;background:#e8f5e9;border-left:4px solid #4CAF50;border-radius:0 6px 6px 0;">
+                  <b>Reference angle:</b> 30&deg; = &pi;/6 radians
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ========== 4. Matrix Worked Solution ========== -->
+<h2>4. Worked Solution (Matrix)</h2>
+<p>Row operations with intermediate matrix displays nested inside table cells. Each step explains the goal of the operation.</p>
+<div class="demo-section">
+  <div class="demo-label">$solutionguide (matrix)</div>
+  <div class="rubric-container">
+    <details>
+      <summary>
+        <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+        Step-by-Step Solution
+      </summary>
+      <div class="rubric-content">
+        <table class="rubric-table">
+          <tbody>
+            <tr>
+              <th class="col-header">Step</th>
+              <th class="col-check">Work</th>
+            </tr>
+            <tr>
+              <td style="text-align:center;"><b>Given</b></td>
+              <td>We need to row reduce this augmented matrix to reduced row echelon form (RREF). The goal is to get an identity matrix on the left side.<br>
+                <table style="border-collapse:collapse; margin:8px 0;">
+                  <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">1</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">&#8722;2</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">7</td></tr>
+                  <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">2</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">&#8722;3</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">11</td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align:center;"><b>Step 1</b></td>
+              <td><b>Eliminate the 2 below the first pivot.</b><br>
+              Subtract 2 times Row 1 from Row 2. This creates a zero in position (2,1).<br>
+              R<sub>2</sub> &larr; R<sub>2</sub> &minus; (2)R<sub>1</sub>
+                <table style="border-collapse:collapse; margin:8px 0;">
+                  <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">1</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">&#8722;2</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">7</td></tr>
+                  <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">0</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">1</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">&#8722;3</td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-cat-bot" style="text-align:center;"><b>Step 2</b></td>
+              <td class="col-check-bot"><b>Eliminate the &#8722;2 above the second pivot.</b><br>
+              Add 2 times Row 2 to Row 1. This creates a zero in position (1,2), completing the RREF.<br>
+              R<sub>1</sub> &larr; R<sub>1</sub> + (2)R<sub>2</sub>
+                <div style="margin-top:8px;padding:0.6em 1em;background:#e8f5e9;border-left:4px solid #4CAF50;border-radius:0 6px 6px 0;">
+                  <table style="border-collapse:collapse; margin:4px 0;">
+                    <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">1</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">0</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">1</td></tr>
+                    <tr><td style="border:1px solid #999; padding:4px 10px; text-align:right;">0</td><td style="border:1px solid #999; padding:4px 10px; text-align:right;">1</td><td style="border:1px solid #999; border-left:3px solid #333; padding:4px 10px; text-align:right;">&#8722;3</td></tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ========== 5. Color Palette ========== -->
+<h2>5. Color Palette</h2>
+<div class="demo-section">
+  <table class="rubric-table" style="max-width:500px;">
+    <tbody>
+      <tr>
+        <th class="col-header">Token</th>
+        <th style="border:1px solid #ccc;">Hex</th>
+        <th class="col-check">Preview</th>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Row highlight</b></td>
+        <td style="text-align:center;"><code>#fff9ea</code></td>
+        <td style="background:#fff9ea;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Header bg</b></td>
+        <td style="text-align:center;"><code>#f2f2f2</code></td>
+        <td style="background:#f2f2f2;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Content bg</b></td>
+        <td style="text-align:center;"><code>#fafafa</code></td>
+        <td style="background:#fafafa;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Green accent</b></td>
+        <td style="text-align:center;"><code>#4CAF50</code></td>
+        <td style="background:#4CAF50;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Green bg</b></td>
+        <td style="text-align:center;"><code>#e8f5e9</code></td>
+        <td style="background:#e8f5e9;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;"><b>Table border</b></td>
+        <td style="text-align:center;"><code>#ccc</code></td>
+        <td style="background:#ccc;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="col-cat-bot" style="text-align:center;"><b>Green text</b></td>
+        <td style="text-align:center; border:1px solid #ccc;"><code>#2E7D32</code></td>
+        <td class="col-check-bot" style="color:#2E7D32; font-weight:bold; text-align:center;">Sample</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========== 6. Individual Components ========== -->
+<h2>6. Individual Components</h2>
+
+<div class="demo-section">
+  <div class="demo-label">.ideal-ans</div>
+  <span class="ideal-ans">Target: "The distribution becomes Normal / Bell-shaped."</span>
+
+  <div class="demo-label" style="margin-top:1.5em;">.full-response-box</div>
+  <div class="full-response-box">
+    <span style="color:#2E7D32; font-weight:bold;">Model Narrative Response:</span><br><br>
+    This is where the complete model answer appears. All text inside this box is selectable and copyable.
+  </div>
+
+  <div class="demo-label" style="margin-top:1.5em;">Green answer highlight (inline, inside last table cell)</div>
+  <div style="margin-top:8px;padding:0.6em 1em;background:#e8f5e9;border-left:4px solid #4CAF50;border-radius:0 6px 6px 0; max-width:300px;">
+    <b>Answer:</b> Quadrant <b>2</b>
+  </div>
+
+  <div class="demo-label" style="margin-top:1.5em;">.row-colored</div>
+  <table class="rubric-table" style="max-width:400px;">
+    <tbody>
+      <tr>
+        <th class="col-header">Normal row</th>
+        <th class="col-check">Value</th>
+      </tr>
+      <tr>
+        <td style="text-align:center;">White</td>
+        <td>No class</td>
+      </tr>
+      <tr class="row-colored">
+        <td style="text-align:center;">Cream</td>
+        <td><code>.row-colored</code></td>
+      </tr>
+      <tr>
+        <td style="text-align:center;">White</td>
+        <td>No class</td>
+      </tr>
+      <tr class="row-colored">
+        <td class="col-cat-bot" style="text-align:center;">Cream</td>
+        <td class="col-check-bot"><code>.row-colored</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var details = document.querySelectorAll(".rubric-container details");
+  details.forEach(function(det) {
+    var content = det.querySelector(".rubric-content");
+    det.addEventListener("toggle", function() {
+      if (det.open) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.opacity = "1";
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.offsetHeight;
+        content.style.maxHeight = "0";
+        content.style.opacity = "0";
+      }
+    });
+    content.addEventListener("transitionend", function() {
+      if (!det.open) content.style.maxHeight = null;
+    });
+  });
+});
+</script>
+
+</body>
+</html>
