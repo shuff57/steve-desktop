@@ -26,6 +26,7 @@ import {
   hasSource,
   MAX_ATTEMPTS,
   type AttemptResult,
+  questionKey,
   type PlannedQuestion,
   type PlanView,
   type SetPlanMode,
@@ -142,12 +143,12 @@ import {
   /**
    * One conversation per question file, plus one for "nothing selected yet".
    *
-   * Keyed by a normalised path because the same file arrives spelled two ways — `questionPath`
-   * builds it with OS separators, the browser reads it back off the island — and two spellings
-   * would split one question's history into two threads.
+   * Keyed by `family/slug` rather than the path: the same file arrives spelled two ways —
+   * `questionPath` joins with `/` onto a root full of `\`, the reader returns what the OS gave it —
+   * and two spellings would split one question's history into two threads.
    */
   const NEW_KEY = '__new__';
-  const norm = (p: string) => p.replace(/[\\/]+/g, '/').toLowerCase();
+  const norm = questionKey;
   let threads = $state<Record<string, Line[]>>({});
   /** The file a write run is producing. While set, the log follows the run rather than the selection. */
   let runKey = $state<string | null>(null);

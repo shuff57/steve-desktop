@@ -14,7 +14,7 @@
   import { onMount } from 'svelte';
   import { getSetting, setSetting } from '../lib/db';
   import { momIsland, type MOMFamily, type MOMQuestion, type MomQuestionDetail, type MomBook, type MomBookEntry, getTemplates, type MomTemplate, findTemplate } from '../integrations/mom';
-  import type { PlanView } from '../integrations/mom/author';
+  import { questionRefFromPath, type PlanView } from '../integrations/mom/author';
   import MomDraft from './MomDraft.svelte';
   import { withAnswerKey } from '../integrations/mom/answer-key';
   import { prepareRenderHtml } from '../integrations/mom/render-html';
@@ -341,10 +341,9 @@
     // Background: this fires FROM the writer rail, and a foreground reload would unmount it.
     await loadIndex(true);
     if (!momRoot) return;
-    const rel = path.replace(/[\\/]+/g, '/').replace(`${momRoot.replace(/[\\/]+/g, '/')}/`, '');
-    const m = rel.match(/^questions\/([^/]+)\/(.+)\.php$/i);
-    if (!m) return;
-    const [_, family, slug] = m;
+    const ref = questionRefFromPath(path);
+    if (!ref) return;
+    const { family, slug } = ref;
     try {
       selectedFamily = family;
       selectedQuestion = await momIsland.methods.getQuestion(family, slug, momRoot);

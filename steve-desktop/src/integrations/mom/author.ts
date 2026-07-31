@@ -178,6 +178,32 @@ export interface PlannedQuestion {
 export type SetPlanMode = 'exercises' | 'invent';
 
 /**
+ * Pull `family` and `slug` back out of a written question's path.
+ *
+ * Anchors on the `questions/<family>/<file>.php` tail rather than subtracting the root, so it does
+ * not care how the two sides spell the same directory — `questionPath` joins with `/` onto a root
+ * full of `\`, and the reader returns whatever the OS handed back.
+ *
+ * The slug KEEPS its `.php`. Every reader in the app passes it that way; the one caller that
+ * stripped it silently failed to open the question it had just written, and the failure was
+ * invisible because the pane behind it was showing something else.
+ */
+export function questionRefFromPath(path: string): { family: string; slug: string } | null {
+  const m = path.replace(/[\\/]+/g, '/').match(/(?:^|\/)questions\/([^/]+)\/(.+\.php)$/i);
+  return m ? { family: m[1], slug: m[2] } : null;
+}
+
+/**
+ * Stable identity for one question, for keying things that must survive both spellings of its
+ * path — a conversation thread, say, where the writer knows the file it is creating and the browser
+ * knows the file it just opened, and they must agree.
+ */
+export function questionKey(path: string): string {
+  const ref = questionRefFromPath(path);
+  return (ref ? `${ref.family}/${ref.slug}` : path.replace(/[\\/]+/g, '/')).toLowerCase();
+}
+
+/**
  * A plan handed to whoever displays it.
  *
  * A plan is a table of ten slugs and briefs, and a 400px rail truncated every one of them — so the

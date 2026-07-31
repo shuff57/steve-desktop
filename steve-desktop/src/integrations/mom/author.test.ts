@@ -10,6 +10,8 @@ import {
   hasSource,
   isUrl,
   questionPath,
+  questionRefFromPath,
+  questionKey,
   MAX_ATTEMPTS,
   MAX_REPAIRS,
   REFERENCE_INDEX,
@@ -335,5 +337,60 @@ describe('topLevelArrays / parseSetPlan bracket handling', () => {
   it('handles a fenced array', () => {
     const reply = '```json\n[{"slug": "q1-abc", "brief": "a brief that is comfortably long enough"}]\n```';
     expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['q1-abc']);
+  });
+});
+
+describe('questionRefFromPath', () => {
+  const ROOT = String.raw`C:\Users\me\GitHub\steve-desktop\steve-desktop\mom-content`;
+
+  it('keeps the .php on the slug, because that is what every reader expects', () => {
+    // Dropping it made the writer fail to open the question it had just written.
+    const ref = questionRefFromPath(questionPath(ROOT, 'descriptive-stats', 'q02-ski-lesson-age-key-terms'));
+    expect(ref).toEqual({ family: 'descriptive-stats', slug: 'q02-ski-lesson-age-key-terms.php' });
+  });
+
+  it('round-trips whatever questionPath builds', () => {
+    for (const [family, slug] of [
+      ['descriptive-stats', 'q1-key-terms'],
+      ['linear-programming', 'q10-classify-x'],
+    ] as const) {
+      expect(questionRefFromPath(questionPath(ROOT, family, slug))).toEqual({ family, slug: `${slug}.php` });
+    }
+  });
+
+  it('reads a path spelled with either separator', () => {
+    const back = questionRefFromPath(String.raw`C:\mom-content\questions\finance\q3.php`);
+    const fwd = questionRefFromPath('C:/mom-content/questions/finance/q3.php');
+    expect(back).toEqual({ family: 'finance', slug: 'q3.php' });
+    expect(fwd).toEqual(back);
+  });
+
+  it('accepts a repo-relative path, not just an absolute one', () => {
+    expect(questionRefFromPath('questions/finance/q3.php')).toEqual({ family: 'finance', slug: 'q3.php' });
+  });
+
+  it('returns null for anything that is not a question file', () => {
+    expect(questionRefFromPath('C:/mom-content/books/intro/hw/1-1.json')).toBeNull();
+    expect(questionRefFromPath('questions/finance/q3.txt')).toBeNull();
+    expect(questionRefFromPath('')).toBeNull();
+  });
+});
+
+describe('questionKey', () => {
+  it('gives one key for the same file spelled two ways', () => {
+    // The writer joins with '/' onto a '\' root; the reader returns the OS spelling. If these
+    // disagree, one question's conversation splits into two threads.
+    const written = questionPath(String.raw`C:\repo\mom-content`, 'descriptive-stats', 'q02-ski');
+    const read = String.raw`c:\repo\mom-content\questions\descriptive-stats\Q02-SKI.php`;
+    expect(questionKey(written)).toBe(questionKey(read));
+  });
+
+  it('keeps different questions apart', () => {
+    expect(questionKey('questions/finance/q1.php')).not.toBe(questionKey('questions/finance/q2.php'));
+    expect(questionKey('questions/finance/q1.php')).not.toBe(questionKey('questions/draw/q1.php'));
+  });
+
+  it('falls back to the normalised path when it is not a question file', () => {
+    expect(questionKey(String.raw`C:\odd\place.txt`)).toBe('c:/odd/place.txt');
   });
 });
