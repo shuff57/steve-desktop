@@ -1,0 +1,11 @@
+{
+  "name": "1.1 Definitions of Statistics, Probability, and Key Terms",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "1-1-definitions-of-statistics-probability-and-key-terms",
+  "created_at": "2026-07-31",
+  "questions": [
+    { "slot": 1, "file_path": "questions/descriptive-stats/q09-identify-population-multiple-choice.php", "title": "Identifying the population of a study — the entire group under study — and distinguishing it from an overly broad group, a wrong-subject group, and a sample (§1.1.2, Definitions 1.1.4–1.1.5)." },
+    { "slot": 2, "file_path": "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php", "title": "Replaced nested `$strflags[$i]['flag']=1` with the comma-separated string form `$strflags[$i] = \"ignore_case,trim_whitespace,special_or\"`, which is what MOM's `strpos`-based flag parser expects." }
+  ]
+}
