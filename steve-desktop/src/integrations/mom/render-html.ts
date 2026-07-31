@@ -77,7 +77,57 @@ export function stripEngineNoise(html: string): string {
   return html.replace(/<div class="qerr">([\s\S]*?)<\/div>/g, (m, inner) => (isEngineNoise(inner) ? '' : m));
 }
 
-/** Everything the preview does to sandbox HTML before it becomes the iframe's `srcdoc`. */
-export function prepareRenderHtml(html: string): string {
-  return fitToPane(fixMathDelimiters(stripEngineNoise(html)));
+/**
+ * Recolour the render for a dark app, WITHOUT touching layout or the question's own styling.
+ *
+ * Everything here is a colour, and each one is a `filter`-free override so MathJax's SVG output and
+ * the question's own inline colours keep working. Inputs get an explicit background: leaving them at
+ * the UA default paints a white box in the middle of a dark question.
+ *
+ * This is deliberately NOT the default. MyOpenMath serves students a light page, so a dark preview
+ * is a comfort setting, not a faithful one — which is why the caller offers it as a toggle.
+ */
+const DARK_CSS = `<style data-dark-css>
+  html,body{background:#141220!important;color:#e8e6f0!important}
+  .question,.question *{border-color:rgba(255,255,255,.22)!important}
+  .question hr{border-top-color:rgba(255,255,255,.22)!important}
+  a{color:#8ab4ff!important}
+  input,select,textarea{background:#1e1b2b!important;color:#e8e6f0!important;
+    border:1px solid rgba(255,255,255,.28)!important}
+  button,input[type=button],input[type=submit]{background:rgba(255,255,255,.10)!important;
+    color:#e8e6f0!important;border:1px solid rgba(255,255,255,.28)!important}
+  table,th,td{border-color:rgba(255,255,255,.22)!important}
+  th{background:rgba(255,255,255,.06)!important}
+
+  /* The part cards are painted by INLINE style attributes on the question's own markup, which no
+     ordinary rule can reach — an !important author rule is what outranks a normal inline style.
+     Matched by their literal colour so the coding survives: blue still reads as a part label and
+     green still reads as an answer, instead of every callout flattening to one grey.
+     ponytail: a lookup of the five colours the bank actually uses. A new palette colour needs a
+     line here; the failure is visible (a white card in a dark render), not silent. */
+  [style*="#fff"]{background:#1e1b2b!important;color:#e8e6f0!important}
+  [style*="#fafafa"]{background:rgba(255,255,255,.05)!important;color:#e8e6f0!important}
+  [style*="#e8f0fe"],[style*="#f0f4ff"]{background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
+  [style*="#e8f5e9"]{background:rgba(34,197,94,.20)!important;color:#d8f5de!important}
+
+  /* Same five colours again where the sandbox sets them from a stylesheet rather than inline. */
+  .sol-wrap details{background:#1e1b2b!important}
+  .sol-wrap summary{background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
+  .sol-body{background:rgba(255,255,255,.05)!important}
+</style>`;
+
+/** Append the dark overrides, last in `<head>` so they beat the sandbox's own rules. */
+export function darkenRender(html: string): string {
+  if (html.includes('data-dark-css')) return html;
+  return html.includes('</head>') ? html.replace('</head>', `${DARK_CSS}</head>`) : DARK_CSS + html;
+}
+
+/**
+ * Everything the preview does to sandbox HTML before it becomes the iframe's `srcdoc`.
+ *
+ * `dark` is opt-in: the honest default is the light page a student actually sees.
+ */
+export function prepareRenderHtml(html: string, dark = false): string {
+  const prepared = fitToPane(fixMathDelimiters(stripEngineNoise(html)));
+  return dark ? darkenRender(prepared) : prepared;
 }

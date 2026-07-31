@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { fixMathDelimiters, prepareRenderHtml, fitToPane, stripEngineNoise } from './render-html';
+import { fixMathDelimiters, prepareRenderHtml, fitToPane, stripEngineNoise, darkenRender } from './render-html';
 
 // The exact config the sandbox returned on 2026-07-30.
 const SANDBOX_HEAD =
@@ -106,5 +106,37 @@ describe('stripEngineNoise', () => {
   it('is applied by prepareRenderHtml', () => {
     const html = '<head></head><body><div class="qerr">Undefined global variable $myrights in parsers.php</div></body>';
     expect(prepareRenderHtml(html)).not.toContain('myrights');
+  });
+});
+
+describe('darkenRender', () => {
+  const PAGE = `<!doctype html><head>${SANDBOX_HEAD}</head><body><div class="question">hi</div></body>`;
+
+  it('is off by default — a student sees a light page, so that is the honest preview', () => {
+    expect(prepareRenderHtml(PAGE)).not.toContain('data-dark-css');
+  });
+
+  it('recolours only when asked', () => {
+    expect(prepareRenderHtml(PAGE, true)).toContain('data-dark-css');
+  });
+
+  it('gives answer boxes an explicit background', () => {
+    // Left at the UA default they paint a white box in the middle of a dark question.
+    expect(darkenRender(PAGE)).toMatch(/input[^{]*\{[^}]*background/);
+  });
+
+  it('lands after the sandbox stylesheet, or the sandbox wins', () => {
+    const out = darkenRender(PAGE);
+    expect(out.indexOf('data-dark-css')).toBeGreaterThan(out.indexOf('MathJax'));
+    expect(out).toContain('</head>');
+  });
+
+  it('is idempotent — re-preparing an already-dark page does not stack stylesheets', () => {
+    const once = darkenRender(PAGE);
+    expect(darkenRender(once)).toBe(once);
+  });
+
+  it('does not disturb the pane layout fix', () => {
+    expect(prepareRenderHtml(PAGE, true)).toContain('data-pane-css');
   });
 });

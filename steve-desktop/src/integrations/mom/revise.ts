@@ -67,3 +67,22 @@ export function buildRevisePrompt(req: ReviseRequest): string {
     '```',
   ].join('\n');
 }
+
+/**
+ * A follow-up turn in an existing revision session.
+ *
+ * The rules, the scope and the file are already in that session's context, so restating them costs
+ * tokens and invites the agent to re-litigate a change it already made. Only the re-read matters:
+ * the file on disk is now its own last edit, not what it was first shown.
+ */
+export function buildFollowUpPrompt(instruction: string): string {
+  return [
+    'Another change to the SAME file, under the same rules and the same scope.',
+    'Re-read it from disk first — you have edited it since you last saw it.',
+    '',
+    'TEACHER REQUEST (verbatim):',
+    instruction.trim(),
+    '',
+    'When done, reply with ONE short line describing what changed. No preamble, no code block.',
+  ].join('\n');
+}

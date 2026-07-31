@@ -68,6 +68,20 @@ describe('renderProblems', () => {
     expect(renderProblems('Notice: bad offset on line 12 of Common Control').length).toBe(1);
   });
 
+  it('catches "Caught warning in the question code" diagnostics', () => {
+    expect(
+      renderProblems('Caught warning in the question code: Uninitialized string offset 0 on line 7 in Question Text'),
+    ).toHaveLength(1);
+  });
+
+  it('catches "Caught error while generating this question" diagnostics', () => {
+    expect(
+      renderProblems(
+        'Caught error while generating this question: strpos(): Argument #1 ($haystack) must be of type string, array given',
+      ),
+    ).toHaveLength(1);
+  });
+
   it('suppresses the same notice when it points at the sandbox harness', () => {
     expect(renderProblems('Notice: Undefined offset: 3 in /app/serve.php on line 12')).toEqual([]);
   });

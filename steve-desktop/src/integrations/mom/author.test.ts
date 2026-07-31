@@ -1,13 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildAuthorPrompt,
+  buildSetPlanPrompt,
   buildRepairPrompt,
+  parseSetPlan,
+  topLevelArrays,
   sectionCommand,
   shouldRetry,
   hasSource,
   isUrl,
   questionPath,
   MAX_ATTEMPTS,
+  MAX_REPAIRS,
+  REFERENCE_INDEX,
 } from './author';
 
 const req = {
@@ -57,6 +62,22 @@ describe('buildAuthorPrompt', () => {
     const p = buildAuthorPrompt(req);
     for (const m of ['COMMON CONTROL', 'QUESTION TEXT', '=== ANSWER ===']) expect(p).toContain(m);
   });
+
+  it('points at the authoring reference when the root is known', () => {
+    const p = buildAuthorPrompt({ ...req, root: 'C:/mom-content' });
+    expect(p).toContain(`C:/mom-content/${REFERENCE_INDEX}`);
+  });
+
+  it('does not leave a double slash when the root has a trailing separator', () => {
+    // The path is handed to the agent as something to open; a broken one just wastes a turn.
+    expect(buildAuthorPrompt({ ...req, root: 'C:/mom-content/' })).toContain(
+      `C:/mom-content/${REFERENCE_INDEX}`,
+    );
+  });
+
+  it('omits the reference block entirely when there is no root', () => {
+    expect(buildAuthorPrompt(req)).not.toContain('REFERENCE');
+  });
 });
 
 describe('buildRepairPrompt', () => {
@@ -86,9 +107,19 @@ describe('shouldRetry', () => {
     expect(shouldRetry([fail(1), fail(2)])).toBe(true);
   });
 
-  /** Past the cap the retries cost more than they fix — hand it to a human instead. */
-  it('gives up at the cap instead of burning turns', () => {
-    expect(shouldRetry([fail(1), fail(2), fail(3)])).toBe(false);
+  /**
+   * The agreed budget: the initial write is judged by one render, and five repair rounds follow —
+   * six renders in total. Spelled out rather than derived, so silently changing the constant fails
+   * here instead of quietly costing (or wasting) turns on every question.
+   */
+  it('allows the write plus exactly five repair rounds', () => {
+    expect(MAX_REPAIRS).toBe(5);
+    expect(MAX_ATTEMPTS).toBe(6);
+    const failures = Array.from({ length: MAX_ATTEMPTS }, (_, i) => fail(i + 1));
+    // Still retrying right up to the last render...
+    expect(shouldRetry(failures.slice(0, MAX_ATTEMPTS - 1))).toBe(true);
+    // ...and done after it. Past the cap the retries cost more than they fix.
+    expect(shouldRetry(failures)).toBe(false);
   });
 
   it('does not retry before anything has run', () => {
@@ -164,5 +195,145 @@ describe('problem-set link', () => {
 
   it('still uses gh for a bare section file name', () => {
     expect(buildAuthorPrompt({ ...req, link: '1.1_defs.html' })).toContain('gh api');
+  });
+
+  it('carries a planned brief into the per-question author prompt', () => {
+    const p = buildAuthorPrompt({ ...req, brief: 'Ask about population vs sample' });
+    expect(p).toContain('Ask about population vs sample');
+  });
+});
+
+describe('buildSetPlanPrompt', () => {
+  it('asks for a JSON array only and forbids writing files this turn', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/ONLY a JSON array/i);
+    expect(p).toMatch(/Do NOT write any question files in this turn/i);
+  });
+
+  it('tells the agent to read the section before planning', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family });
+    expect(p).toContain(sectionCommand(req.link));
+    expect(p).toMatch(/read this bookSHelf section first/i);
+  });
+
+  it('points at the authoring reference and the relevant sub-pages', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toContain(`C:/mom-content/${REFERENCE_INDEX}`);
+    expect(p).toMatch(/question-types\//);
+    expect(p).toMatch(/macros\//);
+    expect(p).toContain('syntax.md');
+  });
+
+  it('defaults questions to fill-in-the-blank with randomized values', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/fill-in-the-blank/i);
+    expect(p).toMatch(/Randomize/i);
+  });
+
+  it('tells the planner to map items to actual source exercises, not invent topics', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/Use ONLY the section's numbered problem set/i);
+    expect(p).toMatch(/that EXACT number of questions/i);
+    expect(p).toMatch(/Do not invent extra definition/i);
+  });
+
+  it('switches to invention wording when mode is invent', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content', mode: 'invent' });
+    expect(p).toMatch(/Invent new questions/i);
+    expect(p).not.toMatch(/Use ONLY the section's numbered problem set/i);
+  });
+
+  it('does not point at the reference when no root is given', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family });
+    expect(p).not.toContain(REFERENCE_INDEX);
+  });
+});
+
+describe('parseSetPlan', () => {
+  it('extracts the array from prose-wrapped output', () => {
+    const reply = 'Here is the plan:\n```json\n[{"slug":"q1","brief":"one"}]\n```';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'one' }]);
+  });
+
+  it('uses the last array when the agent emits a preview plus a final array', () => {
+    const reply = 'Preview: [{"slug":"bad","brief":"placeholder"}] below.\n\n[{"slug":"q1","brief":"real"}] returned as clean JSON only.';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'real' }]);
+  });
+
+  it('filters entries missing a slug or a brief', () => {
+    const reply = JSON.stringify([
+      { slug: 'q1', brief: 'good' },
+      { slug: 'q2' },
+      { brief: 'missing slug' },
+      { slug: '', brief: 'empty slug' },
+      { slug: 'q3', brief: '' },
+    ]);
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'good' }]);
+  });
+
+  it('dedupes repeated slugs so one file is not silently overwritten twice', () => {
+    const reply = JSON.stringify([
+      { slug: 'q1', brief: 'first' },
+      { slug: 'q1', brief: 'second' },
+    ]);
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'first' }]);
+  });
+
+  it('throws when the reply is not a JSON array', () => {
+    expect(() => parseSetPlan('just prose')).toThrow(/JSON array/i);
+  });
+
+  it('throws when the plan has no usable questions', () => {
+    expect(() => parseSetPlan('[{"slug":"","brief":""}]')).toThrow(/no usable questions/i);
+  });
+
+  it('strips a .php extension from planned slugs', () => {
+    const reply = '[{"slug":"q1.php","brief":"one"}]';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'one' }]);
+  });
+});
+
+describe('topLevelArrays / parseSetPlan bracket handling', () => {
+  /**
+   * The real failure: an 11-question plan came back with SEVEN bracket pairs, because the briefs
+   * describe ranges and options in prose. A non-greedy regex took the last inner fragment and the
+   * whole plan was thrown away as "not valid JSON".
+   */
+  const REAL_SHAPE =
+    '[{"slug": "q01-fitness-center-key-terms", "brief": "Randomize the reported mean [between 2.0 and 6.5] days."},' +
+    ' {"slug": "q02-ski-lesson-key-terms", "brief": "Options: parameter, data, statistic [correct], variable."}]';
+
+  it('finds one array even when the briefs contain brackets', () => {
+    expect(topLevelArrays(REAL_SHAPE)).toHaveLength(1);
+  });
+
+  it('parses the plan that the old regex rejected', () => {
+    const plan = parseSetPlan(REAL_SHAPE);
+    expect(plan.map((p) => p.slug)).toEqual(['q01-fitness-center-key-terms', 'q02-ski-lesson-key-terms']);
+  });
+
+  it('ignores brackets inside strings when counting depth', () => {
+    expect(topLevelArrays('["a ] not a close", "b [ not an open"]')).toHaveLength(1);
+  });
+
+  it('takes the FINAL plan when the agent previews one first', () => {
+    const reply =
+      'Draft:\n[{"slug": "draft-q", "brief": "a first pass that should be ignored entirely"}]\n' +
+      'Final:\n[{"slug": "real-q", "brief": "the answer that actually counts for this run"}]';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['real-q']);
+  });
+
+  it('skips a trailing non-plan array rather than failing on it', () => {
+    const reply = '[{"slug": "real-q", "brief": "the plan itself, long enough to survive"}]\nNote: see [1].';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['real-q']);
+  });
+
+  it('still refuses a reply with no array at all', () => {
+    expect(() => parseSetPlan('I could not read the section.')).toThrow(/did not return a JSON array/);
+  });
+
+  it('handles a fenced array', () => {
+    const reply = '```json\n[{"slug": "q1-abc", "brief": "a brief that is comfortably long enough"}]\n```';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['q1-abc']);
   });
 });

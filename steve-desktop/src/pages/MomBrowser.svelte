@@ -22,6 +22,7 @@
   import MomChat from '../components/mom/MomChat.svelte';
   import BookShelf from '../components/mom/BookShelf.svelte';
   import MomAuthor from '../components/mom/MomAuthor.svelte';
+  import ProviderSelector from '../components/grading/ProviderSelector.svelte';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -128,6 +129,14 @@
   // Type an answer in and be told whether it is right. Same one-pass rule as the key: the expected
   // values must come from the render you are typing into, or randomization makes them disagree.
   let checkAnswers = $state(false);
+  /**
+   * Recolour the rendered question for a dark app.
+   *
+   * Defaults to the app's own theme, but stays a toggle: MyOpenMath serves students a LIGHT page, so
+   * "dark" is comfort and "light" is fidelity. Read once — the theme lives on <html>, and following
+   * it live would fight a deliberate override.
+   */
+  let darkRender = $state(document.documentElement.getAttribute('data-theme') === 'dark');
   let renderedHtml = $state('');
   /** What the sandbox returned, before the checker is injected — what health is judged on. */
   let sandboxHtml = $state('');
@@ -139,6 +148,15 @@
   let chatOpen = $state(false);
   /** The rail hosts two jobs: fix the selected question, or write a new one from the book. */
   let railTab = $state<'revise' | 'author'>('revise');
+  /**
+   * The file the writer is currently producing, mirrored here so you watch it appear in the preview
+   * rather than reading tool-call chatter. `null` = no run in flight, `''` = started but nothing on
+   * disk yet — a distinction the pane shows differently.
+   */
+  let authorDraft = $state<string | null>(null);
+  /** Which CLI the rail's agents run on. Restored and persisted by ProviderSelector itself. */
+  let agentProvider = $state('');
+  let agentModel = $state('');
 
   /** Re-read the edited file and force a re-render. The agent's summary is not evidence. */
   async function reloadSelected() {
@@ -164,7 +182,7 @@
       if (!res.ok) throw new Error(`sandbox HTTP ${res.status}`);
       // The sandbox's MathJax config makes `(` and `$` math delimiters, which italicises ordinary
       // prose and currency. Repair it before the iframe runs MathJax.
-      const prepared = prepareRenderHtml(await res.text());
+      const prepared = prepareRenderHtml(await res.text(), darkRender);
       // Health judges what the SANDBOX returned, before our own additions. The checker script
       // mentions `$answerbox` in a comment, and scanning the injected page reported the question
       // as broken because of our own markup.
@@ -193,7 +211,9 @@
   // Re-rendering also re-randomizes, which is fine — question and key come from the SAME pass.
   $effect(() => {
     const q = selectedQuestion;
-    const token = q ? `${q.path}|${showKey ? 'key' : 'plain'}|${checkAnswers ? 'chk' : ''}` : '';
+    const token = q
+      ? `${q.path}|${showKey ? 'key' : 'plain'}|${checkAnswers ? 'chk' : ''}|${darkRender ? 'dark' : 'light'}`
+      : '';
     if (renderMode === 'rendered' && q && token !== lastRenderedPath) {
       lastRenderedPath = token;
       let src = q.contents;
@@ -233,12 +253,23 @@
     selectedQuestion = null;
   }
 
-  async function loadIndex() {
+  /**
+   * Re-read the bank.
+   *
+   * `background` skips the loading state, and that is not cosmetic: the panes are rendered inside
+   * `{:else if loading}`, so raising the flag UNMOUNTS the whole pane tree — including the writer
+   * rail mid-run. A refresh triggered by a finished write was destroying the component that
+   * triggered it, taking its log and its pending reflection with it. The spinner belongs to the
+   * first load, when there is genuinely nothing to show yet.
+   */
+  async function loadIndex(background = false) {
     if (!momRoot) return;
-    loading = true;
+    if (!background) {
+      loading = true;
+      selectedFamily = null;
+      selectedQuestion = null;
+    }
     err = null;
-    selectedFamily = null;
-    selectedQuestion = null;
     try {
       const [idx, bookList, registry] = await Promise.all([
         momIsland.methods.browse(momRoot),
@@ -267,6 +298,26 @@
     books = await momIsland.methods.listBooks(momRoot).catch(() => books);
     bookRegistry = await momIsland.methods.listBookRegistry(momRoot).catch(() => bookRegistry);
     selectedBook = keep ? (books.find((b) => b.path === keep) ?? null) : null;
+  }
+
+  /** After the author finishes a question, load it into the normal preview pane so it stays visible. */
+  async function handleAuthorDone(path: string) {
+    // Background: this fires FROM the writer rail, and a foreground reload would unmount it.
+    await loadIndex(true);
+    if (!momRoot) return;
+    const rel = path.replace(/[\\/]+/g, '/').replace(`${momRoot.replace(/[\\/]+/g, '/')}/`, '');
+    const m = rel.match(/^questions\/([^/]+)\/(.+)\.php$/i);
+    if (!m) return;
+    const [_, family, slug] = m;
+    try {
+      selectedFamily = family;
+      selectedQuestion = await momIsland.methods.getQuestion(family, slug, momRoot);
+      view = 'questions';
+      renderMode = 'rendered';
+      authorDraft = null; // hand preview back to the normal browser
+    } catch (e) {
+      questionErr = e instanceof Error ? e.message : String(e);
+    }
   }
 
   /** Open a question referenced by a book entry. filePath is `questions/<family>/<slug>`. */
@@ -553,8 +604,8 @@
 
       <section class="preview">
         <div class="preview-head">
-          <h2>Preview</h2>
-          {#if selectedQuestion}
+          <h2>{authorDraft === null ? 'Preview' : 'Writing…'}</h2>
+          {#if selectedQuestion && authorDraft === null}
             <div class="preview-toggles">
               {#if renderMode === 'rendered'}
                 <label class="key-toggle" title="Append the computed answers and solution guide to this same render">
@@ -570,6 +621,10 @@
                   <input type="checkbox" bind:checked={checkAnswers} disabled={checkable === 0} />
                   Check
                 </label>
+                <label class="key-toggle" title="MyOpenMath serves students a light page — turn this off to see it as they do">
+                  <input type="checkbox" bind:checked={darkRender} />
+                  Dark
+                </label>
               {/if}
               <div class="view-toggle">
                 <button class:active={renderMode === 'php'} onclick={() => (renderMode = 'php')}>PHP</button>
@@ -578,7 +633,15 @@
             </div>
           {/if}
         </div>
-        {#if loadingQuestion}
+        {#if authorDraft !== null}
+          <!-- A run is in flight: the preview belongs to the file being written, not to whatever
+               question happened to be selected before it started. -->
+          {#if authorDraft === ''}
+            <p class="empty">Waiting for the agent to write the file…</p>
+          {:else}
+            <pre class="live">{authorDraft}</pre>
+          {/if}
+        {:else if loadingQuestion}
           <p class="empty">Loading…</p>
         {:else if questionErr}
           <p class="err">{questionErr}</p>
@@ -599,8 +662,12 @@
                   {#each health.warnings as w (w)}<li class="warn">{w}</li>{/each}
                 </ul>
               </div>
+            {:else}
+              <div class="health clean">
+                <strong>Rendered clean</strong>
+              </div>
             {/if}
-            <iframe class="render-frame" title="Rendered question" srcdoc={renderedHtml} sandbox="allow-scripts"></iframe>
+            <iframe class="render-frame" class:dark={darkRender} title="Rendered question" srcdoc={renderedHtml} sandbox="allow-scripts"></iframe>
           {/if}
         {:else}
           {#if selectedQuestion.manifest.total > 0}
@@ -622,6 +689,13 @@
             <button class:active={railTab === 'author'} onclick={() => (railTab = 'author')}>Write</button>
             <button class="collapse" title="Collapse" onclick={() => (chatOpen = false)}>›</button>
           </div>
+          <!-- One engine picker for BOTH tabs, and the app's existing one rather than a new
+               control: it already persists agent_provider/agent_model, so the choice survives a
+               restart and matches what Grading runs on. Until this was here, MOM passed no provider
+               at all and every run silently defaulted to opencode. -->
+          <div class="rail-engine">
+            <ProviderSelector bind:provider={agentProvider} bind:model={agentModel} disabled={authorDraft !== null} />
+          </div>
           {#if railTab === 'author'}
             <MomAuthor
               root={momRoot ?? ''}
@@ -632,7 +706,11 @@
                 title: g.title,
                 items: g.items.map((b) => ({ path: b.path, name: b.name })),
               }))}
-              onDone={() => loadIndex()}
+              provider={agentProvider}
+              model={agentModel}
+              onDone={handleAuthorDone}
+              onDraft={(c) => (authorDraft = c)}
+              onBooksChanged={reloadBooks}
             />
           {:else}
             <MomChat
@@ -641,6 +719,8 @@
               path={selectedQuestion?.path ?? null}
               label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
               contents={selectedQuestion?.contents ?? ''}
+              provider={agentProvider}
+              model={agentModel}
               onRevised={reloadSelected}
             />
           {/if}
@@ -707,13 +787,15 @@
   .empty { opacity: .6; text-align: center; padding: 40px 16px; }
   .empty code { font-size: 12px; }
 
-  /* BOTH views are now one drilling list + preview + rail. While Books still had three panes this
-     declared a fourth column for it, so the collapsed rail landed in the `1fr` column and stretched
-     across the pane instead of being a thin strip. */
-  .panes { display: grid; grid-template-columns: 260px 1fr auto; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
-  /* The rail takes a real column when open and only its own width when not, so collapsing gives
-     the space back rather than just hiding content. */
-  .panes.chat { grid-template-columns: 260px 1fr 320px; }
+  /* Three-column layout. Flex (not grid) so the rail can be a resizable box: CSS `resize`
+     needs an element whose width is independent, not a grid track it is stretched into. */
+  .panes { display: flex; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
+  .panes > section.browse { flex: 0 0 260px; min-width: 0; }
+  .panes > section.preview { flex: 1 1 auto; min-width: 0; }
+  /* Collapsed rail: thin strip that costs nothing until wanted. */
+  .panes > button.strip { flex: 0 0 auto; }
+  /* Open rail: fixed default width, draggable left edge, bounded. */
+  .panes > aside.rail { flex: 0 0 auto; width: 420px; min-width: 320px; max-width: 720px; resize: horizontal; }
   .rail { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; display: flex;
           flex-direction: column; min-height: 0; overflow: hidden; gap: 8px; }
   .rail-tabs { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
@@ -721,6 +803,8 @@
                       background: transparent; color: inherit; cursor: pointer; font-size: 12px; opacity: .6; }
   .rail-tabs button.active { opacity: 1; border-color: rgba(128,128,128,.35); background: rgba(128,128,128,.12); }
   .rail-tabs .collapse { margin-left: auto; font-size: 16px; opacity: .6; padding: 0 4px; }
+  /* Sits under the tabs because it governs both of them. */
+  .rail-engine { flex-shrink: 0; padding-bottom: 2px; }
   /* Collapsed: a thin vertical strip that costs nothing until wanted. `align-self: start` keeps it
      from stretching to the pane height. */
   .strip { align-self: start; writing-mode: vertical-rl; padding: 12px 6px; border-radius: 8px;
@@ -747,7 +831,10 @@
 
   .preview-head { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
   .preview-head h2 { margin: 0; }
+  /* The frame's own background shows during load and behind a short page, so it has to match the
+     mode the page inside is rendered in — otherwise a dark render sits on a white sheet. */
   .render-frame { flex: 1; width: 100%; border: none; border-radius: 6px; background: #fff; }
+  .render-frame.dark { background: #141220; }
   /* Amber = renders but is suspect; red = the sandbox refused it. Both sit ABOVE the frame,
      because the whole point is that the render itself looks convincing. */
   .health { flex-shrink: 0; margin-bottom: 8px; padding: 8px 10px; border-radius: 6px; font-size: 12px;
@@ -757,8 +844,12 @@
   .health ul { margin: 0; padding-left: 16px; }
   .health li { margin: 2px 0; line-height: 1.4; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   .health li.warn { font-family: inherit; }
+  .health.clean { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.45); color: #15803d; }
   .preview .muted.small { font-size: 11px; opacity: .6; margin: 6px 0 0; }
   .preview pre { flex: 1; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; padding: 12px; border-radius: 6px; background: rgba(0,0,0,.25); margin: 0; white-space: pre; }
+  /* The file as it is being written. Accent rather than a spinner: the content itself is the
+     progress indicator, and it grows as the agent works. */
+  .preview pre.live { border-left: 2px solid rgba(59,130,246,.7); }
   .stats { margin: 0 0 8px; font-size: 12px; opacity: .85; }
   .stats.muted { opacity: .5; }
 

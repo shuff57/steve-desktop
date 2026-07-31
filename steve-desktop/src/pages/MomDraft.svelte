@@ -197,7 +197,8 @@
   .row label { display: flex; flex-direction: column; gap: 4px; flex: 1; font-size: 12px; opacity: .85; }
   .full { display: flex; flex-direction: column; gap: 4px; flex: 1; font-size: 12px; opacity: .85; min-height: 0; }
   .full textarea { flex: 1; min-height: 180px; padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: rgba(0,0,0,.25); color: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.5; resize: vertical; }
-  input, select { padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; font-size: 13px; }
+  input, select { padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3); background: rgba(0,0,0,.25); color: inherit; font-size: 13px; }
+  option { background: #1a1a1a; color: #eee; }
   code { background: rgba(128,128,128,.18); border-radius: 4px; padding: 0 4px; font-size: 11px; }
   footer { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
   footer button { padding: 8px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #eee; cursor: pointer; font-size: 13px; }
