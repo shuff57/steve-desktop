@@ -1,9 +1,7 @@
-// === NAME - DESCRIPTION: Fitness Center Key Terms - Identify population, sample, parameter, statistic, variable, and data in a study about mean client exercise time ===
-// === SET QUESTION TYPE TO: multipart ===
+// === NAME - DESCRIPTION: Fitness Center Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study about mean client exercise time ===
+// === SET QUESTION TYPE TO: matching ===
 
 // === COMMON CONTROL ===
-
-$anstypes = array("string", "string", "string", "string", "string", "string")
 
 // Randomize the business type and the time unit.
 $businesses = array("fitness center", "gym", "health club", "recreation center", "wellness studio")
@@ -12,24 +10,32 @@ $units = array("weekly", "daily", "monthly")
 $business = $businesses[rand(0, count($businesses)-1)]
 $unit = $units[rand(0, count($units)-1)]
 
-// Ask for short phrases identifying each key term.
-// Correct answers use the `all_words` flag and accept a few equivalent phrasings.
-$answer[0] = "all clients,all of the clients,clients of the {$business},every client"
-$answer[1] = "the clients surveyed,the clients in the sample,the sampled clients,a group of clients"
-$answer[2] = "mean amount of time all clients exercise,the mean time for all clients,the population mean"
-$answer[3] = "mean amount of time the sample exercises,the mean time for the sample,the sample mean"
-$answer[4] = "amount of time one client exercises,time one client exercises,time a client exercises"
-$answer[5] = "recorded times,actual exercise times,values of the variable,individual times"
+// The six terms stay in teaching order — population before sample, parameter before statistic —
+// so the list reads as the definition sequence rather than a scramble.
+$questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
-// Common flags for all string parts: case-insensitive, allow extra words containing the key phrase.
-for ($i=0..5) {
-  $strflags[$i]['ignore_case'] = 1
-  $strflags[$i]['trim_whitespace'] = 1
-  $strflags[$i]['all_words'] = 1
-  $ansprompt[$i] = ""
-}
+// One description per term, in the same order, then two distractors. With six terms and exactly
+// six descriptions the last answer is free by elimination; the extras take that away.
+$answers = array(
+  "all clients of the {$business}",
+  "the clients whose exercise time was recorded",
+  "the mean {$unit} exercise time for ALL clients",
+  "the mean {$unit} exercise time for the clients in the SAMPLE",
+  "the amount of time one client exercises {$unit}",
+  "the recorded times, such as 2 hours, 5 hours, 0 hours",
+  "the number of clients who exercised at all",
+  "everyone living near the {$business}, member or not"
+)
 
-$answeights = array(.1667, .1667, .1667, .1667, .1667, .1667)
+// Spelled out rather than left to the default, because the two distractors make the answer list
+// longer than the question list and the mapping must stay pinned to the first six.
+$matchlist = "0,1,2,3,4,5"
+
+$questiontitle = "Key term"
+$answertitle = "Description"
+// Keep the terms in order and shuffle only the descriptions: the point is recognising which
+// description fits, not remembering where it sat last time.
+$noshuffle = "questions"
 
 $solutionguide = '
 <style>
@@ -42,6 +48,7 @@ $solutionguide = '
   .sol-body { padding:0.75em; background:#fafafa; }
   .term-row { margin:0.6em 0; }
   .term-label { font-weight:700; color:#1865f2; }
+  .sol-note { margin-top:0.9em; padding:0.6em 0.75em; background:#e8f0fe; border-radius:8px; font-size:15px; }
 </style>
 <div class="sol-wrap" style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <details>
@@ -57,6 +64,7 @@ $solutionguide = '
       <div class="term-row"><span class="term-label">Statistic:</span> the mean ' . $unit . ' exercise time for the clients in the sample</div>
       <div class="term-row"><span class="term-label">Variable:</span> the amount of time one client exercises ' . $unit . '</div>
       <div class="term-row"><span class="term-label">Data:</span> the recorded time values, such as 2 hours, 5 hours, 0 hours</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of clients who exercised is a count, not a mean &mdash; the parameter and the statistic here both have to be mean times. And <b>everyone living nearby</b> is a wider group than the clients this study is about.</div>
     </div>
   </details>
 </div>'
@@ -66,15 +74,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">A <b>$business</b> is interested in the <b>mean amount of time</b> a client exercises in the center <b>$unit</b>. The manager records the exercise time of a group of clients.</p>
-    <p style="margin:12px 0 0 0;">For this study, identify each key term with a short phrase.</p>
-  </div>
-  <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> <b>Population:</b> $answerbox[0]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> <b>Sample:</b> $answerbox[1]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> <b>Parameter:</b> $answerbox[2]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> <b>Statistic:</b> $answerbox[3]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">e.</span> <b>Variable:</b> $answerbox[4]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">f.</span> <b>Data:</b> $answerbox[5]</p>
+    <p style="margin:12px 0 0 0;">Match each key term to the description that fits this study. <b>Two descriptions are not used.</b></p>
   </div>
 </div>
 

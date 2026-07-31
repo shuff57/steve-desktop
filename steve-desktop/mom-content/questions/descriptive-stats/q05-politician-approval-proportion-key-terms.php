@@ -1,9 +1,7 @@
-// === NAME - DESCRIPTION: Approval Poll Key Terms (Proportion) - Identify population, sample, parameter, statistic, variable, and data in a study measuring the proportion of voters who approve of a politician ===
-// === SET QUESTION TYPE TO: multipart ===
+// === NAME - DESCRIPTION: Approval Poll Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study measuring the proportion of voters who approve of a politician ===
+// === SET QUESTION TYPE TO: matching ===
 
 // === COMMON CONTROL ===
-
-$anstypes = array("string", "string", "string", "string", "string", "string")
 
 // Randomize the office; the region word is paired with the office so the scenario stays coherent.
 $offices = array("mayor", "senator", "city council member", "governor")
@@ -16,32 +14,32 @@ $region = $regions[$ci]
 $sizes = array(400, 500, 600, 750, 800, 1000)
 $n = $sizes[rand(0, count($sizes)-1)]
 
-// Short phrases for each key term. Alternatives are separated by *or* (special_or flag)
-// so that phrases containing the ordinary word "or" still grade correctly.
-$answer[0] = "all voters in the {$region}*or*all of the voters in the {$region}*or*all {$region} voters*or*every voter in the {$region}*or*all registered voters in the {$region}*or*all voters in the {$office}'s {$region}"
-$answer[1] = "the {$n} voters polled*or*the {$n} voters who were polled*or*the {$n} polled voters*or*the {$n} voters in the poll*or*the polled voters*or*the voters who were polled*or*the voters in the poll*or*a group of {$n} voters"
-$answer[2] = "the proportion of all {$region} voters who approve*or*the proportion of all voters in the {$region} who approve*or*the proportion of all {$region} voters who think the {$office} is doing a good job*or*the proportion of all voters in the {$region} who think the {$office} is doing a good job*or*the population proportion"
-$answer[3] = "the proportion of the polled voters who approve*or*the proportion of the {$n} polled voters who approve*or*the proportion of the voters in the sample who approve*or*the proportion of the polled voters who think the {$office} is doing a good job*or*the proportion of the {$n} polled voters who think the {$office} is doing a good job*or*the sample proportion"
-$answer[4] = "whether one voter thinks the {$office} is doing a good job*or*whether a voter thinks the {$office} is doing a good job*or*whether one voter approves of the {$office}*or*whether a voter approves of the {$office}*or*whether one voter thinks the {$office} is doing a good job or not"
-$answer[5] = "yes, no*or*yes no*or*yes/no*or*yes or no*or*yes and no*or*no, yes"
+// The six terms stay in teaching order — population before sample, parameter before statistic —
+// so the list reads as the definition sequence rather than a scramble.
+$questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
-// Clean single phrasings shown when the student asks to see the answer.
-$showanswer[0] = "all voters in the {$region}"
-$showanswer[1] = "the {$n} voters who were polled"
-$showanswer[2] = "the proportion of all {$region} voters who think the {$office} is doing a good job"
-$showanswer[3] = "the proportion of the {$n} polled voters who think the {$office} is doing a good job"
-$showanswer[4] = "whether one voter thinks the {$office} is doing a good job"
-$showanswer[5] = "yes, no"
+// One description per term, in the same order, then two distractors. With six terms and exactly
+// six descriptions the last answer is free by elimination; the extras take that away.
+$answers = array(
+  "all voters in the {$region}",
+  "the {$n} voters who were polled",
+  "the proportion of ALL {$region} voters who think the {$office} is doing a good job",
+  "the proportion of the {$n} POLLED voters who think the {$office} is doing a good job",
+  "whether one voter thinks the {$office} is doing a good job",
+  "yes, no",
+  "the number of polled voters who think the {$office} is doing a good job",
+  "all {$region} residents old enough to vote, whether registered or not"
+)
 
-// Common flags for all six string parts: case-insensitive, ignore stray outer spaces,
-// and use *or* (not the word "or") to separate the accepted phrasings.
-for ($i=0..5) {
-  $strflags[$i] = "ignore_case,trim_whitespace,special_or"
-  $ansprompt[$i] = ""
-  $answerboxsize[$i] = 50
-}
+// Spelled out rather than left to the default, because the two distractors make the answer list
+// longer than the question list and the mapping must stay pinned to the first six.
+$matchlist = "0,1,2,3,4,5"
 
-$answeights = array(.1667, .1667, .1667, .1667, .1667, .1667)
+$questiontitle = "Key term"
+$answertitle = "Description"
+// Keep the terms in order and shuffle only the descriptions: the point is recognising which
+// description fits, not remembering where it sat last time.
+$noshuffle = "questions"
 
 $solutionguide = '
 <style>
@@ -72,6 +70,7 @@ $solutionguide = '
       <div class="term-row"><span class="term-label">Statistic:</span> the proportion of the ' . $n . ' <em>polled</em> voters who think the ' . $office . ' is doing a good job</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = whether one voter thinks the ' . $office . ' is doing a good job</div>
       <div class="term-row"><span class="term-label">Data:</span> yes, no</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of voters who approve is a count, not a proportion &mdash; a statistic has to be the proportion to answer this question. And <b>everyone old enough to vote</b> is a wider group than the voters this poll is about.</div>
       <div class="sol-note">This study measures a <b>proportion</b>, not a mean. The variable is <b>categorical</b> &mdash; each voter answers yes or no &mdash; so averaging the responses would make no sense. Compare this with a study of the mean amount of time clients exercise, where the variable is numerical.</div>
     </div>
   </details>
@@ -82,15 +81,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">A <b>$office</b> wants to know the <b>proportion</b> of voters in the $region who think the $office is doing a good job. A polling firm randomly selects <b>$n</b> voters from the $region and asks each one whether the $office is doing a good job.</p>
-    <p style="margin:12px 0 0 0;">For this study, identify each key term with a <b>short phrase</b>. Type the phrase only &mdash; not a full sentence, and no ending period.</p>
-  </div>
-  <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> <b>Population:</b> $answerbox[0]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> <b>Sample:</b> $answerbox[1]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> <b>Parameter:</b> $answerbox[2]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> <b>Statistic:</b> $answerbox[3]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">e.</span> <b>Variable:</b> `X` = $answerbox[4]</p>
-    <p><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">f.</span> <b>Data:</b> $answerbox[5]</p>
+    <p style="margin:12px 0 0 0;">Match each key term to the description that fits this study. <b>Two descriptions are not used.</b></p>
   </div>
 </div>
 

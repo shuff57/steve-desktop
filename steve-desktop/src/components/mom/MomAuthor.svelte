@@ -27,6 +27,7 @@ import {
   MAX_ATTEMPTS,
   type AttemptResult,
   questionKey,
+  questionTitle,
   type PlannedQuestion,
   type PlanView,
   type SetPlanMode,
@@ -684,11 +685,16 @@ import {
           // A filing failure does not fail the run: the question is already written and good.
           if (placeAssignment) {
             try {
+              // The question's own NAME marker, not the agent's reply — a reply is a note about the
+              // work ("Replaced nested $strflags…"), which read as gibberish in the assignment list.
+              const filed = await momIsland.methods
+                .getQuestion(family.trim(), `${slug.trim().replace(/\.php$/i, '')}.php`, root)
+                .catch(() => null);
               await addQuestionToAssignment(
                 root,
                 placeAssignment,
                 `questions/${family.trim()}/${slug.trim().replace(/\.php$/i, '')}.php`,
-                reply || slug.trim(),
+                questionTitle(filed?.contents ?? '') ?? slug.trim(),
               );
               log(`Added to ${chosenBook?.items.find((i: { path: string }) => i.path === placeAssignment)?.name ?? placeAssignment}`);
               // Refresh the assignment list in the parent so the new question appears immediately.

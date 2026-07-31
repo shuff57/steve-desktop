@@ -12,6 +12,7 @@ import {
   questionPath,
   questionRefFromPath,
   questionKey,
+  questionTitle,
   MAX_ATTEMPTS,
   MAX_REPAIRS,
   REFERENCE_INDEX,
@@ -392,5 +393,26 @@ describe('questionKey', () => {
 
   it('falls back to the normalised path when it is not a question file', () => {
     expect(questionKey(String.raw`C:\odd\place.txt`)).toBe('c:/odd/place.txt');
+  });
+});
+
+describe('questionTitle', () => {
+  const file = (name: string) => `// === NAME - DESCRIPTION: ${name} ===\n// === SET QUESTION TYPE TO: matching ===\n`;
+
+  it('reads the name the question states about itself', () => {
+    expect(questionTitle(file('Ski Lesson Age Key Terms - Match the six key terms'))).toBe(
+      'Ski Lesson Age Key Terms - Match the six key terms',
+    );
+  });
+
+  it('collapses a name that wrapped across lines', () => {
+    const wrapped = '// === NAME - DESCRIPTION: Approval Poll Key Terms\n//     (Proportion) ===\n';
+    expect(questionTitle(wrapped)).toBe('Approval Poll Key Terms // (Proportion)');
+  });
+
+  it('returns null when there is no usable name, so the caller can fall back to the slug', () => {
+    expect(questionTitle('// === SET QUESTION TYPE TO: matching ===')).toBeNull();
+    expect(questionTitle('// === NAME - DESCRIPTION:  ===')).toBeNull();
+    expect(questionTitle('')).toBeNull();
   });
 });

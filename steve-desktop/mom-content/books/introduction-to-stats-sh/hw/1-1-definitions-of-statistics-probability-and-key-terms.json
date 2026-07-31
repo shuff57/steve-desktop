@@ -6,6 +6,7 @@
   "created_at": "2026-07-31",
   "questions": [
     { "slot": 1, "file_path": "questions/descriptive-stats/q09-identify-population-multiple-choice.php", "title": "Identifying the population of a study — the entire group under study — and distinguishing it from an overly broad group, a wrong-subject group, and a sample (§1.1.2, Definitions 1.1.4–1.1.5)." },
-    { "slot": 2, "file_path": "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php", "title": "Replaced nested `$strflags[$i]['flag']=1` with the comma-separated string form `$strflags[$i] = \"ignore_case,trim_whitespace,special_or\"`, which is what MOM's `strpos`-based flag parser expects." }
+    { "slot": 2, "file_path": "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php", "title": "Approval Poll Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study measuring the proportion of voters who approve of a politician" },
+    { "slot": 3, "file_path": "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php", "title": "Ski Lesson Age Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study of the mean age at a first ski or snowboard lesson" }
   ]
 }

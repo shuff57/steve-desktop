@@ -194,6 +194,19 @@ export function questionRefFromPath(path: string): { family: string; slug: strin
 }
 
 /**
+ * The question's own name, from the `NAME - DESCRIPTION` marker every file must carry.
+ *
+ * Filing used the AGENT'S REPLY as the assignment title, so a manifest ended up holding things like
+ * "Replaced nested `$strflags[$i]['flag']=1` with the comma-separated string form…" — a note about
+ * the work, sitting where the name of the question belongs. The file already states its own name.
+ */
+export function questionTitle(contents: string): string | null {
+  const m = contents.match(/^\s*\/\/\s*===\s*NAME\s*-\s*DESCRIPTION:\s*([\s\S]+?)\s*===\s*$/im);
+  const title = m?.[1].replace(/\s+/g, ' ').trim();
+  return title ? title : null;
+}
+
+/**
  * Stable identity for one question, for keying things that must survive both spellings of its
  * path — a conversation thread, say, where the writer knows the file it is creating and the browser
  * knows the file it just opened, and they must agree.
