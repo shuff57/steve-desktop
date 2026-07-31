@@ -22,7 +22,7 @@
   import MomChat from '../components/mom/MomChat.svelte';
   import BookShelf from '../components/mom/BookShelf.svelte';
   import MomAuthor from '../components/mom/MomAuthor.svelte';
-  import ProviderSelector from '../components/grading/ProviderSelector.svelte';
+  import ActionShell from '../components/shell/ActionShell.svelte';
 
   const ROOT_SETTING = 'mom_root';
   const DRAFTS_DIR_SETTING = 'mom_drafts_dir';
@@ -145,9 +145,14 @@
   let lastRenderedPath = '';
 
   // Revision rail. Collapsed by default so it costs nothing until wanted.
-  let chatOpen = $state(false);
+  let railCollapsed = $state(true);
+  let railWidth = $state(420);
   /** The rail hosts two jobs: fix the selected question, or write a new one from the book. */
   let railTab = $state<'revise' | 'author'>('revise');
+  const RAIL_MODES = [
+    { id: 'revise', icon: '✎', label: 'Revise' },
+    { id: 'author', icon: '✍', label: 'Write' },
+  ];
   /**
    * The file the writer is currently producing, mirrored here so you watch it appear in the preview
    * rather than reading tool-call chatter. `null` = no run in flight, `''` = started but nothing on
@@ -471,7 +476,7 @@
   {:else if families.length === 0}
     <p class="empty">No families found under <code>{momRoot}/questions</code>. Is this the mom repo root?</p>
   {:else}
-    <div class="panes" class:chat={chatOpen}>
+    <div class="panes">
       {#if view === 'questions'}
         <!-- One column, drilled: families REPLACE themselves with their questions rather than
              opening a second sidebar. A laptop only has so much horizontal room, and the preview
@@ -682,52 +687,49 @@
         {/if}
       </section>
 
-      {#if chatOpen}
-        <aside class="rail">
-          <div class="rail-tabs">
-            <button class:active={railTab === 'revise'} onclick={() => (railTab = 'revise')}>Revise</button>
-            <button class:active={railTab === 'author'} onclick={() => (railTab = 'author')}>Write</button>
-            <button class="collapse" title="Collapse" onclick={() => (chatOpen = false)}>›</button>
-          </div>
-          <!-- One engine picker for BOTH tabs, and the app's existing one rather than a new
-               control: it already persists agent_provider/agent_model, so the choice survives a
-               restart and matches what Grading runs on. Until this was here, MOM passed no provider
-               at all and every run silently defaulted to opencode. -->
-          <div class="rail-engine">
-            <ProviderSelector bind:provider={agentProvider} bind:model={agentModel} disabled={authorDraft !== null} />
-          </div>
-          {#if railTab === 'author'}
-            <MomAuthor
-              root={momRoot ?? ''}
-              sandboxUrl={SANDBOX_URL}
-              families={families.map((f) => f.name)}
-              placements={booksByBook.map((g) => ({
-                slug: g.slug,
-                title: g.title,
-                items: g.items.map((b) => ({ path: b.path, name: b.name })),
-              }))}
-              provider={agentProvider}
-              model={agentModel}
-              onDone={handleAuthorDone}
-              onDraft={(c) => (authorDraft = c)}
-              onBooksChanged={reloadBooks}
-            />
-          {:else}
-            <MomChat
-              open
-              embedded
-              path={selectedQuestion?.path ?? null}
-              label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
-              contents={selectedQuestion?.contents ?? ''}
-              provider={agentProvider}
-              model={agentModel}
-              onRevised={reloadSelected}
-            />
-          {/if}
-        </aside>
-      {:else}
-        <button class="strip" title="Open the revise / write rail" onclick={() => (chatOpen = true)}>‹ Revise</button>
-      {/if}
+      <!-- Same shell as the embedded browser's action panel, in its 'column' variant: one set of
+           chrome (tabs, engine picker, collapse, resize, session/context footer) instead of a
+           second hand-built copy that drifts from it. -->
+      <ActionShell
+        variant="column"
+        title="Question rail"
+        modes={RAIL_MODES}
+        bind:activeMode={railTab}
+        bind:isCollapsed={railCollapsed}
+        bind:width={railWidth}
+        bind:provider={agentProvider}
+        bind:model={agentModel}
+        providerDisabled={authorDraft !== null}
+      >
+        {#if railTab === 'author'}
+          <MomAuthor
+            root={momRoot ?? ''}
+            sandboxUrl={SANDBOX_URL}
+            families={families.map((f) => f.name)}
+            placements={booksByBook.map((g) => ({
+              slug: g.slug,
+              title: g.title,
+              items: g.items.map((b) => ({ path: b.path, name: b.name })),
+            }))}
+            provider={agentProvider}
+            model={agentModel}
+            onDone={handleAuthorDone}
+            onDraft={(c) => (authorDraft = c)}
+            onBooksChanged={reloadBooks}
+          />
+        {:else}
+          <MomChat
+            open
+            embedded
+            path={selectedQuestion?.path ?? null}
+            label={selectedQuestion ? `${selectedFamily ?? ''}/${selectedQuestion.slug}` : null}
+            contents={selectedQuestion?.contents ?? ''}
+            provider={agentProvider}
+            model={agentModel}
+            onRevised={reloadSelected}
+          />
+        {/if}
+      </ActionShell>
     </div>
 
     <footer class="drafts-config">
@@ -787,30 +789,11 @@
   .empty { opacity: .6; text-align: center; padding: 40px 16px; }
   .empty code { font-size: 12px; }
 
-  /* Three-column layout. Flex (not grid) so the rail can be a resizable box: CSS `resize`
-     needs an element whose width is independent, not a grid track it is stretched into. */
+  /* Three panes in a row; the rail is ActionShell, which sets its own width and owns its
+     drag handle, so nothing here sizes it. */
   .panes { display: flex; gap: 12px; flex: 1; min-height: 0; margin-top: 16px; }
   .panes > section.browse { flex: 0 0 260px; min-width: 0; }
   .panes > section.preview { flex: 1 1 auto; min-width: 0; }
-  /* Collapsed rail: thin strip that costs nothing until wanted. */
-  .panes > button.strip { flex: 0 0 auto; }
-  /* Open rail: fixed default width, draggable left edge, bounded. */
-  .panes > aside.rail { flex: 0 0 auto; width: 420px; min-width: 320px; max-width: 720px; resize: horizontal; }
-  .rail { background: rgba(128,128,128,.06); border-radius: 8px; padding: 12px; display: flex;
-          flex-direction: column; min-height: 0; overflow: hidden; gap: 8px; }
-  .rail-tabs { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-  .rail-tabs button { padding: 3px 10px; border-radius: 6px; border: 1px solid transparent;
-                      background: transparent; color: inherit; cursor: pointer; font-size: 12px; opacity: .6; }
-  .rail-tabs button.active { opacity: 1; border-color: rgba(128,128,128,.35); background: rgba(128,128,128,.12); }
-  .rail-tabs .collapse { margin-left: auto; font-size: 16px; opacity: .6; padding: 0 4px; }
-  /* Sits under the tabs because it governs both of them. */
-  .rail-engine { flex-shrink: 0; padding-bottom: 2px; }
-  /* Collapsed: a thin vertical strip that costs nothing until wanted. `align-self: start` keeps it
-     from stretching to the pane height. */
-  .strip { align-self: start; writing-mode: vertical-rl; padding: 12px 6px; border-radius: 8px;
-           border: 1px solid rgba(128,128,128,.25); background: rgba(128,128,128,.06); color: inherit;
-           cursor: pointer; font-size: 12px; letter-spacing: .04em; opacity: .8; }
-  .strip:hover { opacity: 1; background: rgba(128,128,128,.12); }
   .drill-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-shrink: 0; }
   .preview-toggles { display: flex; align-items: center; gap: 10px; }
   .key-toggle { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: .8; cursor: pointer; user-select: none; }

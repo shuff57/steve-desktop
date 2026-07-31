@@ -18,6 +18,10 @@
     // tabs never changes the AI engine. The owner binds it and passes it to each mode.
     provider = $bindable(''),
     model = $bindable(''),
+    providerDisabled = false,
+    // 'drawer' hangs off the window edge (the browser); 'column' is a card sitting in a row
+    // of panes (MOM). Only the chrome differs — every behaviour below is shared.
+    variant = 'drawer' as 'drawer' | 'column',
     // With one shell mounted per context (per browser tab, per tool), only the active
     // one may handle global keyboard shortcuts — otherwise Ctrl+B toggles once per instance.
     active = true,
@@ -30,6 +34,8 @@
     width?: number;
     provider?: string;
     model?: string;
+    providerDisabled?: boolean;
+    variant?: 'drawer' | 'column';
     active?: boolean;
     children?: Snippet;
   } = $props();
@@ -99,14 +105,24 @@
 
   // Resize logic
   let isResizing = $state(false);
+  let panelEl: HTMLElement | undefined = $state();
 
   // Non-reactive — intentionally plain let, NOT $state()
   let rafId: number | undefined;
   let pendingWidth: number = 0;
+  // Drag width is measured from the panel's own right edge, which stays put while the left edge
+  // moves. The window edge only works for a drawer flush against it — the MOM rail sits inside
+  // page padding, and using innerWidth there makes the panel jump on mousedown.
+  //
+  // The grab point is folded in too: the handle is 6px wide, so grabbing its middle and holding
+  // still would otherwise snap the edge to the cursor. The edge follows the cursor's DELTA.
+  let dragAnchorX = 0;
 
   function handleResizeStart(e: MouseEvent) {
     e.preventDefault();
     isResizing = true;
+    const r = panelEl?.getBoundingClientRect();
+    dragAnchorX = r ? r.right + (e.clientX - r.left) : window.innerWidth;
     window.addEventListener('mousemove', handleResizeMove);
     window.addEventListener('mouseup', handleResizeEnd);
     document.body.style.cursor = 'ew-resize';
@@ -134,7 +150,7 @@
   function handleResizeMove(e: MouseEvent) {
     if (!isResizing) return;
 
-    let newWidth = window.innerWidth - e.clientX;
+    let newWidth = dragAnchorX - e.clientX;
 
     const minWidth = 280;
     const maxWidth = window.innerWidth * 0.8;
@@ -163,7 +179,7 @@
   }
 </script>
 
-<div class="action-panel" class:collapsed={isCollapsed} class:resizing={isResizing} style="width: {isCollapsed ? '48px' : width + 'px'}">
+<div bind:this={panelEl} class="action-panel {variant}" class:collapsed={isCollapsed} class:resizing={isResizing} style="width: {isCollapsed ? '48px' : width + 'px'}">
   {#if !isCollapsed}
     <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -207,7 +223,7 @@
 
   {#if !isCollapsed}
     <div class="panel-engine">
-      <ProviderSelector bind:provider bind:model />
+      <ProviderSelector bind:provider bind:model disabled={providerDisabled} />
     </div>
     {#if needsClaudeSignin}
       <div class="signin-notice">⚠ You're signed out of Claude. Open <strong>Settings → AI Accounts</strong> to sign back in.</div>
@@ -258,12 +274,23 @@
     position: relative;
     height: 100%;
     background-color: var(--bg-sidebar);
-    border-left: 1px solid var(--border-color);
-    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
     display: flex; flex-direction: column;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden; flex-shrink: 0;
   }
+  /* Hangs off the window edge: a lit seam on the left, shadow falling into the page. */
+  .action-panel.drawer {
+    border-left: 1px solid var(--border-color);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  }
+  /* One card among sibling panes: rounded, no shadow, and the header shrinks — a 64px title
+     bar is header-height only because the drawer aligns with the app's own header. */
+  .action-panel.column {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+  .action-panel.column .panel-header { height: 40px; }
+  .action-panel.column .panel-title { font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
   .action-panel.resizing {
     transition: none !important;
   }
