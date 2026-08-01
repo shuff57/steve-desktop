@@ -94,6 +94,49 @@ export function appendQuestionSlot(text: string, filePath: string, title: string
   return head + insert + text.slice(close);
 }
 
+/**
+ * Record the MyOpenMath id a question was pushed as.
+ *
+ * This is what stops a second push from filing forty duplicates into a live course: a question that
+ * already carries a `qid` has already landed, so the pusher skips it. Format-preserving like the
+ * rest of this file — the entry is found by its `file_path` and only the `qid` key is touched.
+ *
+ * Returns the text unchanged when no entry matches, so a caller pushing a question that is not in
+ * this manifest fails loudly at the verify step rather than silently rewriting the wrong entry.
+ */
+export function setQuestionQid(text: string, filePath: string, qid: string): string {
+  const norm = (p: string) => p.replace(/\\/g, '/');
+  // Locate the entry by its file_path value, whatever whitespace the manifest uses around the colon.
+  const at = [...text.matchAll(/"file_path"\s*:\s*"([^"]*)"/g)]
+    .find((m) => norm(m[1]) === norm(filePath))?.index;
+  if (at === undefined) return text;
+
+  // Walk to the entry's closing brace with strings skipped — titles in this bank really do contain
+  // `}`, so a plain indexOf would cut the entry in half and produce unparseable JSON.
+  const open = text.lastIndexOf('{', at);
+  let close = -1;
+  for (let i = at, inStr = false, esc = false; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+    } else if (c === '"') inStr = true;
+    else if (c === '}') { close = i; break; }
+  }
+  if (open < 0 || close < 0) return text;
+
+  const entry = text.slice(open, close);
+  const existing = /"qid"\s*:\s*(?:"[^"]*"|null|\d+)/;
+  const next = existing.test(entry)
+    ? entry.replace(existing, `"qid": ${JSON.stringify(qid)}`)
+    // Ride alongside file_path rather than appending at the end, so a one-line entry stays readable
+    // and a pretty-printed one keeps the id next to the thing it identifies.
+    : entry.replace(/("file_path"\s*:\s*"[^"]*")/, `$1, "qid": ${JSON.stringify(qid)}`);
+
+  return text.slice(0, open) + next + text.slice(close);
+}
+
 /** Read a manifest's raw text (the loader hands back parsed books, not the source). */
 export async function readBookManifest(root: string, path: string): Promise<string> {
   const files = (await invoke<{ path: string; text: string }[]>('mom_load_books', { root })) ?? [];

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { setBooksInManifest, appendQuestionSlot } from './book-membership';
+import { setBooksInManifest, appendQuestionSlot, setQuestionQid } from './book-membership';
 
 /**
  * The point of editing text rather than re-serialising is that everything else stays byte-for-byte
@@ -97,5 +97,46 @@ describe('appendQuestionSlot', () => {
 
   it('throws rather than corrupting a manifest with no questions array', () => {
     expect(() => appendQuestionSlot('{"name":"x"}', 'a.php', 'A')).toThrow(/no questions array/);
+  });
+});
+
+describe('setQuestionQid', () => {
+  const src = [
+    '{',
+    '  "name": "HW",',
+    '  "questions": [',
+    '    { "slot": 1, "file_path": "questions/a/q1.php", "title": "One" },',
+    '    { "slot": 2, "file_path": "questions/a/q2.php", "title": "Two" }',
+    '  ]',
+    '}',
+  ].join('\n');
+
+  it('records the id on the matching entry only', () => {
+    const qs = JSON.parse(setQuestionQid(src, 'questions/a/q2.php', '1823545')).questions;
+    expect(qs[1].qid).toBe('1823545');
+    expect(qs[0].qid).toBeUndefined();
+  });
+
+  it('overwrites an id that is already there rather than adding a second key', () => {
+    const once = setQuestionQid(src, 'questions/a/q1.php', '111');
+    const twice = setQuestionQid(once, 'questions/a/q1.php', '222');
+    expect(JSON.parse(twice).questions[0].qid).toBe('222');
+    expect(twice.match(/"qid"/g)).toHaveLength(1);
+  });
+
+  it('survives a title containing a closing brace', () => {
+    const tricky = src.replace('"One"', '"Set {a, b} closed"');
+    const qs = JSON.parse(setQuestionQid(tricky, 'questions/a/q1.php', '999')).questions;
+    expect(qs[0].qid).toBe('999');
+    expect(qs[0].title).toBe('Set {a, b} closed');
+  });
+
+  it('leaves the manifest untouched when no entry matches', () => {
+    expect(setQuestionQid(src, 'questions/a/nope.php', '1')).toBe(src);
+  });
+
+  it('matches regardless of path separator', () => {
+    const qs = JSON.parse(setQuestionQid(src, 'questions\\a\\q1.php', '42')).questions;
+    expect(qs[0].qid).toBe('42');
   });
 });
