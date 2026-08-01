@@ -2483,6 +2483,7 @@ async fn mom_create_book_file(root: String, path: String, text: String) -> Resul
 /// differs between `tauri dev` and an installed build — three chances to ship an app whose skill
 /// silently is not there. Embedding makes "the binary exists" and "the skill exists" the same fact.
 const MOM_SKILL: &str = include_str!("../../skills/mom-question/SKILL.md");
+const MOM_TRANSFER_SKILL: &str = include_str!("../../skills/mom-transfer/SKILL.md");
 
 /// Install the bundled skill into the user's Claude Code skills directory.
 ///
@@ -2496,22 +2497,28 @@ const MOM_SKILL: &str = include_str!("../../skills/mom-question/SKILL.md");
 /// app-managed content, and the file says so. Failure is never fatal: a desktop app that refuses to
 /// start because it could not write an optional file would be a worse bug than the missing skill.
 fn install_mom_skill(app: &tauri::AppHandle) {
+    install_bundled_skill(app, "mom-question", MOM_SKILL);
+    install_bundled_skill(app, "mom-transfer", MOM_TRANSFER_SKILL);
+}
+
+/// Write one embedded skill to `~/.claude/skills/<name>/SKILL.md`.
+fn install_bundled_skill(app: &tauri::AppHandle, name: &str, content: &str) {
     let Ok(home) = app.path().home_dir() else {
         return;
     };
-    let dir = home.join(".claude").join("skills").join("mom-question");
+    let dir = home.join(".claude").join("skills").join(name);
     let target = dir.join("SKILL.md");
 
-    if std::fs::read_to_string(&target).is_ok_and(|existing| existing == MOM_SKILL) {
+    if std::fs::read_to_string(&target).is_ok_and(|existing| existing == content) {
         return; // already current
     }
     if let Err(e) = std::fs::create_dir_all(&dir) {
         eprintln!("[steve] could not create {}: {}", dir.display(), e);
         return;
     }
-    match std::fs::write(&target, MOM_SKILL) {
-        Ok(()) => println!("[steve] installed mom-question skill -> {}", target.display()),
-        Err(e) => eprintln!("[steve] could not install mom-question skill: {}", e),
+    match std::fs::write(&target, content) {
+        Ok(()) => println!("[steve] installed {} skill -> {}", name, target.display()),
+        Err(e) => eprintln!("[steve] could not install {} skill: {}", name, e),
     }
 }
 
