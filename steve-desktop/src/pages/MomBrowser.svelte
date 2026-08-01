@@ -186,6 +186,13 @@
    * exactly the part you need to read before ticking it.
    */
   let planView = $state<PlanView | null>(null);
+  /**
+   * Which CLI session the question rail is driving, forwarded to the shell so its context ticker
+   * reports OUR run. The progress channel is global and every runner in the app emits on it, so
+   * without this the footer shows whichever run spoke most recently — it was reporting a browser
+   * agent's 700K context under a question that had never exceeded 173K.
+   */
+  let momSession = $state<string | null>(null);
   const showPlan = $derived(authorDraft === null && !!planView && !selectedQuestion);
   const planAllSelected = $derived(
     !!planView && planView.planned.length > 0 && planView.selected.length === planView.planned.length,
@@ -778,6 +785,7 @@
         bind:model={agentModel}
         providerDisabled={authorDraft !== null}
         maxWidth={railMax}
+        runSession={momSession}
       >
         <MomAuthor
           root={momRoot ?? ''}
@@ -799,6 +807,7 @@
           onRevised={reloadSelected}
           onClearSelection={() => (selectedQuestion = null)}
           onPlan={(v) => (planView = v)}
+          onSession={(id) => (momSession = id)}
         />
       </ActionShell>
     </div>

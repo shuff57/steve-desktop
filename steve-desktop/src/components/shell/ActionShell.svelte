@@ -32,6 +32,13 @@
     // With one shell mounted per context (per browser tab, per tool), only the active
     // one may handle global keyboard shortcuts — otherwise Ctrl+B toggles once per instance.
     active = true,
+    /**
+     * The run this shell's own content is driving, when the owner tracks one. The progress channel is
+     * global, so without this the ticker latches onto whichever run emitted last and reports a
+     * stranger's context under this panel. null keeps the old adopt-anything behaviour for owners
+     * that track nothing.
+     */
+    runSession = null as string | null,
     children,
   }: {
     title?: string;
@@ -45,6 +52,7 @@
     maxWidth?: number | null;
     variant?: 'drawer' | 'column';
     active?: boolean;
+    runSession?: string | null;
     children?: Snippet;
   } = $props();
 
@@ -68,6 +76,8 @@
   $effect(() => {
     let unlisten: (() => void) | undefined;
     listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
+      if (!active) return;
+      if (runSession && ev.payload.sessionId !== runSession) return;
       if (ev.payload.sessionId !== sessionId) {
         sessionId = ev.payload.sessionId; // a new run → reset the ticker
         ctxTokens = null;

@@ -70,6 +70,7 @@ import {
     onRevised = () => {},
     onClearSelection = () => {},
     onPlan = (_: PlanView | null) => {},
+    onSession = (_: string | null) => {},
   } = $props<{
     root: string;
     sandboxUrl: string;
@@ -94,6 +95,12 @@ import {
     onClearSelection?: () => void;
     /** The current plan, pushed up so the preview pane can show it full width. */
     onPlan?: (view: PlanView | null) => void;
+    /**
+     * The CLI session this rail is currently driving, or null between turns. The shell's context
+     * ticker rides a GLOBAL progress channel, so without being told which run is ours it reports
+     * whichever run spoke last — a browser-agent's context under the question you are writing.
+     */
+    onSession?: (id: string | null) => void;
   }>();
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
@@ -131,6 +138,9 @@ import {
   let stopped = $state(false);
   /** Session id of the turn in flight, so Stop can kill that one run and nothing else. */
   let runningSession = $state<string | null>(null);
+  // Publish it so the shell's context ticker can tell our run from every other run on the shared
+  // progress channel. One effect rather than a call beside each assignment — there are four.
+  $effect(() => onSession(runningSession));
   /** Last contents read off disk while the agent works — mirrored into the preview pane. */
   let draft = $state('');
   /** What the loop has taught itself so far. Loaded per run, grown by `reflect`. */
@@ -457,9 +467,22 @@ import {
     pasteErr = null;
   }
 
-  /** Run one agent turn, streaming its output into the log. */
-  async function turn(prompt: string): Promise<string> {
-    const sessionId = crypto.randomUUID();
+  /**
+   * Run one agent turn, streaming its output into the log.
+   *
+   * Pass a `session` to keep the CLI alive across several turns. The write, every repair and the
+   * reflection for ONE question share one, so a repair can remember what it already tried instead of
+   * starting cold and re-reading the file it just wrote. Without one, the turn is its own throwaway
+   * session — which is right for planning, since nothing after it needs what the planner saw.
+   *
+   * The question is deliberately the longest a session gets. Context cost is QUADRATIC in session
+   * length, because every turn re-reads all the ones before it: measured over this rail, rolling one
+   * session to 600K costs 2.8x what per-turn cold starts do, and to 1M costs 4.5x. `MAX_ATTEMPTS`
+   * caps a question's chain at six turns on its own, which lands in the cheap band without anyone
+   * counting tokens. Do not widen this to the whole run.
+   */
+  async function turn(prompt: string, session?: { id: string; started: boolean }): Promise<string> {
+    const sessionId = session?.id ?? crypto.randomUUID();
     runningSession = sessionId;
     let unlisten: UnlistenFn | null = null;
     try {
@@ -472,13 +495,16 @@ import {
         engine,
         prompt,
         sessionId,
-        resume: false,
+        resume: session?.started ?? false,
         model: cliModelArg(engine, model),
         systemPrompt: null,
         bypassPermissions: true, // it has to read the private repo and write the file
         timeoutSecs: 900,
         stream: true, // the whole point: watch it being written
       });
+      // Only now does a session exist to resume. Marking it before the call would have the next turn
+      // try to resume something the CLI never created — the same trap the revision rail documents.
+      if (session) session.started = true;
       return extractCliText(engine, stdout).trim();
     } finally {
       unlisten?.();
@@ -615,10 +641,16 @@ import {
    * a bad day. Everything it decides is logged, including deciding nothing — a silent reflector is
    * indistinguishable from a broken one.
    */
-  async function reflect(localAttempts: AttemptResult[], path: string) {
+  async function reflect(
+    localAttempts: AttemptResult[],
+    path: string,
+    session?: { id: string; started: boolean },
+  ) {
     if (!root || !hasLessons(localAttempts)) return;
     try {
       log('Reflecting on what went wrong…');
+      // Reflects inside the question's own session: it is being asked what went wrong with repairs it
+      // can still see, rather than reconstructing them from a summary in a cold turn.
       const reply = await turn(
         buildReflectPrompt({
           attempts: localAttempts,
@@ -626,6 +658,7 @@ import {
           handWritten: MOM_DIALECT_RULES,
           targetPath: path,
         }),
+        session,
       );
       const proposed = parseProposedRules(reply || '');
       if (!proposed.length) {
@@ -660,6 +693,9 @@ import {
     // run finishes the parent selects this same file, so the thread simply carries on.
     runKey = norm(path);
     clearThread(runKey);
+    // One session for this whole question — write, every repair, and the reflection after. It dies
+    // with the question; see `turn` for why carrying it across questions costs more, not less.
+    const session = { id: crypto.randomUUID(), started: false };
     try {
       log(`Writing ${family.trim()}/${slug.trim()}.php`);
       let reply = await turn(
@@ -673,6 +709,7 @@ import {
           root,
           learned: learnedRules,
         }),
+        session,
       );
       if (reply) log(reply, 'agent');
 
@@ -715,7 +752,7 @@ import {
           await onDone(path);
           // Reflect only on a question that actually fought back, and only after it is safely
           // filed — a reflection failure must never cost a question that already renders.
-          await reflect(localAttempts, path);
+          await reflect(localAttempts, path, session);
           return { ok: true, path };
         }
         log(`Attempt ${n}: ${errors[0]}`, 'error');
@@ -724,10 +761,15 @@ import {
           log(`Stopping after ${MAX_ATTEMPTS} attempts — over to you.`, 'error');
           // Still worth reflecting: five failed repairs is the strongest evidence there is that
           // something about this dialect is not yet written down.
-          await reflect(localAttempts, path);
+          await reflect(localAttempts, path, session);
           return { ok: false, path };
         }
-        reply = await turn(buildRepairPrompt(path, errors, localAttempts.length + 1, root, learnedRules));
+        // `session.started` doubles as "the rules are already in this conversation" — on a resumed
+        // turn the repair prompt drops them rather than restating twenty rules every round.
+        reply = await turn(
+          buildRepairPrompt(path, errors, localAttempts.length + 1, root, learnedRules, session.started),
+          session,
+        );
         if (reply) log(reply, 'agent');
       }
     } finally {

@@ -17,6 +17,10 @@ import {
   MAX_REPAIRS,
   REFERENCE_INDEX,
 } from './author';
+import { MOM_DIALECT_RULES } from './revise';
+
+/** A repair prompt only carries the reference block when it knows the content root. */
+const ROOT = 'C:/mom-content';
 
 const req = {
   link: '1.1_definitions_of_statistics_probability_and_key_terms.html',
@@ -95,6 +99,31 @@ describe('buildRepairPrompt', () => {
 
   it('tells the agent to re-read from disk rather than trust its own memory', () => {
     expect(buildRepairPrompt(req.targetPath, ['x'], 2)).toMatch(/Re-read it from disk/i);
+  });
+
+  it('states the rules on a cold repair, which has never seen them', () => {
+    const p = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, ['learned one']);
+    expect(p).toContain('RULES:');
+    for (const rule of MOM_DIALECT_RULES) expect(p).toContain(rule);
+    expect(p).toContain('learned one');
+  });
+
+  it('drops the rules on a resumed repair — that session already has them', () => {
+    // Restating twenty rules every round costs tokens to repeat what is already in the conversation,
+    // and re-reads as a fresh, contradictory brief. Same reasoning as buildFollowUpPrompt.
+    const p = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, ['learned one'], true);
+    expect(p).not.toContain('RULES:');
+    for (const rule of MOM_DIALECT_RULES) expect(p).not.toContain(rule);
+    expect(p).not.toContain('learned one');
+  });
+
+  it('keeps the errors, the re-read order and the reference pointer even when resumed', () => {
+    // Those are about THIS attempt, not things already said — dropping them would leave the agent
+    // repairing blind. Only the restated rule block is redundant on a warm session.
+    const p = buildRepairPrompt(req.targetPath, ['boom on line 12'], 3, ROOT, [], true);
+    expect(p).toContain('boom on line 12');
+    expect(p).toMatch(/Re-read it from disk/i);
+    expect(p).toContain(REFERENCE_INDEX);
   });
 });
 

@@ -140,11 +140,18 @@ export function buildAuthorPrompt(req: AuthorRequest): string {
     'One question, not a set.',
     '',
     'FORMAT — a MOM question file has these markers, in this order:',
-    '  // === NAME - DESCRIPTION: <short title> ===',
+    '  // === NAME - DESCRIPTION: <what the question assesses> ===',
     '  // === SET QUESTION TYPE TO: <number|choices|multipart> ===',
     '  // === COMMON CONTROL ===',
     '  // === QUESTION TEXT ===',
     '  // === ANSWER ===',
+    '',
+    // The name is how this question gets found in a bank of hundreds, so it has to say what the
+    // question TESTS. The story is scenery and the position in some source set means nothing once
+    // the file is filed. "Two-Sample Hypothesis Test", not "Problem 7" and not "Coffee Shop".
+    'NAME — name the question for the skill it assesses, not its number in a source set.',
+    'Naming the scenario too is fine when it helps you tell two similar questions apart',
+    '("Fitness Center Key Terms"), but the skill must be in there.',
     '',
     'RULES for this dialect — breaking one makes MyOpenMath refuse the question:',
     ...rulesBlock(req.learned),
@@ -268,7 +275,8 @@ export function buildSetPlanPrompt(req: {
           'that EXACT number of questions. Do not invent extra definition or concept questions. Do not merge',
           'two exercises into one question, and do not skip any exercise.',
           '',
-          'SLUG RULE — Use slugs q01-..., q02-..., matching the source problem numbers in order.',
+          'SLUG RULE — Name each slug for the skill the question assesses, not its number in the',
+          'source ("two-sample-hypothesis-test", not "q07"). Plan them in source order regardless.',
           'If the source has N numbered problems, your JSON array must have exactly N objects.',
         ].join('\n')
       : [
@@ -313,7 +321,9 @@ export function buildSetPlanPrompt(req: {
         ]
       : []),
     'Reply with ONLY a JSON array, no prose and no code fence:',
-    '[{"slug": "q1-short-kebab-name", "brief": "one or two sentences: the question type, what the',
+    // The example slug obeys the SLUG RULE above. It used to read "q1-short-kebab-name", and the
+    // model copied the example over the rule — a batch came back half descriptive, half `q03-`.
+    '[{"slug": "two-sample-hypothesis-test", "brief": "one or two sentences: the question type, what the',
     'question asks, what is randomized, and what the student must produce"}]',
     '',
     'The brief is the ONLY thing the writer will see for that question — it will not have the',
@@ -412,6 +422,11 @@ export function parseSetPlan(reply: string): PlannedQuestion[] {
  * The reference is named here as well as in the write prompt, and named more insistently: a repair
  * round is exactly where the agent is guessing at a macro signature or an answer type it got wrong
  * the first time. Being told the docs exist only before its first attempt is no use on its third.
+ *
+ * `resumed` says the repair is landing in the session that already wrote the question, so the rules
+ * are behind it in the conversation. Restating twenty of them every round costs tokens to say what
+ * was already said, and re-reads as a fresh, contradictory brief. The reference pointer stays either
+ * way — that one is a place to look, not a thing already said.
  */
 export function buildRepairPrompt(
   targetPath: string,
@@ -419,6 +434,7 @@ export function buildRepairPrompt(
   attempt: number,
   root?: string,
   learned?: string[],
+  resumed = false,
 ): string {
   return [
     `The question at ${targetPath} does not render. This is attempt ${attempt} of ${MAX_ATTEMPTS}.`,
@@ -437,9 +453,7 @@ export function buildRepairPrompt(
           '',
         ]
       : []),
-    'RULES:',
-    ...rulesBlock(learned),
-    '',
+    ...(resumed ? [] : ['RULES:', ...rulesBlock(learned), '']),
     `Edit ONLY ${targetPath}. Reply with ONE short line describing the fix.`,
   ].join('\n');
 }
