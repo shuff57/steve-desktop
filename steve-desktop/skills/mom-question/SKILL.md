@@ -29,12 +29,17 @@ The bank is `mom-content/` in the `steve-desktop` repo.
 Five markers, in this order. All five, always:
 
 ```
-// === NAME - DESCRIPTION: <short title> ===
+// === NAME - DESCRIPTION: <what the question assesses> ===
 // === SET QUESTION TYPE TO: <number|choices|multipart> ===
 // === COMMON CONTROL ===
 // === QUESTION TEXT ===
 // === ANSWER ===
 ```
+
+The name is how the question gets found in a bank of hundreds, so name it for the skill it
+assesses — "Two-Sample Hypothesis Test", not "Problem 7". Naming the scenario as well is fine when
+it separates two similar questions ("Fitness Center Key Terms"); naming *only* the scenario is not.
+The filename follows the same rule: no `qNN-` prefix on new questions.
 
 ## The dialect rules
 
