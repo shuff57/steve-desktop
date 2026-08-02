@@ -67,3 +67,28 @@ Safe to edit or delete by hand — a wrong rule here makes every later push wors
   already corrupted reports success for all of them. Verify by re-reading the field back off the
   server and comparing against the intended text, and expect a straggler — 2 of 12 needed a second
   pass because the save had not committed before the read-back.
+- The **real Save on `moddataset.php` is a `<button type="button">Save</button>`**, not a submit
+  input. The only `input[type=submit]` on that form is `justupdatelibs` — "Save Library Change
+  Only" — and it is **invisible**. Clicking it saves library membership, silently discards every
+  other change, and redirects to `manageqset.php` exactly like a successful save. Two repair
+  attempts reported `clicked Save Library Change Only` and changed nothing before the button list
+  was dumped. Pick the save by visible text `Save` with `offsetParent !== null`, never by
+  `input[type=submit]`.
+- `qtype` **does** have a picker, contrary to the skill body: a bootstrap dropdown `#qtypedd` whose
+  anchors carry `data-sn` (`a[data-sn=choices]`). Writing the hidden `[name=qtype]` input directly
+  sets the value in the DOM and it is discarded on save. Click the picker anchor, then assert the
+  hidden input changed before saving.
+- **A wrong `qtype` renders completely clean.** Slot 14 of 1.2 was declared `choices` and stored as
+  `number`: it rendered with no `Eeek!`, no missing widget, just a text box where three radio
+  buttons belonged — so every render-based check passed it. Render verification structurally cannot
+  catch this. Audit it directly instead: read `[name=qtype]` off `moddataset.php?id=<qsetid>` for
+  every question and compare against the source's `SET QUESTION TYPE TO:` marker. 1 of 15 had
+  drifted, and only that comparison found it.
+- `testquestion2.php` **rolls a new seed on every load**, and the seed changes the options, their
+  order and the correct answer. Reading a question in one page load and answering it in another
+  answers a different question. Keep observe and act on the same load, and never carry an element
+  index across loads — the index map is positional and regenerated per extraction, so a stale index
+  silently addresses the wrong control. Instruct by option text; let the agent resolve the index.
+- The first DOM extraction after a load can **race MathJax** and come back with the answer controls
+  missing entirely — the question text renders but the checkbox list is simply absent. The agent
+  loop re-extracts each step so it self-heals, but any single-shot read needs a second extraction.
