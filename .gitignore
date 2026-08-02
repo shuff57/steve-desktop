@@ -43,3 +43,6 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Local capture artifacts (upstream demo clips, run recordings)
+*.mp4
