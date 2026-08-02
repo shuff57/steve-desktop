@@ -38,6 +38,14 @@ export function overlayUpdateScript(opts: {
   task: string;
   /** Session accent, so two concurrent runs are distinguishable. */
   accent?: string;
+  /**
+   * Who currently has the wheel ("Claude", "Page agent"). Shown as a chip inside
+   * the same pill rather than as a second overlay, so a handover reads as one
+   * system changing hands instead of two systems taking turns.
+   */
+  role?: string;
+  /** Step counter like "6/15", when the job knows its length. */
+  progress?: string;
 }): string {
   const payload = JSON.stringify(opts);
   const [c1, c2, c3, c4] = AGENT_SWEEP;
@@ -83,6 +91,8 @@ export function overlayUpdateScript(opts: {
       '#${ROOT_ID} .pa-dot.completed{background:${AGENT_COLORS.completed}}',
       '#${ROOT_ID} .pa-dot.error,#${ROOT_ID} .pa-dot.stopped{background:${AGENT_COLORS.error}}',
       '@keyframes pa-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}',
+      '#${ROOT_ID} .pa-role{flex:0 0 auto;color:#fff;font-weight:700;font-size:11px;padding:2px 7px;border-radius:6px;background:${withAlpha(accent, 0.28)};box-shadow:inset 0 0 0 1px ${withAlpha(accent, 0.5)};white-space:nowrap}',
+      '#${ROOT_ID} .pa-prog{flex:0 0 auto;color:rgba(255,255,255,.75);font-variant-numeric:tabular-nums;font-size:11px}',
       '#${ROOT_ID} .pa-text{flex:1;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
       '#${ROOT_ID} .pa-stop{height:24px;padding:0 8px;border:0;border-radius:4px;font:600 11px/1 system-ui;cursor:pointer;background:${withAlpha(AGENT_COLORS.error, 0.2)};color:${AGENT_COLORS.error}}',
       '#${ROOT_ID} .pa-stop:hover{background:rgba(239,68,68,.35)}',
@@ -92,7 +102,7 @@ export function overlayUpdateScript(opts: {
       '<div class="pa-stack">',
       '<div class="pa-hist"></div>',
       '<div class="pa-pill"><div class="pa-bg"></div><div class="pa-head">',
-      '<span class="pa-dot"></span><span class="pa-text"></span>',
+      '<span class="pa-dot"></span><span class="pa-role"></span><span class="pa-prog"></span><span class="pa-text"></span>',
       '<button class="pa-stop" type="button">Stop</button>',
       '</div></div></div>',
     ].join('');
@@ -107,6 +117,12 @@ export function overlayUpdateScript(opts: {
   var dot = root.querySelector('.pa-dot');
   dot.className = 'pa-dot ' + d.state;
   root.querySelector('.pa-text').textContent = d.text;
+  var roleEl = root.querySelector('.pa-role');
+  roleEl.textContent = d.role || '';
+  roleEl.style.display = d.role ? '' : 'none';
+  var progEl = root.querySelector('.pa-prog');
+  progEl.textContent = d.progress || '';
+  progEl.style.display = d.progress ? '' : 'none';
   var glow = root.querySelector('.pa-glow');
   glow.style.display = (d.state === 'thinking' || d.state === 'executing') ? '' : 'none';
   var hist = root.querySelector('.pa-hist');

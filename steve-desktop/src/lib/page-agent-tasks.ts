@@ -11,6 +11,7 @@
  */
 
 import { runAgentLoop, type PageAgentLoopConfig } from './page-agent-loop';
+import type { AgentSession } from './agent-session';
 import type { ToolContext } from './page-agent-tools';
 
 export interface AgentStep {
@@ -63,6 +64,13 @@ export interface RunTaskListOptions
   /** Forwarded per step so callers can still drive an overlay. */
   onActivity?: PageAgentLoopConfig['onActivity'];
   onStatusChange?: PageAgentLoopConfig['onStatusChange'];
+  /**
+   * An open session presence to drive. Given one, the list reports its own
+   * progress and hands the wheel back and forth, so the user sees one continuous
+   * agent working through N steps rather than a UI that rebuilds every step.
+   * The session is NOT closed here — it belongs to whoever opened it.
+   */
+  session?: AgentSession;
 }
 
 /** Evaluate a step's check in the page. A throwing or malformed check is a failure, never a pass. */
@@ -106,16 +114,25 @@ export async function runTaskList(
 ): Promise<TaskListReport> {
   const reports: StepReport[] = [];
   let failedAt: number | null = null;
+  const session = options.session;
+  // Joining once, not per step, is the point: the presence outlives every
+  // individual run so nothing is torn down between steps.
+  const joined = session?.join();
 
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
     const started = Date.now();
     let actions = 0;
 
+    session?.setProgress(i + 1, steps.length);
+
     if (step.url) {
+      session?.setRole('waiting', 'Opening the page…');
       await ctx.navigate(step.url);
       await ctx.waitForLoad();
     }
+
+    session?.setRole('driver', step.task.slice(0, 80));
 
     const res = await runAgentLoop(
       {
@@ -124,14 +141,21 @@ export async function runTaskList(
         maxSteps: step.maxSteps ?? options.maxSteps,
         onActivity: (a) => {
           if (a.type === 'executing') actions += 1;
+          joined?.onActivity?.(a);
           options.onActivity?.(a);
         },
-        onStatusChange: options.onStatusChange,
+        onStatusChange: (s) => {
+          joined?.onStatusChange?.(s);
+          options.onStatusChange?.(s);
+        },
       },
       ctx,
     );
 
+    // The check is the conductor's judgement, so the pill says so while it runs.
+    if (step.check) session?.setRole('conductor', 'Checking the page…');
     const check = step.check ? await runCheck(ctx, step.check) : undefined;
+    if (check) session?.note(`${check.ok ? 'PASS' : 'FAIL'} ${step.id ?? `step-${i + 1}`}`);
     const report: StepReport = {
       index: i,
       id: step.id ?? `step-${i + 1}`,

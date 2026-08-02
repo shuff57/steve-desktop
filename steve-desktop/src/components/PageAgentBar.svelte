@@ -13,7 +13,8 @@
   import { cdp } from '../lib/cdp-client';
   import { connectCDP } from '../lib/cdp-actions';
   import { runAgentLoop, type AgentActivity } from '../lib/page-agent-loop';
-  import { attachPageAgentOverlay, describeActivity } from '../lib/page-agent-overlay';
+  import { describeActivity } from '../lib/page-agent-overlay';
+  import { beginAgentSession } from '../lib/agent-session';
   import { buildToolContext, claimTabForRun } from '../integrations/mom/transfer-via-agent';
   import { MOM_TRANSFER_MODELS } from '../integrations/mom/page-agent-config';
   import { SESSION_COLORS } from '../lib/agent-visual';
@@ -49,8 +50,12 @@
     );
     if (!release) { running = false; return; }
 
+    // One presence for the whole run, opened BEFORE the model is called so the page
+    // shows an agent from the first moment rather than at the first tool call.
     // Same accent the claim gives the cursor, so pill and cursor read as one run.
-    const overlay = attachPageAgentOverlay(ctx, controller, task, 3, SESSION_COLORS[0]);
+    const session = beginAgentSession(ctx, controller, { task, accent: SESSION_COLORS[0] });
+    const joined = session.join();
+    let ok = false;
     try {
       const res = await runAgentLoop(
         {
@@ -62,19 +67,23 @@
           onActivity: (a: AgentActivity) => {
             if (a.type === 'executing') steps += 1;
             status = describeActivity(a);
-            overlay.onActivity?.(a);
+            joined.onActivity?.(a);
           },
-          onStatusChange: (s) => overlay.onStatusChange?.(s),
+          onStatusChange: (s) => joined.onStatusChange?.(s),
         },
         ctx,
       );
       result = { success: res.success, data: res.data };
+      ok = res.success;
       status = res.success ? 'Done' : 'Finished with problems';
     } catch (e) {
       result = { success: false, data: e instanceof Error ? e.message : String(e) };
       status = 'Error';
     } finally {
-      await overlay.dispose();
+      await session.end(
+        controller.signal.aborted ? 'stopped' : ok ? 'done' : 'error',
+        result?.success ? 'Done' : undefined,
+      );
       await release();
       running = false;
       controller = null;
