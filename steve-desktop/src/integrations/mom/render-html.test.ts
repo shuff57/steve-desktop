@@ -1,5 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { fixMathDelimiters, prepareRenderHtml, fitToPane, stripEngineNoise, darkenRender } from './render-html';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import {
+  fixMathDelimiters,
+  prepareRenderHtml,
+  fitToPane,
+  stripEngineNoise,
+  darkenRender,
+  darkCssCovers,
+} from './render-html';
 
 // The exact config the sandbox returned on 2026-07-30.
 const SANDBOX_HEAD =
@@ -138,5 +147,45 @@ describe('darkenRender', () => {
 
   it('does not disturb the pane layout fix', () => {
     expect(prepareRenderHtml(PAGE, true)).toContain('data-pane-css');
+  });
+});
+
+describe('the dark sheet covers every colour the bank actually paints', () => {
+  /**
+   * An inline `background:#xxx` the dark sheet does not match keeps its LIGHT background while the
+   * surrounding text turns light — unreadable, not merely ugly. That is how `#f6f8fc` shipped as an
+   * invisible "Total" row on the 1.3 frequency tables, found by looking at a render rather than by
+   * any check. Twenty colours were uncovered at that point, across 556 uses.
+   *
+   * This walks the real bank rather than a fixture: the failure mode is a question author reaching
+   * for a new colour, which no fixture would ever contain.
+   */
+  const ROOT = new URL('../../../mom-content/questions', import.meta.url).pathname.replace(/^\//, '');
+
+  function allPhp(dir: string): string[] {
+    const out: string[] = [];
+    for (const name of readdirSync(dir)) {
+      const p = join(dir, name);
+      if (statSync(p).isDirectory()) out.push(...allPhp(p));
+      else if (name.endsWith('.php')) out.push(p);
+    }
+    return out;
+  }
+
+  it('leaves no inline background unrecoloured', () => {
+    const uncovered = new Map<string, number>();
+    for (const file of allPhp(ROOT)) {
+      for (const m of readFileSync(file, 'utf8').matchAll(/background:\s*(#[0-9a-fA-F]{3,6})/g)) {
+        const hex = m[1].toLowerCase();
+        if (!darkCssCovers(hex)) uncovered.set(hex, (uncovered.get(hex) ?? 0) + 1);
+      }
+    }
+    // Named in the message so a failure says WHICH colour to add, not just that one is missing.
+    expect([...uncovered.keys()].sort()).toEqual([]);
+  });
+
+  it('matches by substring, the way the selectors do', () => {
+    expect(darkCssCovers('#fff9ea')).toBe(true); // caught by the #fff rule
+    expect(darkCssCovers('#123456')).toBe(false);
   });
 });
