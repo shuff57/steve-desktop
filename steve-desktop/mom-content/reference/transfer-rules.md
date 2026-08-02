@@ -27,3 +27,24 @@ Safe to edit or delete by hand — a wrong rule here makes every later push wors
 - Rendering a matching question clean does not prove its answer key is right. The only check that
   does is answering it and reading the score back. Answer every question and submit — a full-marks
   run is the difference between "it displays" and "it works".
+- Reaching `addblock.php` (or `addassessment2.php`) by typing the URL yourself gives a form whose
+  action carries `folder=` but NOT `block=`, and POSTing it returns a bare **HTTP 500** with no
+  message anywhere. Enter through the URL the page's own `additem(blk, tb)` builds —
+  `add<type>.php?block=<parent>&tb=b&cid=<cid>` — and the action comes out with `block=` in it and
+  the POST succeeds. Symptom is a 500 on submit while every field staged correctly, so it reads as
+  a server fault rather than a bad entry point.
+- A block nests by the `block=<parent>` on that entry URL; children address as `<parent>-<n>`,
+  1-based (`0-6-1` is the first block inside `0-6`). A collapsed parent does not render its children
+  into the course page DOM at all, so "the block I just made is missing" usually means it is there
+  and hidden — check `chgblocks.php`, which lists the whole tree.
+- Moving an item between blocks is not on any settings form. It is `moveitem.php`, driven by the
+  page's `moveitem()`: POST `{item, block, newblock, moveafter}` and it answers the literal string
+  `OK`. `item` is the COURSE-ITEM id from `moveDialog('<block>','<item>')`, not the assessment's
+  `aid` — 1.1 is item `45020296` and aid `23108651`.
+- Piping a script into a browser driver on stdin gets it decoded as cp1252 on Windows, so a literal
+  `—` in the source arrives as `â€”` and every title written from it is silently mojibake. Build
+  non-ASCII at runtime (`chr(0x2014)`, `String.fromCharCode(...)`) and keep the file pure ASCII.
+  The trap: a repair script that compares its staged value against a target string that is ITSELF
+  already corrupted reports success for all of them. Verify by re-reading the field back off the
+  server and comparing against the intended text, and expect a straggler — 2 of 12 needed a second
+  pass because the save had not committed before the read-back.

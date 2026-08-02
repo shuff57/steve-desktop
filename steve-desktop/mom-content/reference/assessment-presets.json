@@ -23,6 +23,15 @@
       "selection": "Cover the section closely — every sub-topic gets a slot before any gets a second. Where a sub-topic is a multi-step process, either write one multipart covering the whole workflow or split it into one question per step so students drill each; mix both freely. Homework is the most creative format. Ramp easy to hard, roughly 30/50/20."
     },
 
+    "lab": {
+      "template_aid": "23108651",
+      "template_name": "1.1 Definitions of Statistics, Probability, and Key Terms",
+      "cid": "334243",
+      "captured": "2026-08-01",
+      "_decision": "Steve's call: a lab is graded like practice work, so it uses the SAME template as homework rather than getting one of its own. Recorded here so it reads as a decision, not as a kind that was never set up. If labs ever need their own settings, point this at a new template — nothing else changes.",
+      "selection": "One lab per chapter, mirroring the book's lab section."
+    },
+
     "ind": {
       "template_aid": null,
       "spec": {
