@@ -95,6 +95,16 @@ Originals, if any of it needs reverting:
   are not published yet. Re-run the link pass when they are.
 - `earlybonushrs` reads 1 rather than 24 on labs and tests. It is inert there because
   `earlybonus` is 0, but it is not a value anyone chose.
-- Periods 3 and 7 meet on the ODD-day rotation and period 7 meets 2:03–3:32, so they need their own
+- Periods 3 and 7 meet on the ODD-day rotation and period 7 meets 2:03-3:32, so they need their own
   courses; a MyOpenMath assessment carries one date window and cannot serve all three.
+  **Do not copy the course yet.** Steve's call 2026-08-02: period 4 is still being worked on, and
+  copying an unfinished course means making every later change three times. Copy only once period 4
+  is settled. When that happens: MOM's course copy carries the blocks, all 91 assessments and every
+  setting, so what remains is re-running the retime pass against the ODD-day column, and for period 7
+  moving the test windows to the 2:03-3:32 block (same period-length limit, same +7 minutes).
+  Give each course its OWN passcodes - the three periods sit the same test on different days, so a
+  shared code leaks from whichever period goes first.
+- Nothing in this course has been rendered and read as a student would see it. Every value here was
+  verified against a settings form, which is not the same thing - four settings this session saved
+  "successfully" while being wrong.
 

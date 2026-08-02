@@ -55,6 +55,11 @@ Safe to edit or delete by hand — a wrong rule here makes every later push wors
   the Book row and then the raSHio row, leaving Desmos sitting in slot 0. Never clear a row to mean
   "no link" — assert the whole ordered list of rows instead, clicking **Add Resource** to grow it,
   and point a link somewhere honest (the book index) rather than deleting its row.
+- The assessment settings form is Vue-reactive: setting a checkbox's `.checked` or an input's `.value`
+  directly updates the DOM node but not Vue's underlying model, so the save silently submits the OLD
+  value even though the control visibly shows the new one. Dispatch a `change` event on the element
+  right after setting it (`el.dispatchEvent(new Event('change', { bubbles: true }))`) so Vue's handler
+  actually fires. Hit repeatedly on 2026-08-02 building course 334243 and not caught until read-back.
 - Piping a script into a browser driver on stdin gets it decoded as cp1252 on Windows, so a literal
   `—` in the source arrives as `â€”` and every title written from it is silently mojibake. Build
   non-ASCII at runtime (`chr(0x2014)`, `String.fromCharCode(...)`) and keep the file pure ASCII.
