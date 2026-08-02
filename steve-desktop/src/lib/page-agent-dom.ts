@@ -144,6 +144,18 @@ async function stampByBackendNodeId(
   cdpSend: (method: string, params?: Record<string, unknown>) => Promise<unknown>,
   elements: InteractiveElement[],
 ): Promise<void> {
+  // Clear the previous pass's stamps first. Indexes are positional and are
+  // reassigned from scratch every extraction, so a stamp left over from an
+  // earlier step is not stale metadata — it is a second element answering to a
+  // live index. The tools resolve with querySelector, which returns whichever
+  // one comes first in document order, so the agent clicks the wrong control
+  // and is told it succeeded. Observed live: "clicked [12] ✅" navigated the tab
+  // to a help page because a link earlier in the document still wore that stamp.
+  await cdpSend('Runtime.evaluate', {
+    expression: `document.querySelectorAll('[data-pa-index]').forEach(function(el){el.removeAttribute('data-pa-index')})`,
+    returnByValue: true,
+  });
+
   // DOM.pushNodesByBackendIdsToFrontend needs the DOM agent enabled and a
   // document fetched, or it answers with nodeId 0 for everything.
   await cdpSend('DOM.enable');
