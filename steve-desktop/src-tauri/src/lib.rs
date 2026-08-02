@@ -1631,6 +1631,31 @@ fn get_cdp_port(state: tauri::State<CdpPortState>) -> Result<Option<u16>, String
     Ok(state.port)
 }
 
+/// Raw `/json` target list from the CDP endpoint, as text.
+///
+/// The WebView cannot fetch this itself: DevTools' HTTP endpoint sends no CORS
+/// headers, so `fetch("http://127.0.0.1:<port>/json")` from the app UI fails
+/// outright. That silently disabled marker-pinning — findTargetWsByMarker always
+/// returned null and every connect fell back to first-found discovery, which is
+/// the bug marker-pinning exists to prevent. WebSocket connections are not
+/// blocked, so only this listing step needs to happen in Rust.
+#[tauri::command]
+async fn cdp_list_targets(port: u16) -> Result<String, String> {
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(3))
+        .build()
+        .map_err(|e| format!("Failed to create HTTP client: {}", e))?;
+
+    client
+        .get(&format!("http://127.0.0.1:{}/json", port))
+        .send()
+        .await
+        .map_err(|e| format!("Failed to fetch CDP targets: {}", e))?
+        .text()
+        .await
+        .map_err(|e| format!("Failed to read CDP targets: {}", e))
+}
+
 #[tauri::command]
 async fn discover_cdp_target(port: u16) -> Result<Option<String>, String> {
     let client = reqwest::Client::builder()
@@ -3050,6 +3075,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             stop_oauth_callback_server,
             get_cdp_port,
             discover_cdp_target,
+            cdp_list_targets,
             create_dir,
             write_file,
             read_file,

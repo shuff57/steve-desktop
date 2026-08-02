@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
-import { cdp, CDPClient, MAIN_APP_PATTERNS, type CDPTarget } from './cdp-client';
+import { cdp, CDPClient, type CDPTarget } from './cdp-client';
 import { selectorToElementExpr } from './selector-resolve';
 import { getActiveTabId } from './browser';
 import { tabMarker } from './tab-control';
@@ -33,6 +33,30 @@ function checkDangerousPatterns(code: string): string | null {
 // switch — with several tabs (or several agents) open, in-app tools read/wrote the wrong tab.
 let connectedTabId: string | null = null;
 
+/**
+ * The CDP `/json` target list.
+ *
+ * Goes through Rust because the DevTools HTTP endpoint sends no CORS headers, so
+ * a `fetch` from the app UI throws "Failed to fetch" — which silently disabled
+ * marker-pinning entirely: the probe below always came back empty-handed and
+ * every connect quietly fell back to first-found discovery. Falls back to fetch
+ * outside the app (tests, or a driver running in its own process), where the
+ * request is same-origin-exempt and works.
+ */
+async function listCdpTargets(port: number): Promise<CDPTarget[]> {
+  try {
+    const raw = await invoke<string>('cdp_list_targets', { port });
+    return JSON.parse(raw) as CDPTarget[];
+  } catch {
+    try {
+      const resp = await fetch(`http://127.0.0.1:${port}/json`);
+      return resp.ok ? ((await resp.json()) as CDPTarget[]) : [];
+    } catch {
+      return [];
+    }
+  }
+}
+
 /** ws url of the page target stamped with `marker` (window.name) — the only reliable disambiguator
  *  when several tabs share a URL. Probes each candidate over a throwaway ws connection. Retries
  *  briefly: the marker is re-stamped by the page-loaded handler, so a capture racing a navigation
@@ -41,12 +65,17 @@ async function findTargetWsByMarker(port: number, marker: string, attempts = 3):
   for (let i = 0; i < attempts; i++) {
     if (i > 0) await new Promise((r) => setTimeout(r, 500));
     try {
-      const resp = await fetch(`http://127.0.0.1:${port}/json`);
-      if (!resp.ok) continue;
-      const targets: CDPTarget[] = await resp.json();
+      const targets: CDPTarget[] = await listCdpTargets(port);
+      if (!targets.length) continue;
       for (const t of targets) {
         if (t.type !== 'page' || !t.webSocketDebuggerUrl) continue;
-        if (MAIN_APP_PATTERNS.some((p) => p.test(t.url))) continue;
+        // No URL filter here on purpose. This probe matches an exact
+        // `steve-tab-<uuid>` marker, which the app's own UI never carries, so a
+        // false positive is impossible — whereas skipping every loopback origin
+        // made a locally-served page undrivable, since MAIN_APP_PATTERNS treats
+        // all of 127.0.0.1 / localhost as "this is the app". The URL filter still
+        // guards the no-marker fallback, which resolves in Rust
+        // (discover_cdp_target) and still refuses loopback there.
         const probe = new CDPClient();
         try {
           if (!(await probe.connectToUrl(t.webSocketDebuggerUrl))) continue;

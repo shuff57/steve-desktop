@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mayAct, tabMarker, markerScript } from './tab-control';
+import { mayAct, mayClaim, tabMarker, markerScript } from './tab-control';
 
 describe('mayAct — tab session ownership', () => {
   it('legacy caller (no session id) may act on anything', () => {
@@ -51,5 +51,28 @@ describe('markerScript', () => {
     const script = markerScript('t1');
     expect(script.trim().startsWith('(function(){')).toBe(true);
     expect(script.trim().endsWith('})();')).toBe(true);
+  });
+});
+
+describe('mayClaim — a run taking a tab for itself', () => {
+  it('takes an unowned tab, which mayAct deliberately refuses', () => {
+    // The asymmetry is the point: claiming an idle tab is how a run starts,
+    // while acting on one you never claimed is how two agents collide.
+    expect(mayClaim(null, 'run-1').ok).toBe(true);
+    expect(mayAct(null, 'run-1').ok).toBe(false);
+  });
+
+  it('is idempotent for the session that already holds it', () => {
+    expect(mayClaim('run-1', 'run-1').ok).toBe(true);
+  });
+
+  it('refuses a tab another live session is driving', () => {
+    const v = mayClaim('run-1', 'run-2');
+    expect(v.ok).toBe(false);
+    expect(v.reason).toMatch(/another agent session/);
+  });
+
+  it('refuses an anonymous claim — an unnamed owner cannot be released later', () => {
+    expect(mayClaim(null, '').ok).toBe(false);
   });
 });

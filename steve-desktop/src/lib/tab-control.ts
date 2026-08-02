@@ -44,3 +44,25 @@ export function mayAct(
   if (ownerSessionId) return { ok: false, reason: 'owned by another agent session' };
   return { ok: false, reason: 'not part of your session — open tabs with newTab(url, yourSessionId)' };
 }
+
+/**
+ * May `callerSessionId` CLAIM a tab currently owned by `ownerSessionId`?
+ *
+ * Claiming is deliberately looser than acting: an unowned tab is exactly what a
+ * run wants to take, whereas mayAct refuses unowned tabs so a CLI agent cannot
+ * wander onto a tab you are using. Taking a tab from another live session stays
+ * refused either way.
+ *
+ * This exists because the in-app page-agent drives a tab over a raw CDP socket,
+ * bypassing the __steveControl bridge entirely — so nothing recorded that the
+ * tab was busy, and a legacy CLI call (no session id, allowed everywhere) could
+ * drive the same tab mid-run.
+ */
+export function mayClaim(
+  ownerSessionId: string | null,
+  callerSessionId: string,
+): { ok: boolean; reason?: string } {
+  if (!callerSessionId) return { ok: false, reason: 'a claim needs a session id' };
+  if (!ownerSessionId || ownerSessionId === callerSessionId) return { ok: true };
+  return { ok: false, reason: 'owned by another agent session' };
+}
