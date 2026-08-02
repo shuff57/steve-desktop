@@ -1,17 +1,9 @@
 {
-  "_purpose": "Which existing assessment a new one should copy its settings from, per assignment kind. MyOpenMath already has a 'copy options from' picker on the new-assessment form, so the preset is a POINTER to a template assessment, not a replayed list of fields. Nothing to keep in step when MOM adds a setting.",
-  "_how": "On a push, look up the assignment's `kind`. Set `copyfrom` to that kind's template_aid, leave `copydates` UNCHECKED so dates stay per-assignment, then set the name and the dates. No template for the kind = ask Steve to set one assessment up the way he wants, then record it here.",
-  "_note": "Templates are per course. If cid changes, the template_aid for that kind has to be re-pointed — an aid from another course will not appear in the copyfrom list.",
+  "_purpose": "Which existing assessment a new one copies its settings from, per assignment kind. MyOpenMath's new-assessment form has a 'copy options from' picker, so a preset is a POINTER to a template assessment, not a replayed list of fields. Nothing to keep in step when MOM adds a setting.",
+  "_how": "On a push, set `copyfrom` to the kind's template_aid, leave `copydates` UNCHECKED so dates stay per-assignment, then set the name, the dates, and only the fields intro-stats-assessment-settings.md says differ for that kind.",
+  "_note": "Templates are per course. If cid changes, template_aid has to be re-pointed — an aid from another course does not appear in the copyfrom list.",
 
-  "due_date_rule": {
-    "_status": "PROVISIONAL — stand-in until the real class schedule exists. Steve will replace this once the term calendar is set.",
-    "rule": "next class period",
-    "provisional_meaning": "the next day; if that lands on a Saturday or Sunday, the following Monday",
-    "time": "11:59 pm",
-    "open_date": "the day it is pushed, 12:00 am"
-  },
-
-  "_spec_note": "A kind with `template_aid: null` has no template in the course yet. Its `spec` says how to BUILD that template once — set one assessment up that way by hand, then record its aid and drop the spec. Specs for ind/group/practice were harvested from the mom repo's own skills (`mom-{ind-test,group-test,practice-test}`) and have NOT been verified against a live MOM form here. `lab` has no spec anywhere; Steve has to decide what a lab is before one can be written.",
+  "_settings_source": "intro-stats-assessment-settings.md is THE source for what each kind's settings are, and for the dates. It was read back out of MyOpenMath, field by field. This file no longer carries per-kind `spec` blocks: it used to, transcribed from the standalone mom repo's skills, and two of them were wrong (ind was recorded as 3 attempts with a 33% after-full-score penalty; the course actually runs 2 attempts with a 50% per-attempt penalty, and group is 2 attempts not 3). Do not re-add settings here — a second copy is how they drifted the first time.",
 
   "presets": {
     "hw": {
@@ -19,61 +11,36 @@
       "template_name": "1.1 Definitions of Statistics, Probability, and Key Terms",
       "cid": "334243",
       "captured": "2026-07-31",
-      "summary": "Shown by dates but always available, stays open for practice after the due date, 3 attempts per question with no penalty, up to 1 late pass usable after the due date, answers after the last attempt.",
       "selection": "Cover the section closely — every sub-topic gets a slot before any gets a second. Where a sub-topic is a multi-step process, either write one multipart covering the whole workflow or split it into one question per step so students drill each; mix both freely. Homework is the most creative format. Ramp easy to hard, roughly 30/50/20."
     },
 
     "lab": {
       "template_aid": "23108651",
-      "template_name": "1.1 Definitions of Statistics, Probability, and Key Terms",
       "cid": "334243",
       "captured": "2026-08-01",
-      "_decision": "Steve's call: a lab is graded like practice work, so it uses the SAME template as homework rather than getting one of its own. Recorded here so it reads as a decision, not as a kind that was never set up. If labs ever need their own settings, point this at a new template — nothing else changes.",
+      "_decision": "Steve's call: a lab is graded like practice work, so it copies the homework template rather than getting one of its own. It still differs after the copy — GROUP gradebook category, no early-finish bonus — see the settings file.",
       "selection": "One lab per chapter, mirroring the book's lab section."
     },
 
-    "ind": {
-      "template_aid": null,
-      "spec": {
-        "subtype": "Quiz",
-        "defattempts": 3,
-        "versions_per_question": 1,
-        "penalty": "33% reduction after the first full-score attempt — a perfect first try is locked in, but any later attempt loses ground",
-        "gbcategory": "Tests",
-        "show_solutions": "after the last attempt (never during attempts 1-2)",
-        "default_points": 10,
-        "dates": "fixed available/due window, required",
-        "hidden_on_create": true
-      },
-      "selection": "About 10 questions: ~8 high-impact FULL multipart items — each exercising every step of a process, one per chapter section, no narrow drill questions — plus exactly 2 free-response. The FRQs should touch the widest swath of the chapter AND sit at the easy end; they exist to give an accessible essay path, not to gate the grade. Budget ~5 min per multipart, ~10 min per FRQ. 10 questions x 10 pts = 100."
+    "practice": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "Assemble from questions already in the bank first; draft only to fill what is genuinely missing. Low stakes, so breadth beats polish."
     },
 
     "group": {
-      "template_aid": null,
-      "spec": {
-        "subtype": "Quiz",
-        "defattempts": 3,
-        "versions_per_question": 1,
-        "penalty": "none — groups may re-submit for a second look, but 1 version stops them rerolling for an easier draw",
-        "gbcategory": "Tests (or a Group Work category if the course has one)",
-        "show_solutions": "never, or after the due date",
-        "displaymethod": "all questions on one page — the group works the whole thing together"
-      },
-      "selection": "A focused subset of the practice/test material, sized for one class period of collaborative work."
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "A focused subset of the practice-test material, sized for one class period of collaborative work. Timed to the period and passcoded — see the settings file."
     },
 
-    "practice": {
-      "template_aid": null,
-      "spec": {
-        "subtype": "Homework",
-        "defattempts": 3,
-        "versions_per_question": 20,
-        "penalty": "none",
-        "gbcategory": "Practice (or Not for grade)",
-        "show_solutions": "after the last attempt",
-        "default_points": 1
-      },
-      "selection": "Assemble from questions already in the bank first; draft only to fill what is genuinely missing. Low stakes, so breadth beats polish."
+    "ind": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "About 10 questions: ~8 high-impact FULL multipart items — each exercising every step of a process, one per chapter section, no narrow drill questions — plus exactly 2 free-response. The FRQs should touch the widest swath of the chapter AND sit at the easy end; they exist to give an accessible essay path, not to gate the grade. Budget ~5 min per multipart, ~10 min per FRQ."
     }
   }
 }
