@@ -33,6 +33,13 @@ describe('agent-visual — one palette, three surfaces', () => {
     for (const key of ['completed', 'error'] as const) {
       expect(bar, `PageAgentBar is missing the shared ${key} colour`).toContain(flat(AGENT_COLORS[key]));
     }
+
+    // The header sweep is the SAME animation as the pill's, so it needs all four
+    // stops. It shipped with two (blue/purple) while the pill swept four, which
+    // made one motion read as two different effects on two surfaces.
+    for (const stop of AGENT_SWEEP) {
+      expect(shell, `ActionShell's header sweep is missing sweep stop ${stop}`).toContain(flat(stop));
+    }
   });
 
   test('the session accent rings the pill, so concurrent runs differ', () => {

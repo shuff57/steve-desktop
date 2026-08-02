@@ -458,12 +458,17 @@
     top: 0;
     pointer-events: none;
   }
+  /* Four stops, matching AGENT_SWEEP and the in-page pill exactly. This swept two
+     colours while the pill swept four, so the same "an agent is working" motion
+     read as blue-purple here and as a rainbow on the page. Same geometry, same
+     2s/1s-delay pairing, same stops — the two surfaces are one animation now.
+     Guarded by agent-visual.test.ts, which fails if these drift apart again. */
   .header-bg-sweep::before {
-    background-image: linear-gradient(to bottom left, rgb(57, 182, 255), rgb(189, 69, 251), rgb(57, 182, 255));
+    background-image: linear-gradient(to bottom left, rgb(57, 182, 255), rgb(189, 69, 251), rgb(255, 87, 51), rgb(255, 214, 0), rgb(57, 182, 255));
     animation: sweep 2s linear infinite;
   }
   .header-bg-sweep::after {
-    background-image: linear-gradient(to bottom left, rgb(189, 69, 251), rgb(57, 182, 255), rgb(189, 69, 251));
+    background-image: linear-gradient(to bottom left, rgb(255, 214, 0), rgb(255, 87, 51), rgb(189, 69, 251), rgb(57, 182, 255), rgb(255, 214, 0));
     animation: sweep 2s linear infinite;
     animation-delay: 1s;
   }
