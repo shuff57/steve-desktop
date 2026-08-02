@@ -7,7 +7,7 @@
   import { onMount } from 'svelte';
   import { invoke } from '@tauri-apps/api/core';
   import { getSetting, setSetting } from '../../lib/db';
-  import { OLLAMA_CLOUD_TOOLS_VISION } from '../../lib/model-list';
+  import { OLLAMA_CLOUD_TOOLS } from '../../lib/model-list';
 
   interface Props {
     provider?: string;
@@ -31,14 +31,14 @@
   // opencode fronts Ollama Cloud. Each model is [value, label]: value feeds the CLI's --model/-m
   // flag (a stale value makes the CLI exit "model may not exist"), label is what's shown. Claude
   // uses BARE CLI aliases — the CLI resolves each to the current model in that tier, so no version
-  // lives here to go stale. Default = `opus`, first in the list. opencode uses the Ollama Cloud
-  // tool+vision ids from model-list.ts.
+  // lives here to go stale. Default = `opus`, first in the list. opencode uses the tool-calling
+  // Ollama Cloud ids from model-list.ts.
   type ModelOpt = readonly [value: string, label: string];
   const PROVIDERS: ReadonlyArray<{ id: string; label: string; models: ReadonlyArray<ModelOpt> }> = [
     {
       id: 'opencode',
       label: 'OpenCode',
-      models: OLLAMA_CLOUD_TOOLS_VISION.map((id) => [id, id.replace(/^ollama-cloud\//, '')] as const),
+      models: OLLAMA_CLOUD_TOOLS.map((id) => [id, id.replace(/^ollama-cloud\//, '')] as const),
     },
     {
       id: 'anthropic',
