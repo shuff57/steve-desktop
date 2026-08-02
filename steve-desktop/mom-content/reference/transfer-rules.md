@@ -41,6 +41,20 @@ Safe to edit or delete by hand — a wrong rule here makes every later push wors
   page's `moveitem()`: POST `{item, block, newblock, moveafter}` and it answers the literal string
   `OK`. `item` is the COURSE-ITEM id from `moveDialog('<block>','<item>')`, not the assessment's
   `aid` — 1.1 is item `45020296` and aid `23108651`.
+- `assmpassword` is `<input type="password">`, which a browser never repopulates on load. So EVERY
+  later save of an assessment's settings form submits it empty and silently clears the stored code —
+  set at creation, then wiped by a subsequent dates edit, with nothing reporting it. Set the passcode
+  as the LAST write to an assessment, and re-set it after any later edit. MOM does echo the value
+  back on reload, so a read-back check works.
+- The assessment `intro` (student instructions) is a TinyMCE editor over a HIDDEN textarea. Setting
+  `textarea.value` saves EMPTY, exactly like the CodeMirror trap for `control`/`qtext` — different
+  library, same failure and same silence. Write it with `tinymce.get('intro').setContent(html)`, and
+  verify with `getContent().length` rather than the textarea.
+- Emptying an external-resource row DELETES it and shifts the remaining rows up, so code that patches
+  "row 0" destroys a different link every time it runs: two passes over the same assessment removed
+  the Book row and then the raSHio row, leaving Desmos sitting in slot 0. Never clear a row to mean
+  "no link" — assert the whole ordered list of rows instead, clicking **Add Resource** to grow it,
+  and point a link somewhere honest (the book index) rather than deleting its row.
 - Piping a script into a browser driver on stdin gets it decoded as cp1252 on Windows, so a literal
   `—` in the source arrives as `â€”` and every title written from it is silently mojibake. Build
   non-ASCII at runtime (`chr(0x2014)`, `String.fromCharCode(...)`) and keep the file pure ASCII.
