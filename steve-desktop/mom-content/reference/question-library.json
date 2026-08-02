@@ -1,0 +1,152 @@
+{
+  "questions/data-sampling/classify-data-qualitative-discrete-continuous.php": {
+    "qsetid": "1868253",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php": {
+    "qsetid": "1867371",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php": {
+    "qsetid": "1867373",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php": {
+    "qsetid": "1867374",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php": {
+    "qsetid": "1867370",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php": {
+    "qsetid": "1867375",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php": {
+    "qsetid": "1867376",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php": {
+    "qsetid": "1867377",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q09-identify-population-multiple-choice.php": {
+    "qsetid": "1867369",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php": {
+    "qsetid": "1867378",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php": {
+    "qsetid": "1867379",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q12-classify-one-variable-data-type.php": {
+    "qsetid": "1868230",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q13-select-all-quantitative-discrete.php": {
+    "qsetid": "1868232",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q14-purchase-list-three-data-types.php": {
+    "qsetid": "1868240",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q15-name-the-sampling-method.php": {
+    "qsetid": "1868241",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php": {
+    "qsetid": "1868243",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php": {
+    "qsetid": "1868244",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php": {
+    "qsetid": "1868245",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q21-percent-versus-count-comparison.php": {
+    "qsetid": "1868246",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q22-choose-the-right-display.php": {
+    "qsetid": "1868247",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q23-match-error-and-bias-terms.php": {
+    "qsetid": "1868248",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php": {
+    "qsetid": "1868249",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php": {
+    "qsetid": "1868250",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q26-two-samples-different-results.php": {
+    "qsetid": "1868251",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q27-with-or-without-replacement.php": {
+    "qsetid": "1868252",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  }
+}

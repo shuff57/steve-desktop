@@ -5,6 +5,14 @@
 
   "_settings_source": "intro-stats-assessment-settings.md is THE source for what each kind's settings are, and for the dates. It was read back out of MyOpenMath, field by field. This file no longer carries per-kind `spec` blocks: it used to, transcribed from the standalone mom repo's skills, and two of them were wrong (ind was recorded as 3 attempts with a 33% after-full-score penalty; the course actually runs 2 attempts with a 50% per-attempt penalty, and group is 2 attempts not 3). Do not re-add settings here — a second copy is how they drifted the first time.",
 
+  "question_home": {
+    "cid": "334437",
+    "_what": "The global question class: where questions are FILED into the MOM library and kept. Real class sections do not get their own copy — they ATTACH the same library question by qsetid, which is a plain GET. Fix a question once and every section that references it improves.",
+    "_direction": "The repo is the source of truth and MOM is the runtime. Questions are written in the app, pushed here once, and never edited in MOM's own editor. Editing in both places is the only way the two can disagree; with one-way flow, a difference can only mean a failed write — which is exactly what the qtype audit detects.",
+    "_index": "question-library.json maps source file -> qsetid across every assignment, so a question reused by a second assignment attaches the existing library entry instead of being filed a second time. Without it the same source becomes two library questions that then drift apart.",
+    "_status": "Recorded from Steve on 2026-08-02. The 25 questions already filed were pushed from the 334243 sandbox, so they live in the library but were not filed from here; their index entries record cid 334243. NOT yet verified live — confirm this course is reachable and that filing into it works before the next push."
+  },
+
   "presets": {
     "hw": {
       "template_aid": "23108651",

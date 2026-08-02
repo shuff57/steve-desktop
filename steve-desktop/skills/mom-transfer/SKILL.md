@@ -34,6 +34,31 @@ An assessment does not contain questions; it points at library ones. The `qid` v
 recorded in `mom-content/books/*/ind/*.md` are **library** ids, so that is what a manifest's `qid`
 field means. Store the library id; the instance id is disposable.
 
+## One home for questions, many classes pointing at it
+
+The repo is the source of truth and MOM is the runtime. That means one direction only:
+
+```
+mom-content (git history)  ──file ONCE──▶  MOM library, homed in the question class
+                                                 │
+                                                 └──attach by qsetid (a GET)──▶ any section
+```
+
+- **File** new questions into the **question home** — `presets.question_home.cid` in
+  `assessment-presets.json`. That course exists to hold questions, not to be taught.
+- **Attach** them into whichever class is being built. Attaching costs one GET and copies nothing,
+  so ten sections share one library question. Fix it once, every section improves.
+- **Never edit a question in MOM's own editor.** Edit the `.php` in the repo and re-push. Editing in
+  both places is the only way the two copies can disagree; with one-way flow a difference can only
+  mean a failed write, which the qtype audit catches.
+
+**Check `reference/question-library.json` before filing anything.** It maps source file → qsetid
+across *every* assignment, which the per-assignment manifests structurally cannot: a manifest only
+knows the qids of its own slots, so a question reused by a second assignment looks unfiled and gets
+filed **again** — two library questions from one source, drifting apart from that moment. If the
+index already has the file, skip step 2 and go straight to the attach. Record every new qsetid there
+as well as in the manifest. `question-library.ts` has the reader, writer and the push planner.
+
 ## The flow
 
 ```
