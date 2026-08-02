@@ -56,7 +56,9 @@
      * Each entry: { icon, text, type } where type is one of 'default'|'input'|'output'|
      * 'question'|'observation'|'error'|'success'.
      */
-    history = [] as { icon: string; text: string; type?: string; meta?: string }[],
+    // $bindable like its two siblings above: ActionPanel does `bind:history`, and
+    // without this the binding is a hard compile error rather than a silent no-op.
+    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
     children,
   }: {
     title?: string;
