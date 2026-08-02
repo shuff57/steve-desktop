@@ -15,6 +15,8 @@ import {
   questionTitle,
   MAX_ATTEMPTS,
   MAX_REPAIRS,
+  MIN_SET,
+  MAX_SET,
   REFERENCE_INDEX,
 } from './author';
 import { MOM_DIALECT_RULES } from './revise';
@@ -266,17 +268,38 @@ describe('buildSetPlanPrompt', () => {
     expect(p).toMatch(/Randomize/i);
   });
 
-  it('tells the planner to map items to actual source exercises, not invent topics', () => {
+  it('keeps every numbered exercise rather than merging or skipping any', () => {
     const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
-    expect(p).toMatch(/Use ONLY the section's numbered problem set/i);
-    expect(p).toMatch(/that EXACT number of questions/i);
-    expect(p).toMatch(/Do not invent extra definition/i);
+    expect(p).toMatch(/numbered exercises and plan one question for each/i);
+    expect(p).toMatch(/do not merge two exercises/i);
+    expect(p).toMatch(/do not skip any/i);
+  });
+
+  /**
+   * The exercise count used to BE the set size ("your JSON array must have exactly N objects"), which
+   * made a thin section produce a thin assignment — 1.3 has eight numbered problems and planned eight.
+   * These are practice, so the size is a teaching decision and the exercises are only the floor.
+   */
+  it('sizes the set to the practice range, not to the source exercise count', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toContain(`between ${MIN_SET} and ${MAX_SET} questions`);
+    expect(p).toMatch(/INVENT the difference/i);
+    expect(p).not.toMatch(/must have exactly N objects/i);
+  });
+
+  it('constrains what may be invented to composites and known stumbling blocks', () => {
+    // Topping up with paraphrased exercises adds length without adding practice.
+    for (const mode of ['exercises', 'invent'] as const) {
+      const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content', mode });
+      expect(p).toMatch(/composite/i);
+      expect(p).toMatch(/reliably get wrong/i);
+    }
   });
 
   it('switches to invention wording when mode is invent', () => {
     const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content', mode: 'invent' });
     expect(p).toMatch(/Invent new questions/i);
-    expect(p).not.toMatch(/Use ONLY the section's numbered problem set/i);
+    expect(p).not.toMatch(/numbered exercises and plan one question for each/i);
   });
 
   it('does not point at the reference when no root is given', () => {

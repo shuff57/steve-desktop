@@ -90,6 +90,22 @@ Engine noise to ignore: running stateless with no session, IMathAS emits
 `Undefined global variable $myrights … in parsers.php` on perfectly healthy questions. A question's
 *own* errors say "of Common Control" instead.
 
+## How many questions a set should hold
+
+**Between 10 and 15, aiming at 15.** These are practice assignments, so the count is a teaching
+decision — a section with eight numbered exercises does not mean eight is enough drilling. Keep every
+numbered exercise the section has, then invent the difference. Past 15 a single sitting becomes a
+slog; keep the ones that cover the most ground and say which you dropped.
+
+What you invent has to earn its slot. Two kinds do:
+
+- a **composite** that makes the student carry one concept into another in one question — build the
+  frequency table, then decide which display is honest for it;
+- another angle on whatever the section teaches that **students most reliably get wrong**.
+
+Say in the brief which kind it is, and for the second, name the mistake it targets. Re-running an
+exercise with new numbers adds length, not practice.
+
 ## Filing it into an assignment
 
 Only file a question that renders clean — a broken question must never enter a book. Append to the

@@ -33,6 +33,21 @@ export const MAX_REPAIRS = 5;
  */
 export const MAX_ATTEMPTS = MAX_REPAIRS + 1;
 
+/**
+ * How many questions a planned set should hold.
+ *
+ * These assignments are practice, so the count is a teaching decision, not a property of the source:
+ * a section with eight numbered exercises does not mean eight is enough drilling. The floor stops a
+ * thin section producing a thin assignment; the ceiling stops one sitting becoming a slog.
+ *
+ * The planner keeps every numbered exercise and invents the difference. What it invents is
+ * constrained on purpose — composites that carry one concept into another, or the angles students
+ * reliably get wrong — because topping up with paraphrased exercises adds length without adding
+ * practice.
+ */
+export const MIN_SET = 10;
+export const MAX_SET = 15;
+
 export interface AuthorRequest {
   /**
    * Where the problem set lives: either a full URL, or a bookSHelf section file name under the
@@ -268,20 +283,38 @@ export function buildSetPlanPrompt(req: {
     '',
     mode === 'exercises'
       ? [
-          'PLANNING MODE — Use ONLY the section\'s numbered problem set / exercises.',
-          'Examples, "Try It Now" boxes, definitions, and videos are NOT part of the problem set — ignore them.',
+          'PLANNING MODE — Start from the section\'s numbered problem set / exercises.',
+          'Examples, "Try It Now" boxes, definitions, and videos are NOT part of the problem set — ignore them',
+          'as a SOURCE of questions, though you may draw on them when inventing the top-up below.',
           '',
-          'COUNT RULE — First count how many numbered exercises/problems the problem set contains, then plan',
-          'that EXACT number of questions. Do not invent extra definition or concept questions. Do not merge',
-          'two exercises into one question, and do not skip any exercise.',
+          `COUNT RULE — The finished set must hold between ${MIN_SET} and ${MAX_SET} questions.`,
+          'First count the numbered exercises and plan one question for each: do not merge two exercises into',
+          'one, and do not skip any. That is the floor of the set, not the whole of it.',
+          `- Fewer than ${MIN_SET} numbered exercises? Keep all of them, then INVENT the difference.`,
+          `- More than ${MAX_SET}? Keep the ${MAX_SET} that cover the most ground and say which you dropped.`,
+          `- Between the two? Top up toward ${MAX_SET} anyway — this is practice, and the section's own`,
+          '  exercise count is not a judgement about how much drilling the topic needs.',
+          '',
+          'WHAT TO INVENT — not more of the same. Every invented question must be one of:',
+          '- a COMPOSITE that makes the student carry one concept into another in a single question',
+          '  (build the frequency table, then decide which display is honest for it), or',
+          '- another angle on whatever the section teaches that students most reliably get wrong.',
+          'Say in the brief which of the two it is and, for the second kind, what the usual mistake is.',
+          'A question that just re-runs an exercise with new numbers does not earn a slot.',
           '',
           'SLUG RULE — Name each slug for the skill the question assesses, not its number in the',
-          'source ("two-sample-hypothesis-test", not "q07"). Plan them in source order regardless.',
-          'If the source has N numbered problems, your JSON array must have exactly N objects.',
+          'source ("two-sample-hypothesis-test", not "q07"). Plan the exercise-derived ones in source',
+          'order first, then the invented ones.',
         ].join('\n')
       : [
           'PLANNING MODE — Invent new questions. Based on the concepts the source teaches, decide what',
           'questions would best assess those concepts. Each planned item should target one distinct skill.',
+          '',
+          `COUNT RULE — plan between ${MIN_SET} and ${MAX_SET} questions, aiming at ${MAX_SET}. These are`,
+          'practice assignments; fewer than that is not enough drilling for a whole section.',
+          'Cover every concept the section teaches before giving any concept a second question, then spend',
+          'what is left on COMPOSITES that carry one concept into another and on the angles students most',
+          'reliably get wrong — saying, in the brief, which one each is.',
         ].join('\n'),
     '',
     // Type is a PLANNING decision — the writer only ever sees the brief, so if the brief does not
