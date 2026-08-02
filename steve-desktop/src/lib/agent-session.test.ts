@@ -84,4 +84,12 @@ describe('beginAgentSession', () => {
     await s.end('done');
     expect(pushes[pushes.length - 1]).toContain('.remove()');
   });
+
+  it('takes its index stamps back off the page on the way out', async () => {
+    // A finished run left ~55 data-pa-index attributes on a live MyOpenMath page.
+    const { ctx, pushes } = fakeCtx();
+    const s = beginAgentSession(ctx, new AbortController(), { task: 'demo', heartbeatMs: 0 });
+    await s.end('done');
+    expect(pushes[pushes.length - 1]).toContain('removeAttribute');
+  });
 });

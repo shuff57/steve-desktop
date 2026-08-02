@@ -136,10 +136,18 @@ export function overlayUpdateScript(opts: {
 })()`;
 }
 
-/** Remove the overlay and clear the stop flag. */
+/**
+ * Remove the overlay, clear the stop flag, and take the index stamps back off.
+ *
+ * The stamps are ours, not the page's: a finished run left ~55 `data-pa-index`
+ * attributes on a live MyOpenMath page. Nothing breaks — extraction clears them
+ * before restamping — but leaving markup behind on a real teaching site after
+ * the agent has gone is residue, and teardown is the place to not do that.
+ */
 export const OVERLAY_REMOVE_SCRIPT = `(function(){
   var e = document.getElementById(${JSON.stringify(ROOT_ID)});
   if (e) e.remove();
+  document.querySelectorAll('[data-pa-index]').forEach(function(el){ el.removeAttribute('data-pa-index'); });
   window[${JSON.stringify(STOP_FLAG)}] = false;
 })()`;
 
