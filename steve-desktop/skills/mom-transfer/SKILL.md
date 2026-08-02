@@ -168,10 +168,27 @@ Symptom when you get this wrong: the question renders as
 
 ### 2. `qtype` defaults to `number`
 
-It is a **hidden input with no picker anywhere on the form**. Forget it and every question is filed
-as numeric and renders wrong. Always set it from the `SET QUESTION TYPE TO:` marker.
+Forget it and every question is filed as numeric and renders wrong. Always set it from the
+`SET QUESTION TYPE TO:` marker.
+
+It **does** have a picker, despite the hidden `[name=qtype]` input: a bootstrap dropdown `#qtypedd`
+whose entries carry `data-sn` (`a[data-sn=choices]`). Setting the hidden input directly changes the
+DOM and is **discarded on save**. Click the picker entry, then assert the hidden input actually
+changed before saving.
+
+And when re-saving an existing question, the **real Save is a visible
+`<button type="button">Save</button>`**. The only `input[type=submit]` on `moddataset.php` is
+`justupdatelibs` — "Save Library Change Only" — and it is *invisible*. Clicking it saves library
+membership, discards everything else, and redirects exactly like a successful save.
 
 This is the single most common cause of a transferred question rendering wrong.
+
+**Rendering it is not enough to check it.** A wrong `qtype` renders completely clean: a `choices`
+question filed as `number` shows a text box where the radio buttons belong — no `Eeek!`, a widget
+present, nothing untypeset. Every render check passes it. Verify it directly instead, for every
+question: read `[name=qtype]` off `moddataset.php?id=<qsetid>&cid=<cid>` and compare against the
+source's marker. `auditQTypes` in `src/integrations/mom/transfer-via-agent.ts` does the comparison.
+Found on 1 of 15 questions in 1.2 that had already passed render verification.
 
 ## Never retype question content
 

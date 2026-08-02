@@ -185,6 +185,48 @@ export function loadQuestionSectionsFromText(
   return map;
 }
 
+/** What the source file declares vs what MOM actually stored, for one question. */
+export interface QTypeCheck {
+  slot: number;
+  qsetid: number;
+  declared: string;
+  stored: string;
+  ok: boolean;
+}
+
+/** Pull the `SET QUESTION TYPE TO:` marker out of a question's PHP source. */
+export function declaredQType(source: string): string | null {
+  return /SET QUESTION TYPE TO:\s*([a-zA-Z]+)/.exec(source)?.[1] ?? null;
+}
+
+/** Read the qtype MOM stored, off the question's own edit form. */
+export const STORED_QTYPE_PROBE = `(document.querySelector('[name=qtype]') || {}).value || 'MISSING'`;
+
+/**
+ * Compare every question's declared type against the type MOM stored.
+ *
+ * This exists because a wrong `qtype` renders completely CLEAN — verifyQuestion
+ * cannot catch it and structurally never will. A question declared `choices` and
+ * stored as `number` shows a text box where the radio buttons belong: no `Eeek!`,
+ * a widget present, nothing untypeset. Found live on 1 of 15 questions in 1.2,
+ * which had passed render verification.
+ *
+ * Pure so it can be tested without a browser: the caller does the navigating and
+ * hands back what each form reported.
+ */
+export function auditQTypes(
+  entries: { slot: number; qsetid: number; source: string }[],
+  stored: Record<number, string>,
+): { ok: boolean; checks: QTypeCheck[]; mismatched: QTypeCheck[] } {
+  const checks = entries.map((e) => {
+    const declared = declaredQType(e.source) ?? '(no marker)';
+    const got = stored[e.qsetid] ?? 'MISSING';
+    return { slot: e.slot, qsetid: e.qsetid, declared, stored: got, ok: declared === got };
+  });
+  const mismatched = checks.filter((c) => !c.ok);
+  return { ok: mismatched.length === 0, checks, mismatched };
+}
+
 export interface QuestionRender {
   seed: string | null;
   issues: string[];
