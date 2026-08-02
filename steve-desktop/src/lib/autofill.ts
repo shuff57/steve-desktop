@@ -99,7 +99,22 @@ export function loginFieldSelectors(url: string): LoginFieldSelectors {
  * @param password - The password to fill
  * @returns JavaScript code string ready for webview injection
  */
-export function generateAutoFillScript(username: string, password: string, autoSubmit = false, otp = ''): string {
+export function generateAutoFillScript(
+  username: string,
+  password: string,
+  autoSubmit = false,
+  otp = '',
+  /**
+   * Overwrite fields that already hold a value.
+   *
+   * Off for the automatic on-load fill, which must yield to whatever you typed.
+   * On when you pick a specific login from the password list: with two accounts
+   * saved for one site, the on-load fill puts the first one in, and yielding to
+   * it meant clicking the second silently kept the first — the picker looked
+   * like it worked and logged in as the wrong user.
+   */
+  force = false,
+): string {
   // Escape special characters for safe embedding in JS string literals
   const safeUsername = escapeJsString(username);
   const safePassword = escapeJsString(password);
@@ -113,9 +128,14 @@ export function generateAutoFillScript(username: string, password: string, autoS
   'use strict';
 
   var SELECTORS = ${selectorsJson};
+  var GENERIC = ${JSON.stringify(GENERIC_LOGIN)};
   var MAX_RETRIES = 3;
   var RETRY_DELAYS = [1000, 2000, 4000];
   var AUTO_SUBMIT = ${autoSubmit ? 'true' : 'false'};
+  var FORCE = ${force ? 'true' : 'false'};
+  // An explicit pick also clears the once-per-page submit latch, or choosing a
+  // second account after an auto-submitted first one would never submit.
+  if (FORCE) { window.__steveAutoSubmitted = false; }
   var OTP = '${safeOtp}';
   // Generic 2FA / one-time-code field, filled independently of the LMS login form.
   var OTP_SELECTOR = 'input[autocomplete="one-time-code"], input[name*="otp" i], input[name*="totp" i], input[id*="otp" i], input[name*="2fa" i], input[name*="verification" i]';
@@ -168,7 +188,7 @@ export function generateAutoFillScript(username: string, password: string, autoS
     // or the page pre-populated it — do NOT overwrite it. This is what lets you log out
     // and sign in with a DIFFERENT account without autofill fighting you back to the
     // saved one. Treat it as done so the retry loop stops too.
-    if (userEl.value || passEl.value) {
+    if (!FORCE && (userEl.value || passEl.value)) {
       return true;
     }
 
@@ -181,7 +201,17 @@ export function generateAutoFillScript(username: string, password: string, autoS
       var form = passEl.form || userEl.form;
       if (form) {
         setTimeout(function() {
-          var btn = form.querySelector('button[type=submit], input[type=submit]');
+          // Pick the control that actually logs in. Taking the first submit in
+          // the form silently chose "Login with Passkey" on MyOpenMath, which
+          // opens a passkey prompt and leaves the password login untouched —
+          // the fill looked perfect and nothing happened.
+          var controls = [].slice.call(form.querySelectorAll('button, input[type=submit], input[type=button]'));
+          var labelOf = function (b) { return (b.value || b.innerText || b.getAttribute('aria-label') || '').trim(); };
+          var isDecoy = function (t) { return /passkey|webauthn|security key|forgot|register|sign up|cancel/i.test(t); };
+          var usable = controls.filter(function (b) { return !b.disabled && !isDecoy(labelOf(b)); });
+          var btn = usable.filter(function (b) { return /^(log\\s?in|sign\\s?in|submit)$/i.test(labelOf(b)); })[0]
+            || usable.filter(function (b) { return /log\\s?in|sign\\s?in/i.test(labelOf(b)); })[0]
+            || usable.filter(function (b) { return b.type === 'submit'; })[0];
           if (btn) { btn.click(); }
           else if (form.requestSubmit) { form.requestSubmit(); }
           else { form.submit(); }
@@ -207,10 +237,13 @@ export function generateAutoFillScript(username: string, password: string, autoS
     fillOtp();
     RETRY_DELAYS.forEach(function(d) { setTimeout(fillOtp, d); });
 
-    var lms = findMatchingLms();
-    if (!lms) {
-      return;
-    }
+    // Fall back to the generic username/password selectors when the site is not
+    // one of the four known LMS hosts. Returning here meant picking a saved
+    // login for any other site did nothing at all, silently — which is most of
+    // the password list. loginFieldSelectors already resolves the same way
+    // when CAPTURING a login, so filling now matches saving.
+    // (No backticks in this comment: it lives inside a template literal.)
+    var lms = findMatchingLms() || GENERIC;
 
 
     var attempt = 0;

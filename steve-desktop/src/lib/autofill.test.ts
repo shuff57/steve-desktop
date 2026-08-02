@@ -9,6 +9,30 @@ import {
 } from './autofill';
 import { Redactor } from './redact';
 
+describe('generateAutoFillScript — picking one login of several', () => {
+  it('yields to values already in the fields on the automatic on-load fill', () => {
+    const s = generateAutoFillScript('user', 'pw', false, '');
+    expect(s).toContain('var FORCE = false');
+    expect(s).toContain('if (!FORCE && (userEl.value || passEl.value))');
+  });
+
+  it('overwrites them when a specific login was picked, and re-arms submit', () => {
+    // Two logins saved for one site: the on-load fill puts the first one in, so
+    // a yielding fill silently keeps it and logs in as the wrong account.
+    const s = generateAutoFillScript('user', 'pw', true, '', true);
+    expect(s).toContain('var FORCE = true');
+    expect(s).toContain('window.__steveAutoSubmitted = false');
+  });
+
+  it('fills sites that are not a known LMS instead of doing nothing', () => {
+    expect(generateAutoFillScript('user', 'pw')).toContain('findMatchingLms() || GENERIC');
+  });
+
+  it('skips passkey-style decoy buttons when auto-submitting', () => {
+    expect(generateAutoFillScript('user', 'pw', true)).toContain('passkey|webauthn');
+  });
+});
+
 describe('generateAutoFillScript — auto-submit option', () => {
   it('does not submit by default', () => {
     const s = generateAutoFillScript('u', 'p');
@@ -23,8 +47,11 @@ describe('generateAutoFillScript — auto-submit option', () => {
   it('yields to the user: never overwrites an already-filled field (account switch)', () => {
     // The guard returns before setInputValue when either field already has a value,
     // so logging out to sign in with a different account is not fought back.
+    // Explicitly picking a login from the password list passes force and is the
+    // one case that does overwrite — covered above.
     const s = generateAutoFillScript('u', 'p');
-    expect(s).toContain('if (userEl.value || passEl.value)');
+    expect(s).toContain('var FORCE = false');
+    expect(s).toContain('if (!FORCE && (userEl.value || passEl.value))');
   });
 });
 

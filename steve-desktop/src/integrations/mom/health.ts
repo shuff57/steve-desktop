@@ -64,7 +64,10 @@ export function renderProblems(html: string): string[] {
 
   // A question's OWN failure is always attributed to the question — "…of Common Control",
   // "…the text in this question". The question is POSTed text, never a file.
-  for (const m of html.matchAll(/Caught error while evaluating[^<\n]{0,240}/gi)) {
+  for (const m of html.matchAll(/Caught error while (?:evaluating|generating)[^<\n]{0,240}/gi)) {
+    found.push(decode(m[0]));
+  }
+  for (const m of html.matchAll(/Caught warning in the (?:question code|common control)[^<\n]{0,240}/gi)) {
     found.push(decode(m[0]));
   }
   for (const m of html.matchAll(

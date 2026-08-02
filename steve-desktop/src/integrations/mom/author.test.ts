@@ -1,14 +1,28 @@
 import { describe, it, expect } from 'vitest';
 import {
   buildAuthorPrompt,
+  buildSetPlanPrompt,
   buildRepairPrompt,
+  parseSetPlan,
+  topLevelArrays,
   sectionCommand,
   shouldRetry,
   hasSource,
   isUrl,
   questionPath,
+  questionRefFromPath,
+  questionKey,
+  questionTitle,
   MAX_ATTEMPTS,
+  MAX_REPAIRS,
+  MIN_SET,
+  MAX_SET,
+  REFERENCE_INDEX,
 } from './author';
+import { MOM_DIALECT_RULES } from './revise';
+
+/** A repair prompt only carries the reference block when it knows the content root. */
+const ROOT = 'C:/mom-content';
 
 const req = {
   link: '1.1_definitions_of_statistics_probability_and_key_terms.html',
@@ -57,6 +71,22 @@ describe('buildAuthorPrompt', () => {
     const p = buildAuthorPrompt(req);
     for (const m of ['COMMON CONTROL', 'QUESTION TEXT', '=== ANSWER ===']) expect(p).toContain(m);
   });
+
+  it('points at the authoring reference when the root is known', () => {
+    const p = buildAuthorPrompt({ ...req, root: 'C:/mom-content' });
+    expect(p).toContain(`C:/mom-content/${REFERENCE_INDEX}`);
+  });
+
+  it('does not leave a double slash when the root has a trailing separator', () => {
+    // The path is handed to the agent as something to open; a broken one just wastes a turn.
+    expect(buildAuthorPrompt({ ...req, root: 'C:/mom-content/' })).toContain(
+      `C:/mom-content/${REFERENCE_INDEX}`,
+    );
+  });
+
+  it('omits the reference block entirely when there is no root', () => {
+    expect(buildAuthorPrompt(req)).not.toContain('REFERENCE');
+  });
 });
 
 describe('buildRepairPrompt', () => {
@@ -72,6 +102,31 @@ describe('buildRepairPrompt', () => {
   it('tells the agent to re-read from disk rather than trust its own memory', () => {
     expect(buildRepairPrompt(req.targetPath, ['x'], 2)).toMatch(/Re-read it from disk/i);
   });
+
+  it('states the rules on a cold repair, which has never seen them', () => {
+    const p = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, ['learned one']);
+    expect(p).toContain('RULES:');
+    for (const rule of MOM_DIALECT_RULES) expect(p).toContain(rule);
+    expect(p).toContain('learned one');
+  });
+
+  it('drops the rules on a resumed repair — that session already has them', () => {
+    // Restating twenty rules every round costs tokens to repeat what is already in the conversation,
+    // and re-reads as a fresh, contradictory brief. Same reasoning as buildFollowUpPrompt.
+    const p = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, ['learned one'], true);
+    expect(p).not.toContain('RULES:');
+    for (const rule of MOM_DIALECT_RULES) expect(p).not.toContain(rule);
+    expect(p).not.toContain('learned one');
+  });
+
+  it('keeps the errors, the re-read order and the reference pointer even when resumed', () => {
+    // Those are about THIS attempt, not things already said — dropping them would leave the agent
+    // repairing blind. Only the restated rule block is redundant on a warm session.
+    const p = buildRepairPrompt(req.targetPath, ['boom on line 12'], 3, ROOT, [], true);
+    expect(p).toContain('boom on line 12');
+    expect(p).toMatch(/Re-read it from disk/i);
+    expect(p).toContain(REFERENCE_INDEX);
+  });
 });
 
 describe('shouldRetry', () => {
@@ -86,9 +141,19 @@ describe('shouldRetry', () => {
     expect(shouldRetry([fail(1), fail(2)])).toBe(true);
   });
 
-  /** Past the cap the retries cost more than they fix — hand it to a human instead. */
-  it('gives up at the cap instead of burning turns', () => {
-    expect(shouldRetry([fail(1), fail(2), fail(3)])).toBe(false);
+  /**
+   * The agreed budget: the initial write is judged by one render, and five repair rounds follow —
+   * six renders in total. Spelled out rather than derived, so silently changing the constant fails
+   * here instead of quietly costing (or wasting) turns on every question.
+   */
+  it('allows the write plus exactly five repair rounds', () => {
+    expect(MAX_REPAIRS).toBe(5);
+    expect(MAX_ATTEMPTS).toBe(6);
+    const failures = Array.from({ length: MAX_ATTEMPTS }, (_, i) => fail(i + 1));
+    // Still retrying right up to the last render...
+    expect(shouldRetry(failures.slice(0, MAX_ATTEMPTS - 1))).toBe(true);
+    // ...and done after it. Past the cap the retries cost more than they fix.
+    expect(shouldRetry(failures)).toBe(false);
   });
 
   it('does not retry before anything has run', () => {
@@ -164,5 +229,294 @@ describe('problem-set link', () => {
 
   it('still uses gh for a bare section file name', () => {
     expect(buildAuthorPrompt({ ...req, link: '1.1_defs.html' })).toContain('gh api');
+  });
+
+  it('carries a planned brief into the per-question author prompt', () => {
+    const p = buildAuthorPrompt({ ...req, brief: 'Ask about population vs sample' });
+    expect(p).toContain('Ask about population vs sample');
+  });
+});
+
+describe('buildSetPlanPrompt', () => {
+  it('asks for a JSON array only and forbids writing files this turn', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/ONLY a JSON array/i);
+    expect(p).toMatch(/Do NOT write any question files in this turn/i);
+  });
+
+  it('tells the agent to read the section before planning', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family });
+    expect(p).toContain(sectionCommand(req.link));
+    expect(p).toMatch(/read this bookSHelf section first/i);
+  });
+
+  it('points at the authoring reference and the relevant sub-pages', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toContain(`C:/mom-content/${REFERENCE_INDEX}`);
+    expect(p).toMatch(/question-types\//);
+    expect(p).toMatch(/macros\//);
+    expect(p).toContain('syntax.md');
+  });
+
+  /**
+   * Was "defaults questions to fill-in-the-blank". That default is gone deliberately: it outranked
+   * every rule about question type, so definitions came out as typing exercises. The randomization
+   * half of the old assertion still holds and is what this now guards.
+   */
+  it('requires randomized values so no two students see the same version', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/Randomize/i);
+  });
+
+  it('keeps every numbered exercise rather than merging or skipping any', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toMatch(/numbered exercises and plan one question for each/i);
+    expect(p).toMatch(/do not merge two exercises/i);
+    expect(p).toMatch(/do not skip any/i);
+  });
+
+  /**
+   * The exercise count used to BE the set size ("your JSON array must have exactly N objects"), which
+   * made a thin section produce a thin assignment — 1.3 has eight numbered problems and planned eight.
+   * These are practice, so the size is a teaching decision and the exercises are only the floor.
+   */
+  it('sizes the set to the practice range, not to the source exercise count', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
+    expect(p).toContain(`between ${MIN_SET} and ${MAX_SET} questions`);
+    expect(p).toMatch(/INVENT the difference/i);
+    expect(p).not.toMatch(/must have exactly N objects/i);
+  });
+
+  it('constrains what may be invented to composites and known stumbling blocks', () => {
+    // Topping up with paraphrased exercises adds length without adding practice.
+    for (const mode of ['exercises', 'invent'] as const) {
+      const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content', mode });
+      expect(p).toMatch(/composite/i);
+      expect(p).toMatch(/reliably get wrong/i);
+    }
+  });
+
+  it('switches to invention wording when mode is invent', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content', mode: 'invent' });
+    expect(p).toMatch(/Invent new questions/i);
+    expect(p).not.toMatch(/numbered exercises and plan one question for each/i);
+  });
+
+  it('does not point at the reference when no root is given', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family });
+    expect(p).not.toContain(REFERENCE_INDEX);
+  });
+});
+
+describe('parseSetPlan', () => {
+  it('extracts the array from prose-wrapped output', () => {
+    const reply = 'Here is the plan:\n```json\n[{"slug":"q1","brief":"one"}]\n```';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'one' }]);
+  });
+
+  it('uses the last array when the agent emits a preview plus a final array', () => {
+    const reply = 'Preview: [{"slug":"bad","brief":"placeholder"}] below.\n\n[{"slug":"q1","brief":"real"}] returned as clean JSON only.';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'real' }]);
+  });
+
+  it('filters entries missing a slug or a brief', () => {
+    const reply = JSON.stringify([
+      { slug: 'q1', brief: 'good' },
+      { slug: 'q2' },
+      { brief: 'missing slug' },
+      { slug: '', brief: 'empty slug' },
+      { slug: 'q3', brief: '' },
+    ]);
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'good' }]);
+  });
+
+  it('dedupes repeated slugs so one file is not silently overwritten twice', () => {
+    const reply = JSON.stringify([
+      { slug: 'q1', brief: 'first' },
+      { slug: 'q1', brief: 'second' },
+    ]);
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'first' }]);
+  });
+
+  it('throws when the reply is not a JSON array', () => {
+    expect(() => parseSetPlan('just prose')).toThrow(/JSON array/i);
+  });
+
+  it('throws when the plan has no usable questions', () => {
+    expect(() => parseSetPlan('[{"slug":"","brief":""}]')).toThrow(/no usable questions/i);
+  });
+
+  it('strips a .php extension from planned slugs', () => {
+    const reply = '[{"slug":"q1.php","brief":"one"}]';
+    expect(parseSetPlan(reply)).toEqual([{ slug: 'q1', brief: 'one' }]);
+  });
+});
+
+describe('topLevelArrays / parseSetPlan bracket handling', () => {
+  /**
+   * The real failure: an 11-question plan came back with SEVEN bracket pairs, because the briefs
+   * describe ranges and options in prose. A non-greedy regex took the last inner fragment and the
+   * whole plan was thrown away as "not valid JSON".
+   */
+  const REAL_SHAPE =
+    '[{"slug": "q01-fitness-center-key-terms", "brief": "Randomize the reported mean [between 2.0 and 6.5] days."},' +
+    ' {"slug": "q02-ski-lesson-key-terms", "brief": "Options: parameter, data, statistic [correct], variable."}]';
+
+  it('finds one array even when the briefs contain brackets', () => {
+    expect(topLevelArrays(REAL_SHAPE)).toHaveLength(1);
+  });
+
+  it('parses the plan that the old regex rejected', () => {
+    const plan = parseSetPlan(REAL_SHAPE);
+    expect(plan.map((p) => p.slug)).toEqual(['q01-fitness-center-key-terms', 'q02-ski-lesson-key-terms']);
+  });
+
+  it('ignores brackets inside strings when counting depth', () => {
+    expect(topLevelArrays('["a ] not a close", "b [ not an open"]')).toHaveLength(1);
+  });
+
+  it('takes the FINAL plan when the agent previews one first', () => {
+    const reply =
+      'Draft:\n[{"slug": "draft-q", "brief": "a first pass that should be ignored entirely"}]\n' +
+      'Final:\n[{"slug": "real-q", "brief": "the answer that actually counts for this run"}]';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['real-q']);
+  });
+
+  it('skips a trailing non-plan array rather than failing on it', () => {
+    const reply = '[{"slug": "real-q", "brief": "the plan itself, long enough to survive"}]\nNote: see [1].';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['real-q']);
+  });
+
+  it('still refuses a reply with no array at all', () => {
+    expect(() => parseSetPlan('I could not read the section.')).toThrow(/did not return a JSON array/);
+  });
+
+  it('handles a fenced array', () => {
+    const reply = '```json\n[{"slug": "q1-abc", "brief": "a brief that is comfortably long enough"}]\n```';
+    expect(parseSetPlan(reply).map((p) => p.slug)).toEqual(['q1-abc']);
+  });
+});
+
+describe('questionRefFromPath', () => {
+  const ROOT = String.raw`C:\Users\me\GitHub\steve-desktop\steve-desktop\mom-content`;
+
+  it('keeps the .php on the slug, because that is what every reader expects', () => {
+    // Dropping it made the writer fail to open the question it had just written.
+    const ref = questionRefFromPath(questionPath(ROOT, 'descriptive-stats', 'q02-ski-lesson-age-key-terms'));
+    expect(ref).toEqual({ family: 'descriptive-stats', slug: 'q02-ski-lesson-age-key-terms.php' });
+  });
+
+  it('round-trips whatever questionPath builds', () => {
+    for (const [family, slug] of [
+      ['descriptive-stats', 'q1-key-terms'],
+      ['linear-programming', 'q10-classify-x'],
+    ] as const) {
+      expect(questionRefFromPath(questionPath(ROOT, family, slug))).toEqual({ family, slug: `${slug}.php` });
+    }
+  });
+
+  it('reads a path spelled with either separator', () => {
+    const back = questionRefFromPath(String.raw`C:\mom-content\questions\finance\q3.php`);
+    const fwd = questionRefFromPath('C:/mom-content/questions/finance/q3.php');
+    expect(back).toEqual({ family: 'finance', slug: 'q3.php' });
+    expect(fwd).toEqual(back);
+  });
+
+  it('accepts a repo-relative path, not just an absolute one', () => {
+    expect(questionRefFromPath('questions/finance/q3.php')).toEqual({ family: 'finance', slug: 'q3.php' });
+  });
+
+  it('returns null for anything that is not a question file', () => {
+    expect(questionRefFromPath('C:/mom-content/books/intro/hw/1-1.json')).toBeNull();
+    expect(questionRefFromPath('questions/finance/q3.txt')).toBeNull();
+    expect(questionRefFromPath('')).toBeNull();
+  });
+});
+
+describe('questionKey', () => {
+  it('gives one key for the same file spelled two ways', () => {
+    // The writer joins with '/' onto a '\' root; the reader returns the OS spelling. If these
+    // disagree, one question's conversation splits into two threads.
+    const written = questionPath(String.raw`C:\repo\mom-content`, 'descriptive-stats', 'q02-ski');
+    const read = String.raw`c:\repo\mom-content\questions\descriptive-stats\Q02-SKI.php`;
+    expect(questionKey(written)).toBe(questionKey(read));
+  });
+
+  it('keeps different questions apart', () => {
+    expect(questionKey('questions/finance/q1.php')).not.toBe(questionKey('questions/finance/q2.php'));
+    expect(questionKey('questions/finance/q1.php')).not.toBe(questionKey('questions/draw/q1.php'));
+  });
+
+  it('falls back to the normalised path when it is not a question file', () => {
+    expect(questionKey(String.raw`C:\odd\place.txt`)).toBe('c:/odd/place.txt');
+  });
+});
+
+describe('questionTitle', () => {
+  const file = (name: string) => `// === NAME - DESCRIPTION: ${name} ===\n// === SET QUESTION TYPE TO: matching ===\n`;
+
+  it('reads the name the question states about itself', () => {
+    expect(questionTitle(file('Ski Lesson Age Key Terms - Match the six key terms'))).toBe(
+      'Ski Lesson Age Key Terms - Match the six key terms',
+    );
+  });
+
+  it('collapses a name that wrapped across lines', () => {
+    const wrapped = '// === NAME - DESCRIPTION: Approval Poll Key Terms\n//     (Proportion) ===\n';
+    expect(questionTitle(wrapped)).toBe('Approval Poll Key Terms // (Proportion)');
+  });
+
+  it('returns null when there is no usable name, so the caller can fall back to the slug', () => {
+    expect(questionTitle('// === SET QUESTION TYPE TO: matching ===')).toBeNull();
+    expect(questionTitle('// === NAME - DESCRIPTION:  ===')).toBeNull();
+    expect(questionTitle('')).toBeNull();
+  });
+});
+
+describe('buildSetPlanPrompt question types', () => {
+  const base = { link: '1.1_definitions.html', family: 'descriptive-stats' };
+
+  /**
+   * This block used to read "prefer a fill-in-the-blank answer", which silently made every
+   * definition question a typing exercise — the writer only ever sees the brief, so a plan that
+   * does not name a type decides the type by omission.
+   */
+  it('does not tell the planner to default to fill-in-the-blank', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).not.toMatch(/prefer a fill-in-the-blank/i);
+  });
+
+  it('offers all four types as the ones worth reaching for', () => {
+    const p = buildSetPlanPrompt(base);
+    for (const t of ['multiple choice', 'select all that apply', 'matching', 'free response']) {
+      expect(p.toLowerCase()).toContain(t);
+    }
+  });
+
+  /** Guidance, not law: the planner has to be free to follow the exercise. */
+  it('frames the type leanings as starting points rather than requirements', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/starting points, not\s+requirements/i);
+    expect(p).toMatch(/calculation usually wants free response/i);
+    expect(p).toMatch(/definition usually reads better/i);
+  });
+
+  /** One exercise that computes and then interprets should stay one question. */
+  it('allows a question to mix types across multipart parts', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/may MIX types/i);
+    expect(p).toContain('$anstypes');
+  });
+
+  it('asks the brief to state its type, since that is all the writer gets', () => {
+    const p = buildSetPlanPrompt(base);
+    expect(p).toMatch(/say in each brief what type you intend/i);
+    expect(p).toMatch(/what types, if it has mixed parts/i);
+  });
+
+  it('passes the learned rules through to the plan, not just to the writer', () => {
+    const rule = 'Write "identify the key term" questions as matching, not as free-text boxes.';
+    expect(buildSetPlanPrompt({ ...base, learned: [rule] })).toContain(rule);
+    expect(buildSetPlanPrompt(base)).not.toContain('Learned from earlier runs');
   });
 });

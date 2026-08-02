@@ -34,7 +34,19 @@
   import { summarizeRunResult } from '../../lib/result-summary';
   import { renderSkillPreview } from '../../lib/skill-parser';
 
-  let { provider = '', model = '' }: { provider?: string; model?: string } = $props();
+  let {
+    provider = '',
+    model = '',
+    agentStatus = $bindable('idle' as string),
+    agentStatusText = $bindable('' as string),
+    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
+  }: {
+    provider?: string;
+    model?: string;
+    agentStatus?: string;
+    agentStatusText?: string;
+    history?: { icon: string; text: string; type?: string; meta?: string }[];
+  } = $props();
 
   let task = $state('');
   // "✨ Enhance" rewrites the typed task into a detailed, capability-aware prompt via the engine.
@@ -60,6 +72,52 @@
       : t;
 
   const busy = $derived(phase === 'mapping' || phase === 'planning' || phase === 'executing');
+
+  // Sync phase/msg to the PageAgent-style status bindings
+  $effect(() => {
+    if (phase === 'idle') {
+      agentStatus = 'idle';
+      agentStatusText = '';
+    } else if (phase === 'mapping') {
+      agentStatus = 'executing';
+      agentStatusText = 'Mapping the site…';
+    } else if (phase === 'planning') {
+      agentStatus = 'thinking';
+      agentStatusText = 'Planning…';
+    } else if (phase === 'awaiting-approval') {
+      agentStatus = 'awaiting-approval';
+      agentStatusText = msg || 'Awaiting your approval';
+    } else if (phase === 'executing') {
+      agentStatus = 'executing';
+      agentStatusText = msg || 'Executing…';
+    } else if (phase === 'done') {
+      const failed = msg?.toLowerCase().includes('failed') || msg?.toLowerCase().includes('error');
+      agentStatus = failed ? 'error' : 'completed';
+      agentStatusText = failed ? 'Failed' : 'Done';
+    }
+  });
+
+  // Sync progress lines to PageAgent-style history cards
+  $effect(() => {
+    if (progress.length === 0) { history = []; return; }
+    const cards = progress.slice(-10).map((line) => {
+      const l = line.toLowerCase();
+      let icon = '💬';
+      if (l.startsWith('navigating')) icon = '🌐';
+      else if (l.startsWith('clicking')) icon = '🖱';
+      else if (l.startsWith('filling')) icon = '⌨';
+      else if (l.includes('screenshot')) icon = '📷';
+      else if (l.startsWith('reading')) icon = '👁';
+      else if (l.startsWith('logging in')) icon = '🔑';
+      else if (l.includes('tab')) icon = '📑';
+      else if (l.startsWith('recording')) icon = '🎥';
+      else if (l.startsWith('attaching')) icon = '📎';
+      else if (l.startsWith('reloading')) icon = '🔄';
+      else if (l.startsWith('spawned')) icon = '⚡';
+      return { icon, text: line.charAt(0).toUpperCase() + line.slice(1), type: 'observation' as const };
+    });
+    history = cards;
+  });
 
   // Session id of the run currently in flight, so the Stop button can terminate its spawned CLI.
   let currentSessionId = $state<string | null>(null);

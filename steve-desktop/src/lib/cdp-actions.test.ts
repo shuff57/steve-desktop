@@ -96,9 +96,15 @@ describe('cdp-actions', () => {
     test('connectCDP() re-targets when the active tab is not the connected one', async () => {
       setActiveTabId('tab-9');
       mockCdp.isConnected.mockReturnValueOnce(true); // connected — but to some other tab
-      // Marker probe unreachable → falls back to first-found discovery, but still reconnects.
+      // Marker probe finds nothing → falls back to first-found discovery, but still reconnects.
+      // Routed by command name rather than call order: the probe's target listing is its own
+      // invoke, and order-coupled mocks broke the moment one was added.
       vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('endpoint down')));
-      mockInvoke.mockResolvedValueOnce(9222).mockResolvedValueOnce('ws://127.0.0.1:9222/devtools/page/t9');
+      mockInvoke.mockImplementation(async (cmd: string) =>
+        cmd === 'get_cdp_port' ? 9222
+        : cmd === 'cdp_list_targets' ? '[]'
+        : cmd === 'discover_cdp_target' ? 'ws://127.0.0.1:9222/devtools/page/t9'
+        : undefined);
       mockCdp.connectToUrl.mockResolvedValueOnce(true);
 
       expect(await connectCDP()).toBe(true);
@@ -116,7 +122,11 @@ describe('cdp-actions', () => {
       setActiveTabId('tab-9');
       mockCdp.isConnected.mockReturnValueOnce(true);
       vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('still down')));
-      mockInvoke.mockResolvedValueOnce(9222).mockResolvedValueOnce('ws://127.0.0.1:9222/devtools/page/t9');
+      mockInvoke.mockImplementation(async (cmd: string) =>
+        cmd === 'get_cdp_port' ? 9222
+        : cmd === 'cdp_list_targets' ? '[]'
+        : cmd === 'discover_cdp_target' ? 'ws://127.0.0.1:9222/devtools/page/t9'
+        : undefined);
       mockCdp.connectToUrl.mockResolvedValueOnce(true);
 
       expect(await connectCDP()).toBe(true);

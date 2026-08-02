@@ -1,12 +1,17 @@
-// Visible "an agent is connected and driving this tab" overlay, injected into the webview: a
-// squircle "agent connected" badge and a mouse-pointer-2 cursor with a pulsing halo, all in the
-// SESSION'S colour so concurrent agent sessions are told apart. The cursor is INDEPENDENT of the
+// Visible "an agent is driving this tab" overlay, injected into the webview: a mouse-pointer-2
+// cursor with a pulsing halo, in the SESSION'S colour so concurrent sessions are told apart.
+//
+// The "agent connected" badge that used to sit top-right is gone: the page-agent pill says the
+// same thing with far more detail (which tool, what it returned, and a Stop button), and two
+// separate "an agent is here" banners on one page read as clutter. The cursor stays because it
+// answers a different question — WHICH control is being touched, right now. The cursor is INDEPENDENT of the
 // user's mouse — it only moves when the agent calls window.__steveCursorMove(x,y), never on the
 // user's real mouse. A page load clears injected DOM, so Browser.svelte re-injects on every
 // page-loaded while an agent is active. Idempotent via the window.__steveCursor guard.
 
-/** Distinct colours for concurrent sessions — assigned round-robin as sessions start. */
-export const SESSION_COLORS = ['#34d399', '#60a5fa', '#f472b6', '#fbbf24', '#a78bfa'];
+// Re-exported so existing import sites keep working; the values live in agent-visual alongside
+// the status palette that the overlays and ActionShell share.
+export { SESSION_COLORS } from './agent-visual';
 
 export function agentOverlayScript(color: string): string {
   return `(function(){
@@ -15,15 +20,13 @@ export function agentOverlayScript(color: string): string {
   var st=document.createElement('style'); st.id='__steveAgentStyle';
   st.textContent='@keyframes steveHalo{0%,100%{transform:scale(.8);opacity:.45}50%{transform:scale(1.15);opacity:.9}}';
   document.documentElement.appendChild(st);
-  var tag=document.createElement('div'); tag.id='__steveAgentTag'; tag.textContent='\\u25CF agent connected';
-  tag.style.cssText='position:fixed;top:12px;right:12px;background:${color};color:#fff;font:600 12px sans-serif;padding:6px 12px;border-radius:4px;pointer-events:none;z-index:2147483647;box-shadow:0 2px 7px rgba(0,0,0,.22)';
   var cur=document.createElement('div'); cur.id='__steveAgentCursor';
   // left/top transition = the cursor GLIDES to each target instead of teleporting, so the user sees
   // it travel to the button it is about to click, like a real pointer.
   cur.style.cssText='position:fixed;left:50%;top:50%;pointer-events:none;z-index:2147483647;transition:left .3s cubic-bezier(.4,0,.2,1),top .3s cubic-bezier(.4,0,.2,1)';
   cur.innerHTML='<div style="position:absolute;left:-13px;top:-13px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,${color}8c,${color}00 68%);animation:steveHalo 1.1s ease-in-out infinite"></div>'+
     '<svg width="28" height="28" viewBox="0 0 24 24" fill="${color}" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="position:relative;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))"><path d="M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"/></svg>';
-  document.documentElement.appendChild(tag); document.documentElement.appendChild(cur);
+  document.documentElement.appendChild(cur);
   function mv(x,y){cur.style.left=x+'px';cur.style.top=y+'px';}
   function ripple(x,y){var r=document.createElement('div');r.style.cssText='position:fixed;left:'+x+'px;top:'+y+'px;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:${color};pointer-events:none;z-index:2147483646;opacity:.85;transition:all .5s';document.documentElement.appendChild(r);requestAnimationFrame(function(){r.style.width='46px';r.style.height='46px';r.style.margin='-23px 0 0 -23px';r.style.opacity='0';});setTimeout(function(){r.remove();},520);}
   window.__steveCursorMove=function(x,y){mv(x,y);ripple(x,y);};

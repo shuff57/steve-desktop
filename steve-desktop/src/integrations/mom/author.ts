@@ -18,12 +18,35 @@ export const BOOK_REPO = 'shuff57/bookSHelf';
 export const BOOK_PROJECT = 'projects/Introduction to Stats';
 
 /**
- * Attempts before giving up and asking a human.
+ * Repair rounds after the initial write, before giving up and asking a human.
  *
- * Three, matching the repo's own fix-loop rule. Past that the retries cost more than they fix —
- * the same trap that made a one-question repair eat an afternoon.
+ * Was three; raised to five because a genuinely fixable question was being abandoned while still
+ * converging. Past that the retries cost more than they fix — the trap that made one repair eat an
+ * afternoon.
  */
-export const MAX_ATTEMPTS = 3;
+export const MAX_REPAIRS = 5;
+
+/**
+ * Renders the loop will perform for one question: the one that judges the initial write, plus one
+ * after each repair. Counted in RENDERS because the render is the only thing that decides whether a
+ * question is good — the agent's own account of its edit is not evidence.
+ */
+export const MAX_ATTEMPTS = MAX_REPAIRS + 1;
+
+/**
+ * How many questions a planned set should hold.
+ *
+ * These assignments are practice, so the count is a teaching decision, not a property of the source:
+ * a section with eight numbered exercises does not mean eight is enough drilling. The floor stops a
+ * thin section producing a thin assignment; the ceiling stops one sitting becoming a slog.
+ *
+ * The planner keeps every numbered exercise and invents the difference. What it invents is
+ * constrained on purpose — composites that carry one concept into another, or the angles students
+ * reliably get wrong — because topping up with paraphrased exercises adds length without adding
+ * practice.
+ */
+export const MIN_SET = 10;
+export const MAX_SET = 15;
 
 export interface AuthorRequest {
   /**
@@ -41,7 +64,34 @@ export interface AuthorRequest {
   slug: string;
   /** Absolute path the agent must write. */
   targetPath: string;
+  /** MOM content root. Optional — when given, the agent is pointed at the authoring reference. */
+  root?: string;
+  /** Rules the loop taught itself on earlier runs. Carried alongside the hand-written ones. */
+  learned?: string[];
 }
+
+/**
+ * The dialect rules a prompt should carry: the hand-written set plus whatever the loop has learned.
+ *
+ * Learned rules are labelled where they appear rather than blended in, so a bad one is obvious in
+ * the prompt and can be traced back to the file it came from.
+ */
+export function rulesBlock(learned?: string[]): string[] {
+  const extra = (learned ?? []).filter((r) => r.trim());
+  return [
+    ...MOM_DIALECT_RULES.map((r) => `- ${r}`),
+    ...(extra.length ? ['', 'Learned from earlier runs in this bank:', ...extra.map((r) => `- ${r}`)] : []),
+  ];
+}
+
+/**
+ * The authoring docs imported from the old standalone repo (macros, answer types, libraries,
+ * styles), relative to the content root.
+ *
+ * Pointed at rather than inlined: it is 28 files, and the agent has file tools. `index.md` is a
+ * table of contents, so one path reaches all of it.
+ */
+export const REFERENCE_INDEX = 'reference/index.md';
 
 /** At least one source is required — otherwise there is nothing to write a question about. */
 export function hasSource(req: Pick<AuthorRequest, 'link' | 'brief' | 'imagePath'>): boolean {
@@ -105,15 +155,31 @@ export function buildAuthorPrompt(req: AuthorRequest): string {
     'One question, not a set.',
     '',
     'FORMAT — a MOM question file has these markers, in this order:',
-    '  // === NAME - DESCRIPTION: <short title> ===',
+    '  // === NAME - DESCRIPTION: <what the question assesses> ===',
     '  // === SET QUESTION TYPE TO: <number|choices|multipart> ===',
     '  // === COMMON CONTROL ===',
     '  // === QUESTION TEXT ===',
     '  // === ANSWER ===',
     '',
-    'RULES for this dialect — breaking one makes MyOpenMath refuse the question:',
-    ...MOM_DIALECT_RULES.map((r) => `- ${r}`),
+    // The name is how this question gets found in a bank of hundreds, so it has to say what the
+    // question TESTS. The story is scenery and the position in some source set means nothing once
+    // the file is filed. "Two-Sample Hypothesis Test", not "Problem 7" and not "Coffee Shop".
+    'NAME — name the question for the skill it assesses, not its number in a source set.',
+    'Naming the scenario too is fine when it helps you tell two similar questions apart',
+    '("Fitness Center Key Terms"), but the skill must be in there.',
     '',
+    'RULES for this dialect — breaking one makes MyOpenMath refuse the question:',
+    ...rulesBlock(req.learned),
+    '',
+    ...(req.root?.trim()
+      ? [
+          'REFERENCE — the MyOpenMath authoring docs are on disk, indexed at:',
+          `  ${req.root.replace(/[\\/]+$/, '')}/${REFERENCE_INDEX}`,
+          'Consult `question-types/`, `macros/`, and `syntax.md` before using an answer type, macro, or construct you are unsure of.',
+          'A guessed macro signature is the way a question renders fine and still scores wrong.',
+          '',
+        ]
+      : []),
     'SCOPE:',
     `- Write ONLY ${req.targetPath}. Do not touch any other file, and do not create others.`,
     '- Do not edit any existing question in the bank.',
@@ -122,13 +188,287 @@ export function buildAuthorPrompt(req: AuthorRequest): string {
   ].join('\n');
 }
 
+/** One question the set-planner decided the section warrants. */
+export interface PlannedQuestion {
+  /** File slug, no extension. */
+  slug: string;
+  /** What that question should ask, in enough detail to write it without the section again. */
+  brief: string;
+}
+
+/** How the planner should derive the candidate questions from the supplied link. */
+export type SetPlanMode = 'exercises' | 'invent';
+
+/**
+ * Pull `family` and `slug` back out of a written question's path.
+ *
+ * Anchors on the `questions/<family>/<file>.php` tail rather than subtracting the root, so it does
+ * not care how the two sides spell the same directory — `questionPath` joins with `/` onto a root
+ * full of `\`, and the reader returns whatever the OS handed back.
+ *
+ * The slug KEEPS its `.php`. Every reader in the app passes it that way; the one caller that
+ * stripped it silently failed to open the question it had just written, and the failure was
+ * invisible because the pane behind it was showing something else.
+ */
+export function questionRefFromPath(path: string): { family: string; slug: string } | null {
+  const m = path.replace(/[\\/]+/g, '/').match(/(?:^|\/)questions\/([^/]+)\/(.+\.php)$/i);
+  return m ? { family: m[1], slug: m[2] } : null;
+}
+
+/**
+ * The question's own name, from the `NAME - DESCRIPTION` marker every file must carry.
+ *
+ * Filing used the AGENT'S REPLY as the assignment title, so a manifest ended up holding things like
+ * "Replaced nested `$strflags[$i]['flag']=1` with the comma-separated string form…" — a note about
+ * the work, sitting where the name of the question belongs. The file already states its own name.
+ */
+export function questionTitle(contents: string): string | null {
+  const m = contents.match(/^\s*\/\/\s*===\s*NAME\s*-\s*DESCRIPTION:\s*([\s\S]+?)\s*===\s*$/im);
+  const title = m?.[1].replace(/\s+/g, ' ').trim();
+  return title ? title : null;
+}
+
+/**
+ * Stable identity for one question, for keying things that must survive both spellings of its
+ * path — a conversation thread, say, where the writer knows the file it is creating and the browser
+ * knows the file it just opened, and they must agree.
+ */
+export function questionKey(path: string): string {
+  const ref = questionRefFromPath(path);
+  return (ref ? `${ref.family}/${ref.slug}` : path.replace(/[\\/]+/g, '/')).toLowerCase();
+}
+
+/**
+ * A plan handed to whoever displays it.
+ *
+ * A plan is a table of ten slugs and briefs, and a 400px rail truncated every one of them — so the
+ * writer publishes this and the wide preview pane renders it. The toggles travel with the data
+ * rather than being re-implemented by the display, which would put selection in two places.
+ */
+export interface PlanView {
+  planned: PlannedQuestion[];
+  /** Slugs currently ticked. */
+  selected: string[];
+  /** Slugs already on disk in this family — writing one overwrites it. */
+  existing: string[];
+  toggleOne: (slug: string) => void;
+  toggleAll: () => void;
+}
+
+/**
+ * Ask what a problem set should CONTAIN, before writing any of it.
+ *
+ * Planning is a separate turn because the alternative — "write every question in this section" in
+ * one go — produces a pile the render loop cannot check one at a time. With a plan, each question
+ * goes through the same write/render/repair loop a single question does, and a failure is isolated
+ * to its own file instead of poisoning the batch.
+ */
+export function buildSetPlanPrompt(req: {
+  link: string;
+  family: string;
+  root?: string;
+  mode?: SetPlanMode;
+  /** Same rules the writer gets. The plan decides the question type, so it needs them more. */
+  learned?: string[];
+}): string {
+  const link = req.link.trim();
+  const mode: SetPlanMode = req.mode ?? 'exercises';
+  return [
+    'Plan a problem set. Do NOT write any question files in this turn.',
+    '',
+    isUrl(link)
+      ? `SOURCE — open and read this problem set: ${link}`
+      : ['SOURCE — read this bookSHelf section first:', '```', sectionCommand(link), '```',
+         'It is a private repo, so use `gh` exactly as above.'].join('\n'),
+    '',
+    mode === 'exercises'
+      ? [
+          'PLANNING MODE — Start from the section\'s numbered problem set / exercises.',
+          'Examples, "Try It Now" boxes, definitions, and videos are NOT part of the problem set — ignore them',
+          'as a SOURCE of questions, though you may draw on them when inventing the top-up below.',
+          '',
+          `COUNT RULE — The finished set must hold between ${MIN_SET} and ${MAX_SET} questions.`,
+          'First count the numbered exercises and plan one question for each: do not merge two exercises into',
+          'one, and do not skip any. That is the floor of the set, not the whole of it.',
+          `- Fewer than ${MIN_SET} numbered exercises? Keep all of them, then INVENT the difference.`,
+          `- More than ${MAX_SET}? Keep the ${MAX_SET} that cover the most ground and say which you dropped.`,
+          `- Between the two? Top up toward ${MAX_SET} anyway — this is practice, and the section's own`,
+          '  exercise count is not a judgement about how much drilling the topic needs.',
+          '',
+          'WHAT TO INVENT — not more of the same. Every invented question must be one of:',
+          '- a COMPOSITE that makes the student carry one concept into another in a single question',
+          '  (build the frequency table, then decide which display is honest for it), or',
+          '- another angle on whatever the section teaches that students most reliably get wrong.',
+          'Say in the brief which of the two it is and, for the second kind, what the usual mistake is.',
+          'A question that just re-runs an exercise with new numbers does not earn a slot.',
+          '',
+          'SLUG RULE — Name each slug for the skill the question assesses, not its number in the',
+          'source ("two-sample-hypothesis-test", not "q07"). Plan the exercise-derived ones in source',
+          'order first, then the invented ones.',
+        ].join('\n')
+      : [
+          'PLANNING MODE — Invent new questions. Based on the concepts the source teaches, decide what',
+          'questions would best assess those concepts. Each planned item should target one distinct skill.',
+          '',
+          `COUNT RULE — plan between ${MIN_SET} and ${MAX_SET} questions, aiming at ${MAX_SET}. These are`,
+          'practice assignments; fewer than that is not enough drilling for a whole section.',
+          'Cover every concept the section teaches before giving any concept a second question, then spend',
+          'what is left on COMPOSITES that carry one concept into another and on the angles students most',
+          'reliably get wrong — saying, in the brief, which one each is.',
+        ].join('\n'),
+    '',
+    // Type is a PLANNING decision — the writer only ever sees the brief, so if the brief does not
+    // name a type the writer falls back on whatever the neighbouring files happen to do. This block
+    // used to say "prefer fill-in-the-blank", which quietly made every definition question a typing
+    // exercise no matter what the rules below said.
+    'QUESTION TYPE — say in each brief what type you intend, and why if it is not obvious.',
+    'The four worth reaching for are multiple choice, select all that apply, matching, and free',
+    'response. Which one fits is your judgement about the exercise; these are starting points, not',
+    'requirements, and an exercise that clearly wants something else should get it:',
+    '- A calculation usually wants free response — offering computed values to choose between turns',
+    '  arithmetic into elimination.',
+    '- A definition usually reads better as multiple choice (one term, one meaning) or matching',
+    '  (several terms against several meanings) than as typing, which grades wording rather than',
+    '  understanding.',
+    '- Select all that apply suits a concept with several conditions to satisfy.',
+    '- A question may MIX types rather than pick one: `multipart` takes an `$anstypes` array, so',
+    '  part (a) can be a computed value typed in and part (b) multiple choice about what it means.',
+    '  For an exercise that asks the student to compute something and then interpret it, that is',
+    '  usually the honest shape — better than splitting it into two questions.',
+    '',
+    '- Preserve the same variable roles and structure as the source exercise, but randomize all',
+    '  numeric values and other variable parts by default so every student sees a different version.',
+    '',
+    ...(req.learned?.length
+      ? ['Learned from earlier runs in this bank — these bind the plan too:', ...req.learned.map((r) => `- ${r}`), '']
+      : []),
+    ...(req.root?.trim()
+      ? [
+          `The existing bank is at ${req.root.replace(/[\\/]+$/, '')}/questions/${req.family}/.`,
+          'Read it first and do not plan a question the bank already has.',
+          '',
+          'REFERENCE — the MyOpenMath authoring docs are on disk, indexed at:',
+          `  ${req.root.replace(/[\\/]+$/, '')}/${REFERENCE_INDEX}`,
+          'Consult `question-types/`, `macros/`, and `syntax.md` before naming an answer type, macro, or construct you are unsure of.',
+          '',
+        ]
+      : []),
+    'Reply with ONLY a JSON array, no prose and no code fence:',
+    // The example slug obeys the SLUG RULE above. It used to read "q1-short-kebab-name", and the
+    // model copied the example over the rule — a batch came back half descriptive, half `q03-`.
+    '[{"slug": "two-sample-hypothesis-test", "brief": "one or two sentences: the question type, what the',
+    'question asks, what is randomized, and what the student must produce"}]',
+    '',
+    'The brief is the ONLY thing the writer will see for that question — it will not have the',
+    'section in front of it, and it will not have these rules in front of it either — so make each',
+    'one self-contained, and say what type it should be (or what types, if it has mixed parts).',
+  ].join('\n');
+}
+
+/**
+ * Every complete top-level `[...]` block in `text`, matched by BALANCE, not by regex.
+ *
+ * A regex cannot do this. `\[[\s\S]*?\]` stops at the first `]`, and the briefs the planner writes
+ * routinely contain brackets — a real 11-question plan came back with seven bracket pairs inside
+ * the prose, so the "last match" was a fragment of one brief and the whole plan was rejected as
+ * invalid JSON. Quotes are tracked so a bracket inside a string never changes the depth.
+ */
+export function topLevelArrays(text: string): string[] {
+  const out: string[] = [];
+  let depth = 0, start = -1, inStr = false, esc = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+      continue;
+    }
+    if (c === '"') inStr = true;
+    else if (c === '[') {
+      if (depth === 0) start = i;
+      depth++;
+    } else if (c === ']') {
+      if (depth > 0) {
+        depth--;
+        if (depth === 0 && start >= 0) out.push(text.slice(start, i + 1));
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Read the planner's reply.
+ *
+ * Tolerates a code fence and surrounding prose by taking the outermost bracketed array, because a
+ * model that adds "Here is the plan:" should not cost the whole run. Entries missing a slug or a
+ * brief are dropped rather than written as `undefined.php`.
+ */
+export function parseSetPlan(reply: string): PlannedQuestion[] {
+  const candidates = topLevelArrays(reply);
+  if (!candidates.length) throw new Error('the planner did not return a JSON array');
+
+  // Prefer the LAST array that both parses and looks like a plan: the agent sometimes shows a
+  // preview before its final answer, and the final one is the answer.
+  let raw: unknown;
+  let parsedAny = false;
+  for (let i = candidates.length - 1; i >= 0; i--) {
+    try {
+      const value = JSON.parse(candidates[i]);
+      parsedAny = true;
+      if (Array.isArray(value) && value.some((v) => v && typeof v === 'object')) {
+        raw = value;
+        break;
+      }
+      if (raw === undefined) raw = value;
+    } catch {
+      // Not JSON — keep looking rather than failing on the first thing shaped like a bracket.
+    }
+  }
+  if (!parsedAny) throw new Error('the planner returned something that is not valid JSON');
+  if (!Array.isArray(raw)) throw new Error('the planner did not return a JSON array');
+
+  const seen = new Set<string>();
+  const out: PlannedQuestion[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== 'object') continue;
+    const slug = String((item as PlannedQuestion).slug ?? '')
+      .trim()
+      .replace(/\.php$/i, '');
+    const brief = String((item as PlannedQuestion).brief ?? '').trim();
+    // Two entries sharing a slug would have the second silently overwrite the first's file.
+    if (!slug || !brief || seen.has(slug)) continue;
+    seen.add(slug);
+    out.push({ slug, brief });
+  }
+  if (!out.length) throw new Error('the plan had no usable questions');
+  return out;
+}
+
 /**
  * Prompt for a retry, carrying the sandbox's verdict.
  *
  * The errors are quoted verbatim: they are the renderer's own words about this exact file, and
  * paraphrasing them loses the line numbers that make them actionable.
+ *
+ * The reference is named here as well as in the write prompt, and named more insistently: a repair
+ * round is exactly where the agent is guessing at a macro signature or an answer type it got wrong
+ * the first time. Being told the docs exist only before its first attempt is no use on its third.
+ *
+ * `resumed` says the repair is landing in the session that already wrote the question, so the rules
+ * are behind it in the conversation. Restating twenty of them every round costs tokens to say what
+ * was already said, and re-reads as a fresh, contradictory brief. The reference pointer stays either
+ * way — that one is a place to look, not a thing already said.
  */
-export function buildRepairPrompt(targetPath: string, errors: string[], attempt: number): string {
+export function buildRepairPrompt(
+  targetPath: string,
+  errors: string[],
+  attempt: number,
+  root?: string,
+  learned?: string[],
+  resumed = false,
+): string {
   return [
     `The question at ${targetPath} does not render. This is attempt ${attempt} of ${MAX_ATTEMPTS}.`,
     '',
@@ -137,9 +477,16 @@ export function buildRepairPrompt(targetPath: string, errors: string[], attempt:
     '',
     'Fix that file so it renders cleanly. Re-read it from disk first — do not assume its contents.',
     '',
-    'RULES:',
-    ...MOM_DIALECT_RULES.map((r) => `- ${r}`),
-    '',
+    ...(root?.trim()
+      ? [
+          'LOOK IT UP before guessing. The MyOpenMath authoring docs are on disk, indexed at:',
+          `  ${root.replace(/[\\/]+$/, '')}/${REFERENCE_INDEX}`,
+          'If the error names a macro, an answer type or a library, READ its page there and fix the',
+          'question against what the docs actually say. Repeating a guess is how a loop burns turns.',
+          '',
+        ]
+      : []),
+    ...(resumed ? [] : ['RULES:', ...rulesBlock(learned), '']),
     `Edit ONLY ${targetPath}. Reply with ONE short line describing the fix.`,
   ].join('\n');
 }

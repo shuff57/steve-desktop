@@ -30,10 +30,11 @@
   } from '../lib/webview-lifecycle';
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
-  import { tabMarker, markerScript, mayAct, type TabInfo } from '../lib/tab-control';
+  import { tabMarker, markerScript, mayAct, mayClaim, type TabInfo } from '../lib/tab-control';
   import { agentOverlayScript, AGENT_OVERLAY_REMOVE, DIALOG_SUPPRESS_SCRIPT, SESSION_COLORS, type AgentActiveDetail } from '../lib/agent-overlay';
   import { startRecording, stopRecording } from '../lib/artifacts-api';
   import ActionPanel from './ActionPanel.svelte';
+  import PageAgentBar from '../components/PageAgentBar.svelte';
 
   // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
   // guessing from the CDP target list. Wraps the existing tab functions below — no separate
@@ -55,6 +56,12 @@
     /** Start/stop an app-window screen recording (ffmpeg) — saved to the Artifacts gallery. */
     startRecording: (sessionId?: string) => Promise<string>;
     stopRecording: () => Promise<string | null>;
+    /** Mark `id` as driven by `sessionId`, so other agents are refused on it. Throws if another
+     *  live session already holds it. Used by the in-app page-agent, which drives a tab over a raw
+     *  CDP socket and would otherwise be invisible to the ownership guard. */
+    claimTab: (id: string, sessionId: string) => Promise<void>;
+    /** Release a claim and strip the run's overlay. Safe to call twice. */
+    releaseTab: (sessionId: string) => Promise<void>;
   }
   const steveWindow = window as Window & { __steveControl?: SteveControl };
 
@@ -190,7 +197,6 @@
   // ── Passwords bar: capture a login off the live page, and review saved logins ──────────────
   let showPasswords = $state(false);
   let credentials = $state<SiteCredential[]>([]);
-  let revealed = $state<Set<number>>(new Set());
   let autoSubmit = $state(false); // after autofilling a saved login, submit the form too
 
   async function loadCredentials() {
@@ -202,17 +208,26 @@
     await setSetting('autoSubmitLogin', autoSubmit ? 'true' : 'false');
   }
 
-  async function togglePasswords(open: boolean) {
-    showPasswords = open;
-    if (open) await loadCredentials();
+  // Page-agent bar: same reserve-space pattern as the other aux bars, so the
+  // native webview is pushed down instead of painted over.
+  let showPageAgent = $state(false);
+  async function togglePageAgent(open: boolean) {
+    showPageAgent = open;
     await tick();
     updateWebviewBounds();
   }
 
-  function toggleReveal(id: number) {
-    const next = new Set(revealed);
-    next.has(id) ? next.delete(id) : next.add(id);
-    revealed = next;
+  async function togglePasswords(open: boolean) {
+    showPasswords = open;
+    if (open) {
+      await loadCredentials();
+      pwPageUrl = pageLoadedUrl;
+      if (activeTabId) {
+        try { pwPageUrl = (await getEmbeddedUrl(activeTabId)) || pwPageUrl; } catch { /* keep last known */ }
+      }
+    }
+    await tick();
+    updateWebviewBounds();
   }
 
   // Fill the saved credential for this page and submit it. Same on-device path as the autofill on
@@ -234,6 +249,47 @@
 
   async function handleLoginClick() {
     showToast((await loginNow()) ? 'Logging in…' : 'No saved login matches this page.');
+  }
+
+  // Which page the picker is judging "this site" against. The tab's own URL is
+  // the live signal and re-sorts the list as you navigate; the CDP-sourced value
+  // is only a fallback for when the page-loaded event has not landed yet.
+  // Sampling once on open went stale the moment you navigated with it open.
+  let pwPageUrl = $state('');
+  const pwUrl = $derived(pageLoadedUrl || pwPageUrl);
+
+  function matchesCurrentPage(c: SiteCredential): boolean {
+    if (!pwUrl || !c.url_pattern) return false;
+    // url_pattern is a SQL-style pattern ("https://host/%"); compare on its literal head.
+    const head = c.url_pattern.split('%')[0];
+    return head.length > 0 && pwUrl.startsWith(head);
+  }
+
+  // Logins for the page you are on come first — with two accounts saved for the
+  // same site, picking the wrong one is the whole failure mode this list exists
+  // to remove, so the relevant ones must not be buried.
+  const sortedCredentials = $derived(
+    [...credentials].sort((a, b) => {
+      const d = Number(matchesCurrentPage(b)) - Number(matchesCurrentPage(a));
+      return d !== 0 ? d : (a.site_name || '').localeCompare(b.site_name || '');
+    }),
+  );
+
+  /** Fill one specific saved login into the active tab. */
+  async function fillCredential(c: SiteCredential) {
+    const id = activeTabId;
+    if (!id) { showToast('Open a page first.'); return; }
+    try {
+      const otp = c.totp_secret ? await totpNow(c.totp_secret).catch(() => '') : '';
+      // force: you picked this one, so it wins over whatever the on-load fill left.
+      await injectScript(generateAutoFillScript(c.username, c.password, autoSubmit, otp, true), id);
+      showToast(autoSubmit ? `Logging in as ${c.username}…` : `Filled ${c.username} — press Login`);
+      // Close like a menu: picking is the whole point, and the page gets its
+      // height back straight away.
+      await togglePasswords(false);
+    } catch (e) {
+      showToast('Fill failed: ' + (e instanceof Error ? e.message : String(e)));
+    }
   }
 
   // Read the username/password the user typed into the embedded page (over CDP) and save them.
@@ -612,6 +668,17 @@
         return startRecording(tabs.find(t => t.id === tabId)?.url);
       },
       stopRecording: () => stopRecording(),
+      claimTab: async (id: string, sessionId: string) => {
+        const v = mayClaim(sessionOf(id)?.id ?? null, sessionId);
+        if (!v.ok) throw new Error(`Tab ${id}: ${v.reason}`);
+        await joinSession(sessionId, id);
+      },
+      releaseTab: async (sessionId: string) => {
+        const s = sessions.find((x) => x.id === sessionId);
+        if (!s) return; // already released, or never claimed
+        for (const t of s.tabs) injectScript(AGENT_OVERLAY_REMOVE, t).catch(() => {});
+        sessions = sessions.filter((x) => x !== s);
+      },
     };
 
     await openNewTab();
@@ -765,6 +832,8 @@
   }
 </script>
 
+<svelte:window onkeydown={(e) => { if (e.key === 'Escape' && showPasswords) togglePasswords(false); }} />
+
 <div class="browser-container">
   <div class="tab-bar">
     {#each tabs as tab (tab.id)}
@@ -829,6 +898,10 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
     </button>
 
+    <button class="icon-btn" class:active={showPageAgent} onclick={() => togglePageAgent(!showPageAgent)} title="Page agent — let a small model drive this page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M12 7V4"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
+    </button>
+
     <button class="toggle-btn" onclick={toggleDrawer} title="Toggle Action Panel" class:active={showActionPanel}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
     </button>
@@ -851,6 +924,7 @@
 
   {#if showPasswords}
     <div class="passwords-bar aux-bar">
+      <div class="pw-actions">
       <button class="pw-save" onclick={handleLoginClick} title="Fill the saved login for this page and submit it">
         🔑 Log in now
       </button>
@@ -860,21 +934,32 @@
       <label class="pw-toggle" title="After autofilling a saved login, submit the form automatically">
         <input type="checkbox" checked={autoSubmit} onchange={toggleAutoSubmit} /> Auto-submit
       </label>
+    </div>
+
+    <div class="pw-list" role="menu">
       {#if credentials.length === 0}
         <span class="bm-empty">No saved logins yet — fill a login form, then “Save this login”.</span>
       {:else}
-        {#each credentials as c (c.id)}
-          <div class="pw-chip">
-            <span class="pw-site" title={c.url_pattern}>{c.site_name}</span>
+        {#each sortedCredentials as c (c.id)}
+          <button
+            class="pw-row pw-fill"
+            class:matches={matchesCurrentPage(c)}
+            role="menuitem"
+            onclick={() => fillCredential(c)}
+            title={matchesCurrentPage(c)
+              ? `Fill ${c.username} into this page`
+              : `Fill ${c.username} — saved for ${c.url_pattern}`}>
+            <span class="pw-site">{c.site_name}</span>
             <span class="pw-user">{c.username}</span>
-            <span class="pw-pass">{revealed.has(c.id) ? c.password : '••••••••'}</span>
-            <button class="pw-eye" onclick={() => toggleReveal(c.id)} title={revealed.has(c.id) ? 'Hide' : 'Show'}>
-              {revealed.has(c.id) ? '🙈' : '👁'}
-            </button>
-          </div>
+          </button>
         {/each}
       {/if}
+      </div>
     </div>
+  {/if}
+
+  {#if showPageAgent}
+    <PageAgentBar tabId={activeTabId} />
   {/if}
 
   {#if pendingLogin}
@@ -1017,31 +1102,74 @@
   }
   .bm-x:hover { background: var(--color-danger-bg); color: var(--color-danger); }
 
-  /* Passwords bar — same strip pattern as bookmarks. */
+  /* Passwords panel — a vertical picker, not a strip.
+     It was a one-line horizontal row of chips, so every saved login past the
+     first few ran off the right edge and could not be reached. Stacking them
+     bounds the width to the window and puts the overflow on a scrollbar.
+     It stays in flow (rather than floating over the page) on purpose: the
+     embedded browser is a native child webview and paints OVER any HTML
+     positioned on top of it, so an absolutely-positioned menu would be
+     invisible the moment it overlapped the page. */
+  /* Thin chips that WRAP. The original strip was one non-wrapping row, so every
+     login past the first few sat off the right edge with no way to reach it.
+     Wrapping keeps them all on screen while staying a line or two tall — this
+     bar reserves HTML space above the native webview (updateWebviewBounds sums
+     .aux-bar heights), so height is what to spend sparingly.
+     It cannot float as a popover: the webview is a native child window that
+     paints over HTML and takes the mouse, so anything overlapping the page
+     would be invisible and unclickable. */
   .passwords-bar {
-    display: flex; align-items: center; gap: 6px;
-    padding: 4px 8px; overflow-x: auto;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    padding: 6px 8px;
     background: var(--bg-sidebar, var(--bg-input));
     border-bottom: 1px solid var(--border-color);
-    flex-shrink: 0; white-space: nowrap;
+    flex-shrink: 0;
+    max-height: 30vh; overflow-y: auto;
   }
+  .pw-actions {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    /* A thin rule splits the "do something" end from the "pick something" end. */
+    padding-right: 8px; border-right: 1px solid var(--border-color); margin-right: 2px;
+  }
+  /* Same metrics as the chips — height, pill radius and type scale — so the row
+     reads as one control strip instead of mismatched parts. */
   .pw-save {
-    flex-shrink: 0; background: transparent; border: 1px solid var(--color-primary);
-    color: var(--color-primary); border-radius: 6px; padding: 4px 10px;
-    cursor: pointer; font-size: 0.8rem;
+    display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
+    height: 24px; padding: 0 12px;
+    background: transparent; border: 1px solid var(--color-primary);
+    color: var(--color-primary); border-radius: 999px;
+    cursor: pointer; font-size: 0.75rem; font-weight: 600; line-height: 1;
+    white-space: nowrap;
   }
   .pw-save:hover { background: var(--color-primary-bg); }
-  .pw-toggle { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; font-size: 0.78rem; color: var(--text-secondary); cursor: pointer; }
-  .pw-toggle input { cursor: pointer; }
-  .pw-chip {
-    display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0;
-    background: var(--bg-card, var(--bg-input)); border: 1px solid var(--border-color);
-    border-radius: 6px; padding: 4px 8px; font-size: 0.8rem;
+  .pw-save:active { transform: translateY(1px); }
+  .pw-toggle {
+    display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
+    height: 24px; white-space: nowrap;
+    font-size: 0.75rem; color: var(--text-secondary); cursor: pointer;
   }
+  .pw-toggle input { cursor: pointer; margin: 0; }
+  .pw-list { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+  /* Quick-access chips: site + username only. The secret is not shown at all —
+     it lives in Settings > site credentials, and a password sitting in the
+     browser chrome is just a shoulder-surfing target. The chip for the page you
+     are on gets a yellow ring so the right one is obvious at a glance, which is
+     what the "this site" text used to say more slowly. */
+  .pw-row {
+    display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; min-width: 0;
+    border: 1px solid var(--border-color); border-radius: 999px;
+    background: var(--bg-card, var(--bg-input));
+    color: inherit; cursor: pointer; text-align: left;
+    padding: 2px 10px; font-size: 0.75rem; max-width: 260px;
+  }
+  .pw-row:hover { background: var(--color-primary-bg); border-color: var(--color-primary); }
+  .pw-row.matches {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+  .pw-site, .pw-user { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pw-site { color: var(--text-primary); font-weight: 600; }
   .pw-user { color: var(--text-secondary); }
-  .pw-pass { color: var(--text-primary); font-family: var(--font-family-mono, monospace); }
-  .pw-eye { background: transparent; border: none; cursor: pointer; padding: 0 2px; font-size: 0.9rem; }
 
   /* Auto-login save prompt — appears after a login submit is detected. */
   .login-prompt {

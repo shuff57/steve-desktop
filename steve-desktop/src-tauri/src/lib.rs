@@ -1631,6 +1631,31 @@ fn get_cdp_port(state: tauri::State<CdpPortState>) -> Result<Option<u16>, String
     Ok(state.port)
 }
 
+/// Raw `/json` target list from the CDP endpoint, as text.
+///
+/// The WebView cannot fetch this itself: DevTools' HTTP endpoint sends no CORS
+/// headers, so `fetch("http://127.0.0.1:<port>/json")` from the app UI fails
+/// outright. That silently disabled marker-pinning — findTargetWsByMarker always
+/// returned null and every connect fell back to first-found discovery, which is
+/// the bug marker-pinning exists to prevent. WebSocket connections are not
+/// blocked, so only this listing step needs to happen in Rust.
+#[tauri::command]
+async fn cdp_list_targets(port: u16) -> Result<String, String> {
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_secs(3))
+        .build()
+        .map_err(|e| format!("Failed to create HTTP client: {}", e))?;
+
+    client
+        .get(&format!("http://127.0.0.1:{}/json", port))
+        .send()
+        .await
+        .map_err(|e| format!("Failed to fetch CDP targets: {}", e))?
+        .text()
+        .await
+        .map_err(|e| format!("Failed to read CDP targets: {}", e))
+}
+
 #[tauri::command]
 async fn discover_cdp_target(port: u16) -> Result<Option<String>, String> {
     let client = reqwest::Client::builder()
@@ -2443,6 +2468,131 @@ async fn mom_write_book(root: String, path: String, text: String) -> Result<(), 
         .map_err(|e| format!("Failed to write {}: {}", canon_target.display(), e))
 }
 
+/// Create a NEW json file under `<root>/books/`, making any missing parent directories.
+///
+/// Separate from `mom_write_book` on purpose: that one canonicalizes an existing target, which is
+/// the right guard for an update and useless for a create. The guards here do the same job without
+/// needing the file to exist — the relative path may not escape (no `..`, no root/prefix
+/// component), it must end in `.json`, and an existing file is an error rather than an overwrite,
+/// so creating a book that is already there can never silently blank it.
+#[tauri::command]
+async fn mom_create_book_file(root: String, path: String, text: String) -> Result<(), String> {
+    let rel = std::path::Path::new(&path);
+    if rel.components().any(|c| !matches!(c, std::path::Component::Normal(_))) {
+        return Err(format!("path must be relative and contain no '..': {}", path));
+    }
+    if rel.extension().and_then(|e| e.to_str()) != Some("json") {
+        return Err(format!("refusing to write a non-json file: {}", path));
+    }
+
+    let books_dir = std::path::Path::new(&root).join("books");
+    books_dir
+        .canonicalize()
+        .map_err(|e| format!("books dir unavailable: {}", e))?;
+
+    let target = books_dir.join(rel);
+    if target.exists() {
+        return Err(format!("already exists: {}", path));
+    }
+    if let Some(parent) = target.parent() {
+        std::fs::create_dir_all(parent)
+            .map_err(|e| format!("Failed to create {}: {}", parent.display(), e))?;
+    }
+    std::fs::write(&target, text).map_err(|e| format!("Failed to write {}: {}", target.display(), e))
+}
+
+/// The MOM question-writing skill, compiled INTO the binary.
+///
+/// `include_str!` rather than a bundled resource on purpose: a resource has to be declared in
+/// `tauri.conf.json`, copied by the bundler, and then located at runtime through a path that
+/// differs between `tauri dev` and an installed build — three chances to ship an app whose skill
+/// silently is not there. Embedding makes "the binary exists" and "the skill exists" the same fact.
+const MOM_SKILL: &str = include_str!("../../skills/mom-question/SKILL.md");
+const MOM_TRANSFER_SKILL: &str = include_str!("../../skills/mom-transfer/SKILL.md");
+
+/// Install the bundled skill into the user's Claude Code skills directory.
+///
+/// It has to go THERE, not next to the app: `run_agent_cli` deliberately spawns the CLI in a
+/// neutral temp cwd so the agent does not inherit this repo's instructions, which means a skill
+/// shipped beside the app would never be discovered. `~/.claude/skills` is the one location that is
+/// independent of the working directory.
+///
+/// Rewrites only when the content differs, so it is idempotent across launches and an upgraded app
+/// ships an upgraded skill. That does mean hand-edits to this one file are replaced — it is
+/// app-managed content, and the file says so. Failure is never fatal: a desktop app that refuses to
+/// start because it could not write an optional file would be a worse bug than the missing skill.
+fn install_mom_skill(app: &tauri::AppHandle) {
+    install_bundled_skill(app, "mom-question", MOM_SKILL);
+    install_bundled_skill(app, "mom-transfer", MOM_TRANSFER_SKILL);
+}
+
+/// Write one embedded skill to `~/.claude/skills/<name>/SKILL.md`.
+fn install_bundled_skill(app: &tauri::AppHandle, name: &str, content: &str) {
+    let Ok(home) = app.path().home_dir() else {
+        return;
+    };
+    let dir = home.join(".claude").join("skills").join(name);
+    let target = dir.join("SKILL.md");
+
+    if std::fs::read_to_string(&target).is_ok_and(|existing| existing == content) {
+        return; // already current
+    }
+    if let Err(e) = std::fs::create_dir_all(&dir) {
+        eprintln!("[steve] could not create {}: {}", dir.display(), e);
+        return;
+    }
+    match std::fs::write(&target, content) {
+        Ok(()) => println!("[steve] installed {} skill -> {}", name, target.display()),
+        Err(e) => eprintln!("[steve] could not install {} skill: {}", name, e),
+    }
+}
+
+/// Reject a relative path that could escape the root it will be joined to.
+fn mom_safe_rel(path: &str) -> Result<&std::path::Path, String> {
+    let rel = std::path::Path::new(path);
+    if rel
+        .components()
+        .any(|c| !matches!(c, std::path::Component::Normal(_)))
+    {
+        return Err(format!("path must be relative and contain no '..': {}", path));
+    }
+    Ok(rel)
+}
+
+/// Read a text file under the mom content root. Empty string when it does not exist yet.
+///
+/// Used for the writer's learned-rules file, which legitimately does not exist until the loop has
+/// learned something — so a missing file is a normal state, not an error to surface.
+#[tauri::command]
+async fn mom_read_text(root: String, path: String) -> Result<String, String> {
+    let rel = mom_safe_rel(&path)?;
+    let target = std::path::Path::new(&root).join(rel);
+    match std::fs::read_to_string(&target) {
+        Ok(s) => Ok(s),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(String::new()),
+        Err(e) => Err(format!("Failed to read {}: {}", target.display(), e)),
+    }
+}
+
+/// Write a text file under the mom content root, creating parent directories.
+///
+/// Restricted to `reference/` on purpose: this is the path the app's own reflection step writes
+/// through, and nothing generated should be able to overwrite a question or an assignment manifest
+/// — those have their own commands, with their own guards.
+#[tauri::command]
+async fn mom_write_text(root: String, path: String, text: String) -> Result<(), String> {
+    let rel = mom_safe_rel(&path)?;
+    if !path.replace('\\', "/").starts_with("reference/") {
+        return Err(format!("refusing to write outside reference/: {}", path));
+    }
+    let target = std::path::Path::new(&root).join(rel);
+    if let Some(parent) = target.parent() {
+        std::fs::create_dir_all(parent)
+            .map_err(|e| format!("Failed to create {}: {}", parent.display(), e))?;
+    }
+    std::fs::write(&target, text).map_err(|e| format!("Failed to write {}: {}", target.display(), e))
+}
+
 /// Save an image pasted into the question writer, returning the path the agent can open.
 ///
 /// The agent reads an example screenshot from a FILE, so a clipboard image has to be spilled to
@@ -2911,6 +3061,9 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             mom_load_index,
             mom_load_books,
             mom_default_root,
+            mom_create_book_file,
+            mom_read_text,
+            mom_write_text,
             mom_read_manifest,
             mom_read_question,
             mom_create_draft,
@@ -2922,6 +3075,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             stop_oauth_callback_server,
             get_cdp_port,
             discover_cdp_target,
+            cdp_list_targets,
             create_dir,
             write_file,
             read_file,
@@ -2967,6 +3121,9 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
         .manage(AgentProcs::default())
         .manage(LoginProc::default())
         .setup(|app| {
+            // Ship the question-writing skill to where a spawned CLI can actually find it.
+            install_mom_skill(app.handle());
+
             // Set window icon explicitly (required for Linux dev mode)
             if let Some(window) = app.get_webview_window("main") {
                 if let Some(icon) = app.default_window_icon() {

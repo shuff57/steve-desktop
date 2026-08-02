@@ -1,0 +1,46 @@
+{
+  "_purpose": "Which existing assessment a new one copies its settings from, per assignment kind. MyOpenMath's new-assessment form has a 'copy options from' picker, so a preset is a POINTER to a template assessment, not a replayed list of fields. Nothing to keep in step when MOM adds a setting.",
+  "_how": "On a push, set `copyfrom` to the kind's template_aid, leave `copydates` UNCHECKED so dates stay per-assignment, then set the name, the dates, and only the fields intro-stats-assessment-settings.md says differ for that kind.",
+  "_note": "Templates are per course. If cid changes, template_aid has to be re-pointed — an aid from another course does not appear in the copyfrom list.",
+
+  "_settings_source": "intro-stats-assessment-settings.md is THE source for what each kind's settings are, and for the dates. It was read back out of MyOpenMath, field by field. This file no longer carries per-kind `spec` blocks: it used to, transcribed from the standalone mom repo's skills, and two of them were wrong (ind was recorded as 3 attempts with a 33% after-full-score penalty; the course actually runs 2 attempts with a 50% per-attempt penalty, and group is 2 attempts not 3). Do not re-add settings here — a second copy is how they drifted the first time.",
+
+  "presets": {
+    "hw": {
+      "template_aid": "23108651",
+      "template_name": "1.1 Definitions of Statistics, Probability, and Key Terms",
+      "cid": "334243",
+      "captured": "2026-07-31",
+      "selection": "Cover the section closely — every sub-topic gets a slot before any gets a second. Where a sub-topic is a multi-step process, either write one multipart covering the whole workflow or split it into one question per step so students drill each; mix both freely. Homework is the most creative format. Ramp easy to hard, roughly 30/50/20."
+    },
+
+    "lab": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-01",
+      "_decision": "Steve's call: a lab is graded like practice work, so it copies the homework template rather than getting one of its own. It still differs after the copy — GROUP gradebook category, no early-finish bonus — see the settings file.",
+      "selection": "One lab per chapter, mirroring the book's lab section."
+    },
+
+    "practice": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "Assemble from questions already in the bank first; draft only to fill what is genuinely missing. Low stakes, so breadth beats polish."
+    },
+
+    "group": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "A focused subset of the practice-test material, sized for one class period of collaborative work. Timed to the period and passcoded — see the settings file."
+    },
+
+    "ind": {
+      "template_aid": "23108651",
+      "cid": "334243",
+      "captured": "2026-08-02",
+      "selection": "About 10 questions: ~8 high-impact FULL multipart items — each exercising every step of a process, one per chapter section, no narrow drill questions — plus exactly 2 free-response. The FRQs should touch the widest swath of the chapter AND sit at the easy end; they exist to give an accessible essay path, not to gate the grade. Budget ~5 min per multipart, ~10 min per FRQ."
+    }
+  }
+}
