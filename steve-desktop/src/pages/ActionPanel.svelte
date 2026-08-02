@@ -56,6 +56,11 @@
   // The shell owns the engine selection; held here only to pass down to each mode.
   let activeProvider = $state('');
   let activeModel = $state('');
+
+  // PageAgent-style status + history — child components bind these
+  let agentStatus = $state('idle');
+  let agentStatusText = $state('');
+  let history = $state<{ icon: string; text: string; type?: string; meta?: string }[]>([]);
 </script>
 
 <ActionShell
@@ -65,10 +70,19 @@
   bind:width
   bind:provider={activeProvider}
   bind:model={activeModel}
+  bind:agentStatus
+  bind:agentStatusText
+  bind:history
   {active}
 >
   {#if activeMode === 'agent'}
-    <AutomateRunner provider={activeProvider} model={activeModel} />
+    <AutomateRunner
+      provider={activeProvider}
+      model={activeModel}
+      bind:agentStatus
+      bind:agentStatusText
+      bind:history
+    />
   {:else if activeMode === 'skills'}
     <SkillRunner provider={activeProvider} model={activeModel} />
   {:else if activeMode === 'teach'}
