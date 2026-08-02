@@ -67,11 +67,29 @@ Note there is no `window.__TAURI__.sql` — go through `core.invoke`.
   mock. To smoke-test the agent path, watch for it to spawn (or invoke
   `run_agent_cli` directly with `engine`/`prompt`) rather than standing up
   anything on a port.
-- **Never edit frontend source while a `run_agent_cli` run is in flight.** Vite
-  HMR remounts the owning `.svelte` component; the Rust side keeps running and
-  its result still lands, but into the destroyed instance's state — the report
-  modal silently never shows. Make zero source edits until the result has
-  rendered and been dismissed; queue fixes and apply them after.
+- **Never let the owning `.svelte` component unmount while a `run_agent_cli`
+  run is in flight — a source edit is only one way to do it.** Vite HMR is one
+  cause; switching views/tabs unmounts the component exactly the same way and
+  orphans the run just as silently. The Rust side keeps running and its result
+  still lands, but into the destroyed instance's state — the report modal
+  never shows. Stay on the view that owns the run (and make zero source
+  edits) until the result has rendered and been dismissed; queue fixes and
+  view switches for after.
+- **`timeoutSecs` does not reliably fire.** A run has been observed stuck past
+  its configured timeout (`timeoutSecs: 900` still running at 28 minutes, no
+  timeout error). Don't treat a configured timeout as a ceiling on how long to
+  wait — poll for actual completion instead (see next bullet).
+- **Don't infer "is the run still alive" from a DOM element's presence.** A
+  collapsed or hidden panel reads as unmounted even when the run backing it is
+  fine, producing a false abandoned-run alarm. Reliable liveness signals: the
+  CLI process is still running, or the run's manifest file on disk is still
+  changing. Check one of those before concluding a run died.
+- **Don't re-diagnose a live readout you've already gotten wrong.** A UI
+  counter (e.g. a context/token readout) got three different confident
+  explanations across two sessions before the honest one ("don't know,
+  unresolved") arrived. If a number has already been explained wrong once on
+  unchanged evidence, the correct move on the next look is to say so and
+  gather new evidence — not offer another guess.
 
 ## Driving the agent against a page
 

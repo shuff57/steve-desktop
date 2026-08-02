@@ -56,6 +56,11 @@ The traps that cost the most time, in short:
 - **`&&` and `||`**, never the words `and` / `or`.
 - **Question text substitutes scalars only** — no nested array indexing. Precompute a scalar.
 - **A `choices` answer is an INDEX** into `$questions[i]`, not the option text.
+- **A rendered-twice diff proves nothing about randomization.** The render sandbox seeds
+  deterministically — a properly randomized question returns byte-identical HTML on every POST.
+  Verify randomization by reading the control block, and grep the combined pattern
+  `diffrands|randsfrom|randfrom|jointrandfrom|rand\(` — a bare `rand\(` misses `diffrands(` and
+  reports a correctly-randomized question as static. (full detail: `learned-rules.md`)
 
 ## The loop — this is the part that matters
 
