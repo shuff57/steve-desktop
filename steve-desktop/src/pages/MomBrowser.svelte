@@ -193,6 +193,16 @@
    * agent's 700K context under a question that had never exceeded 173K.
    */
   let momSession = $state<string | null>(null);
+  /**
+   * Live presence for the rail, passed straight through from MomAuthor to the shell.
+   *
+   * The shell has always drawn a status dot, a header sweep and history cards; this page
+   * bound none of them, so the rail sat inert while the same shell lit up in the browser
+   * panel. These three are the whole difference.
+   */
+  let railStatus = $state('idle');
+  let railStatusText = $state('');
+  let railHistory = $state([] as { icon: string; text: string; type?: string; meta?: string }[]);
   const showPlan = $derived(authorDraft === null && !!planView && !selectedQuestion);
   const planAllSelected = $derived(
     !!planView && planView.planned.length > 0 && planView.selected.length === planView.planned.length,
@@ -786,8 +796,14 @@
         providerDisabled={authorDraft !== null}
         maxWidth={railMax}
         runSession={momSession}
+        bind:agentStatus={railStatus}
+        bind:agentStatusText={railStatusText}
+        bind:history={railHistory}
       >
         <MomAuthor
+          bind:agentStatus={railStatus}
+          bind:agentStatusText={railStatusText}
+          bind:history={railHistory}
           root={momRoot ?? ''}
           sandboxUrl={SANDBOX_URL}
           families={families.map((f) => f.name)}

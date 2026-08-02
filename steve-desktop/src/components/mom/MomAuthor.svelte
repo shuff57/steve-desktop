@@ -36,6 +36,7 @@ import {
   import { createBook, createAssignment, assignmentPath, slugify } from '../../integrations/mom/create';
   import { momIsland } from '../../integrations/mom';
   import { questionHealth } from '../../integrations/mom/health';
+  import { toHistoryCards, railStatusFor } from '../../integrations/mom/rail-presence';
   import { prepareRenderHtml } from '../../integrations/mom/render-html';
   import { cliModelArg, extractCliText, engineForProvider, summarizeCliLine, type AgentEngine } from '../../lib/agent-cli';
   import { getSetting, setSetting } from '../../lib/db';
@@ -71,6 +72,12 @@ import {
     onClearSelection = () => {},
     onPlan = (_: PlanView | null) => {},
     onSession = (_: string | null) => {},
+    // The same three bindings AutomateRunner exposes, so ActionShell cannot tell the
+    // two apart: the shell already draws the status dot, the header sweep and the
+    // history cards, and the rail was simply never telling it anything.
+    agentStatus = $bindable('idle' as string),
+    agentStatusText = $bindable('' as string),
+    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
   } = $props<{
     root: string;
     sandboxUrl: string;
@@ -101,6 +108,10 @@ import {
      * whichever run spoke last — a browser-agent's context under the question you are writing.
      */
     onSession?: (id: string | null) => void;
+    /** Live phase for the shell's indicator — same vocabulary AutomateRunner uses. */
+    agentStatus?: string;
+    agentStatusText?: string;
+    history?: { icon: string; text: string; type?: string; meta?: string }[];
   }>();
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
@@ -247,6 +258,40 @@ import {
   const planModeChosen = $derived(!!planMode);
   /** Anything the rail is doing. One flag so the composer disables the same way for both jobs. */
   const busy = $derived(running || revising || setBusy);
+
+  /**
+   * Report the rail's phase to the shell.
+   *
+   * ActionShell has drawn a status dot, a header sweep and history cards since it was
+   * extracted, and the rail bound none of it — so the same run that lights the browser
+   * up left the rail looking dead. Nothing new is drawn here; this only says out loud
+   * what the rail was already doing.
+   *
+   * The vocabulary is AutomateRunner's, deliberately: 'thinking' while the model is
+   * deciding, 'executing' while something is being written, so one glance means the
+   * same thing on either surface.
+   */
+  $effect(() => {
+    const { status, text } = railStatusFor({
+      planning: setBusy,
+      revising,
+      writing: running,
+      failed: !!fatal,
+      finished: !!finalPath,
+      label: selectedLabel,
+      slug,
+      // The most specific thing known about a write in flight — "Rendering",
+      // "Repairing attempt 2" — and it is already computed for the log.
+      lastStep: [...lines].reverse().find((l) => l.role === 'step')?.text ?? null,
+    });
+    agentStatus = status;
+    agentStatusText = text;
+  });
+
+  /** Mirror the conversation into the shell's history cards. */
+  $effect(() => {
+    history = toHistoryCards(lines);
+  });
   /** Selection is what decides the job; there is no mode to get out of step with it. */
   const revisingMode = $derived(!!selectedPath);
   /**
@@ -1125,6 +1170,10 @@ import {
   .bad { margin: 0; font-size: 12px; color: #b91c1c; }
   .actions { display: flex; gap: 6px; flex-wrap: wrap; }
   .plan-mode { display: flex; gap: 12px; font-size: 12px; }
-  .mode-option { display: flex; align-items: center; gap: 4px; cursor: pointer; text-transform: none; letter-spacing: 0; opacity: .85; }
+  /* flex-direction is the load-bearing one. This IS a <label>, and the bare `label` rule
+     above stacks every label into a column for the uppercase field captions. The class
+     wins for what it declares, but it never declared a direction — so the radio sat
+     centred ABOVE its own text, which is what made the row look broken. */
+  .mode-option { display: flex; flex-direction: row; align-items: center; gap: 4px; cursor: pointer; text-transform: none; letter-spacing: 0; opacity: .85; }
   .mode-option input { cursor: pointer; }
 </style>

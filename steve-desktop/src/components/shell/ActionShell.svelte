@@ -344,7 +344,12 @@
     <!-- PageAgent-style history cards -->
     {#if history.length}
       <div class="history-cards">
-        {#each history as card (card.text + (card.meta ?? ''))}
+        <!-- Keyed by position, not content: this is a sliding window over a run log, and a
+             retry loop repeats step text verbatim ("Rendering…" on every attempt). Keying on
+             text made those a duplicate key — a hard render error — and forced callers to
+             stuff a unique value into `meta`, which is a VISIBLE field, so the workaround
+             printed a stray index on every card. -->
+        {#each history as card, i (i)}
           <div class="hcard" class:input={card.type === 'input'} class:output={card.type === 'output'} class:question={card.type === 'question'} class:observation={card.type === 'observation'} class:error={card.type === 'error'} class:success={card.type === 'success'}>
             <div class="hcard-content">
               <span class="hcard-icon">{card.icon}</span>
