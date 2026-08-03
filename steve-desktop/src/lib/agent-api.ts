@@ -1,24 +1,23 @@
 import { invoke } from '@tauri-apps/api/core';
-import type {
-  AgentApiRequest,
-  AgentApiResponse,
-} from './agent-types';
-import { AGENT_SYSTEM_PROMPT, parseAgentResponse } from './agent-prompt';
-import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText } from './agent-cli';
+import { cliModelArg, engineForProvider, extractCliText } from './agent-cli';
 import { getActiveProvider } from './db';
-import type { Redactor } from './redact';
-import { redactRequest, rehydrateResponse } from './agent-redact';
 
 /**
- * Sessions already opened on the CLI. The first request for an id opens the session and
- * the rest resume it, so the model keeps the conversation and its prompt cache.
+ * One prose turn against the local agent CLI.
+ *
+ * Runs `claude`/`opencode` headlessly through the Rust side rather than calling a
+ * provider's HTTP API: it reuses the CLI's own auth, so no API key is stored here.
+ *
+ * This file used to carry a browser action loop as well — `sendAgentRequest`, which put a
+ * dehydrated DOM in the prompt, demanded a JSON action back, resumed a session per step and
+ * ran the redaction boundary over it. Nothing drove with it. AutomateRunner spawns a
+ * full-shell CLI that speaks CDP itself, and in-app browser driving is the page-agent loop;
+ * the action loop's only caller was this file's own `sendAgentMessage`, which asks for prose.
+ *
+ * That mismatch was doing damage, not just sitting there: every skill-authoring message went
+ * out wrapped as `TASK: … / CURRENT PAGE: (no elements captured) / Respond with exactly one
+ * JSON object and nothing else`, which is the opposite of the markdown the caller wants.
  */
-const openSessions = new Set<string>();
-
-/** Called when an agent run ends, so a re-run does not try to resume a spent session. */
-export function forgetAgentSession(sessionId: string): void {
-  openSessions.delete(sessionId);
-}
 
 interface SendAgentMessageRequest {
   message: string;
@@ -34,86 +33,30 @@ interface SendAgentMessageHandlers {
   onError?: (data: { message: string }) => void;
 }
 
-/**
- * Asks the local agent CLI for the next browser action.
- *
- * Runs `claude`/`opencode` headlessly through the Rust side rather than calling a
- * provider's HTTP API: it reuses the CLI's own auth, so no API key is stored here.
- * (This used to POST to a hardcoded localhost:3456 that nothing ever served.)
- *
- * The redactor stays the trust boundary even though the CLI is local: it shells out to
- * a hosted model, so the prompt still leaves the machine.
- */
-export async function sendAgentRequest(
-  request: AgentApiRequest,
-  redactor?: Redactor,
-): Promise<AgentApiResponse> {
-  // Trust boundary: when a redactor is present, no identifier leaves the machine.
-  // redactRequest strips messages/dom/snapshot and refuses to send if any known
-  // identifier would still leak; the response is rehydrated locally below.
-  const outbound = redactor ? redactRequest(request, redactor) : request;
-
-  const providerId = outbound.provider ?? (await getActiveProvider().catch(() => null))?.id;
-  const engine = engineForProvider(providerId);
-
-  const sessionId = outbound.sessionId ?? crypto.randomUUID();
-  const isFirstTurn = !openSessions.has(sessionId);
-
-  // Prefer the caller's system message: the agent loop builds it as AGENT_SYSTEM_PROMPT
-  // plus any injected skills and the dry-run note, and buildTurnPrompt drops system
-  // messages. Sending the bare constant would silently lose both.
-  const systemPrompt = outbound.messages.find((m) => m.role === 'system')?.content ?? AGENT_SYSTEM_PROMPT;
-
-  // Full-shell autonomous mode, driven by the caller's Auto/Review toggle. Only the claude
-  // engine honours it (see run_agent_cli); opencode is left as-is.
-  const bypassPermissions = engine === 'claude' && outbound.bypassPermissions === true;
-
-  const stdout = await invoke<string>('run_agent_cli', {
-    engine,
-    prompt: buildTurnPrompt(outbound.messages, outbound.dom, isFirstTurn),
-    sessionId,
-    resume: !isFirstTurn,
-    model: cliModelArg(engine, outbound.model),
-    systemPrompt: isFirstTurn ? systemPrompt : null,
-    bypassPermissions,
-  });
-
-  // Only mark it open once a turn has actually landed, or a failed first turn would
-  // leave later turns trying to resume a session that was never created.
-  openSessions.add(sessionId);
-
-  const result = parseAgentResponse(extractCliText(engine, stdout));
-  return redactor ? rehydrateResponse(result, redactor) : result;
-}
-
 export async function sendAgentMessage(
   request: SendAgentMessageRequest,
   handlers: SendAgentMessageHandlers = {},
 ): Promise<void> {
   handlers.onStatus?.({ status: 'thinking' });
 
-  const messages = [
-    ...(request.systemPrompt
-      ? [{ role: 'system' as const, content: request.systemPrompt }]
-      : []),
-    { role: 'user' as const, content: request.message },
-  ];
-
   try {
-    const response = await sendAgentRequest({
-      messages,
-      provider: request.provider,
-      model: request.model,
+    const providerId = request.provider ?? (await getActiveProvider().catch(() => null))?.id;
+    const engine = engineForProvider(providerId);
+
+    const stdout = await invoke<string>('run_agent_cli', {
+      engine,
+      prompt: request.message,
+      sessionId: crypto.randomUUID(),
+      resume: false,
+      model: cliModelArg(engine, request.model),
+      systemPrompt: request.systemPrompt ?? null,
+      // Required by the command, not optional — omitting it fails the whole call with
+      // "missing required key bypassPermissions" before the CLI is ever spawned. False is
+      // also the right value: this path asks for prose and has no business with a shell.
+      bypassPermissions: false,
     });
 
-    const content =
-      'text' in response
-        ? response.text
-        : response.reasoning
-          ? `${response.reasoning}\n\n${JSON.stringify(response)}`
-          : JSON.stringify(response);
-
-    handlers.onMessage?.({ content });
+    handlers.onMessage?.({ content: extractCliText(engine, stdout) });
     handlers.onDone?.();
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);

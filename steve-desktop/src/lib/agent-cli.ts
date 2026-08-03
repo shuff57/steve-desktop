@@ -1,5 +1,3 @@
-import type { AgentMessage } from './agent-types';
-
 export type AgentEngine = 'claude' | 'opencode';
 
 /**
@@ -25,30 +23,6 @@ export function cliModelArg(engine: AgentEngine, model?: string): string | null 
   return m;
 }
 
-/**
- * Renders the newest turn for a resumed CLI session.
- *
- * Only the delta is sent: the CLI already holds the conversation, so replaying the
- * whole history each turn would duplicate it and defeat the prompt cache. The first
- * turn carries the task, later turns carry the last action's result.
- */
-export function buildTurnPrompt(messages: AgentMessage[], dom: string | undefined, isFirstTurn: boolean): string {
-  const parts: string[] = [];
-
-  if (isFirstTurn) {
-    const task = messages.find((m) => m.role === 'user');
-    parts.push(`TASK: ${task?.content ?? ''}`);
-  } else {
-    const last = [...messages].reverse().find((m) => m.role === 'result');
-    if (last) parts.push(`RESULT OF YOUR LAST ACTION: ${last.content}`);
-  }
-
-  parts.push(dom?.trim() ? `CURRENT PAGE:\n${dom}` : 'CURRENT PAGE: (no elements captured)');
-  parts.push('Respond with exactly one JSON object and nothing else.');
-
-  return parts.join('\n\n');
-}
-
 interface ClaudeCliResult {
   result?: string;
   is_error?: boolean;
@@ -60,7 +34,7 @@ interface ClaudeCliResult {
  *
  * `claude -p --output-format json` wraps the reply in an envelope whose `result` holds
  * the text; opencode prints the reply directly. Anything unrecognised is passed through
- * for parseAgentResponse to salvage.
+ * as-is for the caller to make sense of.
  */
 export function extractCliText(engine: AgentEngine, stdout: string): string {
   const raw = stdout.trim();

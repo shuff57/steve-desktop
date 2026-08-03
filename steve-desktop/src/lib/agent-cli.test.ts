@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildTurnPrompt, cliModelArg, engineForProvider, extractCliText, summarizeCliLine, describeBrowserCommand, describeTool, extractFileEdit, applyFileEdit } from './agent-cli';
-import type { AgentMessage } from './agent-types';
+import { cliModelArg, engineForProvider, extractCliText, summarizeCliLine, describeBrowserCommand, describeTool, extractFileEdit, applyFileEdit } from './agent-cli';
 
 describe('engineForProvider', () => {
   it('routes anthropic to the claude CLI', () => {
@@ -172,37 +171,6 @@ describe('cliModelArg', () => {
   it('returns null for empty ids so no --model flag is sent', () => {
     expect(cliModelArg('claude', undefined)).toBeNull();
     expect(cliModelArg('opencode', '  ')).toBeNull();
-  });
-});
-
-describe('buildTurnPrompt', () => {
-  const history: AgentMessage[] = [
-    { role: 'system', content: 'SYSTEM PROMPT' },
-    { role: 'user', content: 'Answer question 3' },
-    { role: 'assistant', content: '{"action":"click","params":{"ref":"e4"}}' },
-    { role: 'result', content: '{"success":true}' },
-  ];
-
-  it('sends the task on the first turn', () => {
-    const prompt = buildTurnPrompt(history, '[e4] label "B"', true);
-
-    expect(prompt).toContain('TASK: Answer question 3');
-    expect(prompt).toContain('[e4] label "B"');
-  });
-
-  it('sends only the last result on later turns, not the whole history', () => {
-    const prompt = buildTurnPrompt(history, '[e4] label "B"', false);
-
-    expect(prompt).toContain('RESULT OF YOUR LAST ACTION: {"success":true}');
-    // The CLI session already holds these; resending would duplicate and blow the cache.
-    expect(prompt).not.toContain('TASK: Answer question 3');
-    expect(prompt).not.toContain('SYSTEM PROMPT');
-  });
-
-  it('says so explicitly when the page captured nothing', () => {
-    // Better than an empty section: a blind agent should know it is blind.
-    expect(buildTurnPrompt(history, '', true)).toContain('(no elements captured)');
-    expect(buildTurnPrompt(history, undefined, true)).toContain('(no elements captured)');
   });
 });
 
