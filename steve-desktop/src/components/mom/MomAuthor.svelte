@@ -126,7 +126,14 @@ import {
   let pasteErr = $state<string | null>(null);
   let family = $state('descriptive-stats');
   /** Typing a new family instead of picking one. */
-  let newFamily = $state(false);
+  /**
+   * Which container is being created, if any — one state for all three.
+   *
+   * Family used a separate `newFamily` boolean, so the family input and the book/assignment
+   * creator could be open at once and the strip grew two editors deep. One value makes them
+   * mutually exclusive by construction.
+   */
+  type Creating = 'family' | 'book' | 'assignment';
   /** Where to file the finished question: pick a book, then one of its assignments. */
   let placeBook = $state('');
   let placeAssignment = $state('');
@@ -137,7 +144,19 @@ import {
    * new one is enough. A book and an assignment are declared in files, and until they are declared
    * the pickers below have nothing to offer.
    */
-  let creating = $state<null | 'book' | 'assignment'>(null);
+  let creating = $state<null | Creating>(null);
+  /**
+   * Open a creator, or close it if it is already the one open.
+   *
+   * Every `+` in the strip routes through here so the three behave identically — the old
+   * code repeated the toggle-and-reset inline at each button, and the family one forgot to
+   * clear the pending name and error.
+   */
+  function toggleCreate(what: Creating) {
+    creating = creating === what ? null : what;
+    newName = '';
+    createErr = null;
+  }
   let newName = $state('');
   let newKind = $state('hw');
   let createErr = $state<string | null>(null);
@@ -497,6 +516,10 @@ import {
   async function createContainer() {
     const name = newName.trim();
     if (!name || createBusy) return;
+    // `creating` now also carries 'family', which is not a container to declare — it is just
+    // the directory the question gets written to. Without this guard the else-branch below
+    // would build an ASSIGNMENT out of a family name.
+    if (creating !== 'book' && creating !== 'assignment') return;
     createBusy = true;
     createErr = null;
     try {
@@ -957,9 +980,13 @@ import {
   <!-- Two up. Every one of these is a short choice, and a full-width select for "descriptive-stats"
        just made the strip tall enough to push the log off screen. -->
   <div class="context">
+    <!-- One shape for all three containers: the `+` swaps this field's own select for an
+         input, in place. Books and assignments are declared in files so they need a Create;
+         a family is just the directory the question is written to, so typing it IS the
+         creation. That difference is real and stays visible — everything else is identical. -->
     <div class="field">
       <label>Family
-        {#if newFamily}
+        {#if creating === 'family'}
           <input bind:value={family} disabled={running} spellcheck="false" placeholder="new-family" />
         {:else}
           <select bind:value={family} disabled={running} title={family}>
@@ -967,9 +994,12 @@ import {
           </select>
         {/if}
       </label>
-      <button class="plus" title={newFamily ? 'Pick an existing family' : 'New family'} disabled={running} onclick={() => (newFamily = !newFamily)}>
-        {newFamily ? '↩' : '+'}
-      </button>
+      <button
+        class="plus"
+        title={creating === 'family' ? 'Pick an existing family' : 'New family'}
+        disabled={running}
+        onclick={() => toggleCreate('family')}
+      >{creating === 'family' ? '↩' : '+'}</button>
     </div>
 
     <div class="field">
@@ -980,25 +1010,48 @@ import {
       <!-- Caption and "optional" on ONE line: the label is a flex column, so a bare span drops to
            its own row and leaves this field a line taller than the one beside it. -->
       <label><span class="cap">Book <span class="opt">optional</span></span>
-        <select bind:value={placeBook} disabled={running} title={chosenBook?.title ?? "don't file it"}>
-          <option value="">— don't file it —</option>
-          {#each placements as p (p.slug)}
-            <option value={p.slug}>{p.title} ({p.items.length})</option>
-          {/each}
-        </select>
+        {#if creating === 'book'}
+          <input
+            bind:value={newName}
+            disabled={createBusy}
+            spellcheck="false"
+            placeholder="Applied Finite Math"
+            onkeydown={(e) => { if (e.key === 'Enter') { e.preventDefault(); createContainer(); } }}
+          />
+        {:else}
+          <select bind:value={placeBook} disabled={running} title={chosenBook?.title ?? "don't file it"}>
+            <option value="">— don't file it —</option>
+            {#each placements as p (p.slug)}
+              <option value={p.slug}>{p.title} ({p.items.length})</option>
+            {/each}
+          </select>
+        {/if}
       </label>
+      {#if creating === 'book'}
+        <button class="go tiny" onclick={createContainer} disabled={createBusy || !newName.trim()}>
+          {createBusy ? '…' : 'Create'}
+        </button>
+      {/if}
       <button
         class="plus"
-        title="New book"
+        title={creating === 'book' ? 'Cancel' : 'New book'}
         disabled={running || createBusy}
-        onclick={() => { creating = creating === 'book' ? null : 'book'; newName = ''; createErr = null; }}
+        onclick={() => toggleCreate('book')}
       >{creating === 'book' ? '↩' : '+'}</button>
     </div>
 
     {#if placeBook}
       <div class="field">
         <label>Assignment
-          {#if chosenBook && chosenBook.items.length}
+          {#if creating === 'assignment'}
+            <input
+              bind:value={newName}
+              disabled={createBusy}
+              spellcheck="false"
+              placeholder="1.4 Experimental Design"
+              onkeydown={(e) => { if (e.key === 'Enter') { e.preventDefault(); createContainer(); } }}
+            />
+          {:else if chosenBook && chosenBook.items.length}
             <select bind:value={placeAssignment} disabled={running} title={destName}>
               <option value="">— choose —</option>
               {#each chosenBook.items as it (it.path)}
@@ -1006,30 +1059,26 @@ import {
               {/each}
             </select>
           {:else}
-            <span class="hint">None yet — use +.</span>
+            <span class="none">None yet — use +</span>
           {/if}
         </label>
+        {#if creating === 'assignment'}
+          <button class="go tiny" onclick={createContainer} disabled={createBusy || !newName.trim()}>
+            {createBusy ? '…' : 'Create'}
+          </button>
+        {/if}
         <button
           class="plus"
-          title="New assignment in this book"
+          title={creating === 'assignment' ? 'Cancel' : 'New assignment in this book'}
           disabled={running || createBusy}
-          onclick={() => { creating = creating === 'assignment' ? null : 'assignment'; newName = ''; createErr = null; }}
+          onclick={() => toggleCreate('assignment')}
         >{creating === 'assignment' ? '↩' : '+'}</button>
       </div>
-    {/if}
 
-    {#if creating}
-      <div class="create wide">
-        <label>{creating === 'book' ? 'New book title' : 'New assignment name'}
-          <input
-            bind:value={newName}
-            disabled={createBusy}
-            spellcheck="false"
-            placeholder={creating === 'book' ? 'Applied Finite Math' : 'Ch 9.1 Matrices'}
-            onkeydown={(e) => { if (e.key === 'Enter') { e.preventDefault(); createContainer(); } }}
-          />
-        </label>
-        {#if creating === 'assignment'}
+      <!-- Kind belongs to the assignment being created, so it appears beside it and only
+           then — rather than living in a detached panel below with the name. -->
+      {#if creating === 'assignment'}
+        <div class="field">
           <label>Kind
             <select bind:value={newKind} disabled={createBusy}>
               <option value="hw">hw</option>
@@ -1038,13 +1087,13 @@ import {
               <option value="ind">ind</option>
             </select>
           </label>
-        {/if}
-        <button class="go" onclick={createContainer} disabled={createBusy || !newName.trim()}>
-          {createBusy ? 'Creating…' : 'Create'}
-        </button>
-        {#if createErr}<p class="bad">{createErr}</p>{/if}
-      </div>
+        </div>
+      {/if}
     {/if}
+
+    <!-- The detached "create" panel is gone: name, kind and Create now live in the field
+         whose + opened them. Only the failure needs the full width. -->
+    {#if createErr}<p class="bad wide">{createErr}</p>{/if}
     <p class="target wide" title={target}>{target || 'Set the MOM root first.'}</p>
   </div>
   {/if}
@@ -1195,8 +1244,9 @@ import {
      screen rather than as instructions about the thing right below it. */
   .hint { margin: 2px 0 0; font-size: 12px; opacity: .55; line-height: 1.5; }
   /* Inset so it reads as belonging to the picker it was opened from, not as another top-level field. */
-  .create { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 6px;
-            border: 1px dashed rgba(128,128,128,.4); background: rgba(128,128,128,.05); }
+  /* The detached .create panel is gone — creation happens in the field whose + opened it. */
+  .go.tiny { flex-shrink: 0; height: 26px; padding: 0 8px; font-size: 11px; }
+  .none { font-size: 12px; opacity: .5; padding: 4px 0; }
   .shot { display: flex; flex-direction: column; gap: 2px; }
   .dropzone { font-size: 11px; opacity: .55; padding: 6px; border-radius: 6px; text-align: center;
               border: 1px dashed rgba(128,128,128,.4); }
