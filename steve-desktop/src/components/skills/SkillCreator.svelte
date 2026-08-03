@@ -112,11 +112,12 @@
         }
       }
     } catch (err: unknown) {
-      const msg =
-        err instanceof Error
-          ? err.message
-          : "Failed to reach AI provider";
-      errorText = msg;
+      // Tauri's invoke rejects with a STRING, not an Error, so `instanceof Error` never held
+      // here and every backend failure showed as the generic fallback. It hid a real one:
+      // "missing required key bypassPermissions" read as "Failed to reach AI provider", which
+      // says the provider was unreachable when the call never left the app.
+      const msg = err instanceof Error ? err.message : String(err ?? '').trim();
+      errorText = msg || "Failed to reach AI provider";
     } finally {
       isLoading = false;
       scrollToBottom();
