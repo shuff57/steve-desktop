@@ -1049,15 +1049,23 @@ import {
   </div>
   {/if}
 
-  <div class="chat-log">
+  <!-- Collapses when there is nothing to show, so the composer sits under the header
+       instead of being pushed to the bottom of 400px of nothing. It only claims the
+       leftover height once it has a run to narrate. -->
+  <div class="chat-log" class:empty={lines.length === 0 && !busy}>
     {#each lines as l, i (i)}
       <ChatMessage role={l.role} text={l.text} />
     {/each}
     {#if busy}<ChatMessage role="step" text="Working…" />{/if}
-    {#if lines.length === 0 && !busy && !planned}
+    {#if lines.length === 0 && !busy}
       <p class="hint">
         {#if revisingMode}
           Ask for a fix — “part C reads awkwardly”, “make the distractors closer”, “round to cents”.
+        {:else if planned}
+          <!-- The state the old condition had no answer for: a plan has landed, so the log is
+               empty AND the hint was suppressed, leaving the panel blank after a 4-minute run. -->
+          {planned.length} question{planned.length === 1 ? '' : 's'} planned. Tick the ones you want and
+          press Write selected, or describe a different question below.
         {:else}
           Describe the question you want, paste a screenshot, or give a problem-set link.
         {/if}
@@ -1067,19 +1075,27 @@ import {
 
   <div class="composer">
     <!-- One box for both jobs. What it means is decided by the selection, which is also what the
-         line at the top of the rail says — so there is nothing to switch and nothing to mis-read. -->
-    {#if !revisingMode}
-      <input bind:value={link} disabled={busy} spellcheck="false" placeholder="Problem-set link or URL" />
-    {/if}
+         line at the top of the rail says — so there is nothing to switch and nothing to mis-read.
+
+         The brief leads, like the page-agent bar's task box: it is the thing typed every run.
+         The section link is set once per section and follows it. The screenshot dropzone used
+         to sit between them as a permanent 31px panel advertising a shortcut that is used
+         rarely — it now appears only once something has actually been pasted. -->
     <textarea
       rows="2"
       bind:value={brief}
       disabled={busy}
       onkeydown={onKey}
-      placeholder={revisingMode ? 'Describe the change…' : 'Describe the question…'}
+      placeholder={revisingMode
+        ? 'Describe the change…'
+        : 'Describe the question, or paste a screenshot (Ctrl+V)…'}
     ></textarea>
 
     {#if !revisingMode}
+      <input bind:value={link} disabled={busy} spellcheck="false" placeholder="Problem-set link or URL" />
+    {/if}
+
+    {#if !revisingMode && (imagePreview || pasteErr)}
       <div class="shot">
         {#if imagePreview}
           <div class="thumb">
@@ -1087,9 +1103,7 @@ import {
             <button class="x" title="Remove" disabled={busy} onclick={clearImage}>×</button>
           </div>
         {:else}
-          <div class="dropzone" class:err={!!pasteErr}>
-            {pasteErr ?? 'Paste a screenshot (Ctrl+V)'}
-          </div>
+          <div class="dropzone err">{pasteErr}</div>
         {/if}
       </div>
     {/if}
@@ -1157,8 +1171,12 @@ import {
   .field label { flex: 1; min-width: 0; }
   .field select, .field input { width: 100%; min-width: 0; box-sizing: border-box; }
   .wide { grid-column: 1 / -1; }
-  label { display: flex; flex-direction: column; gap: 2px; font-size: 11px; text-transform: uppercase;
-          letter-spacing: .05em; opacity: .6; }
+  /* Scoped to the destination strip, and no longer shouting.
+     As a bare `label` selector this styled EVERY label in the rail — it is what stacked
+     the plan-mode radios above their own text, and what made six settings you touch
+     occasionally read like the loudest thing on the panel. The stacked caption is right
+     for a form strip; uppercase + letter-spacing on 11px text at 60% opacity is not. */
+  .context label { display: flex; flex-direction: column; gap: 2px; font-size: 11px; opacity: .65; }
   input { font: inherit; font-size: 12px; padding: 4px 7px; border-radius: 6px; text-transform: none;
           border: 1px solid rgba(128,128,128,.3); background: transparent; color: inherit; }
   input:disabled, select:disabled, textarea:disabled { opacity: .55; }
@@ -1171,7 +1189,11 @@ import {
   .plus { flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
           background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
   .plus:disabled { opacity: .45; cursor: default; }
-  .hint { margin: auto 8px; font-size: 12px; opacity: .55; line-height: 1.5; text-align: center; }
+  /* Left-aligned, and no `margin: auto`. Both existed to centre this in the 400px void —
+     `auto` vertically, `text-align` horizontally. With the log collapsed the hint sits
+     directly under the header as a sentence, and centred prose reads as a placeholder
+     screen rather than as instructions about the thing right below it. */
+  .hint { margin: 2px 0 0; font-size: 12px; opacity: .55; line-height: 1.5; }
   /* Inset so it reads as belonging to the picker it was opened from, not as another top-level field. */
   .create { display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 6px;
             border: 1px dashed rgba(128,128,128,.4); background: rgba(128,128,128,.05); }
@@ -1191,6 +1213,9 @@ import {
   .go:disabled { opacity: .45; cursor: default; }
   .go.stop { border-color: rgba(185,28,28,.5); color: #b91c1c; }
   .chat-log { flex: 1; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+  /* Empty: take only the height of the hint. `flex:1` on an empty log is what put a
+     400px void between the header and the composer. */
+  .chat-log.empty { flex: 0 0 auto; overflow: visible; }
   .composer { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; padding-top: 8px; border-top: 1px solid rgba(128,128,128,.15); }
   .ok { margin: 0; font-size: 12px; color: #1b5e20; }
   .bad { margin: 0; font-size: 12px; color: #b91c1c; }
