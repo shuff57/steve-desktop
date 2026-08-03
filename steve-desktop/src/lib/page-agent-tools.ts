@@ -159,6 +159,18 @@ export const clickElementByIndexTool: PageAgentTool<{ index: number }> = {
         var el = document.querySelector('[data-pa-index="${params.index}"]');
         if (!el) return 'Element [${params.index}] not found';
         el.scrollIntoView({block:'center'});
+        // Clicking a native <option> does NOTHING — the select keeps its old value. The AX tree
+        // lists options as interactive, so a model that plans "click the dropdown, click the
+        // option" gets a ✅ for both and reports the task done while the page never moved.
+        // Observed live: an approved plan "selected" a student and the select stayed on its
+        // placeholder. Do what the click meant instead of reporting a no-op as success.
+        if (el.tagName === 'OPTION' && el.parentElement && el.parentElement.tagName === 'SELECT') {
+          var sel = el.parentElement;
+          sel.value = el.value;
+          sel.dispatchEvent(new Event('input',{bubbles:true}));
+          sel.dispatchEvent(new Event('change',{bubbles:true}));
+          return '✅ Selected "' + (el.text || '').trim() + '" in the dropdown (clicking an option on its own does nothing, so it was selected instead).';
+        }
         el.click();
         return '✅ Clicked element [${params.index}]';
       })()`,

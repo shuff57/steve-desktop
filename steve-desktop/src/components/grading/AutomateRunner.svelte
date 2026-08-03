@@ -23,6 +23,7 @@
   import { getActiveTabId, getEmbeddedUrl } from '../../lib/browser';
   import { domainFromUrl } from '../../lib/utils/index';
   import { scopeOf, normalizeUrl } from '../../lib/site-map';
+  import { isPeopleSurface } from '../../lib/chunked-map';
   import { engineForProvider, cliModelArg, extractCliText, summarizeCliLine } from '../../lib/agent-cli';
   import { buildCliCrawlPrompt, parseCliCrawlOutput } from '../../lib/cli-crawl';
   import { buildAutomatePlanPrompt, buildAutomateExecPrompt, cleanAutomateOutput, planHasMutations, parsePlan, buildEnhancePrompt } from '../../lib/cli-automate';
@@ -33,6 +34,15 @@
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
   import { summarizeRunResult } from '../../lib/result-summary';
   import { renderSkillPreview } from '../../lib/skill-parser';
+  import { cdp } from '../../lib/cdp-client';
+  import { connectCDP } from '../../lib/cdp-actions';
+  import { buildToolContext, claimTabForRun } from '../../integrations/mom/transfer-via-agent';
+  import { beginAgentSession } from '../../lib/agent-session';
+  import { runPageAgentTask, assertDrivingTab } from '../../lib/page-agent-run';
+  import { createPageMask } from '../../lib/page-agent-mask';
+  import { MOM_TRANSFER_MODELS } from '../../integrations/mom/page-agent-config';
+  import { describeActivity } from '../../lib/page-agent-overlay';
+  import { SESSION_COLORS } from '../../lib/agent-visual';
 
   let {
     provider = '',
@@ -119,11 +129,52 @@
     history = cards;
   });
 
+  /**
+   * Which engine drives the browser.
+   *
+   * `cli` spawns a full-shell CLI that drives the tab itself over Bash+CDP. `page-agent` runs the
+   * in-app Re-Act loop, which is masked at the prompt (page-agent-mask) and confined by the tool
+   * layer — the CLI reads pages through its own tools, so nothing in the app can redact them.
+   *
+   * Defaults to `cli` because that is the path with live mileage on real courses. The page-agent
+   * path also needs an OpenAI-compatible endpoint, so it runs on Ollama models rather than the
+   * Claude/OpenCode engine picked above.
+   */
+  let driver = $state<'cli' | 'page-agent'>('cli');
+  let paModel = $state(MOM_TRANSFER_MODELS[0] as string);
+  const PA_BASE_URL = 'http://127.0.0.1:11434/v1';
+
+  /**
+   * Warn when the unmasked driver is aimed at a page about people.
+   *
+   * The spawned CLI reads pages through its own tools, so nothing in the app can redact what it
+   * sends. That is a deliberate trade for shell access, but it should be a visible one — this is
+   * the interim control for the CLI path until it either goes through a page tool or a redacting
+   * CDP proxy. A warning, not a block: it is Steve's tool and his call.
+   */
+  let unmaskedWarning = $state('');
+  async function checkDriverForPage() {
+    if (driver !== 'cli') { unmaskedWarning = ''; return; }
+    const url = await currentUrl();
+    unmaskedWarning = url && isPeopleSurface(url)
+      ? 'This page is a roster or gradebook, and the CLI driver sends what it reads to the model unmasked. The page agent masks it.'
+      : '';
+  }
+  $effect(() => { void driver; void checkDriverForPage(); });
+
   // Session id of the run currently in flight, so the Stop button can terminate its spawned CLI.
   let currentSessionId = $state<string | null>(null);
+  // The in-app loop has no process to kill — it stops by abort signal instead.
+  let paController = $state<AbortController | null>(null);
   let stopping = $state(false);
   async function stopRun() {
-    if (!currentSessionId || stopping) return;
+    if (stopping) return;
+    if (paController) {
+      paController.abort();
+      msg = 'Stopping…';
+      return;
+    }
+    if (!currentSessionId) return;
     stopping = true;
     try {
       await invoke('stop_agent_cli', { sessionId: currentSessionId });
@@ -169,11 +220,49 @@
 
   /** Rewrite the typed task into a detailed, capability-aware prompt. A one-shot text call — no
    *  browser, watchdog, or overlay (unlike a real run), so it stays fast and side-effect-free. */
+  /**
+   * Enhance on the page-agent driver's own endpoint — a plain text call, no browser.
+   *
+   * Masked and rehydrated like everything else on this path: the task box is where an operator
+   * would most naturally type a student's name, and "it's only the prompt" is exactly how data
+   * leaves by a side door.
+   */
+  async function enhanceViaPageAgent(prompt: string): Promise<string> {
+    const mask = createPageMask();
+    const resp = await fetch(`${PA_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: paModel, messages: [{ role: 'user', content: mask.text(prompt) }] }),
+    });
+    if (!resp.ok) throw new Error(`Enhance endpoint returned ${resp.status}`);
+    const data = (await resp.json()) as { choices?: { message?: { content?: string } }[] };
+    return mask.rehydrate(data.choices?.[0]?.message?.content ?? '');
+  }
+
   async function enhanceTask() {
     if (busy || enhancing || !task.trim()) return;
-    if (!provider) { msg = 'Pick an engine above first.'; return; }
-    const engine = engineForProvider(provider);
+    if (!provider && driver === 'cli') { msg = 'Pick an engine above first.'; return; }
     const original = task;
+    if (driver === 'page-agent') {
+      enhancing = true;
+      msg = 'Enhancing your task…';
+      try {
+        const enhanced = cleanAutomateOutput(await enhanceViaPageAgent(buildEnhancePrompt(original))).trim();
+        if (enhanced) {
+          taskBeforeEnhance = original;
+          task = enhanced;
+          msg = 'Task enhanced — review it, then Plan or Run.';
+        } else {
+          msg = 'Enhance returned nothing — task left unchanged.';
+        }
+      } catch (e) {
+        msg = `Enhance failed: ${e instanceof Error ? e.message : String(e)}`;
+      } finally {
+        enhancing = false;
+      }
+      return;
+    }
+    const engine = engineForProvider(provider);
     enhancing = true;
     msg = 'Enhancing your task with AI…';
     try {
@@ -326,9 +415,89 @@
     }
   }
 
+  /**
+   * The page-agent driver — same contract as spawn(): take a task, return the agent's final text.
+   *
+   * Everything AutomateRunner guarantees is preserved, but each guarantee moves to the seam the
+   * in-app loop actually has: confinement becomes a wrapped navigate tool, the read-only planning
+   * pass becomes a tool set with the mutating tools removed, the map travels in the instructions
+   * instead of being read off disk, and the wedge watchdog is handed in. Tab ownership is the one
+   * capability that needed nothing new — claimTabForRun and beginAgentSession already do it.
+   */
+  async function runViaPageAgent(
+    mode: 'plan' | 'execute',
+    opts: { map?: string; approvedPlan?: string } = {},
+  ): Promise<string> {
+    const tabId = getActiveTabId();
+    if (!tabId) throw new Error('Open a page first — the page agent drives the tab you are on.');
+    if (!(await connectCDP(undefined, tabId))) throw new Error('Could not attach to the page.');
+    const port = await invoke<number | null>('get_cdp_port');
+    if (!port) throw new Error('CDP debug port unavailable — restart the app.');
+
+    const startUrl = normalizeUrl(await currentUrl());
+    const controller = new AbortController();
+    paController = controller;
+    const ctx = buildToolContext(cdp, controller.signal);
+    // Prove we are on the intended tab before anything reads or acts. connectCDP's fallback can
+    // land on a stale orphaned webview, which reads as a successful run against the wrong page.
+    await assertDrivingTab(ctx.cdpSend, tabMarker(tabId));
+    const sessionId = `page-agent-${crypto.randomUUID()}`;
+    const release = await claimTabForRun(tabId, sessionId);
+    const session = beginAgentSession(ctx, controller, { task, accent: SESSION_COLORS[0] });
+    const joined = session.join();
+
+    const progressBuf = createThrottledBuffer<string>((lines) => {
+      const merged = [...progress];
+      for (const l of lines) if (merged[merged.length - 1] !== l) merged.push(l);
+      progress = merged.slice(-40);
+    });
+    const WEDGE_INTERVAL_MS = 5000;
+    const WEDGE_FAILURES_TO_TRIP = 8;
+    const wedgeSecs = Math.round((WEDGE_INTERVAL_MS * WEDGE_FAILURES_TO_TRIP) / 1000);
+    const watchdog = createCdpWatchdog({
+      port,
+      intervalMs: WEDGE_INTERVAL_MS,
+      failuresToTrip: WEDGE_FAILURES_TO_TRIP,
+      onWedge: () => { msg = `⚠ Browser debug endpoint has been unresponsive for ~${wedgeSecs}s — the run may be stuck. It can still recover on its own; restart the app only if it stays frozen.`; },
+    });
+
+    let ok = false;
+    try {
+      const res = await runPageAgentTask(
+        {
+          task: taskWithContext(task),
+          baseURL: PA_BASE_URL,
+          model: paModel,
+          mode,
+          // No page open means nothing to anchor to, so there is no fence to enforce.
+          confine: startUrl ? { startUrl } : undefined,
+          map: opts.map,
+          approvedPlan: opts.approvedPlan,
+          watchdog,
+          onActivity: (a) => {
+            const line = describeActivity(a);
+            if (line) progressBuf.push(line);
+            joined.onActivity?.(a);
+          },
+          onStatusChange: (s) => joined.onStatusChange?.(s),
+        },
+        ctx,
+      );
+      ok = res.success;
+      // A failed run still has something to say — the caller shows it as the result either way.
+      return res.data;
+    } finally {
+      progressBuf.flush();
+      await session.end(controller.signal.aborted ? 'stopped' : ok ? 'done' : 'error', undefined);
+      await release();
+      paController = null;
+    }
+  }
+
   async function startPlan() {
     if (busy || !task.trim()) return;
-    if (!provider) { msg = 'Pick an engine above first.'; return; }
+    // The page-agent driver talks to its own endpoint, so the engine picker above does not apply.
+    if (!provider && driver === 'cli') { msg = 'Pick an engine above first.'; return; }
     plan = null;
     result = null;
     progress = [];
@@ -347,6 +516,13 @@
       let map = domain ? (await loadMappingDoc(domain)) : null;
       if (map) {
         mapUsed = 'existing';
+      } else if (domain && driver === 'page-agent') {
+        // Crawl-if-missing spawns the CLI crawler, which reads pages through its own tools and
+        // cannot be masked from in here. Doing that on behalf of a run the operator chose FOR
+        // the masking would put the whole site in front of a model the mask never sees — so a
+        // page-agent run uses an existing map or none, and says which.
+        mapUsed = 'none';
+        msg = 'No site map for this domain — planning without one (a masked run will not crawl).';
       } else if (domain) {
         phase = 'mapping';
         msg = 'No site map yet — mapping the site first…';
@@ -359,7 +535,9 @@
       msg = 'Planning (read-only)…';
       progress = [];
       const sid = crypto.randomUUID(); // minted BEFORE the prompt so the run's tab ownership id is baked into it
-      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, sessionId: sid }), 'plan', sid);
+      const raw = driver === 'page-agent'
+        ? await runViaPageAgent('plan', { map: map ?? undefined })
+        : await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, sessionId: sid }), 'plan', sid);
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -379,7 +557,8 @@
    */
   async function runDirect() {
     if (busy || !task.trim()) return;
-    if (!provider) { msg = 'Pick an engine above first.'; return; }
+    // The page-agent driver talks to its own endpoint, so the engine picker above does not apply.
+    if (!provider && driver === 'cli') { msg = 'Pick an engine above first.'; return; }
     plan = null;
     result = null;
     progress = [];
@@ -400,11 +579,13 @@
       msg = 'Running the task directly — no plan was reviewed.';
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
-      const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
-        'exec',
-        sid,
-      );
+      const raw = driver === 'page-agent'
+        ? await runViaPageAgent('execute', { map: map ?? undefined })
+        : await spawn(
+            buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
+            'exec',
+            sid,
+          );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };
       task = '';
@@ -433,11 +614,13 @@
       const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
-      const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
-        'exec',
-        sid,
-      );
+      const raw = driver === 'page-agent'
+        ? await runViaPageAgent('execute', { map: map ?? undefined, approvedPlan: plan })
+        : await spawn(
+            buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
+            'exec',
+            sid,
+          );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };
       task = ''; // the box becomes the follow-up box
@@ -497,6 +680,24 @@
       <button class="revert-chip" onclick={revertEnhance} disabled={busy || enhancing} title="Undo the refine">revert</button>
     {/if}
   </div>
+
+  <div class="driver-row">
+    <label class="driver-lbl" for="driver-pick">Driver</label>
+    <select id="driver-pick" class="driver-pick" bind:value={driver} disabled={busy}
+      title="CLI spawns a full-shell agent that drives the browser itself. Page agent runs in-app: its prompt is masked, so student data never reaches the model.">
+      <option value="cli">CLI agent</option>
+      <option value="page-agent">Page agent (masked)</option>
+    </select>
+    {#if driver === 'page-agent'}
+      <select class="driver-pick" bind:value={paModel} disabled={busy} title="Model for the in-app loop (ranked by a live bench)">
+        {#each MOM_TRANSFER_MODELS as m (m)}<option value={m}>{m.replace(':cloud', '')}</option>{/each}
+      </select>
+      <span class="driver-note">masked · confined to this course</span>
+    {/if}
+  </div>
+  {#if unmaskedWarning}
+    <div class="msg warn unmasked">⚠ {unmaskedWarning}</div>
+  {/if}
 
   <div class="btns">
     {#if phase === 'idle' || phase === 'done'}
@@ -651,6 +852,15 @@
   .automate { display: flex; flex-direction: column; gap: var(--spacing-3); }
   .muted { color: var(--text-secondary); font-size: 0.85rem; margin: 0; }
   .small { font-size: 0.78rem; }
+  .driver-row { display: flex; align-items: center; gap: 6px; margin: 4px 0 2px; }
+  .driver-lbl { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; }
+  .driver-pick {
+    height: 24px; border-radius: 999px; padding: 0 8px; font-size: 0.72rem;
+    background: var(--bg-input); color: var(--text-secondary);
+    border: 1px solid var(--border-color); max-width: 190px;
+  }
+  .driver-note { font-size: 0.68rem; color: var(--text-secondary); opacity: 0.8; }
+
   .task-wrap { position: relative; }
   .task {
     width: 100%; box-sizing: border-box; resize: none;

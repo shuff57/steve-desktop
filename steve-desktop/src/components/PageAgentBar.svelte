@@ -14,6 +14,8 @@
   import { connectCDP } from '../lib/cdp-actions';
   import { runAgentLoop, type AgentActivity } from '../lib/page-agent-loop';
   import { createPageMask } from '../lib/page-agent-mask';
+  import { assertDrivingTab } from '../lib/page-agent-run';
+  import { tabMarker } from '../lib/tab-control';
   import { describeActivity } from '../lib/page-agent-overlay';
   import { beginAgentSession } from '../lib/agent-session';
   import { buildToolContext, claimTabForRun } from '../integrations/mom/transfer-via-agent';
@@ -42,6 +44,15 @@
     status = 'Starting…';
     controller = new AbortController();
     const ctx = buildToolContext(cdp, controller.signal);
+    // connectCDP falls back to the first non-loopback target when its marker probe finds nothing,
+    // so a stale orphaned webview can answer instead of this tab. Verify before reading anything.
+    try {
+      await assertDrivingTab(ctx.cdpSend, tabMarker(tabId));
+    } catch (e) {
+      status = e instanceof Error ? e.message : String(e);
+      running = false;
+      return;
+    }
     // Hold the tab for the run; released in the finally below.
     const release = await claimTabForRun(tabId, `page-agent-${crypto.randomUUID()}`).catch(
       (e: unknown) => {
