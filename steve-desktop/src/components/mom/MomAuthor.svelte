@@ -523,6 +523,12 @@ import {
     createBusy = true;
     createErr = null;
     try {
+      // Selecting what was just created has to wait for the reload. The effect above drops
+      // an assignment that is not in the chosen book's item list, and between "set it" and
+      // "reload the books" it is not in that list yet — so setting it first meant the new
+      // assignment was created, silently deselected, and the destination fell back to
+      // "not filed" with no error anywhere.
+      let created = '';
       if (creating === 'book') {
         placeBook = await createBook(root, name);
         placeAssignment = '';
@@ -530,9 +536,10 @@ import {
         // `today` is passed in rather than read inside, so the manifest writer stays testable.
         const today = new Date().toISOString().slice(0, 10);
         await createAssignment(root, { book: placeBook, kind: newKind, name, today });
-        placeAssignment = assignmentPath(placeBook, newKind, slugify(name));
+        created = assignmentPath(placeBook, newKind, slugify(name));
       }
       await onBooksChanged();
+      if (created) placeAssignment = created;
       creating = null;
       newName = '';
     } catch (e) {
