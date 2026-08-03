@@ -73,6 +73,42 @@ export function urlFromHeader(header: string): string {
   return header.replace(/^\s*Current URL:\s*/i, '').trim();
 }
 
+/**
+ * One mask per RUN, shared by every page-tool call that run makes.
+ *
+ * This is the piece that lets an orchestrator reason about people it can never see. Claude drives
+ * the task; the page agent reads the page, masks it, and reports back in tokens; Claude decides
+ * what to do next and sends an instruction that still refers to those tokens; the app rehydrates
+ * it locally on the way to the page.
+ *
+ * That only works if a token means the SAME person for the whole task. A mask per call would
+ * renumber everyone on every observation, so "open ⟦STU3⟧'s row" would quietly attach to a
+ * different student than the one the orchestrator meant — the worst failure available on this
+ * path, because nothing about it looks wrong.
+ *
+ * The entry holds the run's real identifiers in memory, so it is the one place raw PII lives
+ * during a task. `endRunMask` is not optional bookkeeping: it is how that data stops existing.
+ */
+const byRun = new Map<string, PageMask>();
+
+export function maskForRun(runId: string, opts: PageMaskOptions = {}): PageMask {
+  const existing = byRun.get(runId);
+  if (existing) return existing;
+  const mask = createPageMask(opts);
+  byRun.set(runId, mask);
+  return mask;
+}
+
+/** Drop a finished run's token map. Call it when the run ends, however it ends. */
+export function endRunMask(runId: string): void {
+  byRun.delete(runId);
+}
+
+/** How many runs are holding a token map — for a leak check, not for logic. */
+export function activeRunMaskCount(): number {
+  return byRun.size;
+}
+
 export function createPageMask(opts: PageMaskOptions = {}): PageMask {
   // numericIds stays OFF here: this redactor runs on every surface, and the bare-digit tier is
   // gated on people surfaces below. Emails/phones/SSNs are identifying wherever they appear.

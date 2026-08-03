@@ -1,6 +1,6 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from 'vitest';
 import { runAgentLoop } from './page-agent-loop';
-import { createPageMask } from './page-agent-mask';
+import { activeRunMaskCount, createPageMask, endRunMask, maskForRun } from './page-agent-mask';
 import type { PageAgentTool, ToolContext } from './page-agent-tools';
 
 // Real loop, stubbed page + endpoint: the point is what leaves the machine.
@@ -157,6 +157,57 @@ describe('the agent can still act on what it was shown', () => {
       ctx(),
     );
     expect(seen[0]).toEqual({ url: '/courses/1/users/127333' });
+  });
+});
+
+describe('a token means one person for the whole run', () => {
+  const gradebook = 'https://lms.example/courses/1/gradebook';
+
+  test('the same run keeps the same token across separate calls', () => {
+    const a = maskForRun('run-1').text('Alvarez, Jordan', gradebook);
+    // A second page-tool call, later in the same task — the orchestrator is still holding the
+    // token from the first one.
+    const b = maskForRun('run-1').text('Alvarez, Jordan owes work', gradebook);
+    const token = a.match(/⟦STU\d+⟧/)![0];
+    expect(b).toContain(token);
+    endRunMask('run-1');
+  });
+
+  test('and the orchestrator can act on that token later', () => {
+    const mask = maskForRun('run-2');
+    const seen = mask.text('Nakamura, Yuki', gradebook);
+    const token = seen.match(/⟦STU\d+⟧/)![0];
+    // What Claude sends back refers to the token; the app puts the person back locally.
+    expect(mask.rehydrate(`open ${token}'s row`)).toBe("open Nakamura, Yuki's row");
+    endRunMask('run-2');
+  });
+
+  test('this is exactly what a per-call mask would get wrong', () => {
+    // The failure the registry exists to prevent: two masks hand the SAME token to two
+    // different people, so an instruction lands on the wrong student and nothing looks wrong.
+    const first = createPageMask().text('Alvarez, Jordan', gradebook);
+    const second = createPageMask().text('Nakamura, Yuki', gradebook);
+    expect(first.match(/⟦STU\d+⟧/)![0]).toBe(second.match(/⟦STU\d+⟧/)![0]);
+  });
+
+  test('separate runs never share a map', () => {
+    const a = maskForRun('run-a');
+    const b = maskForRun('run-b');
+    expect(a).not.toBe(b);
+    endRunMask('run-a');
+    endRunMask('run-b');
+  });
+
+  test('ending a run drops the only copy of its identifiers', () => {
+    const before = activeRunMaskCount();
+    const mask = maskForRun('run-3');
+    mask.text('Okonkwo, Sarah', gradebook);
+    expect(Object.values(mask.map)).toContain('Okonkwo, Sarah');
+    endRunMask('run-3');
+    expect(activeRunMaskCount()).toBe(before);
+    // A run id reused after cleanup starts clean, rather than inheriting a stale roster.
+    expect(Object.values(maskForRun('run-3').map)).toHaveLength(0);
+    endRunMask('run-3');
   });
 });
 
