@@ -12,7 +12,7 @@
 
 import { DEFAULT_TOOLS, type PageAgentTool, type ToolContext } from './page-agent-tools';
 import { runAgentLoop, type ExecutionResult, type PageAgentLoopConfig } from './page-agent-loop';
-import { createPageMask } from './page-agent-mask';
+import { createPageMask, type PageMask } from './page-agent-mask';
 import { withinScope } from './site-map';
 import { domainFromUrl } from './utils/index';
 
@@ -184,6 +184,12 @@ export interface PageAgentRunOptions {
   instructions?: string;
   /** The approved plan, replayed into an execute pass so it carries out THAT plan. */
   approvedPlan?: string;
+  /**
+   * The run's mask. Supply it from `maskForRun(sessionId)` on any path an orchestrator drives,
+   * so a token means the same person across every call it makes. Defaults to a fresh mask for
+   * a standalone run, which owns its own tokens for its whole life either way.
+   */
+  mask?: PageMask;
   maxSteps?: number;
   /**
    * Watch the CDP endpoint for the duration. WebView2's has wedged under load, and a wedged
@@ -239,7 +245,7 @@ ${opts.approvedPlan}
         apiKey: opts.apiKey ?? 'NA',
         instructions: instructions || undefined,
         customTools,
-        mask: createPageMask(),
+        mask: opts.mask ?? createPageMask(),
         maxSteps: opts.maxSteps ?? (planning ? 20 : 40),
         onStatusChange: opts.onStatusChange,
         onActivity: opts.onActivity,
