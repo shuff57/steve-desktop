@@ -81,12 +81,12 @@ import {
     onClearSelection = () => {},
     onPlan = (_: PlanView | null) => {},
     onSession = (_: string | null) => {},
-    // The same three bindings AutomateRunner exposes, so ActionShell cannot tell the
-    // two apart: the shell already draws the status dot, the header sweep and the
-    // history cards, and the rail was simply never telling it anything.
+    // The same bindings AutomateRunner exposes, so ActionShell cannot tell the two apart:
+    // the shell already draws the status dot and the pill, and the rail was simply never
+    // telling it anything. `history` is deliberately absent — the browser panel feeds the
+    // shell's cards, the rail renders its log itself and would draw it twice.
     agentStatus = $bindable('idle' as string),
     agentStatusText = $bindable('' as string),
-    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
     /** Steps taken this run, for the shell pill's progress chip. */
     agentProgress = $bindable('' as string),
     /**
@@ -127,7 +127,6 @@ import {
     /** Live phase for the shell's indicator — same vocabulary AutomateRunner uses. */
     agentStatus?: string;
     agentStatusText?: string;
-    history?: { icon: string; text: string; type?: string; meta?: string }[];
     agentProgress?: string;
     onStopReady?: (stop: (() => void) | null) => void;
   }>();
@@ -342,17 +341,6 @@ import {
     onStopReady(busy ? stop : null);
   });
 
-  /**
-   * The rail deliberately does NOT feed the shell's history cards.
-   *
-   * It used to mirror `lines` into them, and the chat log below renders those same lines —
-   * so every step was drawn twice, ten pills above the identical ten bubbles. The browser
-   * panel has only the cards; the rail has the richer log, and one narration is the point.
-   * The header's dot and status text still carry the presence.
-   */
-  $effect(() => {
-    history = [];
-  });
   /** Selection is what decides the job; there is no mode to get out of step with it. */
   const revisingMode = $derived(!!selectedPath);
   /**

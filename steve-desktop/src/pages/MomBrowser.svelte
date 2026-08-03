@@ -196,13 +196,12 @@
   /**
    * Live presence for the rail, passed straight through from MomAuthor to the shell.
    *
-   * The shell has always drawn a status dot, a header sweep and history cards; this page
-   * bound none of them, so the rail sat inert while the same shell lit up in the browser
-   * panel. These three are the whole difference.
+   * The shell has always drawn a status dot and a pill; this page bound neither, so the rail
+   * sat inert while the same shell lit up in the browser panel. The shell's history cards are
+   * deliberately left unbound — the rail renders its own log and would draw it twice.
    */
   let railStatus = $state('idle');
   let railStatusText = $state('');
-  let railHistory = $state([] as { icon: string; text: string; type?: string; meta?: string }[]);
   /** Step count and Stop for the shell's pill — the two controls the overlay keeps in it. */
   let railProgress = $state('');
   let railStop = $state<(() => void) | null>(null);
@@ -801,14 +800,12 @@
         runSession={momSession}
         bind:agentStatus={railStatus}
         bind:agentStatusText={railStatusText}
-        bind:history={railHistory}
         agentProgress={railProgress}
         onStop={railStop}
       >
         <MomAuthor
           bind:agentStatus={railStatus}
           bind:agentStatusText={railStatusText}
-          bind:history={railHistory}
           bind:agentProgress={railProgress}
           onStopReady={(s) => (railStop = s)}
           root={momRoot ?? ''}

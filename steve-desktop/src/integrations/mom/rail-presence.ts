@@ -1,64 +1,14 @@
 /**
- * Translate the question rail's own conversation into the shell's presence.
+ * Translate the question rail's own phase into the shell's presence.
  *
- * ActionShell has drawn a status dot, a header sweep and history cards since it was
- * extracted; MomBrowser bound none of them, so the rail sat inert while the same shell
- * lit up in the browser panel. This is the translation layer, kept out of the component
- * so the part with a real failure mode can be tested.
- */
-
-/** One line of the rail's run log. */
-export interface RailLine {
-  role: 'user' | 'agent' | 'step' | 'ok' | 'error';
-  text: string;
-}
-
-/**
- * A card as ActionShell renders it.
+ * ActionShell draws a status dot and a pill; MomBrowser bound neither, so the rail sat
+ * inert while the same shell lit up in the browser panel. This is the translation layer,
+ * kept out of the component so the part with a real failure mode can be tested.
  *
- * `meta` is a VISIBLE field — the shell prints it under the text — so it holds real
- * metadata or nothing. It is deliberately not set here: it was briefly used to make the
- * shell's `{#each}` key unique, and every card then displayed a stray index. The shell
- * keys by position now, which is what a sliding window over a log wants anyway.
+ * It used to also map the rail's log into the shell's history cards. The rail renders that
+ * log itself, so the cards drew it a second time; the browser panel still uses them, this
+ * surface does not.
  */
-export interface HistoryCard {
-  icon: string;
-  text: string;
-  type: string;
-}
-
-const CARD_ICON: Record<RailLine['role'], string> = {
-  user: '💬',
-  agent: '🤖',
-  step: '⚙',
-  ok: '✅',
-  error: '⚠',
-};
-
-/** Card types the shell has styling for: input/output/question/observation/error/success. */
-const CARD_TYPE: Record<RailLine['role'], string> = {
-  user: 'input',
-  agent: 'output',
-  step: 'observation',
-  ok: 'success',
-  error: 'error',
-};
-
-/** Longest card text before truncation — a card is a glance, not the transcript. */
-const MAX_TEXT = 160;
-
-/** How many lines the shell shows at once. */
-export const HISTORY_WINDOW = 10;
-
-/** Map the tail of a run log to history cards. */
-export function toHistoryCards(lines: RailLine[], window = HISTORY_WINDOW): HistoryCard[] {
-  const start = Math.max(0, lines.length - window);
-  return lines.slice(start).map((l) => ({
-    icon: CARD_ICON[l.role] ?? '💬',
-    text: l.text.length > MAX_TEXT ? l.text.slice(0, MAX_TEXT - 1) + '…' : l.text,
-    type: CARD_TYPE[l.role] ?? 'default',
-  }));
-}
 
 /** What the rail is doing, in the vocabulary AutomateRunner already uses. */
 export interface RailPhase {
