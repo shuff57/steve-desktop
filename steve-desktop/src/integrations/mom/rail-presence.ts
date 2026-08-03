@@ -73,6 +73,14 @@ export interface RailPhase {
   slug?: string | null;
   /** Most recent step line, the most specific thing known about a write in flight. */
   lastStep?: string | null;
+  /**
+   * How many questions the last plan produced, or null if no plan has run.
+   *
+   * A write sets `finished` when it lands a file, but a plan produces no file — so a
+   * successful plan used to fall back to idle and the rail said "Ready" the instant it
+   * finished, throwing away the one number worth reading.
+   */
+  plannedCount?: number | null;
 }
 
 /**
@@ -90,7 +98,15 @@ export function railStatusFor(p: RailPhase): { status: string; text: string } {
       text: step ? step.slice(0, 60) : `Writing ${p.slug || 'question'}…`,
     };
   }
+  // Failure outranks any success below it: a run that produced a file and THEN failed
+  // must not read as Done.
   if (p.failed) return { status: 'error', text: 'Failed' };
   if (p.finished) return { status: 'completed', text: 'Done' };
+  if (typeof p.plannedCount === 'number') {
+    return {
+      status: 'completed',
+      text: `Planned ${p.plannedCount} question${p.plannedCount === 1 ? '' : 's'}`,
+    };
+  }
   return { status: 'idle', text: '' };
 }

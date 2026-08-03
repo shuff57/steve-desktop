@@ -135,36 +135,31 @@
   );
   const displayStatusText = $derived(agentStatusText || defaultStatusText);
 
-  // Fade animation for status text changes
+  /**
+   * Fade the status text on change WITHOUT owning its content.
+   *
+   * The previous version set `statusTextEl.textContent` itself while the template also
+   * renders `{displayStatusText}` into that same node — two writers for one text node.
+   * Worse, a change arriving mid-animation was pushed to `pendingStatusText` and then
+   * dropped: the branch meant to replay it assigned an unused local and "touched"
+   * displayStatusText, which does nothing. Observed live on the question rail — a green
+   * `completed` dot sitting next to the word "Ready", because the dot is rendered
+   * reactively and the text was stale.
+   *
+   * Svelte owns the text now; this only restarts the fade animation.
+   */
   let statusTextEl: HTMLElement | undefined = $state();
-  let isAnimatingText = $state(false);
-  let pendingStatusText: string | null = $state(null);
-  let textAnimTimer: ReturnType<typeof setTimeout> | undefined;
 
   $effect(() => {
-    if (!statusTextEl) return;
-    const newText = displayStatusText;
-    if (statusTextEl.textContent === newText) return;
-    if (isAnimatingText) { pendingStatusText = newText; return; }
-    isAnimatingText = true;
-    statusTextEl.classList.add('fade-out');
-    setTimeout(() => {
-      if (!statusTextEl) return;
-      statusTextEl.textContent = newText;
-      statusTextEl.classList.remove('fade-out');
-      statusTextEl.classList.add('fade-in');
-      setTimeout(() => {
-        if (!statusTextEl) return;
-        statusTextEl.classList.remove('fade-in');
-        isAnimatingText = false;
-        if (pendingStatusText) {
-          const next = pendingStatusText;
-          pendingStatusText = null;
-          // trigger another cycle
-          displayStatusText; // touch to re-evaluate
-        }
-      }, 300);
-    }, 150);
+    // Re-run whenever the text changes.
+    displayStatusText;
+    const el = statusTextEl;
+    if (!el) return;
+    el.classList.remove('fade-in');
+    // Force a reflow so re-adding the class restarts the animation rather than being
+    // coalesced into a no-op.
+    void el.offsetWidth;
+    el.classList.add('fade-in');
   });
 
   // "Context used" = the tokens the model actually read this turn (input + any cache), which is what

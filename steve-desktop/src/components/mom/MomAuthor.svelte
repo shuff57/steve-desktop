@@ -37,6 +37,7 @@ import {
   import { momIsland } from '../../integrations/mom';
   import { questionHealth } from '../../integrations/mom/health';
   import { toHistoryCards, railStatusFor } from '../../integrations/mom/rail-presence';
+  import { sectionMismatch, describeMismatch } from '../../integrations/mom/section-guard';
   import { prepareRenderHtml } from '../../integrations/mom/render-html';
   import { cliModelArg, extractCliText, engineForProvider, summarizeCliLine, type AgentEngine } from '../../lib/agent-cli';
   import { getSetting, setSetting } from '../../lib/db';
@@ -283,6 +284,7 @@ import {
       // The most specific thing known about a write in flight — "Rendering",
       // "Repairing attempt 2" — and it is already computed for the log.
       lastStep: [...lines].reverse().find((l) => l.role === 'step')?.text ?? null,
+      plannedCount: planned ? planned.length : null,
     });
     agentStatus = status;
     agentStatusText = text;
@@ -305,6 +307,18 @@ import {
       : 'not filed',
   );
   const allSelected = $derived(planned ? selected.size === planned.length && planned.length > 0 : false);
+  /**
+   * Writing from one section while filing into another.
+   *
+   * The destination persists between runs on purpose, so pointing the link at a new
+   * section silently leaves the old destination — which filed a 1.4 question into the 1.3
+   * homework as slot 16, with a successful-looking run and no warning anywhere.
+   * Advisory, not a gate: filing across sections is a real thing to want, doing it without
+   * noticing is the failure.
+   */
+  const misfile = $derived(
+    revisingMode ? null : sectionMismatch(link, placeAssignment || destName),
+  );
 
   // Persist whenever the plan or selection changes.
   $effect(() => {
@@ -927,6 +941,18 @@ import {
     {/if}
   </div>
 
+  {#if misfile}
+    <!-- Sits above the composer, not inside the collapsed context strip: the whole failure
+         was that the destination is out of sight while the link is the thing you just changed. -->
+    <button
+      class="misfile"
+      title="Open the destination picker"
+      onclick={() => (contextOpen = true)}
+    >
+      ⚠ {describeMismatch(misfile)} Check the destination.
+    </button>
+  {/if}
+
   {#if !revisingMode && contextOpen}
   <!-- Two up. Every one of these is a short choice, and a full-width select for "descriptive-stats"
        just made the strip tall enough to push the log off screen. -->
@@ -1176,4 +1202,14 @@ import {
      centred ABOVE its own text, which is what made the row look broken. */
   .mode-option { display: flex; flex-direction: row; align-items: center; gap: 4px; cursor: pointer; text-transform: none; letter-spacing: 0; opacity: .85; }
   .mode-option input { cursor: pointer; }
+  /* Amber, not red: this is "look at this", not "you broke something". Full width and
+     left-aligned so it reads as a sentence rather than a badge. */
+  .misfile {
+    display: block; width: 100%; text-align: left; cursor: pointer;
+    font-size: 11px; line-height: 1.35; padding: 6px 8px; border-radius: 6px;
+    background: rgba(255, 214, 0, 0.10); color: rgb(255, 214, 0);
+    border: 1px solid rgba(255, 214, 0, 0.35);
+    text-transform: none; letter-spacing: 0;
+  }
+  .misfile:hover { background: rgba(255, 214, 0, 0.16); }
 </style>
