@@ -250,7 +250,52 @@ function redactStrings(value: unknown, redact: (t: string) => string, key?: stri
  * where a row's label is the person, so over-matching costs a legible label on a page that is
  * mapped for its shape anyway. Applying it everywhere would tokenize "Chapter Summary".
  */
-const PERSON_LABEL = /[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+(?:[-'][A-Za-z]+)?/g;
+/**
+ * The separator between a first and last name: spaces, never a line or cell break.
+ *
+ * `\s+` here was a live over-match. Run against a real gradebook's dehydrated page text, where
+ * cells are tab-separated and blocks are newline-separated, it fused ADJACENT CELLS into
+ * person-shaped pairs — "Gradebook\nCourse Home" scored as the person "Gradebook Course", and
+ * "Email\tTotal Score" as "Email Total". Each fake name then registered its parts, so the sweep
+ * went on to eat `gradebook.php` in the URL and the "Total Score" column header. A name is
+ * written with a space; a newline or a tab is a boundary between two different things.
+ */
+const NAME_GAP = '[ \\u00a0]+';
+
+const PERSON_LABEL = new RegExp(
+  `[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,[ \\u00a0]*|${NAME_GAP})[A-Z][a-z]+(?:[-'][A-Za-z]+)?`,
+  'g',
+);
+
+/**
+ * The comma form alone — "Doe, Jane". Roster tables render it and almost nothing else does.
+ *
+ * Split out because the two forms deserve different trust: see looksLikeRoster in
+ * people-pointer.ts, where the plain form was measured against a live course and found to be
+ * the shape of ordinary UI wording, not a person signal. Anything masking text it cannot
+ * classify as a people surface should use this half only.
+ */
+const PERSON_LABEL_COMMA = new RegExp(
+  `[A-Z][a-z]+(?:[-'][A-Za-z]+)?,[ \\u00a0]*[A-Z][a-z]+(?:[-'][A-Za-z]+)?`,
+  'g',
+);
+
+/**
+ * Replace every person-shaped run in free text, asking `token` what to put in its place.
+ *
+ * One definition, three callers: the storage pass below (fixed ⟦STU⟧), and the page-agent
+ * mask (reversible per-name tokens). `commaOnly` is the safety valve for text whose surface is
+ * unknown — see PERSON_LABEL_COMMA.
+ */
+export function maskPersonNames(
+  text: string,
+  token: (name: string) => string,
+  opts: { commaOnly?: boolean } = {},
+): string {
+  const src = opts.commaOnly ? PERSON_LABEL_COMMA : PERSON_LABEL;
+  // Fresh RegExp per call: the module-level ones are /g and would carry lastIndex between callers.
+  return text.replace(new RegExp(src.source, 'g'), (m) => (isCommonLabel(m) ? m : token(m)));
+}
 
 /**
  * Two capitalised words that are ordinary UI wording, not a person. Without this, a gradebook's
@@ -267,7 +312,7 @@ const LABEL_WORD = new Set(
     .split(/\s+/),
 );
 
-const isCommonLabel = (m: string) =>
+export const isCommonLabel = (m: string) =>
   m.split(/[\s,]+/).every((w) => LABEL_WORD.has(w.toLowerCase()));
 
 /** Non-global twin of PERSON_LABEL, anchored, for testing a single label. */
@@ -299,8 +344,7 @@ export function looksLikePersonName(label: string): boolean {
  */
 function tokenizePersonLabels<T>(profile: T): T {
   const FIELDS = new Set(['text', 'label', 'selector', 'value', 'purpose', 'nearestHeading']);
-  const swap = (s: string) =>
-    s.replace(PERSON_LABEL, (m) => (isCommonLabel(m) ? m : STUDENT_TOKEN));
+  const swap = (s: string) => maskPersonNames(s, () => STUDENT_TOKEN);
   const walk = (v: unknown, key = ''): unknown => {
     if (typeof v === 'string') return FIELDS.has(key) ? swap(v) : v;
     if (Array.isArray(v)) return v.map((x) => walk(x, key));
@@ -481,18 +525,18 @@ function pathSlug(pathname: string): string {
  * text is not in the dictionary, so redact() cannot see it. Only the id changes — the selector
  * around it survives, because a selector aimed at one student's row is not reusable anyway.
  */
-function scrubPersonIds(s: string): string {
-  return redactUserPath(s)
+export function scrubPersonIds(s: string, token: (id: string) => string = () => STUDENT_TOKEN): string {
+  return redactUserPath(s, token)
     // ?uid=123 / &stu=123, the query form, inside a selector string
     .replace(
-      /\b(uid|stu|stuid|student|studentid|user|userid|filteruid|sid|learner)=\d+/gi,
-      (_m, k) => `${k}=${STUDENT_TOKEN}`,
+      /\b(uid|stu|stuid|student|studentid|user|userid|filteruid|sid|learner)=(\d+)/gi,
+      (_m, k, id) => `${k}=${token(id)}`,
     )
     // #student_123 / #submission_123 — Canvas builds DOM ids this way, so a CSS candidate can
     // carry a person id with no slash anywhere in it.
     .replace(
-      /\b(user|student|learner|enrollment|profile|submission)[_-]\d+/gi,
-      (_m, k) => `${k}_${STUDENT_TOKEN}`,
+      /\b(user|student|learner|enrollment|profile|submission)[_-](\d+)/gi,
+      (_m, k, id) => `${k}_${token(id)}`,
     );
 }
 
@@ -522,8 +566,11 @@ const PERSON_ID_IN_PATH =
  * Only a numeric segment directly after a person-ish segment is replaced, so /courses/31407 and
  * /modules/items/1904067 stay legible — the id is course structure there, not a person.
  */
-export function redactUserPath(pathname: string): string {
-  return pathname.replace(PERSON_ID_IN_PATH, (_m, seg: string) => `${seg}/${STUDENT_TOKEN}`);
+export function redactUserPath(
+  pathname: string,
+  token: (id: string) => string = () => STUDENT_TOKEN,
+): string {
+  return pathname.replace(PERSON_ID_IN_PATH, (_m, seg: string, id: string) => `${seg}/${token(id)}`);
 }
 
 export function redactUrlForStorage(

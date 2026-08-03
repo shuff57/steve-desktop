@@ -33,6 +33,7 @@ import {
 } from './page-agent-tools';
 import { extractBrowserState } from './page-agent-dom';
 import { normalizeMacroOutput } from './page-agent-normalize';
+import { urlFromHeader, type PageMask } from './page-agent-mask';
 
 export interface PageAgentLoopConfig {
   /** The task sentence — what the agent should accomplish. */
@@ -76,15 +77,15 @@ export interface PageAgentLoopConfig {
   /** Called when a malformed reply had to be repaired — silence would hide a flaky model. */
   onRepair?: (repairs: string[]) => void;
   /**
-   * Last chance to change what the model sees of the page.
+   * The trust boundary. Without it, everything on the page goes to the model verbatim —
+   * on a gradebook or roster that is student data leaving the machine.
    *
-   * Everything on the page currently goes to the model verbatim, including the
-   * page text. On a gradebook or roster that is student data leaving the
-   * machine, so any run over identifying pages should mask here — the app's
-   * Redactor is the intended partner. Applied to every observation, after
-   * extraction and before the prompt is built.
+   * Applied to the whole assembled prompt rather than to the observation alone, because a
+   * tool's output becomes history and history is re-sent every step. Actions come back
+   * addressed by token and are rehydrated before they touch the page, so the agent can still
+   * act on what it was shown. See createPageMask.
    */
-  transformPageContent?: (state: BrowserState) => BrowserState;
+  mask?: PageMask;
   /**
    * Answer a question from the agent. Supplying this adds the ask_user tool;
    * without it the tool is not offered at all, since an unanswerable question
@@ -203,10 +204,7 @@ export async function runAgentLoop(
       // --- OBSERVE ---
       emitActivity({ type: 'thinking' });
 
-      const extracted: BrowserState = await extractBrowserState(ctx.cdpSend);
-      const browserState: BrowserState = config.transformPageContent
-        ? config.transformPageContent(extracted)
-        : extracted;
+      const browserState: BrowserState = await extractBrowserState(ctx.cdpSend);
 
       // Detect URL change
       const currentURL = browserState.header;
@@ -249,6 +247,10 @@ export async function runAgentLoop(
         maxSteps,
         history,
         browserState,
+        // The instructions block is deliberately outside the mask: it is skill prose we wrote,
+        // it carries no page data, and masking it renames the controls it tells the agent to
+        // click ("Teacher Preview" is two capitalised words).
+        mask: config.mask && ((body) => config.mask!.text(body, urlFromHeader(browserState.header))),
       });
 
       const messages: LLMMessage[] = [
@@ -283,7 +285,11 @@ export async function runAgentLoop(
       }
 
       // --- ACT (execute the tool) ---
-      const actionName = Object.keys(macroOutput.action ?? {})[0];
+      // The model addressed a masked page, so it can only refer to identifiers by token. Put
+      // the real values back before anything touches the page — a token typed into a search
+      // box or matched against a dropdown option would simply not be found.
+      const action = config.mask ? config.mask.rehydrate(macroOutput.action) : macroOutput.action;
+      const actionName = Object.keys(action ?? {})[0];
       if (!actionName) {
         history.push({ type: 'observation', content: '❌ LLM returned no action' });
         emitHistory();
@@ -291,7 +297,7 @@ export async function runAgentLoop(
       }
       producedAction = true;
 
-      const actionInput = macroOutput.action[actionName];
+      const actionInput = action[actionName];
       const reflection = {
         evaluation_previous_goal: macroOutput.evaluation_previous_goal ?? '',
         memory: macroOutput.memory ?? '',
@@ -301,7 +307,7 @@ export async function runAgentLoop(
       emitActivity({ type: 'executing', tool: actionName, input: actionInput });
 
       const startTime = Date.now();
-      const { name, output } = await executeTool(tools, ctx, macroOutput.action);
+      const { name, output } = await executeTool(tools, ctx, action);
       const duration = Date.now() - startTime;
 
       emitActivity({ type: 'executed', tool: name, output, duration });

@@ -176,15 +176,18 @@ export function assembleUserPrompt(opts: {
   maxSteps: number;
   history: HistoryEntry[];
   browserState: BrowserState;
+  /**
+   * Last thing applied before the text leaves the machine. Covers the task, the history and
+   * the page — everything derived from what the agent saw. NOT the instructions: those are
+   * skill prose we authored, and masking them renames the controls they name.
+   */
+  mask?: (body: string) => string;
 }): string {
-  const { instructions, task, maxSteps, history, browserState } = opts;
+  const { instructions, task, maxSteps, history, browserState, mask } = opts;
   const stepCount = history.filter((e) => e.type === 'step').length;
 
+  const head = instructions ? `<instructions>\n${instructions}\n</instructions>\n\n` : '';
   let prompt = '';
-
-  if (instructions) {
-    prompt += `<instructions>\n${instructions}\n</instructions>\n\n`;
-  }
 
   prompt += '<agent_state>\n';
   prompt += '<user_request>\n';
@@ -219,7 +222,7 @@ export function assembleUserPrompt(opts: {
   prompt += browserState.footer + '\n\n';
   prompt += '</browser_state>\n\n';
 
-  return prompt;
+  return head + (mask ? mask(prompt) : prompt);
 }
 
 // --- Types used by the prompt assembler and the loop driver ---

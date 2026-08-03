@@ -41,7 +41,7 @@ const PII_PATTERNS: readonly RegExp[] = [
 // non-PII numbers — `cid=316341` in a MyOpenMath URL, element coordinates — and tokenizing those
 // breaks navigation and selectors. The negative lookarounds skip query-param and path positions
 // so that, even when enabled, a URL id is left alone.
-const NUMERIC_ID_PATTERN = /(?<![=/\w-])\d{6,10}(?![\w-])/g;
+export const NUMERIC_ID_PATTERN = /(?<![=/\w-])\d{6,10}(?![\w-])/g;
 
 export interface RedactorOptions {
   /** Also tokenize bare 6–10 digit runs as identifiers. Enable only for text you know is page

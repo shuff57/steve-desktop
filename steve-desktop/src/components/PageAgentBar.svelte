@@ -13,6 +13,7 @@
   import { cdp } from '../lib/cdp-client';
   import { connectCDP } from '../lib/cdp-actions';
   import { runAgentLoop, type AgentActivity } from '../lib/page-agent-loop';
+  import { createPageMask } from '../lib/page-agent-mask';
   import { describeActivity } from '../lib/page-agent-overlay';
   import { beginAgentSession } from '../lib/agent-session';
   import { buildToolContext, claimTabForRun } from '../integrations/mom/transfer-via-agent';
@@ -64,6 +65,9 @@
           model,
           apiKey: 'NA',
           maxSteps: 25,
+          // This bar can be pointed at any page, including a live gradebook. One mask per run,
+          // so tokens stay stable across steps and rehydrate back into the actions.
+          mask: createPageMask(),
           onActivity: (a: AgentActivity) => {
             if (a.type === 'executing') steps += 1;
             status = describeActivity(a);

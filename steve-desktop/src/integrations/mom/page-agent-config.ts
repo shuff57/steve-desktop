@@ -12,6 +12,7 @@
  */
 
 import type { PageAgentTool, ToolContext } from '../../lib/page-agent-tools';
+import { createPageMask } from '../../lib/page-agent-mask';
 
 // --- The five markers (from mom-transfer/SKILL.md) ---
 
@@ -260,5 +261,10 @@ export function buildMomTransferConfig(opts: {
     },
     maxSteps: opts.maxSteps ?? 40,
     stepDelay: 0.6, // MOM is slower than SafeColleges
+    // A transfer run drives a live course, so it gets the same trust boundary as any other run.
+    // numericIds off: these pages are dense with structural ids (cid, aid, qsetid) that the
+    // instructions name outright, and tokenizing them would make the model reason about ⟦PID4⟧
+    // where its own skill text says 7158619. No roster is involved in filing questions.
+    mask: createPageMask({ numericIds: false }),
   };
 }
