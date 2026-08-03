@@ -118,7 +118,8 @@ const DARK_CSS = `<style data-dark-css>
 
   /* neutral greys and near-whites — cards, zebra rows, table totals */
   [style*="#fafafa"],[style*="#f2f2f2"],[style*="#f8f8f8"],[style*="#f7f9fa"],[style*="#f6f8fc"],
-  [style*="#eef2f7"],[style*="#f3f4f6"],[style*="#f8f9fa"],[style*="#f5f5f5"],[style*="#e5e7eb"]
+  [style*="#eef2f7"],[style*="#f3f4f6"],[style*="#f8f9fa"],[style*="#f5f5f5"],[style*="#e5e7eb"],
+  [style*="#fbfbfd"]
     {background:rgba(255,255,255,.05)!important;color:#e8e6f0!important}
 
   /* blues — part labels and prompts */
