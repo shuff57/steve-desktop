@@ -36,10 +36,18 @@ import {
   import { createBook, createAssignment, assignmentPath, slugify } from '../../integrations/mom/create';
   import { momIsland } from '../../integrations/mom';
   import { questionHealth } from '../../integrations/mom/health';
-  import { toHistoryCards, railStatusFor } from '../../integrations/mom/rail-presence';
+  import { railStatusFor } from '../../integrations/mom/rail-presence';
   import { sectionMismatch, describeMismatch } from '../../integrations/mom/section-guard';
   import { prepareRenderHtml } from '../../integrations/mom/render-html';
-  import { cliModelArg, extractCliText, engineForProvider, summarizeCliLine, type AgentEngine } from '../../lib/agent-cli';
+  import {
+    cliModelArg,
+    extractCliText,
+    engineForProvider,
+    summarizeCliLine,
+    extractFileEdit,
+    applyFileEdit,
+    type AgentEngine,
+  } from '../../lib/agent-cli';
   import { getSetting, setSetting } from '../../lib/db';
   import ChatMessage from './ChatMessage.svelte';
   import {
@@ -79,6 +87,13 @@ import {
     agentStatus = $bindable('idle' as string),
     agentStatusText = $bindable('' as string),
     history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
+    /** Steps taken this run, for the shell pill's progress chip. */
+    agentProgress = $bindable('' as string),
+    /**
+     * Stop, handed up so the shell's pill can carry it. The rail's own full-width Stop was
+     * a second control for the same act, sitting where the overlay puts nothing.
+     */
+    onStopReady = (_: (() => void) | null) => {},
   } = $props<{
     root: string;
     sandboxUrl: string;
@@ -113,6 +128,8 @@ import {
     agentStatus?: string;
     agentStatusText?: string;
     history?: { icon: string; text: string; type?: string; meta?: string }[];
+    agentProgress?: string;
+    onStopReady?: (stop: (() => void) | null) => void;
   }>();
 
   const DEFAULT_SECTION = '1.1_definitions_of_statistics_probability_and_key_terms.html';
@@ -309,9 +326,32 @@ import {
     agentStatusText = text;
   });
 
-  /** Mirror the conversation into the shell's history cards. */
+  /**
+   * Steps taken this run, for the pill's progress chip.
+   *
+   * Counts the collapsed rows' multipliers, not the rows: "reading a.php ×4" is four steps,
+   * and a counter that disagreed with the log it sits under would be worse than none.
+   */
   $effect(() => {
-    history = toHistoryCards(lines);
+    const steps = lines.filter((l) => l.role === 'step').reduce((n, l) => n + countOf(l.text), 0);
+    agentProgress = busy && steps ? `${steps} step${steps === 1 ? '' : 's'}` : '';
+  });
+
+  /** Hand Stop up so the shell's pill carries it; withdrawn the moment nothing is running. */
+  $effect(() => {
+    onStopReady(busy ? stop : null);
+  });
+
+  /**
+   * The rail deliberately does NOT feed the shell's history cards.
+   *
+   * It used to mirror `lines` into them, and the chat log below renders those same lines —
+   * so every step was drawn twice, ten pills above the identical ten bubbles. The browser
+   * panel has only the cards; the rail has the richer log, and one narration is the point.
+   * The header's dot and status text still carry the presence.
+   */
+  $effect(() => {
+    history = [];
   });
   /** Selection is what decides the job; there is no mode to get out of step with it. */
   const revisingMode = $derived(!!selectedPath);
@@ -408,7 +448,30 @@ import {
   }
 
   function push(key: string, line: Line) {
-    threads = { ...threads, [key]: [...(threads[key] ?? []), line] };
+    const thread = threads[key] ?? [];
+    // Collapse a repeated step into a count rather than stacking it.
+    //
+    // A write that renders, checks and repairs emits the same phrase several times running,
+    // and the log printed each one — eight identical "running a command" rows was the single
+    // noisiest thing in the rail. Only steps collapse: two identical agent replies or two
+    // identical errors are genuinely two events and must both be visible.
+    const last = thread[thread.length - 1];
+    if (line.role === 'step' && last?.role === 'step' && stripCount(last.text) === line.text) {
+      const next = thread.slice(0, -1);
+      next.push({ role: 'step', text: `${line.text} ×${countOf(last.text) + 1}` });
+      threads = { ...threads, [key]: next };
+      return;
+    }
+    threads = { ...threads, [key]: [...thread, line] };
+  }
+
+  /** "reading a.php ×3" → "reading a.php", so the next repeat compares against the phrase. */
+  function stripCount(text: string): string {
+    return text.replace(/\s×\d+$/, '');
+  }
+  function countOf(text: string): number {
+    const m = /\s×(\d+)$/.exec(text);
+    return m ? Number(m[1]) : 1;
   }
 
   function clearThread(key: string) {
@@ -579,6 +642,7 @@ import {
         if (ev.payload.sessionId !== sessionId) return; // other runs share this channel
         const summary = summarizeCliLine(ev.payload.line);
         if (summary) log(summary);
+        streamDraft(ev.payload.line);
       });
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -599,6 +663,33 @@ import {
       unlisten?.();
       if (runningSession === sessionId) runningSession = null;
     }
+  }
+
+  /**
+   * Show the file as it is written, from the stream rather than from disk.
+   *
+   * `watchDraft` polls the question file every 600ms, which is the truth but arrives late: the
+   * agent writes once, near the end of a run, so the pane sat on "Waiting for the agent to write
+   * the file…" for minutes with nothing to poll. The Write call carries the whole file and each
+   * Edit carries its replacement, so the pane can follow the work instead of waiting for it.
+   *
+   * Only `.php` — a run also writes book manifests, and the pane previews questions.
+   */
+  function streamDraft(line: string) {
+    // Only while a run owns the pane. `turn()` drops its listener with an un-awaited
+    // `unlisten?.()`, so an event queued before that can still arrive after `run()`'s finally
+    // has called `onDraft(null)` to hand the pane back — and re-populating it there left the
+    // preview stuck on "Writing…" showing a file that was no longer being written. Observed
+    // live: pane holding 7670 chars against a 6484-byte file, after the run had finished.
+    if (!running) return;
+    const edit = extractFileEdit(line);
+    if (!edit || !/\.php$/i.test(edit.path)) return;
+    const next = applyFileEdit(draft ?? '', edit);
+    // Null means the edit did not match what we hold, so our copy has drifted. Leave the last
+    // good contents up rather than painting text the agent never wrote; the poll will correct it.
+    if (next === null || next === draft) return;
+    draft = next;
+    onDraft(next);
   }
 
   /**
@@ -1165,7 +1256,8 @@ import {
     {/if}
 
     {#if busy}
-      <button class="go stop" onclick={stop}>Stop</button>
+      <!-- Stop lives in the shell's pill now, beside the status it stops — the overlay's
+           arrangement. A full-width red button here was the same act twice over. -->
     {:else if revisingMode}
       <div class="actions">
         <button class="go" onclick={revise} disabled={!brief.trim()}>Send</button>
@@ -1268,7 +1360,6 @@ import {
   .go { padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(128,128,128,.3);
         background: transparent; color: inherit; cursor: pointer; font-size: 13px; }
   .go:disabled { opacity: .45; cursor: default; }
-  .go.stop { border-color: rgba(185,28,28,.5); color: #b91c1c; }
   .chat-log { flex: 1; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
   /* Empty: take only the height of the hint. `flex:1` on an empty log is what put a
      400px void between the header and the composer. */

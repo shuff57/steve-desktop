@@ -59,6 +59,17 @@
     // $bindable like its two siblings above: ActionPanel does `bind:history`, and
     // without this the binding is a hard compile error rather than a silent no-op.
     history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
+    /**
+     * Step count for the pill's progress chip — the overlay's `.pa-prog`. A plain number
+     * because the rail's jobs have no known length; pass a string like "6/15" where one is.
+     */
+    agentProgress = '' as string,
+    /**
+     * Stop for the run in flight. The overlay puts Stop inside the pill, next to the thing
+     * it stops; given one, so does this. Owners that cannot be stopped omit it and no
+     * button is drawn.
+     */
+    onStop = null as (() => void) | null,
     children,
   }: {
     title?: string;
@@ -76,6 +87,8 @@
     agentStatus?: string;
     agentStatusText?: string;
     history?: { icon: string; text: string; type?: string; meta?: string }[];
+    agentProgress?: string;
+    onStop?: (() => void) | null;
     children?: Snippet;
   } = $props();
 
@@ -134,6 +147,26 @@
     ''
   );
   const displayStatusText = $derived(agentStatusText || defaultStatusText);
+
+  /**
+   * Busy is narrower than active, and the difference is the glow.
+   *
+   * The in-page overlay hides its glow the moment the run stops thinking or executing
+   * (`page-agent-overlay.ts` — `glow.style.display = thinking || executing`). `agent-active`
+   * also covers 'completed' and 'awaiting-approval', so driving the glow off it would leave
+   * the panel pulsing after the answer had landed.
+   */
+  const agentBusy = $derived(
+    agentStatus === 'running' || agentStatus === 'thinking' || agentStatus === 'executing',
+  );
+
+  /**
+   * Who has the wheel, as the overlay's pill shows it — the chip is what makes a handover
+   * read as one system changing hands rather than two systems taking turns.
+   */
+  // Via engineForProvider, not a comparison against 'claude': the selector's id for the Claude
+  // CLI is 'anthropic', so matching the engine name left the chip blank on the default provider.
+  const roleLabel = $derived(engineForProvider(provider) === 'claude' ? 'Claude' : 'OpenCode');
 
   /**
    * Fade the status text on change WITHOUT owning its content.
@@ -295,13 +328,19 @@
     ></div>
   {/if}
 
-  <!-- PageAgent-style header with animated gradient background -->
-  <div class="panel-header" class:agent-active={agentStatus !== 'idle' && agentStatus !== 'stopped'}>
-    <div class="header-bg-sweep" class:active={agentStatus === 'running' || agentStatus === 'thinking' || agentStatus === 'executing'}></div>
+  <!-- The ambient edge glow, ported from the in-page overlay's `.pa-glow`. It rings the
+       panel's own edges the way the overlay rings the viewport — the run is announced by
+       the surface lighting up, not by a band of colour competing with the content. -->
+  {#if agentBusy}<div class="agent-glow"></div>{/if}
+
+  <!-- Header is chrome only. The status used to live here under a full-bleed gradient
+       sweep, which is the same animation the overlay runs BLURRED and BEHIND a 40px pill —
+       painted flat across a 400px header it became the loudest object on screen. The pill
+       at the foot of the panel carries the presence now. -->
+  <div class="panel-header">
     <div class="header-status">
-      <span class="status-dot {statusClass}"></span>
-      {#if !isCollapsed}
-        <span bind:this={statusTextEl} class="status-text">{displayStatusText}</span>
+      {#if isCollapsed}
+        <span class="status-dot {statusClass}"></span>
       {/if}
     </div>
     <div class="header-controls">
@@ -361,6 +400,26 @@
     <div class="panel-content">
       {@render children?.()}
     </div>
+
+    <!-- The overlay's status pill, in the same place relative to the log: the driven page
+         stacks recent lines above a bottom-centred pill, and the panel stacks its scrolling
+         log above this one. Same 40px height, same radius 12, same four-stop gradient
+         blurred behind the head rather than painted across it. -->
+    {#if agentStatus !== 'idle'}
+      <div class="agent-pill">
+        <div class="pill-bg" class:active={agentBusy}></div>
+        <div class="pill-head">
+          <span class="status-dot {statusClass}"></span>
+          {#if roleLabel}<span class="pill-role">{roleLabel}</span>{/if}
+          {#if agentProgress}<span class="pill-prog">{agentProgress}</span>{/if}
+          <span bind:this={statusTextEl} class="pill-text">{displayStatusText}</span>
+          {#if onStop && agentBusy}
+            <button class="pill-stop" type="button" onclick={onStop}>Stop</button>
+          {/if}
+        </div>
+      </div>
+    {/if}
+
     <div class="panel-footer">
       <span title="Current CLI session">Session: {sessionId ? sessionId.slice(0, 8) : '—'}</span>
       <span class="ctx" title="Context used this session vs the model's window">
@@ -436,45 +495,119 @@
     padding: 0 var(--spacing-1);
   }
 
-  /* Animated gradient sweep — PageAgent-inspired */
-  .header-bg-sweep {
+  /* ── Ambient edge glow ─────────────────────────────────────────────────────
+     A port of the in-page overlay's `.pa-glow` (page-agent-overlay.ts): one inset
+     box-shadow cycling the four AGENT_SWEEP stops over 6s, so the surface being
+     driven lights up from its own edges. Spreads are scaled for a ~400px column —
+     the overlay's 70px/170px are sized for a viewport and would flood a rail. */
+  .agent-glow {
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    border-radius: inherit;
+    animation: agent-rainbow 6s linear infinite;
+  }
+  @keyframes agent-rainbow {
+    0%   { box-shadow: inset 0 0 34px 4px rgba(57, 182, 255, 0.42),  inset 0 0 84px 16px rgba(189, 69, 251, 0.2); }
+    25%  { box-shadow: inset 0 0 34px 4px rgba(189, 69, 251, 0.42),  inset 0 0 84px 16px rgba(255, 87, 51, 0.2); }
+    50%  { box-shadow: inset 0 0 34px 4px rgba(255, 87, 51, 0.42),   inset 0 0 84px 16px rgba(255, 214, 0, 0.2); }
+    75%  { box-shadow: inset 0 0 34px 4px rgba(255, 214, 0, 0.42),   inset 0 0 84px 16px rgba(57, 182, 255, 0.2); }
+    100% { box-shadow: inset 0 0 34px 4px rgba(57, 182, 255, 0.42),  inset 0 0 84px 16px rgba(189, 69, 251, 0.2); }
+  }
+
+  /* ── Status pill ───────────────────────────────────────────────────────────
+     The overlay's `.pa-pill`: 40px tall, radius 12, with the four-stop sweep
+     running BEHIND it under a 16px blur, then a dark translucent head on top.
+     The blur is the whole difference — the same gradient painted flat is a
+     rainbow band, and blurred behind a pill it is a glow.
+     Stops match AGENT_SWEEP; agent-visual.test.ts fails if they drift. */
+  .agent-pill {
+    position: relative;
+    height: 40px;
+    margin: 0 var(--spacing-4) var(--spacing-2);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .pill-bg {
+    position: absolute;
+    inset: -2px -8px;
+    border-radius: 16px;
+    filter: blur(16px);
+    overflow: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 0;
   }
-  .header-bg-sweep.active {
-    opacity: 1;
-  }
-  .header-bg-sweep::before,
-  .header-bg-sweep::after {
+  .pill-bg.active { opacity: 1; }
+  .pill-bg::before,
+  .pill-bg::after {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    pointer-events: none;
-  }
-  /* Four stops, matching AGENT_SWEEP and the in-page pill exactly. This swept two
-     colours while the pill swept four, so the same "an agent is working" motion
-     read as blue-purple here and as a rainbow on the page. Same geometry, same
-     2s/1s-delay pairing, same stops — the two surfaces are one animation now.
-     Guarded by agent-visual.test.ts, which fails if these drift apart again. */
-  .header-bg-sweep::before {
+    inset: 0;
     background-image: linear-gradient(to bottom left, rgb(57, 182, 255), rgb(189, 69, 251), rgb(255, 87, 51), rgb(255, 214, 0), rgb(57, 182, 255));
     animation: sweep 2s linear infinite;
   }
-  .header-bg-sweep::after {
+  .pill-bg::after {
     background-image: linear-gradient(to bottom left, rgb(255, 214, 0), rgb(255, 87, 51), rgb(189, 69, 251), rgb(57, 182, 255), rgb(255, 214, 0));
-    animation: sweep 2s linear infinite;
     animation-delay: 1s;
   }
   @keyframes sweep {
     from { transform: translateX(-100%); }
     to { transform: translateX(100%); }
+  }
+  .pill-head {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 0 5px 1px rgba(255, 255, 255, 0.12);
+  }
+  .pill-role {
+    flex: 0 0 auto;
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    white-space: nowrap;
+  }
+  /* Tabular figures so a rising count does not jitter the text beside it. */
+  .pill-prog {
+    flex: 0 0 auto;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-variant-numeric: tabular-nums;
+  }
+  .pill-stop {
+    flex: 0 0 auto;
+    height: 24px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(239, 68, 68, 0.2);
+    color: rgb(239, 68, 68);
+  }
+  .pill-stop:hover { background: rgba(239, 68, 68, 0.35); }
+  .pill-text {
+    flex: 1;
+    min-width: 0;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header-status {
@@ -530,25 +663,9 @@
     50% { opacity: 0.5; transform: scale(1.4); }
   }
 
-  .status-text {
-    color: var(--text-on-sidebar, #e8e3d5);
-    font-size: 0.82rem;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
-    z-index: 1;
-  }
-  .status-text.fade-out {
-    animation: text-fade-out 0.15s ease forwards;
-  }
-  .status-text.fade-in {
+  /* The fade rides the pill's text now — same effect, moved with the element. */
+  .pill-text.fade-in {
     animation: text-fade-in 0.3s ease forwards;
-  }
-  @keyframes text-fade-out {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-4px); }
   }
   @keyframes text-fade-in {
     0% { opacity: 0; transform: translateY(4px); }
@@ -623,6 +740,10 @@
     flex-shrink: 0;
   }
   .hcard {
+    /* A flex column with a max-height squashes its children before the scrollbar ever
+       engages: ten cards in a 200px box compressed every row to a clipped sliver instead
+       of scrolling. Cards keep their height; the container scrolls. */
+    flex-shrink: 0;
     padding: 6px 10px;
     background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
     border-radius: 8px;

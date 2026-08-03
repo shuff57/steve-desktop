@@ -203,6 +203,9 @@
   let railStatus = $state('idle');
   let railStatusText = $state('');
   let railHistory = $state([] as { icon: string; text: string; type?: string; meta?: string }[]);
+  /** Step count and Stop for the shell's pill — the two controls the overlay keeps in it. */
+  let railProgress = $state('');
+  let railStop = $state<(() => void) | null>(null);
   const showPlan = $derived(authorDraft === null && !!planView && !selectedQuestion);
   const planAllSelected = $derived(
     !!planView && planView.planned.length > 0 && planView.selected.length === planView.planned.length,
@@ -799,11 +802,15 @@
         bind:agentStatus={railStatus}
         bind:agentStatusText={railStatusText}
         bind:history={railHistory}
+        agentProgress={railProgress}
+        onStop={railStop}
       >
         <MomAuthor
           bind:agentStatus={railStatus}
           bind:agentStatusText={railStatusText}
           bind:history={railHistory}
+          bind:agentProgress={railProgress}
+          onStopReady={(s) => (railStop = s)}
           root={momRoot ?? ''}
           sandboxUrl={SANDBOX_URL}
           families={families.map((f) => f.name)}

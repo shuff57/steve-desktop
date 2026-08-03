@@ -146,7 +146,165 @@ export function describeBrowserCommand(command: string): string {
   if (c.includes('inserttext') || c.includes('dispatchkeyevent') || /\bfill\b|\.value\s*=/.test(c)) return 'filling a field';
   if (c.includes('runtime.evaluate') || c.includes('document.') || c.includes('json/list') || c.includes('innertext')) return 'reading the page';
   if (c.includes('cdp') || c.includes('websocket') || c.includes('devtools')) return 'driving the browser';
-  return 'running a command';
+  // Every branch above assumes the command is driving a browser. The question rail's agent is
+  // not — it runs php, git, grep — so all of it landed on the same "running a command", eight
+  // identical lines in a row for eight different things. Name the program instead.
+  return namedCommand(command) ?? 'running a command';
+}
+
+/**
+ * A file the agent is writing, pulled out of the stream it is already sending us.
+ *
+ * The preview pane used to learn about a write by polling the file on disk every 600ms,
+ * which meant it sat on "Waiting for the agent to write the file…" for the whole run —
+ * the agent touches disk once, near the end, so there was genuinely nothing to poll. The
+ * content is in the `Write` tool call itself, and every repair is in the `Edit` calls, so
+ * the pane can show the file from the moment the agent commits to it.
+ */
+export interface FileEdit {
+  path: string;
+  /** Whole contents, for a Write. Null when this is a replacement. */
+  content: string | null;
+  /** The replacement an Edit performs, applied against what the pane already holds. */
+  replace?: { from: string; to: string };
+}
+
+/** One stream line → the file write it performs, or null if it performs none. */
+export function extractFileEdit(line: string): FileEdit | null {
+  let ev: {
+    type?: string;
+    message?: { content?: { type?: string; name?: string; input?: Record<string, unknown> }[] };
+    part?: { tool?: string; state?: { input?: Record<string, unknown> } };
+  };
+  try {
+    ev = JSON.parse(line);
+  } catch {
+    return null;
+  }
+  if (ev.type === 'assistant' && Array.isArray(ev.message?.content)) {
+    for (const c of ev.message.content) {
+      if (c.type === 'tool_use' && c.name) {
+        const hit = fileEditFrom(c.name, c.input);
+        if (hit) return hit;
+      }
+    }
+    return null;
+  }
+  if (ev.type === 'tool_use' && ev.part?.tool) return fileEditFrom(ev.part.tool, ev.part.state?.input);
+  return null;
+}
+
+function fileEditFrom(tool: string, input?: Record<string, unknown>): FileEdit | null {
+  const i = input ?? {};
+  const str = (v: unknown) => (typeof v === 'string' ? v : null);
+  // opencode spells it filePath; claude spells it file_path.
+  const path = str(i.file_path) ?? str(i.filePath);
+  if (!path) return null;
+  const name = tool.toLowerCase();
+  if (name === 'write') {
+    const content = str(i.content);
+    return content === null ? null : { path, content };
+  }
+  if (name === 'edit') {
+    const from = str(i.old_string) ?? str(i.oldString);
+    const to = str(i.new_string) ?? str(i.newString);
+    // A replacement with nothing to find cannot be applied to the pane's copy.
+    return from ? { path, content: null, replace: { from, to: to ?? '' } } : null;
+  }
+  return null;
+}
+
+/**
+ * Apply an edit to what the pane is showing, or null if it cannot be applied cleanly.
+ *
+ * Null on a miss is the point: an `old_string` that is not in our copy means the pane has
+ * drifted from the real file, and guessing would put text on screen that was never written.
+ * Better to leave the last known-good contents up and let the disk poll correct it.
+ */
+export function applyFileEdit(current: string, edit: FileEdit): string | null {
+  if (edit.content !== null) return edit.content;
+  if (!edit.replace) return null;
+  const { from, to } = edit.replace;
+  return current.includes(from) ? current.replace(from, to) : null;
+}
+
+/** 'webfetch' → 'WebFetch', so opencode's lowercase tool names hit describeTool's cases. */
+function titleCaseTool(tool: string): string {
+  const known = ['Read', 'Write', 'Edit', 'Glob', 'Grep', 'WebFetch', 'WebSearch', 'Skill', 'ToolSearch'];
+  return known.find((k) => k.toLowerCase() === tool.toLowerCase()) ?? tool;
+}
+
+/** `php -r '…'` → "running php". First real word of the command, when it looks like a program. */
+function namedCommand(command: string): string | null {
+  // Deliberately NOT a shell parse — splitting on `;` and `|` cut `php -r "echo 1;"` in half
+  // and lost the program. Strip only the two prefixes that reliably precede the real command
+  // (a `cd somewhere &&` hop and env assignments), then take the head token.
+  const prog = command
+    .trim()
+    .replace(/^cd\s+(?:"[^"]*"|'[^']*'|\S+)\s*&&\s*/i, '')
+    .replace(/^(?:\w+=(?:"[^"]*"|'[^']*'|\S+)\s+)+/, '')
+    .split(/\s+/)[0];
+  if (!prog) return null;
+  const name = prog.replace(/\.(exe|cmd|sh)$/i, '').split(/[/\\]/).pop();
+  return name && /^[\w.-]{1,20}$/.test(name) ? `running ${name}` : null;
+}
+
+/**
+ * One tool call as a phrase with an object in it.
+ *
+ * A bare "using Read" says nothing a second "using Read" doesn't, which is how the rail
+ * produced six identical lines for six different files. The in-page overlay never had this
+ * problem because `describeActivity` always appends a summary of the input — this is the
+ * same idea, with per-tool knowledge of which argument is the interesting one.
+ */
+export function describeTool(name: string, input?: Record<string, unknown>): string {
+  const s = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null);
+  const tail = (p: string) => p.split(/[/\\]/).filter(Boolean).pop() ?? p;
+  const clip = (v: string, max = 44) =>
+    v.replace(/\s+/g, ' ').length > max ? `${v.replace(/\s+/g, ' ').slice(0, max - 1)}…` : v.replace(/\s+/g, ' ');
+  const i = input ?? {};
+
+  switch (name) {
+    case 'Read':
+    case 'NotebookEdit': {
+      const f = s(i.file_path) ?? s(i.notebook_path);
+      return f ? `reading ${tail(f)}` : 'reading a file';
+    }
+    case 'Write': {
+      const f = s(i.file_path);
+      return f ? `writing ${tail(f)}` : 'writing a file';
+    }
+    case 'Edit': {
+      const f = s(i.file_path);
+      return f ? `editing ${tail(f)}` : 'editing a file';
+    }
+    case 'Glob':
+    case 'Grep': {
+      const p = s(i.pattern);
+      return p ? `searching for ${clip(p, 32)}` : 'searching the files';
+    }
+    case 'WebFetch': {
+      const u = s(i.url);
+      return u ? `fetching ${clip(u.replace(/^https?:\/\//, ''), 40)}` : 'fetching a page';
+    }
+    case 'WebSearch': {
+      const q = s(i.query);
+      return q ? `searching the web for ${clip(q, 36)}` : 'searching the web';
+    }
+    case 'Skill': {
+      const k = s(i.skill);
+      return k ? `following the ${k} skill` : 'following a skill';
+    }
+    case 'ToolSearch': {
+      const q = s(i.query);
+      return q ? `looking for a ${clip(q, 32)} tool` : 'looking for a tool';
+    }
+    default: {
+      // Unknown tool: still better with its most descriptive string argument attached.
+      const hint = s(i.description) ?? s(i.query) ?? s(i.pattern) ?? s(i.file_path);
+      return hint ? `using ${name} — ${clip(hint, 40)}` : `using ${name}`;
+    }
+  }
 }
 
 // Distil one stream-json event into a short, human snapshot for the live activity feed — or null to
@@ -161,10 +319,19 @@ export function summarizeCliLine(line: string): string | null {
         type?: string;
         name?: string;
         text?: string;
-        input?: { command?: string; description?: string; prompt?: string; subagent_type?: string };
+        input?: Record<string, unknown> & {
+        command?: string;
+        description?: string;
+        prompt?: string;
+        subagent_type?: string;
+      };
       }[];
     };
-    part?: { text?: string; tool?: string; state?: { input?: { command?: string } } };
+    part?: {
+      text?: string;
+      tool?: string;
+      state?: { input?: Record<string, unknown> & { command?: string } };
+    };
     is_error?: boolean;
   };
   try {
@@ -188,7 +355,7 @@ export function summarizeCliLine(line: string): string | null {
           if (/\b(claude|opencode)\b(\.exe)?\s/.test(cmd)) return `⚡ spawned a CLI agent process`;
           return describeBrowserCommand(cmd);
         }
-        return c.name ? `using ${c.name}` : null;
+        return c.name ? describeTool(c.name, c.input) : null;
       }
       if (c.type === 'text' && c.text?.trim()) {
         const t = c.text.trim();
@@ -203,7 +370,11 @@ export function summarizeCliLine(line: string): string | null {
   if (ev.type === 'step_start' || ev.type === 'step_finish') return null;
   if (ev.type === 'tool_use' && ev.part) {
     if (ev.part.tool === 'bash' && ev.part.state?.input?.command) return describeBrowserCommand(ev.part.state.input.command);
-    return ev.part.tool ? `using ${ev.part.tool}` : null;
+    // opencode lowercases its tool names ('read', 'webfetch'); describeTool is keyed on the
+    // claude-style capitalised names, so title-case before looking one up.
+    return ev.part.tool
+      ? describeTool(titleCaseTool(ev.part.tool), ev.part.state?.input)
+      : null;
   }
   if (ev.type === 'text' && ev.part?.text?.trim()) {
     const t = ev.part.text.trim();

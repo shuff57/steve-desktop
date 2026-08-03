@@ -31,7 +31,10 @@
   .wrap { display: flex; flex-direction: column; gap: 2px; max-width: 92%; }
   .wrap.user { align-self: flex-end; align-items: flex-end; }
   .wrap.agent { align-self: flex-start; align-items: flex-start; }
-  .wrap.system { align-self: center; align-items: center; max-width: 100%; }
+  /* Steps read as a run log, so they hang off the left margin like the overlay's history
+     lines. Centred, they were a ragged column of grey text floating in the middle of the
+     rail with no edge to scan down. */
+  .wrap.system { align-self: flex-start; align-items: flex-start; max-width: 100%; }
   .meta { font-size: 11px; opacity: .55; padding: 0 2px; }
   .bubble { font-size: 13px; line-height: 1.45; padding: 8px 11px; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .bubble.user { background: rgba(59,130,246,.18); border-bottom-right-radius: 4px; }
