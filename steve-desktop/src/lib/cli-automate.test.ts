@@ -211,3 +211,15 @@ describe('buildEnhancePrompt', () => {
     expect(p).toContain('Output ONLY the rewritten task prompt');
   });
 });
+
+describe('the return-home instruction', () => {
+  it('never tells the agent to reload the page it is already on', () => {
+    // Measured live: an unconditional "navigate back to <startUrl>" made the agent reload the page
+    // it had just acted on, clearing the selection the task had made. The run then reported an end
+    // state its own last action had undone.
+    const p = buildAutomateExecPrompt({ ...base, approvedPlan: '1. pick a student' });
+    expect(p).toContain('do NOT');
+    expect(p).toContain('reloading can undo what you just did');
+    expect(p).not.toMatch(/When done, navigate back to/);
+  });
+});

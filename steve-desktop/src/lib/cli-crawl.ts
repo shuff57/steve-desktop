@@ -99,6 +99,14 @@ export function pageToolInstruction(o: { multiTab?: boolean } = {}): string {
     'reach the browser any other way: no CDP, no curl to a debug port, no playwright/puppeteer, no',
     'launching a browser of your own. If the page tools cannot do something, stop and say so.',
     '',
+    // Measured, not assumed: with tool search on, every mcp__page__* tool arrives DEFERRED, so a
+    // first call fails with "no such tool" unless the schemas are fetched. Say so rather than let
+    // the agent conclude it has no way to reach the browser and give up.
+    'The page tools are named `mcp__page__page_read` and so on. If they are not already loaded,',
+    'fetch them first with ToolSearch("select:mcp__page__page_read,mcp__page__page_task,' +
+      'mcp__page__page_click,mcp__page__page_type,mcp__page__page_navigate") — plus the',
+    'screenshot / record / tabs / attach_file ones if the task needs them.',
+    '',
     '- page_read — the page as numbered elements plus its text. Every index in it ([3]<button>Save',
     '  </button>) is how you address that element. Indexes CHANGE after any action, so read again',
     '  rather than reusing an index across actions.',

@@ -37,6 +37,7 @@
   import { connectCDP } from '../../lib/cdp-actions';
   import { buildToolContext } from '../../integrations/mom/transfer-via-agent';
   import { startPageToolsBridge } from '../../lib/page-tools-bridge';
+  import { endRunMask, maskForRun } from '../../lib/page-agent-mask';
   import { MOM_TRANSFER_MODELS } from '../../integrations/mom/page-agent-config';
   import type { Confinement } from '../../lib/page-agent-run';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
@@ -81,6 +82,18 @@
     lastRun
       ? `Earlier in this session you were asked: ${lastRun.task}\n\nYou reported:\n${lastRun.result}\n\nFOLLOW-UP TASK: ${t}`
       : t;
+
+  /**
+   * Tokenize a piece of prompt content before it leaves for the CLI.
+   *
+   * Three things carry student data into a prompt and none of them are instructions: the task
+   * (the teacher can type a name into it), the stored site map, and an earlier run's plan or
+   * report — those come back from `spawn` rehydrated for the screen, so they arrive here holding
+   * real names and have to be re-tokenized. Deliberately NOT applied to the surrounding
+   * instructions: masking those eats the control labels the agent is meant to click.
+   */
+  const outbound = (sid: string, text: string, url: string): string =>
+    text ? maskForRun(sid).text(text, url) : text;
 
   const busy = $derived(phase === 'mapping' || phase === 'planning' || phase === 'executing');
 
@@ -316,10 +329,14 @@
       for (const l of lines) if (merged[merged.length - 1] !== l) merged.push(l);
       progress = merged.slice(-40);
     });
+    // The CLI only ever saw tokens, so everything it says carries them. The mask keeps student data
+    // off the wire — the teacher reading their own gradebook is exactly who it does NOT hide from,
+    // so put the names back on the way to the screen.
+    const show = (s: string) => maskForRun(sessionId).rehydrate(s);
     const unlisten = await listen<{ sessionId: string; line: string }>('agent-cli-progress', (ev) => {
       if (ev.payload.sessionId !== sessionId) return;
       const s = summarizeCliLine(ev.payload.line);
-      if (s) progressBuf.push(s);
+      if (s) progressBuf.push(show(s));
     });
     // Watch the WebView2 debug endpoint: it has wedged under load, and a wedged endpoint means
     // the agent's CDP calls hang. Surface it so a stuck run is diagnosable, not silent.
@@ -355,7 +372,7 @@
         return buildToolContext(cdp, controller.signal);
       },
       subTask: { baseURL: SUBTASK_BASE_URL, model: SUBTASK_MODEL, confine },
-      onActivity: (line) => progressBuf.push(line),
+      onActivity: (line) => progressBuf.push(show(line)),
     });
     try {
       const stdout = await invoke<string>('run_agent_cli', {
@@ -370,7 +387,7 @@
         stream: true,
         mcpConfig: bridge.mcpConfig,
       });
-      return extractCliText(engine, stdout);
+      return show(extractCliText(engine, stdout));
     } finally {
       controller.abort();
       await bridge.stop();
@@ -379,6 +396,9 @@
       await hideAgentConnected(drivenTab, sessionId);
       unlisten();
       currentSessionId = null;
+      // Drops the only copy of this run's identifiers. Last, because everything above still needs
+      // to translate tokens back — the returned report is rehydrated before this runs.
+      endRunMask(sessionId);
     }
   }
 
@@ -413,7 +433,7 @@
       msg = 'Planning (read-only)…';
       progress = [];
       const sid = crypto.randomUUID(); // minted BEFORE the prompt so the run's tab ownership id is baked into it
-      const raw = await spawn(buildAutomatePlanPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', scope, multiTab: effMultiTab }), 'plan', sid, confine);
+      const raw = await spawn(buildAutomatePlanPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), scope, multiTab: effMultiTab }), 'plan', sid, confine);
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -452,7 +472,7 @@
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, multiTab: effMultiTab }),
+        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, multiTab: effMultiTab }),
         'exec',
         sid,
         confinementFor(startUrl, effMultiTab),
@@ -483,7 +503,7 @@
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, multiTab: effMultiTab }),
+        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, approvedPlan: outbound(sid, plan, startUrl), multiTab: effMultiTab }),
         'exec',
         sid,
         confinementFor(startUrl, effMultiTab),

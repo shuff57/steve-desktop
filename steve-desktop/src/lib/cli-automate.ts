@@ -158,8 +158,13 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
           '',
         ].join('\n')
       : '',
+    // Measured live: this said "navigate back to <startUrl>" unconditionally, and the agent — already
+    // on that page — reloaded it. The reload cleared the dropdown selection the task had just made,
+    // so the run's own report described an end state that its own last action had undone.
     o.startUrl
-      ? `When done, navigate back to ${o.startUrl} and output ONLY a markdown result report:`
+      ? `When done, if the browser has moved away from ${o.startUrl}, go back to it — but do NOT` +
+        ' navigate to the page you are already on, because reloading can undo what you just did' +
+        ' (a selection, a filled form). Then output ONLY a markdown result report:'
       : 'When done, output ONLY a markdown result report:',
     '# Result',
     planned
