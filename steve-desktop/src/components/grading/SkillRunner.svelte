@@ -40,6 +40,12 @@
   // Only skills carrying a recorded steps block can be replayed.
   const replayable = $derived(skills.filter((s) => /```json/.test(s.content)));
 
+  /** Arm the recorder beside this browser and switch to it. Same door the Skills page uses —
+   *  recording has to watch the embedded browser, so it happens here, not on a page. */
+  function recordSkill() {
+    window.dispatchEvent(new CustomEvent('steve:action-panel', { detail: { mode: 'teach' } }));
+  }
+
   function paramsOf(skill: Skill): string[] {
     try {
       return workflowParams(skillToWorkflow(skill.content));
@@ -220,7 +226,12 @@
 <div class="skill-runner">
   <div class="runner-head">
     <span class="hdr">Replayable skills</span>
-    <button class="refresh" onclick={load} title="Reload skills">↻</button>
+    <div class="runner-actions">
+      <button class="record" onclick={recordSkill} title="Do the task once in this browser; STEVE writes the skill">
+        🎓 Record Skill
+      </button>
+      <button class="refresh" onclick={load} title="Reload skills">↻</button>
+    </div>
   </div>
 
   {#if loading}
@@ -293,6 +304,9 @@
 <style>
   .skill-runner { display: flex; flex-direction: column; gap: var(--spacing-2); }
   .runner-head { display: flex; align-items: center; justify-content: space-between; }
+  .runner-actions { display: flex; align-items: center; gap: var(--spacing-2); }
+  .record { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); cursor: pointer; font-size: 0.78rem; padding: 3px 10px; border-radius: var(--radius-md); flex-shrink: 0; }
+  .record:hover { background: color-mix(in srgb, var(--color-primary) 12%, transparent); }
   .hdr { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); font-weight: 600; }
   .refresh { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.9rem; padding: 2px 6px; border-radius: var(--radius-sm); }
   .refresh:hover { background: var(--bg-hover); color: var(--text-primary); }

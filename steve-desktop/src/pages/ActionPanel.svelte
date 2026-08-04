@@ -17,12 +17,12 @@
     active = true,
   } = $props();
 
-  // `teach` is deliberately absent: recording a skill is one job with one front door, and that
-  // door is the Skills page ("Record Skill" → nav 'teach-record'). The mode still renders below —
-  // recording has to happen beside the browser it watches — it just is not a tab you pick.
+  // `teach` and `discovery` are deliberately absent: recording a skill and mapping a site are
+  // jobs with their own front doors (the Skills page's Record Skill; Grading's "Map this site"),
+  // not tabs you pick. Both modes still render below — recording and crawling have to happen
+  // beside the browser they watch — they just are not chips.
   const MODES = [
     { id: 'agent', icon: '🤖', label: 'Agent' },
-    { id: 'discovery', icon: '🔍', label: 'Discovery' },
     { id: 'skills', icon: '▶', label: 'Skills' },
     { id: 'ogre', icon: '📝', label: 'Grading' },
   ];
