@@ -1,3 +1,5 @@
+mod page_mcp;
+
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
@@ -2038,6 +2040,10 @@ async fn run_agent_cli(
     // opencode only. Selects one of its configured agents; `summary` carries almost no
     // tools. See the opencode arm below for why that matters. None keeps today's behaviour.
     agent: Option<String>,
+    // claude only. A `{"mcpServers":{...}}` blob, injected with --mcp-config. Paired with the
+    // --strict-mcp-config below, this is the ONLY server the spawned CLI loads — the user's own
+    // MCP servers stay out of a run that is driving their live gradebook.
+    mcp_config: Option<String>,
 ) -> Result<String, String> {
     let streaming = stream == Some(true);
     let bin = resolve_on_path(&engine).ok_or_else(|| {
@@ -2069,6 +2075,9 @@ async fn run_agent_cli(
                 args.push("--dangerously-skip-permissions".into());
             } else {
                 args.extend(["--disallowed-tools".into(), "*".into()]);
+            }
+            if let Some(cfg) = mcp_config.as_ref().filter(|s| !s.trim().is_empty()) {
+                args.extend(["--mcp-config".into(), cfg.clone()]);
             }
             args.push("--strict-mcp-config".into());
             if resume {
@@ -3102,6 +3111,9 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             open_artifact,
             start_recording,
             stop_recording,
+            page_mcp::start_page_tools,
+            page_mcp::stop_page_tools,
+            page_mcp::page_tool_result,
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
@@ -3120,6 +3132,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
         .manage(Mutex::new(RecordingState { stop: None, handle: None }))
         .manage(AgentProcs::default())
         .manage(LoginProc::default())
+        .manage(page_mcp::PageTools::default())
         .setup(|app| {
             // Ship the question-writing skill to where a spawned CLI can actually find it.
             install_mom_skill(app.handle());

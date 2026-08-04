@@ -1,3 +1,5 @@
+import { describePageTool } from './page-tools-bridge';
+
 export type AgentEngine = 'claude' | 'opencode';
 
 /**
@@ -274,6 +276,10 @@ export function describeTool(name: string, input?: Record<string, unknown>): str
       return q ? `looking for a ${clip(q, 32)} tool` : 'looking for a tool';
     }
     default: {
+      // The page tools arrive namespaced (mcp__page__page_click) and would otherwise read as
+      // "using mcp__page__page_click" — the exact tool-name spam this function exists to replace.
+      const page = name.startsWith('mcp__page__') ? describePageTool(name.slice('mcp__page__'.length), i) : null;
+      if (page) return page;
       // Unknown tool: still better with its most descriptive string argument attached.
       const hint = s(i.description) ?? s(i.query) ?? s(i.pattern) ?? s(i.file_path);
       return hint ? `using ${name} — ${clip(hint, 40)}` : `using ${name}`;
