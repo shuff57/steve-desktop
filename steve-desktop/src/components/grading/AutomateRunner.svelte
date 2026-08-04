@@ -2,13 +2,19 @@
   /**
    * AutomateRunner — map-aware task automation with a human review gate.
    *
-   * Flow: describe a task → PLAN (a spawned CLI drives the logged-in browser READ-ONLY over the
-   * CDP debug port and writes the steps it intends to take, using the existing site map for
-   * context; it maps the site first if none exists) → you review the plan → APPROVE → EXECUTE
-   * (the CLI carries out ONLY the approved steps, and may now click/submit).
+   * Flow: describe a task → PLAN (a spawned CLI reads the logged-in browser READ-ONLY and writes
+   * the steps it intends to take, using the existing site map for context; it maps the site first
+   * if none exists) → you review the plan → APPROVE → EXECUTE (the CLI carries out ONLY the
+   * approved steps, and may now click/submit).
    *
    * The approval is the safety gate between read-only planning and live mutation, so nothing that
    * changes the site happens until you approve a plan you can read.
+   *
+   * The CLI orchestrates but does NOT touch the browser: it gets the `page` MCP tools instead of
+   * the CDP port, and every page read comes back through the app with student names and ids
+   * tokenized. The port is deliberately never in the prompt — with no port there is no raw-read
+   * path, which is what makes the masking a boundary rather than a convention. The app still knows
+   * the port (the wedge watchdog polls it); the spawned CLI never learns it.
    */
   import { onMount, onDestroy } from 'svelte';
   import {
@@ -27,7 +33,12 @@
   import { buildCliCrawlPrompt, parseCliCrawlOutput } from '../../lib/cli-crawl';
   import { buildAutomatePlanPrompt, buildAutomateExecPrompt, cleanAutomateOutput, planHasMutations, parsePlan, buildEnhancePrompt } from '../../lib/cli-automate';
   import { loadMappingDoc, saveMappingDoc, getMappingDocPath } from '../../lib/site-profiles';
-  import { tabMarker } from '../../lib/tab-control';
+  import { cdp } from '../../lib/cdp-client';
+  import { connectCDP } from '../../lib/cdp-actions';
+  import { buildToolContext } from '../../integrations/mom/transfer-via-agent';
+  import { startPageToolsBridge } from '../../lib/page-tools-bridge';
+  import { MOM_TRANSFER_MODELS } from '../../integrations/mom/page-agent-config';
+  import type { Confinement } from '../../lib/page-agent-run';
   import { createCdpWatchdog } from '../../lib/cdp-watchdog';
   import { showAgentConnected, hideAgentConnected } from '../../lib/agent-overlay';
   import { createThrottledBuffer } from '../../lib/throttle-buffer';
@@ -260,13 +271,39 @@
     try { return await getEmbeddedUrl(tabId); } catch { return ''; }
   }
 
-  /** window.name marker of the tab being driven — pins the spawned agent to the exact tab. */
-  const markerNow = (): string | undefined => { const id = getActiveTabId(); return id ? tabMarker(id) : undefined; };
+  /**
+   * The model behind `page_task`.
+   *
+   * It CANNOT be the CLI's own engine: the sub-task loop needs an OpenAI-compatible endpoint, which
+   * the Claude engine is not. So page work runs on whatever Ollama serves locally — and when Ollama
+   * is down or rate-limited, page_task says so and the orchestrator drives with the primitives
+   * instead. That degrade path is why a missing Ollama is a slower run, not a failed one.
+   */
+  const SUBTASK_BASE_URL = 'http://127.0.0.1:11434/v1';
+  const SUBTASK_MODEL = MOM_TRANSFER_MODELS[0] as string;
+
+  /**
+   * The fence the page tools enforce on every navigation.
+   *
+   * Null when no page is open (there is nothing to anchor to) or when the run is allowed to span
+   * sites — the prompt still carries the rules, but a fence derived from a page the run does not
+   * start on would refuse the first legitimate hop.
+   */
+  function confinementFor(startUrl: string, multiTab: boolean): Confinement | undefined {
+    if (!startUrl) return undefined;
+    return { startUrl, sameDomainOnly: !multiTab };
+  }
 
   /** Spawn the engine CLI with streamed progress; returns its final text. Pass the sessionId that
-   *  was baked into the prompt (tab ownership) so run/stop/progress and tab ownership all share
-   *  one run identity. */
-  async function spawn(prompt: string, label: string, sessionId: string = crypto.randomUUID()): Promise<string> {
+   *  was baked into the prompt (tab ownership) so run/stop/progress, tab ownership and the page
+   *  tools' mask all share one run identity. */
+  async function spawn(
+    prompt: string,
+    label: string,
+    sessionId: string = crypto.randomUUID(),
+    confine?: Confinement,
+  ): Promise<string> {
+    // For the watchdog only. This never reaches the CLI — see the header comment.
     const port = await invoke<number | null>('get_cdp_port');
     if (!port) throw new Error('CDP debug port unavailable — restart the app.');
     const engine = engineForProvider(provider);
@@ -304,6 +341,22 @@
     // register the run's session so tabs it opens are OWNED by this sessionId (no tab fights).
     const drivenTab = getActiveTabId();
     await showAgentConnected(drivenTab, sessionId);
+    // Answer the CLI's page tools for the life of this run. Started BEFORE the spawn: the endpoint
+    // has to exist by the time the CLI's first tool call lands.
+    const controller = new AbortController();
+    const bridge = await startPageToolsBridge({
+      runId: sessionId,
+      // Resolved per call, not captured: page_tabs can change which tab is active, and a context
+      // taken now would keep reading the tab the agent has since switched away from.
+      ctx: async () => {
+        const tab = getActiveTabId();
+        if (!tab) throw new Error('No page is open in the app.');
+        if (!(await connectCDP(undefined, tab))) throw new Error('Could not attach to the page.');
+        return buildToolContext(cdp, controller.signal);
+      },
+      subTask: { baseURL: SUBTASK_BASE_URL, model: SUBTASK_MODEL, confine },
+      onActivity: (line) => progressBuf.push(line),
+    });
     try {
       const stdout = await invoke<string>('run_agent_cli', {
         engine,
@@ -312,12 +365,15 @@
         resume: false,
         model: cliModelArg(engine, model),
         systemPrompt: null,
-        bypassPermissions: true, // full-shell: the agent needs Bash to speak CDP
+        bypassPermissions: true, // full-shell: the agent still reasons, writes files, and runs commands
         timeoutSecs: 900,
         stream: true,
+        mcpConfig: bridge.mcpConfig,
       });
       return extractCliText(engine, stdout);
     } finally {
+      controller.abort();
+      await bridge.stop();
       progressBuf.flush(); // emit any buffered progress lines
       watchdog.stop();
       await hideAgentConnected(drivenTab, sessionId);
@@ -339,10 +395,8 @@
     const effMultiTab = true; // always allow cross-site tab spanning
     const domain = noPage ? null : domainFromUrl(startUrl);
     const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
+    const confine = confinementFor(startUrl, effMultiTab);
     try {
-      const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
-
       // Map-first: reuse an existing site map, or build one now if the domain has none.
       let map = domain ? (await loadMappingDoc(domain)) : null;
       if (map) {
@@ -350,7 +404,7 @@
       } else if (domain) {
         phase = 'mapping';
         msg = 'No site map yet — mapping the site first…';
-        const crawl = await spawn(buildCliCrawlPrompt({ cdpPort: port, startUrl, scope, marker: markerNow() }), 'map');
+        const crawl = await spawn(buildCliCrawlPrompt({ startUrl, scope }), 'map', crypto.randomUUID(), confine);
         const { doc } = parseCliCrawlOutput(crawl);
         if (doc) { await saveMappingDoc(domain, doc).catch(() => {}); map = doc; mapUsed = 'created'; }
       }
@@ -359,7 +413,7 @@
       msg = 'Planning (read-only)…';
       progress = [];
       const sid = crypto.randomUUID(); // minted BEFORE the prompt so the run's tab ownership id is baked into it
-      const raw = await spawn(buildAutomatePlanPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', scope, marker: markerNow(), multiTab: effMultiTab, sessionId: sid }), 'plan', sid);
+      const raw = await spawn(buildAutomatePlanPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', scope, multiTab: effMultiTab }), 'plan', sid, confine);
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -391,19 +445,17 @@
     const domain = noPage ? null : domainFromUrl(startUrl);
     const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
     try {
-      const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       const map = domain ? await loadMappingDoc(domain) : null;
       mapUsed = map ? 'existing' : 'none';
-      const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       phase = 'executing';
       msg = 'Running the task directly — no plan was reviewed.';
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
+        buildAutomateExecPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, multiTab: effMultiTab }),
         'exec',
         sid,
+        confinementFor(startUrl, effMultiTab),
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };
@@ -425,18 +477,16 @@
     const domain = noPage ? null : domainFromUrl(startUrl);
     const scope = noPage ? null : scopeOf(startUrl); // always confine to the starting course/section
     try {
-      const port = await invoke<number | null>('get_cdp_port');
-      if (!port) throw new Error('CDP debug port unavailable — restart the app.');
       phase = 'executing';
       msg = 'Executing the approved plan…';
       const map = domain ? await loadMappingDoc(domain) : null;
-      const artifactsDir = await invoke<string>('artifacts_dir').catch(() => undefined);
       const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ cdpPort: port, startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, marker: markerNow(), multiTab: effMultiTab, artifactsDir, sessionId: sid }),
+        buildAutomateExecPrompt({ startUrl, task: taskWithContext(task), map: map ?? '', mapDocPath, scope, approvedPlan: plan, multiTab: effMultiTab }),
         'exec',
         sid,
+        confinementFor(startUrl, effMultiTab),
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };

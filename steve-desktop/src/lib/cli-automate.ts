@@ -1,7 +1,7 @@
 import { DENY_LINK } from './site-map';
-import { cleanMappingDoc, cdpTargetInstruction, cdpMultiTabInstruction } from './cli-crawl';
+import { cleanMappingDoc, pageToolInstruction } from './cli-crawl';
 
-// Map-aware task automation via a spawned engine CLI over the app's CDP debug port, split into
+// Map-aware task automation via a spawned engine CLI, split into
 // two phases so a human review gate sits between planning and any mutation:
 //   1. PLAN  — read-only: the agent inspects the site (using the existing site map for context)
 //              and writes the exact steps it intends to take. No clicks/submits.
@@ -10,7 +10,6 @@ import { cleanMappingDoc, cdpTargetInstruction, cdpMultiTabInstruction } from '.
 // explicit about which steps change state.
 
 export interface AutomatePlanOptions {
-  cdpPort: number;
   startUrl: string;
   task: string;
   /** The site map document (markdown) for context — may be '' if none exists yet. */
@@ -19,22 +18,12 @@ export interface AutomatePlanOptions {
    *  verified mismatch with the live site gets healed in place, then the task continues. */
   mapDocPath?: string;
   scope: { key: string; value: string } | null;
-  /** window.name marker of the tab to drive; pins the agent to the exact tab when present. */
-  marker?: string;
-  /** Absolute path of the app's artifacts dir — where the agent should save screenshots so they
-   *  land in the Artifacts gallery. Omitted → the agent saves wherever it likes (ephemeral). */
-  artifactsDir?: string;
   /**
-   * Multi-tab facilitation: hand the agent the app's tab-control bridge so it can open, log into,
-   * and switch between several tabs to span sites in one run. Swaps the single-tab target pin for
-   * cdpMultiTabInstruction and relaxes the global same-origin rule to per-tab. Off by default —
-   * a normal run stays confined to one tab.
+   * Multi-tab facilitation: offer the agent page_tabs so it can open, log into, and switch between
+   * several tabs to span sites in one run, and relax the global same-origin rule to per-tab. Off by
+   * default — a normal run stays confined to one tab.
    */
   multiTab?: boolean;
-  /** This run's session id — tabs it opens are owned by it; the bridge rejects calls carrying a
-   *  different id, so concurrent runs never fight over a tab. Same id the spawner uses for
-   *  run_agent_cli / stop / progress. */
-  sessionId?: string;
 }
 
 function hostOf(url: string): string {
@@ -52,16 +41,14 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
     '',
     `TASK: ${o.task}`,
     '',
-    `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :`,
-    o.multiTab ? cdpMultiTabInstruction(host, o.sessionId) : cdpTargetInstruction(host, o.marker),
-    '- Navigate with Page.navigate and read with Runtime.evaluate to inspect what the task needs.',
+    pageToolInstruction({ multiTab: o.multiTab }),
     '',
     'THIS IS A PLANNING PHASE — STRICTLY READ-ONLY:',
-    '- Do NOT click, submit, POST, or run any JS that changes state. Navigation + reads only.',
+    '- page_read and page_navigate ONLY. No page_click, no page_type, and no page_task (it acts).',
     // Multi-tab planning may need to reach a second site to inspect it; opening a tab and using the
     // bridge login only authenticates (it changes no task data), so carve those two out explicitly.
     o.multiTab
-      ? '- You MAY open tabs (__steveControl.newTab) and use __steveControl.login to reach a site — that only authenticates, it changes no task data. Nothing else that alters state.'
+      ? '- You MAY page_tabs open/activate/login to reach a site — that only authenticates, it changes no task data. Nothing else that alters state.'
       : '',
     o.multiTab
       ? '- Each tab stays on its own site; only open the sites this task plainly needs.'
@@ -74,16 +61,15 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
     // act on — all still read-only (navigate / open tab / move cursor / read; no clicks or writes).
     'SCOUT IT VISIBLY so the user can watch you plan (still strictly read-only):',
     '- Do NOT plan from memory. Actually navigate to each page the task uses' +
-      (o.multiTab ? ', opening a tab for each site it needs,' : '') + ' and read it before writing the step.',
-    '- Move the agent cursor with window.__steveCursorMove(x, y) (via Runtime.evaluate) over each',
-    '  button or field you intend to act on later, so the user sees you point at every target.',
-    '- This adds NO state change: navigate, open tabs, move the cursor, and read only — no clicks,',
-    '  fills, or submits until the plan is approved.',
+      (o.multiTab ? ', opening a tab for each site it needs,' : '') + ' and page_read it before writing the step.',
+    '- Name the control you will use by the text page_read shows for it, so the step is checkable.',
+    '- This adds NO state change: navigate, open tabs, and read only — no clicks, fills, or submits',
+    '  until the plan is approved.',
     '',
     o.map ? `SITE MAP (use it to locate the right pages instead of rediscovering):\n${o.map}\n` : 'No site map is available yet; inspect the site directly.\n',
     o.startUrl
       ? `START at ${o.startUrl}.`
-      : 'No page is open yet — open the site(s) the task needs with __steveControl.newTab(url), then inspect from there.',
+      : 'No page is open yet — open the site(s) the task needs with page_tabs open, then inspect from there.',
     '',
     'Output ONLY a markdown plan, no preamble:',
     '# Plan',
@@ -127,37 +113,16 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     planned ? 'APPROVED PLAN — do ONLY these steps, in order:' : '',
     planned ? o.approvedPlan : '',
     '',
-    `Drive the logged-in browser over CDP at http://127.0.0.1:${o.cdpPort}:`,
-    o.multiTab ? cdpMultiTabInstruction(host, o.sessionId) : cdpTargetInstruction(host, o.marker),
-    'The user watches it happen in the app.',
+    pageToolInstruction({ multiTab: o.multiTab }),
+    'The user watches it happen in the app; the cursor moves to each control as you use it.',
     planned
       ? 'You MAY now click, fill, select, and submit — but ONLY to perform the approved steps.'
       : 'You MAY click, fill, select, and submit — but ONLY as the task above requires.',
     '',
-    'The user is watching via a green agent-cursor on this tab. It moves ONLY when you call',
-    'window.__steveCursorMove(x, y) (through Runtime.evaluate) — it never follows the user. So',
-    'right before each click, call window.__steveCursorMove with the click viewport x,y to show',
-    'where you are acting. Prefer real CDP Input mouse events at the element centre over el.click().',
-    'Right before any Page.captureScreenshot, call window.__steveScreenshotFlash() (via',
-    'Runtime.evaluate on the tab you are capturing) so the user sees a camera flash at that moment.',
-    o.artifactsDir
-      ? `Save any screenshots you take into ${o.artifactsDir} — they appear in the app's Artifacts gallery.`
-      : '',
-    `You MAY record the run as a video: call window.__steveControl.startRecording(${o.sessionId ? JSON.stringify(o.sessionId) : ''}) when you begin`,
-    'and window.__steveControl.stopRecording() when done (on the app-UI target). It records ONLY the',
-    "tab you are driving and saves to the Artifacts gallery. Only record if the task calls for it.",
-    '',
-    'TO ATTACH A FILE (a screenshot OR the recording) to a Gmail message, attach it INSIDE the embedded',
-    'browser — the SAME way for a picture and a video. Do NOT open the OS file picker (a native dialog',
-    "you cannot drive). Put the file straight onto Gmail's hidden file input over CDP:",
-    "  1. Get the input's objectId: Runtime.evaluate document.querySelector('input[type=file]'). If that",
-    '     is null, click the attach (paperclip) button first so Gmail creates the input, then query again.',
-    '  2. Call DOM.setFileInputFiles with { objectId, files: ["<absolute path to the file>"] }.',
-    o.artifactsDir
-      ? `     The absolute path is ${o.artifactsDir} then the filename (e.g. the .mp4 that stopRecording returned).`
-      : '     The absolute path is the artifacts folder then the filename (e.g. the .mp4 from stopRecording).',
-    '  3. Wait for the attachment chip/thumbnail to appear in the compose window, then send.',
-    'This attaches ANY file type — .png and .mp4 identically. It is the reliable attach path.',
+    'TO ATTACH a screenshot or the recording to an email: take it with page_screenshot / page_record',
+    "(both return an absolute path), page_read to find the compose form's file input — click the",
+    'attach/paperclip button first if the page has not created one yet — then page_attach_file with',
+    'that element index and the path. Then check the attachment chip appeared before you send.',
     '',
     'HARD RULES:',
     planned ? '- Do NOT take any mutating action that is not in the approved plan. If the page differs from' : '',
@@ -224,17 +189,13 @@ export function buildEnhancePrompt(task: string): string {
     'for an agent that drives an ALREADY-LOGGED-IN browser inside a desktop app.',
     '',
     'The agent can be told to use these app capabilities — mention ONLY the ones the task needs:',
-    '- Navigate, click, fill, and screenshot the current page.',
-    '- window.__steveCursorMove(x, y) — moves the on-screen agent cursor to where it is about to',
-    '  click so the user can follow along; call it right before a click.',
-    '- window.__steveScreenshotFlash() — a camera flash; call it right before taking a screenshot.',
-    '- window.__steveControl.startRecording() / stopRecording() — record the current tab to the',
-    '  Artifacts gallery.',
-    '- Attach a file (screenshot or recording) to Gmail by setting it on the compose file input via',
-    '  CDP DOM.setFileInputFiles — the same method for images and video; never the OS file picker.',
-    '- window.__steveControl.newTab(url) / activate(id) / login(id) — open, switch between, and log',
-    '  into tabs (for tasks that span more than one site).',
-    '- Save any screenshots into the app artifacts folder so they appear in the Artifacts gallery.',
+    '- Read, click, fill, and navigate the current page.',
+    '- Hand a whole sub-task on one page to the in-app page agent, which works out the clicks itself.',
+    '- Take a screenshot, or record the tab to a video; both land in the Artifacts gallery.',
+    '- Attach a screenshot or recording to an email by putting it on the page\'s file input — the',
+    '  same way for images and video; never the OS file picker.',
+    '- Open, switch between, and log into browser tabs (for tasks that span more than one site).',
+    '  Sign-in uses credentials already saved on this machine.',
     '',
     'RULES:',
     "- Keep the user's intent EXACTLY. Do not add goals, sites, or actions they did not ask for.",

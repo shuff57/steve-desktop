@@ -131,6 +131,66 @@ fn tool_definitions() -> Value {
                 "required": ["url"],
                 "additionalProperties": false
             }
+        },
+        {
+            "name": "page_screenshot",
+            "description":
+                "Take a picture of the page and save it to the app's Artifacts gallery. Returns the \
+                 absolute path, which is what page_attach_file wants. Flashes the screen first so \
+                 the user sees the moment their screen was captured.",
+            "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false }
+        },
+        {
+            "name": "page_record",
+            "description":
+                "Record the tab you are driving to a video in the Artifacts gallery. Records only \
+                 that tab, never the rest of the screen. Stop returns the .mp4 path. Only record \
+                 when the task asks for it.",
+            "inputSchema": {
+                "type": "object",
+                "properties": { "action": { "type": "string", "enum": ["start", "stop"] } },
+                "required": ["action"],
+                "additionalProperties": false
+            }
+        },
+        {
+            "name": "page_tabs",
+            "description":
+                "Open, switch between, close and sign into the app's browser tabs — for a task that \
+                 spans more than one site. 'list' shows every tab and which are yours. 'login' \
+                 submits credentials saved on this machine: you never see them, and it is the only \
+                 sanctioned way to sign in — never type a password yourself. The other page tools \
+                 always act on the ACTIVE tab, so activate the one you mean first.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": ["list", "open", "activate", "navigate", "close", "login"]
+                    },
+                    "id": { "type": "string", "description": "Tab id, from action=list." },
+                    "url": { "type": "string", "description": "For open and navigate." }
+                },
+                "required": ["action"],
+                "additionalProperties": false
+            }
+        },
+        {
+            "name": "page_attach_file",
+            "description":
+                "Attach a file to a file input on the page — how a screenshot or recording gets onto \
+                 an email. Give the element index of the file input (click the paperclip first if \
+                 the page has not created one yet) and the absolute path from page_screenshot or \
+                 page_record. Works the same for .png and .mp4. There is no OS file picker to drive.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "index": { "type": "integer", "description": "Element index of the file input." },
+                    "path": { "type": "string", "description": "Absolute path of the file." }
+                },
+                "required": ["index", "path"],
+                "additionalProperties": false
+            }
         }
     ])
 }
@@ -436,7 +496,17 @@ mod tests {
             .collect();
         assert_eq!(
             names,
-            vec!["page_read", "page_task", "page_click", "page_type", "page_navigate"]
+            vec![
+                "page_read",
+                "page_task",
+                "page_click",
+                "page_type",
+                "page_navigate",
+                "page_screenshot",
+                "page_record",
+                "page_tabs",
+                "page_attach_file"
+            ]
         );
         for tool in tools {
             assert!(!tool["description"].as_str().unwrap().is_empty());
@@ -470,7 +540,7 @@ mod tests {
     #[test]
     fn tools_list_is_answered_here_but_tools_call_is_not() {
         let listed = dispatch_local(&json!({"method": "tools/list"}), json!(2)).unwrap();
-        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 5);
+        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 9);
         // tools/call is the one method that has to reach the webview.
         assert!(dispatch_local(&json!({"method": "tools/call"}), json!(3)).is_none());
     }

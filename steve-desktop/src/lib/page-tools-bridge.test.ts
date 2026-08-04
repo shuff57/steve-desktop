@@ -23,9 +23,11 @@ function ctx(): ToolContext {
 const COURSE = 'https://www.myopenmath.com/course/gradebook.php?cid=316341';
 
 function opts(confine?: { startUrl: string; sameDomainOnly?: boolean }) {
+  const fixed = ctx();
   return {
     runId: 'run-1',
-    ctx: ctx(),
+    fixed,
+    ctx: () => fixed,
     subTask: { baseURL: 'http://x/v1', model: 'm', maxSteps: 1, confine },
   };
 }
@@ -109,7 +111,7 @@ describe('confinement on the primitive path', () => {
       o,
     );
     expect(out).not.toContain('Refused');
-    expect((o.ctx.navigate as ReturnType<typeof vi.fn>).mock.calls[0][0]).toContain('/users/127333');
+    expect((o.fixed.navigate as ReturnType<typeof vi.fn>).mock.calls[0][0]).toContain('/users/127333');
   });
 });
 

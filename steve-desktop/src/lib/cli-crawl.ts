@@ -83,8 +83,52 @@ export function cdpMultiTabInstruction(primaryHost: string, sessionId?: string):
     .join('\n');
 }
 
+/**
+ * How to drive the browser when the agent has NO CDP port — the page tools instead.
+ *
+ * The port is what made every other guard advisory: an agent that can evaluate arbitrary JS on the
+ * tab can read a gradebook verbatim, and page text read that way never passes through app code, so
+ * there is no seam to mask at. Taking it away is the enforcement; these tools are the replacement.
+ *
+ * Written as prose the model reads once, not as a schema — the schemas are on the tools themselves.
+ */
+export function pageToolInstruction(o: { multiTab?: boolean } = {}): string {
+  return [
+    'A browser is ALREADY RUNNING and LOGGED IN, and the user is watching it. You drive it ONLY',
+    'through the `page` tools. You have no browser port, and this is deliberate — do NOT try to',
+    'reach the browser any other way: no CDP, no curl to a debug port, no playwright/puppeteer, no',
+    'launching a browser of your own. If the page tools cannot do something, stop and say so.',
+    '',
+    '- page_read — the page as numbered elements plus its text. Every index in it ([3]<button>Save',
+    '  </button>) is how you address that element. Indexes CHANGE after any action, so read again',
+    '  rather than reusing an index across actions.',
+    '- page_task — hand a whole sub-task on the current page to the in-app page agent, which works',
+    '  out the clicks itself. Prefer this for multi-step work on one page; it is one call instead of',
+    '  a dozen. Its reply includes the page afterwards — check that, do not just believe the report.',
+    '  If it says the sub-task model is unavailable, NOTHING was attempted: do that work yourself.',
+    '- page_click / page_type / page_navigate — one action at a time, when you want exact control.',
+    '- Names and student ids come back as tokens like ⟦STU4⟧ or ⟦PID7⟧. That is intended: student',
+    '  data does not leave this machine. Pass a token back VERBATIM in any page tool and the app',
+    '  substitutes the real value locally. Never guess what one stands for, and never ask for it.',
+    o.multiTab
+      ? '- page_tabs — list / open / activate / navigate / close / login, for a task that spans sites.\n' +
+        '  The other page tools act on the ACTIVE tab, so activate the tab you mean first. Sign in ONLY\n' +
+        '  with page_tabs login (it uses credentials saved on this machine); never type a password.'
+      : '',
+    '- page_screenshot and page_record save into the app\'s Artifacts gallery and return a path;',
+    '  page_attach_file puts that path onto a file input on the page (the same call for .png and',
+    '  .mp4). There is no OS file picker you can drive.',
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
 export interface CliCrawlOptions {
-  cdpPort: number;
+  /**
+   * Legacy CDP driving. Omit to hand the agent the page tools instead, which is the only path
+   * that masks student data — see pageToolInstruction. SiteMapper still passes a port.
+   */
+  cdpPort?: number;
   startUrl: string;
   scope: { key: string; value: string } | null;
   maxPages?: number;
@@ -94,10 +138,12 @@ export interface CliCrawlOptions {
 
 /** Shared read-only rails for spawned crawl/verify agents. Safety is spelled out verbatim from
  *  the same regexes the deterministic crawler enforces — never summarized, never softened. */
-function safetyRules(host: string): string {
+function safetyRules(host: string, viaTools = false): string {
   return [
     'HARD CONSTRAINTS — this is a LIVE, logged-in account with real data:',
-    '- READ-ONLY: never click, never submit forms, never POST, never evaluate JS that changes state. Page.navigate + read-only Runtime.evaluate ONLY.',
+    viaTools
+      ? '- READ-ONLY: page_read and page_navigate ONLY. Never page_click, page_type, or a page_task that changes anything.'
+      : '- READ-ONLY: never click, never submit forms, never POST, never evaluate JS that changes state. Page.navigate + read-only Runtime.evaluate ONLY.',
     `- Same-origin only: stay on ${host}.`,
     '- NEVER navigate to a URL matching any of these (destructive / session-ending patterns):',
     `  - session/role links: /${DENY_LINK.source}/i`,
@@ -125,10 +171,11 @@ export function buildCliCrawlPrompt(o: CliCrawlOptions): string {
     'there. The site may be any kind of app (email, dashboard, store, LMS, docs); discover its',
     'structure, do not assume a domain. How you explore is up to you, within the constraints.',
     '',
-    `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :`,
-    cdpTargetInstruction(host, o.marker),
+    o.cdpPort
+      ? `A browser is ALREADY RUNNING and LOGGED IN. Drive it over CDP at http://127.0.0.1:${o.cdpPort} :\n${cdpTargetInstruction(host, o.marker)}`
+      : pageToolInstruction(),
     '',
-    safetyRules(host),
+    safetyRules(host, !o.cdpPort),
     o.scope
       ? `- Stay in the section you start in: only follow links whose ${o.scope.key} param is absent or equals ${o.scope.value}.`
       : '- Stay within the area you start in; do not wander into unrelated top-level sections.',

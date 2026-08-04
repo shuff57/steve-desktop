@@ -1062,6 +1062,32 @@ fn artifacts_dir(app: tauri::AppHandle) -> Result<String, String> {
     Ok(artifacts_path(&app)?.to_string_lossy().to_string())
 }
 
+/// Save bytes into the artifacts gallery and return the absolute path.
+///
+/// `write_file` takes a String, so a PNG round-tripped through it would be mangled. The name is
+/// reduced to its final component: the caller is ultimately an agent, and a name carrying `..`
+/// would write wherever it liked.
+#[tauri::command]
+fn save_artifact(app: tauri::AppHandle, name: String, bytes: Vec<u8>) -> Result<String, String> {
+    const MAX: usize = 64 * 1024 * 1024;
+    if bytes.is_empty() {
+        return Err("nothing to save".into());
+    }
+    if bytes.len() > MAX {
+        return Err(format!("artifact is {} bytes; limit is {}", bytes.len(), MAX));
+    }
+    let leaf = name
+        .rsplit(['/', '\\'])
+        .next()
+        .filter(|s| !s.is_empty() && *s != "." && *s != "..")
+        .ok_or("invalid artifact name")?;
+    let dir = artifacts_path(&app)?;
+    std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    let target = dir.join(leaf);
+    std::fs::write(&target, bytes).map_err(|e| e.to_string())?;
+    Ok(target.to_string_lossy().to_string())
+}
+
 #[tauri::command]
 fn list_artifacts(app: tauri::AppHandle) -> Result<Vec<ArtifactMeta>, String> {
     use base64::Engine;
@@ -3105,6 +3131,7 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
             opencode_save_key,
             opencode_has_credential,
             artifacts_dir,
+            save_artifact,
             list_artifacts,
             delete_artifact,
             read_artifact,

@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cleanAutomateOutput, parsePlan, buildEnhancePrompt } from './cli-automate';
 
 const base = {
-  cdpPort: 9223,
   startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
   task: 'Post an announcement titled Welcome',
   map: '# Site map\nForums at /forums.php',
@@ -25,10 +24,18 @@ describe('buildAutomatePlanPrompt', () => {
   it('handles a missing map', () => {
     expect(buildAutomatePlanPrompt({ ...base, map: '' })).toContain('No site map is available yet');
   });
-  it('tells the agent to scout visibly — navigate + move the cursor over each target', () => {
+  it('tells the agent to scout visibly rather than plan from memory', () => {
     expect(p).toContain('SCOUT IT VISIBLY');
-    expect(p).toContain('__steveCursorMove');
+    expect(p).toContain('page_read');
     expect(p).toContain('Do NOT plan from memory');
+  });
+  it('hands over no browser port, and forbids finding one', () => {
+    // The port is the whole enforcement: an agent that can evaluate JS on the tab reads a
+    // gradebook verbatim, and that text never passes through app code, so nothing can mask it.
+    expect(p).not.toMatch(/127\.0\.0\.1:\d+/);
+    expect(p).not.toContain('webSocketDebuggerUrl');
+    expect(p).not.toContain('Runtime.evaluate');
+    expect(p).toContain('no playwright/puppeteer');
   });
 });
 
@@ -55,33 +62,30 @@ describe('buildAutomateExecPrompt', () => {
     expect(p).toContain('log[\\s_-]?out'); // DENY_LINK source is inlined
     expect(p).toContain('# Result');
   });
-  it('pins the agent to the existing embedded target (no new window)', () => {
-    expect(p).toContain('EXISTING');
-    expect(p).toContain('Target.createTarget');
+  it('drives the browser only through the page tools — no port, no browser of its own', () => {
+    expect(p).not.toMatch(/127\.0\.0\.1:\d+/);
+    expect(p).not.toContain('webSocketDebuggerUrl');
+    expect(p).not.toContain('Runtime.evaluate');
+    expect(p).toContain('page_read');
+    expect(p).toContain('no playwright/puppeteer');
   });
-  it('pins execution to the marked tab when a marker is given', () => {
-    const pm = buildAutomateExecPrompt({ ...base, approvedPlan: '1. submit', marker: 'steve-tab-9' });
-    expect(pm).toContain('window.name === "steve-tab-9"');
+  it('says what the tokens are, so the agent passes them back instead of guessing', () => {
+    // The failure this prevents is the agent "helpfully" substituting a real-looking name for
+    // ⟦STU4⟧, which then matches nothing on the page.
+    expect(p).toContain('⟦STU4⟧');
+    expect(p).toContain('VERBATIM');
   });
-  it('tells the agent to drive the cursor via __steveCursorMove (never follows the user)', () => {
-    expect(p).toContain('__steveCursorMove');
-    expect(p).toContain('never follows the user');
-  });
-  it('tells the agent to flash before screenshots', () => {
-    expect(p).toContain('__steveScreenshotFlash');
-  });
-  it('attaches files (image or video) in-browser via DOM.setFileInputFiles, not the OS picker', () => {
-    expect(p).toContain('DOM.setFileInputFiles');
-    expect(p).toContain('.png and .mp4 identically');
+  it('attaches files (image or video) onto the page input, not the OS picker', () => {
+    expect(p).toContain('page_attach_file');
+    expect(p).toContain('no OS file picker');
   });
 
   describe('multi-tab exec', () => {
     const m = buildAutomateExecPrompt({ ...base, approvedPlan: '1. open tab B\n2. [MUTATES] submit', multiTab: true });
-    it('swaps the single-tab pin for the __steveControl bridge', () => {
-      expect(m).toContain('__steveControl.newTab');
-      expect(m).toContain('__steveControl.login');
-      expect(m).not.toContain('act IN PLACE on the marked target');
-      expect(m).not.toContain('Do NOT open a new window or tab');
+    it('offers the tab tool, and only when the run may span sites', () => {
+      expect(m).toContain('page_tabs');
+      expect(m).toContain('never type a password');
+      expect(buildAutomateExecPrompt({ ...base, approvedPlan: '1. go' })).not.toContain('page_tabs');
     });
     it('relaxes global same-origin to per-tab but keeps the no-logout guard', () => {
       expect(m).toContain('Each tab stays on its own site');
@@ -93,23 +97,20 @@ describe('buildAutomateExecPrompt', () => {
       expect(m).toContain('# Result');
       expect(m).toContain('## Changed');
     });
-    it('bakes the run session id into the bridge instructions and recording call', () => {
-      const ms = buildAutomateExecPrompt({ ...base, approvedPlan: '1. go', multiTab: true, sessionId: 'run-77' });
-      expect(ms).toContain('YOUR SESSION ID is "run-77"');
-      expect(ms).toContain('startRecording("run-77")');
-    });
-    it('plan phase carries the same session id', () => {
-      const ps = buildAutomatePlanPrompt({ ...base, multiTab: true, sessionId: 'run-77' });
-      expect(ps).toContain('YOUR SESSION ID is "run-77"');
+    it('never hands the agent a session id to pass around', () => {
+      // It used to be an argument the agent supplied on every bridge call — so an agent that could
+      // name its own session could name someone else's and drive their tab. The app asserts
+      // ownership now, which means the id has no business being in the prompt at all.
+      expect(m).not.toMatch(/SESSION ID|sessionId/i);
     });
   });
 
   describe('multi-tab plan (read-only with a login carve-out)', () => {
     const p2 = buildAutomatePlanPrompt({ ...base, multiTab: true });
     it('lets the plan open tabs and log in to reach a second site, nothing else stateful', () => {
-      expect(p2).toContain('__steveControl.newTab');
+      expect(p2).toContain('page_tabs open/activate/login');
       expect(p2).toContain('only authenticates');
-      expect(p2).toContain('Do NOT click, submit, POST'); // read-only rule survives
+      expect(p2).toContain('No page_click, no page_type'); // read-only rule survives
       expect(p2).not.toContain('Same-origin only: stay on www.myopenmath.com');
     });
   });
@@ -118,7 +119,7 @@ describe('buildAutomateExecPrompt', () => {
     it('plan tells the agent to open the site itself instead of a fixed START', () => {
       const p = buildAutomatePlanPrompt({ ...base, startUrl: '', multiTab: true });
       expect(p).toContain('No page is open yet');
-      expect(p).toContain('__steveControl.newTab');
+      expect(p).toContain('page_tabs open');
       expect(p).not.toContain('START at .');
     });
     it('exec drops the "navigate back" when there is nowhere to return to', () => {
@@ -201,9 +202,11 @@ describe('buildEnhancePrompt', () => {
   const p = buildEnhancePrompt('record a clip and email it to sam@x.com');
   it('embeds the task and the real app capabilities, and asks for steps only', () => {
     expect(p).toContain('record a clip and email it to sam@x.com');
-    expect(p).toContain('__steveControl.startRecording');
-    expect(p).toContain('__steveScreenshotFlash');
-    expect(p).toContain('DOM.setFileInputFiles');
+    // Capabilities described in plain words, not API names: the rewritten task is read by a
+    // human and then by an agent whose tools are named something else entirely.
+    expect(p).toContain('record the tab to a video');
+    expect(p).toContain('never the OS file picker');
+    expect(p).not.toMatch(/__steve|DOM\.setFileInputFiles/);
     expect(p).toContain("Keep the user's intent EXACTLY");
     expect(p).toContain('Output ONLY the rewritten task prompt');
   });
