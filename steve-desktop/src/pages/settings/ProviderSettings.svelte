@@ -276,32 +276,72 @@
   }
 
   async function deleteProvider(id: string) {
-    if (!confirm(`Delete provider "${id}"? This cannot be undone.`)) return;
     await deleteProviderConfig(id);
     await loadProviders();
+  }
+
+  /** Two-step inline confirm — window.confirm() draws behind the WebView2 window and is unreachable. */
+  let confirmingDeleteId = $state<string | null>(null);
+  function armDelete(id: string) { confirmingDeleteId = id; }
+  function cancelDelete() { confirmingDeleteId = null; }
+
+  /** Inline arm for the cloud-ollama-without-key warning — same native-confirm dead-end as delete. */
+  let pendingTestProvider = $state<ProviderConfig | null>(null);
+  function armTestConnection(provider: ProviderConfig) {
+    pendingTestProvider = provider;
+  }
+  function cancelTestConnection() {
+    pendingTestProvider = null;
+  }
+
+  /** Inline notice — native alert() draws behind the WebView2 window, so results surface here. */
+  let notice = $state<string | null>(null);
+  let noticeKind = $state<'error' | 'info'>('error');
+  let noticeTimer: ReturnType<typeof setTimeout> | undefined;
+  function showNotice(message: string, kind: 'error' | 'info' = 'error', durationMs = 4000) {
+    notice = message;
+    noticeKind = kind;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { notice = null; }, durationMs);
+  }
+
+  async function continueTestConnection() {
+    const provider = pendingTestProvider;
+    pendingTestProvider = null;
+    if (!provider) return;
+    const option = PROVIDER_OPTIONS.find(p => p.id === provider.id);
+    if (option?.requiresUrl && !provider.api_url) {
+      showNotice('API URL is required for this provider');
+      return;
+    }
+    if (!provider.model) {
+      showNotice('Model name is required');
+      return;
+    }
+    showNotice(`Provider "${provider.id}" configuration looks valid!`, 'info');
   }
 
   async function testConnection(provider: ProviderConfig) {
     const option = PROVIDER_OPTIONS.find(p => p.id === provider.id);
     
     if (option?.requiresKey && !provider.api_key && !oauthStatus[provider.id]) {
-      alert('API Key is required for this provider (or sign in via OAuth)');
+      showNotice('API Key is required for this provider (or sign in via OAuth)');
       return;
     }
     if (provider.id === 'ollama' && !provider.api_key && provider.api_url && !provider.api_url.includes('localhost')) {
-      const useCloudWithoutKey = confirm('You are using a cloud Ollama endpoint without an API key. This may fail. Continue anyway?');
-      if (!useCloudWithoutKey) return;
+      armTestConnection(provider); // warn in-app instead of a native confirm
+      return;
     }
     if (option?.requiresUrl && !provider.api_url) {
-      alert('API URL is required for this provider');
+      showNotice('API URL is required for this provider');
       return;
     }
     if (!provider.model) {
-      alert('Model name is required');
+      showNotice('Model name is required');
       return;
     }
     
-    alert(`Provider "${provider.id}" configuration looks valid!`);
+    showNotice(`Provider "${provider.id}" configuration looks valid!`, 'info');
   }
 
   function getAvailableProviders() {
@@ -407,6 +447,10 @@
   <h3>AI Provider Configuration</h3>
   <p class="mb-6">Manage connections to local or cloud-based AI providers.</p>
   
+  {#if notice}
+    <div class="notice {noticeKind}" role="alert">{notice}</div>
+  {/if}
+  
   {#if providers.length === 0 && !showAddForm}
     <div class="empty-state">
       <p>No providers configured yet.</p>
@@ -424,10 +468,25 @@
             <div class="actions">
               <button class="icon-btn" title="Test connection" aria-label="Test connection" onclick={() => testConnection(provider)}><Activity size={16} /></button>
               <button class="icon-btn" title="Edit" aria-label="Edit provider" onclick={() => editingProvider = provider.id}><Pencil size={16} /></button>
-              <button class="icon-btn danger" title="Delete" aria-label="Delete provider" onclick={() => deleteProvider(provider.id)}><Trash2 size={16} /></button>
+              {#if confirmingDeleteId === provider.id}
+                <button class="confirm-btn" title="Confirm delete — cannot be undone" aria-label="Confirm delete provider" onclick={() => { deleteProvider(provider.id); cancelDelete(); }}>Confirm</button>
+                <button class="icon-btn" title="Keep provider" aria-label="Cancel delete" onclick={cancelDelete}><span>✕</span></button>
+              {:else}
+                <button class="icon-btn danger" title="Delete" aria-label="Delete provider" onclick={() => armDelete(provider.id)}><Trash2 size={16} /></button>
+              {/if}
             </div>
           {/if}
         </div>
+
+        {#if pendingTestProvider?.id === provider.id}
+          <div class="warning-banner">
+            <span>Using a cloud Ollama endpoint without an API key may fail. Continue anyway?</span>
+            <div class="warning-actions">
+              <button class="confirm-btn" onclick={continueTestConnection}>Continue</button>
+              <button class="icon-btn" title="Cancel" aria-label="Cancel test connection" onclick={cancelTestConnection}><span>✕</span></button>
+            </div>
+          </div>
+        {/if}
 
         {#if editingProvider === provider.id}
           <div class="edit-form">
@@ -733,6 +792,48 @@
     background: var(--color-danger-bg);
     color: var(--color-danger);
   }
+
+  .confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    border: 1px solid var(--color-danger);
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+  }
+  .confirm-btn:hover { background: var(--color-danger); color: #fff; }
+
+  .warning-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid #d97706;
+    background: rgba(217,119,6,.10);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+  }
+  .warning-actions { display: flex; align-items: center; gap: var(--spacing-2); }
+
+  .notice {
+    font-size: var(--font-size-sm);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
+  }
+  .notice.error { color: var(--color-danger); background: color-mix(in srgb, var(--color-danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent); }
+  .notice.info { color: var(--text-primary); background: var(--color-bg-card); border: 1px solid var(--color-border); }
 
   /* Button variants — these classes were used in markup but never defined,
      so buttons fell back to the browser default. Themed here. */

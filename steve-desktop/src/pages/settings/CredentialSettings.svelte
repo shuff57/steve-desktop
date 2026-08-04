@@ -21,6 +21,17 @@
     notes: ''
   });
 
+  /** Inline notice — native alert() draws behind the WebView2 window, so errors surface here. */
+  let notice = $state<string | null>(null);
+  let noticeKind = $state<'error' | 'info'>('error');
+  let noticeTimer: ReturnType<typeof setTimeout> | undefined;
+  function showNotice(message: string, kind: 'error' | 'info' = 'error', durationMs = 4000) {
+    notice = message;
+    noticeKind = kind;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { notice = null; }, durationMs);
+  }
+
   onMount(async () => {
     await loadCredentials();
   });
@@ -31,7 +42,7 @@
 
   async function saveCredential() {
     if (!credentialForm.site_name || !credentialForm.url_pattern || !credentialForm.username || !credentialForm.password) {
-      alert('Please fill in all required fields (Site Name, URL Pattern, Username, Password)');
+      showNotice('Please fill in all required fields (Site Name, URL Pattern, Username, Password)');
       return;
     }
 
@@ -49,19 +60,23 @@
       await loadCredentials();
       resetCredentialForm();
     } catch (error) {
-      alert('Failed to save credential: ' + error);
+      showNotice('Failed to save credential: ' + error);
     }
   }
 
   async function deleteCredential(id: number, name: string) {
-    if (!confirm(`Delete credentials for "${name}"? This cannot be undone.`)) return;
     try {
       await deleteSiteCredential(id);
       await loadCredentials();
     } catch (error) {
-      alert('Failed to delete credential: ' + error);
+      showNotice('Failed to delete credential: ' + error);
     }
   }
+
+  /** Two-step inline confirm — window.confirm() draws behind the WebView2 window and is unreachable. */
+  let confirmingDeleteId = $state<number | null>(null);
+  function armDelete(id: number) { confirmingDeleteId = id; }
+  function cancelDelete() { confirmingDeleteId = null; }
 
   function editCredential(cred: SiteCredential) {
     editingCredentialId = cred.id || null;
@@ -102,6 +117,10 @@
     {/if}
   </div>
   <p class="mb-6">Manage login credentials for video sites. Credentials are stored locally and sent only to the matching site.</p>
+  
+  {#if notice}
+    <div class="notice {noticeKind}" role="alert">{notice}</div>
+  {/if}
   
   {#if showAddCredentialForm}
     <div class="add-form provider-item editing mb-4">
@@ -169,7 +188,12 @@
             <h4>{cred.site_name}</h4>
             <div class="actions">
               <button class="icon-btn" title="Edit" aria-label="Edit credential" onclick={() => editCredential(cred)}><Pencil size={16} /></button>
-              <button class="icon-btn danger" title="Delete" aria-label="Delete credential" onclick={() => cred.id !== undefined && deleteCredential(cred.id, cred.site_name)}><Trash2 size={16} /></button>
+              {#if confirmingDeleteId === cred.id}
+                <button class="confirm-btn" title="Confirm delete — cannot be undone" aria-label="Confirm delete credential" onclick={() => { const id = cred.id; if (id !== undefined) { deleteCredential(id, cred.site_name); cancelDelete(); } }}>Confirm</button>
+                <button class="icon-btn" title="Keep credential" aria-label="Cancel delete" onclick={cancelDelete}><span>✕</span></button>
+              {:else}
+                <button class="icon-btn danger" title="Delete" aria-label="Delete credential" onclick={() => cred.id !== undefined && armDelete(cred.id)}><Trash2 size={16} /></button>
+              {/if}
             </div>
           </div>
           
@@ -274,6 +298,32 @@
   }
   .icon-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
   .icon-btn.danger:hover { background: var(--color-danger-bg); color: var(--color-danger); }
+
+  .confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    border: 1px solid var(--color-danger);
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+  }
+  .confirm-btn:hover { background: var(--color-danger); color: #fff; }
+
+  .notice {
+    font-size: var(--font-size-sm);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
+  }
+  .notice.error { color: var(--color-danger); background: color-mix(in srgb, var(--color-danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent); }
+  .notice.info { color: var(--text-primary); background: var(--color-bg-card); border: 1px solid var(--color-border); }
 
   /* Button variants — used in markup but otherwise undefined (browser default). */
   .primary, .ghost {

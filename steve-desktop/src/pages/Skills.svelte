@@ -43,6 +43,14 @@
   let fileInput = $state<HTMLInputElement>();
   let syncing = $state(false);
   let syncMessage = $state<string | null>(null);
+  /** Inline notice — native alert() draws behind the WebView2 window, so errors surface here. */
+  let notice = $state<string | null>(null);
+  let noticeTimer: ReturnType<typeof setTimeout> | undefined;
+  function showNotice(message: string, durationMs = 4000) {
+    notice = message;
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { notice = null; }, durationMs);
+  }
 
   async function loadSkills() {
     loading = true;
@@ -80,7 +88,8 @@
         await loadSkills();
         target.value = '';
       } catch (err) {
-        alert(`Failed to import skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        showNotice(`Failed to import skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        target.value = '';
       }
     };
 
@@ -92,7 +101,7 @@
       await deleteSkill(id);
       skills = skills.filter(s => s.id !== id);
     } catch (err) {
-      alert(`Failed to delete skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      showNotice(`Failed to delete skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
     }
   }
 
@@ -104,7 +113,7 @@
         skill.is_active = isActive;
       }
     } catch (err) {
-      alert(`Failed to update skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      showNotice(`Failed to update skill: ${err instanceof Error ? err.message : 'Unknown error'}`);
       await loadSkills();
     }
   }
@@ -170,6 +179,9 @@
   </div>
 
   <div class="skills-content">
+    {#if notice}
+      <div class="notice" role="alert">{notice}</div>
+    {/if}
     {#if currentView === 'my-skills'}
       <div class="my-skills-view">
         <div class="actions-bar">
@@ -318,6 +330,16 @@
     font-size: 0.85rem;
     color: var(--text-secondary);
     padding: 0.25rem 0;
+  }
+
+  .notice {
+    font-size: 0.85rem;
+    color: var(--color-danger);
+    background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    margin-bottom: var(--spacing-md);
   }
 
   .btn-primary {

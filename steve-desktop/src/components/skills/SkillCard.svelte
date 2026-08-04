@@ -27,9 +27,18 @@
 
   function handleDelete(e: Event) {
     e.stopPropagation();
-    if (confirm('Delete this skill?')) {
-      onDelete(skill.id);
-    }
+    onDelete(skill.id);
+  }
+
+  /** Two-step inline confirm — window.confirm() draws behind the WebView2 window and is unreachable. */
+  let confirmingDelete = $state(false);
+  function armDelete(e: Event) {
+    e.stopPropagation();
+    confirmingDelete = true;
+  }
+  function cancelDelete(e: Event) {
+    e.stopPropagation();
+    confirmingDelete = false;
   }
 
   function handleToggle(e: Event) {
@@ -66,12 +75,17 @@
         >
         <span class="slider round"></span>
       </label>
-      <button class="btn-icon delete-btn" onclick={handleDelete} aria-label="Delete skill">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-        </svg>
-      </button>
+      {#if confirmingDelete}
+        <button class="confirm-delete" onclick={handleDelete} aria-label="Confirm delete skill">Confirm</button>
+        <button class="btn-icon" onclick={cancelDelete} aria-label="Cancel delete">✕</button>
+      {:else}
+        <button class="btn-icon delete-btn" onclick={armDelete} aria-label="Delete skill">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      {/if}
     </div>
   </div>
 
@@ -279,6 +293,22 @@
   .delete-btn:hover {
     color: var(--color-danger);
     background-color: var(--color-danger-bg);
+  }
+
+  .confirm-delete {
+    background: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .confirm-delete:hover {
+    background: var(--color-danger);
+    color: #fff;
   }
 
   /* Markdown Content Styles */
