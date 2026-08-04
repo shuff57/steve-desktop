@@ -223,3 +223,29 @@ describe('the return-home instruction', () => {
     expect(p).not.toMatch(/When done, navigate back to/);
   });
 });
+
+describe('the map gets smarter through use', () => {
+  const docPath = 'C:/repo/.agents/site-profiles/x/_sitemap-ai.md';
+
+  it('with no map yet, the agent starts one as a side effect of the task', () => {
+    // "Run now" deliberately does not stall behind a crawl. Mapping is not a chore you invoke;
+    // the first run writes down what it had to learn anyway.
+    const p = buildAutomateExecPrompt({ ...base, map: '', mapDocPath: docPath });
+    expect(p).toContain('has no map yet');
+    expect(p).toContain('SIDE EFFECT');
+    expect(p).toContain('do not let it delay the work');
+    expect(p).not.toContain('MAPPING MAINTENANCE'); // nothing to heal yet
+  });
+
+  it('with a map, it heals rather than restarting one', () => {
+    const p = buildAutomateExecPrompt({ ...base, mapDocPath: docPath });
+    expect(p).toContain('MAPPING MAINTENANCE');
+    expect(p).not.toContain('has no map yet');
+  });
+
+  it('with nowhere to write, it is told to do neither', () => {
+    const p = buildAutomateExecPrompt({ ...base, map: '' });
+    expect(p).not.toContain('has no map yet');
+    expect(p).not.toContain('MAPPING MAINTENANCE');
+  });
+});

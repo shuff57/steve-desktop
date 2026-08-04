@@ -445,7 +445,10 @@
       mapUsed = map ? 'existing' : 'none';
       phase = 'executing';
       msg = 'Running the task directly — no plan was reviewed.';
-      const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
+      // Resolved even with no map: "Run now" deliberately does not stall behind a crawl, so
+      // instead the agent writes down what it had to learn anyway. First run leaves a rough map,
+      // later runs heal and extend it — the map gets smarter through use, with nothing to invoke.
+      const mapDocPath = domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
         buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, multiTab: effMultiTab }),
@@ -476,7 +479,7 @@
       phase = 'executing';
       msg = 'Executing the approved plan…';
       const map = domain ? await loadMappingDoc(domain) : null;
-      const mapDocPath = map && domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
+      const mapDocPath = domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
         buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, approvedPlan: outbound(sid, plan, startUrl), multiTab: effMultiTab }),

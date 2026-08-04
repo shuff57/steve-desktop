@@ -61,6 +61,52 @@ describe('polish', () => {
     expect(p).toContain('⟦V1⟧');
     expect(p).toContain('Student name'); // the element label carries the intent
   });
+
+  describe('a dropdown label is a roster', () => {
+    // Measured on a live recording, not imagined. Recording ONE choice from a student dropdown
+    // put the whole roster in front of the model three times: a <select>'s accessible name is
+    // its concatenated option list, so it lands in the step description, in the
+    // role=combobox[name="…"] candidate selector, and again in the fingerprint. Tokenizing
+    // `value` caught the id and missed every name.
+    const roster = () => ({
+      name: 'Export a student CSV',
+      trigger: 'On https://lms.example/courses/1/roster',
+      steps: [
+        {
+          action: 'select' as const,
+          selector: '#stupick',
+          candidates: [
+            'role=combobox[name="-- pick a student -- Alvarez, Jordan Nakamura, Yuki"]',
+            '[name="stupick"]',
+          ],
+          description: '-- pick a student -- Alvarez, Jordan Nakamura, Yuki',
+          value: '7158620',
+        },
+        { action: 'click' as const, selector: '#export', description: 'Export CSV' },
+      ],
+    });
+
+    it('keeps every name and id out of the prompt, wherever it is hiding', () => {
+      const p = buildTeachPolishPrompt(roster(), 'https://lms.example/courses/1/roster');
+      expect(p).not.toContain('Alvarez, Jordan');
+      expect(p).not.toContain('Nakamura, Yuki');
+      expect(p).not.toContain('7158620');
+    });
+
+    it('still says enough for the prose to name the control', () => {
+      const p = buildTeachPolishPrompt(roster(), 'https://lms.example/courses/1/roster');
+      expect(p).toContain('pick a student');
+      expect(p).toContain('Export CSV');
+    });
+
+    it('leaves the workflow that gets stored and replayed untouched', () => {
+      // Masking the stored copy would break the thing it protects: replay needs real selectors.
+      const wf = roster();
+      buildTeachPolishPrompt(wf, 'https://lms.example/courses/1/roster');
+      expect(wf.steps[0].value).toBe('7158620');
+      expect(wf.steps[0].description).toContain('Nakamura, Yuki');
+    });
+  });
 });
 
 describe('composeTeachSkill', () => {
