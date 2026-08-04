@@ -72,14 +72,22 @@
     if (e.detail) navigate(e.detail);
   }
 
+  /** Nav targets that resolve to a browser drawer tab instead of a page of their own. */
+  const PANEL_ROUTES: Record<string, string> = {
+    'ogre-grading': 'ogre',
+    'teach-record': 'teach',
+  };
+
   function navigate(page: string) {
-    // OGRE grading is a browser drawer tab, not a route: "load students from page" means
-    // the page on screen, so the controls have to sit beside it. Send the request through
-    // sessionStorage as well as the event — the drawer may still be closed, in which case
-    // ActionPanel does not exist yet to hear it and reads the request when it mounts.
+    // Destinations that are a browser drawer tab rather than a route, because each one acts on
+    // the page currently on screen: grading loads students FROM the page, and recording a skill
+    // watches you drive it. Their front doors live elsewhere (the nav, the Skills page); only
+    // the work has to happen beside the browser. Send the request through sessionStorage as
+    // well as the event — the drawer may still be closed, in which case ActionPanel does not
+    // exist yet to hear it and reads the request when it mounts.
     let panelMode: string | null = null;
-    if (page === 'ogre-grading') {
-      panelMode = 'ogre';
+    if (PANEL_ROUTES[page]) {
+      panelMode = PANEL_ROUTES[page];
       sessionStorage.setItem('steve:panel-mode', panelMode);
       page = 'browser';
     }

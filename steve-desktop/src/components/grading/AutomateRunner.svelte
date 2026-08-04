@@ -51,13 +51,11 @@
     model = '',
     agentStatus = $bindable('idle' as string),
     agentStatusText = $bindable('' as string),
-    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
   }: {
     provider?: string;
     model?: string;
     agentStatus?: string;
     agentStatusText?: string;
-    history?: { icon: string; text: string; type?: string; meta?: string }[];
   } = $props();
 
   let task = $state('');
@@ -119,28 +117,6 @@
       agentStatus = failed ? 'error' : 'completed';
       agentStatusText = failed ? 'Failed' : 'Done';
     }
-  });
-
-  // Sync progress lines to PageAgent-style history cards
-  $effect(() => {
-    if (progress.length === 0) { history = []; return; }
-    const cards = progress.slice(-10).map((line) => {
-      const l = line.toLowerCase();
-      let icon = '💬';
-      if (l.startsWith('navigating')) icon = '🌐';
-      else if (l.startsWith('clicking')) icon = '🖱';
-      else if (l.startsWith('filling')) icon = '⌨';
-      else if (l.includes('screenshot')) icon = '📷';
-      else if (l.startsWith('reading')) icon = '👁';
-      else if (l.startsWith('logging in')) icon = '🔑';
-      else if (l.includes('tab')) icon = '📑';
-      else if (l.startsWith('recording')) icon = '🎥';
-      else if (l.startsWith('attaching')) icon = '📎';
-      else if (l.startsWith('reloading')) icon = '🔄';
-      else if (l.startsWith('spawned')) icon = '⚡';
-      return { icon, text: line.charAt(0).toUpperCase() + line.slice(1), type: 'observation' as const };
-    });
-    history = cards;
   });
 
   // Session id of the run currently in flight, so the Stop button can terminate its spawned CLI.

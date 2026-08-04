@@ -25,6 +25,18 @@
     currentView = 'create-skill';
   }
 
+  /**
+   * Record a skill by doing it: arm the recorder and go to the browser.
+   *
+   * Recording watches the embedded browser, so it cannot happen on this page — but "make a skill"
+   * having two front doors (here, and a Teach tab beside the browser) is what made it hard to
+   * find. The door is here; the recording still happens over there, unchanged. The panel-mode
+   * handoff is the same one the Grading nav entry uses.
+   */
+  function handleRecordSkill() {
+    window.dispatchEvent(new CustomEvent('steve:navigate', { detail: 'teach-record' }));
+  }
+
   let skills = $state<Skill[]>([]);
   let loading = $state(true);
   let error = $state<string | null>(null);
@@ -145,11 +157,14 @@
       >
         Find Skills
       </button>
-      <button 
-        class:active={currentView === 'create-skill'} 
+      <button
+        class:active={currentView === 'create-skill'}
         onclick={goToCreateSkill}
       >
         Create Skill
+      </button>
+      <button onclick={handleRecordSkill} title="Do the task once in the browser; STEVE writes the skill">
+        🎓 Record Skill
       </button>
     </div>
   </div>

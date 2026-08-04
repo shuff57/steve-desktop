@@ -17,10 +17,12 @@
     active = true,
   } = $props();
 
+  // `teach` is deliberately absent: recording a skill is one job with one front door, and that
+  // door is the Skills page ("Record Skill" → nav 'teach-record'). The mode still renders below —
+  // recording has to happen beside the browser it watches — it just is not a tab you pick.
   const MODES = [
     { id: 'agent', icon: '🤖', label: 'Agent' },
     { id: 'discovery', icon: '🔍', label: 'Discovery' },
-    { id: 'teach', icon: '🎓', label: 'Teach' },
     { id: 'skills', icon: '▶', label: 'Skills' },
     { id: 'ogre', icon: '📝', label: 'Grading' },
   ];
@@ -57,10 +59,11 @@
   let activeProvider = $state('');
   let activeModel = $state('');
 
-  // PageAgent-style status + history — child components bind these
+  // Status pill for the shell header — the child running a task binds these. There is
+  // deliberately no activity feed here: the runner renders its own, and mirroring it into the
+  // shell put the same run log on screen twice.
   let agentStatus = $state('idle');
   let agentStatusText = $state('');
-  let history = $state<{ icon: string; text: string; type?: string; meta?: string }[]>([]);
 </script>
 
 <ActionShell
@@ -72,7 +75,6 @@
   bind:model={activeModel}
   bind:agentStatus
   bind:agentStatusText
-  bind:history
   {active}
 >
   {#if activeMode === 'agent'}
@@ -81,8 +83,7 @@
       model={activeModel}
       bind:agentStatus
       bind:agentStatusText
-      bind:history
-    />
+        />
   {:else if activeMode === 'skills'}
     <SkillRunner provider={activeProvider} model={activeModel} />
   {:else if activeMode === 'teach'}

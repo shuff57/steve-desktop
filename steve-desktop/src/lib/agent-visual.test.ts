@@ -28,11 +28,10 @@ describe('agent-visual — one palette, three surfaces', () => {
     for (const key of ['thinking', 'executing', 'awaiting', 'completed', 'error'] as const) {
       expect(shell, `ActionShell is missing the shared ${key} colour`).toContain(flat(AGENT_COLORS[key]));
     }
-    // The page-agent bar shows the same two verdict colours and must agree too.
-    const bar = read('src/components/PageAgentBar.svelte');
-    for (const key of ['completed', 'error'] as const) {
-      expect(bar, `PageAgentBar is missing the shared ${key} colour`).toContain(flat(AGENT_COLORS[key]));
-    }
+    // There used to be a second agent surface here (the browser's pull-down PageAgentBar), which
+    // is why this test guards a shared palette at all. It is gone: the page agent is reached
+    // through the sidebar agent as page_task, so ActionShell is the only surface left to keep
+    // honest. Add any new one here rather than letting it pick its own colours.
 
     // The header sweep is the SAME animation as the pill's, so it needs all four
     // stops. It shipped with two (blue/purple) while the pill swept four, which

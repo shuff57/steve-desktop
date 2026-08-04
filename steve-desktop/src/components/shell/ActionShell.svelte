@@ -51,14 +51,9 @@
      * When null the shell derives it from agentStatus.
      */
     agentStatusText = $bindable('' as string),
-    /**
-     * History cards to render in the panel (PageAgent-style color-coded step log).
-     * Each entry: { icon, text, type } where type is one of 'default'|'input'|'output'|
-     * 'question'|'observation'|'error'|'success'.
-     */
-    // $bindable like its two siblings above: ActionPanel does `bind:history`, and
-    // without this the binding is a hard compile error rather than a silent no-op.
-    history = $bindable([] as { icon: string; text: string; type?: string; meta?: string }[]),
+    // No activity feed here on purpose. The shell used to mirror the running child's step log
+    // into its own cards, so the same run appeared twice in one sidebar — once here, once in the
+    // runner's "What the agent did". The runner owns its feed; the shell owns the status pill.
     /**
      * Step count for the pill's progress chip — the overlay's `.pa-prog`. A plain number
      * because the rail's jobs have no known length; pass a string like "6/15" where one is.
@@ -86,7 +81,6 @@
     runSession?: string | null;
     agentStatus?: string;
     agentStatusText?: string;
-    history?: { icon: string; text: string; type?: string; meta?: string }[];
     agentProgress?: string;
     onStop?: (() => void) | null;
     children?: Snippet;
@@ -373,28 +367,6 @@
     </div>
     {#if needsClaudeSignin}
       <div class="signin-notice">⚠ You're signed out of Claude. Open <strong>Settings → AI Accounts</strong> to sign back in.</div>
-    {/if}
-
-    <!-- PageAgent-style history cards -->
-    {#if history.length}
-      <div class="history-cards">
-        <!-- Keyed by position, not content: this is a sliding window over a run log, and a
-             retry loop repeats step text verbatim ("Rendering…" on every attempt). Keying on
-             text made those a duplicate key — a hard render error — and forced callers to
-             stuff a unique value into `meta`, which is a VISIBLE field, so the workaround
-             printed a stray index on every card. -->
-        {#each history as card, i (i)}
-          <div class="hcard" class:input={card.type === 'input'} class:output={card.type === 'output'} class:question={card.type === 'question'} class:observation={card.type === 'observation'} class:error={card.type === 'error'} class:success={card.type === 'success'}>
-            <div class="hcard-content">
-              <span class="hcard-icon">{card.icon}</span>
-              <span class="hcard-text">{card.text}</span>
-            </div>
-            {#if card.meta}
-              <div class="hcard-meta">{card.meta}</div>
-            {/if}
-          </div>
-        {/each}
-      </div>
     {/if}
 
     <div class="panel-content">
@@ -727,67 +699,6 @@
     color: var(--color-warning, var(--text-primary));
     border: 1px solid var(--color-warning-border, var(--border-color));
     font-size: var(--font-size-sm, 0.85rem);
-  }
-
-  /* ── PageAgent-style history cards ────────────────────────────────────────── */
-  .history-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: var(--spacing-2) var(--spacing-4) 0;
-    max-height: 200px;
-    overflow-y: auto;
-    flex-shrink: 0;
-  }
-  .hcard {
-    /* A flex column with a max-height squashes its children before the scrollbar ever
-       engages: ten cards in a 200px box compressed every row to a clipped sliver instead
-       of scrolling. Cards keep their height; the container scrolls. */
-    flex-shrink: 0;
-    padding: 6px 10px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border-radius: 8px;
-    border-left: 2px solid rgba(57, 182, 255, 0.5);
-    font-size: 0.75rem;
-    color: var(--sidebar-text-active, #e8e3d5);
-    line-height: 1.3;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 3px rgba(0,0,0,0.1);
-  }
-  .hcard::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  }
-  .hcard.input { border-left-color: rgb(34, 197, 94); background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03)); }
-  .hcard.output { border-left-color: rgb(34, 197, 94); background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03)); }
-  .hcard.question { border-left-color: rgb(255, 159, 67); background: linear-gradient(135deg, rgba(255,159,67,0.12), rgba(255,159,67,0.05)); }
-  .hcard.observation { border-left-color: rgb(147, 51, 234); background: linear-gradient(135deg, rgba(147,51,234,0.08), rgba(147,51,234,0.03)); }
-  .hcard.error { border-left-color: rgb(239, 68, 68); background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(239,68,68,0.03)); }
-  .hcard.success {
-    border-left: 4px solid rgb(34, 197, 94);
-    background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1), rgba(34,197,94,0.04));
-    box-shadow: 0 4px 12px rgba(34,197,94,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
-    font-weight: 600;
-    color: rgb(220, 252, 231);
-    padding: 8px 12px;
-  }
-  .hcard-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    word-break: break-word;
-    white-space: pre-wrap;
-  }
-  .hcard-icon { font-size: 0.8rem; flex-shrink: 0; line-height: 1.3; }
-  .hcard-text { flex: 1; min-width: 0; }
-  .hcard-meta {
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 4px;
   }
 
   .panel-content {

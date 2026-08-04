@@ -34,7 +34,6 @@
   import { agentOverlayScript, AGENT_OVERLAY_REMOVE, DIALOG_SUPPRESS_SCRIPT, SESSION_COLORS, type AgentActiveDetail } from '../lib/agent-overlay';
   import { startRecording, stopRecording } from '../lib/artifacts-api';
   import ActionPanel from './ActionPanel.svelte';
-  import PageAgentBar from '../components/PageAgentBar.svelte';
 
   // Exposed to spawned CLI agents so they can enumerate/drive the app's own tabs instead of
   // guessing from the CDP target list. Wraps the existing tab functions below — no separate
@@ -206,15 +205,6 @@
   async function toggleAutoSubmit() {
     autoSubmit = !autoSubmit;
     await setSetting('autoSubmitLogin', autoSubmit ? 'true' : 'false');
-  }
-
-  // Page-agent bar: same reserve-space pattern as the other aux bars, so the
-  // native webview is pushed down instead of painted over.
-  let showPageAgent = $state(false);
-  async function togglePageAgent(open: boolean) {
-    showPageAgent = open;
-    await tick();
-    updateWebviewBounds();
   }
 
   async function togglePasswords(open: boolean) {
@@ -898,10 +888,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
     </button>
 
-    <button class="icon-btn" class:active={showPageAgent} onclick={() => togglePageAgent(!showPageAgent)} title="Page agent — let a small model drive this page">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M12 7V4"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
-    </button>
-
     <button class="toggle-btn" onclick={toggleDrawer} title="Toggle Action Panel" class:active={showActionPanel}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
     </button>
@@ -956,10 +942,6 @@
       {/if}
       </div>
     </div>
-  {/if}
-
-  {#if showPageAgent}
-    <PageAgentBar tabId={activeTabId} />
   {/if}
 
   {#if pendingLogin}
