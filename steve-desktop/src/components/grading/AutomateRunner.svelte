@@ -291,6 +291,7 @@
     label: string,
     sessionId: string = crypto.randomUUID(),
     confine?: Confinement,
+    siteMap?: string | null,
   ): Promise<string> {
     // For the watchdog only. This never reaches the CLI — see the header comment.
     const port = await invoke<number | null>('get_cdp_port');
@@ -348,6 +349,7 @@
         return buildToolContext(cdp, controller.signal);
       },
       subTask: { baseURL: SUBTASK_BASE_URL, model: SUBTASK_MODEL, confine },
+      siteMap: siteMap ?? null,
       onActivity: (line) => progressBuf.push(show(line)),
     });
     try {
@@ -409,7 +411,9 @@
       msg = 'Planning (read-only)…';
       progress = [];
       const sid = crypto.randomUUID(); // minted BEFORE the prompt so the run's tab ownership id is baked into it
-      const raw = await spawn(buildAutomatePlanPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), scope, multiTab: effMultiTab }), 'plan', sid, confine);
+      // The map travels to the bridge (so page_map can serve it), not into the prompt — the plan
+      // prompt only needs to know the site HAS a map to point at page_map.
+      const raw = await spawn(buildAutomatePlanPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: !!map, scope, multiTab: effMultiTab }), 'plan', sid, confine, map);
       plan = cleanAutomateOutput(raw);
       if (!plan) throw new Error('The agent returned an empty plan.');
       phase = 'awaiting-approval';
@@ -451,10 +455,11 @@
       const mapDocPath = domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, multiTab: effMultiTab }),
+        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: !!map, mapDocPath, scope, multiTab: effMultiTab }),
         'exec',
         sid,
         confinementFor(startUrl, effMultiTab),
+        map,
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };
@@ -482,10 +487,11 @@
       const mapDocPath = domain ? await invoke<string>('resolve_path', { path: getMappingDocPath(domain) }).catch(() => undefined) : undefined;
       const sid = crypto.randomUUID();
       const raw = await spawn(
-        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: outbound(sid, map ?? '', startUrl), mapDocPath, scope, approvedPlan: outbound(sid, plan, startUrl), multiTab: effMultiTab }),
+        buildAutomateExecPrompt({ startUrl, task: outbound(sid, taskWithContext(task), startUrl), map: !!map, mapDocPath, scope, approvedPlan: outbound(sid, plan, startUrl), multiTab: effMultiTab }),
         'exec',
         sid,
         confinementFor(startUrl, effMultiTab),
+        map,
       );
       result = cleanAutomateOutput(raw);
       lastRun = { task, result };

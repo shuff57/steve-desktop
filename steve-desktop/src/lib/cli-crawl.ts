@@ -104,12 +104,16 @@ export function pageToolInstruction(o: { multiTab?: boolean } = {}): string {
     // the agent conclude it has no way to reach the browser and give up.
     'The page tools are named `mcp__page__page_read` and so on. If they are not already loaded,',
     'fetch them first with ToolSearch("select:mcp__page__page_read,mcp__page__page_task,' +
-      'mcp__page__page_click,mcp__page__page_type,mcp__page__page_navigate") — plus the',
+      'mcp__page__page_map,mcp__page__page_click,mcp__page__page_type,mcp__page__page_navigate") — plus the',
     'screenshot / record / tabs / attach_file ones if the task needs them.',
     '',
     '- page_read — the page as numbered elements plus its text. Every index in it ([3]<button>Save',
     '  </button>) is how you address that element. Indexes CHANGE after any action, so read again',
     '  rather than reusing an index across actions.',
+    '- page_map — the site map for the site you are automating: what pages it has and what an',
+    '  agent can do on each. Give it a `query` naming what you need (a page, an area, an action)',
+    '  and only the relevant slice comes back. Prefer this over guessing a URL or re-discovering',
+    '  the site, and it works before any page is open.',
     '- page_task — hand a whole sub-task on the current page to the in-app page agent, which works',
     '  out the clicks itself. Prefer this for multi-step work on one page; it is one call instead of',
     '  a dozen. Its reply includes the page afterwards — check that, do not just believe the report.',

@@ -93,6 +93,25 @@ fn tool_definitions() -> Value {
             }
         },
         {
+            "name": "page_map",
+            "description":
+                "Fetch the site map for the site you are automating — what pages it has and what \
+                 an agent can do on each. Ask with a `query` naming the thing you need (a page, \
+                 an area, an action) and only the relevant slice comes back, so this stays cheap \
+                 and exact. Prefer this over assuming a URL or re-discovering the site. No page \
+                 needs to be open. Returns a plain message when the site has no map yet.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "What you are looking for — a page, area or action. Optional."
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        {
             "name": "page_click",
             "description":
                 "Click the element with this index, from the most recent page_read. Also selects an \
@@ -499,6 +518,7 @@ mod tests {
             vec![
                 "page_read",
                 "page_task",
+                "page_map",
                 "page_click",
                 "page_type",
                 "page_navigate",
@@ -540,7 +560,7 @@ mod tests {
     #[test]
     fn tools_list_is_answered_here_but_tools_call_is_not() {
         let listed = dispatch_local(&json!({"method": "tools/list"}), json!(2)).unwrap();
-        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 9);
+        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 10);
         // tools/call is the one method that has to reach the webview.
         assert!(dispatch_local(&json!({"method": "tools/call"}), json!(3)).is_none());
     }

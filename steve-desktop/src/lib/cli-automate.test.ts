@@ -4,7 +4,7 @@ import { buildAutomatePlanPrompt, buildAutomateExecPrompt, planHasMutations, cle
 const base = {
   startUrl: 'https://www.myopenmath.com/course/course.php?cid=316341',
   task: 'Post an announcement titled Welcome',
-  map: '# Site map\nForums at /forums.php',
+  map: true,
   scope: { key: 'cid', value: '316341' },
 };
 
@@ -14,15 +14,21 @@ describe('buildAutomatePlanPrompt', () => {
     expect(p).toContain('PLANNING');
     expect(p).toContain('STRICTLY READ-ONLY');
     expect(p).toContain('Post an announcement titled Welcome');
-    expect(p).toContain('# Site map');
+    expect(p).toContain('SITE MAP — this site has one. Call page_map');
     expect(p).toContain('cid=316341');
+  });
+  it('serves the map through page_map instead of embedding it', () => {
+    // The full map is tens of thousands of tokens; the prompt only points at page_map and the
+    // slice is fetched on demand.
+    expect(p).toContain('page_map');
+    expect(p).not.toContain('Forums at /forums.php');
   });
   it('asks for [MUTATES] tagging and a risk line', () => {
     expect(p).toContain('[MUTATES]');
     expect(p).toContain('## Risk');
   });
   it('handles a missing map', () => {
-    expect(buildAutomatePlanPrompt({ ...base, map: '' })).toContain('No site map is available yet');
+    expect(buildAutomatePlanPrompt({ ...base, map: false })).toContain('No site map is available yet');
   });
   it('tells the agent to scout visibly rather than plan from memory', () => {
     expect(p).toContain('SCOUT IT VISIBLY');
@@ -230,7 +236,7 @@ describe('the map gets smarter through use', () => {
   it('with no map yet, the agent starts one as a side effect of the task', () => {
     // "Run now" deliberately does not stall behind a crawl. Mapping is not a chore you invoke;
     // the first run writes down what it had to learn anyway.
-    const p = buildAutomateExecPrompt({ ...base, map: '', mapDocPath: docPath });
+    const p = buildAutomateExecPrompt({ ...base, map: false, mapDocPath: docPath });
     expect(p).toContain('has no map yet');
     expect(p).toContain('SIDE EFFECT');
     expect(p).toContain('do not let it delay the work');
@@ -244,7 +250,7 @@ describe('the map gets smarter through use', () => {
   });
 
   it('with nowhere to write, it is told to do neither', () => {
-    const p = buildAutomateExecPrompt({ ...base, map: '' });
+    const p = buildAutomateExecPrompt({ ...base, map: false });
     expect(p).not.toContain('has no map yet');
     expect(p).not.toContain('MAPPING MAINTENANCE');
   });

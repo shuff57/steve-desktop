@@ -22,13 +22,14 @@ function ctx(): ToolContext {
 
 const COURSE = 'https://www.myopenmath.com/course/gradebook.php?cid=316341';
 
-function opts(confine?: { startUrl: string; sameDomainOnly?: boolean }) {
+function opts(confine?: { startUrl: string; sameDomainOnly?: boolean }, siteMap?: string | null) {
   const fixed = ctx();
   return {
     runId: 'run-1',
     fixed,
     ctx: () => fixed,
     subTask: { baseURL: 'http://x/v1', model: 'm', maxSteps: 1, confine },
+    siteMap: siteMap ?? null,
   };
 }
 
@@ -115,12 +116,44 @@ describe('confinement on the primitive path', () => {
   });
 });
 
+describe('the site map served on demand', () => {
+  const MAP = `# Site map: MyOpenMath
+## Gradebook
+- gradebook.php?cid=N — list scores; click a name to open the roster row.
+## Forums
+- msglist.php?cid=N — the inbox.
+`;
+
+  test('page_map returns the matching slice, masked, without needing a page', async () => {
+    const o = opts(undefined, MAP);
+    const out = await dispatchPageTool('page_map', { query: 'gradebook' }, o);
+    expect(out).toContain('gradebook.php?cid=N');
+    expect(out).toContain('roster row');
+    // Not served with a page snapshot: the map is not a page.
+    expect(out).not.toContain('the page now');
+  });
+
+  test('page_map serves the whole map when no query is given', async () => {
+    const out = await dispatchPageTool('page_map', {}, opts(undefined, MAP));
+    expect(out).toContain('Gradebook');
+    expect(out).toContain('Forums');
+  });
+
+  test('page_map with no map says so instead of failing', async () => {
+    const out = await dispatchPageTool('page_map', { query: 'grades' }, opts());
+    expect(out).toContain('No site map is available');
+  });
+});
+
 describe('the activity feed', () => {
   test('names the sub-task rather than saying "using a tool"', () => {
     expect(describePageTool('page_task', { task: 'open the grades tab' })).toBe(
       'page agent: open the grades tab',
     );
     expect(describePageTool('page_read')).toBe('reading the page');
+    expect(describePageTool('page_map', { query: 'grades' })).toBe(
+      'looking up the site map for "grades"',
+    );
     expect(describePageTool('something_else')).toBeNull();
   });
 });

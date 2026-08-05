@@ -12,8 +12,12 @@ import { cleanMappingDoc, pageToolInstruction } from './cli-crawl';
 export interface AutomatePlanOptions {
   startUrl: string;
   task: string;
-  /** The site map document (markdown) for context — may be '' if none exists yet. */
-  map: string;
+  /**
+   * Whether a site map exists for this site. The map TEXT is never embedded here — it is served
+   * on demand through page_map, which returns only the slice the agent asks for. This flag only
+   * tells the prompt to point at page_map instead of telling the agent to rediscover the site.
+   */
+  map: boolean;
   /** Absolute path of the stored mapping doc. When present, the exec agent maintains it: a
    *  verified mismatch with the live site gets healed in place, then the task continues. */
   mapDocPath?: string;
@@ -66,7 +70,14 @@ export function buildAutomatePlanPrompt(o: AutomatePlanOptions): string {
     '- This adds NO state change: navigate, open tabs, and read only — no clicks, fills, or submits',
     '  until the plan is approved.',
     '',
-    o.map ? `SITE MAP (use it to locate the right pages instead of rediscovering):\n${o.map}\n` : 'No site map is available yet; inspect the site directly.\n',
+    // The site map is served on demand through the page tools instead of being embedded here:
+    // a full map of a live course runs to tens of thousands of tokens, and the map is a fixed
+    // budget whether the task uses all of it or not. page_map(query) returns only the slice the
+    // plan needs.
+    o.map
+      ? 'SITE MAP — this site has one. Call page_map with a query naming each area the task\n' +
+        '  touches to fetch only the slices you need instead of rediscovering the site.'
+      : 'No site map is available yet; inspect the site directly.',
     o.startUrl
       ? `START at ${o.startUrl}.`
       : 'No page is open yet — open the site(s) the task needs with page_tabs open, then inspect from there.',
@@ -142,7 +153,7 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
     // No map yet: rather than stalling the run behind a full crawl, the agent writes down what it
     // had to learn anyway. The first run leaves a rough map, later runs heal and extend it — the
     // map gets smarter through use instead of through a separate mapping chore.
-    o.mapDocPath && !o.map.trim()
+    o.mapDocPath && !o.map
       ? [
           `MAPPING — this site has no map yet. Start one at ${o.mapDocPath} as a SIDE EFFECT of the`,
           'task; do not go exploring for its own sake, and do not let it delay the work.',
@@ -156,7 +167,7 @@ export function buildAutomateExecPrompt(o: AutomateExecOptions): string {
       : '',
     // Self-healing mid-task: the map is the agent's own working memory — when reality disagrees,
     // fix the memory (auto-saved by editing the file), then keep going. Verified facts only.
-    o.mapDocPath && o.map.trim()
+    o.mapDocPath && o.map
       ? [
           `MAPPING MAINTENANCE — the site map above is stored at ${o.mapDocPath}.`,
           'If during the task you find it disagrees with the live site (moved or renamed page, dead',

@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from 'vitest';
-import { handlePageAction, handlePageTask, readPage } from './page-tool';
+import { handlePageAction, handlePageMap, handlePageTask, mapSliceForQuery, readPage, splitMapSections } from './page-tool';
 import { endRunMask, maskForRun } from './page-agent-mask';
 import type { ToolContext } from './page-agent-tools';
 
@@ -125,5 +125,62 @@ describe('primitives carry the same boundary', () => {
     const token = first.match(/⟦STU\d+⟧/)![0];
     const second = await readPage('run-1', ctx());
     expect(second).toContain(token);
+  });
+});
+
+describe('the site map slice', () => {
+  const MAP = `# Site map: MyOpenMath
+This site hosts a course with a gradebook and forums.
+
+## Gradebook
+- gradebook.php?cid=N — list scores; click a name to open the roster row.
+
+## Forums
+- msglist.php?cid=N — the inbox.
+`;
+
+  test('sections split by heading, keeping prose with its section', () => {
+    const s = splitMapSections(MAP);
+    expect(s.map((x) => x.heading)).toEqual(['Site map: MyOpenMath', 'Gradebook', 'Forums']);
+    expect(s[1].body).toContain('gradebook.php?cid=N');
+    expect(s[1].body).not.toContain('msglist.php?cid=N');
+  });
+
+  test('a heading match wins over a prose match and carries context around it', () => {
+    const { section, text } = mapSliceForQuery(MAP, 'Gradebook')!;
+    expect(section).toBe('Gradebook');
+    expect(text).toContain('gradebook.php?cid=N');
+    expect(text).toContain('roster row');
+  });
+
+  test('a prose-only match still lands in the right section', () => {
+    const { section, text } = mapSliceForQuery(MAP, 'inbox')!;
+    expect(section).toBe('Forums');
+    expect(text).toContain('msglist.php?cid=N');
+  });
+
+  test('no match returns null; an empty doc returns null', () => {
+    expect(mapSliceForQuery(MAP, 'zebra')).toBeNull();
+    expect(mapSliceForQuery('   ', 'anything')).toBeNull();
+  });
+
+  test('no query returns the whole doc', () => {
+    const { section, text } = mapSliceForQuery(MAP, '')!;
+    expect(section).toBe('');
+    expect(text).toContain('Gradebook');
+    expect(text).toContain('Forums');
+  });
+
+  test('handlePageMap masks the map in the run mask and never needs a page', async () => {
+    const doc = MAP + '\n## Roster\n- view.php?stu=7158619 — the class roster.\n';
+    const out = await handlePageMap('run-1', doc, 'roster');
+    expect(out).toContain('view.php?stu=');
+    expect(out).not.toContain('7158619');
+    expect(out).toMatch(/⟦PID\d+⟧/);
+  });
+
+  test('handlePageMap with no map says so plainly', async () => {
+    const out = await handlePageMap('run-1', '', 'grades');
+    expect(out).toContain('No site map is available');
   });
 });

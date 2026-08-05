@@ -18,7 +18,7 @@
 
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
-import { handlePageAction, handlePageTask, readPage, type PageTaskOptions, type PageTaskResult } from './page-tool';
+import { handlePageAction, handlePageMap, handlePageTask, readPage, type PageTaskOptions, type PageTaskResult } from './page-tool';
 import { confinementRefusal } from './page-agent-run';
 import { maskForRun } from './page-agent-mask';
 import type { ToolContext } from './page-agent-tools';
@@ -32,6 +32,7 @@ export interface PageToolsEndpoint {
 export const PAGE_TOOL_NAMES = {
   read: 'mcp__page__page_read',
   task: 'mcp__page__page_task',
+  map: 'mcp__page__page_map',
   click: 'mcp__page__page_click',
   type: 'mcp__page__page_type',
   navigate: 'mcp__page__page_navigate',
@@ -70,6 +71,8 @@ export interface PageToolsContext {
   ctx: () => ToolContext | Promise<ToolContext>;
   /** Config for the sub-task agent behind page_task, including this run's confinement. */
   subTask: PageTaskOptions;
+  /** The site map (markdown) for this run's site, or null when none exists yet. */
+  siteMap: string | null;
 }
 
 /** The `--mcp-config` value. Loopback plus a per-run bearer token: anything else on the machine
@@ -104,6 +107,13 @@ export async function dispatchPageTool(
   args: Record<string, unknown>,
   o: PageToolsContext,
 ): Promise<string> {
+  switch (name) {
+    // The map is the one tool that must not need a live page: a "where is X" check before the
+    // browser has been driven should answer without the CDP connection.
+    case 'page_map':
+      return handlePageMap(o.runId, o.siteMap ?? '', args.query === undefined ? undefined : String(args.query));
+  }
+
   const ctx = await o.ctx();
   switch (name) {
     case 'page_read':
@@ -282,6 +292,10 @@ export function describePageTool(name: string, args?: Record<string, unknown>): 
   switch (name) {
     case 'page_read':
       return 'reading the page';
+    case 'page_map': {
+      const q = String(args?.query ?? '').replace(/\s+/g, ' ').trim();
+      return q ? `looking up the site map for "${q.slice(0, 48)}"` : 'looking up the site map';
+    }
     case 'page_task': {
       const t = String(args?.task ?? '').replace(/\s+/g, ' ').trim();
       return t ? `page agent: ${t.slice(0, 80)}` : 'handing a sub-task to the page agent';
