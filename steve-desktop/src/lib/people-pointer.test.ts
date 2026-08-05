@@ -53,6 +53,16 @@ describe('looksLikeRoster — classify by what the page holds, not what it is ca
     expect(looksLikeRoster(page(footer))).toBe(false);
     expect(looksLikeRoster(page([...footer, 'Course Map', 'Data Sets']))).toBe(false);
   });
+
+  // The local `commaForm` regex this function used to carry was ASCII-only, same gap as the live
+  // mask before this session's Unicode fix — it is now a substring check on top of
+  // looksLikePersonName instead (see the function's own comment for why that's still correct
+  // comma-only detection). This is the LAST LINE of defence for a roster whose URL doesn't
+  // already read as one; under-detecting here silently drops the whole plain-name masking tier
+  // for that page, not just a missed classification.
+  it('flags a page whose roster is entirely accented and particle-form comma names', () => {
+    expect(looksLikeRoster(page(['García, José', 'van der Berg, Willem', "O'Brien, Katie", 'Save']))).toBe(true);
+  });
 });
 
 describe('people pointers — record the route, never the person', () => {
@@ -144,6 +154,48 @@ describe('people pointers — record the route, never the person', () => {
     expect(upsertPointer([a], buildPeoplePointer(gradebook()))).toHaveLength(1);
   });
 
+  // Fix 2: buildPeoplePointer used to gate the row-label drop with a hand-duplicated regex that
+  // missed Mc/Mac/O'/particle surnames — a review found "McDonald, Sean" surviving into
+  // controls[], a field documented as never holding a person. Now shares redact-tree.ts's
+  // looksLikePersonName, so this exercises the SAME fix at the drop site, not just the
+  // safety-assertion site below.
+  describe('drops Mc/Mac/O\'/particle-shaped labels too, not just plain ones', () => {
+    const withButtons = (buttons: string[]): SiteProfile =>
+      ({
+        domain: 'm.com', url: 'https://m.com/course/gradebook.php?cid=1',
+        interactive: { buttons: buttons.map((t, i) => ({ text: t, selector: `#b${i}` })), links: [], inputs: [] },
+      }) as unknown as SiteProfile;
+
+    it('drops "McDonald, Sean" — the exact leak a cold review found', () => {
+      const p = buildPeoplePointer(withButtons(['McDonald, Sean', 'Export CSV']));
+      expect(p.controls).not.toContain('McDonald, Sean');
+      expect(p.controls).toContain('Export CSV');
+    });
+
+    it('drops a Dutch particle surname', () => {
+      const p = buildPeoplePointer(withButtons(['van der Berg, Willem']));
+      expect(p.controls).toHaveLength(0);
+    });
+
+    it("drops an O'-apostrophe surname", () => {
+      const p = buildPeoplePointer(withButtons(["O'Brien, Katie"]));
+      expect(p.controls).toHaveLength(0);
+    });
+
+    // Unicode fix: [A-Z]/[a-z] were ASCII-only, so an accented name never matched anything, in
+    // any tier — the most serious leak found this session. Plain form and comma form both.
+    it('drops an accented comma-form name', () => {
+      const p = buildPeoplePointer(withButtons(['García, José']));
+      expect(p.controls).toHaveLength(0);
+    });
+
+    it('drops an accented plain-form name', () => {
+      const p = buildPeoplePointer(withButtons(['José García', 'Export CSV']));
+      expect(p.controls).not.toContain('José García');
+      expect(p.controls).toContain('Export CSV');
+    });
+  });
+
   describe('pointerLeaks — prove it before writing it', () => {
     it('passes a clean pointer set', () => {
       expect(pointerLeaks([buildPeoplePointer(gradebook())])).toEqual([]);
@@ -158,6 +210,32 @@ describe('people pointers — record the route, never the person', () => {
     it('catches a person-shaped control label', () => {
       const p = buildPeoplePointer(gradebook());
       p.controls = ['Nguyen, Alice'];
+      expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
+    });
+
+    // Same fix, the safety-net side: pointerLeaks used to share the identical blind spot as the
+    // drop it is meant to catch, so a leaked Mc/particle label would sail through both.
+    it('catches a Mc/Mac-shaped control label', () => {
+      const p = buildPeoplePointer(gradebook());
+      p.controls = ['McDonald, Sean'];
+      expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
+    });
+
+    it('catches a particle-shaped control label', () => {
+      const p = buildPeoplePointer(gradebook());
+      p.controls = ['van der Berg, Willem'];
+      expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
+    });
+
+    it("catches an O'-apostrophe control label", () => {
+      const p = buildPeoplePointer(gradebook());
+      p.controls = ["O'Brien, Katie"];
+      expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
+    });
+
+    it('catches an accented control label', () => {
+      const p = buildPeoplePointer(gradebook());
+      p.controls = ['García, José'];
       expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
     });
   });

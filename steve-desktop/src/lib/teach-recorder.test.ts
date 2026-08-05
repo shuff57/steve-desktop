@@ -1,7 +1,7 @@
 /** @vitest-environment jsdom */
 import { describe, it, expect } from 'vitest';
 import { foldStep, buildWorkflow, RECORDER_SCRIPT } from './teach-recorder';
-import { buildTeachPolishPrompt, parseTeachPolish, composeTeachSkill } from './teach-polish';
+import { buildTeachPolishPrompt, parseTeachPolish, composeTeachSkill, tokenizeWorkflowValues } from './teach-polish';
 import { skillToWorkflow } from './workflow-skill';
 import type { WorkflowStep } from './types/site-profile';
 
@@ -106,6 +106,74 @@ describe('polish', () => {
       expect(wf.steps[0].value).toBe('7158620');
       expect(wf.steps[0].description).toContain('Nakamura, Yuki');
     });
+  });
+});
+
+describe('workflow.values (Finding 1 fix — a sibling data path to step values, not a special case)', () => {
+  it('tokenizeWorkflowValues genericizes workflow.values the same way it genericizes step values', () => {
+    const wfv = { ...buildWorkflow('demo', [click('#go')], 'https://x.test'), values: { course_url: 'https://lms.example/courses/1' } };
+    const t = tokenizeWorkflowValues(wfv);
+    expect(t.values?.course_url).toMatch(/^⟦V\d+⟧$/);
+    expect(t.values?.course_url).not.toBe('https://lms.example/courses/1');
+  });
+
+  it('a promoted value never appears literally in the polish prompt, even a safe one', () => {
+    const wfv = {
+      ...buildWorkflow('demo', [{ action: 'fill' as const, selector: '#url', value: '{{course_url}}', description: 'course url field' }], 'https://x.test'),
+      values: { course_url: 'https://lms.example/courses/9182' },
+    };
+    const p = buildTeachPolishPrompt(wfv, 'https://x.test');
+    expect(p).not.toContain('https://lms.example/courses/9182');
+  });
+
+  it('a value that bypassed the promotion gate is still kept out of the prompt (defense in depth)', () => {
+    // teach-tokens.ts's promoteToToken refuses to put this here in the first place; this proves
+    // the prompt path does not ALSO depend on that refusal ever having run.
+    const wfv = {
+      ...buildWorkflow('demo', [{ action: 'fill' as const, selector: '#n', value: '{{contact}}', description: 'contact field' }], 'https://x.test'),
+      values: { contact: 'sarah.chen@example.edu' },
+    };
+    const p = buildTeachPolishPrompt(wfv, 'https://x.test');
+    expect(p).not.toContain('sarah.chen@example.edu');
+  });
+});
+
+describe('narration (item 6, FERPA)', () => {
+  // The teacher types a free-text note at Stop ("what were you doing?"). It goes to the model, so
+  // it must be masked through the same whole-body path as the workflow — with the plain-name form
+  // ON, since prose has no UI labels for that tier to protect (page-agent-mask.ts's `plainNames`).
+  it('masks a realistic student name out of narration, even off a people-surface start URL', () => {
+    const wf = buildWorkflow('demo', [click('#go')], 'https://x.test');
+    const p = buildTeachPolishPrompt(wf, 'https://x.test', "grading Sarah Chen's makeup quiz");
+    expect(p).not.toContain('Sarah');
+    expect(p).not.toContain('Chen');
+    expect(p).toMatch(/⟦STU\d+⟧/);
+    expect(p).toContain('makeup quiz'); // the non-identifying intent survives
+  });
+
+  it('masks the comma form in narration too', () => {
+    const wf = buildWorkflow('demo', [click('#go')], 'https://x.test');
+    const p = buildTeachPolishPrompt(wf, 'https://x.test', 'grading Chen, Sarah for the makeup quiz');
+    expect(p).not.toContain('Chen, Sarah');
+  });
+
+  it('shares one token map with the workflow — the same name gets the same token in both', () => {
+    // The name lives in `description`, not `value` — `value` is already replaced with a ⟦V n⟧
+    // placeholder before masking (tokenizeWorkflowValues), so it never reaches the mask itself.
+    const wf = buildWorkflow(
+      'demo',
+      [{ action: 'click', selector: '#n', description: 'Sarah Chen row' }],
+      'https://lms.example/courses/1/gradebook', // a people surface, so the workflow side masks the plain form too
+    );
+    const p = buildTeachPolishPrompt(wf, 'https://lms.example/courses/1/gradebook', 'grading Sarah Chen');
+    const tokens = p.match(/⟦STU\d+⟧/g) ?? [];
+    expect(tokens.length).toBeGreaterThan(0);
+    expect(new Set(tokens).size).toBe(1); // one person, one token, everywhere it appears
+  });
+
+  it('omits the narration line entirely when none was given', () => {
+    const wf = buildWorkflow('demo', [click('#go')], 'https://x.test');
+    expect(buildTeachPolishPrompt(wf, 'https://x.test')).not.toContain('described what they were doing');
   });
 });
 

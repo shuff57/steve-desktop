@@ -32,12 +32,6 @@ const SLOT = '{studentId}';
 const PERSON_PARAM = /(uid|stu|stuid|student|studentid|userid|filteruid|sid|learner)/i;
 
 /**
- * A control label that is a person rather than an action. Row labels are dropped entirely;
- * only genuine actions survive into `controls`.
- */
-const PERSON_LABEL = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+/;
-
-/**
  * Does this CAPTURED page look like a list of people, whatever its URL says?
  *
  * The last line of defence, and the only one that needs no vocabulary. A live MyOpenMath course
@@ -64,7 +58,6 @@ const PERSON_LABEL = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+/;
  * person-selecting query param — which is the signal that caught every MyOpenMath surface anyway.
  */
 export function looksLikeRoster(profile: SiteProfile): boolean {
-  const commaForm = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?,\s+[A-Z][a-z]+/;
   const comma = new Set<string>();
   const labels = [
     ...(profile.interactive?.buttons ?? []).map((b) => b.text),
@@ -72,7 +65,19 @@ export function looksLikeRoster(profile: SiteProfile): boolean {
   ];
   for (const raw of labels) {
     const t = (raw ?? '').trim();
-    if (t && looksLikePersonName(t) && commaForm.test(t)) comma.add(t);
+    // COMMA FORM ONLY (see the doc comment above): looksLikePersonName is fully anchored and
+    // matches either the plain form or the comma form, never both at once, and the plain form's
+    // own grammar (redact-tree.ts) never produces a literal comma — none of its fragments include
+    // one. So a comma in a string looksLikePersonName already accepted can only mean it matched
+    // via the comma branch; no second regex needed to tell them apart.
+    //
+    // This used to be a second, hand-duplicated ASCII-only regex here, with the same gap the live
+    // mask had before this session's Unicode fix: "García, José" or "van der Berg, Willem" never
+    // matched it. That is a real leak path, not just a duplicate — looksLikeRoster is the LAST
+    // LINE of defence for a roster whose URL doesn't already read as one (latepasses.php,
+    // gbcomments.php); under-detecting here means the page's plain-name masking tier never turns
+    // on for it at all (see SiteMapper.svelte's `isPeopleSurface(url) || looksLikeRoster(profile)`).
+    if (t && looksLikePersonName(t) && t.includes(',')) comma.add(t);
   }
   return comma.size >= 3;
 }
@@ -169,7 +174,10 @@ export function buildPeoplePointer(profile: SiteProfile, rosterUrl = ''): People
     const text = (c.text ?? '').trim();
     if (!text || text.includes('⟦')) continue;
     // A row label on a roster is the person. Drop it — do NOT tokenize it into the pointer.
-    if (PERSON_LABEL.test(text)) { dropped++; continue; }
+    // looksLikePersonName is redact-tree.ts's ONE definition of "reads as a person" (Mc/Mac/O'/
+    // particle-aware); this used to be a second, hand-duplicated copy that lacked all of that,
+    // which meant a name like "McDonald, Sean" could survive into `controls[]`.
+    if (looksLikePersonName(text)) { dropped++; continue; }
     if (!controls.includes(text)) controls.push(text);
   }
   const located = [...templates.values()].find((s) => s.param);
@@ -199,7 +207,7 @@ export function upsertPointer(existing: PeoplePointer[], next: PeoplePointer): P
 export function pointerLeaks(pointers: PeoplePointer[]): string[] {
   const bad: string[] = [];
   for (const p of pointers) {
-    for (const c of p.controls) if (PERSON_LABEL.test(c)) bad.push(`${p.surface}: control label reads as a person`);
+    for (const c of p.controls) if (looksLikePersonName(c)) bad.push(`${p.surface}: control label reads as a person`);
     for (const t of p.perPerson) {
       if (!t.includes(SLOT)) bad.push(`${p.surface}: per-person URL has no ${SLOT} slot`);
       if (/(uid|stu|studentid|userid)=\d+/i.test(t)) bad.push(`${p.surface}: per-person URL carries a literal id`);

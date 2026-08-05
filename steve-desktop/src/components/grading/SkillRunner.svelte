@@ -16,6 +16,7 @@
   import { replayLive } from '../../lib/replay-live';
   import { connectCDP, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
+  import { resolveTokens } from '../../lib/teach-tokens';
   import { markPageDirty, recordPageDrift } from '../../lib/site-profiles';
   import type { Workflow } from '../../lib/types/site-profile';
   import { shouldRemap } from '../../lib/key-nodes';
@@ -148,7 +149,7 @@
     runningId = skill.id;
     message = `Running "${skill.name}"…`;
     try {
-      const workflow = skillToWorkflow(skill.content);
+      const workflow = resolveTokens(skillToWorkflow(skill.content));
       if (!workflow.steps.length) {
         message = `"${skill.name}" has no replayable steps.`;
         return;
@@ -182,10 +183,22 @@
       message = `Roster is missing column(s): ${missing.join(', ')}.`;
       return;
     }
+    const workflow = skillToWorkflow(skill.content);
+    // Resolve fixed tokens ONCE, before anything else — they don't vary per row, so an unresolved
+    // key is a workflow-wide problem, not a per-row one. Checking here instead of inside the loop
+    // means a bad token surfaces as one clear message instead of N-1 redundant per-row failures.
+    // `workflow` itself stays unresolved: it is what persistHeals writes back to storage below,
+    // and a resolved literal must never be baked into the saved skill.
+    let tokenResolved: Workflow;
+    try {
+      tokenResolved = resolveTokens(workflow);
+    } catch (e) {
+      message = `Can't run "${skill.name}": ${e instanceof Error ? e.message : 'a token is unresolved'}.`;
+      return;
+    }
     if (!(await ensureConnected())) return;
     runningId = skill.id;
     stopBatch = false;
-    const workflow = skillToWorkflow(skill.content);
     let ok = 0;
     let healedAny = false;
     try {
@@ -195,7 +208,7 @@
         const label = rowLabel(row, roster.headers);
         message = `${i + 1}/${roster.rows.length} — ${label}…`;
         try {
-          const bound = bindWorkflow(workflow, row);
+          const bound = bindWorkflow(tokenResolved, row);
           const summary = await replayLive(bound, { provider, model });
           const { line, status } = summarize(summary);
           if (summary.healed) {

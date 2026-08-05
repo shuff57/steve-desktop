@@ -40,8 +40,15 @@ export interface PageMask {
   /**
    * Mask everything identifying in text bound for the model.
    * @param url the page the text was observed on — decides the people-surface tier.
+   * @param opts.plainNames force the plain name form ("Sarah Chen", not just "Chen, Sarah") on
+   *   regardless of `url`. Off by default: `commaOnly` exists because unclassified PAGE text is
+   *   full of two-capitalized-word UI labels ("Course Map", "Total Score") that the plain form
+   *   would wrongly tokenize (see the comment above `PERSON_LABEL_COMMA` in redact-tree.ts). A
+   *   teacher's free-text narration has no UI labels to protect, so that false-positive risk is
+   *   absent — and a false positive there is free, since the model only reads narration for
+   *   intent. Use this for prose a human typed, never for page/DOM text.
    */
-  text(text: string, url?: string): string;
+  text(text: string, url?: string, opts?: { plainNames?: boolean }): string;
   /** Put the real values back into an action the model addressed by token. Local only. */
   rehydrate<T>(value: T): T;
   /** token -> value. For an audit line or a UI reveal, never for the wire. */
@@ -158,7 +165,7 @@ export function createPageMask(opts: PageMaskOptions = {}): PageMask {
   };
 
   return {
-    text(text, url) {
+    text(text, url, opts) {
       const people = isPeopleSurface(url ?? '');
       let out = scrubPersonIds(text, (id) => tokenFor('PID', id));
       // The plain name form is applied line by line so a control's own label survives it. In the
@@ -170,7 +177,7 @@ export function createPageMask(opts: PageMaskOptions = {}): PageMask {
         .split('\n')
         .map((line) =>
           maskPersonNames(line, (n) => tokenFor('STU', n), {
-            commaOnly: !people || CHROME_LINE.test(line),
+            commaOnly: opts?.plainNames ? CHROME_LINE.test(line) : !people || CHROME_LINE.test(line),
           }),
         )
         .join('\n');

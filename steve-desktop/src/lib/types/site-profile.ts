@@ -70,12 +70,21 @@ export interface WorkflowStep {
   condition?: string;
   timeout?: number;
   description?: string;
+  /** State-changing step, for the approval-card warning badge. Explicit override of the default
+   *  derived from `action` (teach-mutates.ts) — additive, so steps recorded before this existed
+   *  simply derive it. */
+  mutates?: boolean;
 }
 
 export interface Workflow {
   name: string;
   trigger?: string;
   steps: WorkflowStep[];
+  /** Fixed values (a course URL, a course id) promoted out of steps so one edit updates every
+   *  step that uses them. A step's `value` then holds `{{key}}`, resolved from here at replay
+   *  (teach-tokens.ts). Mirrors teach-params.ts's `param`, which is for values that VARY per run
+   *  instead — the two never apply to the same step. */
+  values?: Record<string, string>;
 }
 
 export interface FrameInfo {

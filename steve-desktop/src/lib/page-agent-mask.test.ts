@@ -265,3 +265,172 @@ describe('a value tokenized once stays tokenized', () => {
     expect(mask.rehydrate(masked)).toBe('Alvarez, Jordan  ID 7158619');
   });
 });
+
+describe('plainNames — the narration path, not the page-text path', () => {
+  // A teacher's free-text note ("grading Sarah Chen's makeup quiz") has no UI labels to protect,
+  // so the false-positive risk that gates the plain form on unclassified page text (see
+  // PERSON_LABEL_COMMA's comment in redact-tree.ts) does not apply. plainNames turns that gate
+  // off for exactly this case. It must never change what an EXISTING caller (page text) gets.
+  const contentPage = 'https://lms.example/course/course.php?cid=1'; // not a people surface
+
+  test('without plainNames, a plain name survives off a people surface — this is the hole the ' +
+    'original narration design would have shipped, and the test that would have caught it', () => {
+    const mask = createPageMask();
+    const out = mask.text("grading Sarah Chen's makeup quiz", contentPage);
+    expect(out).toContain('Sarah Chen');
+  });
+
+  test('with plainNames, the same plain-form name is masked off a people surface', () => {
+    const mask = createPageMask();
+    const out = mask.text("grading Sarah Chen's makeup quiz", contentPage, { plainNames: true });
+    expect(out).not.toContain('Sarah');
+    expect(out).not.toContain('Chen');
+    expect(out).toMatch(/⟦STU\d+⟧/);
+    expect(out).toContain('makeup quiz');
+  });
+
+  test('the comma form is masked under plainNames too', () => {
+    const mask = createPageMask();
+    const out = mask.text('grading Chen, Sarah for the makeup quiz', contentPage, { plainNames: true });
+    expect(out).not.toContain('Chen, Sarah');
+  });
+
+  test('a control-label line stays readable under plainNames (chrome guard still applies)', () => {
+    const mask = createPageMask();
+    const out = mask.text('[4]<button>Teacher Preview</button>', contentPage, { plainNames: true });
+    expect(out).toContain('Teacher Preview');
+  });
+
+  test('an existing (opts-less) caller is byte-identical before and after adding plainNames', () => {
+    const mask = createPageMask();
+    const out = mask.text('[0]<button>Add Question</button>\n[1]<link>Course Map</link>', contentPage);
+    expect(out).toBe('[0]<button>Add Question</button>\n[1]<link>Course Map</link>');
+  });
+});
+
+describe('particle and long-run names through the full PageMask path (redact-tree.ts grammar fix)', () => {
+  const gradebook = 'https://lms.example/courses/1/gradebook';
+
+  test('a particle name is masked whole on a people surface, not leaving "Maria" in the clear', () => {
+    const mask = createPageMask();
+    const out = mask.text('Maria de la Cruz', gradebook);
+    expect(out).not.toContain('Maria');
+    expect(out).not.toContain('Cruz');
+    expect(out).toMatch(/⟦STU\d+⟧/);
+  });
+
+  test('rehydrate is the exact inverse for a particle name — the shape of the previous profile-JSON corruption bug', () => {
+    const mask = createPageMask();
+    const masked = mask.text('Maria de la Cruz  ID 7158619', gradebook);
+    expect(mask.rehydrate(masked)).toBe('Maria de la Cruz  ID 7158619');
+  });
+
+  test('rehydrate is the exact inverse for a 4-part name with no particle, even though it masks ' +
+    'as two separate tokens rather than one — real PageMask tokens are per-VALUE, not per-call, ' +
+    'so two distinct segments never collide the way a single constant test-stub token would', () => {
+    const mask = createPageMask();
+    const masked = mask.text('Ana Maria Rodriguez Lopez', gradebook);
+    expect(masked).toMatch(/^⟦STU\d+⟧ ⟦STU\d+⟧$/); // two distinct tokens, not one
+    expect(mask.rehydrate(masked)).toBe('Ana Maria Rodriguez Lopez');
+  });
+
+  test('a 3-part name is masked whole, not just its leading pair', () => {
+    const mask = createPageMask();
+    const out = mask.text('Nguyen Van An', gradebook);
+    expect(out).not.toContain('An');
+    expect(out).toMatch(/⟦STU\d+⟧/);
+  });
+});
+
+describe('diacritics through the full PageMask path (the most serious leak found this session)', () => {
+  const gradebook = 'https://lms.example/courses/1/gradebook';
+
+  test('an accented name is masked whole on a people surface, not left byte-identical', () => {
+    const mask = createPageMask();
+    const out = mask.text('José García', gradebook);
+    expect(out).not.toContain('José');
+    expect(out).not.toContain('García');
+    expect(out).toMatch(/⟦STU\d+⟧/);
+  });
+
+  test('rehydrate is the exact inverse for an accented name', () => {
+    const mask = createPageMask();
+    const masked = mask.text('José García  ID 7158619', gradebook);
+    expect(mask.rehydrate(masked)).toBe('José García  ID 7158619');
+  });
+
+  test('rehydrate round-trips multiple distinct accented names in one string', () => {
+    const mask = createPageMask();
+    const text = 'José García and María Fernández both submitted';
+    const masked = mask.text(text, gradebook);
+    expect(masked).not.toBe(text); // both names left the clear
+    expect(mask.rehydrate(masked)).toBe(text);
+  });
+
+  test('an accented name off a people surface is caught too, with plainNames set', () => {
+    const mask = createPageMask();
+    const contentPage = 'https://lms.example/course/course.php?cid=1';
+    const out = mask.text('grading José García for the makeup quiz', contentPage, { plainNames: true });
+    expect(out).not.toContain('José');
+    expect(out).not.toContain('García');
+  });
+});
+
+// NFD (decomposed) input through the SAME real PageMask token map + rehydrate path a cold review
+// probed and found still leaking — the character-class fix alone wasn't enough, because
+// \p{Lu}\p{Ll}+ needs the accent to be part of the same codepoint as its base letter, true only
+// in NFC. Fixed by widening the grammar itself (letter + optional combining marks) rather than
+// normalizing the text before matching — normalizing would have made THIS test fail, since the
+// masked value PageMask stores for rehydration would then be the NFC form, not what was really
+// on the page.
+describe('NFD input through the full PageMask path', () => {
+  const gradebook = 'https://lms.example/courses/1/gradebook';
+
+  test('an NFD name is masked whole, not left byte-identical', () => {
+    const mask = createPageMask();
+    const nfd = 'José García'.normalize('NFD');
+    const out = mask.text(nfd, gradebook);
+    expect(out).not.toBe(nfd);
+    expect(out).toMatch(/⟦STU\d+⟧/);
+  });
+
+  test('rehydrate returns the ORIGINAL NFD bytes, not the NFC form', () => {
+    const mask = createPageMask();
+    const nfd = 'José García'.normalize('NFD');
+    const masked = mask.text(nfd, gradebook);
+    const back = mask.rehydrate(masked);
+    expect(back).toBe(nfd);
+    expect(back).not.toBe(nfd.normalize('NFC'));
+  });
+
+  test('an NFD name and an NFC name in the same string both round-trip independently', () => {
+    const mask = createPageMask();
+    const nfd = 'José García'.normalize('NFD');
+    const nfc = 'María Fernández'; // already NFC
+    const text = `${nfd} and ${nfc} both submitted`;
+    const masked = mask.text(text, gradebook);
+    expect(mask.rehydrate(masked)).toBe(text);
+  });
+
+  test('an NFD Vietnamese name masks WHOLE and rehydrates back to the ORIGINAL NFD bytes', () => {
+    // The văn/thị particles in NAME_PARTICLE are hard-coded NFC literals, so this used to
+    // partial-mask to "⟦STU⟧ An" — the exact leak one normalization form away. Through the real
+    // PageMask path (token map + rehydrate), an NFD name must mask whole and come back byte-exact.
+    const mask = createPageMask();
+    const nfd = 'Nguyễn Văn An'.normalize('NFD');
+    const masked = mask.text(nfd, gradebook);
+    expect(masked).not.toBe(nfd);
+    expect(masked).toMatch(/⟦STU\d+⟧/);
+    expect(masked).not.toContain('An');
+    expect(mask.rehydrate(masked)).toBe(nfd);
+    expect(mask.rehydrate(masked)).not.toBe(nfd.normalize('NFC'));
+  });
+
+  test('an NFD Vietnamese name on a comma-form roster is masked, not left byte-identical', () => {
+    const mask = createPageMask();
+    const nfd = 'Trần Thị Mai'.normalize('NFD');
+    const masked = mask.text(nfd, gradebook);
+    expect(masked).not.toBe(nfd);
+    expect(masked).toMatch(/⟦STU\d+⟧/);
+  });
+});

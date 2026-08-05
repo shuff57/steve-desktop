@@ -6,6 +6,7 @@
 import type { Workflow } from './types/site-profile';
 import { workflowToSkill } from './workflow-skill';
 import { createPageMask } from './page-agent-mask';
+import type { PageMask } from './page-agent-mask';
 
 export interface TeachPolish {
   name: string;
@@ -14,13 +15,16 @@ export interface TeachPolish {
 }
 
 /** Every recorded fill/select value becomes a ⟦V n⟧ token — they may be student names, ids or
- *  grades. Deterministic and total, not a prompt instruction the model could ignore. */
+ *  grades. Deterministic and total, not a prompt instruction the model could ignore. Walks
+ *  `workflow.values` (teach-tokens.ts's promoted fixed values) the same way — it is a sibling
+ *  data path to `steps[].value`, not a special case, and skipping it here was the leak Finding 1
+ *  caught: promotion's own value guard is a second line of defense, not the only one. */
 export function tokenizeWorkflowValues(workflow: Workflow): Workflow {
   let n = 0;
-  return {
-    ...workflow,
-    steps: workflow.steps.map((s) => (s.value === undefined ? s : { ...s, value: `⟦V${++n}⟧` })),
-  };
+  const steps = workflow.steps.map((s) => (s.value === undefined ? s : { ...s, value: `⟦V${++n}⟧` }));
+  if (!workflow.values) return { ...workflow, steps };
+  const values = Object.fromEntries(Object.keys(workflow.values).map((k) => [k, `⟦V${++n}⟧`]));
+  return { ...workflow, steps, values };
 }
 
 /**
@@ -38,14 +42,30 @@ export function tokenizeWorkflowValues(workflow: Workflow): Workflow {
  *
  * Prompt-only. The stored skill is composed from the ORIGINAL workflow, so replay still has the
  * real selectors and values — masking here would break the thing it is meant to protect.
+ *
+ * Takes an optional shared `mask` so a narration string masked afterward (buildTeachPolishPrompt)
+ * reuses the same token map — a name mentioned in both gets the same ⟦STU n⟧ in both.
  */
-export function maskWorkflowForPrompt(workflow: Workflow, startUrl?: string): string {
+export function maskWorkflowForPrompt(workflow: Workflow, startUrl?: string, mask: PageMask = createPageMask()): string {
   const json = JSON.stringify(tokenizeWorkflowValues(workflow), null, 2);
-  return createPageMask().text(json, startUrl ?? workflow.trigger ?? '');
+  return mask.text(json, startUrl ?? workflow.trigger ?? '');
 }
 
-/** Prompt: summarise the recorded UI trace. Text only, no CDP/shell — a plain one-shot ask. */
-export function buildTeachPolishPrompt(workflow: Workflow, startUrl?: string): string {
+/** Prompt: summarise the recorded UI trace. Text only, no CDP/shell — a plain one-shot ask.
+ *  `narration` is the teacher's own free-text note on what they were doing (Teach's Stop-time
+ *  box) — masked as its own whole-body call, same mask instance as the workflow so tokens agree,
+ *  never spliced into the JSON (that would corrupt a body downstream code parses). Masked with
+ *  `plainNames: true`: narration is prose a human typed, not page text, so the plain-name
+ *  false-positive risk `commaOnly` guards against (see page-agent-mask.ts) does not apply. */
+export function buildTeachPolishPrompt(workflow: Workflow, startUrl?: string, narration?: string): string {
+  const mask = createPageMask();
+  const maskedWorkflow = maskWorkflowForPrompt(workflow, startUrl, mask);
+  const narrationText = narration?.trim();
+  const maskedNarration = narrationText ? mask.text(narrationText, startUrl, { plainNames: true }) : '';
+  const narrationLines = maskedNarration
+    ? [`The teacher described what they were doing: "${maskedNarration}"`, '']
+    : [];
+
   return [
     'You are turning a recorded browser interaction into a clear, reusable skill description.',
     'Below is a JSON workflow captured from a user clicking through a site' + (startUrl ? ` starting at ${startUrl}` : '') + '.',
@@ -54,17 +74,22 @@ export function buildTeachPolishPrompt(workflow: Workflow, startUrl?: string): s
     '⟦STU1⟧ — describe those fields generically from their element description (e.g. "enter the',
     'student name"); never invent, echo, or guess what a token stands for.',
     '',
+    ...narrationLines,
     'Write a short, human description of what this workflow accomplishes — the INTENT, not a',
     'literal replay.',
     '',
     'WORKFLOW:',
     '```json',
-    maskWorkflowForPrompt(workflow, startUrl),
+    maskedWorkflow,
     '```',
+    '',
+    'The "description" you write is how an agent later DECIDES to reach for this skill again — lead',
+    'it with WHEN to use this (the trigger situation or task), then what it does. Prefer "Use when…"',
+    'phrasing over a flat recap of the steps.',
     '',
     'Output ONLY a JSON object, no code fence, no other text:',
     '{"name": "<short imperative skill name, <=6 words>",',
-    ' "description": "<one sentence, what it does & when to run it, <=140 chars>",',
+    ' "description": "<when to use this + what it does, lead with the trigger, <=140 chars>",',
     ' "summary": "<numbered markdown list, one line per meaningful step, in plain language>"}',
   ].join('\n');
 }

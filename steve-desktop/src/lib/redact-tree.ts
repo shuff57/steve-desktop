@@ -262,23 +262,179 @@ function redactStrings(value: unknown, redact: (t: string) => string, key?: stri
  */
 const NAME_GAP = '[ \\u00a0]+';
 
-const PERSON_LABEL = new RegExp(
-  `[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,[ \\u00a0]*|${NAME_GAP})[A-Z][a-z]+(?:[-'][A-Za-z]+)?`,
-  'g',
-);
+/**
+ * Lowercase particles that connect surname parts without breaking the name run: "de la Cruz",
+ * "van der Berg". A closed list, not a general "any lowercase word between two capitals" rule —
+ * a general rule would fuse ordinary prose into one match ("Sarah and Chen" is two people and a
+ * conjunction, not a compound surname). Matched case-insensitively (both cases enumerated,
+ * rather than an `i` flag on the whole pattern, so the surrounding capital-required word shapes
+ * stay case-SENSITIVE): "Van" is frequently capitalized in real names ("Nguyen Van An") and this
+ * is what lets that run qualify as a name at all — see NAME_RUN below. `O'Brien`-style
+ * apostrophes are NOT a particle: the apostrophe sits inside a single word, handled in NAME_WORD.
+ *
+ * Longer alternatives are listed before shorter overlapping ones ("della" before "del") so the
+ * regex engine finds the right one without backtracking, not just for correctness (backtracking
+ * would still find it, just slower).
+ *
+ * Coverage: Dutch/German ("van der Berg", "van den Broek"), Portuguese/Spanish/Italian ("de la
+ * Cruz", "dos Santos", "da Silva", "dello", "della", "degli"), Scandinavian nobility ("af"),
+ * Arabic patronymics ("bin", "bint", "ibn", "abu"), Vietnamese gender-marking middle names
+ * ("văn" for a man, "thị" for a woman — "Nguyễn Văn An"). Excluded "av" (the Norwegian variant
+ * of "af"): it collides with "A/V" (audio-visual), a real lowercase abbreviation in
+ * classroom-tech UI elsewhere in this app's surface, and "af" alone already covers the
+ * Scandinavian case without that risk.
+ *
+ * "văn"/"thị" are not lowercase connector words the way the others are — they are themselves
+ * capitalized, addressed components of a Vietnamese name. They are here anyway, on the same
+ * case-insensitive footing as "Van", because the alternative is the SAME leak the ASCII "Nguyen
+ * Van An" case already fixed: without them, "Nguyễn Văn An" only partial-masks its leading pair
+ * ("⟦STU⟧ An") since "Văn" (with its Vietnamese breve) is not the same string as ASCII "Van" and
+ * so never matched the particle list at all. The diacritic makes an English-UI collision
+ * essentially impossible, so — unlike the ASCII particles — there is no over-masking trade-off
+ * to weigh here.
+ */
+const NAME_PARTICLE =
+  '(?:[Dd]ella|[Dd]ello|[Dd]egli|[Dd]el|[Dd]en|[Dd]er|[Dd]es|[Dd]al|[Dd]os|[Dd]i|[Dd]u|[Dd]a|[Dd]e|' +
+  '[Ll]a|[Ll]e|[Vv]an|[Vv](?:ă|a\u0306)n|[Vv]on|[Tt]h(?:ị|i\u0323)|[Tt]er|[Tt]en|[Bb]int|[Bb]in|[Ii]bn|[Aa]bu|[Aa]f)';
 
 /**
- * The comma form alone — "Doe, Jane". Roster tables render it and almost nothing else does.
+ * One Unicode letter, plus any combining marks riding on it (`\p{Mn}` — accents, tone marks,
+ * anything a NORMALIZATION FORM might spell as a separate codepoint instead of folding into the
+ * base letter). `LU`/`LL`/`ANY` mirror `\p{Lu}`/`\p{Ll}`/`\p{L}`, just each one-letter-at-a-time
+ * so a multi-letter run (`(?:${LETTER.LL})+`, not `\p{Ll}+\p{Mn}*`) attaches marks to the RIGHT
+ * letter instead of only tolerating one trailing mark on the run's last letter.
+ *
+ * This is what makes the grammar work on BOTH Unicode normalization forms without normalizing
+ * anything: NFC spells "é" as one precomposed codepoint (plain `\p{Ll}`, `\p{Mn}*` matches zero
+ * marks); NFD spells it as `e` + a separate combining acute (`\p{Ll}` matches the `e`, `\p{Mn}*`
+ * eats the mark right after it). Both forms are valid Unicode for the same text — this is not
+ * malformed input to normalize away, it is a shape the grammar itself needs to accept.
+ *
+ * A `.normalize('NFC')` call before matching was tried first and reverted: `maskPersonNames`
+ * hands its `token` callback the MATCHED substring, which page-agent-mask.ts's `PageMask` stores
+ * verbatim as the value to rehydrate back later. Normalizing the text before matching means that
+ * stored value — and every un-matched character around it in the returned string — silently
+ * becomes NFC, even when the original was NFD. Measured directly: masking an NFD name and
+ * rehydrating the result came back NFC, not the original NFD bytes. Matching the ORIGINAL bytes
+ * via this letter-plus-marks grammar instead means the token map and the returned string are
+ * exactly what was on the page — nothing to launder, nothing to get wrong.
+ */
+const LETTER = {
+  LU: '\\p{Lu}\\p{Mn}*',
+  LL: '\\p{Ll}\\p{Mn}*',
+  ANY: '\\p{L}\\p{Mn}*',
+};
+
+/**
+ * The O'/Mc/Mac-shaped subset of NAME_WORD, split out because it also stands as its own
+ * justification for a 3+-word run (NAME_RUN below) — a run does not need a particle if one of
+ * its words already carries this strong a name-signal.
+ *
+ * Unicode letter classes (`\p{Lu}`/`\p{Ll}`, via LETTER above), not `[A-Z]`/`[a-z]` — those are
+ * ASCII-only, so "José", "Nguyễn", "Müller", "Søren" matched NOTHING, in any tier, full stop.
+ * Every RegExp built from these fragments MUST carry the `u` flag or `\p{...}` is either a syntax
+ * error or matches the two literal characters `p{Lu}` — see the flag on every `new RegExp(...)`
+ * call below.
+ */
+const SPECIAL_NAME_WORD =
+  `(?:Mc${LETTER.LU}(?:${LETTER.LL})+|Mac${LETTER.LU}(?:${LETTER.LL})+|${LETTER.LU}['’]${LETTER.LU}(?:${LETTER.LL})+)`;
+
+/**
+ * One name "word". Either the special shape above (`McDonald`, `MacArthur`, `O'Brien`,
+ * `D'Angelo` — the last two: capital on BOTH sides of the apostrophe, distinct from the infix
+ * form below, because `\p{Lu}\p{Ll}+` alone cannot start a match at "O'" — no lowercase letter
+ * follows the O — so a match used to begin one letter late, at "Brien", leaving "O'" in the
+ * clear), or an ordinary word with an optional infix hyphen/apostrophe run (`Jean-Luc`,
+ * `Ana-Lucía`).
+ */
+const NAME_WORD = `(?:${SPECIAL_NAME_WORD}|${LETTER.LU}(?:${LETTER.LL})+(?:[-'](?:${LETTER.ANY})+)*)`;
+
+/**
+ * A gap carrying 1-4 particles — "␣de␣la␣", "␣Van␣" — distinct from a bare gap: this is the
+ * signal a 3+-word run needs to qualify as a name (NAME_RUN below).
+ *
+ * Capped at 4, not unbounded (`+`): an unbounded repeated group immediately followed by a
+ * mandatory NAME_WORD is a textbook catastrophic-backtracking shape when that mandatory word
+ * never arrives. Measured directly — a page containing a long run of particle-shaped words with
+ * no capitalized terminator ("de la de la de la … " with no closing name, plausible in ordinary
+ * French/Spanish/Vietnamese prose) took the unbounded version from 14ms at 1.2K chars to 4.4
+ * SECONDS at 19K chars, roughly quadratic. Real name particle chains are 1-3 words ("van der",
+ * "de la del"); 4 is generous headroom, and capping removes the exponential search space entirely
+ * rather than just making it less likely to trigger.
+ */
+const PARTICLE_CONNECTOR = `${NAME_GAP}(?:${NAME_PARTICLE}${NAME_GAP}){1,4}`;
+
+/**
+ * A 3+ word run is a name ONLY when something beyond bare capitalization justifies it: a
+ * particle junction anywhere in the run (plain words may sit before and after it — "Ana Maria
+ * de la Cruz" as much as "Maria de la Cruz"), or an O'/Mc/Mac-shaped word anywhere in it
+ * ("Katie O'Brien Wilson").
+ *
+ * Without this gate, EVERY run of 3+ capitalized words matched, because an ordinary capitalized
+ * UI phrase is structurally indistinguishable from a name once you allow arbitrary length —
+ * "View Student Progress", "Print Class Roster" and "Late Work Policy" all masked whole, roughly
+ * doubling the site map's over-masking versus the pre-existing two-word-only baseline. That
+ * measured regression is why this gate exists, not a hypothetical worry.
+ *
+ * What this still gives up, deliberately: "Mary Jane Watson" (3 plain words, no particle, no
+ * special word) only masks its first two words ("⟦STU⟧ Watson"), same as before this whole
+ * change. Closing that specific gap is exactly what caused the regression above — do not remove
+ * this gate to close it without re-measuring against the chrome-survival list in
+ * redact-tree.test.ts first.
+ */
+// Prefix/suffix "extra plain word" runs around a particle or special-word junction, capped at 4
+// for the SAME catastrophic-backtracking reason PARTICLE_CONNECTOR is capped: unbounded
+// (`(?:${NAME_WORD}${NAME_GAP})*`) immediately followed by a construct that might not exist (a
+// particle, a special word) is what turned ordinary REPEATED chrome text — no name, no particle,
+// nothing exotic, just "Total Score Last Login Course Home Send Message" over and over, which is
+// exactly what a real gradebook page looks like — into a multi-second hang: 3.4s at 19K chars,
+// 18s at 38K, quadratic, with zero particles anywhere in the input. Bounding this prefix/suffix
+// is what actually removes the blowup; nobody has 5+ middle names, so 4 is generous, not tight.
+const EXTRA_WORDS_BEFORE = `(?:${NAME_WORD}${NAME_GAP}){0,4}`;
+const EXTRA_WORDS_AFTER = `(?:${NAME_GAP}${NAME_WORD}){0,4}`;
+
+const LONG_RUN_PARTICLE =
+  `${EXTRA_WORDS_BEFORE}${NAME_WORD}${PARTICLE_CONNECTOR}${NAME_WORD}${EXTRA_WORDS_AFTER}`;
+const LONG_RUN_SPECIAL =
+  `(?:${SPECIAL_NAME_WORD}${NAME_GAP}${NAME_WORD}${EXTRA_WORDS_AFTER}` +
+  `|(?:${NAME_WORD}${NAME_GAP}){1,4}${SPECIAL_NAME_WORD}${EXTRA_WORDS_AFTER})`;
+
+/** Exactly two plain words — the ORIGINAL, unwidened two-word scope. A bare pair of capitalized
+ *  words is always a name, exactly as before this whole particle/long-run change; the LABEL_WORD
+ *  allowlist below is what saves ordinary two-word UI wording from this, same as it always did. */
+const TWO_WORD_PLAIN = `${NAME_WORD}${NAME_GAP}${NAME_WORD}`;
+
+const NAME_RUN = `(?:${LONG_RUN_PARTICLE}|${LONG_RUN_SPECIAL}|${TWO_WORD_PLAIN})`;
+
+/**
+ * One side of a comma-form label: a name word that — ONLY here, on the family-name side of a
+ * comma — may itself OPEN with a particle: "de la Cruz, Maria" (the particle is the very first
+ * thing on that side, with nothing before it to attach to as a connector). Beyond the first
+ * word, further words are absorbed only through a particle connector too, for the identical
+ * reason NAME_RUN gates its 3+ case: an unrestricted plain chain here would over-match the GIVEN
+ * side just as easily as the plain form ("Grade, Attendance Report"). The leading group is capped
+ * at 4 for the same catastrophic-backtracking reason PARTICLE_CONNECTOR is: unbounded, immediately
+ * followed by a mandatory NAME_WORD, is the shape that blew up to 4+ seconds on adversarial input.
+ */
+const NAME_GROUP = `(?:${NAME_PARTICLE}${NAME_GAP}){0,4}${NAME_WORD}(?:${PARTICLE_CONNECTOR}${NAME_WORD})*`;
+
+/**
+ * The comma form alone — "Doe, Jane" or "de la Cruz, Maria". Roster tables render it and almost
+ * nothing else does.
  *
  * Split out because the two forms deserve different trust: see looksLikeRoster in
  * people-pointer.ts, where the plain form was measured against a live course and found to be
  * the shape of ordinary UI wording, not a person signal. Anything masking text it cannot
  * classify as a people surface should use this half only.
  */
-const PERSON_LABEL_COMMA = new RegExp(
-  `[A-Z][a-z]+(?:[-'][A-Za-z]+)?,[ \\u00a0]*[A-Z][a-z]+(?:[-'][A-Za-z]+)?`,
-  'g',
-);
+const PERSON_LABEL_COMMA_SRC = `${NAME_GROUP},[ \\u00a0]*${NAME_GROUP}`;
+// 'u' is not decoration — every fragment above uses \p{...} Unicode property escapes, which are a
+// SyntaxError (or, worse, match the literal characters "p{Lu}") without it. Every RegExp built
+// from these fragments needs it, including reconstructions — see maskPersonNames below.
+const PERSON_LABEL_COMMA = new RegExp(PERSON_LABEL_COMMA_SRC, 'gu');
+
+/** Plain-or-comma form: a 2+ word run joined by spaces (NAME_RUN), or the comma form above. */
+const PERSON_LABEL = new RegExp(`(?:${NAME_RUN}|${PERSON_LABEL_COMMA_SRC})`, 'gu');
 
 /**
  * Replace every person-shaped run in free text, asking `token` what to put in its place.
@@ -286,6 +442,9 @@ const PERSON_LABEL_COMMA = new RegExp(
  * One definition, three callers: the storage pass below (fixed ⟦STU⟧), and the page-agent
  * mask (reversible per-name tokens). `commaOnly` is the safety valve for text whose surface is
  * unknown — see PERSON_LABEL_COMMA.
+ *
+ * Matches directly against `text` — no `.normalize()` call. See the comment on NAME_WORD for why
+ * a normalize-first approach was tried and reverted: it silently breaks rehydration.
  */
 export function maskPersonNames(
   text: string,
@@ -294,13 +453,22 @@ export function maskPersonNames(
 ): string {
   const src = opts.commaOnly ? PERSON_LABEL_COMMA : PERSON_LABEL;
   // Fresh RegExp per call: the module-level ones are /g and would carry lastIndex between callers.
-  return text.replace(new RegExp(src.source, 'g'), (m) => (isCommonLabel(m) ? m : token(m)));
+  // 'u' again — reconstructing from .source drops flags, so this needs its own, not src's.
+  return text.replace(new RegExp(src.source, 'gu'), (m) => (isCommonLabel(m) ? m : token(m)));
 }
 
 /**
- * Two capitalised words that are ordinary UI wording, not a person. Without this, a gradebook's
+ * Capitalised words that are ordinary UI wording, not a person. Without this, a gradebook's
  * own column headers ("Total Score", "Last Login") tokenize to ⟦STU⟧ and the map of the page
- * stops being readable. A match is kept only when BOTH words are in here.
+ * stops being readable. `isCommonLabel` below keeps a match only when EVERY word in it is in
+ * here — that's what makes it safe to broaden: "Chapter Review" becomes an ordinary label, but
+ * "Sarah Chapter" still masks, because "Sarah" is not in the set. It already generalizes past
+ * two words for the same reason — "every", not "both" — so a 3+ word run like "Chapter Review
+ * Session" is spared only if all three are common label words, same rule, no separate case.
+ * Assessment vocabulary (midterm/exam/quiz/…) lives here too: a course's own assignment names
+ * ("Midterm Exam", "Chapter Review") were tokenizing as if they were people (teach-tokens.ts's
+ * promotion guard hit this first), and the fix is app-wide — it also stops those names
+ * tokenizing into the site map.
  */
 const LABEL_WORD = new Set(
   `total score last login first name due date late work best attempt raw points final grade
@@ -308,21 +476,30 @@ const LABEL_WORD = new Set(
    letter grade extra credit drop lowest all students by student per question item analysis
    message board send message view all show all hide all export csv print view class list
    late passes login grid item results course reports content stats question errors
-   non locked add tutors copy emails un lock course home site home skip navigation`
+   non locked add tutors copy emails un lock course home site home skip navigation
+   midterm exam quiz test homework assignment chapter unit lab project review practice final
+   section module worksheet packet`
     .split(/\s+/),
 );
 
 export const isCommonLabel = (m: string) =>
   m.split(/[\s,]+/).every((w) => LABEL_WORD.has(w.toLowerCase()));
 
-/** Non-global twin of PERSON_LABEL, anchored, for testing a single label. */
-const ONE_PERSON_LABEL = /^[A-Z][a-z]+(?:[-'][A-Za-z]+)?(?:,\s*|\s+)[A-Z][a-z]+(?:[-'][A-Za-z]+)?$/;
+/** Non-global twin of PERSON_LABEL, anchored, for testing a single label — built from the same
+ *  NAME_RUN / NAME_GROUP fragments so it can't drift from what PERSON_LABEL actually matches. */
+const ONE_PERSON_LABEL = new RegExp(`^(?:${NAME_RUN}|${PERSON_LABEL_COMMA_SRC})$`, 'u');
 
 /**
  * Does this single label read as a person's name rather than UI wording?
  *
  * Exported so there is ONE definition: people-pointer.ts classifies whole pages with it, and a
  * second copy would inevitably drift from the allowlist that keeps "Total Score" readable.
+ *
+ * No `.normalize()` here either, for the same reason `maskPersonNames` doesn't have one — this
+ * function returns a boolean, not text, so there's no rehydration risk specific to IT, but
+ * `ONE_PERSON_LABEL` is built from the same NFC/NFD-tolerant NAME_WORD/LETTER fragments, so an
+ * NFD label ("José García", diacritic as a separate combining-mark codepoint) is already
+ * recognized without normalizing anything.
  */
 export function looksLikePersonName(label: string): boolean {
   const t = label.trim();

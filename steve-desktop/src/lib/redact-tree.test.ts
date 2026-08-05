@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { redactTree, isChromeNode, redactProfileForStorage, redactUrlForStorage, sweepPattern } from './redact-tree';
+import { redactTree, isChromeNode, redactProfileForStorage, redactUrlForStorage, sweepPattern, maskPersonNames, looksLikePersonName } from './redact-tree';
+import { looksLikeRoster } from './people-pointer';
 import type { SnapshotResult, SnapshotNode } from './dom-snapshot-types';
 
 function node(tag: string, text: string, attrs: Record<string, string> = {}): SnapshotNode {
@@ -532,5 +533,412 @@ describe('redactUrlForStorage — page names must not collide across paths', () 
     const b = redactUrlForStorage(long(2), noop).pageName;
     expect(a.length).toBeLessThanOrEqual(90);
     expect(a).not.toBe(b);
+  });
+});
+
+// Measured directly against the shape the grammar used to miss: PERSON_LABEL required exactly
+// two ADJACENT capitalized words, so a lowercase particle broke the adjacency and a run longer
+// than two masked only its leading pair, leaking the rest. Every row here is a case that used to
+// leak — this table is the same one the reviewer probed against the live mask.
+describe('maskPersonNames — particles, long runs, and O\'/Mc/Mac prefixes', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+
+  it('a two-part name still masks whole (unchanged baseline)', () => {
+    expect(maskFull('Sarah Chen')).toBe('⟦STU⟧');
+  });
+  it('a hyphenated given name still masks whole (unchanged baseline)', () => {
+    expect(maskFull('Jean-Luc Picard')).toBe('⟦STU⟧');
+  });
+  it('a particle-joined name masks WHOLE — used to leave "Maria" unmasked entirely', () => {
+    expect(maskFull('Maria de la Cruz')).toBe('⟦STU⟧');
+  });
+  it('the comma form of a particle name masks whole, particles included — used to leak "de la"', () => {
+    expect(maskFull('de la Cruz, Maria')).toBe('⟦STU⟧');
+  });
+  it('a 3-part name masks whole — used to leave the last part unmasked ("⟦STU⟧ An")', () => {
+    expect(maskFull('Nguyen Van An')).toBe('⟦STU⟧');
+  });
+  it('a 4-part name masks whole when a particle justifies the run beyond two words', () => {
+    expect(maskFull('Ana Maria de la Cruz')).toBe('⟦STU⟧');
+  });
+  it('a 4-part name with NO particle masks as two adjacent 2-word runs, not one — this is NOT ' +
+    'a leak (every word is still masked), it is just two tokens instead of one: nothing beyond ' +
+    'two plain words qualifies as a single run without a particle or O\'/Mc/Mac word (see ' +
+    'NAME_RUN\'s doc comment for why that gate exists)', () => {
+    expect(maskFull('Ana Maria Rodriguez Lopez')).toBe('⟦STU⟧ ⟦STU⟧');
+  });
+  it('an O\'-shaped word anywhere in a 3+ run justifies masking the whole run', () => {
+    expect(maskFull('Katie O\'Brien Wilson')).toBe('⟦STU⟧');
+  });
+  it("an O'-apostrophe surname masks whole, in comma form — used to leave \"O'\" unmasked", () => {
+    expect(maskFull("O'Brien, Katie")).toBe('⟦STU⟧');
+  });
+  it('a Mc/Mac-prefixed surname masks whole', () => {
+    expect(maskFull('McDonald, Ryan')).toBe('⟦STU⟧');
+    expect(maskFull('Ryan MacArthur')).toBe('⟦STU⟧');
+  });
+
+  // A cold review found these five FULL LEAKS on a roster URL — the particle list at the time had
+  // "van" and "von" but not "der"/"den", and had no Arabic particles at all. The comment two lines
+  // above the particle list already cited "van der Berg" as the motivating example while the code
+  // could not actually match it — the drift this describe block (and the "vocabulary the doc
+  // comment cites" test below) exists to catch.
+  it('"Willem van der Berg" (Dutch) masks whole — used to leak entirely', () => {
+    expect(maskFull('Willem van der Berg')).toBe('⟦STU⟧');
+  });
+  it('"Klaus von der Leyen" (German) masks whole — used to leak entirely', () => {
+    expect(maskFull('Klaus von der Leyen')).toBe('⟦STU⟧');
+  });
+  it('"Jan van den Broek" (Dutch) masks whole — used to leak entirely', () => {
+    expect(maskFull('Jan van den Broek')).toBe('⟦STU⟧');
+  });
+  it('"Fatima bint Mohammed" (Arabic) masks whole — used to leak entirely', () => {
+    expect(maskFull('Fatima bint Mohammed')).toBe('⟦STU⟧');
+  });
+  it('"van der Berg, Willem" comma form masks whole — used to leak "van der"', () => {
+    expect(maskFull('van der Berg, Willem')).toBe('⟦STU⟧');
+  });
+  it('Arabic and Scandinavian particles not in the original leak report also work', () => {
+    expect(maskFull('Khalid ibn Walid')).toBe('⟦STU⟧');
+    expect(maskFull('Omar abu Bakr')).toBe('⟦STU⟧');
+    expect(maskFull('Ingrid af Klint')).toBe('⟦STU⟧');
+    expect(maskFull('Maria dos Santos')).toBe('⟦STU⟧'); // already-supported particle, unaffected
+  });
+
+  // Pins the comment to the code: every name form the NAME_PARTICLE doc comment claims to cover
+  // must actually mask. This is the exact drift a review caught — the comment named "van der
+  // Berg" as the motivating example while the particle list could not match it, and nothing
+  // tested that claim.
+  it('every name form the NAME_PARTICLE doc comment claims to cover actually masks', () => {
+    const claimed = [
+      'Willem van der Berg',   // Dutch/German: van der
+      'Jan van den Broek',     // Dutch: van den
+      'Maria de la Cruz',      // Portuguese/Spanish/Italian: de la
+      'Maria dos Santos',      // Portuguese: dos
+      'Maria da Silva',        // Portuguese/Italian: da
+      'Marco dello Iacono',    // Italian: dello
+      'Marco della Valle',     // Italian: della
+      'Marco degli Alberti',   // Italian: degli
+      'Ingrid af Klint',       // Scandinavian: af
+      'Khalid bin Walid',      // Arabic: bin
+      'Fatima bint Mohammed',  // Arabic: bint
+      'Khalid ibn Walid',      // Arabic: ibn
+      'Omar abu Bakr',         // Arabic: abu
+      'Nguyễn Văn An',         // Vietnamese: văn (male middle name marker)
+      'Trần Thị Mai',          // Vietnamese: thị (female middle name marker)
+    ];
+    for (const name of claimed) expect(maskFull(name)).toBe('⟦STU⟧');
+  });
+
+  it('rehydrate round-trips a particle name exactly — a broken round-trip is how the ' +
+    'profile-JSON corruption bug manifested previously', () => {
+    const map = new Map<string, string>();
+    const masked = maskPersonNames('Maria de la Cruz', (n) => {
+      map.set('⟦STU⟧', n);
+      return '⟦STU⟧';
+    });
+    const rehydrated = masked.split('⟦STU⟧').join(map.get('⟦STU⟧')!);
+    expect(rehydrated).toBe('Maria de la Cruz');
+  });
+
+  it('rehydrate round-trips a 4-part particle-justified name exactly', () => {
+    const map = new Map<string, string>();
+    const masked = maskPersonNames('Ana Maria de la Cruz', (n) => {
+      map.set('⟦STU⟧', n);
+      return '⟦STU⟧';
+    });
+    const rehydrated = masked.split('⟦STU⟧').join(map.get('⟦STU⟧')!);
+    expect(rehydrated).toBe('Ana Maria de la Cruz');
+  });
+
+  it('looksLikePersonName agrees with maskPersonNames on the same shapes', () => {
+    expect(looksLikePersonName('Maria de la Cruz')).toBe(true);
+    expect(looksLikePersonName('Nguyen Van An')).toBe(true);
+    expect(looksLikePersonName("O'Brien, Katie")).toBe(true);
+  });
+
+  // Caught by direct measurement, not asked for: the particle/long-run grammar's first cut had
+  // an unbounded repeated group directly in front of a mandatory NAME_WORD — a textbook
+  // catastrophic-backtracking shape (PARTICLE_CONNECTOR's particle repetition, and separately
+  // LONG_RUN_PARTICLE's own prefix/suffix). The second one is the scarier of the two: it needed
+  // NO particle and NO adversarial input to trigger, just ORDINARY repeated gradebook chrome —
+  // "Total Score Last Login Course Home Send Message", over and over, exactly what a real page
+  // looks like — which took 5.4s at 24K chars and scaled quadratically. Both are now capped at 4
+  // repetitions (redact-tree.ts). Budget is generous on purpose: this only needs to catch a
+  // return to quadratic-or-worse scaling, not enforce a specific constant.
+  it('does not catastrophically backtrack on repeated chrome text or a long particle run', () => {
+    const chrome = 'Total Score Last Login Course Home Send Message '.repeat(2000); // ~96KB, no name at all
+    const particles = 'Ana ' + 'de la '.repeat(3000) + 'x'; // no closing name — the failure case
+    const t0 = performance.now();
+    maskPersonNames(chrome, () => '⟦STU⟧');
+    maskPersonNames(particles, () => '⟦STU⟧');
+    expect(performance.now() - t0).toBeLessThan(500);
+  });
+
+  // The gate this whole revision adds: a run of 3+ capitalized words with NO particle and NO
+  // special word is not itself proof of a name — it is indistinguishable from ordinary UI prose
+  // by shape alone. This is the pre-existing, deliberately restored limit (see NAME_RUN's doc
+  // comment) — only the leading pair masks, same as it did before ANY of this particle work.
+  it('a plain 3-word run with no particle or special word only partial-masks (accepted, restored gap)', () => {
+    expect(maskFull('Mary Jane Watson')).toBe('⟦STU⟧ Watson');
+  });
+});
+
+// A first cut of the particle fix let ANY run of 3+ capitalized words mask whole, with no
+// particle or special-word requirement — verified by stashing this file back to that version and
+// re-running this exact probe. It roughly doubled the app's pre-existing over-masking (0ms on a
+// 400-word run, so not a performance concern — a correctness one: the site map an agent navigates
+// by went unusable). These six phrases are exactly what a reviewer probed against BOTH versions;
+// each expectation below is the CONFIRMED pre-fix baseline, not an assumption that "everything
+// survives" — three of these six were already partial-masked before any of this work started.
+describe('the widened grammar does not over-mask ordinary UI phrases (regression a reviewer measured)', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+
+  it('"Save And Continue" partial-masks its leading pair — same as before any of this work', () => {
+    expect(maskFull('Save And Continue')).toBe('⟦STU⟧ Continue');
+  });
+  it('"Add New Student" partial-masks its leading pair — same as before any of this work', () => {
+    expect(maskFull('Add New Student')).toBe('⟦STU⟧ Student');
+  });
+  it('"Show Hidden Columns" partial-masks its leading pair — same as before any of this work', () => {
+    expect(maskFull('Show Hidden Columns')).toBe('⟦STU⟧ Columns');
+  });
+  it('"Print Class Roster" is untouched — same as before any of this work', () => {
+    expect(maskFull('Print Class Roster')).toBe('Print Class Roster');
+  });
+  it('"View Student Progress" is untouched — same as before any of this work', () => {
+    expect(maskFull('View Student Progress')).toBe('View Student Progress');
+  });
+  it('"Late Work Policy" is untouched — same as before any of this work', () => {
+    expect(maskFull('Late Work Policy')).toBe('Late Work Policy');
+  });
+});
+
+// The widened grammar must not swallow ordinary gradebook chrome — the failure mode the original
+// two-word-only design was measured to avoid (see the LABEL_WORD comment above).
+describe('gradebook chrome survives the widened grammar', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+  const CHROME = [
+    'Total Score', 'Last Login', 'Practice Test', 'Chapter Review',
+    'All Students', 'Item Analysis', 'Course Home', 'Send Message',
+  ];
+  for (const label of CHROME) {
+    it(`"${label}" is not masked`, () => {
+      expect(maskFull(label)).toBe(label);
+    });
+  }
+});
+
+// The most serious defect found this session: [A-Z]/[a-z] are ASCII-only, so an accented name
+// matched NOTHING, in any tier, full stop — not a narrow gap like the particle vocabulary, the
+// character class itself. Fixed by switching every fragment to \p{Lu}/\p{Ll} (Unicode
+// uppercase/lowercase letter) and adding the 'u' flag to every RegExp built from them — a
+// \p{...} escape without 'u' is a SyntaxError, or worse, matches the literal characters "p{Lu}".
+// Every row here is a byte-identical leak measured live before the fix.
+describe('diacritics — the character class itself, not a vocabulary gap', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+
+  it('"José García" masks whole — used to leak entirely (ASCII-only [A-Z]/[a-z] matched nothing)', () => {
+    expect(maskFull('José García')).toBe('⟦STU⟧');
+  });
+  it('"García, José" comma form masks whole — used to leak entirely', () => {
+    expect(maskFull('García, José')).toBe('⟦STU⟧');
+  });
+  it('"María Fernández" masks whole — used to leak entirely', () => {
+    expect(maskFull('María Fernández')).toBe('⟦STU⟧');
+  });
+  it('"Nguyễn Văn An" masks whole — used to leak entirely (also needed the văn particle, below)', () => {
+    expect(maskFull('Nguyễn Văn An')).toBe('⟦STU⟧');
+  });
+  it('"Zoë Müller" masks whole — used to leak entirely', () => {
+    expect(maskFull('Zoë Müller')).toBe('⟦STU⟧');
+  });
+  it('"François Dubois" masks whole — used to leak entirely', () => {
+    expect(maskFull('François Dubois')).toBe('⟦STU⟧');
+  });
+  it('"Björn Andersson" masks whole — used to leak entirely', () => {
+    expect(maskFull('Björn Andersson')).toBe('⟦STU⟧');
+  });
+  it('"Søren Kierkegaard" masks whole — used to leak entirely', () => {
+    expect(maskFull('Søren Kierkegaard')).toBe('⟦STU⟧');
+  });
+
+  describe('crosses with everything else this grammar does', () => {
+    it('accent + particle', () => {
+      expect(maskFull('José de la Cruz')).toBe('⟦STU⟧');
+      expect(maskFull('Ángel von der Leyen')).toBe('⟦STU⟧');
+    });
+    it('accent + infix hyphen', () => {
+      expect(maskFull('Ana-Lucía Fernández')).toBe('⟦STU⟧'); // used to leak entirely
+    });
+    it("accent + apostrophe (O'-shape)", () => {
+      expect(maskFull("Renée O'Neill")).toBe('⟦STU⟧'); // used to leak entirely
+    });
+    it('accent + comma form', () => {
+      expect(maskFull('García, José')).toBe('⟦STU⟧');
+      // Two-word given side with no particle: same restricted-trailing-chain rule NAME_GROUP
+      // applies to an ASCII given side ("Smith, Mary Jane" -> "⟦STU⟧ Jane") — parity, not a new
+      // Unicode-specific gap. Confirmed by testing the ASCII equivalent alongside it.
+      expect(maskFull('Fernández, María José')).toBe('⟦STU⟧ José');
+      expect(maskFull('Smith, Mary Jane')).toBe('⟦STU⟧ Jane');
+    });
+    it('accent + long run (4 words, no particle) masks as two adjacent runs, not a leak', () => {
+      // Same "no particle to justify beyond two words" rule as the ASCII 4-part case
+      // ("Ana Maria Rodriguez Lopez" -> "⟦STU⟧ ⟦STU⟧") — parity, not a new Unicode-specific gap.
+      expect(maskFull('José María Rodríguez Gómez')).toBe('⟦STU⟧ ⟦STU⟧');
+      expect(maskFull('John Michael Smith Jones')).toBe('⟦STU⟧ ⟦STU⟧');
+    });
+  });
+
+  it('rehydrate round-trips an accented name exactly', () => {
+    const map = new Map<string, string>();
+    const masked = maskPersonNames('José García', (n) => {
+      map.set('⟦STU⟧', n);
+      return '⟦STU⟧';
+    });
+    expect(masked.split('⟦STU⟧').join(map.get('⟦STU⟧')!)).toBe('José García');
+  });
+
+  it('looksLikePersonName recognizes accented names', () => {
+    expect(looksLikePersonName('José García')).toBe(true);
+    expect(looksLikePersonName('García, José')).toBe(true);
+    expect(looksLikePersonName('Total Score')).toBe(false); // still spared — LABEL_WORD unaffected
+  });
+
+  // Chrome survival and the false-positive-cost probe, re-run after widening the character
+  // class itself (the biggest change of this whole session) — both must still hold.
+  it('gradebook chrome still survives with the Unicode-aware grammar', () => {
+    const CHROME = [
+      'Total Score', 'Last Login', 'Practice Test', 'Chapter Review',
+      'All Students', 'Item Analysis', 'Course Home', 'Send Message',
+    ];
+    for (const label of CHROME) expect(maskFull(label)).toBe(label);
+  });
+
+  it('does not catastrophically backtrack with \\p{...} escapes at ~600KB (ReDoS re-check)', () => {
+    const chrome = 'Total Score Last Login Course Home Send Message '.repeat(2000); // ~96KB
+    const accented = 'José María Rodríguez Gómez Fernández '.repeat(2000); // ~76KB, no particle
+    const particles = 'José ' + 'de la '.repeat(3000) + 'x'; // no closing name — the failure case
+    const t0 = performance.now();
+    maskFull(chrome);
+    maskFull(accented);
+    maskFull(particles);
+    expect(performance.now() - t0).toBeLessThan(500);
+  });
+});
+
+// A cold reviewer went further than the leak table above and found the fix was still incomplete:
+// `\p{Lu}\p{Ll}+` requires the accent to be part of the SAME codepoint as its base letter, which
+// is only true in NFC. NFD spells an accented letter as the base letter plus a separate
+// combining-mark codepoint (`\p{Mn}`) — "José" in NFD is J-o-s-e-plus-a-combining-acute — so the
+// adjacency `\p{Ll}+` depends on breaks, and the whole word fails to match. NOT partially: zero
+// match, byte-identical output, on a roster URL. NFC and NFD are both valid Unicode for the same
+// text (NFD shows up from some copy-paste sources and legacy macOS filesystem APIs); this is not
+// malformed input, it is a form the grammar itself has to accept.
+describe('NFD (decomposed) input — a different valid encoding of the same text, not a new gap', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+
+  it('an NFD name masks whole, the same as its NFC form', () => {
+    const nfc = 'José García';
+    const nfd = nfc.normalize('NFD');
+    expect(nfd).not.toBe(nfc); // sanity: actually a different byte sequence
+    expect(maskFull(nfd)).toBe(maskFull(nfc));
+    expect(maskFull(nfd)).toBe('⟦STU⟧');
+  });
+
+  it('an NFD comma-form name masks whole', () => {
+    expect(maskFull('García, José'.normalize('NFD'))).toBe('⟦STU⟧');
+  });
+
+  it('an NFD name sitting next to an ASCII name — both mask, not just the ASCII one', () => {
+    const mixed = 'Sarah Chen and ' + 'José García'.normalize('NFD') + ' both submitted';
+    const out = maskFull(mixed);
+    expect(out).not.toContain('José');
+    expect(out).not.toContain('García');
+    expect(out).not.toContain('Sarah Chen');
+    expect((out.match(/⟦STU⟧/g) ?? []).length).toBe(2); // two distinct people, two tokens
+  });
+
+  it('looksLikePersonName recognizes an NFD comma-form name', () => {
+    expect(looksLikePersonName('García, José'.normalize('NFD'))).toBe(true);
+  });
+
+  // The regression a naive fix (`.normalize('NFC')` on the whole text before matching) would
+  // have caused: maskPersonNames hands its `token` callback the MATCHED substring, and
+  // page-agent-mask.ts's PageMask stores that verbatim to rehydrate later. Normalizing before
+  // matching means that stored value comes back NFC even when the page's real text was NFD —
+  // measured directly (masked-then-rehydrated came back NFC, not the original NFD bytes) before
+  // choosing the letter-plus-combining-mark grammar instead, which never transforms the input at
+  // all. This test is what would have caught the naive version.
+  it('rehydrate returns the ORIGINAL NFD string, not a normalized one', () => {
+    const nfd = 'José García'.normalize('NFD');
+    const map = new Map<string, string>();
+    const masked = maskPersonNames(nfd, (n) => {
+      map.set('⟦STU⟧', n);
+      return '⟦STU⟧';
+    });
+    const rehydrated = masked.split('⟦STU⟧').join(map.get('⟦STU⟧')!);
+    expect(rehydrated).toBe(nfd);
+    expect(rehydrated).not.toBe(nfd.normalize('NFC'));
+  });
+
+  it('text surrounding a match is untouched, not silently normalized, even when it is itself NFD', () => {
+    const nfdChrome = 'Total Score'.normalize('NFD'); // has no accents, but exercises the path
+    const input = nfdChrome + ' ' + 'José García'.normalize('NFD') + ' ' + 'Last Login';
+    const out = maskFull(input);
+    expect(out).toBe('Total Score ⟦STU⟧ Last Login');
+  });
+});
+
+// The LETTER grammar above fixes combining marks on name WORDS — but the two Vietnamese
+// gender-marking particles ("văn", "thị") are hard-coded literals in NAME_PARTICLE, so in NFD the
+// breve (U+0306) and the dot below (U+0323) decompose into separate combining-mark codepoints that
+// the literal cannot match, and the 3-word run gate fails: "Nguyễn Văn An" partial-masks to
+// "⟦STU⟧ An", leaking the given name in clear text. The ASCII "Nguyen Van An" case was fixed the
+// same way the "văn" particle was ADDED in the first place (see NAME_PARTICLE's doc comment) — an
+// NFD Vietnamese name is the same FERPA leak one normalization form away. NFC and NFD are both
+// valid Unicode; both must mask whole, and rehydration must return the ORIGINAL bytes either way.
+describe('NFD Vietnamese — the hard-coded văn/thị particles were the last non-grammar literals', () => {
+  const maskFull = (s: string) => maskPersonNames(s, () => '⟦STU⟧');
+
+  it('NFD "Nguyễn Văn An" masks WHOLE — used to leak "An"', () => {
+    const nfd = 'Nguyễn Văn An'.normalize('NFD');
+    expect(nfd).not.toBe('Nguyễn Văn An'); // sanity: actually decomposed bytes
+    expect(maskFull(nfd)).toBe('⟦STU⟧');
+  });
+
+  it('NFD "Trần Thị Mai" masks whole — used to leak "Mai"', () => {
+    expect(maskFull('Trần Thị Mai'.normalize('NFD'))).toBe('⟦STU⟧');
+  });
+
+  it('looksLikePersonName returns true for both NFD forms — the people-surface gate itself', () => {
+    expect(looksLikePersonName('Nguyễn Văn An'.normalize('NFD'))).toBe(true);
+    expect(looksLikePersonName('Trần Thị Mai'.normalize('NFD'))).toBe(true);
+  });
+
+  it('rehydrate round-trips an NFD Vietnamese name back to the ORIGINAL NFD bytes', () => {
+    const nfd = 'Nguyễn Văn An'.normalize('NFD');
+    const map = new Map<string, string>();
+    const masked = maskPersonNames(nfd, (n) => {
+      map.set('⟦STU⟧', n);
+      return '⟦STU⟧';
+    });
+    const rehydrated = masked.split('⟦STU⟧').join(map.get('⟦STU⟧')!);
+    expect(rehydrated).toBe(nfd);
+    expect(rehydrated).not.toBe(nfd.normalize('NFC'));
+  });
+
+  it('NFC equivalents still mask whole (regression guard)', () => {
+    expect(maskFull('Nguyễn Văn An')).toBe('⟦STU⟧');
+    expect(maskFull('Trần Thị Mai')).toBe('⟦STU⟧');
+  });
+
+  it('a comma-form NFD Vietnamese roster trips looksLikeRoster where the same roster in NFC does', () => {
+    const page = (labels: string[]): Parameters<typeof looksLikeRoster>[0] =>
+      ({ domain: 'm.com', url: 'https://m.com/course/latepasses.php?cid=1',
+         interactive: { buttons: labels.map((t, i) => ({ text: t, selector: `#b${i}` })), links: [], inputs: [] } }) as never;
+    const roster = ['Văn, An', 'Thị, Mai', 'Văn, Bình', 'Save'].map((n) => n.normalize('NFD'));
+    expect(looksLikeRoster(page(roster))).toBe(true);   // NFD — used to return false, names fully unmasked
+    expect(looksLikeRoster(page(roster.map((n) => n.normalize('NFC'))))).toBe(true); // NFC parity
   });
 });
