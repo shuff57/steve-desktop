@@ -22,6 +22,7 @@
   let phase = $state<Phase>('idle');
   let steps = $state<WorkflowStep[]>([]);
   let values = $state<Record<string, string>>({}); // fixed tokens promoted out of step values
+  let tokenInputs = $state<Record<string, HTMLInputElement>>({});
   let startUrl = $state('');
   let name = $state('');
   let narration = $state(''); // "what were you doing?" — the teacher's own statement of intent
@@ -93,7 +94,10 @@
       values = setTokenValue({ name, steps, values }, key, value, startUrl).values ?? {};
     } catch (e) {
       msg = e instanceof Error ? e.message : String(e);
-      values = { ...values }; // restore the controlled input to its last accepted value
+      // The input is one-way (value={v}), so a rejected edit leaves the unsafe text visible in
+      // the DOM even though `values` state is untouched. Reset the element directly.
+      const el = tokenInputs[key];
+      if (el) el.value = values[key] ?? '';
     }
   }
 
@@ -240,7 +244,7 @@
         {#each Object.entries(values) as [k, v] (k)}
           <label class="token-pill">
             <span class="token-key">{k} =</span>
-            <input class="token-val" value={v} disabled={phase === 'proposing'} oninput={(e) => setToken(k, (e.target as HTMLInputElement).value)} />
+            <input class="token-val" value={v} bind:this={tokenInputs[k]} disabled={phase === 'proposing'} oninput={(e) => setToken(k, (e.target as HTMLInputElement).value)} />
           </label>
         {/each}
       </div>
