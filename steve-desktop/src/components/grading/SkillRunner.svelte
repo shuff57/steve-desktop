@@ -17,6 +17,7 @@
   import { connectCDP, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
   import { resolveTokens } from '../../lib/teach-tokens';
+  import { syncHealedAnchors } from '../../lib/workflow-heals';
   import { markPageDirty, recordPageDrift } from '../../lib/site-profiles';
   import type { Workflow } from '../../lib/types/site-profile';
   import { shouldRemap } from '../../lib/key-nodes';
@@ -127,17 +128,6 @@
     }
   }
 
-  /** Copy healed anchors from a bound (roster) copy back onto the master workflow —
-   *  selector + candidates only, never the bound value. */
-  function syncHeals(master: Workflow, bound: Workflow): void {
-    bound.steps.forEach((bs, i) => {
-      const ms = master.steps[i];
-      if (!ms) return;
-      ms.selector = bs.selector;
-      if (bs.candidates) ms.candidates = bs.candidates;
-    });
-  }
-
   async function run(skill: Skill) {
     if (runningId) return;
     // Parameterized skill → open the roster box instead of replaying the recorded literals
@@ -149,17 +139,23 @@
     runningId = skill.id;
     message = `Running "${skill.name}"…`;
     try {
-      const workflow = resolveTokens(skillToWorkflow(skill.content));
-      if (!workflow.steps.length) {
+      // Keep this master copy unresolved: a later selector heal must update its anchors without
+      // serializing fixed-token literals back into the saved skill.
+      const workflow = skillToWorkflow(skill.content);
+      const tokenResolved = resolveTokens(workflow);
+      if (!tokenResolved.steps.length) {
         message = `"${skill.name}" has no replayable steps.`;
         return;
       }
       if (!(await ensureConnected())) return;
-      const summary = await replayLive(workflow, { provider, model });
+      const summary = await replayLive(tokenResolved, { provider, model });
       const { line, status } = summarize(summary);
       message = line;
       await addRunEntry({ skill_id: skill.id, skill_name: skill.name, status, detail: line });
-      if (summary.healed) await persistHeals(skill, workflow);
+      if (summary.healed) {
+        syncHealedAnchors(workflow, tokenResolved);
+        await persistHeals(skill, workflow);
+      }
       await noteDrift(summary.results);
     } catch (e) {
       message = `Run failed: ${e instanceof Error ? e.message : 'Unknown error'}`;
@@ -213,7 +209,7 @@
           const { line, status } = summarize(summary);
           if (summary.healed) {
             healedAny = true;
-            syncHeals(workflow, bound); // later rows replay with the healed anchors
+            syncHealedAnchors(workflow, bound); // later rows replay with the healed anchors
           }
           if (status === 'complete') ok++;
           await addRunEntry({ skill_id: skill.id, skill_name: skill.name, row_label: label, status, detail: line });

@@ -65,8 +65,12 @@ export function promoteToToken(workflow: Workflow, stepIndex: number, name: stri
   };
 }
 
-/** Edit a token's stored value in place. */
-export function setTokenValue(workflow: Workflow, key: string, value: string): Workflow {
+/** Edit a token's stored value in place. The same FERPA guard used for promotion applies here:
+ * a safe token can otherwise be changed into student data after its original value was checked. */
+export function setTokenValue(workflow: Workflow, key: string, value: string, url?: string): Workflow {
+  if (!isSafeToPromote(value, url ?? workflow.trigger)) {
+    throw new Error('Refusing to save a token value that looks identifying — tokens are for URLs, ids and course names, not student data.');
+  }
   return { ...workflow, values: { ...workflow.values, [key]: value } };
 }
 

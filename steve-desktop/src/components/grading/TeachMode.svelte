@@ -89,7 +89,12 @@
   }
 
   function setToken(key: string, value: string) {
-    values = setTokenValue({ name, steps, values }, key, value).values ?? {};
+    try {
+      values = setTokenValue({ name, steps, values }, key, value, startUrl).values ?? {};
+    } catch (e) {
+      msg = e instanceof Error ? e.message : String(e);
+      values = { ...values }; // restore the controlled input to its last accepted value
+    }
   }
 
   // Polish is best-effort: the CLI only writes prose. If it's unavailable or fails, we still offer the

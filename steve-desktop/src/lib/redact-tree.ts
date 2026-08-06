@@ -457,6 +457,12 @@ export function maskPersonNames(
   return text.replace(new RegExp(src.source, 'gu'), (m) => (isCommonLabel(m) ? m : token(m)));
 }
 
+/** Does free text contain a person-shaped name anywhere? Unlike looksLikePersonName, this is
+ * deliberately not anchored: roster controls often append a grade or an action to the name. */
+export function containsPersonName(text: string): boolean {
+  return maskPersonNames(text, () => '⟦PERSON⟧') !== text;
+}
+
 /**
  * Capitalised words that are ordinary UI wording, not a person. Without this, a gradebook's
  * own column headers ("Total Score", "Last Login") tokenize to ⟦STU⟧ and the map of the page

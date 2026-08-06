@@ -149,6 +149,23 @@ describe('people pointers — record the route, never the person', () => {
     expect(JSON.stringify(p)).not.toContain('Doe');
   });
 
+  it('drops a roster label with a person name plus a grade or action suffix', () => {
+    const p = buildPeoplePointer({
+      ...gradebook(),
+      interactive: {
+        buttons: [
+          { text: 'Chen, Sarah (85%)', selector: '#student' },
+          { text: 'Doe, Jane - view submission', selector: '#submission' },
+          { text: 'Export CSV', selector: '#export' },
+        ],
+        links: [], inputs: [], selects: [], checkboxes: [], radios: [], forms: [],
+      },
+    });
+    expect(p.controls).toEqual(['Export CSV']);
+    expect(p.droppedPersonLabels).toBe(2);
+    expect(pointerLeaks([p])).toEqual([]);
+  });
+
   it('upserts by index so a re-capture updates instead of duplicating', () => {
     const a = buildPeoplePointer(gradebook());
     expect(upsertPointer([a], buildPeoplePointer(gradebook()))).toHaveLength(1);
@@ -210,6 +227,12 @@ describe('people pointers — record the route, never the person', () => {
     it('catches a person-shaped control label', () => {
       const p = buildPeoplePointer(gradebook());
       p.controls = ['Nguyen, Alice'];
+      expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
+    });
+
+    it('catches a person name with trailing roster metadata', () => {
+      const p = buildPeoplePointer(gradebook());
+      p.controls = ['Chen, Sarah (85%)'];
       expect(pointerLeaks([p]).join(' ')).toContain('reads as a person');
     });
 

@@ -19,7 +19,7 @@
 //
 // A file-level boundary is enforceable. Field-level redaction is a permanent game of whack-a-mole.
 
-import { looksLikePersonName } from './redact-tree';
+import { containsPersonName, looksLikePersonName } from './redact-tree';
 import type { SiteProfile } from './types/site-profile';
 
 /** The person token storage redaction leaves behind in a URL (see redact-tree STUDENT_TOKEN). */
@@ -174,10 +174,9 @@ export function buildPeoplePointer(profile: SiteProfile, rosterUrl = ''): People
     const text = (c.text ?? '').trim();
     if (!text || text.includes('⟦')) continue;
     // A row label on a roster is the person. Drop it — do NOT tokenize it into the pointer.
-    // looksLikePersonName is redact-tree.ts's ONE definition of "reads as a person" (Mc/Mac/O'/
-    // particle-aware); this used to be a second, hand-duplicated copy that lacked all of that,
-    // which meant a name like "McDonald, Sean" could survive into `controls[]`.
-    if (looksLikePersonName(text)) { dropped++; continue; }
+    // Scan rather than require the entire label to be a name: live roster controls may append a
+    // grade or action ("Chen, Sarah (85%)"), but the person must still never reach storage.
+    if (containsPersonName(text)) { dropped++; continue; }
     if (!controls.includes(text)) controls.push(text);
   }
   const located = [...templates.values()].find((s) => s.param);
@@ -207,7 +206,7 @@ export function upsertPointer(existing: PeoplePointer[], next: PeoplePointer): P
 export function pointerLeaks(pointers: PeoplePointer[]): string[] {
   const bad: string[] = [];
   for (const p of pointers) {
-    for (const c of p.controls) if (looksLikePersonName(c)) bad.push(`${p.surface}: control label reads as a person`);
+    for (const c of p.controls) if (containsPersonName(c)) bad.push(`${p.surface}: control label reads as a person`);
     for (const t of p.perPerson) {
       if (!t.includes(SLOT)) bad.push(`${p.surface}: per-person URL has no ${SLOT} slot`);
       if (/(uid|stu|studentid|userid)=\d+/i.test(t)) bad.push(`${p.surface}: per-person URL carries a literal id`);

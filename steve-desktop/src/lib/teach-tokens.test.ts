@@ -134,6 +134,12 @@ describe('setTokenValue', () => {
     expect(out.values).toEqual({ course_url: 'new' });
     expect(out.steps[0].value).toBe('{{course_url}}');
   });
+
+  it('refuses to turn an already-safe token into identifying data', () => {
+    const w = wf([{ action: 'fill', selector: '#a', value: '{{course_url}}' }], { course_url: 'https://lms.example/courses/1' });
+    expect(() => setTokenValue(w, 'course_url', 'Sarah Chen')).toThrow(/identifying/);
+    expect(w.values?.course_url).toBe('https://lms.example/courses/1');
+  });
 });
 
 describe('resolveTokens', () => {
