@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Proportion and Percent of a Total from a Frequency Table - Read a table of counts by year or month, compute the proportion falling in an inclusive span of rows and the percent falling in a strictly-between span, and classify the counts as quantitative discrete ===
+// === NAME - DESCRIPTION: Proportion and Percent of a Total from a Frequency Table - Compute the proportion in an inclusive span of rows and the percent in a strictly-between span, then classify the counts as quantitative discrete ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

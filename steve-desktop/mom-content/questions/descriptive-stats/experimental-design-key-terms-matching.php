@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Experimental Design Key Terms - Match explanatory variable, response variable, treatment, experimental unit, and lurking variable to their definitions across a randomized experiment scenario, targeting the confusion between a treatment and the explanatory variable itself ===
+// === NAME - DESCRIPTION: Experimental Design Key Terms - Match explanatory variable, response variable, treatment, experimental unit, and lurking variable to their definitions, targeting the confusion between a treatment and the explanatory variable itself ===
 // === SET QUESTION TYPE TO: matching ===
 
 // === COMMON CONTROL ===

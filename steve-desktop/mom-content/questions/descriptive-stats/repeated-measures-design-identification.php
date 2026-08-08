@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Repeated-Measures Design Identification - Given a randomized sleep-deprivation driving study, state the explanatory and response variables, identify the design as a randomized repeated-measures (matched) design versus three distractor designs, and explain what within-subject comparison and randomized session order each control for ===
+// === NAME - DESCRIPTION: Repeated-Measures Design Identification - In a randomized sleep-deprivation driving study, name the explanatory and response variables, identify the design against three distractors, and say what the within-subject comparison and session order control ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -20,7 +20,7 @@ $taskOptions = array(
 )
 $task = $taskOptions[rand(0, 4)]
 
-$expVarAns = "the sleep condition the driver was in &ndash; normal sleep versus " . $hoursDeprived . " hours of total sleep deprivation or which of the two sleep conditions the driver experienced before the session"
+$expVarAns = "the sleep condition the driver was in, normal sleep versus " . $hoursDeprived . " hours of total sleep deprivation or which of the two sleep conditions the driver experienced before the session"
 $strflags[0] = "ignore_case,trim_whitespace"
 
 $respVarAns = "the driver's performance on " . $task . " or how well the driver performed on " . $task . " during the session"
@@ -36,10 +36,10 @@ $designOptions = array(
 $choices[2] = $designOptions
 $answer[2] = 0
 
-$ownControlAns = "lurking variables that differ between people, such as baseline reaction speed, driving experience, or eyesight, since the same driver appears in both sleep conditions or between-subject differences like reaction speed, experience, and eyesight, because each driver is compared only against themselves"
+$ownControlAns = "lurking variables that differ between people, such as baseline reaction speed, driving experience, and eyesight, since the same driver appears in both sleep conditions or between-subject differences like reaction speed, experience, and eyesight, because each driver is compared only against themselves"
 $strflags[3] = "ignore_case,trim_whitespace"
 
-$orderControlAns = "order effects, such as practice on the simulator or fatigue from the time of day, from being tied to one sleep condition instead of the other or which session came first, so that practice or fatigue from session order doesn't unfairly favor one sleep condition"
+$orderControlAns = "order effects, such as practice on the simulator and fatigue from the time of day, from being tied to one sleep condition instead of the other or which session came first, so that practice and fatigue from session order do not unfairly favor one sleep condition"
 $strflags[4] = "ignore_case,trim_whitespace"
 
 $answer[0] = $expVarAns

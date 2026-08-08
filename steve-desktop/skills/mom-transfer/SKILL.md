@@ -71,11 +71,34 @@ as well as in the manifest. `question-library.ts` has the reader, writer and the
 
 3. attach       GET  modquestion2.php?qsetid=<qid>&cid=<cid>&aid=<aid>&from=addq&process=true&usedef=true
 
-4. render       GET  /assess2/?cid=<cid>&aid=<aid>  →  click "Teacher Preview"  →  read it
+4. points       GET  modquestion2.php?id=<instanceid>&aid=<aid>&cid=<cid>   per question
+                  set the hidden `points` input, click "Save Settings"
+                  └─ the whole assignment must total EXACTLY 100
+
+5. verify       GET  /assess2/?cid=<cid>&aid=<aid>  →  click "Teacher Preview"
+                  fill EVERY question, submit it, confirm it grades correct
+                  └─ done when the header reads Score: 100/100, Answered: N/N
 ```
 
 Step 3 is a plain GET. **A question that already has a `qid` in the manifest skips step 2
 entirely** — re-pushing an assignment whose questions are already in the library is just N GETs.
+
+Steps 4 and 5 are not optional and not "if there is time". They are the two things that decide
+whether students get a working, correctly-weighted assignment, and neither is implied by a
+successful save. Details for both are below.
+
+### Filing into a course that has no assessments yet
+
+The question home starts empty, and **filing needs an `aid`** — `moddataset.php` takes one. So step 1
+runs there too, purely to create a filing vehicle. Its settings do not matter and it needs no
+`copyfrom` template, because nobody sits that course. Record its aid as `filing.aid` on the manifest.
+
+`copyfrom` being **absent** from the new-assessment form is the tell that a course has no assessments
+to copy from — useful confirmation, not an error.
+
+**Cross-course attach works.** A `qsetid` filed from one course attaches cleanly into an assessment
+in another (verified live 2026-08-08: questions filed from 334243 attached into 334437). That is what
+makes one library entry serve every section. Prove it on ONE question before looping.
 
 ## Settings are Steve's call, once per kind
 
@@ -259,24 +282,120 @@ re-serialising them rewrites every line. `setQuestionQid` in
 `src/integrations/mom/book-membership.ts` does exactly this, and refuses to write anything that does
 not parse. Verify the result parses before saving.
 
+## Every assignment is out of 100 points
+
+Balance the per-question points so they sum to **exactly 100**. Points live on the assessment
+*instance*, not the library question, so setting them cannot leak into another section sharing the
+same `qsetid`.
+
+They are **not** on `addquestions.php`. Each question's "Change Settings" link goes to
+`modquestion2.php?id=<instanceid>&aid=&cid=`, where `points` is a **hidden** input — set it and click
+**Save Settings**. Instance ids are consecutive from the first attached question.
+
+Distribute evenly and put the remainder on the heaviest questions, normally the multipart ones.
+Eleven questions is `10 + 9x10`; fourteen is `8x2 + 7x12`. Then **read every value back and assert
+the total is 100** — an assignment totalling 99 grades every student slightly wrong and MOM never
+complains.
+
+## Fill and WORK every question — rendering is not testing
+
+A question can render perfectly, throw nothing anywhere, pass `questionHealth`, and still be broken:
+a dropdown that never populates, an answer box that rejects the right value, a matching set whose
+key does not line up with its options. **"No error was thrown" is not evidence.**
+
+In Teacher Preview, for **every** question: enter the answer, **submit it**, and confirm it comes
+back **correct** — every part of a multipart, not just the first. Then look at the rendered page for
+typesetting, a doubled prompt, or a literal `$variable`.
+
+`Score: <total>/<total>, Answered: N/N` in the header is the completion test. It is unreachable
+unless every question both renders and grades correctly, so it subsumes the per-question checks —
+but only if you got there by actually answering, not by assuming.
+
+**"Show All Answers" does not fill or reveal the key.** It toggles the solution display.
+
+### Submitting is AJAX, and it races — promoted here on the third sighting
+
+There is no "Submit All". Each question has its own **Submit Question** button, the click fires an
+AJAX request, and **clicking the next one before the previous request lands silently drops it**.
+Every click reports success; the header count quietly runs behind; the question you think you tested
+was never submitted. Seen on 1.1 and twice more on 1.2.
+
+Do not click in a loop. After each click, poll for that question's result element before moving on:
+
+```js
+// a submitted question gets <div class="scoreresult correct|incorrect"> prepended
+// inside its .questionwrap parent; an unsubmitted one has no such div at all
+document.getElementById('questionwrap' + n).parentElement.querySelector(':scope > .scoreresult')
+```
+
+That div is also the only trustworthy per-question verdict — reading the parent's `innerText`
+instead bleeds neighbouring questions' text and invents results for questions never answered.
+
+### Work the answer out from the page, not from the source
+
+A `choices` question's options are **shuffled per seed**, so the source's `$answer` index does not
+address the rendered option — and where the key itself is randomized (`$answer = $stype[$vi]`) the
+source does not know the answer either. Match the option by its rendered **label text**, and derive
+the answer from the rendered prompt.
+
+This is the slow way and it is the right way: an answer replayed out of the same file that generated
+the key cannot detect a wrong key. Solving the question independently can. `transfer-rules.md` has
+the worked mechanics for `matching`, which is the fiddly case.
+
+## Homework carries no free response
+
+Steve's standing rule (2026-08-08): **a `hw` assignment must be fully auto-graded.** He is not going
+to hand-mark essays, so a free-response part is not a feature there, it is a bill.
+
+Before pushing any `hw`, grep every source for `essay` in `$anstypes` and convert those parts to
+`choices`. The two ways MOM handles an essay part are both wrong for homework: with
+`$answer[n] = ""` plus `$scoremethod[n] = "takeanything"` it awards full marks for any text at all,
+and without them it scores 0 and waits for manual grading — silently costing the student that part
+of an otherwise auto-graded question. Both were live in 1.4 until they were converted.
+
+This applies to `hw` only. `questions/frq/` exists for hand-graded tests and is untouched by it.
+
+Watch the softer version too: a `string` part is auto-graded and so satisfies the rule, but it
+demands near-exact phrasing. Flag those in `REVIEW-NEEDED.md` rather than assuming they are fine.
+
 ## Report honestly
 
-Finish with one row per question: slot, title, library qid, rendered clean or not. Any question you
-did not actually see rendered is reported as unverified, not as success.
+Finish with one row per question: slot, title, library qid, points, and **graded correct or not**.
+Any question you did not actually fill, submit and see graded is reported as **unverified**, never as
+success. State the points split and the final header score.
 
-## Then reflect
+## Then reflect — this step is what makes the skill improve with use
 
-Read `mom-content/reference/transfer-rules.md` **before** you start — it holds rules earlier pushes
-learned by breaking a real course, and it is where the failure you are about to hit may already be
-solved.
+Read `mom-content/reference/transfer-rules.md` **before** you start. It holds what earlier pushes
+learned by breaking a real course, and the failure you are about to hit may already be solved there.
 
-When a push needed a repair, append what you learned to that file before you finish. One line, in
-the same shape as the rules already there: what broke, the symptom you would recognise it by next
-time, and the fix. Only write a rule you actually proved — a guess here makes every later push
-worse. Nothing to add is the normal outcome of a clean run; do not invent a rule to have written one.
+**Then close every push with this routine, clean run or not.** Skipping it is how the same hour gets
+paid twice.
 
-If the same failure shows up a third time, it has stopped being a learned rule and belongs in this
-skill's body instead — say so in the report rather than appending a third near-duplicate.
+1. **Collect** every one of these that happened during the push, while it is still in front of you:
+   - anything that cost more than one attempt;
+   - anything that reported success and was not (a save that stored empty, a redirect that meant
+     nothing, a green check on a wrong field);
+   - any selector, field name, id pattern or URL you had to *discover* rather than read here;
+   - anything about the questions themselves — a bad key, a wrong `qtype`, a leaking answer — which
+     belongs in `mom-content/REVIEW-NEEDED.md`, not here, because it is content not process.
+2. **Keep only what you proved.** A guessed rule makes every later push worse than no rule. If you
+   worked around something without understanding it, write the symptom and say it is unexplained —
+   an honest unknown is useful; a confident wrong answer is not.
+3. **Write it in the shape already there:** what broke, the symptom you would recognise it by next
+   time, and the fix. Include the concrete string — the selector, the field name, the error text —
+   because that is what makes it findable when it recurs.
+4. **Correct what is already there.** If a rule in the file turned out to be wrong or incomplete,
+   edit it rather than appending a contradiction. Two rules disagreeing is worse than one wrong rule.
+5. **Promote on the third sighting.** A failure seen three times is not a learned rule any more, it
+   is part of the procedure — move it into this skill's body and say so in the report.
+
+Nothing to add is a normal outcome of a genuinely clean run. **Do not invent a rule to have written
+one** — noise here costs every future push a little reading and a little trust.
+
+Edit `transfer-rules.md` directly; it is an ordinary file. This skill's own body lives at
+`steve-desktop/skills/mom-transfer/SKILL.md` in the repo — a promotion in step 5 means editing
+*that*, never the installed copy under `~/.claude/`, which is overwritten on every launch.
 
 ---
 

@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Back-Solve Frequency from Cumulative Relative Frequency - Given a 5-row frequency table where the cumulative relative frequency for row 3 is known but the frequency for row 3 is missing, find the missing frequency, compute relative frequency, complete the cumulative column, and find percents ===
+// === NAME - DESCRIPTION: Back-Solve Frequency from Cumulative Relative Frequency - Recover a missing frequency from a known cumulative relative frequency, then complete the relative and cumulative columns and find percents ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

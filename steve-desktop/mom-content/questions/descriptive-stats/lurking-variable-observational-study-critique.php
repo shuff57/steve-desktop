@@ -3,8 +3,7 @@
 
 // === COMMON CONTROL ===
 
-$anstypes = array("choices","essay")
-$displayformat[1] = 'editornopaste'
+$anstypes = array("choices","choices")
 
 // Randomize the supplement/product and the health outcome so each student
 // sees a different version of the same self-selection critique.
@@ -30,6 +29,15 @@ $questions[0] = array(
   "The $n adults were not randomly selected from the general population, so the results cannot be generalized to all adults, which is why a cause-and-effect claim is not justified."
 )
 $answer[0] = 0
+
+// Part b was a free-response essay. Homework is auto-graded only, so it is multiple choice now.
+$questions[1] = array(
+  "Recruit volunteers who do not already take $product, randomly assign each one to $product or an identical-looking placebo, and compare $outcome after a fixed period.",
+  "Survey a much larger number of adults, so the difference between the two groups becomes more reliable.",
+  "Also ask each adult to report their exercise, diet, sleep and smoking habits, and mention those habits alongside the conclusion.",
+  "Repeat the same survey a year later and check whether the same difference between the two groups appears again."
+)
+$answer[1] = 0
 
 $solutionguide = "
 <style>
@@ -68,7 +76,7 @@ $solutionguide = "
     <div style="margin-top:12px;">$answerbox[0]</div>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Describe one specific change to how this study is conducted that would let the researcher draw a cause-and-effect conclusion about $product and $outcome.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which change to how this study is conducted would let the researcher draw a cause-and-effect conclusion about $product and $outcome?
     <div style="margin-top:12px;">$answerbox[1]</div>
   </div>
 </div>

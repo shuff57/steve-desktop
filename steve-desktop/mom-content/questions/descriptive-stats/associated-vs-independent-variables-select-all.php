@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Associated vs. Independent Variables and the Causation Trap - Given five randomized variable pairs, select all that show association rather than independence, then judge whether one of the associated pairs proves that the first variable causes the second, versus a lurking variable or coincidence explaining it instead ===
+// === NAME - DESCRIPTION: Associated vs. Independent Variables and the Causation Trap - Select every randomized variable pair that shows association rather than independence, then judge whether one associated pair proves causation or admits a lurking variable instead ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

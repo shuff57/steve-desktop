@@ -4,6 +4,7 @@
   "kind": "hw",
   "slug": "1-1-definitions-of-statistics-probability-and-key-terms",
   "target": { "cid": "334243", "aid": "23108651" },
+  "filing": { "cid": "334437", "aid": "23244711" },
   "created_at": "2026-07-31",
   "questions": [
     { "slot": 1, "file_path": "questions/descriptive-stats/q09-identify-population-multiple-choice.php", "qid": "1867369", "title": "Identifying the population of a study — the entire group under study — and distinguishing it from an overly broad group, a wrong-subject group, and a sample (§1.1.2, Definitions 1.1.4–1.1.5)." },
@@ -15,6 +16,7 @@
     { "slot": 7, "file_path": "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php", "qid": "1867376", "title": "Ballot Measure Poll Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a poll estimating the proportion of eligible voters who will vote for a local ballot measure" },
     { "slot": 8, "file_path": "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php", "qid": "1867377", "title": "Product Launch Survey Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a marketing study estimating the proportion of people in an area who will buy a new product" },
     { "slot": 9, "file_path": "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php", "qid": "1867378", "title": "Classify X as the Variable - Name what X is when X is defined as a measurement on one member of the population" },
-    { "slot": 10, "file_path": "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php", "qid": "1867379", "title": "Sample Mean Is a Statistic - Classify a mean computed from a sample" }
+    { "slot": 10, "file_path": "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php", "qid": "1867379", "title": "Sample Mean Is a Statistic - Classify a mean computed from a sample" },
+    { "slot": 11, "file_path": "questions/descriptive-stats/q01-fitness-center-key-terms.php", "qid": "1873341", "title": "Fitness Center Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study about mean client exercise time" }
   ]
 }

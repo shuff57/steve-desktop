@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Rate Versus Raw Count, Then Honest Display - Given two stores' raw complaint counts and their differing weekly customer counts, compute each store's complaint rate per 100 customers, then choose the display that honestly represents the comparison on one shared labeled scale ===
+// === NAME - DESCRIPTION: Rate Versus Raw Count, Then Honest Display - From two stores' complaint counts and differing customer counts, compute each rate per 100 customers, then choose the display that compares them honestly on one shared labeled scale ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

@@ -53,9 +53,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 — Translate "at most a category 3."</span> That means category 1, 2, or 3 — every storm up to and including category 3.</p>
-      <p><span class="term-label">Step 2 — Add those direct hits:</span> ' . $c1 . ' + ' . $c2 . ' + ' . $c3 . ' = ' . ($c1 + $c2 + $c3) . '.</p>
-      <p><span class="term-label">Step 3 — Divide by the total number of direct hits:</span> ' . ($c1 + $c2 + $c3) . ' &divide; 273 &approx; <b>' . $cum3disp . '</b>.</p>
+      <p><span class="term-label">Step 1 &mdash; Translate "at most a category 3."</span> That means category 1, 2, or 3 &mdash; every storm up to and including category 3.</p>
+      <p><span class="term-label">Step 2 &mdash; Add those direct hits:</span> ' . $c1 . ' + ' . $c2 . ' + ' . $c3 . ' = ' . ($c1 + $c2 + $c3) . '.</p>
+      <p><span class="term-label">Step 3 &mdash; Divide by the total number of direct hits:</span> ' . ($c1 + $c2 + $c3) . ' &divide; 273 &approx; <b>' . $cum3disp . '</b>.</p>
       <p>Alternatively, subtract the categories above 3 from the whole: 1 &minus; ' . $compdisp . ' = ' . $cum3disp . '.</p>
       <p><b>Answer:</b> ' . $cum3disp . '</p>
     </div>

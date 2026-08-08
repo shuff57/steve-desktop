@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Grouped Frequency Table Interval Boundary Reasoning - Given a grouped/interval frequency table for a continuous measurement whose interval boundaries end in a fraction, select all true statements explaining why the boundaries are built that way, versus common misconceptions ===
+// === NAME - DESCRIPTION: Grouped Frequency Table Interval Boundary Reasoning - Select every true statement about why a continuous measurement's interval boundaries end in a fraction, against the common misconceptions ===
 // === SET QUESTION TYPE TO: multans ===
 
 // === COMMON CONTROL ===

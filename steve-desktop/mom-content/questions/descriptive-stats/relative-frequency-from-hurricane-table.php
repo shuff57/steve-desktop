@@ -53,9 +53,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 — Find the count for category 4 and the total.</span> The table lists ' . $c4 . ' direct hits for category 4, out of 273 direct hits in all.</p>
-      <p><span class="term-label">Step 2 — Divide to get the relative frequency:</span> ' . $c4 . ' &divide; 273 &approx; <b>' . $rel4disp . '</b>.</p>
-      <p>Note that the table gives you every count you need — the total is right there in the Total row. The "Not enough information" option is a distractor; all the data required are present.</p>
+      <p><span class="term-label">Step 1 &mdash; Find the count for category 4 and the total.</span> The table lists ' . $c4 . ' direct hits for category 4, out of 273 direct hits in all.</p>
+      <p><span class="term-label">Step 2 &mdash; Divide to get the relative frequency:</span> ' . $c4 . ' &divide; 273 &approx; <b>' . $rel4disp . '</b>.</p>
+      <p>Note that the table gives you every count you need &mdash; the total is right there in the Total row. The "Not enough information" option is a distractor; all the data required are present.</p>
       <p><b>Answer:</b> ' . $rel4disp . '</p>
     </div>
   </details>

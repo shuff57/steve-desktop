@@ -15,16 +15,20 @@ $freqSets = array(
   array(3, 2, 1, 2, 3, 2, 1, 3, 2)
 )
 
+// Every raw set is the tally of the $freqSets row above it, over the SAME $vals. Sets 1 and 2 used
+// to carry unrelated values (1,3,4,6,...) and unrelated counts, so two students in three got a table
+// that could not be reconciled with the data they were asked to tally. Change a frequency here and
+// you must change the matching raw/sorted line, or the question silently becomes unanswerable.
 $rawDataSets = array(
   "0; 0; 2; 2; 2; 4; 5; 5; 5; 7; 7; 10; 10; 12; 12; 15; 15; 20; 20",
-  "1; 1; 1; 3; 3; 4; 4; 6; 6; 6; 8; 8; 9; 9; 11; 11; 13; 14; 14",
-  "0; 0; 0; 2; 2; 3; 3; 5; 5; 5; 5; 7; 7; 8; 8; 10; 10; 12; 12"
+  "0; 2; 2; 4; 4; 5; 5; 5; 5; 7; 10; 10; 10; 12; 12; 15; 15; 20; 20",
+  "0; 0; 0; 2; 2; 4; 5; 5; 7; 7; 7; 10; 10; 12; 15; 15; 15; 20; 20"
 )
 
 $sortedDataSets = array(
   "0, 0, 2, 2, 2, 4, 5, 5, 5, 7, 7, 10, 10, 12, 12, 15, 15, 20, 20",
-  "1, 1, 1, 3, 3, 4, 4, 6, 6, 6, 8, 8, 9, 9, 11, 11, 13, 14, 14",
-  "0, 0, 0, 2, 2, 3, 3, 5, 5, 5, 5, 7, 7, 8, 8, 10, 10, 12, 12"
+  "0, 2, 2, 4, 4, 5, 5, 5, 5, 7, 10, 10, 10, 12, 12, 15, 15, 20, 20",
+  "0, 0, 0, 2, 2, 4, 5, 5, 7, 7, 7, 10, 10, 12, 15, 15, 15, 20, 20"
 )
 
 $trueFreqs = $freqSets[$ci]
@@ -120,13 +124,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 — Sort the raw data and count each value.</span> The unsorted list makes it easy to miss a repeated value. Sorting gives:</p>
+      <p><span class="term-label">Step 1 &mdash; Sort the raw data and count each value.</span> The unsorted list makes it easy to miss a repeated value. Sorting gives:</p>
       <p><b>' . $sortedData . '</b></p>
       <p>Counting each value gives the true frequencies shown in the corrected table below.</p>
-      <p><span class="term-label">Step 2 — Compare with the published table.</span> The published table lists ' . $e1val . ' with frequency ' . $e1pub . ' and ' . $e2val . ' with frequency ' . $e2pub . '. The correct frequencies are ' . $e1true . ' and ' . $e2true . ' &mdash; each is one too low in the published version. The frequency column therefore sums to 17 instead of 19, and the cumulative relative frequencies that depend on those rows are also wrong.</p>
-      <p><span class="term-label">Step 3 — How the error likely happened.</span> The raw data list is unsorted. Someone tallying by scanning left to right would catch the first occurrence of each repeated value but miss the second, especially when the two copies are far apart in the list. Sorting the data before tallying prevents this, and summing the frequency column against the sample size (19) catches it.</p>
-      <p><span class="term-label">Step 4 — Fraction for 5 or 7 years.</span> Five years has frequency ' . $trueFreqs[3] . ' and seven years has frequency ' . $trueFreqs[4] . ', so ' . $trueFreqs[3] . ' + ' . $trueFreqs[4] . ' = ' . $sum57 . ' out of 19: <b>' . $sum57 . '/19</b> &approx; ' . $frac57rounded . '.</p>
-      <p><span class="term-label">Step 5 — Fraction fewer than 12 years.</span> Values less than 12 are 0, 2, 4, 5, 7, and 10. Their frequencies add to ' . $sumLT12 . ' out of 19: <b>' . $sumLT12 . '/19</b> &approx; ' . $fracLT12rounded . '.</p>
+      <p><span class="term-label">Step 2 &mdash; Compare with the published table.</span> The published table lists ' . $e1val . ' with frequency ' . $e1pub . ' and ' . $e2val . ' with frequency ' . $e2pub . '. The correct frequencies are ' . $e1true . ' and ' . $e2true . ' &mdash; each is one too low in the published version. The frequency column therefore sums to 17 instead of 19, and the cumulative relative frequencies that depend on those rows are also wrong.</p>
+      <p><span class="term-label">Step 3 &mdash; How the error likely happened.</span> The raw data list is unsorted. Someone tallying by scanning left to right would catch the first occurrence of each repeated value but miss the second, especially when the two copies are far apart in the list. Sorting the data before tallying prevents this, and summing the frequency column against the sample size (19) catches it.</p>
+      <p><span class="term-label">Step 4 &mdash; Fraction for 5 or 7 years.</span> Five years has frequency ' . $trueFreqs[3] . ' and seven years has frequency ' . $trueFreqs[4] . ', so ' . $trueFreqs[3] . ' + ' . $trueFreqs[4] . ' = ' . $sum57 . ' out of 19: <b>' . $sum57 . '/19</b> &approx; ' . $frac57rounded . '.</p>
+      <p><span class="term-label">Step 5 &mdash; Fraction fewer than 12 years.</span> Values less than 12 are 0, 2, 4, 5, 7, and 10. Their frequencies add to ' . $sumLT12 . ' out of 19: <b>' . $sumLT12 . '/19</b> &approx; ' . $fracLT12rounded . '.</p>
       <p style="margin-top:1em;"><b>The corrected table:</b></p>
       ' . $solTable . '
       <p><b>Answers:</b> a) ' . $e1true . ', b) ' . $e2true . ', c) ' . $sum57 . '/19 &approx; ' . $frac57rounded . ', d) ' . $sumLT12 . '/19 &approx; ' . $fracLT12rounded . ', e) The error likely happened because the data was not sorted before tallying, so the person missed the second occurrence of each repeated value.</p>

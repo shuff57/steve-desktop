@@ -124,7 +124,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;">The table below shows the ages of the chief executive officers for the first ' . $total . ' ranked small businesses.</p>
+    <p style="margin:0 0 10px 0;">The table below shows the ages of the chief executive officers for the first $total ranked small businesses.</p>
     <table style="border-collapse:collapse; width:100%; margin:10px 0;">
       <thead>
         <tr style="background:#f0f4ff;">
@@ -133,14 +133,14 @@ $solutionguide = '
         </tr>
       </thead>
       <tbody>
-        ' . $tableRows . '
+        $tableRows
       </tbody>
     </table>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 10px 0;"><strong>Two graphs were produced from this table.</strong></p>
-    <p style="margin:0 0 5px 0;"><b>Graph A</b> ' . $graphADesc . '.</p>
-    <p style="margin:0 0 10px 0;"><b>Graph B</b> ' . $graphBDesc . '.</p>
+    <p style="margin:0 0 5px 0;"><b>Graph A</b> $graphADesc.</p>
+    <p style="margin:0 0 10px 0;"><b>Graph B</b> $graphBDesc.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 10px 0;"><strong>Use the table to answer the following questions.</strong></p>

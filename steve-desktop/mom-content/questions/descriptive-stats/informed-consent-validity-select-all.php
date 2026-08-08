@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Informed Consent Validity Requirements - Given a randomized study context and subject population, select all statements that describe a genuine requirement for a valid informed-consent process, distinguishing them from common misconceptions such as a signed form or verbal willingness being sufficient on its own ===
+// === NAME - DESCRIPTION: Informed Consent Validity Requirements - Select every statement describing a genuine requirement of a valid informed-consent process, against misconceptions such as a signed form or verbal willingness being sufficient on its own ===
 // === SET QUESTION TYPE TO: multans ===
 
 // === COMMON CONTROL ===

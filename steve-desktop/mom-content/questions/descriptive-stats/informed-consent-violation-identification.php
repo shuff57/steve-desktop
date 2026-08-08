@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Informed Consent Violation Identification - identify which specific informed-consent violation (coercion of a captive population, a minor unable to legally consent, or a withheld material fact with an oversold benefit) is present in each of three randomized research scenarios ===
+// === NAME - DESCRIPTION: Informed Consent Violation Identification - Name which violation each of three randomized scenarios commits: coercing a captive population, enrolling a minor who cannot legally consent, or withholding a material fact while overselling the benefit ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

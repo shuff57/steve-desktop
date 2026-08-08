@@ -42,10 +42,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 — Add all 50 state commute times.</b> The sum of the 50 values is ' . $sum . '.</p>
-      <p><b>Step 2 — Divide by the number of states to get the mean:</b></p>
+      <p><b>Step 1 &mdash; Add all 50 state commute times.</b> The sum of the 50 values is ' . $sum . '.</p>
+      <p><b>Step 2 &mdash; Divide by the number of states to get the mean:</b></p>
       <p>`' . $sum . ' / 50 = ' . $mean . '`</p>
-      <p><b>Step 3 — Round properly.</b> Each state\'s travel time was measured to the nearest tenth (one decimal place), so the final answer carries one more decimal place than the data — two decimal places.</p>
+      <p><b>Step 3 &mdash; Round properly.</b> Each state\'s travel time was measured to the nearest tenth (one decimal place), so the final answer carries one more decimal place than the data &mdash; two decimal places.</p>
       <p><b>Answer:</b> The mean travel time is ' . $mean . ' minutes.</p>
     </div>
   </details>

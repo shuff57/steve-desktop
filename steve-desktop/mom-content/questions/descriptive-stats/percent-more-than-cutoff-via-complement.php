@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Percent More Than a Cutoff via the Complement Rule - Given a discrete frequency table with frequency, relative frequency, and cumulative relative frequency columns already filled in, find the percent of respondents above a cutoff value using the complement (1 minus the cumulative relative frequency through the cutoff row), then confirm the result by directly adding the relative frequencies of the rows above the cutoff ===
+// === NAME - DESCRIPTION: Percent More Than a Cutoff via the Complement Rule - Find the percent above a cutoff as 1 minus the cumulative relative frequency through the cutoff row, then confirm it by adding the relative frequencies of the rows above the cutoff ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

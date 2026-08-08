@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Survey Percent Complement, Extrapolated Count, and Population Limits - Given a survey summary table of percentages from one institution, find the complement percent for one item, extrapolate an approximate respondent count for a second item, then judge whether the same percentages would hold at a contrasting institution and recognize that survey results describe only the population sampled ===
+// === NAME - DESCRIPTION: Survey Percent Complement, Extrapolated Count, and Population Limits - From one institution's survey percentages, find a complement percent, extrapolate a respondent count, then judge whether those percentages would hold at a contrasting institution ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

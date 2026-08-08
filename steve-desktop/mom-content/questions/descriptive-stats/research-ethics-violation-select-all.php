@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Research Ethics Violations (IRB, Informed Consent, Data Fraud) - Given a randomized scenario where a researcher skips IRB review, withholds a known risk, and selectively discards data, select every real ethical or procedural violation from a mixed list that also includes true-but-irrelevant statistical statements ===
+// === NAME - DESCRIPTION: Research Ethics Violations (IRB, Informed Consent, Data Fraud) - Select every real violation where a researcher skips IRB review, withholds a known risk, and discards data selectively, from a list that also holds true-but-irrelevant statements ===
 // === SET QUESTION TYPE TO: multans ===
 
 // === COMMON CONTROL ===

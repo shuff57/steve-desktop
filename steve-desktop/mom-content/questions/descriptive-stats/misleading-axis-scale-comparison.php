@@ -1,9 +1,9 @@
-// === NAME - DESCRIPTION: Misleading Axis Scale in a Line-Graph Comparison - Given two line graphs comparing a randomized pair of companies' values over time, neither with a labeled or scaled vertical axis, identify the graphical flaw that lets each line be stretched independently, then state how the comparison should be corrected ===
+// === NAME - DESCRIPTION: Misleading Axis Scale in a Line-Graph Comparison - Two line graphs compare a randomized pair of companies with no labeled or scaled vertical axis; name the flaw that lets each line stretch independently, and state how to correct the comparison ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-$anstypes = array("choices", "essay")
+$anstypes = array("choices", "choices")
 
 $companyPairs = array(
   array("Acme Investments", "Brightline Capital"),
@@ -113,10 +113,14 @@ $choices[0] = array(
 )
 $answer[0] = 0
 
-$answer[1] = ""
-$scoremethod[1] = "takeanything"
-$displayformat[1] = "editornopaste"
-$answerboxsize[1] = "5,60"
+// Part b was a free-response essay. Homework is auto-graded only, so it is multiple choice now.
+$choices[1] = array(
+  "Redraw both companies on a single graph with one labeled vertical axis that starts at zero, so both lines are read against the same numbered scale.",
+  "Keep the two separate graphs but print them at the same physical size, so neither picture looks bigger than the other.",
+  "Add a title and a legend to each graph so the reader knows which company each line belongs to.",
+  "Redraw each graph with its own labeled vertical axis, scaled to fit that company's own range of values."
+)
+$answer[1] = 0
 
 $solutionguide = '
 <style>

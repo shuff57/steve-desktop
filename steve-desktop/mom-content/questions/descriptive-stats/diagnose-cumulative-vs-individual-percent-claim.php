@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Diagnose a Cumulative-vs-Individual Percent Claim - Given a frequency table with frequency, relative frequency, and cumulative relative frequency columns, diagnose a published claim that reports the cumulative relative frequency through a row as if it were that row's own individual relative frequency, then compute the row's true percent ===
+// === NAME - DESCRIPTION: Diagnose a Cumulative-vs-Individual Percent Claim - Catch a published claim that reports a row's cumulative relative frequency as if it were that row's own relative frequency, then compute the row's true percent ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

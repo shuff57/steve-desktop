@@ -25,7 +25,7 @@ $pool_items = array(
   "Movie ratings: G, PG, PG-13, R",
   "Phone numbers"
 )
-$pool_answers = array(1, 2, 0, 0, 3, 1, 0, 2, 3, 2, 3, 1, 1, 0, 2, 3, 3, 0, 1, 0)
+$pool_answers = array(1, 2, 0, 0, 3, 1, 1, 2, 3, 2, 3, 1, 1, 0, 2, 3, 3, 0, 1, 0)
 $pool_reasons = array(
   "Ranked labels with no measurable gap between them.",
   "Numerical with meaningful differences, but 0&deg; is not 'no heat.'",
@@ -33,7 +33,7 @@ $pool_reasons = array(
   "Identifiers written with digits; averaging them is meaningless.",
   "Ordered, differences are meaningful, and zero dollars is a true zero.",
   "Ranked categories; the numbers are stand-ins for words.",
-  "Political categories with no agreed numerical spacing.",
+  "Ranked left to right along a spectrum, but with no measurable gap between positions.",
   "Meaningful differences, but 12:00 is a convention, not an absence of time.",
   "True zero and meaningful ratios.",
   "Ordered with meaningful differences, but year 0 is a convention.",

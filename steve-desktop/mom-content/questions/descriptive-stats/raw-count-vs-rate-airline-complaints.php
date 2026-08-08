@@ -1,9 +1,9 @@
-// === NAME - DESCRIPTION: Raw Count Versus a Fair Rate - Airline Complaints - Given a bar chart of raw complaint counts for six randomized airlines of implied different size, decide that a raw count alone cannot support a claim about which carriers are worst, then name the rate needed to make the comparison fair ===
+// === NAME - DESCRIPTION: Raw Count Versus a Fair Rate, Airline Complaints - Decide that a bar chart of raw complaint counts for six differently sized airlines cannot support a claim about which carriers are worst, then name the rate that makes the comparison fair ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-$anstypes = array("choices", "essay")
+$anstypes = array("choices", "choices")
 
 $scenarios = array(
   array("Continental Skyways", "Meridian Air", "Union Pacific Airlines", "Alpine Regional Air", "Coastal Hopper Airlines", "Prairie Wing Airlines"),
@@ -63,10 +63,14 @@ $choices[0] = array(
 )
 $answer[0] = 0
 
-$answer[1] = ""
-$scoremethod[1] = "takeanything"
-$displayformat[1] = "editornopaste"
-$answerboxsize[1] = "5,60"
+// Part b was a free-response essay. Homework is auto-graded only, so it is multiple choice now.
+$choices[1] = array(
+  "The number of passengers each airline carried in " . $monthYear . ". Dividing complaints by passengers turns each raw total into a complaint rate, which puts all six carriers on the same footing regardless of size.",
+  "The number of aircraft each airline owns, since a larger fleet gives more opportunities for something to go wrong.",
+  "The number of years each airline has been operating, so the older carriers are not judged on complaints from their early years.",
+  "The average ticket price at each airline, since passengers who pay more are more likely to file a complaint."
+)
+$answer[1] = 0
 
 $solutionguide = '
 <style>
@@ -106,7 +110,7 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Can we conclude that $bigList are the worst airline carriers, since they have the most complaints reported? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What additional piece of information about each airline would you need to make a fair comparison between the six carriers? Explain why that piece of information would settle the question. $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What additional piece of information about each airline would you need to make a fair comparison between the six carriers? $answerbox[1]
   </div>
 </div>
 

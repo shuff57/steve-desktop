@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Control Group, Placebo, and Blinding Key Terms - Match control group, placebo, blinding, and double-blind experiment to their definitions in a randomized drug trial, with random assignment and informed consent as distractors, targeting the confusion between what is given (placebo), what is hidden (blinding), and who is kept unaware in a fully blinded study (double-blind) ===
+// === NAME - DESCRIPTION: Control Group, Placebo, and Blinding Key Terms - Match control group, placebo, blinding, and double-blind to their definitions in a randomized drug trial, separating what is given from what is hidden and from who is kept unaware ===
 // === SET QUESTION TYPE TO: matching ===
 
 // === COMMON CONTROL ===

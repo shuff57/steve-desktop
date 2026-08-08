@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Randomized Block Design Application - Given a study with one lurking variable known in advance, identify the blocking variable, identify that random assignment must happen within each block rather than across the whole sample, and explain why blocking plus within-block random assignment together control both the known lurking variable and any unknown ones ===
+// === NAME - DESCRIPTION: Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognise that random assignment happens within each block, and explain how the two together control known and unknown lurking variables ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -58,10 +58,10 @@ $choices[1] = array(
 $answer[1] = 0
 
 if ($si == 0) {
-  $whyAnswer = "blocking guarantees both treatment groups contain the same mix of prior GPA, so that known difference can't be mistaken for a study-technique effect, while random assignment within each block still spreads any other lurking variables &ndash; like motivation or time available to study &ndash; evenly across the two techniques or sorting students into GPA blocks first controls for GPA by design, and randomizing within each block takes care of every other lurking variable by chance, so both the known and unknown ones are handled"
+  $whyAnswer = "blocking guarantees both treatment groups contain the same mix of prior GPA, so that known difference can't be mistaken for a study-technique effect, while random assignment within each block still spreads any other lurking variables, such as motivation and time available to study, evenly across the two techniques or sorting students into GPA blocks first controls for GPA by design, and randomizing within each block takes care of every other lurking variable by chance, so both the known and unknown ones are handled"
 }
 else {
-  $whyAnswer = "blocking guarantees both treatment groups contain the same mix of soil quality, so that known difference can't be mistaken for a fertilizer effect, while random assignment within each block still spreads any other lurking variables &ndash; like drainage or sun exposure &ndash; evenly across the two fertilizers or sorting plots into soil-quality blocks first controls for soil quality by design, and randomizing within each block takes care of every other lurking variable by chance, so both the known and unknown ones are handled"
+  $whyAnswer = "blocking guarantees both treatment groups contain the same mix of soil quality, so that known difference can't be mistaken for a fertilizer effect, while random assignment within each block still spreads any other lurking variables, such as drainage and sun exposure, evenly across the two fertilizers or sorting plots into soil-quality blocks first controls for soil quality by design, and randomizing within each block takes care of every other lurking variable by chance, so both the known and unknown ones are handled"
 }
 $strflags[2] = "ignore_case,trim_whitespace"
 
