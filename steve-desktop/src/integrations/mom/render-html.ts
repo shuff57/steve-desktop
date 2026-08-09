@@ -119,7 +119,7 @@ const DARK_CSS = `<style data-dark-css>
   /* neutral greys and near-whites — cards, zebra rows, table totals */
   [style*="#fafafa"],[style*="#f2f2f2"],[style*="#f8f8f8"],[style*="#f7f9fa"],[style*="#f6f8fc"],
   [style*="#eef2f7"],[style*="#f3f4f6"],[style*="#f8f9fa"],[style*="#f5f5f5"],[style*="#e5e7eb"],
-  [style*="#fbfbfd"]
+  [style*="#fbfbfd"],[style*="#f8fafc"]
     {background:rgba(255,255,255,.05)!important;color:#e8e6f0!important}
 
   /* blues — part labels and prompts */
@@ -136,6 +136,9 @@ const DARK_CSS = `<style data-dark-css>
   /* purples and pinks — the rarer accent cards */
   [style*="#e9d5ff"],[style*="#f5f0ff"]{background:rgba(168,85,247,.20)!important;color:#ecd9ff!important}
   [style*="#fce4ec"]{background:rgba(236,72,153,.20)!important;color:#fbd5e5!important}
+
+  /* pale reds — the "a classmate wrote this, find the flaw" callout, paired with a #b91c1c rule */
+  [style*="#fef7f7"],[style*="#fef2f2"]{background:rgba(239,68,68,.18)!important;color:#fbd9d9!important}
 
   /* Same five colours again where the sandbox sets them from a stylesheet rather than inline. */
   .sol-wrap details{background:#1e1b2b!important}
