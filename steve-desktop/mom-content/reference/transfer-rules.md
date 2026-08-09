@@ -325,3 +325,15 @@ question renders AND grades correctly, so it subsumes the per-question checks.
 - **A canvas click needs the bounding rect re-read immediately before it.** Caching the rect across
   five clicks put every point after the first at the wrong height, because the page had scrolled;
   the recorded coordinates were self-consistent and completely wrong. Re-read the rect per click.
+
+- **A stored `intro` describes the settings as they were WHEN IT WAS WRITTEN, so changing the
+  settings silently makes it a lie.** After fixing chapter 1's four assessments the old intros still
+  told students "questions are shown one at a time" and "late work is accepted with no penalty",
+  both now false, and never mentioned the early-finish bonus that had just been switched on. Nothing
+  flags it: the form and the text are separate fields. **Regenerate `intro` in the same pass as any
+  settings change**, and do not skip it because text is already present -- "already present" was the
+  exact check that would have shipped the wrong text to students.
+- **Gradebook categories are per course and a fresh course has none.** `gbcategory` can only be set
+  to an id that exists in THAT course, so a master course needs its categories created before any
+  assessment can be filed under one. `gbsettings.php?cid=` -> `addcat()` per row, name them, Save
+  Changes; the ids come back in the field names (`name[798368]`). A course copy carries them along.
