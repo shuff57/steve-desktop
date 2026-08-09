@@ -1,7 +1,7 @@
 {
   "_purpose": "Which existing assessment a new one copies its settings from, per assignment kind. MyOpenMath's new-assessment form has a 'copy options from' picker, so a preset is a POINTER to a template assessment, not a replayed list of fields. Nothing to keep in step when MOM adds a setting.",
   "_how": "On a push, set `copyfrom` to the kind's template_aid, leave `copydates` UNCHECKED so dates stay per-assignment, then set the name, the dates, and only the fields intro-stats-assessment-settings.md says differ for that kind.",
-  "_note": "Templates are per course. If cid changes, template_aid has to be re-pointed — an aid from another course does not appear in the copyfrom list. Moved to cid 334437 on 2026-08-09 at Steve's direction; every template_aid is therefore stale and marked NEEDS-REPOINT.",
+  "_note": "Templates are per course. If cid changes, template_aid has to be re-pointed — an aid from another course does not appear in the copyfrom list. Re-pointed on 2026-08-09 to aid 23258795 (2.1) inside the master course 334437, the first assessment there built to the documented homework standard and verified end to end. All five kinds copy it and then adjust per intro-stats-assessment-settings.md, which is the model that was in place before the move. WARNING: chapter 1s four assessments in 334437 (23244711, 23245495, 23246057, 23246664) were created with copyfrom=None and therefore carry MyOpenMath DEFAULTS, not the course standard - one question at a time, no early-finish bonus, unlimited late passes, no Book resource link. Do not copy settings from any of them.",
 
   "_settings_source": "intro-stats-assessment-settings.md is THE source for what each kind's settings are, and for the dates. It was read back out of MyOpenMath, field by field. This file no longer carries per-kind `spec` blocks: it used to, transcribed from the standalone mom repo's skills, and two of them were wrong (ind was recorded as 3 attempts with a 33% after-full-score penalty; the course actually runs 2 attempts with a 50% per-attempt penalty, and group is 2 attempts not 3). Do not re-add settings here — a second copy is how they drifted the first time.",
 
@@ -17,17 +17,15 @@
 
   "presets": {
     "hw": {
-      "template_aid": "NEEDS-REPOINT",
-      "_template_was": "23108651 in cid 334243 -- an aid from another course does not appear in the copyfrom list, so this must be re-pointed to an assessment inside 334437 before the next push",
-      "template_name": "1.1 Definitions of Statistics, Probability, and Key Terms",
+      "template_aid": "23258795",
+      "template_name": "2.1 Stem-and-Leaf Graphs (Stemplots), Line Graphs, and Bar Graphs",
       "cid": "334437",
       "captured": "2026-07-31",
       "selection": "Cover the section closely — every sub-topic gets a slot before any gets a second. Where a sub-topic is a multi-step process, either write one multipart covering the whole workflow or split it into one question per step so students drill each; mix both freely. Homework is the most creative format. Ramp easy to hard, roughly 30/50/20."
     },
 
     "lab": {
-      "template_aid": "NEEDS-REPOINT",
-      "_template_was": "23108651 in cid 334243 -- an aid from another course does not appear in the copyfrom list, so this must be re-pointed to an assessment inside 334437 before the next push",
+      "template_aid": "23258795",
       "cid": "334437",
       "captured": "2026-08-01",
       "_decision": "Steve's call: a lab is graded like practice work, so it copies the homework template rather than getting one of its own. It still differs after the copy — GROUP gradebook category, no early-finish bonus — see the settings file.",
@@ -35,24 +33,21 @@
     },
 
     "practice": {
-      "template_aid": "NEEDS-REPOINT",
-      "_template_was": "23108651 in cid 334243 -- an aid from another course does not appear in the copyfrom list, so this must be re-pointed to an assessment inside 334437 before the next push",
+      "template_aid": "23258795",
       "cid": "334437",
       "captured": "2026-08-02",
       "selection": "Assemble from questions already in the bank first; draft only to fill what is genuinely missing. Low stakes, so breadth beats polish."
     },
 
     "group": {
-      "template_aid": "NEEDS-REPOINT",
-      "_template_was": "23108651 in cid 334243 -- an aid from another course does not appear in the copyfrom list, so this must be re-pointed to an assessment inside 334437 before the next push",
+      "template_aid": "23258795",
       "cid": "334437",
       "captured": "2026-08-02",
       "selection": "A focused subset of the practice-test material, sized for one class period of collaborative work. Timed to the period and passcoded — see the settings file."
     },
 
     "ind": {
-      "template_aid": "NEEDS-REPOINT",
-      "_template_was": "23108651 in cid 334243 -- an aid from another course does not appear in the copyfrom list, so this must be re-pointed to an assessment inside 334437 before the next push",
+      "template_aid": "23258795",
       "cid": "334437",
       "captured": "2026-08-02",
       "selection": "About 10 questions: ~8 high-impact FULL multipart items — each exercising every step of a process, one per chapter section, no narrow drill questions — plus exactly 2 free-response. The FRQs should touch the widest swath of the chapter AND sit at the easy end; they exist to give an accessible essay path, not to gate the grade. Budget ~5 min per multipart, ~10 min per FRQ."

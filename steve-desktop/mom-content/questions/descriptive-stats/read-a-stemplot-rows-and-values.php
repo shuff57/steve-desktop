@@ -9,7 +9,7 @@ $anstypes = array("number", "number", "number", "choices")
 $ci = rand(0, 1)
 $contexts = array(
   "the miles per gallon rating of each of the cars on a dealer's lot",
-  "the height, in feet, of each of the trees measured along one street"
+  "the height of each of the trees measured along one street"
 )
 $units = array("miles per gallon", "feet")
 $context = $contexts[$ci]

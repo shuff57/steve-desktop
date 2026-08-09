@@ -271,3 +271,43 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   question it had not written. Its verification would otherwise have looked completely normal. The
   same applies to staging: `git add -- <dir>` while agents are still writing sweeps their half-finished
   files into the commit. Stage by explicit path.
+
+---
+
+## From the 2.1 push into master course 334437 (2026-08-09)
+
+- **`copyfrom` copies the attempt settings but NOT the external-resource rows.** 2.1 copied from 1.1
+  and came out with attempts, versions and penalties right and **zero** `extreflinks[]` rows, even
+  though `showextrefs` was already ticked. So the Book link is *created*, not swapped, on a
+  copied assessment — click **Add Resource** first. The skill's "check whether a row already holds
+  the template's URL" step is still right, it just answers "no row" more often than expected.
+- **Points are not a form field on `addquestions2.php`.** The per-question inputs are `input#pts-N`
+  (0-based, no `name`, so they are never submitted), saved by the page's own `updatePts()` which
+  diffs against `data-lastval` and calls `submitChanges()`. Set every `#pts-N`, then call
+  `updatePts()`. Setting the values and clicking a submit button saves nothing, silently.
+- **The header score is the points check.** With the 2% early-finish bonus on, a fully correct
+  homework reads **102/100**, not 100/100 — `total x 1.02`. That is the cheapest proof the points
+  sum to exactly 100, because it is arithmetic on the real total rather than a re-read of the fields.
+- **The Save button on `moddataset.php` has `href="#"`, so the first `wait_for_load()` after clicking
+  it can return before the navigation starts.** The URL then carries no `id=`, which reads as a
+  failed save on a question that filed perfectly. One question in 14 hit this. Poll for the URL to
+  carry `id=` instead of trusting a single read — and if it still looks failed, **check the qsetid
+  sequence for a gap and read that id back** before retrying. A blind retry files a duplicate.
+- **`js()` cannot carry a backslash, so question content cannot be passed as `JSON.stringify`** — PHP
+  source is full of `\n` escapes and the call dies with `SyntaxError: Invalid or unexpected token`.
+  Base64-encode each section in Python and decode in the page with `atob` + `TextDecoder`; the
+  payload is then pure ASCII with no escapes. This replaces the skill's `JSON.stringify` recipe for
+  any browser-harness-driven push.
+- **A scrape of `addquestions2.php` for `qsetid=` returns the LIBRARY BROWSER too.** It reported
+  "200 distinct qsetids on the assessment" for a 14-question assignment. The attached list is
+  `input[name="curq[]"]` (in order), or count the `moveitem2` position selects. When an audit's
+  answer is absurd, suspect the audit.
+- **Student instructions in a master course must not name dates.** The skill says generate `intro`
+  from the settings so the two agree, which is right for a teaching section. In a course that exists
+  to be COPIED, a hardcoded date is wrong from the first copy onward, while MOM's own
+  "Available ... until ..." line always tracks the assessment. Write the rules — attempts, penalties,
+  bonus, late passes, when scores and answers appear — and let MOM render the dates.
+- **Verifying against the drawing, not the prose, is what caught the randomizer detail.** For an SVG
+  question, read the tick `<text>` elements' `y` coordinates and calibrate px-per-unit off the
+  gridlines before reading any plotted point. Assuming the baseline instead produced a self-consistent
+  but entirely wrong set of frequencies on the first attempt (it implied a category with frequency 0).

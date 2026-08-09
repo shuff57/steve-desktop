@@ -423,5 +423,89 @@
   "cid": "334437",
   "filed": "2026-08-08",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/read-a-stemplot-rows-and-values.php": {
+  "qsetid": "1874036",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/choose-the-honest-bar-graph.php": {
+  "qsetid": "1874039",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/build-a-stemplot-from-raw-data.php": {
+  "qsetid": "1874040",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/round-then-stemplot-prices.php": {
+  "qsetid": "1874041",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php": {
+  "qsetid": "1874042",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/choose-the-correct-stemplot.php": {
+  "qsetid": "1874043",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/line-graph-from-frequency-table.php": {
+  "qsetid": "1874044",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/choose-the-correct-line-graph.php": {
+  "qsetid": "1874045",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/bar-graph-counts-versus-percentages.php": {
+  "qsetid": "1874046",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/two-series-bar-graph-over-representation.php": {
+  "qsetid": "1874047",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php": {
+  "qsetid": "1874048",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/read-a-bar-graph-comparisons.php": {
+  "qsetid": "1874049",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/which-display-preserves-the-data.php": {
+  "qsetid": "1874050",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/time-series-line-graph-change-over-time.php": {
+  "qsetid": "1874051",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
