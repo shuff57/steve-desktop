@@ -324,16 +324,6 @@
   "health": "ok"
  },
  {
-  "path": "questions/descriptive-stats/build-a-histogram-in-rashio.php",
-  "desc": "Build the Histogram in raSHio, Then Read It - Enter a randomized data set into raSHio's histogram tool at a stated bin width, then report a class count, the tallest class, a relative frequency and the shape of the distribution",
-  "qtype": "multipart",
-  "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
-  ],
-  "qsetid": null,
-  "health": "ok"
- },
- {
   "path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
   "desc": "Build a Stem-and-Leaf Plot from Raw Data - From an ordered list of two-digit measurements, work out how many stem rows the plot needs, how many leaves land on one stem, and how many values clear a cutoff, then say what a single leaf stands for",
   "qtype": "multipart",
@@ -539,8 +529,8 @@
   "health": "ok"
  },
  {
-  "path": "questions/descriptive-stats/five-number-summary-in-rashio.php",
-  "desc": "Build a Five-Number Summary in raSHio - Paste an unsorted data set into raSHio's summary tool, read the quartiles and median off it, compute the interquartile range, and say which of those the middle half of the data lies between",
+  "path": "questions/descriptive-stats/five-number-summary-from-unsorted-data.php",
+  "desc": "Five-Number Summary from an Unsorted Data Set - Sort a set of readings recorded out of order, find the two quartiles and the median, and compute the interquartile range that spans the middle half of the data",
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data"
@@ -588,6 +578,16 @@
   ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/histogram-classes-and-shape-from-data.php",
+  "desc": "Classes and Shape from a Raw Data Set - Group a randomized data set into classes of a stated width, then report a class count, where the tallest class starts, a relative frequency and the shape of the distribution",
+  "qtype": "multipart",
+  "used_by": [
+   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/identify-population-from-study-description.php",

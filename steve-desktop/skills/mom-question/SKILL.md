@@ -136,11 +136,14 @@ covers, so a gap is visible rather than assumed.
 
 Two shapes of problem recur and neither can be graded as posed:
 
-- **"Construct a graph."** MyOpenMath cannot grade a drawing. Generate the display and ask about it
-  instead, or hand the construction to a tool the student can use — raSHio does histograms, box
-  plots, scatter with regression, normal curves and five-number summaries, but has no stem-and-leaf,
-  line graph or bar graph. When the student builds it, fix the answer with the data and state the
-  bin width and boundary rule, so what they build cannot differ from what you graded.
+- **"Construct a graph."** MyOpenMath cannot grade a drawing. Either generate the display and ask
+  about it, or give the raw data and ask for what the student would read off the display they build.
+  Do not name a tool or tell them to go and use one: they have a calculator for the course and will
+  reach for it themselves. What the question must do is **fix the answer with the data** — state the
+  class width and which endpoint each class holds, or choose an `n` whose quartile positions land on
+  actual values — so that every tool, and hand-working, give the same number. A question whose
+  answer depends on how some particular software rounds is a question that marks a correct student
+  wrong.
 - **"Explain in complete sentences."** Homework carries no free response. Turn it into a choice
   between the explanation and the plausible wrong ones, which is what the problem was testing.
 

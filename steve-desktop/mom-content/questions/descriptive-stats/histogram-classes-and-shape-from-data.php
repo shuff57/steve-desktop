@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Build the Histogram in raSHio, Then Read It - Enter a randomized data set into raSHio's histogram tool at a stated bin width, then report a class count, the tallest class, a relative frequency and the shape of the distribution ===
+// === NAME - DESCRIPTION: Classes and Shape from a Raw Data Set - Group a randomized data set into classes of a stated width, then report a class count, where the tallest class starts, a relative frequency and the shape of the distribution ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -18,7 +18,7 @@ else {
 }
 
 // The class counts are chosen FIRST and the data values are then generated inside each class, so
-// every answer below is known exactly and does not depend on how raSHio happens to draw the bars.
+// every answer below is fixed by the data itself, whatever tool a student groups it with.
 // The three shapes are built from fixed patterns with jitter that cannot disturb the tallest class.
 $shape = rand(0, 2)
 $base = array(0, 0, 0, 0, 0)
@@ -145,10 +145,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Setting it up.</span> Paste the ' . $n . ' values into raSHio\'s histogram tool and set the bin width to 10 starting at 0. The five classes are 0&ndash;10, 10&ndash;20, 20&ndash;30, 30&ndash;40 and 40&ndash;50, each holding its left endpoint and not its right. Getting that boundary rule right is what makes everyone\'s histogram the same; a value of exactly 20 belongs to 20&ndash;30, not to 10&ndash;20.</p>
+      <p><span class="term-label">Setting it up.</span> Group the ' . $n . ' values into classes ten wide, starting at 0. The five classes are 0&ndash;10, 10&ndash;20, 20&ndash;30, 30&ndash;40 and 40&ndash;50, each holding its left endpoint and not its right. Getting that boundary rule right is what makes everyone\'s histogram the same; a value of exactly 20 belongs to 20&ndash;30, not to 10&ndash;20.</p>
       <p><span class="term-label">Part (a) &mdash; one class count.</span> The bar over ' . $askLo . '&ndash;' . $askHi . ' stands at <b>' . $askCount . '</b>. You can check it against the list without the tool: count the values from ' . $askLo . ' to ' . ($askHi - 1) . '.</p>
       <p><span class="term-label">Part (b) &mdash; the tallest class.</span> The tallest bar starts at <b>' . $tallLo . '</b>, covering ' . $tallLo . '&ndash;' . $tallHi . ' ' . $unitWord . ' with ' . $maxCount . ' of the ' . $n . ' ' . $thing . '. Report where the bar sits on the horizontal axis, not how tall it is &mdash; the height is the count, the position is the measurement.</p>
-      <p><span class="term-label">Part (c) &mdash; relative frequency.</span> Divide that class count by the sample size: ' . $askCount . ' / ' . $n . ' &approx; <b>' . $askRel . '</b>, about ' . $askRelPct . '% of the ' . $thing . '. Switching raSHio\'s vertical axis from frequency to relative frequency changes the numbers up the side but not the shape of the bars.</p>
+      <p><span class="term-label">Part (c) &mdash; relative frequency.</span> Divide that class count by the sample size: ' . $askCount . ' / ' . $n . ' &approx; <b>' . $askRel . '</b>, about ' . $askRelPct . '% of the ' . $thing . '. Drawn as a histogram, switching the vertical axis from frequency to relative frequency changes the numbers up the side but not the shape of the bars.</p>
       <p><span class="term-label">Part (d) &mdash; the shape.</span> The distribution is <b>' . $shapeName . '</b>: ' . $shapeWhy . '. Skew is named for the tail, not for where the tall bars are, which is the reversal that catches most people.</p>
       <p><b>Answer:</b> (a) ' . $askCount . ' &nbsp;&nbsp; (b) ' . $tallLo . ' &nbsp;&nbsp; (c) ' . $askRel . ' &nbsp;&nbsp; (d) ' . $shapeName . '</p>
     </div>
@@ -162,12 +162,11 @@ $solutionguide = '
     <p style="margin:0 0 12px 0;">$intro Here are the $n measurements, in $unitWord.</p>
     <p style="margin:0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:15px; line-height:1.8;">$valueList</p>
   </div>
-  <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:18px; margin:10px 0;">
-    <p style="margin:0 0 6px 0; font-weight:700; color:#1e40af;">Build it first</p>
-    <p style="margin:0;">Open <b>rashio.app</b>, choose the histogram tool, and paste the data in. Set the <b>bin width to 10, starting at 0</b>, so the classes are 0&ndash;10, 10&ndash;20, 20&ndash;30, 30&ndash;40 and 40&ndash;50. Each class holds its left endpoint and not its right, so a value of exactly 20 counts in 20&ndash;30. Then answer the questions below from the histogram you built.</p>
+  <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:18px; margin:10px 0;">
+    <p style="margin:0;">Group the data into classes <b>ten $unitWord wide, starting at 0</b>, so the classes are 0&ndash;10, 10&ndash;20, 20&ndash;30, 30&ndash;40 and 40&ndash;50. Each class holds its left endpoint and not its right, so a value of exactly 20 counts in 20&ndash;30.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> How tall is the bar covering $askLo to $askHi $unitWord? $answerbox[0]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> In a histogram of this data, how tall is the bar covering $askLo to $askHi $unitWord? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> The tallest bar covers a class ten $unitWord wide. What number does that class <b>start</b> at? $answerbox[1]
