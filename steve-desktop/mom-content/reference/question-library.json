@@ -825,5 +825,65 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php": {
+  "qsetid": "1874282",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php": {
+  "qsetid": "1874283",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/q3-resistant-measure-choice.php": {
+  "qsetid": "1874284",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/mean-median-mode-from-a-dot-plot.php": {
+  "qsetid": "1874285",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/mode-for-categorical-and-multimodal-data.php": {
+  "qsetid": "1874286",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/find-the-missing-value-from-the-mean.php": {
+  "qsetid": "1874287",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/weighted-mean-course-grade.php": {
+  "qsetid": "1874289",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/mean-of-combined-groups.php": {
+  "qsetid": "1874290",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/outlier-effect-on-mean-and-median.php": {
+  "qsetid": "1874291",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/sample-mean-versus-population-mean.php": {
+  "qsetid": "1874292",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
