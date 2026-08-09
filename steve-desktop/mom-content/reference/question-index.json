@@ -326,6 +326,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/box-plot-and-histogram-of-the-same-data.php",
+  "desc": "Box Plot and Histogram of the Same Data - Read a class count only the histogram shows, then judge which display reveals a second hump and which gives the IQR directly",
+  "qtype": "multipart",
+  "used_by": [
+   "2-4-box-plots"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/box-plot-from-a-frequency-table.php",
   "desc": "Box Plot from a Frequency Table - Read the minimum, first quartile, median and third quartile off a frequency table so the finished box plot can be checked against them",
   "qtype": "multipart",
@@ -407,6 +417,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/compare-across-groups-with-z-scores.php",
+  "desc": "Compare Across Groups with z-Scores - Convert two players' raw stats from different teams into z-scores to see who did better relative to his own team, then find a value a set number of standard deviations from a team mean",
+  "qtype": "multipart",
+  "used_by": [
+   "2-7-measures-of-the-spread-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/compare-three-box-plots.php",
   "desc": "Compare Three Box Plots - Read three box plots on a shared axis to find the largest median, find one group's IQR, and say what comparing medians does and does not tell you",
   "qtype": "multipart",
@@ -453,7 +473,8 @@
   "desc": "Compute Mean from Fifty Values - Given 50 state-level mean commute times, compute the overall mean",
   "qtype": "number",
   "used_by": [
-   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+   "1-3-frequency-frequency-tables-and-levels-of-measurement",
+   "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1873369",
   "health": "ok"
@@ -556,7 +577,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": null,
   "health": "ok"
@@ -723,11 +745,42 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php",
+  "desc": "Mean from a Grouped Frequency Table - Estimate the mean of data grouped into class intervals using class midpoints, and identify why the result is an estimate",
+  "qtype": "multipart",
+  "used_by": [
+   "2-5-measures-of-the-center-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php",
+  "desc": "Mean, Median and Mode from a Frequency Table - Compute the sample mean, median and mode from a frequency table, then identify which measure resists an added extreme value",
+  "qtype": "multipart",
+  "used_by": [
+   "2-5-measures-of-the-center-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/median-age-comparison-reasoning.php",
   "desc": "Median Age Vs Life Expectancy - Explain why one town's lower median age reflects a younger population structure (birth rate), not a shorter lifespan, even under equal life expectancy",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "2-6-skewness-and-the-mean-median-and-mode"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/descriptive-stats/median-is-not-the-centre-of-the-box.php",
+  "desc": "Where the Median Sits Inside the Box - A box plot whose median line is well off centre; read it, compare the two halves of the middle fifty percent, and say what an off-centre median reveals about the shape of the data",
+  "qtype": "multipart",
+  "used_by": [
+   "2-4-box-plots"
   ],
   "qsetid": null,
   "health": "unchecked"
@@ -928,6 +981,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
+   "2-5-measures-of-the-center-of-the-data",
    "wk1-5-group"
   ],
   "qsetid": null,
@@ -1129,6 +1183,7 @@
   "desc": "Choose a Resistant Measure for a Skewed Distribution - Decide whether to report the mean+SD or median+IQR based on shape, then explain why",
   "qtype": "multipart",
   "used_by": [
+   "2-5-measures-of-the-center-of-the-data",
    "wk1-5-group"
   ],
   "qsetid": null,
@@ -1286,6 +1341,36 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php",
+  "desc": "Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, and name a two-peaked distribution",
+  "qtype": "multipart",
+  "used_by": [
+   "2-6-skewness-and-the-mean-median-and-mode"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/descriptive-stats/spread-within-each-quarter-of-a-box-plot.php",
+  "desc": "Spread Within Each Quarter of a Box Plot - Find which quarter of a box plot has the smallest spread, read that spread and the interquartile range, and compare two intervals with the 25%-per-quarter rule",
+  "qtype": "multipart",
+  "used_by": [
+   "2-4-box-plots"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/descriptive-stats/standard-deviation-step-by-step.php",
+  "desc": "Standard Deviation Step by Step - Work a sample standard deviation through its three stages, the mean, the sum of squared deviations and the divide by n minus 1, then say what the finished number measures",
+  "qtype": "multipart",
+  "used_by": [
+   "2-7-measures-of-the-spread-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php",
   "desc": "Outliers and Empty Rows in a Stemplot - One value sits far above a tight cluster; read the outlier off the plot, count the stem rows with no leaves, compute the range, and say why the empty rows must still be drawn",
   "qtype": "multipart",
@@ -1354,6 +1439,16 @@
   ],
   "qsetid": "1873360",
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/what-a-box-plot-does-not-show.php",
+  "desc": "What a Box Plot Does Not Show - Compare two box plots with the same range but different box widths and sample sizes to see that a wider box means more spread, not more data, and that a box plot never shows counts at all",
+  "qtype": "multipart",
+  "used_by": [
+   "2-4-box-plots"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/which-display-preserves-the-data.php",

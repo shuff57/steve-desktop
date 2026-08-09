@@ -265,3 +265,9 @@ afterwards, which tells you a question was dropped but not which one.
 
 The header `Score: 100/100, Answered: 11/11` is the completion test. It is unreachable unless every
 question renders AND grades correctly, so it subsumes the per-question checks.
+- When several subagents write questions **in parallel**, give each one its OWN scratch directory for
+  rendering and tiling. Handing them all the same path means one agent screenshots another's file and
+  reports on a drawing that is not its own -- caught only because one agent noticed the tile showed a
+  question it had not written. Its verification would otherwise have looked completely normal. The
+  same applies to staging: `git add -- <dir>` while agents are still writing sweeps their half-finished
+  files into the commit. Stage by explicit path.

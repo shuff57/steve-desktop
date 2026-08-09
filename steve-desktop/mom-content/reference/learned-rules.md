@@ -33,3 +33,14 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   vanish, the render reports clean, and the axis is left unlabelled in the way that matters. Spell it
   into the phrase &mdash; `Weight in pounds`. Caught on a box plot; it had already been silently
   dropping units on five graphs. Same cause as parenthesised prose typesetting as italic math.
+- **Apostrophe escaping is opposite in the two places you write prose.** `$solutionguide` is a
+  SINGLE-quoted string, so an apostrophe must be escaped as `'` or it ends the string early and
+  silently kills the control block. Choice strings in `$questions[i]` are DOUBLE-quoted, where `'`
+  is not an escape sequence at all &mdash; the backslash renders literally and the student reads
+  `a class's midpoint`. Escape in the solution guide, never in the choices. Simplest safe habit:
+  avoid apostrophes in option text entirely, since a possessive can always be reworded.
+- The MathJax-eats-parentheses trap is **not confined to SVG**. A choice option reading "a quarter of
+  the data (25%)" rendered as "a quarter of the data 25 ," &mdash; the parentheses gone and the percent
+  sign with them. Anywhere student-visible, prefer no parentheses at all; where a parenthetical is
+  genuinely wanted, reword it into the sentence. A unit or a symbol inside brackets is the dangerous
+  case, because what disappears is the part that carried the meaning.

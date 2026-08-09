@@ -1,0 +1,13 @@
+{
+  "name": "2.7 Measures of the Spread of the Data",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "2-7-measures-of-the-spread-of-the-data",
+  "created_at": "2026-08-09",
+  "_note": "In progress -- 3 of a planned 12, not pushed. The standard deviation question separates the three stages so a wrong answer shows which stage lost it, and forces the mean onto a whole number by construction. The z-score question is built so the player with the HIGHER raw average has the LOWER z-score, which is the entire point of comparing across groups. Still to write: standard deviation from a frequency table, the empirical rule, and a value a stated number of deviations from the mean.",
+  "questions": [
+    { "slot": 1, "file_path": "questions/descriptive-stats/standard-deviation-step-by-step.php", "title": "Standard Deviation Step by Step - Work a sample standard deviation through its three stages, the mean, the sum of squared deviations and the divide by n minus 1, then say what the finished number measures" },
+    { "slot": 2, "file_path": "questions/descriptive-stats/compare-across-groups-with-z-scores.php", "title": "Compare Across Groups with z-Scores - Convert two players' raw stats from different teams into z-scores to see who did better relative to his own team, then find a value a set number of standard deviations from a team mean" },
+    { "slot": 3, "file_path": "questions/descriptive-stats/five-number-summary-from-unsorted-data.php", "title": "Five-Number Summary from an Unsorted Data Set - Sort a set of readings recorded out of order, find the two quartiles and the median, and compute the interquartile range that spans the middle half of the data", "reused": true }
+  ]
+}
