@@ -41,6 +41,27 @@ assesses — "Two-Sample Hypothesis Test", not "Problem 7". Naming the scenario 
 it separates two similar questions ("Fitness Center Key Terms"); naming *only* the scenario is not.
 The filename follows the same rule: no `qNN-` prefix on new questions.
 
+## Displays: check the built-in macros before drawing anything by hand
+
+`reference/macros/graph-table.md` is a **core** library — always loaded, no `loadlibrary()` call.
+Read it before writing SVG. It already has:
+
+- `connectthedots($xarray, $yarray, [color, thickness, ...])` — a line graph from two arrays
+- `showplot(...)` — function and parametric plots, with control over the window, axis labels and grid
+- `arraystodots`, `arraystodoteqns` — scatter points
+- `showarrays`, `showrecttable`, `showdataarray` — tables
+- `addlabel`, `mergeplots`, `changeimagesize`, `replacealttext` — annotate and combine
+
+What it does **not** have is a bar or histogram primitive, so those stay hand-built SVG. Hand-built
+is also the right call when the display's *flaw* is the point — a truncated axis, bars widening with
+height, a dropped category — because the question needs control the macro does not expose.
+
+Anything else: use the macro. A hand-rolled line graph is fifty lines that can be one.
+
+Whatever the display, two rules hold. Bars **touch** on a histogram and are **apart** on a bar
+graph, because one axis is a number line and the other is a list of names. And a value a student is
+asked to read off must land exactly on a gridline — force the counts even if you have to.
+
 ## The dialect rules
 
 Read `mom-content/reference/dialect-rules.md` — it is the authoritative copy and it is kept in step
