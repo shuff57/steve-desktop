@@ -19,19 +19,24 @@ $xName = $xNames[$ci]
 // Frequencies are kept between 2 and 12 so every point sits inside the grid with room above the
 // tallest one, and no category is empty -- a zero would put a point on the axis where the student
 // cannot tell a plotted dot from the axis itself.
-$f1 = rand(2, 12)
-$f2 = rand(2, 12)
-$f3 = rand(2, 12)
-$f4 = rand(2, 12)
-$f5 = rand(2, 12)
+// Even frequencies only, so with a gridline every 2 each plotted point lands ON a labeled line
+// rather than between two of them.
+$f1 = 2 * rand(1, 6)
+$f2 = 2 * rand(1, 6)
+$f3 = 2 * rand(1, 6)
+$f4 = 2 * rand(1, 6)
+$f5 = 2 * rand(1, 6)
 
 $total = $f1 + $f2 + $f3 + $f4 + $f5
 
 $answers = array("1,$f1", "2,$f2", "3,$f3", "4,$f4", "5,$f5")
 $answerformat = "polygon"
 $snaptogrid = 1
-$grid = "0,6,0,14,1,2,430,330"
-$readerlabel = "Grid for plotting the line graph, horizontal axis 0 to 6, vertical axis 0 to 14"
+// xmin/ymin are NEGATIVE on purpose. With the window starting at 0 the axes sit flush against
+// the canvas edge and MyOpenMath clips the tick NUMBERS off both axes -- verified live: the
+// student saw a bare grid with no values to read against. The margin gives the labels room.
+$grid = "-1,6,-2,14,1,2,470,380"
+$readerlabel = "Grid for plotting the line graph, horizontal axis 0 to 6, vertical axis 0 to 14, gridlines every 2"
 
 $tableRows = ""
 $fs = array($f1, $f2, $f3, $f4, $f5)

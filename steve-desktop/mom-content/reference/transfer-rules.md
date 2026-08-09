@@ -311,3 +311,17 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   question, read the tick `<text>` elements' `y` coordinates and calibrate px-per-unit off the
   gridlines before reading any plotted point. Assuming the baseline instead produced a self-consistent
   but entirely wrong set of frequencies on the first attempt (it implied a category with frequency 0).
+
+- **`updatePts()` saves by async AJAX, so navigating straight afterwards silently drops it.** The
+  points read back as the OLD values with the new questions at 1 point each. Wait a few seconds
+  after calling it, then reload and assert the total. The failure looks exactly like "the fields
+  did not take".
+- **Write `qid` back in the SAME step as filing the question, never as a later chore.** Three
+  questions added to 2.1 were filed and attached but their qsetids never reached the manifest; the
+  next push would have filed all three a second time and the copies would have drifted from that
+  moment. It surfaced only because a re-push crashed on the missing key -- the silent path is a
+  duplicate library entry. `question-library.json` exists to prevent exactly this and cannot help if
+  nothing writes to it.
+- **A canvas click needs the bounding rect re-read immediately before it.** Caching the rect across
+  five clicks put every point after the first at the wrong height, because the page had scrolled;
+  the recorded coordinates were self-consistent and completely wrong. Re-read the rect per click.

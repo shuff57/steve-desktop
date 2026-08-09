@@ -44,3 +44,21 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   sign with them. Anywhere student-visible, prefer no parentheses at all; where a parenthetical is
   genuinely wanted, reword it into the sentence. A unit or a symbol inside brackets is the dangerous
   case, because what disappears is the part that carried the meaning.
+
+## Layout and display (2026-08-09, proved live in course 334437)
+
+- **`$answerbox[n]` only becomes an input where it is written LITERALLY in the question text.**
+  Built into a string in the control block it prints as the plain text `$answerbox[0]` and no input
+  appears -- confirmed by probe, one literal box rendered and one built-in-control box did not.
+  Consequence: **the number of answer boxes cannot vary with the seed.** A fill-in-the-plot question
+  therefore needs fixed row counts; randomize the stems, the digits and the order instead.
+- **A `draw` grid whose window starts at 0 clips the tick NUMBERS off both axes.** `$grid` of
+  `"0,6,0,14,..."` puts the axes flush against the canvas edge and MyOpenMath draws the labels
+  outside the visible area: the student gets a bare grid with nothing to read heights against.
+  Start the window negative -- `"-1,6,-2,14,1,2,470,380"` -- to leave the labels room. Caught only by
+  screenshotting the live question; the sandbox never renders the canvas at all.
+- **The render sandbox cannot verify a `draw` question.** It falls back to the keyboard-entry list
+  ("Add new drawing element") and draws no canvas, so neither the tool nor the axes nor the grading
+  are exercised. A `draw` question is unverified until drawn in a real course.
+- **Make every plotted value land ON a labeled gridline.** Force the data even when the gridlines are
+  every 2, and never let a tick step exceed 2 on a graph a student reads values off. Steve, 2026-08-09.
