@@ -539,6 +539,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/five-number-summary-in-rashio.php",
+  "desc": "Build a Five-Number Summary in raSHio - Paste an unsorted data set into raSHio's summary tool, read the quartiles and median off it, compute the interquartile range, and say which of those the middle half of the data lies between",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/frequency-columns-what-they-sum-to.php",
   "desc": "What the Frequency Columns Sum To - State the totals of the frequency and relative frequency columns of a survey table, then separate what frequency, relative frequency and cumulative relative frequency each measure",
   "qtype": "multipart",
@@ -709,6 +719,16 @@
   ],
   "qsetid": "1873380",
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/percentile-and-share-of-the-group.php",
+  "desc": "Percentiles and Shares of a Group - Convert between a percentile and the share of a group it sits above, working out which percentile the top few percent starts at and what share a stated percentile puts within reach",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/percentile-of-a-given-value.php",
@@ -1039,6 +1059,16 @@
   ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/quartiles-from-a-frequency-table.php",
+  "desc": "Quartiles from a Frequency Table - Find the first quartile, the median and the third quartile of data given as a frequency table rather than a list, then compute the interquartile range from them",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/randomized-block-design-application.php",
