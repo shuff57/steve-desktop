@@ -136,8 +136,12 @@ covers, so a gap is visible rather than assumed.
 
 Two shapes of problem recur and neither can be graded as posed:
 
-- **"Construct a graph."** MyOpenMath cannot grade a drawing. Either generate the display and ask
-  about it, or give the raw data and ask for what the student would read off the display they build.
+- **"Construct a graph."** MyOpenMath **can** grade a drawing — that is what the `draw` question
+  type is for, and it is the preferred answer to this shape of problem (see "Make the student BUILD
+  the display" below). Reach for `draw`, or for a fill-in-the-blank version of the display, first.
+  Only where neither fits — a display `draw` has no format for, such as a histogram or a stemplot
+  laid out as rows of leaves — fall back to generating the display and asking about it, or giving
+  the raw data and asking for what the student would read off the display they build.
   Do not name a tool or tell them to go and use one: they have a calculator for the course and will
   reach for it themselves. What the question must do is **fix the answer with the data** — state the
   class width and which endpoint each class holds, or choose an `n` whose quartile positions land on
@@ -225,6 +229,36 @@ What you invent has to earn its slot. Two kinds do:
 
 Say in the brief which kind it is, and for the second, name the mistake it targets. Re-running an
 exercise with new numbers adds length, not practice.
+
+## Make the student BUILD the display, not pick one (Steve, 2026-08-09)
+
+For any question about a display — stemplot, line graph, bar graph, histogram, box plot — the
+preferred forms, in order:
+
+1. **Fill in the blanks.** Show the display part-built and have the student supply the missing
+   pieces: a leaf missing from each row of a stemplot, a bar height, a missing quartile.
+2. **Draw it.** MyOpenMath's `draw` question type puts a real grid in front of the student.
+   `$answerformat = "polygon"` joins plotted points with edges in order and does **not** close the
+   shape — that is exactly a line graph or a frequency polygon. `twopoint` covers lines and curves,
+   `numberline` covers points and inequalities on a number line. Working example:
+   `questions/draw/graph-linear-function.php`.
+3. **Choose the correct one from four.** Acceptable, and useful for targeting a specific classic
+   error, but it is the fallback rather than the goal — a student can pass it by elimination without
+   ever placing a value.
+
+The reason is simple: "construct a graph" is what the book's exercises actually ask, and a
+recognition question does not test it. Before writing another read-it-or-pick-it question, check
+whether a fill-in or a draw version would work instead.
+
+Two traps when building these:
+
+- **Do not let the input count give the answer away.** Four blanks in one stemplot row tells the
+  student how many values land on that row. Spread the blanks across rows instead.
+- **A worked "Key:" line must reference a value that is still printed**, never one sitting in a
+  blank, or the example hands over an answer on some seeds.
+- **The render sandbox cannot verify a `draw` question.** It falls back to the keyboard-entry
+  version and shows no canvas, so neither the drawing tool nor the grading is exercised. A `draw`
+  question is unverified until it has been pushed to a real course and drawn.
 
 ## Filing it into an assignment
 
