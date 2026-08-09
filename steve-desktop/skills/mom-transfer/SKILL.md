@@ -34,23 +34,39 @@ An assessment does not contain questions; it points at library ones. The `qid` v
 recorded in `mom-content/books/*/ind/*.md` are **library** ids, so that is what a manifest's `qid`
 field means. Store the library id; the instance id is disposable.
 
-## One home for questions, many classes pointing at it
+## Everything goes to one master course
 
-The repo is the source of truth and MOM is the runtime. That means one direction only:
+There is exactly one destination: the **master course**, `presets.question_home.cid` in
+`assessment-presets.json` (currently **334437**). Questions are filed there, assignments are built
+there, and that course is the living MyOpenMath copy of this repo — the thing Steve shares with
+colleagues and copies into his own teaching sections.
 
 ```
-mom-content (git history)  ──file ONCE──▶  MOM library, homed in the question class
-                                                 │
-                                                 └──attach by qsetid (a GET)──▶ any section
+mom-content (git history)  ──push──▶  master course 334437
+                                          │  questions filed into the library
+                                          │  assignments built and ordered
+                                          │
+                                          └──Steve copies the course in MOM──▶ each teaching section
 ```
 
-- **File** new questions into the **question home** — `presets.question_home.cid` in
-  `assessment-presets.json`. That course exists to hold questions, not to be taught.
-- **Attach** them into whichever class is being built. Attaching costs one GET and copies nothing,
-  so ten sections share one library question. Fix it once, every section improves.
+**This transfer never touches a teaching section.** Getting content in front of students is Steve's
+own copy step inside MyOpenMath, done when he chooses. So a push can never disturb a running class,
+and "which section does this go to" is not a question this skill answers.
+
+What that means in practice:
+
+- **Push everything to the master course**, both the filing and the assignment. `target.cid` and
+  `filing.cid` in a manifest are the same course now; a `target.cid` pointing anywhere else is left
+  over from before this changed and should be queried, not followed.
+- **Build it to be read by someone else.** It is shared, so assignment names, ordering and the
+  chapter folders are part of the deliverable, not housekeeping.
 - **Never edit a question in MOM's own editor.** Edit the `.php` in the repo and re-push. Editing in
   both places is the only way the two copies can disagree; with one-way flow a difference can only
-  mean a failed write, which the qtype audit catches.
+  mean a failed write, which the qtype audit catches. This matters more now, not less: a copy taken
+  into a teaching section carries whatever was in the master at that moment, so a hand-edit there
+  silently propagates to every copy made afterwards.
+- **Attaching by `qsetid` still applies within the master course** — a question used by two
+  assignments is filed once and attached twice, never filed twice.
 
 **Check `reference/question-library.json` before filing anything.** It maps source file → qsetid
 across *every* assignment, which the per-assignment manifests structurally cannot: a manifest only

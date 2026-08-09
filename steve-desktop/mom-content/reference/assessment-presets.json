@@ -7,7 +7,7 @@
 
   "question_home": {
     "cid": "334437",
-    "_what": "The global question class: where questions are FILED into the MOM library and kept. Real class sections do not get their own copy — they ATTACH the same library question by qsetid, which is a plain GET. Fix a question once and every section that references it improves.",
+    "_what": "The MASTER COURSE. Everything this repo pushes lands here: questions filed into the library, and the assignments built on top of them. It is the living MyOpenMath copy of mom-content -- the course Steve shares with colleagues and copies into his own teaching sections. Nothing in this repo ever pushes to a teaching section; that copy is Steve's step inside MyOpenMath, taken when he chooses, which is why a push can never disturb a running class.",
     "_direction": "The repo is the source of truth and MOM is the runtime. Questions are written in the app, pushed here once, and never edited in MOM's own editor. Editing in both places is the only way the two can disagree; with one-way flow, a difference can only mean a failed write — which is exactly what the qtype audit detects.",
     "_index": "question-library.json maps source file -> qsetid across every assignment, so a question reused by a second assignment attaches the existing library entry instead of being filed a second time. Without it the same source becomes two library questions that then drift apart.",
     "name": "Global Question Class",
