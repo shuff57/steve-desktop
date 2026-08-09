@@ -62,3 +62,10 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   are exercised. A `draw` question is unverified until drawn in a real course.
 - **Make every plotted value land ON a labeled gridline.** Force the data even when the gridlines are
   every 2, and never let a tick step exceed 2 on a graph a student reads values off. Steve, 2026-08-09.
+- **In the box-plot template the tick COUNT and the tick VALUE step are separate numbers.** The loop
+  runs `for ($g=0..$nTicks)` but computes `$val = 10 * $g`, so changing `$nTicks` alone moves nothing
+  and the axis silently keeps its old labels -- it renders clean and looks unchanged. Change BOTH.
+  Every box-plot question in 2.4 was copied from this template and carries the same pair.
+- **A tick step of 2 is only readable if the DATA is small.** Forcing step 2 onto an axis that runs
+  to 140 needs seventy labels. Shrink the generated values instead (widths of 2/4/6/8 rather than
+  10/20/30/40) so the fine scale fits; the five-number values stay even and keep landing on ticks.

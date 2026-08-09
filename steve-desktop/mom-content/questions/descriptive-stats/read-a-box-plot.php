@@ -19,18 +19,22 @@ else {
   $unitWord = "pounds"
 }
 
-// The four section widths are 10, 20, 30 and 40 in a rotated order, so every one of the five
-// numbers is a multiple of ten and lands exactly on a labeled tick -- a value the student is
-// asked to read off must never sit between gridlines. The rotation also guarantees the four
-// widths are distinct, so "which quarter is widest" has one defensible answer rather than a tie.
-$wid = array(10, 20, 30, 40)
+// The four section widths are 2, 4, 6 and 8 in a rotated order, so every one of the five numbers
+// is EVEN and lands exactly on a labeled tick -- a value the student is asked to read off must
+// never sit between gridlines. The rotation also guarantees the four widths are distinct, so
+// "which quarter is widest" has one defensible answer rather than a tie.
+//
+// The scale is deliberately small. Ticks must step by no more than 2 (Steve, 2026-08-09), and the
+// old widths of 10-40 pushed the axis past 140, where a tick every 2 would need seventy labels and
+// be unreadable. Shrinking the data is what makes the fine scale fit, rather than crowding it.
+$wid = array(2, 4, 6, 8)
 $rot = rand(0, 3)
 $w1 = $wid[$rot]
 $w2 = $wid[($rot + 1) % 4]
 $w3 = $wid[($rot + 2) % 4]
 $w4 = $wid[($rot + 3) % 4]
 
-$minV = 10 * rand(0, 2)
+$minV = 2 * rand(0, 3)
 $q1 = $minV + $w1
 $med = $q1 + $w2
 $q3 = $med + $w3
@@ -53,9 +57,9 @@ if ($w4 > $wMax) {
   $widest = 3
 }
 
-$axisMax = $maxV + 10
-$rem = $axisMax % 20
-if ($rem > 0) { $axisMax = $axisMax + 20 - $rem }
+$axisMax = $maxV + 2
+$rem = $axisMax % 4
+if ($rem > 0) { $axisMax = $axisMax + 4 - $rem }
 
 // Plot geometry: the number line runs from x = 55 to x = 495.
 $span = 495 - 55
@@ -67,9 +71,9 @@ $xMax = round(55 + $maxV * $span / $axisMax, 2)
 $boxW = round($xQ3 - $xQ1, 2)
 
 $ticks = ""
-$nTicks = $axisMax / 10
+$nTicks = $axisMax / 2
 for ($g=0..$nTicks) {
-  $val = 10 * $g
+  $val = 2 * $g
   $tx = round(55 + $val * $span / $axisMax, 2)
   $ticks = $ticks . '<line x1="' . $tx . '" y1="110" x2="' . $tx . '" y2="116" stroke="#374151" stroke-width="1"/>'
   $ticks = $ticks . '<line x1="' . $tx . '" y1="26" x2="' . $tx . '" y2="110" stroke="#eef2f7" stroke-width="1"/>'
