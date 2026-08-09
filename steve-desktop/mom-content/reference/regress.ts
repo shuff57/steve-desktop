@@ -19,7 +19,21 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { questionHealth, isEngineNoise } from '../../src/integrations/mom/health.ts';
+import { questionHealth } from '../../src/integrations/mom/health.ts';
+
+// IMathAS pipe-joins several diagnostics into one string, so a real error routinely arrives glued
+// to engine noise: "Caught warning ... $myrights ... | Eeek.. unallowed macro nPr". Filtering the
+// whole message because it contains the noise throws the error away with it; that is exactly how
+// eight broken questions read as clean. Split the message, drop only the noise parts, keep the
+// rest. The only true noise is the stateless-session $myrights warning, whichever file names it.
+function stripNoise(msg: string): string | null {
+  const kept = msg
+    .split(' | ')
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0)
+    .filter((p) => !/Undefined global variable \$myright/i.test(p));
+  return kept.length ? kept.join(' | ') : null;
+}
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const MOM = join(HERE, '..');
@@ -60,7 +74,7 @@ async function render(rel: string): Promise<Result> {
       }
       const h = questionHealth(src, html);
       return {
-        errors: h.errors.filter((e) => !isEngineNoise(e)).sort(),
+        errors: h.errors.map(stripNoise).filter((e): e is string => e !== null).sort(),
         warnings: [...h.warnings].sort(),
       };
     } catch (err) {

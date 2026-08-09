@@ -112,7 +112,8 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro possible"
  },
  {
   "path": "questions/combinatorics/q2-word-restricted-slot.php",
@@ -218,7 +219,8 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro nPr"
  },
  {
   "path": "questions/data-sampling/classify-data-qualitative-discrete-continuous.php",
@@ -324,6 +326,14 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/box-plot-from-a-frequency-table.php",
+  "desc": "Box Plot from a Frequency Table - Read the minimum, first quartile, median and third quartile off a frequency table so the finished box plot can be checked against them",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
   "desc": "Build a Stem-and-Leaf Plot from Raw Data - From an ordered list of two-digit measurements, work out how many stem rows the plot needs, how many leaves land on one stem, and how many values clear a cutoff, then say what a single leaf stands for",
   "qtype": "multipart",
@@ -371,7 +381,7 @@
    "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/classify-measurement-scale.php",
@@ -393,6 +403,14 @@
   ],
   "qsetid": "1873383",
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/compare-three-box-plots.php",
+  "desc": "Compare Three Box Plots - Read three box plots on a shared axis to find the largest median, find one group's IQR, and say what comparing medians does and does not tell you",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/compare-two-relative-frequency-histograms.php",
@@ -516,7 +534,7 @@
    "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php",
@@ -536,7 +554,7 @@
    "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/frequency-columns-what-they-sum-to.php",
@@ -587,7 +605,7 @@
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/identify-population-from-study-description.php",
@@ -647,7 +665,7 @@
    "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php",
@@ -700,6 +718,14 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/median-age-comparison-reasoning.php",
+  "desc": "Median Age Vs Life Expectancy - Explain why one town's lower median age reflects a younger population structure (birth rate), not a shorter lifespan, even under equal life expectancy",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/misleading-axis-scale-comparison.php",
   "desc": "Misleading Axis Scale in a Line-Graph Comparison - Two line graphs compare a randomized pair of companies with no labeled or scaled vertical axis; name the flaw that lets each line stretch independently, and state how to correct the comparison",
   "qtype": "multipart",
@@ -708,6 +734,14 @@
   ],
   "qsetid": "1873393",
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/outlier-check-from-a-box-plot.php",
+  "desc": "Outlier Check from a Box Plot - Take the quartiles off a drawn box plot, build the 1.5 times IQR fences from them, decide whether a newly measured value is an outlier, and separate a long whisker from an outlier",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php",
@@ -721,12 +755,28 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/percentages-from-a-relative-frequency-table.php",
+  "desc": "Percentages From a Relative-Frequency Table That Falls Short of 1 - A poll's income bands are given as relative frequencies adding to less than 1; find the missing not-sure share, total adjacent bands, and explain the shortfall",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/percentile-and-share-of-the-group.php",
   "desc": "Percentiles and Shares of a Group - Convert between a percentile and the share of a group it sits above, working out which percentile the top few percent starts at and what share a stated percentile puts within reach",
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data"
   ],
+  "qsetid": null,
+  "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/percentile-is-not-a-score.php",
+  "desc": "Percentile Is Not a Percent Score - Given a student's percent score and percentile on one test, tell the two numbers apart, count how many students scored at or below, and see why a percentile alone can't reveal another student's score",
+  "qtype": "multipart",
+  "used_by": [],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -737,6 +787,14 @@
   "used_by": [
    "2-3-measures-of-the-location-of-the-data"
   ],
+  "qsetid": null,
+  "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/percentiles-from-a-frequency-table.php",
+  "desc": "Percentiles Other Than the Quartiles - Locate the 10th and 70th percentiles in data given as a frequency table, then read what the 70th percentile says about the group",
+  "qtype": "multipart",
+  "used_by": [],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -846,7 +904,8 @@
   "qtype": "choices",
   "used_by": [],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Array to string conversion on line 174 in ChoicesAnswerBox.php"
  },
  {
   "path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php",
@@ -1061,6 +1120,14 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php",
+  "desc": "Quartiles and Outlier Check from a Sorted List - Use the (n+1) position rule to find Q1 and Q3 in a list already given in sorted order, compute the IQR, then apply the 1.5xIQR fences to judge whether a new value is an outlier",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/quartiles-from-a-frequency-table.php",
   "desc": "Quartiles from a Frequency Table - Find the first quartile, the median and the third quartile of data given as a frequency table rather than a list, then compute the interquartile range from them",
   "qtype": "multipart",
@@ -1068,7 +1135,7 @@
    "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": null,
-  "health": "unchecked"
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/randomized-block-design-application.php",
@@ -1109,6 +1176,14 @@
   ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/read-a-box-plot.php",
+  "desc": "Read a Box Plot - Take the median and the quartiles off a drawn box plot, compute the interquartile range, and identify which quarter of the data is the most spread out",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/read-a-stemplot-rows-and-values.php",
@@ -2423,7 +2498,8 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro Jar"
  },
  {
   "path": "questions/linear-programming/q4-graphical-lp-corner-evaluation.php",
@@ -2486,7 +2562,8 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro column"
  },
  {
   "path": "questions/linear-programming/q9-lp-formulation-factory-mix.php",
@@ -4972,7 +5049,8 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "ok"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro arraypush"
  },
  {
   "path": "questions/trig/sine-graph-period-amplitude.php",

@@ -23,3 +23,8 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   seen, but it is invisible until you render &mdash; nothing about the name looks special. Rename to
   something qualified (`$pctScore`) rather than hunting for the full reserved list. Assume the same trap
   exists for other short, engine-sounding names and reach for a qualified name by default.
+- An **unescaped apostrophe inside a single-quoted PHP string ends the string early** and takes the
+  rest of the control block with it. `$solutionguide = '... today's residents ...'` renders as
+  `Eeek.. unallowed macro` with every substituted scalar coming back blank &mdash; the prose looks
+  fine in the file and the failure appears far from its cause. Write `today's`. Prose in a solution
+  guide is where this bites, because that is the only place long English sentences live.
