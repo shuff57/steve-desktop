@@ -10,16 +10,35 @@
 // entirely that the checklist is the one students will actually be marked against.
 $anstypes = array("choices", "multans", "choices")
 
-$si = rand(0, 2)
+// TWO of the four scenarios run too high and two run too low, on purpose. All three of the original
+// scenarios resolved "too high", which meant a student could answer part (b)'s direction correctly
+// without reading the plan at all -- and predicting the direction is the whole category the question
+// is built to drill. A rubric category a student can pass by pattern-matching is not being assessed.
+//
+// The scenario this replaced also had a soft answer: students outside a careers office were said to
+// work MORE hours because they are "job-hunting or already working", but job-hunting students
+// plausibly work fewer. A direction the writer has to argue for is a direction a student can
+// reasonably get wrong.
+$si = rand(0, 3)
 if ($si == 0) {
-  $who = "A college newspaper"
-  $goal = "how many hours a week the average student works a paid job"
-  $plan = "handing out the survey to students waiting in line outside the campus careers office one Tuesday morning"
-  $missed = "students who never visit the careers office, and anyone in class at that hour"
+  $who = "A campus health service"
+  $goal = "what share of students have skipped a meal because they could not afford one"
+  $plan = "handing the survey to students as they came out of the campus dining hall at lunchtime"
+  $missed = "students who cannot afford to eat there at all, and anyone skipping lunch that day"
   $bias = "convenience"
-  $dir = "too high"
-  $why = "students at a careers office are disproportionately job-hunting or already working"
+  $dir = "too low"
+  $why = "the students the survey is about are precisely the ones not in the dining hall to be asked"
   $frame = "the registrar's list of all enrolled students"
+}
+else if ($si == 3) {
+  $who = "A property manager"
+  $goal = "what share of tenants have an unresolved maintenance problem"
+  $plan = "asking tenants who turned up to the building's summer social evening"
+  $missed = "tenants who stay away from building events, including those most frustrated with management"
+  $bias = "voluntary response"
+  $dir = "too low"
+  $why = "a tenant with a complaint nobody has fixed is the least likely to spend an evening with the management"
+  $frame = "the full tenancy list"
 }
 else if ($si == 1) {
   $who = "A city council"
