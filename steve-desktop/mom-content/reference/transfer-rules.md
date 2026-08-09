@@ -365,3 +365,18 @@ question renders AND grades correctly, so it subsumes the per-question checks.
 - **What actually governs sharing a master course is Use Rights, and it is per question.** Every
   question in the bank is `userights = 0` (Private), uniformly. That, not any per-assignment
   property, is what decides whether a colleague can use the course after a copy or share.
+- **`tb=b` appends to the BOTTOM of the block, so pushing sections out of order leaves them out of
+  order.** Pushing 2.4 before 2.3 put 2.3 underneath it on the course page -- correct content,
+  wrong outline, and the outline is what students navigate by. Fix without re-creating anything:
+  `moveDialog('<block>','<itemid>')` opens `moveitem.php` in an iframe; set `#itemselect` to the
+  item it should follow and call the iframe's `moveitem()`, which POSTs
+  `{item, block, newblock, moveafter}` and reloads. The item ids are in the page's own
+  `moveDialog('0-1-2','45310367')` calls, in rendered order.
+- **A collapsed block renders none of its contents into the DOM.** A fresh chapter block comes up
+  collapsed, so scraping `a[href*="assess2/?cid"]` off the course page reports its assessment as
+  MISSING even though it exists, is attached and grades. Expand it (`toggleblock(event,'<n>','<blk>')`)
+  before believing a course-page scrape. Nearly caused a "fix" for an assignment that was fine.
+- **Navigating inside a loop leaves the browser somewhere else.** A sweep that visits each
+  assessment ends on the last one, so a follow-up `js()` meant for the course page silently runs
+  against `addquestions2.php` and answers about a page you are not on. Re-navigate before every
+  page-level assertion.
