@@ -172,6 +172,13 @@ Three outcomes, in order of preference:
 
 Rebuild the index after adding questions, so the next run sees them.
 
+**If nothing in the bank and nothing in `reference/` covers it, stop and ask Steve.** Say what you
+searched for and what came back. Do not go browsing MyOpenMath for an example to copy: that is a
+live course, and a question written to someone else's conventions arrives without the five markers,
+without the solution-guide pattern and often with free response — it renders fine and is quietly off
+house style. A genuine gap after 500 questions and the full reference is a signal for a human, and
+looking at MOM examples is Steve's occasional manual job, not this skill's.
+
 **Check the `health` field before attaching anything.** It carries the result of the last full
 replay: `ok`, `warns`, `BROKEN`, or `unchecked`. Nineteen questions in the bank do not render at
 all — mostly a `SET QUESTION TYPE TO: multiple_choice` that MOM rejects, where the valid type is
