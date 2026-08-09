@@ -8,13 +8,13 @@ $anstypes = array("number", "number", "choices", "choices")
 $ci = rand(0, 1)
 if ($ci == 0) {
   $intro = "A clinic drew a box plot of the resting heart rates, in beats per minute, of the adults it saw last month."
-  $axisName = "Resting heart rate (bpm)"
+  $axisName = "Resting heart rate in bpm"
   $unitWord = "bpm"
   $newThing = "one more adult"
 }
 else {
   $intro = "A depot drew a box plot of the weights, in kilograms, of the parcels it handled in one shift."
-  $axisName = "Parcel weight (kg)"
+  $axisName = "Parcel weight in kg"
   $unitWord = "kg"
   $newThing = "one more parcel"
 }

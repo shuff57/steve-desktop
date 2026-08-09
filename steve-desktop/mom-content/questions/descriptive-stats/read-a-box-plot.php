@@ -8,14 +8,14 @@ $anstypes = array("number", "number", "number", "choices")
 $ci = rand(0, 1)
 if ($ci == 0) {
   $intro = "A box plot of the number of minutes a sample of commuters spent travelling to work."
-  $axisName = "Travel time (minutes)"
+  $axisName = "Travel time in minutes"
   $unitWord = "minutes"
 }
 else {
   // The largest value can reach 120, so the context must not carry a ceiling of its own -- a
   // "100-point project" scoring 120 renders perfectly and is nonsense.
   $intro = "A box plot of the weights, in pounds, of the dogs seen at a veterinary clinic in one week."
-  $axisName = "Weight (pounds)"
+  $axisName = "Weight in pounds"
   $unitWord = "pounds"
 }
 

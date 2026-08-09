@@ -86,10 +86,10 @@ $reltolerance[2] = 0.01
 $abstolerance[2] = 0.05
 
 $questions[3] = array(
-  "Yes — it is above the upper fence of " . $uf,
-  "No — it lies between the fences (lower fence " . $lf . ", upper fence " . $uf . ")",
-  "Yes — because it is more than 1.5 times the median away from the mean",
-  "No — because it is within one standard deviation of the mean"
+  "Yes &mdash; it is above the upper fence of " . $uf,
+  "No &mdash; it lies between the fences (lower fence " . $lf . ", upper fence " . $uf . ")",
+  "Yes &mdash; because it is more than 1.5 times the median away from the mean",
+  "No &mdash; because it is within one standard deviation of the mean"
 )
 $answer[3] = 1
 if ($oc == 0) { $answer[3] = 0 }

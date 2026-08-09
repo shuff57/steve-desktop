@@ -10,14 +10,14 @@ if ($ci == 0) {
   $intro = "A cruise line surveyed single travellers and couples about their on-board bill for a seven-day cruise."
   $gA = "Singles"
   $gB = "Couples"
-  $xLabel = "On-board bill (dollars)"
+  $xLabel = "On-board bill in dollars"
   $unitOne = "traveller"
 }
 else {
   $intro = "A festival surveyed day-ticket holders and weekend-pass holders about what they spent on food over the event."
   $gA = "Day tickets"
   $gB = "Weekend passes"
-  $xLabel = "Food spending (dollars)"
+  $xLabel = "Food spending in dollars"
   $unitOne = "ticket holder"
 }
 

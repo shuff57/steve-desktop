@@ -28,3 +28,8 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   `Eeek.. unallowed macro` with every substituted scalar coming back blank &mdash; the prose looks
   fine in the file and the failure appears far from its cause. Write `today's`. Prose in a solution
   guide is where this bites, because that is the only place long English sentences live.
+- **Do not put a parenthetical inside an SVG `<text>` label.** MathJax runs on the rendered page and
+  swallows it: the source says `Weight (pounds)` and the drawing shows `Weight`. The units simply
+  vanish, the render reports clean, and the axis is left unlabelled in the way that matters. Spell it
+  into the phrase &mdash; `Weight in pounds`. Caught on a box plot; it had already been silently
+  dropping units on five graphs. Same cause as parenthesised prose typesetting as italic math.

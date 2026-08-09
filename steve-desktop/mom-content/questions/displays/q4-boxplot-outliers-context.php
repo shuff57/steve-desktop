@@ -44,8 +44,8 @@ $abstolerance[1] = 0.5
 $abstolerance[2] = 0.5
 
 $choices[3] = array(
-  'Yes — the value is an outlier by the `1.5*"IQR"` rule',
-  'No — the value is not an outlier by the `1.5*"IQR"` rule'
+  'Yes &mdash; the value is an outlier by the `1.5*"IQR"` rule',
+  'No &mdash; the value is not an outlier by the `1.5*"IQR"` rule'
 )
 $noshuffle[3] = "all"
 

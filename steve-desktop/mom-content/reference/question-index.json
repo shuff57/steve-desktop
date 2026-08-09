@@ -329,7 +329,9 @@
   "path": "questions/descriptive-stats/box-plot-from-a-frequency-table.php",
   "desc": "Box Plot from a Frequency Table - Read the minimum, first quartile, median and third quartile off a frequency table so the finished box plot can be checked against them",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-4-box-plots"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -408,7 +410,9 @@
   "path": "questions/descriptive-stats/compare-three-box-plots.php",
   "desc": "Compare Three Box Plots - Read three box plots on a shared axis to find the largest median, find one group's IQR, and say what comparing medians does and does not tell you",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-4-box-plots"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -551,7 +555,8 @@
   "desc": "Five-Number Summary from an Unsorted Data Set - Sort a set of readings recorded out of order, find the two quartiles and the median, and compute the interquartile range that spans the middle half of the data",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "2-4-box-plots"
   ],
   "qsetid": null,
   "health": "ok"
@@ -721,7 +726,9 @@
   "path": "questions/descriptive-stats/median-age-comparison-reasoning.php",
   "desc": "Median Age Vs Life Expectancy - Explain why one town's lower median age reflects a younger population structure (birth rate), not a shorter lifespan, even under equal life expectancy",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -739,7 +746,9 @@
   "path": "questions/descriptive-stats/outlier-check-from-a-box-plot.php",
   "desc": "Outlier Check from a Box Plot - Take the quartiles off a drawn box plot, build the 1.5 times IQR fences from them, decide whether a newly measured value is an outlier, and separate a long whisker from an outlier",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-4-box-plots"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -758,7 +767,9 @@
   "path": "questions/descriptive-stats/percentages-from-a-relative-frequency-table.php",
   "desc": "Percentages From a Relative-Frequency Table That Falls Short of 1 - A poll's income bands are given as relative frequencies adding to less than 1; find the missing not-sure share, total adjacent bands, and explain the shortfall",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -776,7 +787,9 @@
   "path": "questions/descriptive-stats/percentile-is-not-a-score.php",
   "desc": "Percentile Is Not a Percent Score - Given a student's percent score and percentile on one test, tell the two numbers apart, count how many students scored at or below, and see why a percentile alone can't reveal another student's score",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -794,7 +807,9 @@
   "path": "questions/descriptive-stats/percentiles-from-a-frequency-table.php",
   "desc": "Percentiles Other Than the Quartiles - Locate the 10th and 70th percentiles in data given as a frequency table, then read what the 70th percentile says about the group",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -1123,7 +1138,9 @@
   "path": "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php",
   "desc": "Quartiles and Outlier Check from a Sorted List - Use the (n+1) position rule to find Q1 and Q3 in a list already given in sorted order, compute the IQR, then apply the 1.5xIQR fences to judge whether a new value is an outlier",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -1181,7 +1198,9 @@
   "path": "questions/descriptive-stats/read-a-box-plot.php",
   "desc": "Read a Box Plot - Take the median and the quartiles off a drawn box plot, compute the interquartile range, and identify which quarter of the data is the most spread out",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "2-4-box-plots"
+  ],
   "qsetid": null,
   "health": "unchecked"
  },
@@ -1383,6 +1402,7 @@
   "desc": "Boxplot - IQR, Fences, and Outlier Check (Context) - From a five-number summary in context, compute IQR and the 1.5*IQR fences, then decide whether a new observation is an outlier",
   "qtype": "multipart",
   "used_by": [
+   "2-4-box-plots",
    "cumulative-w1-14-ind"
   ],
   "qsetid": null,

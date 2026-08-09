@@ -8,7 +8,7 @@ $anstypes = array("choices", "number", "choices")
 $ci = rand(0, 1)
 if ($ci == 0) {
   $intro = "The final exam scores, out of 100 points, for three sections of the same statistics course."
-  $axisName = "Exam score (points)"
+  $axisName = "Exam score in points"
   $unitWord = "points"
   $nameA = "Morning"
   $nameB = "Afternoon"
@@ -17,7 +17,7 @@ if ($ci == 0) {
 }
 else {
   $intro = "The delivery times, in minutes, recorded at three regional warehouses last month."
-  $axisName = "Delivery time (minutes)"
+  $axisName = "Delivery time in minutes"
   $unitWord = "minutes"
   $nameA = "North"
   $nameB = "South"

@@ -8,7 +8,7 @@ $anstypes = array("number", "number", "number", "choices")
 $ci = rand(0, 1)
 if ($ci == 0) {
   $intro = "A museum recorded how many hundreds of visitors came through its doors in each of eight months."
-  $axisName = "Visitors (hundreds)"
+  $axisName = "Visitors in hundreds"
   $unitWord = "hundreds of visitors"
 }
 else {
