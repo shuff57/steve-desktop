@@ -5,7 +5,6 @@
   "slug": "1-3-frequency-frequency-tables-and-levels-of-measurement",
   "created_at": "2026-08-01",
   "target": { "cid": "334437", "aid": "23246057" },
-  "_pending": "PENDING RE-PUSH 2026-08-09: a pre-FRQ was added at slot 16 and the points were re-split across every slot so the set still totals 100. The LIVE course still has 15 questions on the old split -- this manifest is the TARGET, not the current state, until the pre-FRQ is filed, attached and the points re-applied.",
   "filing": { "cid": "334437", "aid": "23246057" },
   "questions": [
     { "slot": 1, "file_path": "questions/descriptive-stats/compute-mean-from-fifty-values.php", "qid": "1873369", "title": "Compute Mean from Fifty Values - Given 50 state-level mean commute times, compute the overall mean", "points": 6 },
@@ -23,6 +22,6 @@
     { "slot": 13, "file_path": "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php", "qid": "1873382", "title": "Diagnose a Cumulative-vs-Individual Percent Claim - Catch a published claim that reports a row's cumulative relative frequency as if it were that row's own relative frequency, then compute the row's true percent", "points": 6 },
     { "slot": 14, "file_path": "questions/descriptive-stats/classify-then-build-frequency-table.php", "qid": "1873383", "title": "Classify Then Build a Frequency Table - Classify the level of measurement of a 1-5 satisfaction rating, then read its frequency, relative frequency, and cumulative relative frequency straight off a raw list of responses", "points": 6 },
     { "slot": 15, "file_path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php", "qid": "1873384", "title": "Rounding Rule and Interval-Scale Ratio Claims - Compute the mean of several temperature readings using the correct rounding rule, then explain why a \"twice as hot\" ratio claim is invalid for interval-scale data", "points": 6 },
-    { "slot": 16, "file_path": "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php", "title": "Pre-FRQ Grade a Frequency Distribution - The scenario and grading checklist of the frequency-distribution FRQ, but the student grades four sample responses against the rubric instead of writing one", "points": 10 }
+    { "slot": 16, "file_path": "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php", "title": "Pre-FRQ Grade a Frequency Distribution - The scenario and grading checklist of the frequency-distribution FRQ, but the student grades four sample responses against the rubric instead of writing one", "qid": "1874243", "points": 10 }
   ]
 }

@@ -795,5 +795,35 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/pre-frq-grade-a-variable-classification.php": {
+  "qsetid": "1874242",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php": {
+  "qsetid": "1874243",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/pre-frq-grade-a-study-critique.php": {
+  "qsetid": "1874244",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/pre-frq-grade-a-display-choice.php": {
+  "qsetid": "1874245",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/pre-frq-grade-an-outlier-check.php": {
+  "qsetid": "1874246",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }

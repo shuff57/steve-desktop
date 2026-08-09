@@ -5,7 +5,6 @@
   "slug": "1-4-experimental-design-and-ethics",
   "created_at": "2026-08-03",
   "target": { "cid": "334437", "aid": "23246664" },
-  "_pending": "PENDING RE-PUSH 2026-08-09: a pre-FRQ was added at slot 18 and the points were re-split across every slot so the set still totals 100. The LIVE course still has 17 questions on the old split -- this manifest is the TARGET, not the current state, until the pre-FRQ is filed, attached and the points re-applied.",
   "filing": { "cid": "334437", "aid": "23246664" },
   "questions": [
     { "slot": 1, "file_path": "questions/descriptive-stats/design-experiment-full-anatomy.php", "qid": "1873390", "title": "Anatomy of an Experiment - Given a randomized research question, identify the explanatory and response variables, the population, the experimental units, the two treatments, and whether the subjects can be blinded", "points": 6 },
@@ -25,6 +24,6 @@
     { "slot": 15, "file_path": "questions/descriptive-stats/rate-vs-count-then-honest-display.php", "qid": "1873404", "title": "Rate Versus Raw Count, Then Honest Display - From two stores' complaint counts and differing customer counts, compute each rate per 100 customers, then choose the display that compares them honestly on one shared labeled scale", "points": 5 },
     { "slot": 16, "file_path": "questions/descriptive-stats/research-ethics-violation-select-all.php", "qid": "1873405", "title": "Research Ethics Violations (IRB, Informed Consent, Data Fraud) - Select every real violation where a researcher skips IRB review, withholds a known risk, and discards data selectively, from a list that also holds true-but-irrelevant statements", "points": 5 },
     { "slot": 17, "file_path": "questions/descriptive-stats/lurking-variable-observational-study-critique.php", "qid": "1873406", "title": "Lurking Variables in an Observational Study - critique a self-selected comparison for hidden confounders and propose a design fix", "points": 5 },
-    { "slot": 18, "file_path": "questions/descriptive-stats/pre-frq-grade-a-study-critique.php", "title": "Pre-FRQ Grade a Study Critique - The scenario and grading checklist of the reading-a-study FRQ, but the student grades four sample responses against the rubric instead of writing one", "points": 10 }
+    { "slot": 18, "file_path": "questions/descriptive-stats/pre-frq-grade-a-study-critique.php", "title": "Pre-FRQ Grade a Study Critique - The scenario and grading checklist of the reading-a-study FRQ, but the student grades four sample responses against the rubric instead of writing one", "qid": "1874244", "points": 10 }
   ]
 }
