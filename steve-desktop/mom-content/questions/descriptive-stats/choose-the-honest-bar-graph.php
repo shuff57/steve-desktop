@@ -96,8 +96,13 @@ for ($i=0..2) {
 
 // Axis furniture. Graph B is drawn with its own baseline label so the truncation is honest
 // to spot rather than hidden -- the student is meant to catch it by reading the axis.
-$axisA = '<line x1="' . $plotLeft . '" y1="' . $plotTop . '" x2="' . $plotLeft . '" y2="' . $plotBottom . '" stroke="#555"/><line x1="' . $plotLeft . '" y1="' . $plotBottom . '" x2="228" y2="' . $plotBottom . '" stroke="#555"/><text x="' . ($plotLeft - 6) . '" y="' . ($plotBottom + 3) . '" font-size="9" text-anchor="end" fill="#444">0</text><text x="' . ($plotLeft - 6) . '" y="' . ($plotTop + 8) . '" font-size="9" text-anchor="end" fill="#444">' . $topScale . '</text>'
-$axisB = '<line x1="' . $plotLeft . '" y1="' . $plotTop . '" x2="' . $plotLeft . '" y2="' . $plotBottom . '" stroke="#555"/><line x1="' . $plotLeft . '" y1="' . $plotBottom . '" x2="228" y2="' . $plotBottom . '" stroke="#555"/><text x="' . ($plotLeft - 6) . '" y="' . ($plotBottom + 3) . '" font-size="9" text-anchor="end" fill="#444">' . $base . '</text><text x="' . ($plotLeft - 6) . '" y="' . ($plotTop + 8) . '" font-size="9" text-anchor="end" fill="#444">' . $topScale . '</text>'
+// A bar graph with no name on its vertical axis is unreadable: the student can see a height but
+// not what is being counted. $countLabel already exists for the prose; draw it on the chart too.
+$midY = ($plotTop + $plotBottom) / 2
+$yTitle = '<text x="11" y="' . $midY . '" font-size="8" fill="#444" text-anchor="middle" transform="rotate(-90 11 ' . $midY . ')">' . $countLabel . '</text>'
+
+$axisA = '<line x1="' . $plotLeft . '" y1="' . $plotTop . '" x2="' . $plotLeft . '" y2="' . $plotBottom . '" stroke="#555"/><line x1="' . $plotLeft . '" y1="' . $plotBottom . '" x2="228" y2="' . $plotBottom . '" stroke="#555"/><text x="' . ($plotLeft - 6) . '" y="' . ($plotBottom + 3) . '" font-size="9" text-anchor="end" fill="#444">0</text><text x="' . ($plotLeft - 6) . '" y="' . ($plotTop + 8) . '" font-size="9" text-anchor="end" fill="#444">' . $topScale . '</text>' . $yTitle
+$axisB = '<line x1="' . $plotLeft . '" y1="' . $plotTop . '" x2="' . $plotLeft . '" y2="' . $plotBottom . '" stroke="#555"/><line x1="' . $plotLeft . '" y1="' . $plotBottom . '" x2="228" y2="' . $plotBottom . '" stroke="#555"/><text x="' . ($plotLeft - 6) . '" y="' . ($plotBottom + 3) . '" font-size="9" text-anchor="end" fill="#444">' . $base . '</text><text x="' . ($plotLeft - 6) . '" y="' . ($plotTop + 8) . '" font-size="9" text-anchor="end" fill="#444">' . $topScale . '</text>' . $yTitle
 
 $openSvg = '<svg viewBox="0 0 240 150" width="240" height="150" style="background:#fbfbfd; border:1px solid #e5e7eb; border-radius:8px;">'
 $chartA = $openSvg . $axisA . $svgA . '</svg>'
