@@ -95,6 +95,34 @@ Engine noise to ignore: running stateless with no session, IMathAS emits
 `Undefined global variable $myrights … in parsers.php` on perfectly healthy questions. A question's
 *own* errors say "of Common Control" instead.
 
+## Start from the section's problem set, not from the topic
+
+A set is built against the numbered problems the section actually poses. Read them first:
+
+```bash
+cd mom-content && python reference/problem-set.py <section.html> --solutions
+```
+
+Save the bookSHelf section page's HTML locally, then run that against it. `--solutions` prints each
+problem's worked steps, and those matter: a question taken from a numbered problem repackages
+**that problem's own solution** into its `$solutionguide`, because that is the explanation the
+student was taught from.
+
+Then map every problem to a slot before writing a line of PHP. Three outcomes per problem — covered
+by a question the bank already has, covered by one that needs its scenario changed, or not covered.
+That map is the plan; write only the third column. Say in the brief which problems each question
+covers, so a gap is visible rather than assumed.
+
+Two shapes of problem recur and neither can be graded as posed:
+
+- **"Construct a graph."** MyOpenMath cannot grade a drawing. Generate the display and ask about it
+  instead, or hand the construction to a tool the student can use — raSHio does histograms, box
+  plots, scatter with regression, normal curves and five-number summaries, but has no stem-and-leaf,
+  line graph or bar graph. When the student builds it, fix the answer with the data and state the
+  bin width and boundary rule, so what they build cannot differ from what you graded.
+- **"Explain in complete sentences."** Homework carries no free response. Turn it into a choice
+  between the explanation and the plausible wrong ones, which is what the problem was testing.
+
 ## Before writing anything, check what the bank already has
 
 The bank is 500+ questions and a section's problems routinely repeat what an earlier section
