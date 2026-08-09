@@ -27,6 +27,7 @@ import re
 QUESTIONS = "questions"
 BOOKS = "books"
 LIBRARY = "reference/question-library.json"
+BASELINE = "reference/regress-baseline.json"
 OUT = "reference/question-index.json"
 
 rows = []
@@ -65,16 +66,40 @@ library = {}
 if os.path.exists(LIBRARY):
     library = json.loads(io.open(LIBRARY, encoding="utf-8").read())
 
+# Health comes from the last regress.ts run. Broken questions are deliberately left unfixed until
+# a section actually picks one up -- which only works if the breakage is visible at pickup time,
+# so it rides along in the index the reuse search reads rather than in a separate file.
+baseline = {}
+if os.path.exists(BASELINE):
+    baseline = json.loads(io.open(BASELINE, encoding="utf-8").read())
+
 for r in rows:
     r["used_by"] = sorted(used[r["path"]])
     r["qsetid"] = library.get(r["path"], {}).get("qsetid")
+    health = baseline.get(r["path"])
+    if health is None:
+        r["health"] = "unchecked"
+    elif health.get("errors"):
+        r["health"] = "BROKEN"
+        r["health_detail"] = health["errors"][0][:160]
+    elif health.get("warnings"):
+        r["health"] = "warns"
+    else:
+        r["health"] = "ok"
 
 io.open(OUT, "w", encoding="utf-8", newline="\n").write(json.dumps(rows, indent=1) + "\n")
 
 live = sum(1 for r in rows if r["used_by"])
 filed = sum(1 for r in rows if r["qsetid"])
+broken = [r for r in rows if r["health"] == "BROKEN"]
 print("%s: %d questions | %d used by an assignment | %d unused | %d filed in MOM"
       % (OUT, len(rows), live, len(rows) - live, filed))
+if broken:
+    print("")
+    print("%d question(s) do not render. Left unfixed on purpose -- repair one when a section"
+          " picks it up, not before:" % len(broken))
+    for r in broken:
+        print("  %-62s %s" % (r["path"].replace("questions/", ""), r.get("health_detail", "")[:80]))
 
 missing = sorted(fp for fp in used if not os.path.exists(fp))
 if missing:

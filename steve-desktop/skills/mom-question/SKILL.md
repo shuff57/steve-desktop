@@ -123,6 +123,22 @@ Three outcomes, in order of preference:
 
 Rebuild the index after adding questions, so the next run sees them.
 
+**Check the `health` field before attaching anything.** It carries the result of the last full
+replay: `ok`, `warns`, `BROKEN`, or `unchecked`. Nineteen questions in the bank do not render at
+all — mostly a `SET QUESTION TYPE TO: multiple_choice` that MOM rejects, where the valid type is
+`choices`. They are left unfixed deliberately; repair one **when a section picks it up**, not as a
+sweep. Attaching a `BROKEN` question without reading that field puts a hard error in front of
+students.
+
+```bash
+bun reference/regress.ts            # replay the bank, diff against the baseline
+bun reference/regress.ts --write    # accept current results as the new baseline
+```
+
+Run the replay after changing a rule that affects how questions are written, and after any scripted
+edit across many files. It is the only thing that checks whether a new rule broke a question written
+six sections ago; rendering just the question in front of you never will.
+
 ## How many questions a set should hold
 
 **Between 10 and 15, aiming at 15.** These are practice assignments, so the count is a teaching

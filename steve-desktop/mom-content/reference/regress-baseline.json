@@ -1,0 +1,2129 @@
+{
+ "questions/combinatorics/q12-handshakes.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/annuity/loan-amortization-payment.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q10-committee.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/annuity/ordinary-annuity-fv.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q1-letter-sequences.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q11-card-hand.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q13-coin-heads.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q14-lattice-paths.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q15-perm-or-comb.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q16-race-finish.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q17-committee-constraints.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q18-permutations-word-problem.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q19-combinations-with-condition.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q2-word-restricted-slot.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q21-combinations-lottery-committee.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q22-combinations-word-problem.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q4-glue-trick.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q3-compute-npr.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q7-three-digit-parity.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q6-not-together.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q5-shelf-by-subject.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q8-word-all-distinct.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/combinatorics/q9-compute-ncr.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/counting/multiplication-principle.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/data-sampling/q1-variable-type.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/counting/permutations-combinations.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/data-sampling/classify-data-qualitative-discrete-continuous.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/data-sampling/q3-sampling-method-identify.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/data-sampling/q2-observational-vs-experiment.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/data-sampling/q4-population-parameter-statistic.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/associated-vs-independent-variables-select-all.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/audit-frequency-table-errors.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/bar-graph-counts-versus-percentages.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/back-solve-frequency-from-cumulative.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/blinding-and-placebo-identification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/build-a-histogram-in-rashio.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/build-a-stemplot-from-raw-data.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/choose-the-correct-line-graph.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/choose-the-correct-stemplot.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/choose-the-honest-bar-graph.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/classify-measurement-scale.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/classify-then-build-frequency-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/compare-two-relative-frequency-histograms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/complete-grouped-frequency-table-survival.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/complete-simple-frequency-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/compute-mean-from-fifty-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/conflicting-conclusions-from-two-samples.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/control-group-placebo-blinding-matching.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/cumulative-relative-frequency-at-most.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/design-experiment-full-anatomy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/experimental-design-key-terms-matching.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/double-blind-vs-single-blind-identification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/frequency-columns-what-they-sum-to.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/grouped-frequency-table-and-graphs.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/grouped-interval-boundary-select-all.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/histogram-bin-width-comparison.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/identify-what-data-refers-to.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/identify-population-from-study-description.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/incentive-announced-in-advance-bias.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/informed-consent-validity-select-all.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/informed-consent-violation-identification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/large-random-sample-reliability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/leading-survey-question-fairness.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/lurking-variable-observational-study-critique.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/line-graph-from-frequency-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/misleading-axis-scale-comparison.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q01-fitness-center-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q09-identify-population-multiple-choice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q1-descriptive-vs-inferential.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q1-mean-median-iqr-from-data.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q12-classify-one-variable-data-type.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q13-select-all-quantitative-discrete.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q14-purchase-list-three-data-types.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q15-name-the-sampling-method.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q18-relative-and-cumulative-frequency.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q19-proportion-and-percent-from-a-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q2-compare-two-distributions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q21-percent-versus-count-comparison.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q22-choose-the-right-display.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q23-match-error-and-bias-terms.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q26-two-samples-different-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q3-resistant-measure-choice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/q27-with-or-without-replacement.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/randomized-block-design-application.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/rate-vs-count-then-honest-display.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/raw-count-vs-rate-airline-complaints.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/read-a-stemplot-rows-and-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/read-a-bar-graph-comparisons.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/relative-frequency-from-hurricane-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/repeated-measures-design-identification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/research-ethics-violation-select-all.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/round-then-stemplot-prices.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/sample-size-adequate-narrow-population.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/sample-size-inadequate-wide-population.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/sampling-frame-bias-critique.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/survey-percent-and-extrapolation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/time-series-line-graph-change-over-time.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/two-series-bar-graph-over-representation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/tiny-sample-representativeness.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/two-well-run-experiments-differ.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/volunteer-sample-self-selection.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/descriptive-stats/which-display-preserves-the-data.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/displays/q1-choose-display.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/displays/q2-histogram-relative-frequency.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/displays/q3-boxplot-five-number.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/displays/q4-boxplot-outliers-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-cosine-transformation-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-cosine-transformation-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-cosine-transformation-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-cosine-transformation-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-linear-function.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-sine-transformation-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-sine-transformation-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-sine-transformation-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-sine-transformation-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/draw/graph-sine-transformation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/exp-log/q1-exponential-evaluation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/exp-log/q2-log-evaluation-and-conversion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/exp-log/q3-exp-model-growth-decay.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/annuities/q10-ordinary-annuity-future-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/annuities/q11-sinking-fund-required-deposit.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/annuities/q8-annuities-sinking-funds.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/compound-interest/q11-compound-interest-multipart.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/compound-interest/q10-annual-vs-monthly-comparison.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/annuities/q9-annuity-due-future-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/compound-interest/q5-compound-interest.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/compound-interest/q6-solve-rate-compound.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/installment-payment/q1-installment-payment-payout-annuity.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/compound-interest/q7-comparing-future-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/installment-payment/q11-loan-payment-and-total-interest.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/installment-payment/q2-amortization-schedule.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/installment-payment/q12-amortization-remaining-balance.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/simple-interest/q3-simple-interest-discount.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/finance/simple-interest/q4-solve-rate-maturity-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q1-identifying-sampling-bias.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q10-sampling-design-critique.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q2-classification-and-justification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q3-stratified-vs-simple-random-sampling.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q4-choosing-the-right-display.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q6-frequency-distribution-analysis.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/descriptive-statistics/q9-choosing-the-right-measure-of-center.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q1-single-mean-concept-and-hypotheses.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q10-two-sample-means-interpreting-confidence-interval.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q11-two-sample-means-screen-time-ci.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q13-interpreting-inference-frq.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q12-ci-mean-context-critique.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q2-single-mean-interpreting-p-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q4-paired-means-concept-and-hypotheses.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q5-paired-means-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q6-two-sample-means-concept-and-hypotheses.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q7-two-sample-means-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q8-paired-vs-two-sample-t-tests.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-means/q9-anova-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q1-single-proportion-hypothesis-test.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q10-difference-of-proportions-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q11-chi-square-gof-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q12-chi-square-independence-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q13-difference-of-proportions-interpreting-confidence-interval.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q14-full-ht-workflow-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q15-two-prop-vaccine-full-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q16-two-prop-full-workflow.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q2-difference-of-proportions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q3-chi-square-goodness-of-fit.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q4-chi-square-independence.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q5-when-to-use-each-test.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q6-understanding-statistical-significance.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q8-comparing-tests.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q7-association-vs-causation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q10-z-scores-and-normal-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q11-empirical-rule.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q12-normal-distribution-and-percentiles.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q13-identifying-non-normal-distributions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q14-central-limit-theorem.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/normal-distribution/q15-normal-model-in-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/probability/q1-expected-value-decision.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q1-explanatory-vs-response-variable.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q11-slope-inference-frq-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q12-regression-output-full-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q10-interpret-p-value-for-slope-test.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q13-slope-inference-full-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q2-interpret-residual-in-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q3-interpret-correlation-coefficient.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q4-predicting-from-regression-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q5-least-squares-method-conceptual.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q6-interpret-slope-and-y-intercept.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q7-r-squared-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q8-extrapolation-risk.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/regression/q9-slope-inference-concept-and-hypotheses.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sampling-distributions/q1-sampling-distribution-reasoning.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q1-venn-diagram-reasoning.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q2-permutation-vs-combination.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q3-interpreting-conditional-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q4-tree-diagram-counting.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q5-twoway-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/sets-counting-probability/q6-perm-vs-comb-explained.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-a/q1-linear-modeling-justification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-a/q2-matrix-vs-substitution-justification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-a/q3-lp-setup-justification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-b/q1-exp-growth-decay-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-b/q2-compound-vs-simple-interest.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/frq/test-b/q3-conditional-bayes-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/functions/q2-domain-radical-rational.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/functions/q1-function-notation-eval.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/functions/q3-average-rate-of-change.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/functions/q4-function-comprehensive.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/inequalities/q1-inequality-properties.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/inequalities/q1-solve-linear-inequality.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/inequalities/q2-check-point-satisfies-system.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/inequalities/q3-check-solution-system.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/inequalities/q2-lp-word-setup.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear/q1-break-even.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear/q2-verify-solution-linear-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-functions/q1-slope-from-two-points.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear/q3-slope-intercept-from-standard-form.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-functions/q2-linear-graph-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-functions/q3-modeling-with-linear.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-functions/q4-best-fit-line-concept.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q1-simplex-bakery.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q10-graphical-lp-corner-comprehensive.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q2-simplex-woodworker.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q3-simplex-candle-shop.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q4-graphical-lp-corner-evaluation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q4-slack-conversion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q6-simplex-coffee-roaster.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q5-lp-application-identify-formulation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q7-simplex-three-variables.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q8-simplex-identify-pivot.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/linear-programming/q9-lp-formulation-factory-mix.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-2x2-add-scalar.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-2x2-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-2x2-inverse-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-2x2-inverse-method-fresh.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-2x2-rref.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-3x3-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-3x3-inverse-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-3x3-rref.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-3x3-system-fresh.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/matrix/matrix-multiply.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/normal-distribution/q1-z-score-compute.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/normal-distribution/q2-normal-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/normal-distribution/q3-inverse-normal-percentile.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/normal-distribution/q4-empirical-rule.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/normal-distribution/q5-normal-probability-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/addition-rule-union-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/basic-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/addition-rule.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/conditional-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/identify-conditional-probability-from-wording.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/interpret-conditional-event-in-words.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/interpret-joint-event-in-words.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/interpret-union-event-in-words.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/multiplication-rule-joint-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q1-count-outcomes.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/poll-proportion-complement-and-headcount.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q10-twoway-table-addition.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q11-identify-conditioning-event.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q12-three-children-given-first-boy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q13-conditional-probability-formula.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q14-twoway-conditional.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q16-urn-draw.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q15-conditional-from-union.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q17-survey-overlap.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q18-genre-twoway-mutex.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q19-medical-test-bayes.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q2-probability-card-draw.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q20-class-twoway-asymmetry.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q21-conditional-2x2-with-independence.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q22-expected-value-of-discrete-rv.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q23-addition-rule-formula.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q24-conditional-dice-reduced-sample-space.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q25-prob-set-ops-dice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q26-independence-multiplication-rule.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q4-probability-two-dice-sum.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q3-probability-exactly-one-head.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q5-three-children-boys.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q6-set-ops-dice-events.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q7-mutually-exclusive-yesno.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q8-addition-rule-percentages.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/q9-king-or-heart.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/roulette-bet-types-probabilities.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/roulette-single-spin-events.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/survey-two-conditionals-full-workup.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/test-mutually-exclusive.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/test-independence-two-ways.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/unconditional-probability-first-event.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/unconditional-probability-second-event.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value/q1-ev-game-of-chance.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value/q2-ev-insurance.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value/q3-ev-fill-missing-prob.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value/q4-ev-discrete-rv.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/quadratic-poly-rational/q1-quadratic-vertex-and-x-intercepts.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/probability/expected-value/q5-ev-game-of-chance-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/quadratic-poly-rational/q2-polynomial-end-behavior.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/quadratic-poly-rational/q3-rational-asymptotes.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q10-predict-advertising.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q1-explanatory-response.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q11-predict-new-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q11-scatter-with-line.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q12-extrapolation-warning-new.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q12-slope-intercept-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q13-linear-vs-nonlinear.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q14-association-explanatory-response-variable-randomiz.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q15-8-1-identifying-explanatory-and-response-variables.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q16-chapte-2-predict-response-variable-from-regression.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q17-4-2-use-a-regression-equation-to-make-predictions-.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q18-12-3-2-interpret-the-slope-and-y-intercept-of-a-le.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q2-make-prediction.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q4-interpret-intercept.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/intro/q3-interpret-slope.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/intro/q5-positive-negative.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/intro/q6-linear-appropriate.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/intro/q7-prediction-and-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/intro/q8-yhat-notation.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/intro/q9-two-predictions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q1-least-squares-criterion.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q10-conditions-for-regression.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q11-leverage-vs-influential.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q12-association-vs-causation.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q13-indicator-variable-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q15-r-squared-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q14-read-regression-output.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q15-t-from-output.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q16-slope-intercept-interpret-context.php": {
+  "errors": [
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 24 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 25 in Common Control | Caught warning in the question code:",
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 27 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 28 in Common Control | Caught warning in the question code:",
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 30 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 31 in Common Control | Caught warning in the question code:",
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 33 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 34 in Common Control | jointrandfrom expects at least 2 argu"
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q17-build-equation-from-summary.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q18-read-regression-output-multipart.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q2-sum-squared-residuals-compare.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q19-data-r-r2-pvalue.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q3-slope-from-correlation.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q4-intercept-from-means.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q5-full-equation-from-summary.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q6-line-passes-through-means.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q7-r-squared-interpretation.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q8-compute-r-squared-from-r.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/least-squares/q9-extrapolation-warning.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q1-compute-residual.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q2-residual-sign-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q5-residual-std-dev.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q6-residual-concepts.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q7-interpret-r-value.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q8-estimate-r-from-scatter.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/regression/residuals-correlation/q9-correlation-properties.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q1-ci-for-slope.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q10-full-regression-workflow-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q10-hypothesis-test-slope-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q10-role-of-inference-new.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q2-hypothesis-test-slope.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q3-ci-interpret-slope.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q4-paired-vs-regression.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q5-line-conditions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q6-full-regression-workflow.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q7-role-of-inference.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q8-tech-ci-from-output.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/transformations/q1-log-transform-skew.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/slope-inference/q9-slope-concept-decisions.php": {
+  "errors": [
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 19 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 20 in Common Control | Caught warning in the question code:",
+   "Caught warning in the question code: Trying to access array offset on value of type int on line 22 in Common Control | Caught warning in the question code: Trying to access array offset on value of type int on line 23 in Common Control | Caught warning in the question code:"
+  ],
+  "warnings": []
+ },
+ "questions/regression/transformations/q2-transform-linearity.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/regression/transformations/q3-interpret-log-slope.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q1-p-hat-conditions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q2-x-bar-conditions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q5-clt-single-vs-sample.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q3-p-hat-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q4-x-bar-probability.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q1-set-notation-months.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sampling-distributions/q6-clt-when-applies.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q10-venn-2circle-total.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q11-venn-2circle-neither.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q12-venn-3circle-streamers.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q13-demorgan-verification.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q14-inclusion-exclusion-survey.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q14-set-ops-union-intersection-compare.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q15-venn-2circle-exactly-one-and-neither.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q16-venn-2circle-survey-counts.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q17-venn-2circle-inclusion-exclusion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q2-subsets-two-element.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q3-subsets-count-only.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q4-union.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q5-intersection.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q6-complement.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q7-disjoint-not-complement.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q8-mixed-ops-empty.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/q9-mixed-ops-union-complement.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/venn-two-set.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/sets/venn-three-set.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q1-when-gof-vs-independence.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q2-gof-expected-counts.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q3-gof-test-statistic.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q4-independence-expected.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q5-choose-which-test.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q6-gof-full-with-conclusion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q7-independence-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q8-gof-test-statistic-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q8-independence-expected-and-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/chi-square/q9-gof-full-with-conclusion-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/ci-ht-connection/q10-ci-to-test-hypothesis.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/ci-ht-connection/q11-ci-to-ht-mean.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q5-ci-proportion-compute-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q13-null-alt-mean-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q12-stat-significance-interpretation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q14-pvalue-two-scenarios.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q16-full-ht-one-mean-fresh.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q1-sleep-hours.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q10-anova-conclusion.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q13-anova-when-and-conclude.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q12-paired-t-from-summary.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q2-reaction-times.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q3-daily-steps.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q4-test-statistic-abstract.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q5-ci-interpretation-mean.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q6-paired-t-workflow.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q7-paired-vs-two-sample-choice.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q8-anova-when-to-use.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/inference-for-means/q9-anova-summary-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q11-two-prop-test-cholesterol.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q12-two-prop-test-health-field.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q13-two-sample-means-energy-drinks.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q15-distracted-eating.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q14-interpret-ci-two-means.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q16-ci-diff-two-proportions.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q18-two-mean-full-workflow.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q19-two-prop-ci-compute-interpret.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/stats-tests/two-sample-inference/q20-two-prop-full-ht-fresh.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/systems/q1-system-2-equations-algebraic.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/angle-degrees-and-radians-from-point.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/arc-length-from-terminal-point.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/arc-length-to-angle-measure.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-features-from-graph-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-features-from-graph-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-features-from-graph-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-features-from-graph-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-max-min-midline-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-max-min-midline-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-max-min-midline-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/cosine-max-min-midline-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/coterminal-angles.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/define-sine-y-coordinate.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/graph-sine-find-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/degree-radian-sine-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-cosine-from-equation-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-cosine-from-equation-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-cosine-from-equation-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-cosine-from-equation-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-sine-from-equation-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-sine-from-equation-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-sine-from-equation-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/identify-sine-from-equation-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/key-features-of-sine-parent.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/match-sine-equation-to-graph.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/quadrant-from-terminal-point.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/reference-angle-from-point.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-features-from-graph-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-features-from-graph-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-features-from-graph-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-features-from-graph-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-from-unit-circle.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-graph-from-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-graph-key-points.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-graph-match-equation.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-graph-period-amplitude.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-max-min-midline-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-max-min-midline-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-max-min-midline-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-max-min-midline-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-of-special-angles.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-reference-angle-values.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/sine-sign-by-quadrant.php": {
+  "errors": [
+   "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types.",
+   "Caught warning in the question code: Uninitialized string offset 0 on line 6 in Question Text | Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  ],
+  "warnings": []
+ },
+ "questions/trig/sine-transformation-anchor-table.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/terminal-point-from-arc-length.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/terminal-point-non-unit-circle.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-cosine-equation-from-description-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-cosine-equation-from-description-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-cosine-equation-from-description-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-cosine-equation-from-description-medium.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-sine-equation-from-description-advanced.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-sine-equation-from-description-easy.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-sine-equation-from-description-hard.php": {
+  "errors": [],
+  "warnings": []
+ },
+ "questions/trig/write-sine-equation-from-description-medium.php": {
+  "errors": [],
+  "warnings": []
+ }
+}

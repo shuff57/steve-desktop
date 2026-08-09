@@ -4,56 +4,64 @@
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/annuity/ordinary-annuity-fv.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q1-letter-sequences.php",
   "desc": "Letter Sequences - Shrinking-pool permutations from a small alphabet",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q10-committee.php",
   "desc": "Committee Selection - Choose r members from a group of n (combinations)",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q11-card-hand.php",
   "desc": "Card Hand from a Deck - Choose r cards from 52 (combinations)",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q12-handshakes.php",
   "desc": "Handshakes - Pairwise count among n people equals nC2",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q13-coin-heads.php",
   "desc": "Coin Tosses With k Heads - Choose which positions are heads",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q14-lattice-paths.php",
   "desc": "Lattice Paths - Shortest routes across a rectangular grid",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q15-perm-or-comb.php",
@@ -62,7 +70,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q16-race-finish.php",
@@ -71,7 +80,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q17-committee-constraints.php",
@@ -80,7 +90,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q18-permutations-word-problem.php",
@@ -90,7 +101,8 @@
    "test-b-w6-10-group",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q19-combinations-with-condition.php",
@@ -99,14 +111,16 @@
   "used_by": [
    "test-b-w6-10-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q2-word-restricted-slot.php",
   "desc": "Word Permutations With a Slot Restriction - Vowels/consonants in fixed positions",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q21-combinations-lottery-committee.php",
@@ -115,7 +129,8 @@
   "used_by": [
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q22-combinations-word-problem.php",
@@ -124,7 +139,8 @@
   "used_by": [
    "cumulative-w1-13-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q3-compute-npr.php",
@@ -133,21 +149,24 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q4-glue-trick.php",
   "desc": "Glue Trick - k specific people sit together in a row of n",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q5-shelf-by-subject.php",
   "desc": "Books on a Shelf - Combined permutations across two subject pools",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q6-not-together.php",
@@ -156,21 +175,24 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q7-three-digit-parity.php",
   "desc": "Three-Digit Numbers - Slot-by-slot counting with a parity rule",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q8-word-all-distinct.php",
   "desc": "All-Distinct Word Permutations - n! arrangements when every letter differs",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/combinatorics/q9-compute-ncr.php",
@@ -179,21 +201,24 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/counting/multiplication-principle.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/counting/permutations-combinations.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/data-sampling/classify-data-qualitative-discrete-continuous.php",
@@ -202,7 +227,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868253"
+  "qsetid": "1868253",
+  "health": "ok"
  },
  {
   "path": "questions/data-sampling/q1-variable-type.php",
@@ -212,7 +238,8 @@
    "t1-verify-question-home",
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/data-sampling/q2-observational-vs-experiment.php",
@@ -221,7 +248,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/data-sampling/q3-sampling-method-identify.php",
@@ -230,7 +258,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/data-sampling/q4-population-parameter-statistic.php",
@@ -240,7 +269,8 @@
    "cumulative-w1-14-ind",
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/associated-vs-independent-variables-select-all.php",
@@ -249,7 +279,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873401"
+  "qsetid": "1873401",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/audit-frequency-table-errors.php",
@@ -258,7 +289,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873374"
+  "qsetid": "1873374",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/back-solve-frequency-from-cumulative.php",
@@ -268,7 +300,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873372"
+  "qsetid": "1873372",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/bar-graph-counts-versus-percentages.php",
@@ -277,7 +310,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/blinding-and-placebo-identification.php",
@@ -286,7 +320,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873398"
+  "qsetid": "1873398",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/build-a-histogram-in-rashio.php",
@@ -295,7 +330,8 @@
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
@@ -304,7 +340,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/choose-the-correct-line-graph.php",
@@ -313,7 +350,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/choose-the-correct-stemplot.php",
@@ -322,7 +360,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/choose-the-honest-bar-graph.php",
@@ -331,7 +370,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/classify-measurement-scale.php",
@@ -340,7 +380,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873370"
+  "qsetid": "1873370",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/classify-then-build-frequency-table.php",
@@ -350,7 +391,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873383"
+  "qsetid": "1873383",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/compare-two-relative-frequency-histograms.php",
@@ -359,7 +401,8 @@
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/complete-grouped-frequency-table-survival.php",
@@ -369,7 +412,8 @@
    "1-2-data-sampling-and-variation-in-data-and-sampling",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873353"
+  "qsetid": "1873353",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/complete-simple-frequency-table.php",
@@ -379,7 +423,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873371"
+  "qsetid": "1873371",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/compute-mean-from-fifty-values.php",
@@ -388,7 +433,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873369"
+  "qsetid": "1873369",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/conflicting-conclusions-from-two-samples.php",
@@ -397,7 +443,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873357"
+  "qsetid": "1873357",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/control-group-placebo-blinding-matching.php",
@@ -406,7 +453,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873399"
+  "qsetid": "1873399",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/cumulative-relative-frequency-at-most.php",
@@ -416,7 +464,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873377"
+  "qsetid": "1873377",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/design-experiment-full-anatomy.php",
@@ -425,7 +474,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873390"
+  "qsetid": "1873390",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php",
@@ -435,7 +485,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873382"
+  "qsetid": "1873382",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/double-blind-vs-single-blind-identification.php",
@@ -444,7 +495,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873403"
+  "qsetid": "1873403",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/experimental-design-key-terms-matching.php",
@@ -453,7 +505,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873397"
+  "qsetid": "1873397",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php",
@@ -462,7 +515,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/frequency-columns-what-they-sum-to.php",
@@ -471,7 +525,8 @@
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/grouped-frequency-table-and-graphs.php",
@@ -481,7 +536,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873375"
+  "qsetid": "1873375",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/grouped-interval-boundary-select-all.php",
@@ -490,7 +546,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873381"
+  "qsetid": "1873381",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/histogram-bin-width-comparison.php",
@@ -499,7 +556,8 @@
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/identify-population-from-study-description.php",
@@ -508,7 +566,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873351"
+  "qsetid": "1873351",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/identify-what-data-refers-to.php",
@@ -517,7 +576,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873354"
+  "qsetid": "1873354",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/incentive-announced-in-advance-bias.php",
@@ -526,7 +586,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873358"
+  "qsetid": "1873358",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/informed-consent-validity-select-all.php",
@@ -535,7 +596,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873402"
+  "qsetid": "1873402",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/informed-consent-violation-identification.php",
@@ -544,7 +606,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873391"
+  "qsetid": "1873391",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php",
@@ -553,7 +616,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873384"
+  "qsetid": "1873384",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/large-random-sample-reliability.php",
@@ -562,7 +626,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873359"
+  "qsetid": "1873359",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/leading-survey-question-fairness.php",
@@ -571,7 +636,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873361"
+  "qsetid": "1873361",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/line-graph-from-frequency-table.php",
@@ -580,7 +646,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/lurking-variable-observational-study-critique.php",
@@ -589,7 +656,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873406"
+  "qsetid": "1873406",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/misleading-axis-scale-comparison.php",
@@ -598,7 +666,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873393"
+  "qsetid": "1873393",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php",
@@ -608,7 +677,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873380"
+  "qsetid": "1873380",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php",
@@ -617,7 +687,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873352"
+  "qsetid": "1873352",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q01-fitness-center-key-terms.php",
@@ -626,7 +697,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1873341"
+  "qsetid": "1873341",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php",
@@ -635,7 +707,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867371"
+  "qsetid": "1867371",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php",
@@ -644,7 +717,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867373"
+  "qsetid": "1867373",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php",
@@ -653,7 +727,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867374"
+  "qsetid": "1867374",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php",
@@ -662,7 +737,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867370"
+  "qsetid": "1867370",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php",
@@ -671,7 +747,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867375"
+  "qsetid": "1867375",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php",
@@ -680,7 +757,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867376"
+  "qsetid": "1867376",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php",
@@ -689,7 +767,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867377"
+  "qsetid": "1867377",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q09-identify-population-multiple-choice.php",
@@ -698,14 +777,16 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867369"
+  "qsetid": "1867369",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q1-descriptive-vs-inferential.php",
   "desc": "Descriptive vs Inferential Statistics - Classify a randomized study goal as descriptive or inferential statistics",
   "qtype": "choices",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php",
@@ -714,7 +795,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php",
@@ -723,7 +805,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867378"
+  "qsetid": "1867378",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php",
@@ -732,7 +815,8 @@
   "used_by": [
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
-  "qsetid": "1867379"
+  "qsetid": "1867379",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q12-classify-one-variable-data-type.php",
@@ -741,7 +825,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868230"
+  "qsetid": "1868230",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q13-select-all-quantitative-discrete.php",
@@ -750,7 +835,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868232"
+  "qsetid": "1868232",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q14-purchase-list-three-data-types.php",
@@ -759,7 +845,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868240"
+  "qsetid": "1868240",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q15-name-the-sampling-method.php",
@@ -768,7 +855,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868241"
+  "qsetid": "1868241",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php",
@@ -777,7 +865,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868243"
+  "qsetid": "1868243",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php",
@@ -786,7 +875,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868244"
+  "qsetid": "1868244",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q18-relative-and-cumulative-frequency.php",
@@ -796,7 +886,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873378"
+  "qsetid": "1873378",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q19-proportion-and-percent-from-a-table.php",
@@ -805,7 +896,8 @@
   "used_by": [
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
-  "qsetid": "1873379"
+  "qsetid": "1873379",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q2-compare-two-distributions.php",
@@ -814,7 +906,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php",
@@ -823,7 +916,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868245"
+  "qsetid": "1868245",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q21-percent-versus-count-comparison.php",
@@ -832,7 +926,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868246"
+  "qsetid": "1868246",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q22-choose-the-right-display.php",
@@ -841,7 +936,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868247"
+  "qsetid": "1868247",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q23-match-error-and-bias-terms.php",
@@ -850,7 +946,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868248"
+  "qsetid": "1868248",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php",
@@ -859,7 +956,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868249"
+  "qsetid": "1868249",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php",
@@ -868,7 +966,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868250"
+  "qsetid": "1868250",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q26-two-samples-different-results.php",
@@ -877,7 +976,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868251"
+  "qsetid": "1868251",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q27-with-or-without-replacement.php",
@@ -886,7 +986,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1868252"
+  "qsetid": "1868252",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/q3-resistant-measure-choice.php",
@@ -895,7 +996,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/randomized-block-design-application.php",
@@ -904,7 +1006,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873400"
+  "qsetid": "1873400",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/rate-vs-count-then-honest-display.php",
@@ -913,7 +1016,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873404"
+  "qsetid": "1873404",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/raw-count-vs-rate-airline-complaints.php",
@@ -922,7 +1026,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873394"
+  "qsetid": "1873394",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/read-a-bar-graph-comparisons.php",
@@ -931,7 +1036,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/read-a-stemplot-rows-and-values.php",
@@ -940,7 +1046,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/relative-frequency-from-hurricane-table.php",
@@ -950,7 +1057,8 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement",
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
-  "qsetid": "1873376"
+  "qsetid": "1873376",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/repeated-measures-design-identification.php",
@@ -959,7 +1067,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873392"
+  "qsetid": "1873392",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/research-ethics-violation-select-all.php",
@@ -968,7 +1077,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873405"
+  "qsetid": "1873405",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/round-then-stemplot-prices.php",
@@ -977,7 +1087,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/sample-size-adequate-narrow-population.php",
@@ -986,7 +1097,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873355"
+  "qsetid": "1873355",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/sample-size-inadequate-wide-population.php",
@@ -995,7 +1107,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873356"
+  "qsetid": "1873356",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/sampling-frame-bias-critique.php",
@@ -1004,7 +1117,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873396"
+  "qsetid": "1873396",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php",
@@ -1013,7 +1127,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/survey-percent-and-extrapolation.php",
@@ -1022,7 +1137,8 @@
   "used_by": [
    "1-4-experimental-design-and-ethics"
   ],
-  "qsetid": "1873395"
+  "qsetid": "1873395",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/time-series-line-graph-change-over-time.php",
@@ -1031,7 +1147,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/tiny-sample-representativeness.php",
@@ -1040,7 +1157,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873362"
+  "qsetid": "1873362",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/two-series-bar-graph-over-representation.php",
@@ -1049,7 +1167,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/two-well-run-experiments-differ.php",
@@ -1058,7 +1177,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873363"
+  "qsetid": "1873363",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/volunteer-sample-self-selection.php",
@@ -1067,7 +1187,8 @@
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
-  "qsetid": "1873360"
+  "qsetid": "1873360",
+  "health": "ok"
  },
  {
   "path": "questions/descriptive-stats/which-display-preserves-the-data.php",
@@ -1076,7 +1197,8 @@
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/displays/q1-choose-display.php",
@@ -1085,7 +1207,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/displays/q2-histogram-relative-frequency.php",
@@ -1095,7 +1218,8 @@
    "2-2-histograms-frequency-polygons-and-time-series-graphs",
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/displays/q3-boxplot-five-number.php",
@@ -1104,7 +1228,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/displays/q4-boxplot-outliers-context.php",
@@ -1113,35 +1238,40 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-cosine-transformation-advanced.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-cosine-transformation-easy.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-cosine-transformation-hard.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-cosine-transformation-medium.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-linear-function.php",
@@ -1150,42 +1280,48 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-sine-transformation-advanced.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-sine-transformation-easy.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-sine-transformation-hard.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-sine-transformation-medium.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/draw/graph-sine-transformation.php",
   "desc": "",
   "qtype": "draw",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/exp-log/q1-exponential-evaluation.php",
@@ -1194,7 +1330,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/exp-log/q2-log-evaluation-and-conversion.php",
@@ -1203,7 +1340,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/exp-log/q3-exp-model-growth-decay.php",
@@ -1212,7 +1350,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/annuities/q10-ordinary-annuity-future-value.php",
@@ -1222,7 +1361,8 @@
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/annuities/q11-sinking-fund-required-deposit.php",
@@ -1231,21 +1371,24 @@
   "used_by": [
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/annuities/q8-annuities-sinking-funds.php",
   "desc": "6.3 Annuities and Sinking Funds",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/annuities/q9-annuity-due-future-value.php",
   "desc": "6.3 Annuity Due (Future Value)",
   "qtype": "number",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/compound-interest/q10-annual-vs-monthly-comparison.php",
@@ -1256,7 +1399,8 @@
    "test-b-w6-10-group-with-frq",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/compound-interest/q11-compound-interest-multipart.php",
@@ -1265,35 +1409,40 @@
   "used_by": [
    "cumulative-w1-13-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/compound-interest/q5-compound-interest.php",
   "desc": "6.2 Compound Interest",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/compound-interest/q6-solve-rate-compound.php",
   "desc": "6.2 Solving for Rate (Compound Interest)",
   "qtype": "number",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/compound-interest/q7-comparing-future-values.php",
   "desc": "6.2 Comparing Future Values",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/installment-payment/q1-installment-payment-payout-annuity.php",
   "desc": "6.4 Installment Payment and Present Value of an Annuity",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/installment-payment/q11-loan-payment-and-total-interest.php",
@@ -1305,7 +1454,8 @@
    "test-b-w6-10-group-with-frq",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/installment-payment/q12-amortization-remaining-balance.php",
@@ -1314,35 +1464,40 @@
   "used_by": [
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/installment-payment/q2-amortization-schedule.php",
   "desc": "6.4 Amortization Schedule (First Two Payments)",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/simple-interest/q3-simple-interest-discount.php",
   "desc": "6.1 Simple Interest and Discount",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/finance/simple-interest/q4-solve-rate-maturity-value.php",
   "desc": "6.1 Solving for Rate and Maturity Value",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q1-identifying-sampling-bias.php",
   "desc": "Identifying Sampling Bias - Students identify convenience sampling bias in a research scenario, explain how the biased sample could skew results, and evaluate whether findings can be generalized to the full population.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q10-sampling-design-critique.php",
@@ -1351,7 +1506,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php",
@@ -1360,7 +1516,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php",
@@ -1369,77 +1526,88 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q2-classification-and-justification.php",
   "desc": "Classification and Justification - Students classify three variables as categorical or quantitative (discrete or continuous), justify each classification, and explain why proper variable classification matters when choosing statistical methods.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q3-stratified-vs-simple-random-sampling.php",
   "desc": "Stratified vs. Simple Random Sampling - Students evaluate whether simple random sampling or stratified random sampling is more appropriate for a survey with distinct subgroups, and justify their choice using the group composition.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q4-choosing-the-right-display.php",
   "desc": "Choosing the Right Display - Students explain which graphical display (histogram or boxplot) is more appropriate for identifying the shape of a distribution, and describe what unique information each display provides.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php",
   "desc": "Interpreting Bimodal Data - Students interpret a bimodal distribution, explain what the two peaks suggest about subgroups in the data, and recommend further investigation to confirm their hypothesis.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q6-frequency-distribution-analysis.php",
   "desc": "Frequency Distribution Analysis - Students create a frequency distribution with 4 classes from a dataset of quiz scores and write a conclusion describing the shape of the distribution and what it reveals about student performance.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
   "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency, variability, and reliability across two groups.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php",
   "desc": "Five-Number Summary and Outliers - Students use the 1.5(IQR) rule to determine whether a maximum value is an outlier, show their calculations, and interpret the result in context.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q9-choosing-the-right-measure-of-center.php",
   "desc": "Choosing the Right Measure of Center - Given a skewed dataset with one extreme outlier, recommend whether to use mean or median to describe a typical value and explain why.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q1-single-mean-concept-and-hypotheses.php",
   "desc": "Single Mean - Concept and Hypotheses - Students explain what a hypothesis test for a single population mean is trying to answer, apply the idea to a randomized real-world scenario, and state the null and alternative hypotheses in context.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q10-two-sample-means-interpreting-confidence-interval.php",
   "desc": "Two-Sample Means - Interpreting Confidence Interval - Students interpret a confidence interval for the difference between two population means in context, explain what the confidence level means, and assess whether the interval suggests a real difference between groups.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q11-two-sample-means-screen-time-ci.php",
@@ -1448,7 +1616,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q12-ci-mean-context-critique.php",
@@ -1457,7 +1626,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q13-interpreting-inference-frq.php",
@@ -1466,7 +1636,8 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q2-single-mean-interpreting-p-value.php",
@@ -1475,21 +1646,24 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php",
   "desc": "Single Mean - Interpreting Confidence Interval - Students interpret a confidence interval for a population mean in context, explain what the confidence level means, and assess whether a claimed mean is plausible based on whether it falls inside the interval.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q4-paired-means-concept-and-hypotheses.php",
   "desc": "Paired Means - Concept and Hypotheses - Students explain why paired data are analyzed with within-subject differences, apply the idea to a randomized before-after scenario, and state appropriate paired t-test hypotheses in context.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q5-paired-means-interpreting-results.php",
@@ -1498,28 +1672,32 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q6-two-sample-means-concept-and-hypotheses.php",
   "desc": "Two-Sample Means - Concept and Hypotheses - Students explain when a two-sample t-test for independent means is appropriate, apply the design to a randomized context, and state correct hypotheses in symbols and words.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q7-two-sample-means-interpreting-results.php",
   "desc": "Two-Sample Means - Interpreting Results - Students interpret a completed two-sample t-test by comparing p-value to alpha, making the correct decision about H&#8320;, and writing a practical conclusion about whether two groups differ.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q8-paired-vs-two-sample-t-tests.php",
   "desc": "Paired vs Two-Sample T-Tests - Students explain the key design difference between paired and independent samples, classify two randomized scenarios, and justify why test choice affects conclusions.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-means/q9-anova-interpreting-results.php",
@@ -1528,14 +1706,16 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q1-single-proportion-hypothesis-test.php",
   "desc": "Single Proportion Inference - Students explain what a hypothesis test for a single proportion is trying to answer, provide a real-world example from a randomized context, and describe what the null hypothesis would claim.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q10-difference-of-proportions-interpreting-results.php",
@@ -1544,7 +1724,8 @@
   "used_by": [
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q11-chi-square-gof-interpreting-results.php",
@@ -1553,7 +1734,8 @@
   "used_by": [
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q12-chi-square-independence-interpreting-results.php",
@@ -1562,14 +1744,16 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q13-difference-of-proportions-interpreting-confidence-interval.php",
   "desc": "Difference of Proportions - Interpreting Confidence Interval - Students interpret a confidence interval for the difference between two population proportions in context, explain what the confidence level means, and assess whether the interval suggests a real difference between groups.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q14-full-ht-workflow-context.php",
@@ -1578,7 +1762,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q15-two-prop-vaccine-full-interpretation.php",
@@ -1587,7 +1772,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q16-two-prop-full-workflow.php",
@@ -1596,14 +1782,16 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q2-difference-of-proportions.php",
   "desc": "Difference of Proportions - Students explain the main difference between testing a single proportion and comparing two proportions, and give a real-world example that requires a two-proportion comparison.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q3-chi-square-goodness-of-fit.php",
@@ -1612,42 +1800,48 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q4-chi-square-independence.php",
   "desc": "Chi-Square Independence - Students explain the difference between two variables being connected and one causing the other, then give an example with a third factor that explains the pattern.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q5-when-to-use-each-test.php",
   "desc": "When to Use Each Test - Students read a research scenario and decide whether a single proportion test or a two-proportion test is appropriate, then explain their reasoning and why the other test does not apply.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q6-understanding-statistical-significance.php",
   "desc": "Understanding Statistical Significance - Students interpret a p-value relative to a significance level, make the correct reject or fail-to-reject decision, explain why statistical significance does not prove a hypothesis is true, and describe what the result actually tells us about the evidence.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q7-association-vs-causation.php",
   "desc": "Association vs. Causation - Students explain why an observed association does not prove causation, provide at least two specific alternative explanations for the pattern, and describe what study design would be needed to support a causal claim.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q8-comparing-tests.php",
   "desc": "Comparing Tests - Students explain what a chi-square test of independence and a difference of proportions test each compare in the context of a 2x2 table, then describe why both tests are mathematically equivalent for this type of data.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php",
@@ -1657,42 +1851,48 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q10-z-scores-and-normal-probability.php",
   "desc": "Z-Scores and Normal Probability - Students calculate a z-score for a normally distributed scenario, interpret what it means in context, and determine whether the score would be considered unusual.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q11-empirical-rule.php",
   "desc": "Empirical Rule - Use the 68-95-99.7 rule to determine what percentage of normally distributed values fall within a given range and interpret the result in context.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q12-normal-distribution-and-percentiles.php",
   "desc": "Normal Distribution and Percentiles - Students calculate the score needed to be in the top 10% of a normal distribution using z = 1.28, then determine how many individuals out of a population would be expected to score that high.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q13-identifying-non-normal-distributions.php",
   "desc": "Identifying Non-Normal Distributions - Interpret a Q-Q plot with tail deviations to assess normality and explain what heavy tails indicate.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q14-central-limit-theorem.php",
   "desc": "Central Limit Theorem - Students explain what the CLT predicts about the distribution of sample means from a skewed population, the conditions for it to apply, and why it matters for statistical inference.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/normal-distribution/q15-normal-model-in-context.php",
@@ -1701,7 +1901,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/probability/q1-expected-value-decision.php",
@@ -1710,7 +1911,8 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
@@ -1720,7 +1922,8 @@
    "ch8-regression-final-review-practice",
    "ch8-regression-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q10-interpret-p-value-for-slope-test.php",
@@ -1730,7 +1933,8 @@
    "ch8-regression-practice",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q11-slope-inference-frq-2.php",
@@ -1739,7 +1943,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q12-regression-output-full-interpretation.php",
@@ -1748,7 +1953,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q13-slope-inference-full-interpret.php",
@@ -1757,7 +1963,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q2-interpret-residual-in-context.php",
@@ -1766,7 +1973,8 @@
   "used_by": [
    "ch8-regression-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q3-interpret-correlation-coefficient.php",
@@ -1777,21 +1985,24 @@
    "ch8-regression-group",
    "ch8-regression-test"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q4-predicting-from-regression-equation.php",
   "desc": "Predicting from a Regression Equation - Interpretation - Students plug a randomized x-value into a randomized least-squares regression equation, report the predicted y in context, and explain why the prediction is an estimate rather than an exact value.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q5-least-squares-method-conceptual.php",
   "desc": "Least Squares Method - Conceptual Explanation - Students explain what the least squares regression line is, why it is called \"least squares\" (it minimizes the sum of squared residuals), and why we square the residuals rather than just adding them or taking absolute values.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q6-interpret-slope-and-y-intercept.php",
@@ -1800,21 +2011,24 @@
   "used_by": [
    "ch8-regression-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q7-r-squared-interpretation.php",
   "desc": "R-Squared Interpretation - Students explain what R-squared represents in a linear regression model, interpret a randomized R-squared value in a randomized real-world context, and explain what the unexplained portion (1 - R-squared) tells us.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q8-extrapolation-risk.php",
   "desc": "Extrapolation - Why It's Risky - Students compute a prediction from a regression equation at an x-value far outside the observed data range, identify the prediction as extrapolation, and explain why predictions outside the observed range are unreliable.",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/regression/q9-slope-inference-concept-and-hypotheses.php",
@@ -1825,7 +2039,8 @@
    "ch8-regression-group",
    "ch8-regression-test"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sampling-distributions/q1-sampling-distribution-reasoning.php",
@@ -1834,49 +2049,56 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q1-venn-diagram-reasoning.php",
   "desc": "FRQ: Venn Diagram Reasoning - Draw and interpret a 2-circle Venn diagram from survey data",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q2-permutation-vs-combination.php",
   "desc": "FRQ: Permutation vs Combination - Diagnose whether a counting problem is perm or comb, then compute",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q3-interpreting-conditional-probability.php",
   "desc": "FRQ: Interpreting Conditional Probability - Explain P(A|B) in context and why it is not symmetric",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q4-tree-diagram-counting.php",
   "desc": "FRQ: Tree Diagram and Counting - Build a tree for a 2-stage experiment, list the sample space, compute a simple probability",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q5-twoway-interpretation.php",
   "desc": "FRQ: Two-Way Table Interpretation - Compute marginals and a conditional, then explain in plain English why P(A|B) != P(B|A)",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/sets-counting-probability/q6-perm-vs-comb-explained.php",
   "desc": "FRQ: Explain Permutations vs Combinations - Contrast a perm scenario with a comb scenario, identify each, compute both, explain why \"order matters\" gives different counts",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-a/q1-linear-modeling-justification.php",
@@ -1885,7 +2107,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-a/q2-matrix-vs-substitution-justification.php",
@@ -1894,7 +2117,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-a/q3-lp-setup-justification.php",
@@ -1903,7 +2127,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-b/q1-exp-growth-decay-interpretation.php",
@@ -1912,7 +2137,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-b/q2-compound-vs-simple-interest.php",
@@ -1921,7 +2147,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/frq/test-b/q3-conditional-bayes-interpretation.php",
@@ -1930,7 +2157,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/functions/q1-function-notation-eval.php",
@@ -1939,7 +2167,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/functions/q2-domain-radical-rational.php",
@@ -1948,7 +2177,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/functions/q3-average-rate-of-change.php",
@@ -1957,7 +2187,8 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/functions/q4-function-comprehensive.php",
@@ -1966,14 +2197,16 @@
   "used_by": [
    "cumulative-w1-13-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/inequalities/q1-inequality-properties.php",
   "desc": "Linear Inequality Properties - Identify boundary slope, intercept, line style, and shaded region",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/inequalities/q1-solve-linear-inequality.php",
@@ -1983,21 +2216,24 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/inequalities/q2-check-point-satisfies-system.php",
   "desc": "Check Point Satisfies System of Inequalities - Test ordered pair against two-inequality system",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/inequalities/q2-lp-word-setup.php",
   "desc": "LP Word Problem Setup - Identify objective coefficients and constraint coefficients from a scenario",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/inequalities/q3-check-solution-system.php",
@@ -2006,7 +2242,8 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear/q1-break-even.php",
@@ -2015,7 +2252,8 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear/q2-verify-solution-linear-equation.php",
@@ -2024,7 +2262,8 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear/q3-slope-intercept-from-standard-form.php",
@@ -2033,7 +2272,8 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-functions/q1-slope-from-two-points.php",
@@ -2043,7 +2283,8 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-functions/q2-linear-graph-interpretation.php",
@@ -2053,7 +2294,8 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-functions/q3-modeling-with-linear.php",
@@ -2064,7 +2306,8 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-functions/q4-best-fit-line-concept.php",
@@ -2073,14 +2316,16 @@
   "used_by": [
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q1-simplex-bakery.php",
   "desc": "Simplex Bakery - Maximize bakery profit using the simplex method",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q10-graphical-lp-corner-comprehensive.php",
@@ -2089,21 +2334,24 @@
   "used_by": [
    "cumulative-w1-13-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q2-simplex-woodworker.php",
   "desc": "Simplex Woodworker - Maximize woodworking revenue using the simplex method",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q3-simplex-candle-shop.php",
   "desc": "Simplex Candle Shop - Maximize candle shop profit using the simplex method",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q4-graphical-lp-corner-evaluation.php",
@@ -2113,14 +2361,16 @@
    "test-a-w1-5-group-with-frq",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q4-slack-conversion.php",
   "desc": "Slack Variable Conversion - Convert two LP constraint inequalities to equations with slack variables",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q5-lp-application-identify-formulation.php",
@@ -2130,7 +2380,8 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q6-simplex-coffee-roaster.php",
@@ -2141,7 +2392,8 @@
    "test-b-w6-10-group",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q7-simplex-three-variables.php",
@@ -2151,7 +2403,8 @@
    "test-b-w6-10-group",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q8-simplex-identify-pivot.php",
@@ -2160,7 +2413,8 @@
   "used_by": [
    "test-b-w6-10-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/linear-programming/q9-lp-formulation-factory-mix.php",
@@ -2169,7 +2423,8 @@
   "used_by": [
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-2x2-add-scalar.php",
@@ -2178,21 +2433,24 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-2x2-equation.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-2x2-inverse-equation.php",
   "desc": "Matrix Inverse & Equation (2x2) - Find A^{-1} then solve AX=B using the inverse method",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-2x2-inverse-method-fresh.php",
@@ -2202,35 +2460,40 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-2x2-rref.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-3x3-equation.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-3x3-inverse-equation.php",
   "desc": "Matrix Inverse & Equation (3x3) - Find A^{-1} then solve AX=B using the inverse method",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-3x3-rref.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-3x3-system-fresh.php",
@@ -2241,7 +2504,8 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/matrix/matrix-multiply.php",
@@ -2250,7 +2514,8 @@
   "used_by": [
    "test-a-w1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/normal-distribution/q1-z-score-compute.php",
@@ -2259,7 +2524,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/normal-distribution/q2-normal-probability.php",
@@ -2268,7 +2534,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/normal-distribution/q3-inverse-normal-percentile.php",
@@ -2277,7 +2544,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/normal-distribution/q4-empirical-rule.php",
@@ -2286,7 +2554,8 @@
   "used_by": [
    "wk1-5-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/normal-distribution/q5-normal-probability-context.php",
@@ -2295,7 +2564,8 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/addition-rule-union-probability.php",
@@ -2304,35 +2574,40 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/addition-rule.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/basic-probability.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/conditional-probability.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/identify-conditional-probability-from-wording.php",
@@ -2341,7 +2616,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/interpret-conditional-event-in-words.php",
@@ -2350,7 +2626,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/interpret-joint-event-in-words.php",
@@ -2359,7 +2636,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/interpret-union-event-in-words.php",
@@ -2368,7 +2646,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/multiplication-rule-joint-probability.php",
@@ -2377,7 +2656,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/poll-proportion-complement-and-headcount.php",
@@ -2386,7 +2666,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q1-count-outcomes.php",
@@ -2396,7 +2677,8 @@
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q10-twoway-table-addition.php",
@@ -2405,7 +2687,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q11-identify-conditioning-event.php",
@@ -2414,7 +2697,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q12-three-children-given-first-boy.php",
@@ -2423,7 +2707,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q13-conditional-probability-formula.php",
@@ -2432,7 +2717,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q14-twoway-conditional.php",
@@ -2444,7 +2730,8 @@
    "cumulative-w1-13-ind",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q15-conditional-from-union.php",
@@ -2453,7 +2740,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q16-urn-draw.php",
@@ -2462,7 +2750,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q17-survey-overlap.php",
@@ -2471,7 +2760,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q18-genre-twoway-mutex.php",
@@ -2480,7 +2770,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q19-medical-test-bayes.php",
@@ -2489,7 +2780,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q2-probability-card-draw.php",
@@ -2498,7 +2790,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q20-class-twoway-asymmetry.php",
@@ -2507,7 +2800,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q21-conditional-2x2-with-independence.php",
@@ -2517,7 +2811,8 @@
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q22-expected-value-of-discrete-rv.php",
@@ -2528,7 +2823,8 @@
    "test-b-w6-10-group-with-frq",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q23-addition-rule-formula.php",
@@ -2537,7 +2833,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q24-conditional-dice-reduced-sample-space.php",
@@ -2546,21 +2843,24 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q25-prob-set-ops-dice.php",
   "desc": "Probability of Set Ops on Dice Events - Find P(A union B), P(A intersect B), P(A complement) for two events on a single die",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q26-independence-multiplication-rule.php",
   "desc": "Independence Multiplication Rule - P(A and B), P(A or B), P(neither) for two independent events",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q3-probability-exactly-one-head.php",
@@ -2569,7 +2869,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q4-probability-two-dice-sum.php",
@@ -2578,7 +2879,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q5-three-children-boys.php",
@@ -2587,7 +2889,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q6-set-ops-dice-events.php",
@@ -2597,7 +2900,8 @@
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q7-mutually-exclusive-yesno.php",
@@ -2607,7 +2911,8 @@
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q8-addition-rule-percentages.php",
@@ -2616,7 +2921,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/q9-king-or-heart.php",
@@ -2625,7 +2931,8 @@
   "used_by": [
    "ch8-probability-mixed"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/roulette-bet-types-probabilities.php",
@@ -2634,7 +2941,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/roulette-single-spin-events.php",
@@ -2643,7 +2951,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/survey-two-conditionals-full-workup.php",
@@ -2652,7 +2961,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/test-independence-two-ways.php",
@@ -2661,7 +2971,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/test-mutually-exclusive.php",
@@ -2670,7 +2981,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/unconditional-probability-first-event.php",
@@ -2679,7 +2991,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/unconditional-probability-second-event.php",
@@ -2688,7 +3001,8 @@
   "used_by": [
    "3-3-two-basic-rules-of-probability"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q1-ev-game-of-chance.php",
@@ -2697,7 +3011,8 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q2-ev-insurance.php",
@@ -2706,7 +3021,8 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php",
@@ -2715,7 +3031,8 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q4-ev-discrete-rv.php",
@@ -2724,7 +3041,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php",
@@ -2734,7 +3052,8 @@
    "unit3-ev-chisq-regression-ind",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/quadratic-poly-rational/q1-quadratic-vertex-and-x-intercepts.php",
@@ -2743,7 +3062,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/quadratic-poly-rational/q2-polynomial-end-behavior.php",
@@ -2752,7 +3072,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/quadratic-poly-rational/q3-rational-asymptotes.php",
@@ -2761,7 +3082,8 @@
   "used_by": [
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q1-explanatory-response.php",
@@ -2773,7 +3095,8 @@
    "ch8-regression-practice",
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q10-predict-advertising.php",
@@ -2783,7 +3106,8 @@
    "ch8-regression-practice",
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q11-predict-new-context.php",
@@ -2792,7 +3116,8 @@
   "used_by": [
    "ch8-regression-final-review-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q11-scatter-with-line.php",
@@ -2801,7 +3126,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q12-extrapolation-warning-new.php",
@@ -2810,7 +3136,8 @@
   "used_by": [
    "ch8-regression-final-review-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q12-slope-intercept-context.php",
@@ -2823,7 +3150,8 @@
    "ch8.1-day1",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q13-linear-vs-nonlinear.php",
@@ -2832,7 +3160,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q14-association-explanatory-response-variable-randomiz.php",
@@ -2841,7 +3170,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q15-8-1-identifying-explanatory-and-response-variables.php",
@@ -2850,7 +3180,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q16-chapte-2-predict-response-variable-from-regression.php",
@@ -2859,7 +3190,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q17-4-2-use-a-regression-equation-to-make-predictions-.php",
@@ -2868,7 +3200,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q18-12-3-2-interpret-the-slope-and-y-intercept-of-a-le.php",
@@ -2877,7 +3210,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q2-make-prediction.php",
@@ -2886,7 +3220,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q3-interpret-slope.php",
@@ -2897,7 +3232,9 @@
    "ch8-regression-practice",
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q4-interpret-intercept.php",
@@ -2906,7 +3243,9 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q5-positive-negative.php",
@@ -2915,7 +3254,9 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q6-linear-appropriate.php",
@@ -2924,7 +3265,9 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q7-prediction-and-interpret.php",
@@ -2937,7 +3280,8 @@
    "ch8.1-day1",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/intro/q8-yhat-notation.php",
@@ -2946,7 +3290,9 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q9-two-predictions.php",
@@ -2955,7 +3301,8 @@
   "used_by": [
    "ch8.1-day1"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q1-least-squares-criterion.php",
@@ -2967,7 +3314,9 @@
    "ch8-regression-practice",
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q10-conditions-for-regression.php",
@@ -2976,7 +3325,9 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q11-leverage-vs-influential.php",
@@ -2985,7 +3336,8 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q12-association-vs-causation.php",
@@ -2997,7 +3349,9 @@
    "ch8-regression-practice",
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q13-indicator-variable-interpret.php",
@@ -3006,7 +3360,8 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q14-read-regression-output.php",
@@ -3019,7 +3374,8 @@
    "ch8-regression-test",
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q15-r-squared-interpretation.php",
@@ -3029,7 +3385,8 @@
    "ch8-regression-final-review-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q15-t-from-output.php",
@@ -3038,7 +3395,8 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q16-slope-intercept-interpret-context.php",
@@ -3048,7 +3406,9 @@
    "ch8-regression-final-review-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 24 in Common Control | Caught warning in the question code: Tryi"
  },
  {
   "path": "questions/regression/least-squares/q17-build-equation-from-summary.php",
@@ -3057,7 +3417,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q18-read-regression-output-multipart.php",
@@ -3066,7 +3427,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q19-data-r-r2-pvalue.php",
@@ -3075,7 +3437,8 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q2-sum-squared-residuals-compare.php",
@@ -3084,7 +3447,8 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q3-slope-from-correlation.php",
@@ -3093,7 +3457,9 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q4-intercept-from-means.php",
@@ -3102,7 +3468,9 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q5-full-equation-from-summary.php",
@@ -3116,7 +3484,8 @@
    "ch8.2-fitting-line-least-squares",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q6-line-passes-through-means.php",
@@ -3125,7 +3494,9 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q7-r-squared-interpretation.php",
@@ -3137,7 +3508,9 @@
    "ch8.2-fitting-line-least-squares",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q8-compute-r-squared-from-r.php",
@@ -3146,7 +3519,8 @@
   "used_by": [
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/least-squares/q9-extrapolation-warning.php",
@@ -3158,7 +3532,8 @@
    "ch8-regression-test",
    "ch8.2-fitting-line-least-squares"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/residuals-correlation/q1-compute-residual.php",
@@ -3172,7 +3547,8 @@
    "ch8.1-day2",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/residuals-correlation/q2-residual-sign-interpret.php",
@@ -3181,7 +3557,8 @@
   "used_by": [
    "ch8.1-day2"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php",
@@ -3190,7 +3567,9 @@
   "used_by": [
    "ch8.1-day2"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php",
@@ -3199,7 +3578,9 @@
   "used_by": [
    "ch8.1-day2"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",
@@ -3210,7 +3591,8 @@
    "ch8-regression-practice",
    "ch8.1-day2"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/residuals-correlation/q6-residual-concepts.php",
@@ -3219,7 +3601,9 @@
   "used_by": [
    "ch8.1-day2"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q7-interpret-r-value.php",
@@ -3229,14 +3613,17 @@
    "ch8-regression-final-review-practice",
    "ch8-regression-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/residuals-correlation/q8-estimate-r-from-scatter.php",
   "desc": "Estimate r from a Scatterplot - Pick the correlation that matches a verbal description",
   "qtype": "multiple_choice",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q9-correlation-properties.php",
@@ -3245,7 +3632,8 @@
   "used_by": [
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q1-ci-for-slope.php",
@@ -3259,7 +3647,8 @@
    "ch8.4-inference-slope-regression",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q10-full-regression-workflow-2.php",
@@ -3268,7 +3657,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q10-hypothesis-test-slope-2.php",
@@ -3277,7 +3667,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q10-role-of-inference-new.php",
@@ -3286,7 +3677,8 @@
   "used_by": [
    "ch8-regression-final-review-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",
@@ -3299,7 +3691,8 @@
    "ch8-regression-test",
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q3-ci-interpret-slope.php",
@@ -3308,7 +3701,8 @@
   "used_by": [
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q4-paired-vs-regression.php",
@@ -3317,7 +3711,8 @@
   "used_by": [
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q5-line-conditions.php",
@@ -3328,7 +3723,8 @@
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q6-full-regression-workflow.php",
@@ -3337,7 +3733,8 @@
   "used_by": [
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q7-role-of-inference.php",
@@ -3348,7 +3745,8 @@
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q8-tech-ci-from-output.php",
@@ -3360,7 +3758,8 @@
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/slope-inference/q9-slope-concept-decisions.php",
@@ -3370,28 +3769,33 @@
    "ch8-regression-final-review-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 19 in Common Control | Caught warning in the question code: Tryi"
  },
  {
   "path": "questions/regression/transformations/q1-log-transform-skew.php",
   "desc": "Log Transform for Right-Skewed Residuals - Pick the right transform, then judge its effect",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/transformations/q2-transform-linearity.php",
   "desc": "Log-Log Linearity - Identify a power relationship and read off the exponent",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/regression/transformations/q3-interpret-log-slope.php",
   "desc": "Interpret a Log-Linear Slope - Each unit of x multiplies y by e^slope; percent change",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q1-p-hat-conditions.php",
@@ -3400,7 +3804,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q2-x-bar-conditions.php",
@@ -3409,7 +3814,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q3-p-hat-probability.php",
@@ -3418,7 +3824,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q4-x-bar-probability.php",
@@ -3427,7 +3834,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q5-clt-single-vs-sample.php",
@@ -3437,7 +3845,8 @@
    "ch4-5-foundations-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sampling-distributions/q6-clt-when-applies.php",
@@ -3446,28 +3855,32 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q1-set-notation-months.php",
   "desc": "Set Notation - Cardinality of months starting with a letter",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q10-venn-2circle-total.php",
   "desc": "2-Circle Venn - Find total when every person is in at least one set",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q11-venn-2circle-neither.php",
   "desc": "2-Circle Venn - Find the number who are in neither set",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q12-venn-3circle-streamers.php",
@@ -3476,7 +3889,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q13-demorgan-verification.php",
@@ -3485,7 +3899,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q14-inclusion-exclusion-survey.php",
@@ -3494,7 +3909,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q14-set-ops-union-intersection-compare.php",
@@ -3505,7 +3921,8 @@
    "test-b-w6-10-group-with-frq",
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q15-venn-2circle-exactly-one-and-neither.php",
@@ -3515,7 +3932,8 @@
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q16-venn-2circle-survey-counts.php",
@@ -3524,7 +3942,8 @@
   "used_by": [
    "test-b-w6-13-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q17-venn-2circle-inclusion-exclusion.php",
@@ -3533,7 +3952,8 @@
   "used_by": [
    "cumulative-w1-13-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q2-subsets-two-element.php",
@@ -3542,35 +3962,40 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q3-subsets-count-only.php",
   "desc": "Subsets Count - How many subsets of an n-element set",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q4-union.php",
   "desc": "Union - A union B for two small finite sets",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q5-intersection.php",
   "desc": "Intersection - A intersect B for two small finite sets",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q6-complement.php",
   "desc": "Complement - Complement of A relative to U",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q7-disjoint-not-complement.php",
@@ -3579,7 +4004,8 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q8-mixed-ops-empty.php",
@@ -3588,28 +4014,32 @@
   "used_by": [
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/q9-mixed-ops-union-complement.php",
   "desc": "Mixed Operations - A union complement of (B intersect C)",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/venn-three-set.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/sets/venn-two-set.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q1-when-gof-vs-independence.php",
@@ -3619,7 +4049,8 @@
    "ch6-categorical-inference-practice",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q2-gof-expected-counts.php",
@@ -3629,7 +4060,8 @@
    "ch6-categorical-inference-practice",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q3-gof-test-statistic.php",
@@ -3639,7 +4071,8 @@
    "ch6-categorical-inference-practice",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q4-independence-expected.php",
@@ -3649,7 +4082,8 @@
    "ch6-categorical-inference-practice",
    "wk12-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q5-choose-which-test.php",
@@ -3658,7 +4092,8 @@
   "used_by": [
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q6-gof-full-with-conclusion.php",
@@ -3669,7 +4104,8 @@
    "unit3-ev-chisq-regression-ind",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q7-independence-interpretation.php",
@@ -3679,7 +4115,8 @@
    "ch6-categorical-inference-practice",
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q8-gof-test-statistic-2.php",
@@ -3688,7 +4125,8 @@
   "used_by": [
    "unit3-ev-chisq-regression-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q8-independence-expected-and-interpret.php",
@@ -3697,7 +4135,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/chi-square/q9-gof-full-with-conclusion-2.php",
@@ -3706,7 +4145,8 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/ci-ht-connection/q10-ci-to-test-hypothesis.php",
@@ -3715,7 +4155,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/ci-ht-connection/q11-ci-to-ht-mean.php",
@@ -3724,7 +4165,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php",
@@ -3734,7 +4176,8 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php",
@@ -3744,7 +4187,8 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php",
@@ -3754,7 +4198,8 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php",
@@ -3764,7 +4209,8 @@
    "ch4-5-foundations-practice",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php",
@@ -3774,7 +4220,8 @@
    "ch4-5-foundations-practice",
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q5-ci-proportion-compute-interpret.php",
@@ -3783,7 +4230,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php",
@@ -3793,7 +4241,8 @@
    "cumulative-w1-14-ind",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php",
@@ -3802,7 +4251,8 @@
   "used_by": [
    "ch4-5-foundations-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php",
@@ -3813,7 +4263,8 @@
    "ch6-categorical-inference-practice",
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q12-stat-significance-interpretation.php",
@@ -3824,7 +4275,8 @@
    "final-s2-group",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q13-null-alt-mean-context.php",
@@ -3834,7 +4286,8 @@
    "ch7-numerical-inference-practice",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q14-pvalue-two-scenarios.php",
@@ -3843,7 +4296,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php",
@@ -3852,7 +4306,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q16-full-ht-one-mean-fresh.php",
@@ -3861,7 +4316,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php",
@@ -3870,7 +4326,8 @@
   "used_by": [
    "cumulative-w1-14-ind"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php",
@@ -3881,7 +4338,8 @@
    "ch6-categorical-inference-practice",
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php",
@@ -3891,7 +4349,8 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php",
@@ -3901,7 +4360,8 @@
    "ch4-5-foundations-practice",
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php",
@@ -3911,7 +4371,8 @@
    "ch4-5-foundations-practice",
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php",
@@ -3921,7 +4382,8 @@
    "ch4-5-foundations-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q1-sleep-hours.php",
@@ -3930,7 +4392,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q10-anova-conclusion.php",
@@ -3939,7 +4402,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q12-paired-t-from-summary.php",
@@ -3948,7 +4412,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q13-anova-when-and-conclude.php",
@@ -3957,7 +4422,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q2-reaction-times.php",
@@ -3966,7 +4432,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q3-daily-steps.php",
@@ -3975,7 +4442,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q4-test-statistic-abstract.php",
@@ -3984,7 +4452,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q5-ci-interpretation-mean.php",
@@ -3993,7 +4462,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q6-paired-t-workflow.php",
@@ -4002,7 +4472,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q7-paired-vs-two-sample-choice.php",
@@ -4012,7 +4483,8 @@
    "ch7-numerical-inference-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q8-anova-when-to-use.php",
@@ -4021,7 +4493,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/inference-for-means/q9-anova-summary-table.php",
@@ -4031,7 +4504,8 @@
    "ch7-numerical-inference-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q11-two-prop-test-cholesterol.php",
@@ -4041,7 +4515,8 @@
    "ch6-categorical-inference-practice",
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q12-two-prop-test-health-field.php",
@@ -4050,7 +4525,8 @@
   "used_by": [
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q13-two-sample-means-energy-drinks.php",
@@ -4059,7 +4535,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q14-interpret-ci-two-means.php",
@@ -4068,7 +4545,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q15-distracted-eating.php",
@@ -4077,7 +4555,8 @@
   "used_by": [
    "ch6-categorical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q16-ci-diff-two-proportions.php",
@@ -4087,7 +4566,8 @@
    "ch6-categorical-inference-practice",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php",
@@ -4098,7 +4578,8 @@
    "cumulative-w1-14-ind",
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q18-two-mean-full-workflow.php",
@@ -4107,7 +4588,8 @@
   "used_by": [
    "ch7-numerical-inference-practice"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q19-two-prop-ci-compute-interpret.php",
@@ -4116,7 +4598,8 @@
   "used_by": [
    "final-s2-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/stats-tests/two-sample-inference/q20-two-prop-full-ht-fresh.php",
@@ -4125,7 +4608,8 @@
   "used_by": [
    "wk7-14-group"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/systems/q1-system-2-equations-algebraic.php",
@@ -4135,384 +4619,440 @@
    "test-a-w1-5-group",
    "test-a-w1-5-group-with-frq"
   ],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/angle-degrees-and-radians-from-point.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/arc-length-from-terminal-point.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/arc-length-to-angle-measure.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-features-from-graph-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-features-from-graph-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-features-from-graph-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-features-from-graph-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-max-min-midline-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-max-min-midline-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-max-min-midline-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/cosine-max-min-midline-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/coterminal-angles.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/define-sine-y-coordinate.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/degree-radian-sine-values.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/graph-sine-find-values.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-cosine-from-equation-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-cosine-from-equation-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-cosine-from-equation-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-cosine-from-equation-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-sine-from-equation-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-sine-from-equation-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-sine-from-equation-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/identify-sine-from-equation-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/key-features-of-sine-parent.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/match-sine-equation-to-graph.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/quadrant-from-terminal-point.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/reference-angle-from-point.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-features-from-graph-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-features-from-graph-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-features-from-graph-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-features-from-graph-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-from-unit-circle.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-graph-from-equation.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-graph-key-points.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-graph-match-equation.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-graph-period-amplitude.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-max-min-midline-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-max-min-midline-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-max-min-midline-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-max-min-midline-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-of-special-angles.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-reference-angle-values.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/sine-sign-by-quadrant.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/trig/sine-transformation-anchor-table.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/terminal-point-from-arc-length.php",
   "desc": "",
   "qtype": "?",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/terminal-point-non-unit-circle.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-cosine-equation-from-description-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-cosine-equation-from-description-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-cosine-equation-from-description-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-cosine-equation-from-description-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-sine-equation-from-description-advanced.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-sine-equation-from-description-easy.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-sine-equation-from-description-hard.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  },
  {
   "path": "questions/trig/write-sine-equation-from-description-medium.php",
   "desc": "",
   "qtype": "multipart",
   "used_by": [],
-  "qsetid": null
+  "qsetid": null,
+  "health": "ok"
  }
 ]
