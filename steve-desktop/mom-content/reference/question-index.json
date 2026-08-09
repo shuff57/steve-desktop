@@ -374,6 +374,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/class-rank-to-percentile.php",
+  "desc": "Turn a Class Rank into a Percentile - Convert two graduating ranks into percentiles, noticing that rank counts down from the top while percentile counts up from the bottom, then read what the percentile says about the class",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/classify-measurement-scale.php",
   "desc": "Classify Measurement Scale - Determine whether each item is measured on a nominal, ordinal, interval, or ratio scale",
   "qtype": "multipart",
@@ -509,6 +519,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/find-a-percentile-from-a-list.php",
+  "desc": "Find a Percentile from an Ordered List - Locate two percentiles in a sorted data set using i = (k/100)(n+1), once where the position lands on a whole number and once where it falls between two values, then say what the percentile means",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php",
   "desc": "Find the Wrong Percentage in a Category Table - A published table gives counts beside percentages, but one percentage does not match its count; find the row, compute what it should be, and state what the column must total",
   "qtype": "multipart",
@@ -610,6 +630,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/interpret-a-percentile-in-context.php",
+  "desc": "Is a High Percentile Good News - Decide whether a high or a low percentile is the desirable one in two situations that pull opposite ways, then pick the sentence that interprets a stated percentile correctly",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php",
   "desc": "Rounding Rule and Interval-Scale Ratio Claims - Compute the mean of several temperature readings using the correct rounding rule, then explain why a \"twice as hot\" ratio claim is invalid for interval-scale data",
   "qtype": "multipart",
@@ -679,6 +709,16 @@
   ],
   "qsetid": "1873380",
   "health": "ok"
+ },
+ {
+  "path": "questions/descriptive-stats/percentile-of-a-given-value.php",
+  "desc": "Find the Percentile of a Given Value - Work the percentile formula in reverse with (x + 0.5y)/n times 100, counting the values below and the values equal to the one named, including a value that appears more than once",
+  "qtype": "multipart",
+  "used_by": [
+   "2-3-measures-of-the-location-of-the-data"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php",
@@ -793,6 +833,7 @@
   "desc": "Mean, Median, IQR, and Range from a Small Data Set - Compute four summary statistics from a randomized list of 9 values",
   "qtype": "multipart",
   "used_by": [
+   "2-3-measures-of-the-location-of-the-data",
    "wk1-5-group"
   ],
   "qsetid": null,
@@ -1226,6 +1267,7 @@
   "desc": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences",
   "qtype": "multipart",
   "used_by": [
+   "2-3-measures-of-the-location-of-the-data",
    "wk1-5-group"
   ],
   "qsetid": null,

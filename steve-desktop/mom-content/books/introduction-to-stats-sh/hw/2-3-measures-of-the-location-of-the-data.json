@@ -1,0 +1,16 @@
+{
+  "name": "2.3 Measures of the Location of the Data",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "2-3-measures-of-the-location-of-the-data",
+  "created_at": "2026-08-09",
+  "_note": "In progress -- 6 of a planned 15, not pushed. The reuse search came back nearly empty for this section: the bank's only percentile questions are inverse-normal ones from chapter 6, so problems 1-11 had no coverage at all and are being written fresh. Slots 5 and 6 are reused. Eight of the section's nineteen problems ask for a sentence interpreting a percentile; homework carries no free response, so those become a choice between the right interpretation and the plausible wrong ones. Still to write: quartiles and percentiles read off a frequency table (P12-P17), the median-age reasoning (P18), the relative frequency table (P19), a five-number summary built in raSHio, and a question separating a percentile from a percent score.",
+  "questions": [
+    { "slot": 1, "file_path": "questions/descriptive-stats/find-a-percentile-from-a-list.php", "title": "Find a Percentile from an Ordered List - Locate two percentiles in a sorted data set using i = (k/100)(n+1), once where the position lands on a whole number and once where it falls between two values, then say what the percentile means" },
+    { "slot": 2, "file_path": "questions/descriptive-stats/percentile-of-a-given-value.php", "title": "Find the Percentile of a Given Value - Work the percentile formula in reverse with (x + 0.5y)/n times 100, counting the values below and the values equal to the one named, including a value that appears more than once" },
+    { "slot": 3, "file_path": "questions/descriptive-stats/class-rank-to-percentile.php", "title": "Turn a Class Rank into a Percentile - Convert two graduating ranks into percentiles, noticing that rank counts down from the top while percentile counts up from the bottom, then read what the percentile says about the class" },
+    { "slot": 4, "file_path": "questions/descriptive-stats/interpret-a-percentile-in-context.php", "title": "Is a High Percentile Good News - Decide whether a high or a low percentile is the desirable one in two situations that pull opposite ways, then pick the sentence that interprets a stated percentile correctly" },
+    { "slot": 5, "file_path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php", "title": "Mean, Median, IQR, and Range from a Small Data Set - Compute four summary statistics from a randomized list of 9 values", "reused": true },
+    { "slot": 6, "file_path": "questions/displays/q3-boxplot-five-number.php", "title": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences", "reused": true }
+  ]
+}

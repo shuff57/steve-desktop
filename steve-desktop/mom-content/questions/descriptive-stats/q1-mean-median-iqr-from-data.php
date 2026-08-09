@@ -56,7 +56,7 @@ $solutionguide = '
       <p>Sorted data: ' . $dataStr . ' (`n = 9`).</p>
       <p><b>Mean:</b> sum / 9 &approx; ' . $mean . '.</p>
       <p><b>Median:</b> middle (5th) value = ' . $median . '.</p>
-      <p><b>Q_1, Q_3:</b> medians of the lower and upper halves of 4 values each — `Q_1 = ' . $q1 . ', Q_3 = ' . $q3 . '`.</p>
+      <p><b>Q_1, Q_3:</b> medians of the lower and upper halves of 4 values each &mdash; `Q_1 = ' . $q1 . ', Q_3 = ' . $q3 . '`.</p>
       <p><b>IQR:</b> `Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ' . $iqr . '`.</p>
       <p><b>Range:</b> max - min = ' . $range . '.</p>
     </div>

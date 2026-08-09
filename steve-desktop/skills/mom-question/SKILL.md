@@ -170,6 +170,18 @@ Three outcomes, in order of preference:
 - **Write a new one.** Only when nothing covers it. Say in the brief what you searched for and
   what came back, so the gap is on the record.
 
+**Which family to search depends on the manifest's `kind`.** The `frq/` family is free response, and
+free response is fine everywhere except homework:
+
+| `kind` | Free response | Search `frq/` |
+|---|---|---|
+| `hw` | No — Steve will not hand-review homework | Skip it; a match there is a false lead |
+| lab, practice test, `group`, `ind` | Yes, that is what it is for | Look there first |
+
+So a question like `frq/descriptive-statistics/q8-five-number-summary-and-outliers.php` is the wrong
+answer for a homework slot and the right one for a lab or a group test. Check `kind` before judging
+a candidate, not after writing a replacement for it.
+
 Rebuild the index after adding questions, so the next run sees them.
 
 **If nothing in the bank and nothing in `reference/` covers it, stop and ask Steve.** Say what you
