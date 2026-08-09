@@ -17,8 +17,8 @@ else {
   $unitWord = "pages"
 }
 
-// The four section widths are 10, 20, 30 and 40 in a rotated order, so every one of the five
-// numbers is a multiple of ten and lands exactly on a labeled tick, and the four widths are
+// The four section widths are 2, 4, 6 and 8 in a rotated order, so every one of the five
+// numbers is EVEN and lands exactly on a labeled tick of the step-2 axis, and the four widths are
 // guaranteed distinct by construction -- "smallest" and "widest" each have exactly one answer,
 // never a tie decided by luck of the seed.
 $wid = array(2, 4, 6, 8)
@@ -55,9 +55,16 @@ if ($smallestIdx == 1) { $aLo = $q1; $aHi = $med }
 if ($smallestIdx == 2) { $aLo = $med; $aHi = $q3 }
 if ($smallestIdx == 3) { $aLo = $q3; $aHi = $maxV }
 
-// Boundaries of the widest quarter -- Interval B is trimmed ten off ONE side of it, so it sits
-// strictly inside a single quarter rather than spanning the whole thing, and it is still wider
-// on the page than Interval A even though it holds no more than one quarter's worth of data.
+// Boundaries of the widest quarter -- Interval B is trimmed ONE TICK off one side of it, so it
+// sits strictly inside a single quarter rather than spanning the whole thing, and it is still
+// wider on the page than Interval A even though it holds no more than one quarter's worth of data.
+//
+// The trim MUST stay smaller than the narrowest possible widest-quarter. It was 10, left behind
+// when the widths were shrunk from 10/20/30/40 to 2/4/6/8 for the step-2 axis: trimming 10 off a
+// quarter only 8 wide pushed Interval B past the far end and printed it BACKWARDS -- live seed
+// 2026-08-09 read "from 24 to 22", above a maximum of 22. It rendered clean and graded correct,
+// because part (d)'s answer does not depend on B's endpoints. Same shape as the $nTicks/$val trap:
+// a rescale that moved one constant and left its partner behind.
 $bQLo = $minV
 $bQHi = $q1
 if ($widestIdx == 1) { $bQLo = $q1; $bQHi = $med }
@@ -67,8 +74,8 @@ if ($widestIdx == 3) { $bQLo = $q3; $bQHi = $maxV }
 $trimSide = rand(0, 1)
 $bLo = $bQLo
 $bHi = $bQHi
-if ($trimSide == 0) { $bLo = $bQLo + 10 }
-else { $bHi = $bQHi - 10 }
+if ($trimSide == 0) { $bLo = $bQLo + 2 }
+else { $bHi = $bQHi - 2 }
 
 $axisMax = $maxV + 2
 $rem = $axisMax % 4
@@ -161,7 +168,7 @@ $solutionguide = '
       <p><span class="term-label">What the five marks are.</span> Reading left to right: the left whisker end is the smallest value (' . $minV . '), the left edge of the box is `Q_1` (' . $q1 . '), the heavy line inside the box is the median (' . $med . '), the right edge is `Q_3` (' . $q3 . ') and the right whisker end is the largest value (' . $maxV . '). The four gaps between consecutive marks are ' . $w1 . ', ' . $w2 . ', ' . $w3 . ' and ' . $w4 . ' ' . $unitWord . ' wide, and each one holds exactly a quarter of the data no matter how wide it is drawn.</p>
       <p><span class="term-label">Parts (a) and (b) &mdash; the smallest spread.</span> The narrowest of the four gaps is <b>' . $smallestName . '</b>, ' . $wMin . ' ' . $unitWord . ' wide. A narrow gap means that quarter of the data is bunched close together, not that it holds fewer values &mdash; every quarter still holds the same 25%.</p>
       <p><span class="term-label">Part (c) &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '. That is the width of the box, and it is the span of the middle half of the data.</p>
-      <p><span class="term-label">Part (d) &mdash; comparing two intervals.</span> The interval from ' . $aLo . ' to ' . $aHi . ' is all of ' . $smallestName . ', so it is guaranteed to hold exactly 25% of the data. The interval from ' . $bLo . ' to ' . $bHi . ' lies entirely inside ' . $widestName . ' &mdash; it does not reach either end of that quarter &mdash; so it can hold at most 25%, and probably less, even though it is drawn wider on the page. Width on a box plot tells you how spread out a quarter is, not how many values it holds. So the first interval, ' . $aLo . ' to ' . $aHi . ', is the one guaranteed to hold more.</p>
+      <p><span class="term-label">Part (d) &mdash; comparing two intervals.</span> The interval from ' . $aLo . ' to ' . $aHi . ' is all of ' . $smallestName . ', so it is guaranteed to hold exactly 25% of the data. The interval from ' . $bLo . ' to ' . $bHi . ' lies inside ' . $widestName . ' without covering all of it &mdash; it stops short at one end &mdash; so it holds less than that quarter's 25%, even though it is drawn wider on the page. Width on a box plot tells you how spread out a quarter is, not how many values it holds. So the first interval, ' . $aLo . ' to ' . $aHi . ', is the one guaranteed to hold more.</p>
       <p><b>Answer:</b> (a) ' . $smallestName . ' &nbsp;&nbsp; (b) ' . $wMin . ' &nbsp;&nbsp; (c) ' . $iqr . '</p>
     </div>
   </details>

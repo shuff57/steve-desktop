@@ -5,12 +5,17 @@
 
 $anstypes = array("number", "number", "choices", "choices")
 
+// Both contexts are SMALL-MAGNITUDE on purpose. A context whose natural unit is large -- monthly
+// rent in dollars was the original first option, at $scaleUp = 10 -- forces the tick step up with
+// it ($tickStep = 2 * $scaleUp), and a box plot the student reads five values off must keep a tick
+// every 2. When a context and a readable axis conflict, the context is what gives: there is nothing
+// about this question that needs to be about rent. Steve's rule, 2026-08-09.
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $intro = "A letting agency drew a box plot of the monthly rents, in dollars, of the flats on its books."
-  $axisName = "Monthly rent in dollars"
-  $unitWord = "dollars"
-  $scaleUp = 10
+  $intro = "A repair shop drew a box plot of the number of minutes each service call took."
+  $axisName = "Service call length in minutes"
+  $unitWord = "minutes"
+  $scaleUp = 1
 }
 else {
   $intro = "A hospital drew a box plot of the number of minutes patients waited before being seen."

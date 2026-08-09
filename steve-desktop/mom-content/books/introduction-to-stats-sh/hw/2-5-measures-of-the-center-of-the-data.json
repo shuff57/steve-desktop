@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "2-5-measures-of-the-center-of-the-data",
   "created_at": "2026-08-09",
-  "_note": "In progress -- 5 of a planned 12, not pushed. The distinctive skill here is estimating a mean from a GROUPED table using class midpoints, which nothing in the bank covered; class boundaries are constrained so no seed produces a recurring midpoint. Three slots are reused. Still to write: a weighted mean, the mean of a sample against the mean of a population, and more practice separating the three measures of centre.",
+  "_note": "In progress -- 5 of a planned 12, not pushed. The distinctive skill here is estimating a mean from a GROUPED table using class midpoints, which nothing in the bank covered; class boundaries are constrained so no seed produces a recurring midpoint. Three slots are reused. Still to write: a weighted mean, the mean of a sample against the mean of a population, and more practice separating the three measures of center.",
   "questions": [
     { "slot": 1, "file_path": "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php", "title": "Mean from a Grouped Frequency Table - Estimate the mean of data grouped into class intervals using class midpoints, and identify why the result is an estimate" },
     { "slot": 2, "file_path": "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php", "title": "Mean, Median and Mode from a Frequency Table - Compute the sample mean, median and mode from a frequency table, then identify which measure resists an added extreme value" },

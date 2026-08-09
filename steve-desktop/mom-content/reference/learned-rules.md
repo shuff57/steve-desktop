@@ -91,3 +91,25 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
 - **A clean render and a correct key together still miss this.** The question graded correct for a
   student who used the intended route; only entering the answer the OTHER stated route produces
   exposed it. When a question offers two routes to one number, submit BOTH.
+
+## Rescaling a generator moves more than the data (2026-08-09, proved live in course 334437)
+
+- **When you shrink a question's value scale, every constant derived from the old scale has to move
+  with it -- and the leftovers do not announce themselves.** `spread-within-each-quarter-of-a-box-plot`
+  had its section widths shrunk from 10/20/30/40 to 2/4/6/8 so the axis could carry a tick every 2.
+  One constant stayed behind: part (d)'s second interval is built by trimming a fixed amount off one
+  end of the widest quarter, and that trim was still `10`. The widest quarter is now 8 wide, so the
+  trim overshot the far end and the interval printed **backwards** -- "from 24 to 22", above a
+  maximum of 22.
+- **It rendered clean, and it graded correct.** Part (d)'s answer does not depend on that interval's
+  endpoints, so every automated check passed it: no `Eeek`, no missing widget, full marks on submit.
+  It was visible only by reading the question the way a student would.
+- Sister case already in this file: `$nTicks` and `$val` in the box-plot template. Same shape --
+  two constants encode one scale, and moving one silently leaves the other wrong. **After any
+  rescale, grep the file for the old magnitude** (`10`, `20`, ...) before calling it done.
+- **Where a context and a readable axis conflict, change the context.** `median-is-not-the-center-of-the-box`
+  offered "monthly rent in dollars" at `$scaleUp = 10`, which dragged the tick step to 20. Nothing
+  about the question needs to be about rent, so the context was replaced with a small-unit one.
+  The exceptions are constructions that genuinely force a wide range -- 1.5*IQR fences reach far
+  past the box, and three groups share one axis -- and there a step of 10 with every plotted value
+  landing on a labeled tick is the honest answer, not a step of 2 with seventy labels.

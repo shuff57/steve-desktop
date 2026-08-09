@@ -567,5 +567,71 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/read-a-box-plot.php": {
+  "qsetid": "1874141",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/median-is-not-the-center-of-the-box.php": {
+  "qsetid": "1874142",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/spread-within-each-quarter-of-a-box-plot.php": {
+  "qsetid": "1874143",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/outlier-check-from-a-box-plot.php": {
+  "qsetid": "1874144",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/what-a-box-plot-does-not-show.php": {
+  "qsetid": "1874145",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/compare-three-box-plots.php": {
+  "qsetid": "1874146",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/box-plot-from-a-frequency-table.php": {
+  "qsetid": "1874147",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/box-plot-and-histogram-of-the-same-data.php": {
+  "qsetid": "1874148",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/displays/q4-boxplot-outliers-context.php": {
+  "qsetid": "1874149",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/five-number-summary-from-unsorted-data.php": {
+  "qsetid": "1874150",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/build-the-five-number-summary.php": {
+  "qsetid": "1874151",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }

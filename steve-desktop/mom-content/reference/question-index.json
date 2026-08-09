@@ -776,8 +776,8 @@
   "health": "unchecked"
  },
  {
-  "path": "questions/descriptive-stats/median-is-not-the-centre-of-the-box.php",
-  "desc": "Where the Median Sits Inside the Box - A box plot whose median line is well off centre; read it, compare the two halves of the middle fifty percent, and say what an off-centre median reveals about the shape of the data",
+  "path": "questions/descriptive-stats/median-is-not-the-center-of-the-box.php",
+  "desc": "Where the Median Sits Inside the Box - A box plot whose median line is well off center; read it, compare the two halves of the middle fifty percent, and say what an off-center median reveals about the shape of the data",
   "qtype": "multipart",
   "used_by": [
    "2-4-box-plots"

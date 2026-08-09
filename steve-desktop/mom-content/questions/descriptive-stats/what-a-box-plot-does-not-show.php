@@ -7,8 +7,8 @@ $anstypes = array("choices", "choices", "choices")
 
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $intro = "Data 1 is the study time, in minutes per day, logged by a sample of students in an early-morning study group. Data 2 is the study time logged by a much larger sample of students in a self-paced online section."
-  $axisName = "Study time in minutes per day"
+  $intro = "Data 1 is the number of minutes each student in an early-morning study group spent on one practice set. Data 2 is the number of minutes spent by a much larger sample of students in a self-paced online section."
+  $axisName = "Time on one practice set, in minutes"
   $unitWord = "minutes"
   $n1 = 40
   $n2 = 200
@@ -23,27 +23,30 @@ else {
 
 // Both datasets share the same overall minimum and maximum, so both whiskers start and end at the
 // same two points on the axis. Only the boxes differ.
+// The axis runs 0..20 with a tick every 2, not 0..100 with a tick every 10. A student reads five
+// values per plot off this axis, so the tick step has to stay at 2; the data is shrunk to fit the
+// fine scale rather than the scale coarsened to fit the data. Steve's rule, 2026-08-09.
 $minV = 0
-$maxV = 100
+$maxV = 20
 
-// Data 1's box is wide -- its width (Q3 - Q1) is always at least 50, more than double Data 2's
-// fixed width of 20. $q1_1 and $med1 vary independently but always keep $minV < $q1_1 < $med1 <
-// $q3_1 < $maxV, and every value stays a multiple of ten.
-$q1_1 = 10 + 10 * rand(0, 1)
-$q3_1 = 70 + 10 * rand(0, 1)
-$med1 = 40 + 10 * rand(0, 1)
+// Data 1's box is wide -- its width (Q3 - Q1) is always at least 10, more than double Data 2's
+// fixed width of 4. $q1_1 and $med1 vary independently but always keep $minV < $q1_1 < $med1 <
+// $q3_1 < $maxV, and every value stays EVEN so it lands on a labeled tick.
+$q1_1 = 2 + 2 * rand(0, 1)
+$q3_1 = 14 + 2 * rand(0, 1)
+$med1 = 8 + 2 * rand(0, 1)
 
 // Data 2's box is fixed and narrow, centered lower than Data 1's box.
-$q1_2 = 20
-$q3_2 = 40
-$med2 = 30
+$q1_2 = 4
+$q3_2 = 8
+$med2 = 6
 
 // The number named in part (a). By construction it always sits strictly inside both boxes: it is
-// above both $q1_1 (at most 20) and $q1_2 (20), and below both $q3_1 (at least 70) and $q3_2 (40)
+// above both $q1_1 (at most 4) and $q1_2 (4), and below both $q3_1 (at least 14) and $q3_2 (8)
 // -- so the plots can never separate the two groups on this value.
-$statedX = 30
+$statedX = 6
 
-// Plot geometry: shared axis runs from x=105 to x=500, range 0..100.
+// Plot geometry: shared axis runs from x=105 to x=500, range 0..20.
 $xStart = 105
 $xEnd = 500
 $span = $xEnd - $xStart
@@ -66,7 +69,7 @@ $xStated = round($xStart + $statedX * $span / $axisMax, 2)
 
 $ticks = ""
 for ($g=0..10) {
-  $val = 10 * $g
+  $val = 2 * $g
   $tx = round($xStart + $val * $span / $axisMax, 2)
   $ticks = $ticks . '<line x1="' . $tx . '" y1="160" x2="' . $tx . '" y2="166" stroke="#374151" stroke-width="1"/>'
   $ticks = $ticks . '<line x1="' . $tx . '" y1="16" x2="' . $tx . '" y2="160" stroke="#eef2f7" stroke-width="1"/>'
