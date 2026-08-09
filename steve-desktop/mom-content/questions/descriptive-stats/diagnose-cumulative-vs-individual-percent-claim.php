@@ -119,7 +119,7 @@ $solutionguide = '
     $tableHtml
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">$source summarized the survey with this claim:</p>
+    <p style="margin:0;">The survey was summarized in $source with this claim:</p>
     <p style="margin:10px 0 0 0; font-style:italic; padding:10px 14px; background:#f6f8fc; border-radius:8px; border:1px solid #e5e7eb;">&ldquo;$statedPct% of $who reported a value of exactly $rowLabelTarget $unitText.&rdquo;</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

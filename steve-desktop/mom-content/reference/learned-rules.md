@@ -69,3 +69,25 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
 - **A tick step of 2 is only readable if the DATA is small.** Forcing step 2 onto an axis that runs
   to 140 needs seventy labels. Shrink the generated values instead (widths of 2/4/6/8 rather than
   10/20/30/40) so the fine scale fits; the five-number values stay even and keep landing on ticks.
+
+## Rounding a table the student then adds up (2026-08-09, proved live in course 334437)
+
+- **If a question asks the student to ADD UP a displayed column, the displayed values must be
+  exact.** `percent-more-than-cutoff-via-complement` drew six independent frequencies, so the total
+  was whatever it happened to be (59 on the seed that caught it). The key was computed from exact
+  fractions with `abstolerance 0.05`, but the table showed relative frequencies rounded to three
+  decimals. Part (a) asked for `1 - cumulative` and part (b) asked the student to add the rows above
+  the cutoff instead, promising "It should match part (a) exactly":
+
+  | route | what the student computes | result |
+  |---|---|---|
+  | (a) complement | `1 - 0.780` | 22.0 -- accepted |
+  | (b) add the rows | `0.119 + 0.102` | 22.1 -- **rejected**, off by 0.066 |
+
+  The fix is not a wider tolerance, which hides the contradiction. **Choose N first, from totals
+  whose reciprocals terminate inside the displayed precision (40, 50, 100 for three decimals), then
+  deal the observations out to sum to it.** The displayed column then IS the true column and adding
+  it up cannot drift. Same shape as the `$cnt` deal-out in `build-the-grouped-frequency-table`.
+- **A clean render and a correct key together still miss this.** The question graded correct for a
+  student who used the intended route; only entering the answer the OTHER stated route produces
+  exposed it. When a question offers two routes to one number, submit BOTH.

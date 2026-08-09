@@ -531,5 +531,41 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/frequency-columns-what-they-sum-to.php": {
+  "qsetid": "1874131",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/displays/q2-histogram-relative-frequency.php": {
+  "qsetid": "1874132",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/histogram-bin-width-comparison.php": {
+  "qsetid": "1874133",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/compare-two-relative-frequency-histograms.php": {
+  "qsetid": "1874134",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/histogram-classes-and-shape-from-data.php": {
+  "qsetid": "1874135",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/build-the-grouped-frequency-table.php": {
+  "qsetid": "1874136",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }

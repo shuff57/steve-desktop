@@ -23,15 +23,34 @@ $colHeader = $colHeaderList[$ctxIdx]
 $surveyor = $surveyorList[$ctxIdx]
 $activity = $activityList[$ctxIdx]
 
-$f0 = rand(4, 9)
-$f1 = rand(9, 18)
-$f2 = rand(11, 20)
-$f3 = rand(7, 15)
-$f4 = rand(4, 10)
-$f5 = rand(2, 6)
-$freq = array($f0, $f1, $f2, $f3, $f4, $f5)
+// N is CHOSEN FIRST, from totals whose reciprocals terminate within three decimals, and the
+// observations are dealt out to sum to it. Drawing six independent counts instead let N be
+// anything, and then the two routes part (a) and part (b) ask for disagreed:
+//
+//   part (a) 1 - cumulative      -> exact, e.g. 13/59 = 22.0339% -> 22.0
+//   part (b) add the rows above  -> the student adds the DISPLAYED 0.119 + 0.102 = 0.221 -> 22.1
+//
+// and 22.1 fell outside abstolerance 0.05, so a student who did exactly what part (b) instructs
+// was marked wrong -- on the very part that promises "It should match part (a) exactly". Live in
+// MyOpenMath, 2026-08-09. With 1/N exact to three decimals the displayed column is the true
+// column, and adding it up cannot drift.
+$Nchoices = array(40, 50, 100)
+$N = $Nchoices[rand(0, 2)]
+
+$freq = array(2, 2, 2, 2, 2, 2)
+$spare = $N - 12
+$spareLast = $spare - 1
+for ($k=0..$spareLast) {
+  $cls = rand(0, 5)
+  $freq[$cls] = $freq[$cls] + 1
+}
+$f0 = $freq[0]
+$f1 = $freq[1]
+$f2 = $freq[2]
+$f3 = $freq[3]
+$f4 = $freq[4]
+$f5 = $freq[5]
 $vals = array(0, 1, 2, 3, 4, 5)
-$N = $f0 + $f1 + $f2 + $f3 + $f4 + $f5
 
 $cutoffIdx = rand(1, 3)
 $cutoffVal = $vals[$cutoffIdx]
