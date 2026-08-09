@@ -46,3 +46,4 @@ Thumbs.db
 
 # Local capture artifacts (upstream demo clips, run recordings)
 *.mp4
+graphify-out/
