@@ -34,6 +34,7 @@
     { "slot": 25, "file_path": "questions/descriptive-stats/volunteer-sample-self-selection.php", "qid": "1873360", "title": "Are Volunteers a Reliable Sample - judge a sample that is large enough but self-selected, and name self-selection as the flaw" },
     { "slot": 26, "file_path": "questions/descriptive-stats/leading-survey-question-fairness.php", "qid": "1873361", "title": "Is the Survey Question Fair - spot a leading question that praises one option and not the other, and state the neutral rewrite" },
     { "slot": 27, "file_path": "questions/descriptive-stats/tiny-sample-representativeness.php", "qid": "1873362", "title": "Is a Tiny Sample Representative - judge a sample that is a large FRACTION of a small population but too few responses to support any conclusion" },
-    { "slot": 28, "file_path": "questions/descriptive-stats/two-well-run-experiments-differ.php", "qid": "1873363", "title": "Can Two Well-Run Experiments Differ - recognise sampling variability as the reason two sound studies of the same population disagree" }
+    { "slot": 28, "file_path": "questions/descriptive-stats/two-well-run-experiments-differ.php", "qid": "1873363", "title": "Can Two Well-Run Experiments Differ - recognise sampling variability as the reason two sound studies of the same population disagree" },
+    { "slot": 29, "file_path": "questions/descriptive-stats/pre-frq-grade-a-sampling-critique.php", "title": "Pre-FRQ Grade a Sampling Design Critique - The scenario and grading checklist of the sampling-critique FRQ, but the student grades four sample responses against the rubric instead of writing one" }
   ]
 }
