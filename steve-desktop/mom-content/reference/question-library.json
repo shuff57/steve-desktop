@@ -507,5 +507,23 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/build-a-stemplot-fill-in-the-blanks.php": {
+  "qsetid": "1874074",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/draw-a-line-graph-from-a-frequency-table.php": {
+  "qsetid": "1874075",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "draw"
+ },
+ "questions/descriptive-stats/pre-frq-judge-a-distribution-comparison.php": {
+  "qsetid": "1874076",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
