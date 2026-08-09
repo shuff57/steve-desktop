@@ -337,3 +337,18 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   to an id that exists in THAT course, so a master course needs its categories created before any
   assessment can be filed under one. `gbsettings.php?cid=` -> `addcat()` per row, name them, Save
   Changes; the ids come back in the field names (`name[798368]`). A course copy carries them along.
+- **Setting the per-question points fields one at a time saves only the FIRST one.**
+  `addquestions2.php` saves points through `updatePts()` -> `submitChanges()`, and `submitChanges`
+  opens with `if (inTransit) { return; }`. A loop that sets `#pts-N` and calls `updatePts()` on each
+  pass therefore fires one real AJAX save -- carrying only the value set so far -- and every later
+  call is dropped on the floor with no error. The read-back is unmistakable once you look:
+  `[5,1,1,1,1,...]` where 16 values were sent. **Set every `#pts-N` first, then call `updatePts()`
+  exactly once**, then wait for `inTransit` to clear before navigating -- `updatePts()` also takes
+  no argument and iterates all the fields itself, so per-field calls were never right.
+- **Always read the points back from a fresh page load.** The save is asynchronous and navigating too
+  early drops it; a stale in-page read shows the values you typed rather than the values stored. The
+  sum has to come back exactly 100.
+- **The attach script's "N distinct qsetids on the assessment" line is not the attached list.** It
+  scrapes every `qsetid=` in the page HTML, which on `addquestions2.php` includes the whole library
+  browser -- it reported 200 for a 16-question assignment. The attached list is
+  `input[name="curq[]"]`, in order.
