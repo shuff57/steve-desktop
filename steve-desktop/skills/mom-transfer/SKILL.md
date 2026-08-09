@@ -298,6 +298,31 @@ re-serialising them rewrites every line. `setQuestionQid` in
 `src/integrations/mom/book-membership.ts` does exactly this, and refuses to write anything that does
 not parse. Verify the result parses before saving.
 
+### Then sync the bank index — this is not optional
+
+```bash
+bun mom-content/reference/sync-index.ts            # rewrite it
+bun mom-content/reference/sync-index.ts --check    # exit 1 if stale, change nothing
+```
+
+`question-index.json` is the file **step 2 consults to decide whether a question needs filing at
+all**, and nothing in `src/` writes it — `recordFiled` in `question-library.ts` has no production
+caller, because the push is driven by an agent following this skill rather than by app code. So the
+library index gets maintained by the push and the bank index silently does not.
+
+It drifts exactly as you would expect. An audit on 2026-08-09 found **32 questions on disk and
+absent from the index**, 56 entries carrying `qsetid: null` while `question-library.json` held a
+real id, and 171 stale `used_by` lists. A question missing from the index is invisible to the next
+authoring pass, which is how one source becomes two library questions that drift apart — the exact
+failure the index exists to prevent.
+
+Run it at the end of every push, and do not hand-roll the equivalent. The first attempt at this was
+an ad-hoc `glob('books/*/*/*.json')`, which matched 21 of the 44 manifests and **blanked `used_by`
+on every question referenced only by the deeper `college/` and `high-school/` trees**. The script
+walks recursively, derives every field from the file itself, preserves `health` (it renders nothing,
+so it must never upgrade a `BROKEN` question to `ok`), and is idempotent — running it twice changes
+nothing, so it is safe to run whenever you are unsure.
+
 ## Every assignment is out of 100 points
 
 Balance the per-question points so they sum to **exactly 100**. Points live on the assessment

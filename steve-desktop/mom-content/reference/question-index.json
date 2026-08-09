@@ -112,8 +112,7 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Eeek.. unallowed macro possible"
+  "health": "BROKEN"
  },
  {
   "path": "questions/combinatorics/q2-word-restricted-slot.php",
@@ -219,8 +218,7 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Eeek.. unallowed macro nPr"
+  "health": "BROKEN"
  },
  {
   "path": "questions/data-sampling/classify-data-qualitative-discrete-continuous.php",
@@ -236,7 +234,9 @@
   "path": "questions/data-sampling/q1-variable-type.php",
   "desc": "Variable Type Identification - Classify a variable as qualitative or quantitative",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "t1-verify-question-home"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -1202,8 +1202,7 @@
   "qtype": "choices",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught warning in the question code: Array to string conversion on line 174 in ChoicesAnswerBox.php"
+  "health": "BROKEN"
  },
  {
   "path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php",
@@ -1379,7 +1378,7 @@
  },
  {
   "path": "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php",
-  "desc": "Critiquing a Self-Funded Volunteer Study - Check every problem in a company-funded study of self-selected volunteers with no control group, and recognise that a large sample size fixes sampling error but never sampling bias",
+  "desc": "Critiquing a Self-Funded Volunteer Study - Check every problem in a company-funded study of self-selected volunteers with no control group, and recognize that a large sample size fixes sampling error but never sampling bias",
   "qtype": "multans",
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
@@ -1439,7 +1438,7 @@
  },
  {
   "path": "questions/descriptive-stats/randomized-block-design-application.php",
-  "desc": "Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognise that random assignment happens within each block, and explain how the two together control known and unknown lurking variables",
+  "desc": "Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognize that random assignment happens within each block, and explain how the two together control known and unknown lurking variables",
   "qtype": "multipart",
   "used_by": [
    "1-4-experimental-design-and-ethics"
@@ -1570,7 +1569,7 @@
  },
  {
   "path": "questions/descriptive-stats/sample-size-inadequate-wide-population.php",
-  "desc": "Is the Sample Large Enough for the Country - recognise that a sample drawn from one school cannot describe a national population, because of coverage rather than size",
+  "desc": "Is the Sample Large Enough for the Country - recognize that a sample drawn from one school cannot describe a national population, because of coverage rather than size",
   "qtype": "choices",
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
@@ -1710,7 +1709,7 @@
  },
  {
   "path": "questions/descriptive-stats/two-well-run-experiments-differ.php",
-  "desc": "Can Two Well-Run Experiments Differ - recognise sampling variability as the reason two sound studies of the same population disagree",
+  "desc": "Can Two Well-Run Experiments Differ - recognize sampling variability as the reason two sound studies of the same population disagree",
   "qtype": "choices",
   "used_by": [
    "1-2-data-sampling-and-variation-in-data-and-sampling"
@@ -2452,7 +2451,9 @@
   "path": "questions/frq/regression/q10-interpret-p-value-for-slope-test.php",
   "desc": "Inference for the Slope - Interpret a P-Value for the Slope Test - Students interpret a p-value from a regression slope hypothesis test, compare it to alpha, decide on H&#8320;, and write a contextual conclusion about the linear relationship.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2484,7 +2485,9 @@
   "path": "questions/frq/regression/q2-interpret-residual-in-context.php",
   "desc": "Interpret a Residual in Context - Students compute the predicted value from a randomized regression equation, calculate the residual for an observed data point, and interpret whether the model overpredicted or underpredicted in the context of the scenario with correct units.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2492,7 +2495,9 @@
   "path": "questions/frq/regression/q3-interpret-correlation-coefficient.php",
   "desc": "Interpret a Correlation Coefficient - Students describe the strength and direction of a linear relationship from a randomized r value, explain what r does and does not measure, and explain why correlation alone does not establish causation.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-test"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2516,7 +2521,9 @@
   "path": "questions/frq/regression/q6-interpret-slope-and-y-intercept.php",
   "desc": "Interpret Slope and Y-Intercept in Context - Students interpret the slope and y-intercept of a randomized least-squares regression equation in plain language with correct units, and address whether the y-intercept makes practical sense given the data range.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2540,7 +2547,9 @@
   "path": "questions/frq/regression/q9-slope-inference-concept-and-hypotheses.php",
   "desc": "Inference for the Slope - Concept and Hypotheses - Students explain what a hypothesis test for the slope of a regression line is trying to determine, apply the idea to a randomized real-world bivariate scenario, and state the null and alternative hypotheses using &#946;&#8321; notation.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-test"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2821,8 +2830,7 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Eeek.. unallowed macro Jar"
+  "health": "BROKEN"
  },
  {
   "path": "questions/linear-programming/q4-graphical-lp-corner-evaluation.php",
@@ -2885,8 +2893,7 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Eeek.. unallowed macro column"
+  "health": "BROKEN"
  },
  {
   "path": "questions/linear-programming/q9-lp-formulation-factory-mix.php",
@@ -3065,7 +3072,7 @@
  },
  {
   "path": "questions/probability/addition-rule-union-probability.php",
-  "desc": "Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognise why adding the two rates alone overcounts",
+  "desc": "Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognize why adding the two rates alone overcounts",
   "qtype": "number",
   "used_by": [
    "3-3-two-basic-rules-of-probability"
@@ -3573,7 +3580,10 @@
   "path": "questions/regression/intro/q1-explanatory-response.php",
   "desc": "Explanatory/Response Variables - Possum body and head length",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3581,7 +3591,10 @@
   "path": "questions/regression/intro/q10-predict-advertising.php",
   "desc": "Predict from Equation - Advertising spend and sales using y-hat notation",
   "qtype": "number",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3597,7 +3610,9 @@
   "path": "questions/regression/intro/q11-scatter-with-line.php",
   "desc": "Scatterplot with Line - Does the data show scatter around a roughly linear trend",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3613,7 +3628,11 @@
   "path": "questions/regression/intro/q12-slope-intercept-context.php",
   "desc": "Slope and Intercept in Context - Plant growth over weeks",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3621,7 +3640,9 @@
   "path": "questions/regression/intro/q13-linear-vs-nonlinear.php",
   "desc": "Linear vs Nonlinear - Identify whether data description fits a linear model",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3629,7 +3650,9 @@
   "path": "questions/regression/intro/q14-association-explanatory-response-variable-randomiz.php",
   "desc": "Association explanatory/response variable, randomized scenarios and order. V1 (sleep/mood, caffeine/sleep, movie tickets/concessions, temp/pool, rain/pool)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3637,7 +3660,9 @@
   "path": "questions/regression/intro/q15-8-1-identifying-explanatory-and-response-variables.php",
   "desc": "8.1 Identifying explanatory and response variables",
   "qtype": "matching",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3645,7 +3670,9 @@
   "path": "questions/regression/intro/q16-chapte-2-predict-response-variable-from-regression.php",
   "desc": "Chapte 2  Predict response variable from regression eqn (stats) [4400 GH] (copy by Samantha Homier) changed independent/dependent to explanatory/response",
   "qtype": "number",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3653,7 +3680,9 @@
   "path": "questions/regression/intro/q17-4-2-use-a-regression-equation-to-make-predictions-.php",
   "desc": "4.2: Use a regression equation to make predictions; interpret slope/y-intercept.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3661,7 +3690,9 @@
   "path": "questions/regression/intro/q18-12-3-2-interpret-the-slope-and-y-intercept-of-a-le.php",
   "desc": "12.3.2 Interpret the slope and y-intercept of a least-squares regression line Q2",
   "qtype": "choices",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3669,7 +3700,9 @@
   "path": "questions/regression/intro/q2-make-prediction.php",
   "desc": "Make a Prediction - Possum head length from body length",
   "qtype": "number",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3677,43 +3710,52 @@
   "path": "questions/regression/intro/q3-interpret-slope.php",
   "desc": "Interpret Slope - Years of education and salary",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/intro/q4-interpret-intercept.php",
   "desc": "Interpret Y-Intercept - Homework hours and exam score",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/intro/q5-positive-negative.php",
   "desc": "Positive or Negative - Car age and resale value",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/intro/q6-linear-appropriate.php",
   "desc": "Linear Model Appropriate - Physics experiment with curved data",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/intro/q7-prediction-and-interpret.php",
   "desc": "Prediction and Interpret - Used car price above or below the line",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3721,16 +3763,19 @@
   "path": "questions/regression/intro/q8-yhat-notation.php",
   "desc": "Y-hat Notation - What does the hat mean in regression",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/intro/q9-two-predictions.php",
   "desc": "Two Predictions - House size and listing price",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day1"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3738,25 +3783,30 @@
   "path": "questions/regression/least-squares/q1-least-squares-criterion.php",
   "desc": "Least Squares Criterion - Why minimize squared residuals",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q10-conditions-for-regression.php",
   "desc": "Conditions for Least Squares Regression - Identify required assumptions",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q11-leverage-vs-influential.php",
   "desc": "Leverage vs Influential - Classify point based on description",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3764,16 +3814,20 @@
   "path": "questions/regression/least-squares/q12-association-vs-causation.php",
   "desc": "Association vs Causation - Correct conclusion from observational regression",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q13-indicator-variable-interpret.php",
   "desc": "Indicator Variable Interpretation - Slope/intercept with 0-1 predictor",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3781,7 +3835,11 @@
   "path": "questions/regression/least-squares/q14-read-regression-output.php",
   "desc": "Read Regression Output - Pull slope estimate and p-value from a software table",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3797,7 +3855,9 @@
   "path": "questions/regression/least-squares/q15-t-from-output.php",
   "desc": "t from Output - Compute t = Estimate / SE and decide at alpha = 0.05",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3807,8 +3867,7 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 24 in Common Control | Caught warning in the question code: Tryi"
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q17-build-equation-from-summary.php",
@@ -3838,7 +3897,9 @@
   "path": "questions/regression/least-squares/q2-sum-squared-residuals-compare.php",
   "desc": "Sum of Squared Residuals - Compute SSR for a candidate line",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3846,25 +3907,31 @@
   "path": "questions/regression/least-squares/q3-slope-from-correlation.php",
   "desc": "Slope from Correlation - Compute b = r(s_y/s_x)",
   "qtype": "numerical",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q4-intercept-from-means.php",
   "desc": "Intercept from Means - Compute a = ybar - b*xbar",
   "qtype": "numerical",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q5-full-equation-from-summary.php",
   "desc": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3872,25 +3939,30 @@
   "path": "questions/regression/least-squares/q6-line-passes-through-means.php",
   "desc": "Line Passes Through Means - Identify guaranteed point on regression line",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q7-r-squared-interpretation.php",
   "desc": "R-squared Interpretation - Pick best interpretation in context",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/least-squares/q8-compute-r-squared-from-r.php",
   "desc": "Compute R-squared from r - R^2 = r^2 for simple linear regression",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3898,7 +3970,11 @@
   "path": "questions/regression/least-squares/q9-extrapolation-warning.php",
   "desc": "Extrapolation Warning - Judge whether a prediction is reliable",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3906,7 +3982,11 @@
   "path": "questions/regression/residuals-correlation/q1-compute-residual.php",
   "desc": "Compute a Residual - Use regression equation to find residual from observed point",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day2"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3914,7 +3994,9 @@
   "path": "questions/regression/residuals-correlation/q2-residual-sign-interpret.php",
   "desc": "Residual Sign Interpretation - Determine over/underprediction from residual value",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day2"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3922,25 +4004,30 @@
   "path": "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php",
   "desc": "Residual Plot Good Fit - Identify whether a residual plot shows a good linear fit",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day2"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php",
   "desc": "Identify Nonlinearity from Residual Plots - Which residual plot shows evidence of a nonlinear relationship",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day2"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",
   "desc": "Estimate Residual Standard Deviation - Use 95% rule to estimate s from residual plot bounds",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.1-day2"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3948,16 +4035,19 @@
   "path": "questions/regression/residuals-correlation/q6-residual-concepts.php",
   "desc": "Residual Concepts - Multiple choice on properties of residuals",
   "qtype": "multiple_choice",
-  "used_by": [],
+  "used_by": [
+   "ch8.1-day2"
+  ],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/residuals-correlation/q7-interpret-r-value.php",
   "desc": "Interpret r Value - Direction, strength, and units of correlation",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3967,8 +4057,7 @@
   "qtype": "multiple_choice",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/residuals-correlation/q9-correlation-properties.php",
@@ -3982,7 +4071,11 @@
   "path": "questions/regression/slope-inference/q1-ci-for-slope.php",
   "desc": "CI for the Slope - SE, margin of error, lower and upper bounds",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4014,7 +4107,11 @@
   "path": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",
   "desc": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4022,7 +4119,9 @@
   "path": "questions/regression/slope-inference/q3-ci-interpret-slope.php",
   "desc": "Interpret a CI for the Slope - Contains zero, evidence of relationship, alpha=0.05 decision",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4030,7 +4129,9 @@
   "path": "questions/regression/slope-inference/q4-paired-vs-regression.php",
   "desc": "Pick the Right Test - Paired t vs. regression vs. two-sample t for pre/post data",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4038,7 +4139,10 @@
   "path": "questions/regression/slope-inference/q5-line-conditions.php",
   "desc": "LINE Conditions for Regression - Spot which condition (Linearity/Independence/Normality/Equal variance) is violated",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4046,7 +4150,9 @@
   "path": "questions/regression/slope-inference/q6-full-regression-workflow.php",
   "desc": "Full Regression Workflow - Check conditions, state hypotheses, compute t and CI, decide, conclude",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4054,7 +4160,10 @@
   "path": "questions/regression/slope-inference/q7-role-of-inference.php",
   "desc": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4062,7 +4171,10 @@
   "path": "questions/regression/slope-inference/q8-tech-ci-from-output.php",
   "desc": "CI from Technology Output - Read software output, construct slope CI, decide significance",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4072,8 +4184,7 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 19 in Common Control | Caught warning in the question code: Tryi"
+  "health": "BROKEN"
  },
  {
   "path": "questions/regression/transformations/q1-log-transform-skew.php",
@@ -5051,8 +5162,7 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Eeek.. unallowed macro arraypush"
+  "health": "BROKEN"
  },
  {
   "path": "questions/trig/sine-graph-period-amplitude.php",
@@ -5116,8 +5226,7 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN",
-  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
+  "health": "BROKEN"
  },
  {
   "path": "questions/trig/sine-transformation-anchor-table.php",
