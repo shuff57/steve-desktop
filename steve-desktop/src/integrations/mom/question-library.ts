@@ -27,7 +27,18 @@ export const LIBRARY_INDEX_PATH = 'reference/question-library.json';
 export interface LibraryEntry {
   /** MOM library id — `moddataset.php?id=<qsetid>`. */
   qsetid: string;
-  /** Course the question was filed from, for tracing it back. */
+  /**
+   * The course whose Manage Questions page the question was created through — a
+   * breadcrumb for tracing a push, and nothing more.
+   *
+   * It is NOT a home, an owner, or a boundary, and two entries with different
+   * `cid`s are not in different places. Verified live 2026-08-09: every question
+   * in the index, filed from 334243 and 334437 alike, reports the same MyOpenMath
+   * library (`libs=1221`) and is editable from either course. MyOpenMath questions
+   * belong to a user and a library; courses only reference them. Reading this field
+   * as a home produced a false report that the master course's chapter 1 depended
+   * on another course's library — the "fix" would have filed 15 duplicates.
+   */
   cid: string;
   /** ISO date of the push that created it. */
   filed: string;

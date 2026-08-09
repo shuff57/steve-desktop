@@ -352,3 +352,16 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   scrapes every `qsetid=` in the page HTML, which on `addquestions2.php` includes the whole library
   browser -- it reported 200 for a 16-question assignment. The attached list is
   `input[name="curq[]"]`, in order.
+- **`cid` in question-library.json is a breadcrumb, not a home.** It records which course's Manage
+  Questions page a question was created through. MyOpenMath questions belong to a **user and a
+  library**; a course only references them. Verified live 2026-08-09 across the whole index --
+  questions filed from 334243 and from 334437, oldest to newest, all report the SAME library
+  (`libs=1221`), Author `Huff,Steven`, and open editable from either course. Two entries with
+  different `cid`s are not in two places.
+  Reading it as a home produced a false report that the master's chapter 1 depended on another
+  course's library; acting on that would have filed **15 duplicate library questions** -- the exact
+  failure this index exists to prevent. **Check `libs` on `moddataset.php`, not the index, before
+  ever concluding two questions live apart.**
+- **What actually governs sharing a master course is Use Rights, and it is per question.** Every
+  question in the bank is `userights = 0` (Private), uniformly. That, not any per-assignment
+  property, is what decides whether a colleague can use the course after a copy or share.
