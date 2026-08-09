@@ -21,7 +21,9 @@ else {
 $f = array(0, 0, 0, 0, 0, 0, 0, 0)
 $n = 0
 for ($k=0..7) {
-  $f[$k] = rand(3, 17)
+  // EVEN counts only: part (b) asks the student to read a bar HEIGHT off the graph, and with a
+  // gridline every 2 an odd height has nothing to read against.
+  $f[$k] = 2 * rand(2, 8)
   $n = $n + $f[$k]
 }
 
@@ -79,7 +81,6 @@ for ($vv=0..1) {
     $top = $maxW + 4
   }
   $step = 2
-  if ($top > 20) { $step = 5 }
   $rem = $top % $step
   if ($rem > 0) { $top = $top + $step - $rem }
   $gN = $top / $step
