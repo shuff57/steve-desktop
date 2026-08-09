@@ -19,11 +19,11 @@ $xLabel = $xLabels[$ci]
 $f = array(0, 0, 0, 0, 0)
 $maxOther = 0
 for ($k=0..4) {
-  $f[$k] = rand(4, 11)
+  $f[$k] = 2 * rand(2, 5)
   if ($f[$k] > $maxOther) { $maxOther = $f[$k] }
 }
 $pk = rand(1, 3)
-$f[$pk] = $maxOther + rand(2, 4)
+$f[$pk] = $maxOther + 2 * rand(1, 2)
 
 $n = 0
 $minF = 99
@@ -53,7 +53,6 @@ for ($vv=0..3) {
   $span = $top - $base
   $step = 1
   if ($span > 10) { $step = 2 }
-  if ($span > 24) { $step = 5 }
   $rem = $span % $step
   if ($rem > 0) {
     $top = $top + $step - $rem

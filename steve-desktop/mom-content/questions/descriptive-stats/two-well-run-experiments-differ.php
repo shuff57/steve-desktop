@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Can Two Well-Run Experiments Differ - recognise sampling variability as the reason two sound studies of the same population disagree ===
+// === NAME - DESCRIPTION: Can Two Well-Run Experiments Differ - recognize sampling variability as the reason two sound studies of the same population disagree ===
 // === SET QUESTION TYPE TO: choices ===
 
 // === COMMON CONTROL ===

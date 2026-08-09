@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Critiquing a Self-Funded Volunteer Study - Check every problem in a company-funded study of self-selected volunteers with no control group, and recognise that a large sample size fixes sampling error but never sampling bias ===
+// === NAME - DESCRIPTION: Critiquing a Self-Funded Volunteer Study - Check every problem in a company-funded study of self-selected volunteers with no control group, and recognize that a large sample size fixes sampling error but never sampling bias ===
 // === SET QUESTION TYPE TO: multans ===
 
 // === COMMON CONTROL ===

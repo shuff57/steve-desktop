@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Is the Sample Large Enough for the Country - recognise that a sample drawn from one school cannot describe a national population, because of coverage rather than size ===
+// === NAME - DESCRIPTION: Is the Sample Large Enough for the Country - recognize that a sample drawn from one school cannot describe a national population, because of coverage rather than size ===
 // === SET QUESTION TYPE TO: choices ===
 
 // === COMMON CONTROL ===

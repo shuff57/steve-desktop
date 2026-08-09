@@ -21,12 +21,12 @@ if ($ci == 0) {
   $s4 = "West End"
 }
 else {
-  $intro = "A city library system has five branches. Each hosted sessions of a summer reading programme."
-  $seriesA = "Share of programme sign-ups"
+  $intro = "A city library system has five branches. Each hosted sessions of a summer reading program."
+  $seriesA = "Share of program sign-ups"
   $seriesB = "Share of registered borrowers"
   $groupWord = "branch"
   $people = "readers"
-  $eventName = "the reading programme"
+  $eventName = "the reading program"
   $wholeName = "the city"
   $s0 = "Ashfield"
   $s1 = "Brookvale"

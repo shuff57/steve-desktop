@@ -18,7 +18,7 @@ else {
 }
 
 // The four section widths are 10, 20, 30 and 40 in a rotated order, so every one of the five
-// numbers is a multiple of ten and lands exactly on a labelled tick, and the four widths are
+// numbers is a multiple of ten and lands exactly on a labeled tick, and the four widths are
 // guaranteed distinct by construction -- "smallest" and "widest" each have exactly one answer,
 // never a tie decided by luck of the seed.
 $wid = array(10, 20, 30, 40)

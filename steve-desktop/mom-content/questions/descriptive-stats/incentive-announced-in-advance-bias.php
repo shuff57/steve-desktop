@@ -11,7 +11,7 @@ $habit = $habits[$ci]
 $amt = rand(2, 5) * 5
 
 $questions = array(
-  "Yes. A reward tied to the very behaviour being studied can draw in students who do it most, and can push answers upward.",
+  "Yes. A reward tied to the very behavior being studied can draw in students who do it most, and can push answers upward.",
   "No. A gift card does not change how many hours a student actually spent, so the data are unaffected.",
   "No. Paying respondents always improves data quality by raising the response rate.",
   "Yes, but only because any payment to respondents is a form of coercion."
@@ -22,7 +22,7 @@ $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe
   <p><b>The problem is the pairing, not the payment.</b> The reward is a gift card to ' . $store . ' &mdash; and the survey asks about ' . $habit . '.</p>
   <p><b>Two distinct effects, both biasing.</b></p>
   <ul>
-    <li><b>Who responds.</b> A student who cares about ' . $store . ' has more reason to take part than one who does not. The respondents tilt toward the group whose behaviour is being measured, which is a selection effect.</li>
+    <li><b>Who responds.</b> A student who cares about ' . $store . ' has more reason to take part than one who does not. The respondents tilt toward the group whose behavior is being measured, which is a selection effect.</li>
     <li><b>What they say.</b> Knowing in advance what the reward is signals what the researchers are interested in, which nudges answers in that direction.</li>
   </ul>
   <p><b>"Knew about the award before the study" is the operative phrase.</b> The same $' . $amt . ' card handed out afterwards, unannounced, biases neither who responds nor what they say &mdash; nobody could have adjusted to something they did not know was coming.</p>

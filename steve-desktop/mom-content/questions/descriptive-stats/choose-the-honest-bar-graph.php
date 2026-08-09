@@ -128,7 +128,7 @@ $truncName = $slotNames[$truncSlot]
 
 $questions[1] = array(
   "Its vertical axis does not start at zero, so a small difference between the categories is stretched into a large-looking one.",
-  "It uses the wrong colour for the bars, which makes the categories hard to tell apart.",
+  "It uses the wrong color for the bars, which makes the categories hard to tell apart.",
   "Its bars are too narrow to read the values accurately.",
   "It shows the categories in the wrong order, so the comparison cannot be made."
 )
@@ -160,7 +160,7 @@ $solutionguide = '
         <li>One graph leaves a category out entirely. Whatever is left cannot be read as a breakdown of the whole group any more.</li>
         <li>One graph does none of these. That is <b>' . $correctName . '</b>.</li>
       </ul>
-      <p><span class="term-label">Part (b).</span> ' . $truncName . ' is the one with the cut axis: its baseline is labelled ' . $base . ', not 0. The fix is to redraw it from zero, which shrinks the apparent gap back to the real one.</p>
+      <p><span class="term-label">Part (b).</span> ' . $truncName . ' is the one with the cut axis: its baseline is labeled ' . $base . ', not 0. The fix is to redraw it from zero, which shrinks the apparent gap back to the real one.</p>
       <p><b>Answer:</b> (a) ' . $correctName . ' &nbsp;&nbsp; (b) the vertical axis does not start at zero.</p>
     </div>
   </details>

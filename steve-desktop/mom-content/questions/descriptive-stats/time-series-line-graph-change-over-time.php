@@ -23,13 +23,13 @@ $mNames = array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug")
 // One month is given a clearly largest rise, otherwise two months can tie and part (b) has no
 // single answer even though the question asks for a size rather than a month.
 $v = array(0, 0, 0, 0, 0, 0, 0, 0)
-$v[0] = rand(14, 24)
+$v[0] = 2 * rand(7, 12)
 for ($k=1..7) {
-  $v[$k] = $v[$k-1] + rand(-5, 6)
+  $v[$k] = $v[$k-1] + 2 * rand(-2, 3)
   if ($v[$k] < 6) { $v[$k] = 6 }
 }
 $jump = rand(1, 7)
-$v[$jump] = $v[$jump] + 9
+$v[$jump] = $v[$jump] + 8
 
 $minV = 99
 $maxV = 0
@@ -70,7 +70,7 @@ $answer[3] = 0
 // Axis starts at zero. A time series is exactly where a truncated axis does the most damage,
 // so this question models the honest version.
 $top = $maxV + 4
-$step = 5
+$step = 2
 $rem = $top % $step
 if ($rem > 0) { $top = $top + $step - $rem }
 $gN = $top / $step

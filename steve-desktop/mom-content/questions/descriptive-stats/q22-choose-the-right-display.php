@@ -57,12 +57,12 @@ $paretoIntro = array(
   "An advisor at " . $collegeA . " has a frequency table giving the number of students in each of seven declared majors in the business division: "
 )
 
-$histWho = array("registrar", "programme director", "transportation office")
-$histVar = array("credit hours completed", "hours logged before certification", "minutes spent travelling to campus")
+$histWho = array("registrar", "program director", "transportation office")
+$histVar = array("credit hours completed", "hours logged before certification", "minutes spent traveling to campus")
 $histIntro = array(
   "The registrar at " . $collegeA . " has recorded the number of credit hours completed this term by each of " . $nStu . " students.",
-  "A programme director has recorded the number of hours logged before certification by each of " . $nStu . " electrician apprentices.",
-  "A transportation office at " . $collegeA . " has recorded the number of minutes spent travelling to campus by each of " . $nStu . " commuter students."
+  "A program director has recorded the number of hours logged before certification by each of " . $nStu . " electrician apprentices.",
+  "A transportation office at " . $collegeA . " has recorded the number of minutes spent traveling to campus by each of " . $nStu . " commuter students."
 )
 
 // Build the scenario and the purpose as scalars, so the prompt and the answer key cannot drift.

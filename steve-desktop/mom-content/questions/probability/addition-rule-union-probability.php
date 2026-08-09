@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognise why adding the two rates alone overcounts ===
+// === NAME - DESCRIPTION: Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognize why adding the two rates alone overcounts ===
 // === SET QUESTION TYPE TO: number ===
 
 // === COMMON CONTROL ===

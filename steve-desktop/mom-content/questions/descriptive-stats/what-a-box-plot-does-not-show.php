@@ -33,7 +33,7 @@ $q1_1 = 10 + 10 * rand(0, 1)
 $q3_1 = 70 + 10 * rand(0, 1)
 $med1 = 40 + 10 * rand(0, 1)
 
-// Data 2's box is fixed and narrow, centred lower than Data 1's box.
+// Data 2's box is fixed and narrow, centered lower than Data 1's box.
 $q1_2 = 20
 $q3_2 = 40
 $med2 = 30

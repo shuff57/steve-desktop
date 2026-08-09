@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Roulette Single Spin - Sample Space, Simple Events, Complements and Independence - count pockets to find three probabilities on one spin, then decide whether odd is the complement of even, name a mutually exclusive pair, and test a colour-or-range pairing for independence ===
+// === NAME - DESCRIPTION: Roulette Single Spin - Sample Space, Simple Events, Complements and Independence - count pockets to find three probabilities on one spin, then decide whether odd is the complement of even, name a mutually exclusive pair, and test a color-or-range pairing for independence ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -96,7 +96,7 @@ $solutionguide = '
   <p style="margin-left:1em;"><b>`P(odd) + P(even) = 18/38 + 18/38 = 36/38 ~~ ' . $oddPlusEven . ' != 1`</b></p>
   <p style="margin-left:1em;">Complements must add to exactly 1, so odd is <b>not</b> the complement of even. The complement of "even" is "odd or green".</p>
 
-  <p><b>f &mdash; a mutually exclusive pair cannot co-occur.</b> ' . $color . ' and green work: a pocket has exactly one colour, so `P(' . $color . ' and green) = 0`. The other three pairings all overlap &mdash; there are even ' . $color . ' pockets, ' . $color . ' pockets inside ' . $rangeName . ', and even pockets inside ' . $rangeName . '.</p>
+  <p><b>f &mdash; a mutually exclusive pair cannot co-occur.</b> ' . $color . ' and green work: a pocket has exactly one color, so `P(' . $color . ' and green) = 0`. The other three pairings all overlap &mdash; there are even ' . $color . ' pockets, ' . $color . ' pockets inside ' . $rangeName . ', and even pockets inside ' . $rangeName . '.</p>
 
   <p><b>g &mdash; run the independence test.</b> The even numbers inside ' . $rangeName . ' number ' . $evenInRange . ', so</p>
   <p style="margin-left:1em;">`P(even and R) = ' . $evenInRange . '/38 ~~ ' . $pEvenAndRange . '`</p>
@@ -111,7 +111,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <p style="margin:0;">The casino game roulette allows a gambler to bet on a ball landing on a particular colour, number, or range of numbers. The wheel has <b>38</b> pockets: 0 and 00, which are <b>green</b>, together with 1 through 36, of which eighteen are <b>red</b> and eighteen are <b>black</b>. The numbered pockets are also grouped into three ranges of twelve &mdash; 1st 12 (1 through 12), 2nd 12 (13 through 24) and 3rd 12 (25 through 36) &mdash; and into Low (1 through 18) and High (19 through 36).</p>
+    <p style="margin:0;">The casino game roulette allows a gambler to bet on a ball landing on a particular color, number, or range of numbers. The wheel has <b>38</b> pockets: 0 and 00, which are <b>green</b>, together with 1 through 36, of which eighteen are <b>red</b> and eighteen are <b>black</b>. The numbered pockets are also grouped into three ranges of twelve &mdash; 1st 12 (1 through 12), 2nd 12 (13 through 24) and 3rd 12 (25 through 36) &mdash; and into Low (1 through 18) and High (19 through 36).</p>
     <p style="margin:12px 0 0 0;">Let `R` be the event that the ball lands in <b>$rangeName</b>. Answer the following about a <b>single spin</b> of the wheel.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">

@@ -1,80 +1,143 @@
-// === NAME - DESCRIPTION: Pre-FRQ Judge a Comparison Against the Rubric - An FRQ-style prompt with four sample student responses; pick the one that earns full credit, select every reason a weaker one loses credit, and state what a complete comparison must contain ===
+// === NAME - DESCRIPTION: Pre-FRQ Grade a Distribution Comparison - The scenario, summary table and grading checklist of the compare-two-distributions FRQ, but the student grades sample responses against the rubric instead of writing one ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-// A "pre-FRQ": the setup and the rubric of a free-response question, but every part is auto-graded,
-// so it can sit in homework where free response is not allowed. It rehearses the marking scheme the
-// real FRQs on the labs and tests are scored against -- the point is to make the rubric visible
-// BEFORE the student has to satisfy it from a blank page.
+// A "pre-FRQ": the same scenario, the same summary table and the SAME grading checklist as the real
+// free-response item (questions/frq/descriptive-statistics/q11-compare-distributions-essay.php), but
+// every part auto-grades, so it can live in homework where free response is not allowed. The student
+// applies the rubric to somebody else's answer before having to satisfy it from a blank page.
+// Keep the four categories and their point values identical to q11 -- the whole value of this
+// question is that the checklist is the one they will actually be marked against.
 $anstypes = array("choices", "multans", "choices")
 
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $groupA = "Riverside"
-  $groupB = "Hillcrest"
-  $what = "the number of minutes each pupil spent travelling to school"
-  $varName = "travel time"
-  $unit = "minutes"
+  $labelA = "Class A"
+  $labelB = "Class B"
+  $ctx = "the end-of-semester exam scores in two algebra classes"
+  $varName = "exam score"
 }
 else {
-  $groupA = "Northgate"
-  $groupB = "Southbank"
-  $what = "the weekly amount, in dollars, each member spent at the cafe"
-  $varName = "weekly spend"
-  $unit = "dollars"
+  $labelA = "Route 9"
+  $labelB = "Route 14"
+  $ctx = "the number of minutes each bus on two routes ran behind schedule"
+  $varName = "delay in minutes"
 }
 
-// A is centred higher; B is more spread out AND right-skewed. Two groups that differ on BOTH centre
-// and spread is what makes an incomplete answer visibly incomplete -- if they differed only in
-// centre, the response that never mentions spread would not actually be missing anything.
-$medB = 5 * rand(6, 10)
+// A is centered higher and tighter; B is right-skewed, more variable, and holds the largest value.
+// Both differences are needed: if the groups differed only in center, the response that never
+// mentions spread would not be missing anything, and part (b) would have no answer.
+$medB = 5 * rand(12, 16)
 $medA = $medB + 5 * rand(1, 3)
-$halfA = rand(3, 5)
-$halfB = $halfA + rand(2, 4)
-$iqrA = 2 * $halfA
-$iqrB = 2 * $halfB
-$q1A = $medA - $halfA
-$q3A = $medA + $halfA
-$q1B = $medB - $halfB
-$q3B = $medB + $halfB
-$minA = $q1A - rand(4, 6)
-$maxA = $q3A + rand(4, 6)
-$minB = $q1B - rand(2, 3)
-// B's maximum MUST clear A's. The one-extreme-value distractor asserts that B holds the single
-// largest value, and on a seed where A's maximum happens to be higher that response is simply false
-// rather than tempting -- a student rejects it without engaging with the reasoning error it is
-// there to teach. The long upper tail also keeps B visibly right-skewed.
-$maxB = $maxA + rand(3, 8)
+$meanA = $medA + rand(0, 1)
+// Right skew pulls the mean ABOVE the median -- the table then shows the student why the median is
+// the fairer center for B, which is the justification the rubric asks for under Center.
+$meanB = $medB + rand(3, 6)
+$sdA = rand(3, 5)
+$sdB = $sdA + rand(4, 7)
+$minA = $medA - rand(11, 15)
+$maxA = $medA + rand(11, 15)
+$minB = $medB - rand(4, 7)
+$maxB = $maxA + rand(6, 12)
 
-$rFull = "Group " . $groupA . " has the higher centre: its median " . $varName . " is " . $medA . " " . $unit . " against " . $medB . " " . $unit . " for " . $groupB . ". " . $groupB . " is the more spread out of the two, with an interquartile range of " . $iqrB . " " . $unit . " compared with " . $iqrA . " for " . $groupA . ". " . $groupA . " is roughly symmetric, while " . $groupB . " is skewed to the right, with a long tail running out to the high values."
+$shapeA = "roughly symmetric, no outliers"
+$shapeB = "skewed right, with a few unusually high values"
 
-$rNoCompare = "Group " . $groupA . " has a median of " . $medA . " " . $unit . ", an interquartile range of " . $iqrA . " " . $unit . ", and is roughly symmetric. Group " . $groupB . " has a median of " . $medB . " " . $unit . ", an interquartile range of " . $iqrB . " " . $unit . ", and is skewed to the right."
+$rFull = $labelA . " is " . $shapeA . ", while " . $labelB . " is " . $shapeB . ". Because " . $labelB . " is skewed, the median is the fairer measure of center to compare: " . $labelA . " has the higher median " . $varName . ", " . $medA . " against " . $medB . ". " . $labelA . " is also the more consistent of the two, with a standard deviation of " . $sdA . " compared with " . $sdB . " for " . $labelB . ". Overall " . $labelA . " runs higher on " . $varName . " and is steadier, while " . $labelB . " is more scattered and drags out a long tail of high values."
 
-$rVague = "The first group is bigger than the second one. Its middle value is higher, so that group is the better of the two."
+$rListed = $labelA . " is " . $shapeA . ". Its mean is " . $meanA . ", its median is " . $medA . " and its standard deviation is " . $sdA . ". " . $labelB . " is " . $shapeB . ". Its mean is " . $meanB . ", its median is " . $medB . " and its standard deviation is " . $sdB . "."
 
-$rOneValue = "Group " . $groupB . " contains the single largest value, " . $maxB . ", so " . $groupB . " is higher overall. Group " . $groupA . " has nothing anywhere near that large."
+$rVague = "The first one is bigger than the second one. Its middle value is higher and its numbers are closer together, so it is the better of the two."
 
-$questions[0] = array($rFull, $rNoCompare, $rVague, $rOneValue)
+$rOneValue = $labelB . " reaches " . $maxB . ", the single largest value anywhere in the study, so " . $labelB . " is clearly the higher of the two. " . $labelA . " never gets close to that."
+
+$questions[0] = array($rFull, $rListed, $rVague, $rOneValue)
 $answer[0] = 0
 
+// Part (b) is graded against the checklist itself: which CATEGORIES did the response fail to earn.
+// The listed response does describe both shapes, so Shape IS earned -- that is what stops the part
+// being passed by selecting all four.
 $questions[1] = array(
-  "It reports each group's figures one after the other without ever comparing them &mdash; there is no comparative word such as higher, larger or more spread out.",
-  "It never says which group has the higher centre.",
-  "It never says which group is more spread out.",
-  "The median it reports for " . $groupA . " does not match the data given.",
-  "It says nothing about the shape of either distribution."
+  "Shape (2 pts)",
+  "Center (3 pts)",
+  "Spread (3 pts)",
+  "In-Context Verdict (2 pts)"
 )
-$answers[1] = "0,1,2"
+$answers[1] = "1,2,3"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "Centre, spread and shape &mdash; each one written as a direct comparison between the two groups, and each stated in terms of " . $varName . " rather than as bare numbers.",
-  "The full five-number summary of each group, written out so the reader can see every value.",
-  "A clear statement of which group is better, backed up by the largest value in each group.",
-  "Centre and spread for each group, listed separately, so that the reader can compare them."
+  "Quoting a figure for each group is not comparing them. Center is earned only when the answer itself states which group is higher, in context.",
+  "It does compare them, because a reader can see both medians and work out for themselves which is higher.",
+  "It does compare them, as long as the mean and the median it quotes are both correct.",
+  "It fails only because it left out the minimum and maximum; quoting those as well would have earned Center."
 )
 $answer[2] = 0
+
+$css_block = '
+<style>
+  .rubric-container { width:100%; font-family:Arial; font-size:medium; margin:1em 0; }
+  .rubric-container details { width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; background:#fff; }
+  .rubric-container summary { cursor:pointer; display:block; width:100%; background:#f8f8f8; color:#333; padding:0.35em 0.6em; font-weight:bold; border-bottom:1px solid #ccc; list-style:none; }
+  .rubric-container summary::-webkit-details-marker { display:none; }
+  .arrow-open { display:none; }
+  .rubric-container details[open] .arrow-closed { display:none; }
+  .rubric-container details[open] .arrow-open { display:inline; }
+  .rubric-content { background:#fafafa; padding:0.75em; box-sizing:border-box; }
+  .rubric-table { border-collapse:separate; border-spacing:0; width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; font-family:Arial; font-size:small; margin-top:10px; }
+  .rubric-table th { background:#f2f2f2; padding:8px; text-align:center; border:1px solid #ccc; }
+  .rubric-table td { padding:10px; border:1px solid #ccc; vertical-align:top; }
+  .row-colored { background:#fff9ea; }
+  .summary-table { border-collapse:collapse; margin:0.6em 0; font-family:Arial; font-size:14px; }
+  .summary-table th, .summary-table td { border:1px solid #ccc; padding:6px 12px; text-align:center; }
+  .summary-table th { background:#f2f2f2; }
+  .resp-box { border:1px solid #ccc; border-left:4px solid #f59e0b; background:#fffbeb; padding:12px; border-radius:4px; margin:10px 0; font-family:Arial; }
+</style>'
+
+$summaryTable = '<table class="summary-table">
+<tr><th>Group</th><th>Mean</th><th>Median</th><th>s (SD)</th><th>Min</th><th>Max</th><th>Shape</th></tr>
+<tr><td><b>' . $labelA . '</b></td><td>' . $meanA . '</td><td>' . $medA . '</td><td>' . $sdA . '</td><td>' . $minA . '</td><td>' . $maxA . '</td><td>' . $shapeA . '</td></tr>
+<tr><td><b>' . $labelB . '</b></td><td>' . $meanB . '</td><td>' . $medB . '</td><td>' . $sdB . '</td><td>' . $minB . '</td><td>' . $maxB . '</td><td>' . $shapeB . '</td></tr>
+</table>'
+
+// Open by default. On the real FRQ the student may leave the checklist closed; here they are being
+// asked to grade WITH it, so hiding it behind a click would just be a trap.
+$rubricblock = $css_block . '
+<div class="rubric-container">
+  <details open>
+    <summary><span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span> Grading Checklist &mdash; 10 points</summary>
+    <div class="rubric-content">
+      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> &mdash; a full-credit comparison must address:</p>
+      <table class="rubric-table">
+        <tbody>
+          <tr><th>Category</th><th>Requirement</th></tr>
+          <tr class="row-colored"><td style="text-align:center;"><b>Shape<br>(2 pts)</b></td>
+            <td><ul style="list-style:none;margin:0;padding-left:0;">
+              <li>Describe the shape of each distribution.</li>
+              <li>Note any obvious outliers.</li>
+            </ul></td></tr>
+          <tr><td style="text-align:center;"><b>Center<br>(3 pts)</b></td>
+            <td><ul style="list-style:none;margin:0;padding-left:0;">
+              <li>Compare the typical value (mean OR median, justified by shape).</li>
+              <li>State which group has a higher center, in context.</li>
+            </ul></td></tr>
+          <tr class="row-colored"><td style="text-align:center;"><b>Spread<br>(3 pts)</b></td>
+            <td><ul style="list-style:none;margin:0;padding-left:0;">
+              <li>Compare the spread (standard deviation or IQR).</li>
+              <li>State which group is more variable, in context.</li>
+            </ul></td></tr>
+          <tr><td style="text-align:center;"><b>In-Context Verdict<br>(2 pts)</b></td>
+            <td><ul style="list-style:none;margin:0;padding-left:0;">
+              <li>Write a concluding sentence using the real-world variable, not just numbers.</li>
+            </ul></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>'
+
+$respBox = '<div class="resp-box">' . $rListed . '</div>'
 
 $solutionguide = '
 <style>
@@ -86,7 +149,6 @@ $solutionguide = '
   .sol-wrap details[open] .sol-arrow-open { display:inline; }
   .sol-body { padding:0.75em; background:#fafafa; }
   .term-label { font-weight:700; color:#1865f2; }
-  .rub { border-left:4px solid #1865f2; padding-left:12px; margin:8px 0; }
 </style>
 <div class="sol-wrap" style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <details>
@@ -95,17 +157,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The rubric.</span> A comparison of two distributions earns credit for four things, and dropping any one of them costs marks:</p>
-      <div class="rub">
-        <p style="margin:4px 0;"><b>1. Centre</b> &mdash; which group is higher, with the medians quoted.</p>
-        <p style="margin:4px 0;"><b>2. Spread</b> &mdash; which group is more variable, with the IQRs or ranges quoted.</p>
-        <p style="margin:4px 0;"><b>3. Shape</b> &mdash; symmetric, skewed left, skewed right.</p>
-        <p style="margin:4px 0;"><b>4. Comparative language, in context</b> &mdash; the words <i>higher</i>, <i>larger</i>, <i>more spread out</i>, applied to ' . $varName . ', not just two lists of numbers.</p>
-      </div>
-      <p><span class="term-label">Part (a).</span> Only one response does all four. It says ' . $groupA . ' is centred higher (' . $medA . ' against ' . $medB . '), that ' . $groupB . ' is the more spread out (IQR ' . $iqrB . ' against ' . $iqrA . '), and that the shapes differ &mdash; and it says all of it about ' . $varName . '.</p>
-      <p><span class="term-label">Part (b) &mdash; the most common way to lose marks.</span> The response quoted is not <i>wrong</i> anywhere. Every number in it is right and it does mention both shapes. What it never does is <b>compare</b>: it puts one group beside the other and leaves the reader to do the work. That is why the two options accusing it of a wrong median or of ignoring shape are false &mdash; read the response before selecting, because a plausible-sounding criticism that the response does not actually commit still costs you the part.</p>
-      <p><span class="term-label">Part (c).</span> Listing the two groups separately is exactly the trap in part (b), so the option that says "listed separately, so that the reader can compare them" is describing the response that loses marks. The comparison has to be made in the answer, not left to the reader.</p>
-      <p><span class="term-label">Why this matters.</span> On a lab or a test this question is asked with a blank box instead of four options. The rubric is the same one. Learning to spot the missing piece in someone else\'s answer is the fastest way to stop leaving it out of your own.</p>
+      <p><span class="term-label">Part (a).</span> Only one response earns all four categories. It names both shapes, picks the median for the center <i>and says why</i> &mdash; ' . $labelB . ' is skewed, so its mean (' . $meanB . ') sits above its median (' . $medB . '), which you can read straight off the table &mdash; compares the standard deviations, and finishes with a sentence about ' . $varName . ' rather than about numbers.</p>
+      <p><span class="term-label">Part (b) &mdash; grade it category by category.</span> The response is not wrong anywhere; every figure in it is correct. Work down the checklist:</p>
+      <ul>
+        <li><b>Shape &mdash; earned.</b> It describes both distributions. This is the one category it does get.</li>
+        <li><b>Center &mdash; not earned.</b> It quotes both medians but never says which group is higher.</li>
+        <li><b>Spread &mdash; not earned.</b> It quotes both standard deviations but never says which group is more variable.</li>
+        <li><b>In-Context Verdict &mdash; not earned.</b> There is no concluding sentence about ' . $varName . ' at all.</li>
+      </ul>
+      <p>That is <b>2 out of 10</b> for an answer containing every correct number, which is exactly how this rubric bites.</p>
+      <p><span class="term-label">Part (c) &mdash; the idea the checklist cannot spell out.</span> Writing "' . $labelA . ' has a median of ' . $medA . '. ' . $labelB . ' has a median of ' . $medB . '." puts two facts on the page and stops. A reader can of course see which is bigger, but doing that work is the answer\'s job, not the reader\'s. Center asks for a <i>claim</i>: ' . $labelA . ' is higher. Adding more numbers never repairs it, because what is missing is not a number.</p>
+      <p><span class="term-label">Why this exists.</span> On the lab and on the test this same scenario arrives with a blank box and this same checklist. Spotting the missing category in someone else\'s answer is the quickest way to stop leaving it out of your own.</p>
     </div>
   </details>
 </div>'
@@ -115,46 +177,22 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 4px 0; font-size:13px; font-weight:700; color:#1865f2; letter-spacing:0.04em;">FREE-RESPONSE PROMPT</p>
-    <p style="margin:0 0 12px 0;">A study recorded $what at two schools, $groupA and $groupB. The five-number summaries are below.</p>
-    <table style="border-collapse:collapse; margin:4px 0 12px 0; background:#fff;">
-      <tr style="background:#f0f4ff;">
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">School</th>
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">Min</th>
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">Q&#8321;</th>
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">Median</th>
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">Q&#8323;</th>
-        <th style="border:1px solid #d1d5db; padding:6px 14px;">Max</th>
-      </tr>
-      <tr>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; font-weight:700;">$groupA</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$minA</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$q1A</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$medA</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$q3A</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$maxA</td>
-      </tr>
-      <tr>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; font-weight:700;">$groupB</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$minB</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$q1B</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$medB</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$q3B</td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$maxB</td>
-      </tr>
-    </table>
-    <p style="margin:0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task:</b> Compare the distributions of $varName at the two schools.</p>
-    <p style="margin:12px 0 0 0; font-size:14px; color:#6b7280;">You are not writing the answer here. You are marking it.</p>
+    <p style="margin:0 0 8px 0;">A study recorded $ctx. The summary statistics are below.</p>
+    $summaryTable
+    <p style="margin:8px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task:</b> Compare the two distributions of $varName. Use shape, center and spread, and write your conclusion in context.</p>
+    $rubricblock
+    <p style="margin:8px 0 0 0; font-size:14px; color:#6b7280;">You are not writing the answer here. You are grading it, against the checklist above.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Four students answered. Which response earns <b>full credit</b>? $answerbox[0]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which response earns <b>all 10 points</b>? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Another student wrote this:
-    <p style="margin:10px 0; padding:12px; background:#fffbeb; border-left:4px solid #f59e0b; border-radius:4px;">$rNoCompare</p>
-    Select <b>every</b> reason this response loses credit. Read it carefully first &mdash; some of the statements below are not true of it. $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Now grade this one:
+    $respBox
+    Select <b>every category it fails to earn</b>. Not all four are missing &mdash; read it against the checklist before you choose. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> In general, what must a complete comparison of two distributions contain? $answerbox[2]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> That response quotes the correct median for both groups. Why is that not enough to earn <b>Center</b>? $answerbox[2]
   </div>
 </div>
 

@@ -19,7 +19,7 @@ else {
   $newThing = "one more parcel"
 }
 
-// Every plotted value is a multiple of ten, so each one sits on a labelled tick and nothing has to
+// Every plotted value is a multiple of ten, so each one sits on a labeled tick and nothing has to
 // be estimated. The IQR is then a multiple of ten as well, which keeps 1.5 x IQR a whole number
 // and the fences exact.
 $wid = array(10, 20, 30, 40)

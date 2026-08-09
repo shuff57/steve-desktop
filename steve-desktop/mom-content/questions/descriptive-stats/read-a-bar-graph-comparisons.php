@@ -7,7 +7,7 @@ $anstypes = array("number", "number", "number", "choices")
 
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $intro = "A sports centre recorded which class each of its members attended on one evening."
+  $intro = "A sports center recorded which class each of its members attended on one evening."
   $unitWord = "members"
   $unitOne = "member"
   $axisName = "Number of members"
@@ -18,7 +18,7 @@ if ($ci == 0) {
   $b4 = "Swim"
 }
 else {
-  $intro = "A garden centre recorded which department each of its customers bought from on one Saturday."
+  $intro = "A garden center recorded which department each of its customers bought from on one Saturday."
   $unitWord = "customers"
   $unitOne = "customer"
   $axisName = "Number of customers"
@@ -86,7 +86,6 @@ $answer[3] = 0
 $top = $maxC + 2
 if ($top % 2 == 1) { $top = $top + 1 }
 $step = 2
-if ($top > 20) { $step = 4 }
 $rem = $top % $step
 if ($rem > 0) { $top = $top + $step - $rem }
 $gN = $top / $step

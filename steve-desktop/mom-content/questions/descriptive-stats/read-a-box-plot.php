@@ -7,7 +7,7 @@ $anstypes = array("number", "number", "number", "choices")
 
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $intro = "A box plot of the number of minutes a sample of commuters spent travelling to work."
+  $intro = "A box plot of the number of minutes a sample of commuters spent traveling to work."
   $axisName = "Travel time in minutes"
   $unitWord = "minutes"
 }
@@ -20,7 +20,7 @@ else {
 }
 
 // The four section widths are 10, 20, 30 and 40 in a rotated order, so every one of the five
-// numbers is a multiple of ten and lands exactly on a labelled tick -- a value the student is
+// numbers is a multiple of ten and lands exactly on a labeled tick -- a value the student is
 // asked to read off must never sit between gridlines. The rotation also guarantees the four
 // widths are distinct, so "which quarter is widest" has one defensible answer rather than a tie.
 $wid = array(10, 20, 30, 40)

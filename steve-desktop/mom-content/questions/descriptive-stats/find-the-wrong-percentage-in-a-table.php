@@ -7,7 +7,7 @@ $anstypes = array("choices", "number", "number")
 
 $ci = rand(0, 1)
 if ($ci == 0) {
-  $intro = "A community centre published this breakdown of how its members travel there."
+  $intro = "A community center published this breakdown of how its members travel there."
   $colLabel = "Method of travel"
   $unitWord = "members"
   $unitOne = "member"

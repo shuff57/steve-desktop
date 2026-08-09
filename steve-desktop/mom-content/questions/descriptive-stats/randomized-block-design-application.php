@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognise that random assignment happens within each block, and explain how the two together control known and unknown lurking variables ===
+// === NAME - DESCRIPTION: Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognize that random assignment happens within each block, and explain how the two together control known and unknown lurking variables ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
