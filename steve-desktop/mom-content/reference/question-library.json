@@ -633,5 +633,83 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/find-a-percentile-from-a-list.php": {
+  "qsetid": "1874158",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/percentile-of-a-given-value.php": {
+  "qsetid": "1874159",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/class-rank-to-percentile.php": {
+  "qsetid": "1874160",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/interpret-a-percentile-in-context.php": {
+  "qsetid": "1874161",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/percentile-and-share-of-the-group.php": {
+  "qsetid": "1874162",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/percentile-is-not-a-score.php": {
+  "qsetid": "1874163",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/quartiles-from-a-frequency-table.php": {
+  "qsetid": "1874164",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/percentiles-from-a-frequency-table.php": {
+  "qsetid": "1874165",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php": {
+  "qsetid": "1874166",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/percentages-from-a-relative-frequency-table.php": {
+  "qsetid": "1874167",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/median-age-comparison-reasoning.php": {
+  "qsetid": "1874168",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/q1-mean-median-iqr-from-data.php": {
+  "qsetid": "1874169",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/displays/q3-boxplot-five-number.php": {
+  "qsetid": "1874170",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
