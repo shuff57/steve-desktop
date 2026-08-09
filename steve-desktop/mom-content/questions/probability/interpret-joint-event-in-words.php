@@ -56,7 +56,7 @@ $solutionguide = '
   <p><b>AND means both, on the same trial.</b></p>
   <p>`' . $evA . ' and ' . $evB . '` is the event that one randomly selected customer will ' . $verb . ' ' . $itemA . ' <i>and</i> ' . $verb . ' ' . $itemB . ' &mdash; the same visit, both items.</p>
   <p><b>Compare it with the conditional.</b> `' . $evB . '|' . $evA . '` is restricted to the customers who ' . $ordersA . ' and asks what fraction of <i>them</i> ' . $alsoB . '. `' . $evA . ' and ' . $evB . '` is about <i>all</i> customers and asks what fraction do both. Same overlap, different denominator &mdash; which is why `P(' . $evB . '|' . $evA . ') = ' . $pcond . '` while `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`.</p>
-  <p><b>Why the others are wrong.</b> "Or … or both" is the union, which is larger. "Exactly one but not both" deliberately excludes the overlap, which is the one group AND is entirely about.</p>
+  <p><b>Why the others are wrong.</b> "Or ... or both" is the union, which is larger. "Exactly one but not both" deliberately excludes the overlap, which is the one group AND is entirely about.</p>
   <p><b>Answer:</b> the event that a randomly chosen customer will ' . $verb . ' both ' . $itemA . ' and ' . $itemB . '.</p>
 </div>'
 

@@ -711,5 +711,89 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/probability/unconditional-probability-first-event.php": {
+  "qsetid": "1874177",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "number"
+ },
+ "questions/probability/unconditional-probability-second-event.php": {
+  "qsetid": "1874178",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "number"
+ },
+ "questions/probability/identify-conditional-probability-from-wording.php": {
+  "qsetid": "1874179",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "number"
+ },
+ "questions/probability/interpret-conditional-event-in-words.php": {
+  "qsetid": "1874180",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "choices"
+ },
+ "questions/probability/multiplication-rule-joint-probability.php": {
+  "qsetid": "1874181",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "number"
+ },
+ "questions/probability/interpret-joint-event-in-words.php": {
+  "qsetid": "1874182",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "choices"
+ },
+ "questions/probability/test-independence-two-ways.php": {
+  "qsetid": "1874183",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/probability/addition-rule-union-probability.php": {
+  "qsetid": "1874184",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "number"
+ },
+ "questions/probability/interpret-union-event-in-words.php": {
+  "qsetid": "1874185",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "choices"
+ },
+ "questions/probability/test-mutually-exclusive.php": {
+  "qsetid": "1874186",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/probability/survey-two-conditionals-full-workup.php": {
+  "qsetid": "1874187",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/probability/poll-proportion-complement-and-headcount.php": {
+  "qsetid": "1874188",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/probability/roulette-single-spin-events.php": {
+  "qsetid": "1874189",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/probability/roulette-bet-types-probabilities.php": {
+  "qsetid": "1874190",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }

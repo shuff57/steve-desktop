@@ -113,3 +113,20 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
   The exceptions are constructions that genuinely force a wide range -- 1.5*IQR fences reach far
   past the box, and three groups share one axis -- and there a step of 10 with every plotted value
   landing on a labeled tick is the honest answer, not a step of 2 with seventy labels.
+
+## MyOpenMath silently rewrites what you file (2026-08-09, proved live in course 334437)
+
+- **A `NAME - DESCRIPTION` longer than 254 characters is TRUNCATED on save, with no warning.**
+  Confirmed live: a 271-character description came back at exactly 254. The description is how a
+  question is found in a bank of hundreds, so a chopped one is a real loss even though the question
+  itself works perfectly. **17 sources in the bank are currently over the limit** -- two of them
+  (`q20-do-the-percents-allow-a-pie-chart`, `q21-percent-versus-count-comparison`) are already live
+  in 1.2 with truncated names, and 14 more are FRQ questions not yet pushed. Check the length before
+  filing, not after.
+- **A Unicode ellipsis `…` is stored as three periods**, the same way an em dash is stored as `--`.
+  Harmless to the student, but a byte-exact verify flags it as a mismatch forever, so the source
+  should just use `...`. Keep the verifier's normalisation and the source in step, or every future
+  push reports a false failure on the same question.
+- Both are only visible because the push verifies by reading each field BACK and comparing exactly.
+  A length check would have caught the truncation but not the ellipsis; a render check would have
+  caught neither.

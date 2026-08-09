@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Roulette Single Spin - Sample Space, Simple Events, Complements and Independence - count pockets to find three probabilities on one spin, then decide whether odd is the complement of even, name a mutually exclusive pair, and test a color-or-range pairing for independence ===
+// === NAME - DESCRIPTION: Roulette Single Spin - Sample Space, Complements and Independence - count pockets for three probabilities on one spin, decide whether odd is the complement of even, name a mutually exclusive pair, and test a color-or-range pair for independence ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

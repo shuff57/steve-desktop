@@ -3210,7 +3210,7 @@
  },
  {
   "path": "questions/probability/roulette-single-spin-events.php",
-  "desc": "Roulette Single Spin - Sample Space, Simple Events, Complements and Independence - count pockets to find three probabilities on one spin, then decide whether odd is the complement of even, name a mutually exclusive pair, and test a colour-or-range pairing for independence",
+  "desc": "Roulette Single Spin - Sample Space, Complements and Independence - count pockets for three probabilities on one spin, decide whether odd is the complement of even, name a mutually exclusive pair, and test a color-or-range pair for independence",
   "qtype": "multipart",
   "used_by": [
    "3-3-two-basic-rules-of-probability"
