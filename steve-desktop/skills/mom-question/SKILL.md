@@ -95,6 +95,34 @@ Engine noise to ignore: running stateless with no session, IMathAS emits
 `Undefined global variable $myrights … in parsers.php` on perfectly healthy questions. A question's
 *own* errors say "of Common Control" instead.
 
+## Before writing anything, check what the bank already has
+
+The bank is 500+ questions and a section's problems routinely repeat what an earlier section
+already covers — 2.2's first five problems are frequency-table work that 1.3 covers outright.
+Writing a fresh question for one of those is wasted effort twice over: once writing it, and again
+every time it needs a repair that its twin already had.
+
+```bash
+cd mom-content && python reference/build-question-index.py   # regenerate, then search it
+```
+
+`reference/question-index.json` holds one entry per question — its `NAME - DESCRIPTION`, its
+qtype, the assignments already using it, and its `qsetid` if it has been filed. Search it by
+topic word before planning a set, and again before writing each question.
+
+Three outcomes, in order of preference:
+
+- **Attach it unchanged.** A question can serve any number of assignments; attaching costs one
+  GET and copies nothing, so a later fix improves every section at once. Two questions covering
+  the same ground is the thing to avoid, not one question in two places.
+- **Copy and change the scenario.** When the topic fits but the context is wrong for the section,
+  copy the file, change the context strings and the numbers, and leave the structure alone. The
+  structure is what took the work and what has already been proven.
+- **Write a new one.** Only when nothing covers it. Say in the brief what you searched for and
+  what came back, so the gap is on the record.
+
+Rebuild the index after adding questions, so the next run sees them.
+
 ## How many questions a set should hold
 
 **Between 10 and 15, aiming at 15.** These are practice assignments, so the count is a teaching

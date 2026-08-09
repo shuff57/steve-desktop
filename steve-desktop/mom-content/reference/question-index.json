@@ -1,0 +1,4471 @@
+[
+ {
+  "path": "questions/annuity/loan-amortization-payment.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/annuity/ordinary-annuity-fv.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q1-letter-sequences.php",
+  "desc": "Letter Sequences - Shrinking-pool permutations from a small alphabet",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q10-committee.php",
+  "desc": "Committee Selection - Choose r members from a group of n (combinations)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q11-card-hand.php",
+  "desc": "Card Hand from a Deck - Choose r cards from 52 (combinations)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q12-handshakes.php",
+  "desc": "Handshakes - Pairwise count among n people equals nC2",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q13-coin-heads.php",
+  "desc": "Coin Tosses With k Heads - Choose which positions are heads",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q14-lattice-paths.php",
+  "desc": "Lattice Paths - Shortest routes across a rectangular grid",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q15-perm-or-comb.php",
+  "desc": "Permutation or Combination - Identify whether order matters in four scenarios",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q16-race-finish.php",
+  "desc": "Race Finish Orders - Permutations of n racers with first-place restrictions",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q17-committee-constraints.php",
+  "desc": "Committees with At-Least-One via Complement - Find committees that include at least one of two named people using total minus none",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q18-permutations-word-problem.php",
+  "desc": "Permutations Word Problem - Count ordered arrangements in a real-world podium scenario",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q19-combinations-with-condition.php",
+  "desc": "Combinations With Condition - Count committees from a group, then count those including a specific member",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q2-word-restricted-slot.php",
+  "desc": "Word Permutations With a Slot Restriction - Vowels/consonants in fixed positions",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q21-combinations-lottery-committee.php",
+  "desc": "Lottery Ticket Combinations - Count possible tickets, count tickets with a specific number, probability of winning",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q22-combinations-word-problem.php",
+  "desc": "Starter Selection Combinations - Multi-constraint combinations: total, include a player, exclude a player, probability",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q3-compute-npr.php",
+  "desc": "Compute nPr - Break the permutation formula into its pieces (n!, (n-r)!, final)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q4-glue-trick.php",
+  "desc": "Glue Trick - k specific people sit together in a row of n",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q5-shelf-by-subject.php",
+  "desc": "Books on a Shelf - Combined permutations across two subject pools",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q6-not-together.php",
+  "desc": "Total / Together / Not Together - Three-part chain on the glue trick",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q7-three-digit-parity.php",
+  "desc": "Three-Digit Numbers - Slot-by-slot counting with a parity rule",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q8-word-all-distinct.php",
+  "desc": "All-Distinct Word Permutations - n! arrangements when every letter differs",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/combinatorics/q9-compute-ncr.php",
+  "desc": "Compute nCr - Break the combination formula into its pieces (n!, r!, (n-r)!, final)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/counting/multiplication-principle.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/counting/permutations-combinations.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/data-sampling/classify-data-qualitative-discrete-continuous.php",
+  "desc": "Classify Data as Qualitative, Quantitative Discrete, or Quantitative Continuous - Sort six everyday measurements into the three data types, separating counting from measuring",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868253"
+ },
+ {
+  "path": "questions/data-sampling/q1-variable-type.php",
+  "desc": "Variable Type Identification - Classify a variable as qualitative or quantitative",
+  "qtype": "multipart",
+  "used_by": [
+   "t1-verify-question-home",
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/data-sampling/q2-observational-vs-experiment.php",
+  "desc": "Observational Study vs Experiment - Classify a study, identify treatment vs control group, and decide whether causal conclusions are supported",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/data-sampling/q3-sampling-method-identify.php",
+  "desc": "Identify Sampling Method - Match a study description to the correct sampling method (simple random, stratified, cluster, systematic, convenience)",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/data-sampling/q4-population-parameter-statistic.php",
+  "desc": "Population vs Sample, Parameter vs Statistic - Read a study description; identify the population, the sample, and whether a given numeric summary is a parameter or a statistic",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind",
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/associated-vs-independent-variables-select-all.php",
+  "desc": "Associated vs. Independent Variables and the Causation Trap - Select every randomized variable pair that shows association rather than independence, then judge whether one associated pair proves causation or admits a lurking variable instead",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873401"
+ },
+ {
+  "path": "questions/descriptive-stats/audit-frequency-table-errors.php",
+  "desc": "Audit Frequency Table Errors - Given raw data and a published frequency table with two deliberate frequency errors, correct the frequencies, compute fractions, and explain how the error likely happened",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873374"
+ },
+ {
+  "path": "questions/descriptive-stats/back-solve-frequency-from-cumulative.php",
+  "desc": "Back-Solve Frequency from Cumulative Relative Frequency - Recover a missing frequency from a known cumulative relative frequency, then complete the relative and cumulative columns and find percents",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873372"
+ },
+ {
+  "path": "questions/descriptive-stats/bar-graph-counts-versus-percentages.php",
+  "desc": "Bar Graph of Counts Versus Percentages - The same category table is drawn twice, once as counts and once as percentages; recover the group size, compute one category's percentage, and say why changing to percentages leaves the shape of the graph alone",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/blinding-and-placebo-identification.php",
+  "desc": "Blinding and Placebo in a Clinical Trial - identify which feature of an experimental design is the blinding, and classify the trial as single- or double-blind",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873398"
+ },
+ {
+  "path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
+  "desc": "Build a Stem-and-Leaf Plot from Raw Data - From an ordered list of two-digit measurements, work out how many stem rows the plot needs, how many leaves land on one stem, and how many values clear a cutoff, then say what a single leaf stands for",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/choose-the-correct-line-graph.php",
+  "desc": "Choose the Correct Line Graph - Four line graphs of one frequency table; three commit a classic error (running totals plotted as frequencies, an axis not starting at zero, frequencies on the wrong values) and one is right",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/choose-the-correct-stemplot.php",
+  "desc": "Choose the Correct Stem-and-Leaf Plot - Four stemplots of one data set; three commit a classic construction error (repeats written once, leaves out of order, whole values as leaves) and one is right. Pick the correct plot, then name one plot's error",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/choose-the-honest-bar-graph.php",
+  "desc": "Choose the Honest Bar Graph - Pick the one bar graph that displays a randomized category table fairly from four versions, three of which commit a classic display error, then name the error in a specified version",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/classify-measurement-scale.php",
+  "desc": "Classify Measurement Scale - Determine whether each item is measured on a nominal, ordinal, interval, or ratio scale",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873370"
+ },
+ {
+  "path": "questions/descriptive-stats/classify-then-build-frequency-table.php",
+  "desc": "Classify Then Build a Frequency Table - Classify the level of measurement of a 1-5 satisfaction rating, then read its frequency, relative frequency, and cumulative relative frequency straight off a raw list of responses",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873383"
+ },
+ {
+  "path": "questions/descriptive-stats/complete-grouped-frequency-table-survival.php",
+  "desc": "Complete a Grouped Frequency Table - given a grouped table of survival lengths with one frequency missing, find that frequency and the relative and cumulative relative frequencies of a named interval",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873353"
+ },
+ {
+  "path": "questions/descriptive-stats/complete-simple-frequency-table.php",
+  "desc": "Complete a Simple Frequency Table - Given a 3-row frequency table with one missing frequency, find the missing value, relative frequency, cumulative relative frequency, and percents",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873371"
+ },
+ {
+  "path": "questions/descriptive-stats/compute-mean-from-fifty-values.php",
+  "desc": "Compute Mean from Fifty Values - Given 50 state-level mean commute times, compute the overall mean",
+  "qtype": "number",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873369"
+ },
+ {
+  "path": "questions/descriptive-stats/conflicting-conclusions-from-two-samples.php",
+  "desc": "Two Researchers Reach Different Conclusions - decide what follows when two sound samples of the same population disagree, short of declaring either one wrong",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873357"
+ },
+ {
+  "path": "questions/descriptive-stats/control-group-placebo-blinding-matching.php",
+  "desc": "Control Group, Placebo, and Blinding Key Terms - Match control group, placebo, blinding, and double-blind to their definitions in a randomized drug trial, separating what is given from what is hidden and from who is kept unaware",
+  "qtype": "matching",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873399"
+ },
+ {
+  "path": "questions/descriptive-stats/cumulative-relative-frequency-at-most.php",
+  "desc": "Cumulative Relative Frequency \"At Most\" from Hurricane Table - Given a frequency table of hurricane direct hits by category (1-5), compute the cumulative relative frequency of storms at most category 3",
+  "qtype": "choices",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873377"
+ },
+ {
+  "path": "questions/descriptive-stats/design-experiment-full-anatomy.php",
+  "desc": "Anatomy of an Experiment - Given a randomized research question, identify the explanatory and response variables, the population, the experimental units, the two treatments, and whether the subjects can be blinded",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873390"
+ },
+ {
+  "path": "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php",
+  "desc": "Diagnose a Cumulative-vs-Individual Percent Claim - Catch a published claim that reports a row's cumulative relative frequency as if it were that row's own relative frequency, then compute the row's true percent",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873382"
+ },
+ {
+  "path": "questions/descriptive-stats/double-blind-vs-single-blind-identification.php",
+  "desc": "Single-Blind vs Double-Blind vs Not Blinded - classify a study from an explicit statement of which roles do and do not know each participant's treatment assignment",
+  "qtype": "choices",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873403"
+ },
+ {
+  "path": "questions/descriptive-stats/experimental-design-key-terms-matching.php",
+  "desc": "Experimental Design Key Terms - Match explanatory variable, response variable, treatment, experimental unit, and lurking variable to their definitions, targeting the confusion between a treatment and the explanatory variable itself",
+  "qtype": "matching",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873397"
+ },
+ {
+  "path": "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php",
+  "desc": "Find the Wrong Percentage in a Category Table - A published table gives counts beside percentages, but one percentage does not match its count; find the row, compute what it should be, and state what the column must total",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/grouped-frequency-table-and-graphs.php",
+  "desc": "Grouped Frequency Table and Graphs - Read frequencies, relative frequencies, and cumulative relative frequencies from a grouped frequency table of CEO ages, and identify which graph shape corresponds to each type",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873375"
+ },
+ {
+  "path": "questions/descriptive-stats/grouped-interval-boundary-select-all.php",
+  "desc": "Grouped Frequency Table Interval Boundary Reasoning - Select every true statement about why a continuous measurement's interval boundaries end in a fraction, against the common misconceptions",
+  "qtype": "multans",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873381"
+ },
+ {
+  "path": "questions/descriptive-stats/identify-population-from-study-description.php",
+  "desc": "Identify the Population from a Study Description - separate the whole group a study is about from the subset actually interviewed and from the variable being measured",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873351"
+ },
+ {
+  "path": "questions/descriptive-stats/identify-what-data-refers-to.php",
+  "desc": "Identify What the Key Term Data Refers To - separate the recorded values themselves from the summary of them, the variable being measured, and the group measured",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873354"
+ },
+ {
+  "path": "questions/descriptive-stats/incentive-announced-in-advance-bias.php",
+  "desc": "Does a Reward Announced in Advance Bias the Data - decide whether a topic-related incentive known before responding changes who answers and how",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873358"
+ },
+ {
+  "path": "questions/descriptive-stats/informed-consent-validity-select-all.php",
+  "desc": "Informed Consent Validity Requirements - Select every statement describing a genuine requirement of a valid informed-consent process, against misconceptions such as a signed form or verbal willingness being sufficient on its own",
+  "qtype": "multans",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873402"
+ },
+ {
+  "path": "questions/descriptive-stats/informed-consent-violation-identification.php",
+  "desc": "Informed Consent Violation Identification - Name which violation each of three randomized scenarios commits: coercing a captive population, enrolling a minor who cannot legally consent, or withholding a material fact while overselling the benefit",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873391"
+ },
+ {
+  "path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php",
+  "desc": "Rounding Rule and Interval-Scale Ratio Claims - Compute the mean of several temperature readings using the correct rounding rule, then explain why a \"twice as hot\" ratio claim is invalid for interval-scale data",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873384"
+ },
+ {
+  "path": "questions/descriptive-stats/large-random-sample-reliability.php",
+  "desc": "Is a Large Random Sample Reliable - judge a sample that is both large and randomly drawn, and name what makes it reliable",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873359"
+ },
+ {
+  "path": "questions/descriptive-stats/leading-survey-question-fairness.php",
+  "desc": "Is the Survey Question Fair - spot a leading question that praises one option and not the other, and state the neutral rewrite",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873361"
+ },
+ {
+  "path": "questions/descriptive-stats/line-graph-from-frequency-table.php",
+  "desc": "Read a Line Graph Built from a Frequency Table - Recover the sample size, a relative frequency and the most common value from a line graph of a randomized frequency table, then say what the connecting segments do and do not mean",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/lurking-variable-observational-study-critique.php",
+  "desc": "Lurking Variables in an Observational Study - critique a self-selected comparison for hidden confounders and propose a design fix",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873406"
+ },
+ {
+  "path": "questions/descriptive-stats/misleading-axis-scale-comparison.php",
+  "desc": "Misleading Axis Scale in a Line-Graph Comparison - Two line graphs compare a randomized pair of companies with no labeled or scaled vertical axis; name the flaw that lets each line stretch independently, and state how to correct the comparison",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873393"
+ },
+ {
+  "path": "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php",
+  "desc": "Percent More Than a Cutoff via the Complement Rule - Find the percent above a cutoff as 1 minus the cumulative relative frequency through the cutoff row, then confirm it by adding the relative frequencies of the rows above the cutoff",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873380"
+ },
+ {
+  "path": "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php",
+  "desc": "Proportions, Percents and Fractions from a Totals Table - read four different part-of-whole quantities off a 13-row table of counts, then classify the count and a measured magnitude by data type",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873352"
+ },
+ {
+  "path": "questions/descriptive-stats/q01-fitness-center-key-terms.php",
+  "desc": "Fitness Center Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study about mean client exercise time",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1873341"
+ },
+ {
+  "path": "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php",
+  "desc": "Ski Lesson Age Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study of the mean age at a first ski or snowboard lesson",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867371"
+ },
+ {
+  "path": "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php",
+  "desc": "Cardiologist Recovery Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study of the mean recovery period after a heart attack",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867373"
+ },
+ {
+  "path": "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php",
+  "desc": "Insurance Health Costs Key Terms - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study of the mean yearly health costs of an insurer's clients",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867374"
+ },
+ {
+  "path": "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php",
+  "desc": "Approval Poll Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study measuring the proportion of voters who approve of a politician",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867370"
+ },
+ {
+  "path": "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php",
+  "desc": "Marriage Counseling Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a study measuring the proportion of a counselor's clients who stay married",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867375"
+ },
+ {
+  "path": "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php",
+  "desc": "Ballot Measure Poll Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a poll estimating the proportion of eligible voters who will vote for a local ballot measure",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867376"
+ },
+ {
+  "path": "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php",
+  "desc": "Product Launch Survey Key Terms (Proportion) - Match population, sample, parameter, statistic, variable, and data to their descriptions in a marketing study estimating the proportion of people in an area who will buy a new product",
+  "qtype": "matching",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867377"
+ },
+ {
+  "path": "questions/descriptive-stats/q09-identify-population-multiple-choice.php",
+  "desc": "Identify the Population - Choose the group a study is about, distinguishing it from a broader group, a wrong-subject group, and a sample",
+  "qtype": "choices",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867369"
+ },
+ {
+  "path": "questions/descriptive-stats/q1-descriptive-vs-inferential.php",
+  "desc": "Descriptive vs Inferential Statistics - Classify a randomized study goal as descriptive or inferential statistics",
+  "qtype": "choices",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php",
+  "desc": "Mean, Median, IQR, and Range from a Small Data Set - Compute four summary statistics from a randomized list of 9 values",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php",
+  "desc": "Classify X as the Variable - Name what X is when X is defined as a measurement on one member of the population",
+  "qtype": "choices",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867378"
+ },
+ {
+  "path": "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php",
+  "desc": "Sample Mean Is a Statistic - Classify a mean computed from a sample",
+  "qtype": "choices",
+  "used_by": [
+   "1-1-definitions-of-statistics-probability-and-key-terms"
+  ],
+  "qsetid": "1867379"
+ },
+ {
+  "path": "questions/descriptive-stats/q12-classify-one-variable-data-type.php",
+  "desc": "Classify a Variable as Qualitative, Discrete, or Continuous - Decide the data type of one variable recorded on each individual in a study",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868230"
+ },
+ {
+  "path": "questions/descriptive-stats/q13-select-all-quantitative-discrete.php",
+  "desc": "Select All Quantitative Discrete Variables - Apply the count-versus-measure rule across a list of recorded variables and check every one that is quantitative discrete",
+  "qtype": "multans",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868232"
+ },
+ {
+  "path": "questions/descriptive-stats/q14-purchase-list-three-data-types.php",
+  "desc": "Sort a Purchase Order into All Three Data Types - Supply Order - From one shopping list, identify which set of values is quantitative discrete, which is quantitative continuous, and which is qualitative",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868240"
+ },
+ {
+  "path": "questions/descriptive-stats/q15-name-the-sampling-method.php",
+  "desc": "Name the Sampling Method - Identify a study as simple random, stratified, cluster, systematic, or convenience sampling from how the sample was drawn",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868241"
+ },
+ {
+  "path": "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php",
+  "desc": "Match Sampling Methods to Studies - Match simple random, stratified, cluster, systematic, and convenience sampling to the study description whose draw mechanics fit, with a census and a two-stage design as unused distractors",
+  "qtype": "matching",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868243"
+ },
+ {
+  "path": "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php",
+  "desc": "Conditions Defining a Cluster or Stratified Sample - Check every statement that is true of the named sampling method, separating clustering from stratifying and from the neighbouring methods",
+  "qtype": "multans",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868244"
+ },
+ {
+  "path": "questions/descriptive-stats/q18-relative-and-cumulative-frequency.php",
+  "desc": "Relative and Cumulative Relative Frequency from a Grouped Table - Compute the relative frequency of one class, the cumulative relative frequency through that class, and recover a missing frequency from the known total",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873378"
+ },
+ {
+  "path": "questions/descriptive-stats/q19-proportion-and-percent-from-a-table.php",
+  "desc": "Proportion and Percent of a Total from a Frequency Table - Compute the proportion in an inclusive span of rows and the percent in a strictly-between span, then classify the counts as quantitative discrete",
+  "qtype": "multipart",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873379"
+ },
+ {
+  "path": "questions/descriptive-stats/q2-compare-two-distributions.php",
+  "desc": "Compare Two Distributions - Given summary statistics for two groups, identify which has the larger center and which has the larger spread, and pick the correct verbal comparison",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php",
+  "desc": "Do the Reported Percentages Allow a Pie Chart - Add three or four reported category percentages, then decide whether a pie chart is an honest display when the total runs over 100% because the categories overlap or falls under 100% because a category was left out",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868245"
+ },
+ {
+  "path": "questions/descriptive-stats/q21-percent-versus-count-comparison.php",
+  "desc": "Percent Versus Count When Comparing Two Groups of Different Size - Compute each institution's percent in one category from a two-by-two table of counts, then decide which comparison supports a claim about the make-up of the smaller institution's student body",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868246"
+ },
+ {
+  "path": "questions/descriptive-stats/q22-choose-the-right-display.php",
+  "desc": "Choose the Right Display for the Purpose - Match a data set and a stated purpose to a pie chart, bar graph, Pareto chart, or histogram, using what each display promises about the data",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868247"
+ },
+ {
+  "path": "questions/descriptive-stats/q23-match-error-and-bias-terms.php",
+  "desc": "Match Error and Bias Terms to Study Flaws - Match sampling error, nonsampling error, sampling bias, and confounding to the randomized incident each one names, with a voluntary-response incident and a loaded-wording incident as unused distractors",
+  "qtype": "matching",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868248"
+ },
+ {
+  "path": "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php",
+  "desc": "Response Rate and Type of Bias - Compute a study's response rate as a percent from the number contacted and the number who replied, then classify the study's main problem as nonresponse bias, voluntary response bias, or neither",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868249"
+ },
+ {
+  "path": "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php",
+  "desc": "Critiquing a Self-Funded Volunteer Study - Check every problem in a company-funded study of self-selected volunteers with no control group, and recognise that a large sample size fixes sampling error but never sampling bias",
+  "qtype": "multans",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868250"
+ },
+ {
+  "path": "questions/descriptive-stats/q26-two-samples-different-results.php",
+  "desc": "Sampling Variability Between Two Samples - Recognize that two random samples from the same population give different means without either being an error, and predict that larger samples shrink but do not eliminate the gap",
+  "qtype": "multipart",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868251"
+ },
+ {
+  "path": "questions/descriptive-stats/q27-with-or-without-replacement.php",
+  "desc": "Sampling With or Without Replacement - Decide from a described draw whether members were returned to the population, could be chosen only once, or whether the description does not say",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1868252"
+ },
+ {
+  "path": "questions/descriptive-stats/q3-resistant-measure-choice.php",
+  "desc": "Choose a Resistant Measure for a Skewed Distribution - Decide whether to report the mean+SD or median+IQR based on shape, then explain why",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/randomized-block-design-application.php",
+  "desc": "Randomized Block Design Application - With one lurking variable known in advance, identify the blocking variable, recognise that random assignment happens within each block, and explain how the two together control known and unknown lurking variables",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873400"
+ },
+ {
+  "path": "questions/descriptive-stats/rate-vs-count-then-honest-display.php",
+  "desc": "Rate Versus Raw Count, Then Honest Display - From two stores' complaint counts and differing customer counts, compute each rate per 100 customers, then choose the display that compares them honestly on one shared labeled scale",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873404"
+ },
+ {
+  "path": "questions/descriptive-stats/raw-count-vs-rate-airline-complaints.php",
+  "desc": "Raw Count Versus a Fair Rate, Airline Complaints - Decide that a bar chart of raw complaint counts for six differently sized airlines cannot support a claim about which carriers are worst, then name the rate that makes the comparison fair",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873394"
+ },
+ {
+  "path": "questions/descriptive-stats/read-a-bar-graph-comparisons.php",
+  "desc": "Read a Bar Graph and Compare Categories - Take one category's count off a drawn bar graph, work out how many more one category holds than another, total the whole graph, and say why the bars are drawn with gaps between them",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/read-a-stemplot-rows-and-values.php",
+  "desc": "Read a Stem-and-Leaf Plot - Recover the count in one stem row, the largest value in another, and the total sample size from a stemplot built from randomized data",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/relative-frequency-from-hurricane-table.php",
+  "desc": "Relative Frequency from Hurricane Category Table - Given a frequency table of hurricane direct hits by category (1-5), compute the relative frequency of category 4 hurricanes",
+  "qtype": "choices",
+  "used_by": [
+   "1-3-frequency-frequency-tables-and-levels-of-measurement"
+  ],
+  "qsetid": "1873376"
+ },
+ {
+  "path": "questions/descriptive-stats/repeated-measures-design-identification.php",
+  "desc": "Repeated-Measures Design Identification - In a randomized sleep-deprivation driving study, name the explanatory and response variables, identify the design against three distractors, and say what the within-subject comparison and session order control",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873392"
+ },
+ {
+  "path": "questions/descriptive-stats/research-ethics-violation-select-all.php",
+  "desc": "Research Ethics Violations (IRB, Informed Consent, Data Fraud) - Select every real violation where a researcher skips IRB review, withholds a known risk, and discards data selectively, from a list that also holds true-but-irrelevant statements",
+  "qtype": "multans",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873405"
+ },
+ {
+  "path": "questions/descriptive-stats/round-then-stemplot-prices.php",
+  "desc": "Rounding Before a Stemplot - Three-digit prices are rounded to the nearest ten so the hundreds digit can serve as the stem, then read back: round one price, name its leaf, count the prices on one stem, and say why the rounding step is needed",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/sample-size-adequate-narrow-population.php",
+  "desc": "Is the Sample Large Enough for the School - judge whether a sample drawn from one school supports a conclusion about that school",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873355"
+ },
+ {
+  "path": "questions/descriptive-stats/sample-size-inadequate-wide-population.php",
+  "desc": "Is the Sample Large Enough for the Country - recognise that a sample drawn from one school cannot describe a national population, because of coverage rather than size",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873356"
+ },
+ {
+  "path": "questions/descriptive-stats/sampling-frame-bias-critique.php",
+  "desc": "Sampling Frame and Selection Bias in a Retailer Study - Check every genuine sampling-frame or selection-bias flaw in a textbook-availability study, and reject false statements that sound plausible but are not actual problems",
+  "qtype": "multans",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873396"
+ },
+ {
+  "path": "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php",
+  "desc": "Outliers and Empty Rows in a Stemplot - One value sits far above a tight cluster; read the outlier off the plot, count the stem rows with no leaves, compute the range, and say why the empty rows must still be drawn",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/survey-percent-and-extrapolation.php",
+  "desc": "Survey Percent Complement, Extrapolated Count, and Population Limits - From one institution's survey percentages, find a complement percent, extrapolate a respondent count, then judge whether those percentages would hold at a contrasting institution",
+  "qtype": "multipart",
+  "used_by": [
+   "1-4-experimental-design-and-ethics"
+  ],
+  "qsetid": "1873395"
+ },
+ {
+  "path": "questions/descriptive-stats/time-series-line-graph-change-over-time.php",
+  "desc": "Read a Time Series Line Graph - From a line graph of eight months of data, read one month's value, find the largest month-to-month rise, work out the net change across the whole period, and say why a line graph suits data collected over time",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/tiny-sample-representativeness.php",
+  "desc": "Is a Tiny Sample Representative - judge a sample that is a large FRACTION of a small population but too few responses to support any conclusion",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873362"
+ },
+ {
+  "path": "questions/descriptive-stats/two-series-bar-graph-over-representation.php",
+  "desc": "Over-representation in a Two-Series Bar Graph - A grouped bar graph puts each group's share of an event beside its share of the population; find the over-represented group, measure the gap in percentage points, and say what the graph cannot tell you",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/descriptive-stats/two-well-run-experiments-differ.php",
+  "desc": "Can Two Well-Run Experiments Differ - recognise sampling variability as the reason two sound studies of the same population disagree",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873363"
+ },
+ {
+  "path": "questions/descriptive-stats/volunteer-sample-self-selection.php",
+  "desc": "Are Volunteers a Reliable Sample - judge a sample that is large enough but self-selected, and name self-selection as the flaw",
+  "qtype": "choices",
+  "used_by": [
+   "1-2-data-sampling-and-variation-in-data-and-sampling"
+  ],
+  "qsetid": "1873360"
+ },
+ {
+  "path": "questions/descriptive-stats/which-display-preserves-the-data.php",
+  "desc": "What Each Display Keeps and Throws Away - Decide which display still holds every original value, which suits a categorical variable and which shows change over time, then say what a stemplot gives up as the data grows",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/displays/q1-choose-display.php",
+  "desc": "Choose the Appropriate Display - Given a data scenario, choose the best graphical display from a fixed list (bar chart, histogram, pie chart, boxplot, scatterplot, time series)",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/displays/q2-histogram-relative-frequency.php",
+  "desc": "Histogram - Relative Frequency and Shape - Read a class count off a drawn histogram, turn it into a relative frequency, and identify the shape of the distribution",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/displays/q3-boxplot-five-number.php",
+  "desc": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/displays/q4-boxplot-outliers-context.php",
+  "desc": "Boxplot - IQR, Fences, and Outlier Check (Context) - From a five-number summary in context, compute IQR and the 1.5*IQR fences, then decide whether a new observation is an outlier",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-cosine-transformation-advanced.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-cosine-transformation-easy.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-cosine-transformation-hard.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-cosine-transformation-medium.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-linear-function.php",
+  "desc": "Graph a Linear Function - Graph y=mx+b on a coordinate grid using the two-point line tool",
+  "qtype": "draw",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-sine-transformation-advanced.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-sine-transformation-easy.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-sine-transformation-hard.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-sine-transformation-medium.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/draw/graph-sine-transformation.php",
+  "desc": "",
+  "qtype": "draw",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/exp-log/q1-exponential-evaluation.php",
+  "desc": "Exponential Evaluation - Evaluate f(x) = a * b^x at x = 0, 1, 2",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/exp-log/q2-log-evaluation-and-conversion.php",
+  "desc": "Log Evaluation and Conversion - Evaluate a logarithm and convert between log and exponential form",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/exp-log/q3-exp-model-growth-decay.php",
+  "desc": "Exponential Growth and Decay Models - Evaluate and interpret A(t) = A0 * b^t in applied contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/annuities/q10-ordinary-annuity-future-value.php",
+  "desc": "6.2 Ordinary Annuity - Future Value and Total Contributions",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/annuities/q11-sinking-fund-required-deposit.php",
+  "desc": "6.3 Sinking Fund - Required Periodic Deposit",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/annuities/q8-annuities-sinking-funds.php",
+  "desc": "6.3 Annuities and Sinking Funds",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/annuities/q9-annuity-due-future-value.php",
+  "desc": "6.3 Annuity Due (Future Value)",
+  "qtype": "number",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/compound-interest/q10-annual-vs-monthly-comparison.php",
+  "desc": "6.1 Compound Interest - Annual vs. Monthly Comparison",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/compound-interest/q11-compound-interest-multipart.php",
+  "desc": "6.1 Compound Interest - Comprehensive Multipart (r/n \u2192 FV \u2192 Interest \u2192 EAY)",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/compound-interest/q5-compound-interest.php",
+  "desc": "6.2 Compound Interest",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/compound-interest/q6-solve-rate-compound.php",
+  "desc": "6.2 Solving for Rate (Compound Interest)",
+  "qtype": "number",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/compound-interest/q7-comparing-future-values.php",
+  "desc": "6.2 Comparing Future Values",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/installment-payment/q1-installment-payment-payout-annuity.php",
+  "desc": "6.4 Installment Payment and Present Value of an Annuity",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/installment-payment/q11-loan-payment-and-total-interest.php",
+  "desc": "6.4 Loan Payment and True Cost of Borrowing",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind",
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/installment-payment/q12-amortization-remaining-balance.php",
+  "desc": "6.4 Amortization \u2014 Remaining Balance After N Payments",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/installment-payment/q2-amortization-schedule.php",
+  "desc": "6.4 Amortization Schedule (First Two Payments)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/simple-interest/q3-simple-interest-discount.php",
+  "desc": "6.1 Simple Interest and Discount",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/finance/simple-interest/q4-solve-rate-maturity-value.php",
+  "desc": "6.1 Solving for Rate and Maturity Value",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q1-identifying-sampling-bias.php",
+  "desc": "Identifying Sampling Bias - Students identify convenience sampling bias in a research scenario, explain how the biased sample could skew results, and evaluate whether findings can be generalized to the full population.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q10-sampling-design-critique.php",
+  "desc": "Sampling Design Critique - Students critique a flawed sampling plan, identify bias, predict the direction of skew, and propose a better randomized design",
+  "qtype": "essay",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php",
+  "desc": "Compare Two Distributions in Context - Students compare two groups using shape, center, spread, and outliers, write a context-anchored verbal comparison",
+  "qtype": "essay",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php",
+  "desc": "Reading a Study - Students classify a study as observational or experimental, name a plausible source of bias or confounding, and state what conclusion is and is not justified",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q2-classification-and-justification.php",
+  "desc": "Classification and Justification - Students classify three variables as categorical or quantitative (discrete or continuous), justify each classification, and explain why proper variable classification matters when choosing statistical methods.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q3-stratified-vs-simple-random-sampling.php",
+  "desc": "Stratified vs. Simple Random Sampling - Students evaluate whether simple random sampling or stratified random sampling is more appropriate for a survey with distinct subgroups, and justify their choice using the group composition.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q4-choosing-the-right-display.php",
+  "desc": "Choosing the Right Display - Students explain which graphical display (histogram or boxplot) is more appropriate for identifying the shape of a distribution, and describe what unique information each display provides.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php",
+  "desc": "Interpreting Bimodal Data - Students interpret a bimodal distribution, explain what the two peaks suggest about subgroups in the data, and recommend further investigation to confirm their hypothesis.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q6-frequency-distribution-analysis.php",
+  "desc": "Frequency Distribution Analysis - Students create a frequency distribution with 4 classes from a dataset of quiz scores and write a conclusion describing the shape of the distribution and what it reveals about student performance.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
+  "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency, variability, and reliability across two groups.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php",
+  "desc": "Five-Number Summary and Outliers - Students use the 1.5(IQR) rule to determine whether a maximum value is an outlier, show their calculations, and interpret the result in context.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/descriptive-statistics/q9-choosing-the-right-measure-of-center.php",
+  "desc": "Choosing the Right Measure of Center - Given a skewed dataset with one extreme outlier, recommend whether to use mean or median to describe a typical value and explain why.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q1-single-mean-concept-and-hypotheses.php",
+  "desc": "Single Mean - Concept and Hypotheses - Students explain what a hypothesis test for a single population mean is trying to answer, apply the idea to a randomized real-world scenario, and state the null and alternative hypotheses in context.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q10-two-sample-means-interpreting-confidence-interval.php",
+  "desc": "Two-Sample Means - Interpreting Confidence Interval - Students interpret a confidence interval for the difference between two population means in context, explain what the confidence level means, and assess whether the interval suggests a real difference between groups.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q11-two-sample-means-screen-time-ci.php",
+  "desc": "Two-Sample Means \u2014 CI Interpretation, Decision, and Error Type (new scenarios)",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q12-ci-mean-context-critique.php",
+  "desc": "CI for a Mean - Interpret + Critique Conditions - Students interpret a one-mean t-CI in context, then critique whether the conditions for the t-procedure are reasonable",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q13-interpreting-inference-frq.php",
+  "desc": "What Inference Really Says - Students interpret a confidence interval or significance result in plain context and name a common misinterpretation to avoid",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q2-single-mean-interpreting-p-value.php",
+  "desc": "Single Mean Inference - Interpreting P-Value - Students interpret a completed one-sample mean hypothesis test by comparing p-value to significance level, making a decision on H&#8320;, and writing a context-based conclusion about the evidence.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php",
+  "desc": "Single Mean - Interpreting Confidence Interval - Students interpret a confidence interval for a population mean in context, explain what the confidence level means, and assess whether a claimed mean is plausible based on whether it falls inside the interval.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q4-paired-means-concept-and-hypotheses.php",
+  "desc": "Paired Means - Concept and Hypotheses - Students explain why paired data are analyzed with within-subject differences, apply the idea to a randomized before-after scenario, and state appropriate paired t-test hypotheses in context.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q5-paired-means-interpreting-results.php",
+  "desc": "Paired Means - Interpreting Results - Students interpret a completed paired t-test by comparing p-value to alpha, making the statistical decision, and writing a practical conclusion about intervention effects in context.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q6-two-sample-means-concept-and-hypotheses.php",
+  "desc": "Two-Sample Means - Concept and Hypotheses - Students explain when a two-sample t-test for independent means is appropriate, apply the design to a randomized context, and state correct hypotheses in symbols and words.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q7-two-sample-means-interpreting-results.php",
+  "desc": "Two-Sample Means - Interpreting Results - Students interpret a completed two-sample t-test by comparing p-value to alpha, making the correct decision about H&#8320;, and writing a practical conclusion about whether two groups differ.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q8-paired-vs-two-sample-t-tests.php",
+  "desc": "Paired vs Two-Sample T-Tests - Students explain the key design difference between paired and independent samples, classify two randomized scenarios, and justify why test choice affects conclusions.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-means/q9-anova-interpreting-results.php",
+  "desc": "ANOVA - Interpreting Results - Students explain why ANOVA is appropriate for comparing three group means, interpret the F-test output by comparing p to alpha, and write a contextual conclusion about whether at least one group mean differs.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q1-single-proportion-hypothesis-test.php",
+  "desc": "Single Proportion Inference - Students explain what a hypothesis test for a single proportion is trying to answer, provide a real-world example from a randomized context, and describe what the null hypothesis would claim.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q10-difference-of-proportions-interpreting-results.php",
+  "desc": "Difference of Proportions - Interpreting Results - Students write a conclusion statement for a two-proportion hypothesis test, stating whether to reject or fail to reject the null hypothesis and explaining what the result means about the difference between two groups.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q11-chi-square-gof-interpreting-results.php",
+  "desc": "Chi-Square Goodness of Fit - Interpreting Results - Students write a conclusion statement for a chi-square goodness of fit test by comparing the p-value to the significance level, stating whether the null hypothesis is rejected, and explaining what the results suggest about the observed distribution.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q12-chi-square-independence-interpreting-results.php",
+  "desc": "Chi-Square Independence - Interpreting Results - Students write a conclusion statement for a chi-square test of independence, deciding whether to reject or fail to reject H0, explaining the result in context, and recognizing that association does not prove causation.",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q13-difference-of-proportions-interpreting-confidence-interval.php",
+  "desc": "Difference of Proportions - Interpreting Confidence Interval - Students interpret a confidence interval for the difference between two population proportions in context, explain what the confidence level means, and assess whether the interval suggests a real difference between groups.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q14-full-ht-workflow-context.php",
+  "desc": "Full Hypothesis Test Workflow in Context - Students set up hypotheses, verify conditions, compute the test statistic and p-value, make a decision at a stated significance level, and write a conclusion that connects the result back to the original claim.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q15-two-prop-vaccine-full-interpretation.php",
+  "desc": "Two-Proportion Test \u2014 Full Interpretation (vaccine/program efficacy scenarios)",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q16-two-prop-full-workflow.php",
+  "desc": "Two-Proportion HT - Full Workflow in Context - Students write H0/Ha, compute z + p-value, and write a context-anchored conclusion for a two-proportion comparison",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q2-difference-of-proportions.php",
+  "desc": "Difference of Proportions - Students explain the main difference between testing a single proportion and comparing two proportions, and give a real-world example that requires a two-proportion comparison.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q3-chi-square-goodness-of-fit.php",
+  "desc": "Chi-Square Goodness of Fit - Students evaluate whether observed data matches an expected distribution, explain their reasoning without calculations, and describe what a chi-square goodness of fit test measures.",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q4-chi-square-independence.php",
+  "desc": "Chi-Square Independence - Students explain the difference between two variables being connected and one causing the other, then give an example with a third factor that explains the pattern.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q5-when-to-use-each-test.php",
+  "desc": "When to Use Each Test - Students read a research scenario and decide whether a single proportion test or a two-proportion test is appropriate, then explain their reasoning and why the other test does not apply.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q6-understanding-statistical-significance.php",
+  "desc": "Understanding Statistical Significance - Students interpret a p-value relative to a significance level, make the correct reject or fail-to-reject decision, explain why statistical significance does not prove a hypothesis is true, and describe what the result actually tells us about the evidence.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q7-association-vs-causation.php",
+  "desc": "Association vs. Causation - Students explain why an observed association does not prove causation, provide at least two specific alternative explanations for the pattern, and describe what study design would be needed to support a causal claim.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q8-comparing-tests.php",
+  "desc": "Comparing Tests - Students explain what a chi-square test of independence and a difference of proportions test each compare in the context of a 2x2 table, then describe why both tests are mathematically equivalent for this type of data.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php",
+  "desc": "Single Proportion Inference - Interpreting Results - Students write a conclusion statement for a single-proportion hypothesis test given the sample data, p-value, and significance level, stating whether the null hypothesis is rejected and explaining what the result means in context.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q10-z-scores-and-normal-probability.php",
+  "desc": "Z-Scores and Normal Probability - Students calculate a z-score for a normally distributed scenario, interpret what it means in context, and determine whether the score would be considered unusual.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q11-empirical-rule.php",
+  "desc": "Empirical Rule - Use the 68-95-99.7 rule to determine what percentage of normally distributed values fall within a given range and interpret the result in context.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q12-normal-distribution-and-percentiles.php",
+  "desc": "Normal Distribution and Percentiles - Students calculate the score needed to be in the top 10% of a normal distribution using z = 1.28, then determine how many individuals out of a population would be expected to score that high.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q13-identifying-non-normal-distributions.php",
+  "desc": "Identifying Non-Normal Distributions - Interpret a Q-Q plot with tail deviations to assess normality and explain what heavy tails indicate.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q14-central-limit-theorem.php",
+  "desc": "Central Limit Theorem - Students explain what the CLT predicts about the distribution of sample means from a skewed population, the conditions for it to apply, and why it matters for statistical inference.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/normal-distribution/q15-normal-model-in-context.php",
+  "desc": "Normal Model in Context - Students apply a normal model to a real-world scenario: compute a probability, interpret it in context, address the bell-shape assumption",
+  "qtype": "essay",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/probability/q1-expected-value-decision.php",
+  "desc": "Expected Value Decision - Compute E(X) for a real-world game/policy and explain whether to play or buy",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
+  "desc": "Explanatory vs Response Variable - Justify the Choice - Students identify which variable is the explanatory (predictor) and which is the response (outcome) in a randomized real-world scenario, justify the role assignment in context, and explain why this choice matters for a regression analysis.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q10-interpret-p-value-for-slope-test.php",
+  "desc": "Inference for the Slope - Interpret a P-Value for the Slope Test - Students interpret a p-value from a regression slope hypothesis test, compare it to alpha, decide on H&#8320;, and write a contextual conclusion about the linear relationship.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-practice",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q11-slope-inference-frq-2.php",
+  "desc": "Inference for the Slope - Concept and Hypotheses (Variant 2) - Students explain what a hypothesis test for the slope of a regression line is trying to determine, apply the idea to a randomized real-world bivariate scenario, and state the null and alternative hypotheses using &#946;&#8321; notation.",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q12-regression-output-full-interpretation.php",
+  "desc": "Regression Output \u2014 Interpret slope, r-squared, and slope test p-value (new scenarios)",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q13-slope-inference-full-interpret.php",
+  "desc": "Slope-Inference Full Interpretation - From a regression output, students interpret the slope, the slope test (t, p-value), and discuss linearity assumption",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q2-interpret-residual-in-context.php",
+  "desc": "Interpret a Residual in Context - Students compute the predicted value from a randomized regression equation, calculate the residual for an observed data point, and interpret whether the model overpredicted or underpredicted in the context of the scenario with correct units.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q3-interpret-correlation-coefficient.php",
+  "desc": "Interpret a Correlation Coefficient - Students describe the strength and direction of a linear relationship from a randomized r value, explain what r does and does not measure, and explain why correlation alone does not establish causation.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-test"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q4-predicting-from-regression-equation.php",
+  "desc": "Predicting from a Regression Equation - Interpretation - Students plug a randomized x-value into a randomized least-squares regression equation, report the predicted y in context, and explain why the prediction is an estimate rather than an exact value.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q5-least-squares-method-conceptual.php",
+  "desc": "Least Squares Method - Conceptual Explanation - Students explain what the least squares regression line is, why it is called \"least squares\" (it minimizes the sum of squared residuals), and why we square the residuals rather than just adding them or taking absolute values.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q6-interpret-slope-and-y-intercept.php",
+  "desc": "Interpret Slope and Y-Intercept in Context - Students interpret the slope and y-intercept of a randomized least-squares regression equation in plain language with correct units, and address whether the y-intercept makes practical sense given the data range.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q7-r-squared-interpretation.php",
+  "desc": "R-Squared Interpretation - Students explain what R-squared represents in a linear regression model, interpret a randomized R-squared value in a randomized real-world context, and explain what the unexplained portion (1 - R-squared) tells us.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q8-extrapolation-risk.php",
+  "desc": "Extrapolation - Why It's Risky - Students compute a prediction from a regression equation at an x-value far outside the observed data range, identify the prediction as extrapolation, and explain why predictions outside the observed range are unreliable.",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/regression/q9-slope-inference-concept-and-hypotheses.php",
+  "desc": "Inference for the Slope - Concept and Hypotheses - Students explain what a hypothesis test for the slope of a regression line is trying to determine, apply the idea to a randomized real-world bivariate scenario, and state the null and alternative hypotheses using &#946;&#8321; notation.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-test"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sampling-distributions/q1-sampling-distribution-reasoning.php",
+  "desc": "Sampling Distribution Reasoning - Students identify the population parameter and the sample statistic, verify CLT conditions for the sample mean, compute and interpret the standard error in context.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q1-venn-diagram-reasoning.php",
+  "desc": "FRQ: Venn Diagram Reasoning - Draw and interpret a 2-circle Venn diagram from survey data",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q2-permutation-vs-combination.php",
+  "desc": "FRQ: Permutation vs Combination - Diagnose whether a counting problem is perm or comb, then compute",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q3-interpreting-conditional-probability.php",
+  "desc": "FRQ: Interpreting Conditional Probability - Explain P(A|B) in context and why it is not symmetric",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q4-tree-diagram-counting.php",
+  "desc": "FRQ: Tree Diagram and Counting - Build a tree for a 2-stage experiment, list the sample space, compute a simple probability",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q5-twoway-interpretation.php",
+  "desc": "FRQ: Two-Way Table Interpretation - Compute marginals and a conditional, then explain in plain English why P(A|B) != P(B|A)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/sets-counting-probability/q6-perm-vs-comb-explained.php",
+  "desc": "FRQ: Explain Permutations vs Combinations - Contrast a perm scenario with a comb scenario, identify each, compute both, explain why \"order matters\" gives different counts",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-a/q1-linear-modeling-justification.php",
+  "desc": "FRQ: Linear Modeling Justification - Explain slope, intercept, variable roles, and model fit in a real-world linear scenario.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-a/q2-matrix-vs-substitution-justification.php",
+  "desc": "FRQ: Matrix vs Substitution for Systems - Justify using matrix methods vs substitution for a 3x3 linear system, and explain when the inverse fails.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-a/q3-lp-setup-justification.php",
+  "desc": "FRQ: LP Setup Justification - Define decision variables, write the objective function, and explain constraints for a linear programming scenario.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-b/q1-exp-growth-decay-interpretation.php",
+  "desc": "FRQ: Exponential Growth and Decay Interpretation - Explain A(t) = A0 * b^t in context: initial value, base meaning, time-specific value, and model limitation.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-b/q2-compound-vs-simple-interest.php",
+  "desc": "FRQ: Compound vs Simple Interest Comparison - Compare I = Prt and A = P(1+r/n)^(nt) in a real-world investment context, explaining compounding advantage, frequency, simple-interest use cases, and time horizon effects.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/frq/test-b/q3-conditional-bayes-interpretation.php",
+  "desc": "FRQ: Conditional Probability and Bayes Interpretation - Explain P(A|B) in context, why P(A|B) is not equal to P(B|A), how to compute from the table, and why the asymmetry matters in decisions.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/functions/q1-function-notation-eval.php",
+  "desc": "Function Notation Eval - Evaluate f(x) for a randomized polynomial at three x values",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/functions/q2-domain-radical-rational.php",
+  "desc": "Domain of a Function - Find domain of a polynomial, rational, and radical function",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/functions/q3-average-rate-of-change.php",
+  "desc": "Average Rate of Change - Compute (f(x2)-f(x1))/(x2-x1) for a randomized quadratic",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/functions/q4-function-comprehensive.php",
+  "desc": "Function Comprehensive - Evaluate, find domain, and compute AROC for one real-world function",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/inequalities/q1-inequality-properties.php",
+  "desc": "Linear Inequality Properties - Identify boundary slope, intercept, line style, and shaded region",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/inequalities/q1-solve-linear-inequality.php",
+  "desc": "Solve a Linear Inequality - Solve ax + b <= cx + d for x, with sign-flip explanation",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/inequalities/q2-check-point-satisfies-system.php",
+  "desc": "Check Point Satisfies System of Inequalities - Test ordered pair against two-inequality system",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/inequalities/q2-lp-word-setup.php",
+  "desc": "LP Word Problem Setup - Identify objective coefficients and constraint coefficients from a scenario",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/inequalities/q3-check-solution-system.php",
+  "desc": "Check Point Satisfies System of Inequalities - Test ordered pair against two-inequality system",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear/q1-break-even.php",
+  "desc": "Break-Even Point - Find intersection of linear cost and revenue functions",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear/q2-verify-solution-linear-equation.php",
+  "desc": "Verify Solution Linear Equation - Determine which ordered pair satisfies Ax + By = C",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear/q3-slope-intercept-from-standard-form.php",
+  "desc": "Slope and Intercept from Standard Form - Find m and b given Ax + By = C",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-functions/q1-slope-from-two-points.php",
+  "desc": "Slope From Two Points - Find slope, y-intercept, and equation of a line given two points",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-functions/q2-linear-graph-interpretation.php",
+  "desc": "Linear Graph Interpretation - Read a verbal linear scenario to find intercept, slope, and function value",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-functions/q3-modeling-with-linear.php",
+  "desc": "Modeling with Linear Functions - Real-world word problem: slope, y-intercept, and prediction",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind",
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-functions/q4-best-fit-line-concept.php",
+  "desc": "Best-Fit Line Concept - Compute yhat, residual, and interpret sign for a candidate regression line",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q1-simplex-bakery.php",
+  "desc": "Simplex Bakery - Maximize bakery profit using the simplex method",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q10-graphical-lp-corner-comprehensive.php",
+  "desc": "Graphical LP Comprehensive - Furniture maker maximizes profit; identify objective coefficients, read constraint, find optimal corner (x,y,Z) via graphical method",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q2-simplex-woodworker.php",
+  "desc": "Simplex Woodworker - Maximize woodworking revenue using the simplex method",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q3-simplex-candle-shop.php",
+  "desc": "Simplex Candle Shop - Maximize candle shop profit using the simplex method",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q4-graphical-lp-corner-evaluation.php",
+  "desc": "Graphical LP Corner Evaluation - Smoothie shop maximizes profit by evaluating Z at every feasible corner",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group-with-frq",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q4-slack-conversion.php",
+  "desc": "Slack Variable Conversion - Convert two LP constraint inequalities to equations with slack variables",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q5-lp-application-identify-formulation.php",
+  "desc": "LP Application Formulation - T-shirt printing shop; identify objective function, constraints, and evaluate Z at the optimal corner",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q6-simplex-coffee-roaster.php",
+  "desc": "Simplex Coffee Roaster - Maximize coffee roaster profit using the simplex method",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind",
+   "test-b-w6-10-group",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q7-simplex-three-variables.php",
+  "desc": "Simplex Three Variables - Maximize tech accessory profit with three products using the simplex method",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q8-simplex-identify-pivot.php",
+  "desc": "Simplex Identify Pivot - Identify pivot column, pivot row, and minimum ratio from a simplex tableau",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/linear-programming/q9-lp-formulation-factory-mix.php",
+  "desc": "LP Formulation Factory Mix - Given a two-product factory scenario, identify the objective function coefficients, resource constraints, and non-negativity constraints.",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-2x2-add-scalar.php",
+  "desc": "Matrix Add and Scalar Multiply - Compute A+B and kA-mB on 2x2 matrices",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-2x2-equation.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-2x2-inverse-equation.php",
+  "desc": "Matrix Inverse & Equation (2x2) - Find A^{-1} then solve AX=B using the inverse method",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-2x2-inverse-method-fresh.php",
+  "desc": "Matrix Inverse Method 2x2 (Fresh) - Solve AX=B using A^{-1}; multipart with det, inverse entries, and solution",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-2x2-rref.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-3x3-equation.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-3x3-inverse-equation.php",
+  "desc": "Matrix Inverse & Equation (3x3) - Find A^{-1} then solve AX=B using the inverse method",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-3x3-rref.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-3x3-system-fresh.php",
+  "desc": "Matrix 3x3 System (Fresh) - Solve a 3-variable production schedule system via RREF",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind",
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/matrix/matrix-multiply.php",
+  "desc": "Matrix Multiplication - Compute AB for 2x2 and Cv for (2x3)(3x1)",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/normal-distribution/q1-z-score-compute.php",
+  "desc": "Compute a z-Score and Compare Two Values - Compute z = (x - mu) / sigma for a given observation, then compare two z-scores to decide which is more unusual",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/normal-distribution/q2-normal-probability.php",
+  "desc": "Normal Distribution Probabilities - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/normal-distribution/q3-inverse-normal-percentile.php",
+  "desc": "Inverse Normal - Find the cutoff value x for a given percentile of N(mu, sigma), and find both endpoints of a centered middle-p% interval",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/normal-distribution/q4-empirical-rule.php",
+  "desc": "Empirical Rule (68-95-99.7) - Apply the empirical rule to estimate percentages within k SDs of the mean and a tail percentage on one side",
+  "qtype": "multipart",
+  "used_by": [
+   "wk1-5-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/normal-distribution/q5-normal-probability-context.php",
+  "desc": "Normal Distribution Probabilities (Context) - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/addition-rule-union-probability.php",
+  "desc": "Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognise why adding the two rates alone overcounts",
+  "qtype": "number",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/addition-rule.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/basic-probability.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/conditional-probability.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/identify-conditional-probability-from-wording.php",
+  "desc": "Identify a Conditional Probability from Its Wording - pick out the rate that is restricted to one group, rather than the unconditional rate about the same event",
+  "qtype": "number",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/interpret-conditional-event-in-words.php",
+  "desc": "Interpret a Conditional Event in Words - translate the notation B|A back into a sentence, against distractors that reverse the condition or swap it for AND or OR",
+  "qtype": "choices",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/interpret-joint-event-in-words.php",
+  "desc": "Interpret a Joint Event in Words - translate A AND B into a sentence, against distractors that turn it into a conditional or into the inclusive OR",
+  "qtype": "choices",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/interpret-union-event-in-words.php",
+  "desc": "Interpret a Union Event in Words - translate A OR B into a sentence, targeting the assumption that OR in probability is exclusive",
+  "qtype": "choices",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/multiplication-rule-joint-probability.php",
+  "desc": "Multiplication Rule for a Joint Probability - compute P(A AND B) from an unconditional rate and the conditional rate given in the same setup",
+  "qtype": "number",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/poll-proportion-complement-and-headcount.php",
+  "desc": "Poll Proportions, a Complement, and a Headcount - read a sample size and three yearly approval rates off a poll summary, take the complement of one rate, and convert another rate back into a whole number of respondents",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q1-count-outcomes.php",
+  "desc": "Count Outcomes - Sample space sizes for coins, dice, and a mixed coin/die experiment",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group",
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q10-twoway-table-addition.php",
+  "desc": "Two-Way Table Addition Rule - Read joint and marginal counts from a 2x2 table and apply the Addition Rule",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q11-identify-conditioning-event.php",
+  "desc": "Identify Conditioning Event - Pick the conditioning event from a worded conditional probability statement",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q12-three-children-given-first-boy.php",
+  "desc": "Three Children Given First Boy - Reduced sample space size and conditional P(2 boys | first-born is boy)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q13-conditional-probability-formula.php",
+  "desc": "Conditional Probability Formula - Apply P(A|B) = P(A intersect B) / P(B) given the two probabilities",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q14-twoway-conditional.php",
+  "desc": "Two-Way Conditional - Compute P(A|B) and P(B|A) from a 2x2 table to highlight asymmetry",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group",
+   "ch8-probability-mixed",
+   "cumulative-w1-13-ind",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q15-conditional-from-union.php",
+  "desc": "Conditional from Union - Solve for P(A intersect B) using the Addition Rule, then compute P(A|B)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q16-urn-draw.php",
+  "desc": "Urn Draw - Sample space size and probability of a color and its complement",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q17-survey-overlap.php",
+  "desc": "P(neither) via Naive Sum, Addition Rule, Complement - Three chained steps from given P(A), P(B), P(A and B) to P(neither)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q18-genre-twoway-mutex.php",
+  "desc": "Genre Two-Way Mutex Check - Joint, union, and mutually-exclusive yes/no from a 2x2 movie genre table",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q19-medical-test-bayes.php",
+  "desc": "Medical Test Bayes Chain - P(D and +), P(+), P(D | +) from prevalence, sensitivity, false positive rate",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q2-probability-card-draw.php",
+  "desc": "P(Card) - Probability of a single named card category from a 52-card deck",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q20-class-twoway-asymmetry.php",
+  "desc": "P(A|B) vs P(B|A) Asymmetry Walkthrough - From the joint probability, compute both conditional directions to expose the asymmetry",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q21-conditional-2x2-with-independence.php",
+  "desc": "Conditional 2x2 Independence - Marginal, joint, conditional probabilities from a commute table, then test independence",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q22-expected-value-of-discrete-rv.php",
+  "desc": "Expected Value - Confirm probabilities sum to 1, compute E(X) and E(X^2) for a discrete random variable",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q23-addition-rule-formula.php",
+  "desc": "Addition Rule Formula - Given P(A), P(B), P(A\u2229B), find P(A\u222aB), P(A and not B), P(neither)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q24-conditional-dice-reduced-sample-space.php",
+  "desc": "Conditional via Reduced Sample Space - Two dice, given sum=k: find |reduced SS|, P(first=v|sum=k), P(first odd|sum=k)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q25-prob-set-ops-dice.php",
+  "desc": "Probability of Set Ops on Dice Events - Find P(A union B), P(A intersect B), P(A complement) for two events on a single die",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q26-independence-multiplication-rule.php",
+  "desc": "Independence Multiplication Rule - P(A and B), P(A or B), P(neither) for two independent events",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q3-probability-exactly-one-head.php",
+  "desc": "P(Exactly One Head) - Probability of getting exactly one head when flipping n coins",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q4-probability-two-dice-sum.php",
+  "desc": "P(Sum=k Two Dice) - Probability that the sum of two dice equals a target value",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q5-three-children-boys.php",
+  "desc": "Three Children Genders - P(exactly 2 of one gender) and P(at least one) for a 3-child family",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q6-set-ops-dice-events.php",
+  "desc": "Set Ops on Dice Events - Find A union B, A intersect B, A complement for two events on a single die",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group",
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q7-mutually-exclusive-yesno.php",
+  "desc": "Mutually Exclusive Yes/No - Identify which event pairs are mutually exclusive",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group",
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q8-addition-rule-percentages.php",
+  "desc": "Addition Rule (Percentages) - Apply P(A union B) = P(A) + P(B) - P(A intersect B) to a real-context word problem",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/q9-king-or-heart.php",
+  "desc": "P(King or Heart) - Apply Addition Rule on a single card draw with two overlapping card categories",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-probability-mixed"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/roulette-bet-types-probabilities.php",
+  "desc": "Probability of Seven Roulette Bets - count the pockets each bet covers and divide by 38, across seven bets of different sizes",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/roulette-single-spin-events.php",
+  "desc": "Roulette Single Spin - Sample Space, Simple Events, Complements and Independence - count pockets to find three probabilities on one spin, then decide whether odd is the complement of even, name a mutually exclusive pair, and test a colour-or-range pairing for independence",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/survey-two-conditionals-full-workup.php",
+  "desc": "Full Workup of a Survey with Two Conditionals - sort four survey figures into two unconditional and two conditional probabilities, interpret each conditional in words, then apply the multiplication and addition rules and test for mutual exclusivity",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/test-independence-two-ways.php",
+  "desc": "Test Two Events for Independence - compute the product of the two unconditional probabilities, compare it with the joint probability, and state the conclusion",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/test-mutually-exclusive.php",
+  "desc": "Test Two Events for Mutual Exclusivity - compute the joint probability, compare it against zero, and distinguish the mutually-exclusive test from the independence test",
+  "qtype": "multipart",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/unconditional-probability-first-event.php",
+  "desc": "Read an Unconditional Probability from a Setup - pick the plain rate for the first event out of a setup that also states a second rate and a conditional rate",
+  "qtype": "number",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/unconditional-probability-second-event.php",
+  "desc": "Read the Second Unconditional Probability from a Setup - pick the plain rate for the second event out of a setup whose conditional rate is about that same event",
+  "qtype": "number",
+  "used_by": [
+   "3-3-two-basic-rules-of-probability"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value/q1-ev-game-of-chance.php",
+  "desc": "Expected Value of a Game of Chance - Compute E(X) for the profit, predict 100-play total, decide if fair",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value/q2-ev-insurance.php",
+  "desc": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php",
+  "desc": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value/q4-ev-discrete-rv.php",
+  "desc": "Expected Value - Verify valid probability distribution, compute E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php",
+  "desc": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/quadratic-poly-rational/q1-quadratic-vertex-and-x-intercepts.php",
+  "desc": "Quadratic Vertex and X-Intercepts - Find vertex coordinates and x-intercepts of a quadratic function",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/quadratic-poly-rational/q2-polynomial-end-behavior.php",
+  "desc": "Polynomial End Behavior - Describe the end behavior of a polynomial using the leading term test",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/quadratic-poly-rational/q3-rational-asymptotes.php",
+  "desc": "Rational Asymptotes - Find vertical and horizontal asymptotes of a linear rational function",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q1-explanatory-response.php",
+  "desc": "Explanatory/Response Variables - Possum body and head length",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q10-predict-advertising.php",
+  "desc": "Predict from Equation - Advertising spend and sales using y-hat notation",
+  "qtype": "number",
+  "used_by": [
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q11-predict-new-context.php",
+  "desc": "Predict from Equation \u2014 randomized context, above/below line",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q11-scatter-with-line.php",
+  "desc": "Scatterplot with Line - Does the data show scatter around a roughly linear trend",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q12-extrapolation-warning-new.php",
+  "desc": "Extrapolation Warning \u2014 new context, predict outside range",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q12-slope-intercept-context.php",
+  "desc": "Slope and Intercept in Context - Plant growth over weeks",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day1",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q13-linear-vs-nonlinear.php",
+  "desc": "Linear vs Nonlinear - Identify whether data description fits a linear model",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q14-association-explanatory-response-variable-randomiz.php",
+  "desc": "Association explanatory/response variable, randomized scenarios and order. V1 (sleep/mood, caffeine/sleep, movie tickets/concessions, temp/pool, rain/pool)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q15-8-1-identifying-explanatory-and-response-variables.php",
+  "desc": "8.1 Identifying explanatory and response variables",
+  "qtype": "matching",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q16-chapte-2-predict-response-variable-from-regression.php",
+  "desc": "Chapte 2  Predict response variable from regression eqn (stats) [4400 GH] (copy by Samantha Homier) changed independent/dependent to explanatory/response",
+  "qtype": "number",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q17-4-2-use-a-regression-equation-to-make-predictions-.php",
+  "desc": "4.2: Use a regression equation to make predictions; interpret slope/y-intercept.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q18-12-3-2-interpret-the-slope-and-y-intercept-of-a-le.php",
+  "desc": "12.3.2 Interpret the slope and y-intercept of a least-squares regression line Q2",
+  "qtype": "choices",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q2-make-prediction.php",
+  "desc": "Make a Prediction - Possum head length from body length",
+  "qtype": "number",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q3-interpret-slope.php",
+  "desc": "Interpret Slope - Years of education and salary",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-practice",
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q4-interpret-intercept.php",
+  "desc": "Interpret Y-Intercept - Homework hours and exam score",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q5-positive-negative.php",
+  "desc": "Positive or Negative - Car age and resale value",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q6-linear-appropriate.php",
+  "desc": "Linear Model Appropriate - Physics experiment with curved data",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q7-prediction-and-interpret.php",
+  "desc": "Prediction and Interpret - Used car price above or below the line",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day1",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q8-yhat-notation.php",
+  "desc": "Y-hat Notation - What does the hat mean in regression",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/intro/q9-two-predictions.php",
+  "desc": "Two Predictions - House size and listing price",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day1"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q1-least-squares-criterion.php",
+  "desc": "Least Squares Criterion - Why minimize squared residuals",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q10-conditions-for-regression.php",
+  "desc": "Conditions for Least Squares Regression - Identify required assumptions",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q11-leverage-vs-influential.php",
+  "desc": "Leverage vs Influential - Classify point based on description",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q12-association-vs-causation.php",
+  "desc": "Association vs Causation - Correct conclusion from observational regression",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q13-indicator-variable-interpret.php",
+  "desc": "Indicator Variable Interpretation - Slope/intercept with 0-1 predictor",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q14-read-regression-output.php",
+  "desc": "Read Regression Output - Pull slope estimate and p-value from a software table",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q15-r-squared-interpretation.php",
+  "desc": "R-squared Interpretation \u2014 select correct meaning in context",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q15-t-from-output.php",
+  "desc": "t from Output - Compute t = Estimate / SE and decide at alpha = 0.05",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q16-slope-intercept-interpret-context.php",
+  "desc": "Interpret slope and intercept in context (TOP-MISS drill for HW 8.2 q6)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q17-build-equation-from-summary.php",
+  "desc": "Full Equation from Summary Statistics - Compute slope from r, s_x, s_y; compute intercept from means; make a prediction",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q18-read-regression-output-multipart.php",
+  "desc": "Read a Regression Output Table - Pull slope, intercept, slope SE, t-stat, p-value from a software summary; decide whether the slope is significant",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q19-data-r-r2-pvalue.php",
+  "desc": "Correlation and Determination from Data - From a small (x, y) data set compute r, r-squared, the two-tailed p-value for a linear relationship, and interpret r-squared",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q2-sum-squared-residuals-compare.php",
+  "desc": "Sum of Squared Residuals - Compute SSR for a candidate line",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q3-slope-from-correlation.php",
+  "desc": "Slope from Correlation - Compute b = r(s_y/s_x)",
+  "qtype": "numerical",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q4-intercept-from-means.php",
+  "desc": "Intercept from Means - Compute a = ybar - b*xbar",
+  "qtype": "numerical",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q5-full-equation-from-summary.php",
+  "desc": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q6-line-passes-through-means.php",
+  "desc": "Line Passes Through Means - Identify guaranteed point on regression line",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q7-r-squared-interpretation.php",
+  "desc": "R-squared Interpretation - Pick best interpretation in context",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.2-fitting-line-least-squares",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q8-compute-r-squared-from-r.php",
+  "desc": "Compute R-squared from r - R^2 = r^2 for simple linear regression",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/least-squares/q9-extrapolation-warning.php",
+  "desc": "Extrapolation Warning - Judge whether a prediction is reliable",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.2-fitting-line-least-squares"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q1-compute-residual.php",
+  "desc": "Compute a Residual - Use regression equation to find residual from observed point",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.1-day2",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q2-residual-sign-interpret.php",
+  "desc": "Residual Sign Interpretation - Determine over/underprediction from residual value",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.1-day2"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q3-residual-plot-good-fit.php",
+  "desc": "Residual Plot Good Fit - Identify whether a residual plot shows a good linear fit",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day2"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php",
+  "desc": "Identify Nonlinearity from Residual Plots - Which residual plot shows evidence of a nonlinear relationship",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day2"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",
+  "desc": "Estimate Residual Standard Deviation - Use 95% rule to estimate s from residual plot bounds",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-practice",
+   "ch8.1-day2"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q6-residual-concepts.php",
+  "desc": "Residual Concepts - Multiple choice on properties of residuals",
+  "qtype": "multiple_choice",
+  "used_by": [
+   "ch8.1-day2"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q7-interpret-r-value.php",
+  "desc": "Interpret r Value - Direction, strength, and units of correlation",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q8-estimate-r-from-scatter.php",
+  "desc": "Estimate r from a Scatterplot - Pick the correlation that matches a verbal description",
+  "qtype": "multiple_choice",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/residuals-correlation/q9-correlation-properties.php",
+  "desc": "Correlation Properties - Linear-transformation invariance, symmetry, linear-only",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q1-ci-for-slope.php",
+  "desc": "CI for the Slope - SE, margin of error, lower and upper bounds",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.4-inference-slope-regression",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q10-full-regression-workflow-2.php",
+  "desc": "Full Regression Workflow - Check LINE conditions, state hypotheses, compute t-statistic and CI lower bound, reach a conclusion",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q10-hypothesis-test-slope-2.php",
+  "desc": "Hypothesis Test for the Slope - State null and alternative hypotheses, interpret p-value at alpha=0.05",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q10-role-of-inference-new.php",
+  "desc": "Role of Inference for the Slope \u2014 what H0:beta1=0 tests",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q2-hypothesis-test-slope.php",
+  "desc": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8-regression-test",
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q3-ci-interpret-slope.php",
+  "desc": "Interpret a CI for the Slope - Contains zero, evidence of relationship, alpha=0.05 decision",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q4-paired-vs-regression.php",
+  "desc": "Pick the Right Test - Paired t vs. regression vs. two-sample t for pre/post data",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q5-line-conditions.php",
+  "desc": "LINE Conditions for Regression - Spot which condition (Linearity/Independence/Normality/Equal variance) is violated",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q6-full-regression-workflow.php",
+  "desc": "Full Regression Workflow - Check conditions, state hypotheses, compute t and CI, decide, conclude",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q7-role-of-inference.php",
+  "desc": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q8-tech-ci-from-output.php",
+  "desc": "CI from Technology Output - Read software output, construct slope CI, decide significance",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
+   "ch8-regression-practice",
+   "ch8.4-inference-slope-regression"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/slope-inference/q9-slope-concept-decisions.php",
+  "desc": "Slope inference - concept and decisions (TOP-MISS drill for IND q10 / group q14)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/transformations/q1-log-transform-skew.php",
+  "desc": "Log Transform for Right-Skewed Residuals - Pick the right transform, then judge its effect",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/transformations/q2-transform-linearity.php",
+  "desc": "Log-Log Linearity - Identify a power relationship and read off the exponent",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/regression/transformations/q3-interpret-log-slope.php",
+  "desc": "Interpret a Log-Linear Slope - Each unit of x multiplies y by e^slope; percent change",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q1-p-hat-conditions.php",
+  "desc": "Sampling distribution of p-hat - check the np>=10 and n(1-p)>=10 conditions and decide whether the sampling distribution is approximately normal",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q2-x-bar-conditions.php",
+  "desc": "Sampling distribution of x-bar - check normality of population OR n>=30 and decide whether the sampling distribution is approximately normal",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q3-p-hat-probability.php",
+  "desc": "Sampling distribution of p-hat - compute the mean, standard error, and a less-than or greater-than probability for a sample proportion",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q4-x-bar-probability.php",
+  "desc": "Sampling distribution of x-bar - compute the mean, standard error, and a less-than or greater-than probability for a sample mean",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q5-clt-single-vs-sample.php",
+  "desc": "CLT - compare the probability of a single observation X to the probability of a sample mean x-bar at the same cutoff, then choose the correct explanation",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sampling-distributions/q6-clt-when-applies.php",
+  "desc": "Central Limit Theorem - select all true statements about when the CLT applies and what it says (and does not say) about sample means and proportions",
+  "qtype": "multans",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q1-set-notation-months.php",
+  "desc": "Set Notation - Cardinality of months starting with a letter",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q10-venn-2circle-total.php",
+  "desc": "2-Circle Venn - Find total when every person is in at least one set",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q11-venn-2circle-neither.php",
+  "desc": "2-Circle Venn - Find the number who are in neither set",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q12-venn-3circle-streamers.php",
+  "desc": "3-Circle Venn - Streaming services, count regions",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q13-demorgan-verification.php",
+  "desc": "De Morgan via Survey - Find how many take neither subject by computing the union, then the complement, then identifying it as A^c n B^c",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q14-inclusion-exclusion-survey.php",
+  "desc": "Inclusion-Exclusion Survey - Given |U|, |A|, |B|, |neither|, find |A\u222aB|, |A\u2229B|, |A only|",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q14-set-ops-union-intersection-compare.php",
+  "desc": "Set Ops Compare - Union and intersection of two integer sets, then compare their sizes",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq",
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q15-venn-2circle-exactly-one-and-neither.php",
+  "desc": "Venn 2-Circle Exactly One - Decompose a 2-circle survey into \"only A\", \"only B\", and \"neither\"",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-10-group",
+   "test-b-w6-10-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q16-venn-2circle-survey-counts.php",
+  "desc": "Venn 2-Circle Survey Counts - Given total, |A|, |B|, |A\u2229B|: find only-A, only-B, A\u222aB, and neither",
+  "qtype": "multipart",
+  "used_by": [
+   "test-b-w6-13-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q17-venn-2circle-inclusion-exclusion.php",
+  "desc": "Venn 2-Circle Inclusion-Exclusion - Given total, |A|, |B|, |A\u2229B|: find |A\u222aB| via formula, only-A, only-B, neither, and P(A)",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-13-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q2-subsets-two-element.php",
+  "desc": "Subsets - Two-element set: count, then list each non-empty subset",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q3-subsets-count-only.php",
+  "desc": "Subsets Count - How many subsets of an n-element set",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q4-union.php",
+  "desc": "Union - A union B for two small finite sets",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q5-intersection.php",
+  "desc": "Intersection - A intersect B for two small finite sets",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q6-complement.php",
+  "desc": "Complement - Complement of A relative to U",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q7-disjoint-not-complement.php",
+  "desc": "Disjoint vs Complement - Disjoint sets that are not complements",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q8-mixed-ops-empty.php",
+  "desc": "Mixed Operations - Complement of union, intersected with C",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-8-sets-counting-probability-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/q9-mixed-ops-union-complement.php",
+  "desc": "Mixed Operations - A union complement of (B intersect C)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/venn-three-set.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/sets/venn-two-set.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q1-when-gof-vs-independence.php",
+  "desc": "When to use Goodness-of-Fit vs Test of Independence - Pick the right chi-square test for a scenario",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q2-gof-expected-counts.php",
+  "desc": "Goodness-of-Fit Expected Counts - Compute E_i = n*p_i for three categories under a claimed distribution",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q3-gof-test-statistic.php",
+  "desc": "Goodness-of-Fit Test Statistic and Decision - Compute chi-square statistic, identify df, decide at alpha=0.05",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q4-independence-expected.php",
+  "desc": "Independence Expected Counts (2x2) - Compute three expected cells from row and column totals",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q5-choose-which-test.php",
+  "desc": "Choose the right Ch6 test - Pick single-prop, two-prop, GOF, or independence from a scenario",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q6-gof-full-with-conclusion.php",
+  "desc": "Chi-square Goodness of Fit - Full workflow with written conclusion in context",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "unit3-ev-chisq-regression-ind",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q7-independence-interpretation.php",
+  "desc": "Chi-square Test of Independence - Interpret a completed test in context",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q8-gof-test-statistic-2.php",
+  "desc": "Goodness-of-Fit Test Statistic and Decision - Compute chi-square statistic, identify degrees of freedom, state conclusion at alpha=0.05",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q8-independence-expected-and-interpret.php",
+  "desc": "Chi-square Independence \u2014 compute two expected counts from a 2x2 table, then interpret the test result",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/chi-square/q9-gof-full-with-conclusion-2.php",
+  "desc": "Chi-square Goodness of Fit (Context 2) - Full workflow with written conclusion in context",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/ci-ht-connection/q10-ci-to-test-hypothesis.php",
+  "desc": "Confidence interval to test hypothesis - interval given.",
+  "qtype": "choices",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/ci-ht-connection/q11-ci-to-ht-mean.php",
+  "desc": "Use a CI to Test a Hypothesis About a Mean - Given a confidence interval for mu and a null value mu_0, decide whether to reject H_0",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php",
+  "desc": "Hypothesis testing using confidence intervals for a proportion with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php",
+  "desc": "Confidence interval interpretation (p)",
+  "qtype": "multans",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php",
+  "desc": "Construct a confidence interval for one proportion with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php",
+  "desc": "Widest/Narrowest Confidence Interval / Given confidence and sample size - PG",
+  "qtype": "choices",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php",
+  "desc": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q5-ci-proportion-compute-interpret.php",
+  "desc": "CI for one proportion \u2014 compute lower and upper bounds, then select correct interpretation",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php",
+  "desc": "CI for One Mean (t) with Story Context - Compute a t-interval from a story scenario, then interpret the interval and the meaning of confidence",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php",
+  "desc": "Write the conclusion of a hypothesis test in context - pick the correct phrasing that links the statistical decision back to the original claim",
+  "qtype": "choices",
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php",
+  "desc": "Type I and Type II errors in context - given a scenario with a null hypothesis, identify which outcome corresponds to a Type I error and which corresponds to a Type II error",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice",
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q12-stat-significance-interpretation.php",
+  "desc": "Statistical significance interpretation - Decide significance, identify wrong interpretations, distinguish from practical significance",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "final-s2-group",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q13-null-alt-mean-context.php",
+  "desc": "State H0 and Ha for mean tests in context (one-mean, two-mean, paired)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q14-pvalue-two-scenarios.php",
+  "desc": "p-value interpretation \u2014 two scenarios, pick the correct statement",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php",
+  "desc": "State H0 and Ha and Pick Test Direction - From a fresh story context, identify the parameter, write H0 and Ha, and pick left/right/two-tailed",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q16-full-ht-one-mean-fresh.php",
+  "desc": "Full HT for One Mean (Fresh Context) - Compute t-statistic, df, p-value, decision at alpha for a one-mean test with a randomized story context",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php",
+  "desc": "Full HT for One Mean (Fresh Context 2) - Compute t-statistic, p-value, decision at alpha for a one-mean test with a randomized story context",
+  "qtype": "multipart",
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php",
+  "desc": "P-Value is low/high, identify conclusion (Carey Smith)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice",
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php",
+  "desc": "Identify the null and alternative hypotheses (`p`) and determine which type of test to use (e.g., right-tailed). Not Random. Scaffolded (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php",
+  "desc": "Full hypothesis test for one population mean (p-value approach) with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php",
+  "desc": "Full hypothesis test for one population proportion (p-value approach) with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php",
+  "desc": "Reject vs Fail to Reject - nuanced contexts where the p-value is close to the significance level alpha; students must apply the rule rigidly and avoid the \"accept the null\" misconception",
+  "qtype": "multipart",
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q1-sleep-hours.php",
+  "desc": "Hypothesis Test - Sleep Hours - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q10-anova-conclusion.php",
+  "desc": "ANOVA conclusion - Interpret F result and write conclusion in context",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q12-paired-t-from-summary.php",
+  "desc": "Paired t-test \u2014 compute test statistic from summary data, decide, conclude",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q13-anova-when-and-conclude.php",
+  "desc": "ANOVA \u2014 when to apply (conceptual) + interpret conclusion from output",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q2-reaction-times.php",
+  "desc": "Hypothesis Test - Reaction Times - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q3-daily-steps.php",
+  "desc": "Hypothesis Test - Daily Steps - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q4-test-statistic-abstract.php",
+  "desc": "One-mean t test statistic (abstract) - Compute t and identify df",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q5-ci-interpretation-mean.php",
+  "desc": "CI for one mean interpretation - Pick correct wording in context",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q6-paired-t-workflow.php",
+  "desc": "Paired t-test full workflow from data table - mean diff, SE, t, conclusion",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q7-paired-vs-two-sample-choice.php",
+  "desc": "Paired vs independent two-sample - Choose the right test design from scenarios",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q8-anova-when-to-use.php",
+  "desc": "When to use ANOVA - TOP-MISS drill, pick ANOVA vs alternatives across scenarios",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/inference-for-means/q9-anova-summary-table.php",
+  "desc": "ANOVA summary table - Compute MS, F, and df from given SS",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q11-two-prop-test-cholesterol.php",
+  "desc": "Full hypothesis test for difference of two proportions (successes given) with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q12-two-prop-test-health-field.php",
+  "desc": "Full Test Difference of Proportions Proportions Given (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q13-two-sample-means-energy-drinks.php",
+  "desc": "Full hypothesis test for difference of two population means with randomized story contexts",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q14-interpret-ci-two-means.php",
+  "desc": "OpenIntro.org 5.2: Interpretation of CI for two means (weight and missed school)",
+  "qtype": "choices",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q15-distracted-eating.php",
+  "desc": "Distracted Eating CI - Students construct a 95% confidence interval for the difference in mean food intake between a distracted (solitaire) group and a control group, using conservative df and interpreting the result in context.",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q16-ci-diff-two-proportions.php",
+  "desc": "Confidence Interval for Difference of Two Proportions - SE, ME, and bounds",
+  "qtype": "multipart",
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php",
+  "desc": "CI for difference of two means (unequal variances) - SE, t*, ME, bounds. TOP-MISS drill",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "cumulative-w1-14-ind",
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q18-two-mean-full-workflow.php",
+  "desc": "Two-sample t - Full hypothesis-test workflow with Welch t and conclusion",
+  "qtype": "multipart",
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q19-two-prop-ci-compute-interpret.php",
+  "desc": "Two-proportion CI \u2014 compute bounds, does it contain 0, and conclusion",
+  "qtype": "multipart",
+  "used_by": [
+   "final-s2-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/stats-tests/two-sample-inference/q20-two-prop-full-ht-fresh.php",
+  "desc": "Two-Proportion HT (Fresh Context) - Compute pooled p, z-stat, p-value, and decision for a two-tailed two-proportion test",
+  "qtype": "multipart",
+  "used_by": [
+   "wk7-14-group"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/systems/q1-system-2-equations-algebraic.php",
+  "desc": "Solve a 2-Equation Linear System - Elimination method to find integer solution (x, y)",
+  "qtype": "multipart",
+  "used_by": [
+   "test-a-w1-5-group",
+   "test-a-w1-5-group-with-frq"
+  ],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/angle-degrees-and-radians-from-point.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/arc-length-from-terminal-point.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/arc-length-to-angle-measure.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-features-from-graph-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-features-from-graph-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-features-from-graph-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-features-from-graph-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-max-min-midline-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-max-min-midline-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-max-min-midline-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/cosine-max-min-midline-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/coterminal-angles.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/define-sine-y-coordinate.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/degree-radian-sine-values.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/graph-sine-find-values.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-cosine-from-equation-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-cosine-from-equation-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-cosine-from-equation-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-cosine-from-equation-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-sine-from-equation-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-sine-from-equation-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-sine-from-equation-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/identify-sine-from-equation-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/key-features-of-sine-parent.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/match-sine-equation-to-graph.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/quadrant-from-terminal-point.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/reference-angle-from-point.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-features-from-graph-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-features-from-graph-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-features-from-graph-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-features-from-graph-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-from-unit-circle.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-graph-from-equation.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-graph-key-points.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-graph-match-equation.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-graph-period-amplitude.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-max-min-midline-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-max-min-midline-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-max-min-midline-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-max-min-midline-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-of-special-angles.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-reference-angle-values.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-sign-by-quadrant.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/sine-transformation-anchor-table.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/terminal-point-from-arc-length.php",
+  "desc": "",
+  "qtype": "?",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/terminal-point-non-unit-circle.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-cosine-equation-from-description-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-cosine-equation-from-description-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-cosine-equation-from-description-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-cosine-equation-from-description-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-sine-equation-from-description-advanced.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-sine-equation-from-description-easy.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-sine-equation-from-description-hard.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ },
+ {
+  "path": "questions/trig/write-sine-equation-from-description-medium.php",
+  "desc": "",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": null
+ }
+]
