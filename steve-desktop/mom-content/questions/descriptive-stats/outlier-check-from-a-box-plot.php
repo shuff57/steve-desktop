@@ -22,6 +22,13 @@ else {
 // Every plotted value is a multiple of ten, so each one sits on a labeled tick and nothing has to
 // be estimated. The IQR is then a multiple of ten as well, which keeps 1.5 x IQR a whole number
 // and the fences exact.
+//
+// Ticks are every TEN here, not every two. This question is the one exception to that rule: the
+// axis has to carry the box, both 1.5 x IQR fences and an outlier beyond them, and at a step of two
+// that is thirty-nine labels on a 520px axis. Ten is the finest step that stays readable, and every
+// value the student reads off is a multiple of ten, so all of them still land ON a label -- which is
+// what the step rule is actually for. It was previously every TWENTY, which left half the quartiles
+// sitting between gridlines.
 $wid = array(10, 20, 30, 40)
 $rot = rand(0, 3)
 $w1 = $wid[$rot]
@@ -71,9 +78,9 @@ $xMax = round(55 + $maxV * $span / $axisMax, 2)
 $boxW = round($xQ3 - $xQ1, 2)
 
 $ticks = ""
-$nTicks = $axisMax / 20
+$nTicks = $axisMax / 10
 for ($g=0..$nTicks) {
-  $val = 20 * $g
+  $val = 10 * $g
   $tx = round(55 + $val * $span / $axisMax, 2)
   $ticks = $ticks . '<line x1="' . $tx . '" y1="110" x2="' . $tx . '" y2="116" stroke="#374151" stroke-width="1"/>'
   $ticks = $ticks . '<line x1="' . $tx . '" y1="26" x2="' . $tx . '" y2="110" stroke="#eef2f7" stroke-width="1"/>'

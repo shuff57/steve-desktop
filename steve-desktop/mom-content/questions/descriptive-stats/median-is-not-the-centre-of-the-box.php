@@ -25,7 +25,10 @@ else {
 // cannot simply be relearned the other way round.
 $leanLow = rand(0, 1)
 $q1u = 4 * rand(2, 5)
-$shortGap = 1 * rand(1, 2)
+// EVEN gaps only. A short gap of 1 made the median an odd number while the ticks stepped by 5,
+// so the value the student is asked to read sat between two gridlines with nothing to read it
+// against. Even gaps plus a tick every 2 units put all five numbers on labels.
+$shortGap = 2 * rand(1, 2)
 $longGap = 4 * rand(2, 3)
 if ($leanLow == 1) {
   $gapA = $shortGap
@@ -81,7 +84,7 @@ $questions[3] = array(
 $answer[3] = 0
 
 $axisMax = $maxV + 2 * $scaleUp
-$tickStep = 5 * $scaleUp
+$tickStep = 2 * $scaleUp
 $rem = $axisMax % $tickStep
 if ($rem > 0) { $axisMax = $axisMax + $tickStep - $rem }
 

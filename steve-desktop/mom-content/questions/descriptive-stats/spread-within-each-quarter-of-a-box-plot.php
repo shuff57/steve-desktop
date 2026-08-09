@@ -21,14 +21,14 @@ else {
 // numbers is a multiple of ten and lands exactly on a labeled tick, and the four widths are
 // guaranteed distinct by construction -- "smallest" and "widest" each have exactly one answer,
 // never a tie decided by luck of the seed.
-$wid = array(10, 20, 30, 40)
+$wid = array(2, 4, 6, 8)
 $rot = rand(0, 3)
 $w1 = $wid[$rot]
 $w2 = $wid[($rot + 1) % 4]
 $w3 = $wid[($rot + 2) % 4]
 $w4 = $wid[($rot + 3) % 4]
 
-$minV = 10 * rand(0, 2)
+$minV = 2 * rand(0, 3)
 $q1 = $minV + $w1
 $med = $q1 + $w2
 $q3 = $med + $w3
@@ -70,9 +70,9 @@ $bHi = $bQHi
 if ($trimSide == 0) { $bLo = $bQLo + 10 }
 else { $bHi = $bQHi - 10 }
 
-$axisMax = $maxV + 10
-$rem = $axisMax % 20
-if ($rem > 0) { $axisMax = $axisMax + 20 - $rem }
+$axisMax = $maxV + 2
+$rem = $axisMax % 4
+if ($rem > 0) { $axisMax = $axisMax + 4 - $rem }
 
 // Plot geometry: the number line runs from x = 55 to x = 495.
 $span = 495 - 55
@@ -84,9 +84,9 @@ $xMax = round(55 + $maxV * $span / $axisMax, 2)
 $boxW = round($xQ3 - $xQ1, 2)
 
 $ticks = ""
-$nTicks = $axisMax / 10
+$nTicks = $axisMax / 2
 for ($g=0..$nTicks) {
-  $val = 10 * $g
+  $val = 2 * $g
   $tx = round(55 + $val * $span / $axisMax, 2)
   $ticks = $ticks . '<line x1="' . $tx . '" y1="110" x2="' . $tx . '" y2="116" stroke="#374151" stroke-width="1"/>'
   $ticks = $ticks . '<line x1="' . $tx . '" y1="26" x2="' . $tx . '" y2="110" stroke="#eef2f7" stroke-width="1"/>'
