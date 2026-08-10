@@ -53,7 +53,7 @@ $whyI0 = $indepWhy[$iIdx[0]]
 $whyI1 = $indepWhy[$iIdx[1]]
 
 $questions[0] = array($q0, $q1, $q2, $q3, $q4)
-$answers[0] = "0,1,2"
+$answer[0] = "0,1,2"
 $scoremethod[0] = "allornothing"
 
 $bSlot = rand(0, 2)

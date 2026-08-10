@@ -506,6 +506,22 @@ This is the slow way and it is the right way: an answer replayed out of the same
 the key cannot detect a wrong key. Solving the question independently can. `transfer-rules.md` has
 the worked mechanics for `matching`, which is the fiddly case.
 
+## A homework is ten to fifteen questions, and never fewer than ten
+
+Steve's rule, 2026-08-10. **Ten is a floor, not a target.** Fifteen is the comfortable ceiling and
+going past it is fine — 1.2 runs to 29 — but a set that lands at eight is not finished, it is short.
+
+The pre-FRQ counts toward the total.
+
+**A thin bank is not a reason to ship nine.** It is the signal that the section needs questions
+written before it can be pushed. 3.2 and 3.4 were both built under this floor on the day the rule
+was set — 8 and 6 — precisely because the probability bank ran dry, and the honest fix is authoring,
+not a smaller assignment. Check the count against the floor *before* writing the manifest: if the
+unfiled stock cannot reach ten, say so and write what is missing first.
+
+The one thing not to do is pad. Filler that repeats a slot already covered makes the set longer and
+teaches nothing, and it is worse than the short assignment it replaced.
+
 ## Every homework carries one to three pre-FRQs
 
 Steve's rule, 2026-08-10: **at least one pre-FRQ per assignment, never more than three.** The exact

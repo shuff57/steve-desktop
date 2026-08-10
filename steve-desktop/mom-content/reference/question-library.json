@@ -1155,5 +1155,41 @@
   "cid": "334437",
   "filed": "2026-08-10",
   "qtype": "multipart"
+ },
+ "questions/probability/q10-twoway-table-addition.php": {
+  "qsetid": "1874601",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q14-twoway-conditional.php": {
+  "qsetid": "1874603",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q20-class-twoway-asymmetry.php": {
+  "qsetid": "1874605",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q19-medical-test-bayes.php": {
+  "qsetid": "1874606",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q15-conditional-from-union.php": {
+  "qsetid": "1874608",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/pre-frq-grade-a-conditional-reading.php": {
+  "qsetid": "1874610",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
  }
 }

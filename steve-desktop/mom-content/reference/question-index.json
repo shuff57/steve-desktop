@@ -3253,6 +3253,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/pre-frq-grade-a-conditional-reading.php",
+  "desc": "Pre-FRQ Grade a Conditional Reading - A two-way table scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "3-4-contingency-tables"
+  ],
+  "qsetid": "1874610",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/pre-frq-grade-a-joint-probability.php",
   "desc": "Pre-FRQ Grade a Joint Probability - A multiplication-rule scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
@@ -3299,9 +3309,10 @@
   "desc": "Two-Way Table Addition Rule - Read joint and marginal counts from a 2x2 table and apply the Addition Rule",
   "qtype": "multipart",
   "used_by": [
+   "3-4-contingency-tables",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874601",
   "health": "ok"
  },
  {
@@ -3342,12 +3353,13 @@
   "desc": "Two-Way Conditional - Compute P(A|B) and P(B|A) from a 2x2 table to highlight asymmetry",
   "qtype": "multipart",
   "used_by": [
+   "3-4-contingency-tables",
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed",
    "cumulative-w1-13-ind",
    "test-b-w6-13-group"
   ],
-  "qsetid": null,
+  "qsetid": "1874603",
   "health": "ok"
  },
  {
@@ -3355,9 +3367,10 @@
   "desc": "Conditional from Union - Solve for P(A intersect B) using the Addition Rule, then compute P(A|B)",
   "qtype": "multipart",
   "used_by": [
+   "3-4-contingency-tables",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874608",
   "health": "ok"
  },
  {
@@ -3398,9 +3411,10 @@
   "desc": "Medical Test Bayes Chain - P(D and +), P(+), P(D | +) from prevalence, sensitivity, false positive rate",
   "qtype": "multipart",
   "used_by": [
+   "3-4-contingency-tables",
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null,
+  "qsetid": "1874606",
   "health": "ok"
  },
  {
@@ -3419,9 +3433,10 @@
   "desc": "P(A|B) vs P(B|A) Asymmetry Walkthrough - From the joint probability, compute both conditional directions to expose the asymmetry",
   "qtype": "multipart",
   "used_by": [
+   "3-4-contingency-tables",
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null,
+  "qsetid": "1874605",
   "health": "ok"
  },
  {
