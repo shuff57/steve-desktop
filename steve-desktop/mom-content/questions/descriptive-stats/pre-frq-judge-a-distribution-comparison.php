@@ -64,7 +64,7 @@ $questions[1] = array(
   "Spread (3 pts)",
   "In-Context Verdict (2 pts)"
 )
-$answers[1] = "1,2,3"
+$answer[1] = "1,2,3"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(

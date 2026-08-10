@@ -85,7 +85,7 @@ $questions[1] = array(
   "Predict the Direction (3 pts)",
   "Improved Design (3 pts)"
 )
-$answers[1] = "1"
+$answer[1] = "1"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
