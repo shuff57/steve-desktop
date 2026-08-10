@@ -127,9 +127,20 @@ first, then derive the indices from it.
 - **Part (b) must grade a different response than part (a) names.** Otherwise the second part is
   answered by the first.
 - **No article in front of an interpolated noun.** `'a ' . $who` is right for one context and wrong
-  for the next: it rendered *"a order"* on 2.3 and *"knowing a customers"* on 3.3, both live in
-  sample responses students read. Reword so no article is needed, or carry a separate singular array
-  and check every context. Randomised context means every sentence has to read correctly in **all**
-  of them, and only one is on screen at a time — cycle "New Version" through the full set.
+  for the next. Reword so no article is needed, or carry a separate singular array and check every
+  context. Randomised context means every sentence has to read correctly in **all** of them, and
+  only one is on screen at a time — cycle "New Version" through the full set.
+
+  **Run the lint; do not rely on remembering this.** It shipped three times — *"a order"* on 2.3,
+  *"a customers"* on 3.3, *"a students"* on 3.2 — the third one *after* this rule was written down,
+  by the same author, in the very next question. A paragraph did not stop it. A command does:
+
+  ```bash
+  node mom-content/reference/article-lint.mjs mom-content/questions
+  ```
+
+  It lists every `a ' . $var` / `an ' . $var` site. Each hit needs the variable to be **singular**
+  and to begin with a **consonant sound** — `$kc` holding 70/80/90 produced *"a 80th percentile"* in
+  a question that was already live. Most hits are fine; the point is that you looked.
 - **Scope the CSS** with a per-question wrapper class (`.qscope8`, `.qscope9`), as several of these
   can share one assignment page.
