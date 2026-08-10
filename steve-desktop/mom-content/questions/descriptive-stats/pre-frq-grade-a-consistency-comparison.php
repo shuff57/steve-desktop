@@ -48,7 +48,11 @@ if ($sd_large <= 2 * $sd_small) {
 // The FRQ's own target sentences, one per rubric category.
 $sMean = 'Both ' . $person_a . ' and ' . $person_b . ' have the same mean of ' . $shared_mean . ' ' . $unit . ', which tells us they perform at the same level on average over the ' . $time_period . '.'
 $sSD = $person_a . ' has a standard deviation of only ' . $sd_small . ', meaning their ' . $measured_thing . ' stays tightly clustered around the average, while ' . $person_b . ' has a standard deviation of ' . $sd_large . ', so their numbers vary much more widely from ' . $time_unit . ' to ' . $time_unit . '.'
-$sConclusion = $person_a . ' is the more consistent and reliable of the two, because the smaller standard deviation means you can expect results close to ' . $shared_mean . ' on any given ' . $time_unit . '; ' . $person_b . ', despite the same average, is much less predictable.'
+// Each sentence must be CATEGORY-PURE: it earns its own rubric line and no other. The FRQ's target
+// strings cross-reference each other because they are written to flow as one essay, so this one is
+// trimmed -- it used to explain what the smaller and larger standard deviations show, which is the
+// SD & Consistency requirement, and made the response that drops that category still earn it.
+$sConclusion = 'If you need to count on a particular ' . $time_unit . '&#39;s number, ' . $person_a . ' is the one to rely on and ' . $person_b . ' is not, despite the identical average.'
 
 $rFull = $sMean . ' ' . $sSD . ' ' . $sConclusion
 $rNoConclusion = $sMean . ' ' . $sSD

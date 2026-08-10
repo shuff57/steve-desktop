@@ -60,6 +60,31 @@ $rMinimal   = <one category, plus a sentence that sounds like closure>
 student studying the pre-FRQ is reading the exact prose the FRQ rewards, rather than a paraphrase
 that drifts from it.
 
+### Every sentence must be category-pure — check this, do not assume it
+
+**An FRQ's target strings are written to flow as one essay, so they cross-reference each other.**
+That is fine in the FRQ, where a human grades the whole answer, and it is a defect here, where
+dropping one sentence is supposed to drop exactly one rubric line.
+
+Caught on 2026-08-10 in two of the first four, both by looking at the rendered responses side by
+side and at nothing else:
+
+- **2.5** — the Practical sentence ended *"while only one extreme figure inflates the mean"*, which
+  is the Outlier Impact requirement verbatim. The response that drops Outlier Impact still earned it.
+- **2.7** — the Conclusion sentence said *"because the smaller standard deviation means you can
+  expect results close to X… much less predictable"*, which is the SD & Consistency requirement. The
+  response that drops that category still earned it.
+
+Either way part (a) gains a second defensible answer, and part (b) — which is `allornothing` —
+marks the careful student **wrong** for ticking a category the response genuinely earns.
+
+So after assembling the four responses, read each one against **every** rubric line, not just its
+own, and ask: could a fair grader award this category from this text? If yes, trim the sentence
+until the answer is no. A verdict sentence states the verdict; it does not re-derive the evidence.
+
+This is invisible to a byte-exact read-back, to a qtype audit, and to a render check. It is only
+visible by reading the four responses against the checklist.
+
 ## The dropped category
 
 Each pre-FRQ targets **one** rubric line that students habitually skip — the one that feels already
