@@ -844,6 +844,12 @@
   "filed": "2026-08-09",
   "qtype": "multipart"
  },
+ "questions/descriptive-stats/pre-frq-grade-a-percentile-reading.php": {
+  "qsetid": "1874545",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
  "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php": {
   "qsetid": "1874282",
   "cid": "334437",
@@ -1085,9 +1091,21 @@
    "qtype": "multipart"
   },
  "questions/probability/q24-conditional-dice-reduced-sample-space.php": {
-   "qsetid": "1874497",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
-  }
+  "qsetid": "1874497",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/pre-frq-grade-a-joint-probability.php": {
+  "qsetid": "1874548",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/pre-frq-grade-a-probability-setup.php": {
+  "qsetid": "1874546",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ }
 }
