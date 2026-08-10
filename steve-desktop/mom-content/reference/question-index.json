@@ -1027,6 +1027,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/descriptive-stats/pre-frq-grade-a-center-recommendation.php",
+  "desc": "Pre-FRQ Grade a Center Recommendation - The scenario and grading checklist of the choosing-a-measure-of-center FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "2-5-measures-of-the-center-of-the-data"
+  ],
+  "qsetid": "1874526",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/pre-frq-grade-a-display-choice.php",
   "desc": "Pre-FRQ Grade a Display Choice - The scenario and grading checklist of the choosing-a-display FRQ, but the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
