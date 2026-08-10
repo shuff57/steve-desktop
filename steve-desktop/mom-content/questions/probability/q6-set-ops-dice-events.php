@@ -123,9 +123,9 @@ $solutionguide = '
       '.$legend.'
       <p><b>(a) A &cup; B</b> contains every element that is in A, in B, or in both: <b>'.$answer[0].'</b>.</p>
       <p><b>(b) A &cap; B</b> contains only the elements in <i>both</i> A and B: <b>'.$answer[1].'</b>.</p>
-      <p><b>(c) <span style="text-decoration:overline;">A</span></b> (complement of A in S) contains elements of S that are <i>not</i> in A: <b>'.$answer[2].'</b>.</p>
+      <p><b>(c) `bar A`</b> (complement of A in S) contains elements of S that are <i>not</i> in A: <b>'.$answer[2].'</b>.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        A &cup; B = '.$answer[0].' &nbsp;&bull;&nbsp; A &cap; B = '.$answer[1].' &nbsp;&bull;&nbsp; <span style="text-decoration:overline;">A</span> = '.$answer[2].'
+        A &cup; B = '.$answer[0].' &nbsp;&bull;&nbsp; A &cap; B = '.$answer[1].' &nbsp;&bull;&nbsp; `bar A` = '.$answer[2].'
       </div>
     </div>
   </details>
@@ -149,7 +149,7 @@ $solutionguide = '
     <div style="margin-top:12px;text-align:center;">$answerbox[1]</div>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b><span style="text-decoration:overline;">A</span></b> (the complement of A in S).
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b>`bar A`</b> (the complement of A in S).
     <div style="margin-top:12px;text-align:center;">$answerbox[2]</div>
   </div>
 </div>

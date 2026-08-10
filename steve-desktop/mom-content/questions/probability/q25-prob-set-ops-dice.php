@@ -140,9 +140,9 @@ $solutionguide = '
       '.$legend.'
       <p><b>(a) P(A &cup; B).</b> A &cup; B = '.$union_display.', which has '.$unionSize.' faces, so P(A &cup; B) = '.$unionSize.'/6 = <b>'.$union_frac.'</b> &approx; '.$union_dec.'.</p>
       <p><b>(b) P(A &cap; B).</b> A &cap; B = '.$inter_display.', which has '.$interSize.' face(s), so P(A &cap; B) = '.$interSize.'/6 = <b>'.$inter_frac.'</b> &approx; '.$inter_dec.'.</p>
-      <p><b>(c) P(<span style="text-decoration:overline;">A</span>).</b> <span style="text-decoration:overline;">A</span> = '.$comp_display.' has '.$compSize.' faces, so P(<span style="text-decoration:overline;">A</span>) = '.$compSize.'/6 = <b>'.$comp_frac.'</b> &approx; '.$comp_dec.'. Equivalently, 1 &minus; P(A).</p>
+      <p><b>(c) P(`bar A`).</b> `bar A` = '.$comp_display.' has '.$compSize.' faces, so P(`bar A`) = '.$compSize.'/6 = <b>'.$comp_frac.'</b> &approx; '.$comp_dec.'. Equivalently, 1 &minus; P(A).</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        P(A &cup; B) = '.$union_frac.' &nbsp;&bull;&nbsp; P(A &cap; B) = '.$inter_frac.' &nbsp;&bull;&nbsp; P(<span style="text-decoration:overline;">A</span>) = '.$comp_frac.'
+        P(A &cup; B) = '.$union_frac.' &nbsp;&bull;&nbsp; P(A &cap; B) = '.$inter_frac.' &nbsp;&bull;&nbsp; P(`bar A`) = '.$comp_frac.'
       </div>
     </div>
   </details>
@@ -167,7 +167,7 @@ $solutionguide = '
     <div style="margin-top:12px;text-align:center;">$answerbox[1]</div>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b>P(<span style="text-decoration:overline;">A</span>)</b>, the probability of the complement of A.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b>P(`bar A`)</b>, the probability of the complement of A.
     <div style="margin-top:12px;text-align:center;">$answerbox[2]</div>
   </div>
 </div>
