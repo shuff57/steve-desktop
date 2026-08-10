@@ -32,6 +32,43 @@ function check(file) {
 
   const qtextAt = lines.findIndex((l) => l.includes('=== QUESTION TEXT'));
 
+  // 4. The splitter matches the marker text anywhere, including inside a comment, so a comment that
+  // QUOTES a marker cuts the file in the wrong place. (Marker COUNT is deliberately not checked:
+  // essay FRQs and older questions legitimately carry three or four, and a rule that fires on fifty
+  // valid files is noise that gets ignored.)
+  lines.forEach((line, i) => {
+    if (/^\s*\/\/ === [A-Z]/.test(line)) return;
+    if (/=== (ANSWER|QUESTION TEXT|COMMON CONTROL|NAME - DESCRIPTION|SET QUESTION TYPE TO) ===/.test(line)) {
+      findings.push({ kind: 'marker-count', file: rel, n: i + 1, detail: 'marker text inside a non-marker line' });
+    }
+  });
+
+  // 5. Every $answerbox[N] needs a matching $answer[N]. This is the check that subsumes the two
+  // key bugs above and catches any other route to a keyless part -- a box with no key renders and
+  // saves and simply cannot score.
+  // Hand-graded part types legitimately have no key, so they are exempt. Without this the check
+  // fires on every essay FRQ in the bank and becomes noise.
+  const HAND_GRADED = new Set(['essay', 'file', 'draw']);
+  const atMatch = /\$anstypes\s*=\s*array\(([^)]*)\)/.exec(txt);
+  const anstypes = atMatch ? atMatch[1].split(',').map((s) => s.trim().replace(/^["']|["']$/g, '')) : [];
+
+  const boxes = new Set([...txt.matchAll(/\$answerbox\[(\d+)\]/g)].map((m) => m[1]));
+  const keys = new Set([...txt.matchAll(/^\s*\$answer\[(\d+)\]\s*=/gm)].map((m) => m[1]));
+  // A one-part question keys with a SCALAR `$answer = ...` and IMathAS accepts it against
+  // $answerbox[0]. Verified live: q2-probability-card-draw grades correctly on 3.1 with this form.
+  if (/^\s*\$answer\s*=/m.test(txt)) keys.add('0');
+  // Keys assigned through a variable index (`$answer[$i] = ...`, usually in a loop) cannot be
+  // resolved without running the question, so this file is skipped rather than reported. Saying
+  // nothing is correct here; guessing would make the check untrustworthy on the files it CAN judge.
+  const dynamicKeys = /\$answer\[\s*\$/.test(txt);
+  const missing = [...boxes]
+    .filter((b) => !keys.has(b))
+    .filter((b) => !HAND_GRADED.has(anstypes[Number(b)]))
+    .sort((x, y) => Number(x) - Number(y));
+  if (missing.length && !dynamicKeys) {
+    findings.push({ kind: 'box-without-key', file: rel, n: 0, detail: `answerbox ${missing.join(', ')} has no $answer[]` });
+  }
+
   lines.forEach((line, i) => {
     const n = i + 1;
 
@@ -49,6 +86,8 @@ function check(file) {
 walk(root);
 
 const groups = {
+  'box-without-key': 'ANSWER BOX WITH NO KEY — that part cannot score',
+  'marker-count': 'MARKER PROBLEM — the splitter will cut this file in the wrong place',
   'answers-plural': 'ANSWER KEY MISSING — $answers[ is a typo for $answer[',
   'key-after-qtext': 'ANSWER KEY IN THE WRONG SECTION — must sit in COMMON CONTROL',
   article: 'ARTICLE BEFORE AN INTERPOLATED NOUN — check it is singular and consonant-initial',

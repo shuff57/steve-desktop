@@ -39,8 +39,9 @@ $c = $c1 - $a
 $d = $r2 - $c
 $c2 = $grand - $c1
 
-// The answer key lives in COMMON CONTROL. The '=== ANSWER ===' section is the SOLUTION field, not
-// the key -- putting $answer[] there leaves the question with no key and it still saves cleanly.
+// The answer key lives in COMMON CONTROL. The final marker section is the SOLUTION field, not the
+// key -- putting $answer[] down there leaves the question with no key and it still saves cleanly.
+// (Do not write the marker text itself in a comment: the splitter matches it and cuts here.)
 $answer[0] = $b
 $answer[1] = $c
 $answer[2] = $d
