@@ -166,12 +166,50 @@ for a human reading the manifest. It is **not** a set of MOM form values and mus
 into the form. The template assessment is what sets the actual fields; `mom_settings` is what you
 check the result against if the two seem to disagree.
 
-### Dates
+### Dates — leave them off when pushing to the master course
 
-`due_date_rule` in the same file. It is currently **provisional** — "next class period" stands in as
-*the next day, rolling forward to Monday if that lands on a weekend*, until Steve's term calendar
-exists. Say which date you used in the report so a wrong one is obvious immediately, and do not
-silently invent a different convention.
+**Do not set open/due dates on an assessment pushed into the question home (`334437`).** Leave the
+availability radios on their undated default. Steve's call, 2026-08-09: "they only matter once we
+copy them over to the live sections" — nothing is ever taught out of the master, so a date there is
+never the date anyone sits, and a *wrong* one is worse than none because it looks authoritative.
+Uncheck them and move on.
+
+A date set there is not a defect to repair either. Two assignments sharing a window, a window in the
+past, a blank one — none of it matters until the copy, and reasoning about term cadence in the
+master is wasted work. (Learned by doing it: a whole week-by-week cadence was worked out for 2.5–2.7
+and a "collision" escalated as a decision, all of it moot.)
+
+Dates become real at copy time, in the teaching section. `due_date_rule` in
+`assessment-presets.json` is the convention for that, and it is still **provisional** — "next class
+period" stands in as *the next day, rolling forward to Monday if that lands on a weekend*, until
+Steve's term calendar exists. If you do set a date for any reason, say which one in the report so a
+wrong one is obvious immediately, and never silently invent a different convention.
+
+Everything else on the form is unaffected: points still have to total exactly 100, the byte-exact
+read-back still runs, and every part still gets answered in Teacher Preview. Those are correctness.
+Dates are scheduling, and scheduling happens downstream.
+
+#### Undated takes "keep open for ungraded practice" with it — this is expected
+
+`allowpractice` reads **"Keep open for un-graded practice after the due date."** Remove the due date
+and there is no "after" for it to mean, so MOM **unticks AND hides the checkbox**. Measured live
+2026-08-09: three assessments went undated (`sdatetype=0`, `edatetype=2000000000`) and all three read
+back `allowpractice` off and `offsetParent === null`, while a still-dated control kept it on and
+visible.
+
+Do not treat that as a regression and do not try to preserve it. Steve's decision, same day: the
+master course is undated, and **dates and ungraded-practice are BOTH copy-time settings** — they get
+configured in the teaching section, where they actually mean something. Setting either one upstream
+is work that gets overwritten.
+
+Two consequences worth knowing:
+
+- **An "undated" assessment still carries stale date values underneath.** MOM keeps the `sdate`/
+  `edate` text inputs populated (they came back holding a default one-week window) and simply stops
+  honouring them. So reading `sdate` off the form does NOT tell you whether an assessment is dated —
+  read the `sdatetype`/`edatetype` radios instead.
+- **The `hw` template (`23258795`) is undated too**, so anything pushed with `copyfrom` inherits
+  undated availability. That is intended; it is also why a mistake on the template propagates.
 
 ### Write the student instructions from the settings, never by hand
 
@@ -208,9 +246,9 @@ out rather than assuming MOM's default — the whole point is that the text and 
 The form also carries a `csrfp-token`. So you must **load the real form and submit that form** —
 never hand-roll a POST, it will be rejected.
 
-## Two traps that both look like success
+## Three traps that all look like success
 
-Neither is caught by "the save succeeded". Both are only visible when the question renders.
+None is caught by "the save succeeded". All three are only visible when you read the result back.
 
 ### 1. `control`, `qtext` and `solution` are CodeMirror, not textareas
 
@@ -253,6 +291,21 @@ present, nothing untypeset. Every render check passes it. Verify it directly ins
 question: read `[name=qtype]` off `moddataset.php?id=<qsetid>&cid=<cid>` and compare against the
 source's marker. `auditQTypes` in `src/integrations/mom/transfer-via-agent.ts` does the comparison.
 Found on 1 of 15 questions in 1.2 that had already passed render verification.
+
+### 3. The assessment SETTINGS form is Vue, not plain HTML
+
+Every field on `addassessment2.php` carries `v-model` — dates, `allowpractice`, every other
+checkbox and select. Setting `.value` or `.checked` directly updates the DOM but not Vue's
+underlying data, so the save silently keeps the OLD value: same shape of failure as trap 1, a
+different library. Set the value, then dispatch the event Vue listens for —
+`input` for text, `change` for select/checkbox/radio, both with `{bubbles:true}`.
+
+It breaks reading too, not just writing: `fetch(url).then(parse)` on that page returns empty for
+every field, because Vue fills the inputs on mount and the raw HTML ships them blank. Navigate to
+the page and read the live DOM — never a fetched copy.
+
+Verified repeatedly: 2026-08-02 building course 334243, and again 2026-08-09 creating 2.5, 2.6,
+2.7. Full mechanics in `transfer-rules.md`.
 
 ## Never retype question content
 

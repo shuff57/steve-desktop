@@ -380,3 +380,34 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   assessment ends on the last one, so a follow-up `js()` meant for the course page silently runs
   against `addquestions2.php` and answers about a page you are not on. Re-navigate before every
   page-level assertion.
+- **The assessment settings form is Vue, so a bare `.value` assignment is discarded on submit.**
+  Every field on `addassessment2.php` carries `v-model` (`<input name="sdate" v-model="sdate">`).
+  Setting `.value` updates the DOM and nothing else: Vue re-serialises from its own data on submit,
+  so the field saves EMPTY or unchanged while the page looked right the whole time -- the same shape
+  of failure as the CodeMirror trap. Set the value then dispatch the event Vue listens for:
+  `input` for text, `change` for select/checkbox/radio, both with `{bubbles:true}`.
+  Second consequence: **fetching that page and parsing it does not give you the values.** The HTML
+  ships empty inputs and Vue fills them on mount, so `fetch(...).then(parse)` returns `''` for every
+  field and reads as "this assessment has no dates". Navigate to it and read the live DOM instead.
+  Verified 2026-08-09 creating 2.5, 2.6, 2.7.
+- **Question ORDER is `itemarray`, and one `submitChanges()` persists it.** `generateOutput()` on
+  `addquestions2.php` builds the saved order by walking the page's `itemarray` global directly, so
+  reordering that array in place and calling `submitChanges()` once rewrites the outline -- no
+  `moveitem.php` iframe needed for questions (that is for assessments within a block). Verified live
+  on 2.5: two reused questions attached last landed at the bottom, and one reorder put all twelve
+  into manifest slot order, confirmed on a fresh reload.
+  `submitChanges()` opens with `if (inTransit) { return; }`, so a second call in the same page load
+  is silently dropped. Save once, wait, reload, then check.
+- **qsetids are GLOBAL across MyOpenMath, not per course.** The next id in the sequence usually
+  belongs to a different teacher entirely -- 1874288 read `M10A [PreTeXt] (2.3) You Try` and 1874293
+  `Finding limit of ln(sqrt(x^2)-x`, neither of them ours, both sitting inside a run of our own ids.
+  This matters for the false-`FAILED` recovery: hunting the gap between two known ids is a sound way
+  to find a question that filed but did not report, **but only because you then confirm it by
+  reading `[name=description]` off `moddataset.php?id=<id>`**. Recovering by position alone would
+  eventually attach a stranger's question to Steve's course.
+- **A `numfunc` part needs its MathQuill field set, not its hidden input.** Reported by the builder
+  on 2.7 slot 10 (`q1-z-score-compute`) and consistent with its final 12/12: setting the hidden
+  input registered only the radio part, and the two z-score parts scored zero until the editable
+  MathQuill field itself was set and the form resubmitted. This CONTRADICTS the older note that the
+  hidden input can be set directly -- treat that as true only for single-part questions until
+  someone re-measures it. Not personally verified end to end; the evidence is the score header.
