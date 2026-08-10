@@ -35,14 +35,17 @@ $setting = $setting_labels[$i]
 $multipliers = array(1000, 100, 10000)
 $mult = $multipliers[$i]
 
-// Six typical values in increasing bands plus one extreme value, so the list is already sorted and
-// the median is the fourth entry. The arithmetic quoted inside every response is right for the seed.
-$v1 = rand(24, 26) * 10
-$v2 = rand(26, 28) * 10
-$v3 = rand(27, 30) * 10
-$v4 = rand(28, 31) * 10
-$v5 = rand(29, 32) * 10
-$v6 = rand(31, 34) * 10
+// Six typical values plus one extreme value. The bands must NOT OVERLAP: the question states the
+// list is "in order" and takes the median as $v4, and both are false the moment two values can swap.
+// The FRQ this mirrors uses overlapping bands (rand(29,32) against rand(31,34)), which on some seeds
+// prints an out-of-order list AND reports a median that is not the median -- e.g. v3=300, v4=280,
+// v5=290 makes the true median 290 while $v4 says 280. Keep these disjoint.
+$v1 = rand(24, 25) * 10
+$v2 = rand(26, 27) * 10
+$v3 = rand(28, 29) * 10
+$v4 = rand(30, 31) * 10
+$v5 = rand(32, 33) * 10
+$v6 = rand(34, 35) * 10
 $outlier = rand(110, 160) * 10
 
 $d1 = $v1 * $mult
@@ -65,7 +68,11 @@ $val_list = '&#36;' . prettyint($d1) . ', &#36;' . prettyint($d2) . ', &#36;' . 
 // The FRQ's own target sentences, one per rubric category.
 $sImpact = 'The extreme value of &#36;' . prettyint($d_out) . ' pulls the mean up to approximately &#36;' . prettyint($mean_val) . ', which is significantly higher than what most ' . $item_label . 's actually show, so a single extreme observation inflates the average.'
 $sRecommend = 'The median of &#36;' . prettyint($median_val) . ' is the better measure of center here because it is resistant to outliers: it reflects the middle value in the sorted data and is not dragged toward extreme observations.'
-$sPractical = 'The ' . $role . ' should therefore report the median of &#36;' . prettyint($median_val) . ' as the typical ' . $val_singular . ', since six of the seven ' . $value_label . ' cluster near this value while only one extreme figure inflates the mean.'
+// Each sentence must be CATEGORY-PURE: it earns its own rubric line and no other. The FRQ's target
+// strings cross-reference each other because they are written to flow as one essay, so this one is
+// trimmed -- it used to end "while only one extreme figure inflates the mean", which is the Outlier
+// Impact requirement verbatim and made the response that drops Outlier Impact still earn it.
+$sPractical = 'The ' . $role . ' should therefore report the median of &#36;' . prettyint($median_val) . ' as the typical ' . $val_singular . ', because that is the figure someone dealing with these ' . $value_label . ' would actually encounter.'
 
 $rFull = $sImpact . ' ' . $sRecommend . ' ' . $sPractical
 $rNoImpact = $sRecommend . ' ' . $sPractical

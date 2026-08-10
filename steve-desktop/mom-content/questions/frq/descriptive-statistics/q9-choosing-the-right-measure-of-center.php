@@ -42,12 +42,16 @@ $multipliers = array(1000, 100, 10000)
 $mult = $multipliers[$i]
 
 // Generate 6 typical values and 1 extreme outlier (raw, unitless)
-$v1 = rand(24, 26) * 10
-$v2 = rand(26, 28) * 10
-$v3 = rand(27, 30) * 10
-$v4 = rand(28, 31) * 10
-$v5 = rand(29, 32) * 10
-$v6 = rand(31, 34) * 10
+// Bands must NOT overlap: $median_raw is taken as $v4 below, which is only the median if the six
+// values are strictly increasing. With the old overlapping bands (rand(29,32) against rand(31,34))
+// a seed like v3=300, v4=280, v5=290 makes the true median 290 while the model answer states 280,
+// and the displayed list comes out unsorted. Found 2026-08-10 via the 2.5 pre-FRQ that mirrors this.
+$v1 = rand(24, 25) * 10
+$v2 = rand(26, 27) * 10
+$v3 = rand(28, 29) * 10
+$v4 = rand(30, 31) * 10
+$v5 = rand(32, 33) * 10
+$v6 = rand(34, 35) * 10
 $outlier = rand(110, 160) * 10
 
 // Convert to display values (dollar amounts)
