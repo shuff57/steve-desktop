@@ -1107,5 +1107,53 @@
   "cid": "334437",
   "filed": "2026-08-10",
   "qtype": "multipart"
+ },
+ "questions/probability/q7-mutually-exclusive-yesno.php": {
+  "qsetid": "1874568",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q18-genre-twoway-mutex.php": {
+  "qsetid": "1874569",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q26-independence-multiplication-rule.php": {
+  "qsetid": "1874570",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q21-conditional-2x2-with-independence.php": {
+  "qsetid": "1874571",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q12-three-children-given-first-boy.php": {
+  "qsetid": "1874572",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q17-survey-overlap.php": {
+  "qsetid": "1874574",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q13-conditional-probability-formula.php": {
+  "qsetid": "1874576",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/pre-frq-grade-an-independence-check.php": {
+  "qsetid": "1874578",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
  }
 }

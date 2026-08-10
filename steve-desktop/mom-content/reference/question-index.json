@@ -3273,6 +3273,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/probability/pre-frq-grade-an-independence-check.php",
+  "desc": "Pre-FRQ Grade an Independence Check - The scenario and grading checklist of a mutually-exclusive-versus-independent question, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "3-2-independent-and-mutually-exclusive-events"
+  ],
+  "qsetid": "1874578",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/q1-count-outcomes.php",
   "desc": "Count Outcomes - Sample space sizes for coins, dice, and a mixed coin/die experiment",
   "qtype": "multipart",
@@ -3310,9 +3320,10 @@
   "desc": "Three Children Given First Boy - Reduced sample space size and conditional P(2 boys | first-born is boy)",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874572",
   "health": "ok"
  },
  {
@@ -3320,9 +3331,10 @@
   "desc": "Conditional Probability Formula - Apply P(A|B) = P(A intersect B) / P(B) given the two probabilities",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874576",
   "health": "ok"
  },
  {
@@ -3364,9 +3376,10 @@
   "desc": "P(neither) via Naive Sum, Addition Rule, Complement - Three chained steps from given P(A), P(B), P(A and B) to P(neither)",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null,
+  "qsetid": "1874574",
   "health": "ok"
  },
  {
@@ -3374,9 +3387,10 @@
   "desc": "Genre Two-Way Mutex Check - Joint, union, and mutually-exclusive yes/no from a 2x2 movie genre table",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null,
+  "qsetid": "1874569",
   "health": "ok"
  },
  {
@@ -3415,10 +3429,11 @@
   "desc": "Conditional 2x2 Independence - Marginal, joint, conditional probabilities from a commute table, then test independence",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null,
+  "qsetid": "1874571",
   "health": "ok"
  },
  {
@@ -3467,8 +3482,10 @@
   "path": "questions/probability/q26-independence-multiplication-rule.php",
   "desc": "Independence Multiplication Rule - P(A and B), P(A or B), P(neither) for two independent events",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "3-2-independent-and-mutually-exclusive-events"
+  ],
+  "qsetid": "1874570",
   "health": "ok"
  },
  {
@@ -3521,10 +3538,11 @@
   "desc": "Mutually Exclusive Yes/No - Identify which event pairs are mutually exclusive",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874568",
   "health": "ok"
  },
  {
