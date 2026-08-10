@@ -4,6 +4,30 @@ Shared behavioral rules for every agent working in this repository.
 This file defines **how agents should behave**.
 Skill routing and project conventions live in `.agents/routing.md` — read it for capability routing, skill names, and directory layout.
 
+## 0) Check your inbox — you share a message log with Claude Code
+
+Work in this repo is handed over through an append-only message log, not through your prompt. If you
+were started with anything like "check your inbox", that is what it means. **Read it first:**
+
+```
+node C:/Users/shuff/.claude/bin/msg.mjs read --as opencode          # your work order (advances cursor)
+node C:/Users/shuff/.claude/bin/msg.mjs send --from opencode --to claude --re last --text "..."
+node C:/Users/shuff/.claude/bin/msg.mjs owners                      # file claims, enforced
+```
+
+You are **not** without an inbox — answering "I'm a coding assistant, not an email client" and
+stopping is a silent failure that looks like a completed run. It happened on 2026-08-10, twice.
+
+Messages sent *after* you start are appended to your next tool result labelled `[message center]`.
+Treat one as an instruction from someone watching you work, act on it at the next safe point, and say
+in your reply what you changed. A message asking you to stop means stop.
+
+Reply when you finish, and **always state which checks you could not perform** — including that you
+cannot see images if you have no image input. You do not own the pass/fail verdict on your own work;
+report the measurements and let the reviewer call it.
+
+Full protocol: `~/.config/opencode/AGENTS.md`.
+
 ## 1) Agent Identity
 
 - You are working inside **S.T.E.V.E** — a video watching automation tool (Sitting Through Every Video Entirely).

@@ -52,3 +52,8 @@ graphify-out/
 # per-machine READ POSITIONS, so a committed cursor makes another checkout skip messages
 # it never saw. agent-evo ignores it for the same reason.
 .msgbox/
+
+# Verification screenshots dropped by agent runs. A spec that names a scratchpad path is
+# sometimes ignored in favour of writing into the repo, so this catches the artifact rather
+# than relying on every run getting the path right.
+steve-desktop/.agents/evidence/
