@@ -98,7 +98,7 @@ $sol = '
         <th style="border:1px solid #d1d5db; padding:6px 14px; background:#f0f4ff;">$rN</th>
         <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center; background:#fff9ea;"><b>(b)</b></td>
         <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center; background:#fff9ea;"><b>(c)</b></td>
-        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">&nbsp;</td>
+        <td style="border:1px solid #d1d5db; padding:6px 14px; text-align:center;">$r2</td>
       </tr>
       <tr>
         <th style="border:1px solid #d1d5db; padding:6px 14px; background:#f0f4ff;">Total</th>
