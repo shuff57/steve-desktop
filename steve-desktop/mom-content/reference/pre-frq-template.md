@@ -95,10 +95,21 @@ a slot. Used so far:
 
 | Assignment | Mirror | Dropped category |
 |---|---|---|
+| 2.3 | none — authored | State What the Percentile Means |
 | 2.4 | q8 five-number-summary | Contextual Interpretation |
 | 2.5 | q9 measure-of-center | Outlier Impact |
 | 2.6 | q5 bimodal | Further Investigation |
 | 2.7 | q7 means-and-SDs | Practical Conclusion |
+| 3.1 | frq/probability q2 | Define the Sample Space |
+| 3.2 | frq/probability q3 | Distinguish the Two |
+| 3.3 | frq/probability q4 | Justify the Second Factor |
+| 3.4 | none — authored | State the Direction |
+
+**Chapter 3's three FRQs were written AFTER their pre-FRQs**, on 2026-08-10, because the chapter had
+none. Each matches its pre-FRQ exactly — same three categories, same point split, same target
+sentences — so the mirroring holds in both directions. That is the reverse of how 1.1–2.4 were
+built, and it works: a pre-FRQ written first defines the shape, and the FRQ is then written to it.
+Where a section still has no FRQ (2.3, 3.4), the pre-FRQ is the specification for the one to come.
 
 ## Two legitimate variants
 
