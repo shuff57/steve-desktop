@@ -1027,6 +1027,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/descriptive-stats/pre-frq-grade-a-bimodal-interpretation.php",
+  "desc": "Pre-FRQ Grade a Bimodal Interpretation - The scenario and grading checklist of the interpreting-bimodal-data FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "2-6-skewness-and-the-mean-median-and-mode"
+  ],
+  "qsetid": "1874534",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/pre-frq-grade-a-center-recommendation.php",
   "desc": "Pre-FRQ Grade a Center Recommendation - The scenario and grading checklist of the choosing-a-measure-of-center FRQ, but the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
@@ -1034,6 +1044,16 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874526",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/descriptive-stats/pre-frq-grade-a-consistency-comparison.php",
+  "desc": "Pre-FRQ Grade a Consistency Comparison - The scenario and grading checklist of the comparing-means-and-standard-deviations FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "2-7-measures-of-the-spread-of-the-data"
+  ],
+  "qsetid": "1874537",
   "health": "unchecked"
  },
  {
