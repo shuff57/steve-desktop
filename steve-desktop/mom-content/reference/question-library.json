@@ -939,5 +939,71 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/standard-deviation-step-by-step.php": {
+  "qsetid": "1874307",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/compare-across-groups-with-z-scores.php": {
+  "qsetid": "1874308",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/same-range-different-spread.php": {
+  "qsetid": "1874309",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/interpret-standard-deviation-in-context.php": {
+  "qsetid": "1874310",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/standard-deviation-from-a-frequency-table.php": {
+  "qsetid": "1874311",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/sample-versus-population-standard-deviation.php": {
+  "qsetid": "1874312",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/outlier-effect-on-range-iqr-and-standard-deviation.php": {
+  "qsetid": "1874313",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/value-a-number-of-deviations-from-the-mean.php": {
+  "qsetid": "1874314",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/normal-distribution/q1-z-score-compute.php": {
+  "qsetid": "1874315",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/normal-distribution/q4-empirical-rule.php": {
+  "qsetid": "1874316",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/empirical-rule-counts-in-context.php": {
+  "qsetid": "1874317",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
