@@ -47,3 +47,8 @@ Thumbs.db
 # Local capture artifacts (upstream demo clips, run recordings)
 *.mp4
 graphify-out/
+
+# Cross-CLI message log. Local coordination state, not source: cursor-<agent> files are
+# per-machine READ POSITIONS, so a committed cursor makes another checkout skip messages
+# it never saw. agent-evo ignores it for the same reason.
+.msgbox/

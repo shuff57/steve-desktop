@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Roster fixture</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; }
+  table { border-collapse: collapse; margin: 1rem 0; }
+  td, th { border: 1px solid #999; padding: 4px 8px; text-align: left; }
+  .question_btn { display: block; margin: 4px 0; padding: 6px; border: 1px solid #888; cursor: pointer; }
+  label.question_btn.checked { background: #dfd; }
+</style>
+</head>
+<body>
+  <h1>Roster fixture</h1>
+  <div id="chrome-note">Total Score Last Login Course Home Send Message</div>
+
+  <h2>Student roster</h2>
+  <table id="roster">
+    <tr><th>Name</th><th>Student ID</th><th>Quiz 3</th><th>Midterm Exam</th></tr>
+    <tr><td>Maria de la Cruz</td><td>334243</td><td>22</td><td>48</td></tr>
+    <tr><td>Nguyễn Văn An</td><td>334244</td><td>25</td><td>50</td></tr>
+    <tr><td>José García</td><td>334245</td><td>18</td><td>42</td></tr>
+    <tr><td>Sarah Chen</td><td>334246</td><td>24</td><td>47</td></tr>
+  </table>
+
+  <h2>Select a student</h2>
+  <label for="student-select">Student</label>
+  <select id="student-select" name="student">
+    <option value="">— choose —</option>
+    <option value="334243">Maria de la Cruz</option>
+    <option value="334244">Nguyễn Văn An</option>
+    <option value="334245">José García</option>
+    <option value="334246">Sarah Chen</option>
+  </select>
+
+  <h2>Grade entry</h2>
+  <label for="score-input">Score</label>
+  <input id="score-input" name="score" type="text" value="" />
+  <button id="save-score" type="button">Save Score</button>
+
+  <h2>Assessment question</h2>
+  <p id="q">Which student scored highest on Quiz 3?</p>
+  <label class="question_btn"><input type="radio" name="answer" value="a" style="display:none" /> Maria de la Cruz</label>
+  <label class="question_btn"><input type="radio" name="answer" value="b" style="display:none" /> Nguyễn Văn An</label>
+  <label class="question_btn"><input type="radio" name="answer" value="c" style="display:none" /> José García</label>
+  <label class="question_btn"><input type="radio" name="answer" value="d" style="display:none" /> Sarah Chen</label>
+  <button id="submit-answer" type="button" disabled>Submit Answer</button>
+  <p id="feedback"></p>
+
+<script>
+  document.querySelectorAll('.question_btn').forEach((el) => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.question_btn').forEach((x) => x.classList.remove('checked'));
+      el.classList.add('checked');
+      el.querySelector('input').checked = true;
+      document.getElementById('submit-answer').disabled = false;
+    });
+  });
+  document.getElementById('submit-answer').addEventListener('click', () => {
+    const chosen = document.querySelector('.question_btn.checked input');
+    document.getElementById('feedback').textContent = chosen && chosen.value === 'd' ? 'Correct!' : 'Incorrect';
+  });
+  document.getElementById('save-score').addEventListener('click', () => {
+    document.getElementById('save-score').textContent = 'Saved: ' + document.getElementById('score-input').value;
+  });
+</script>
+</body>
+</html>
