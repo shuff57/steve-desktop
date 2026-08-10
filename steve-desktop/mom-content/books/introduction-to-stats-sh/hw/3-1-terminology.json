@@ -1,0 +1,22 @@
+{
+  "name": "3.1 Terminology",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "3-1-terminology",
+  "_note": "PUSHED 2026-08-10. Fills the gap left when 3.3 went first — 3.1 and 3.2 did not exist on disk then. All eleven questions come from the existing bank and none has ever been filed (checked against reference/question-library.json), so this push is 11 new library questions plus 11 attaches. Sub-topic coverage follows OpenStax 3.1: sample space (1,2), probability of a single event (3,4,5,6), events as sets and the probability of set operations (7,8,9), and conditional notation ahead of the 3.3 formula (10,11). Ramp is 3 easy / 6 medium / 2 hard, close to the 30/50/20 in assessment-presets. Points total exactly 100: five 6s, one 10, five 12s. Undated like everything else in the master.",
+  "target": { "cid": "334437", "aid": "23287219" },
+  "created_at": "2026-08-10",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/q1-count-outcomes.php", "title": "Count Outcomes - sample space sizes for coins, for dice, and for a mixed coin-and-die experiment", "qid": "1874481", "points": 12 },
+    { "slot": 2, "file_path": "questions/probability/q16-urn-draw.php", "title": "Urn Draw - the size of the sample space, the probability of one colour, and the complement of that colour", "qid": "1874486", "points": 12 },
+    { "slot": 3, "file_path": "questions/probability/q2-probability-card-draw.php", "title": "Probability of a Named Card Category - a single draw from a 52-card deck", "qid": "1874487", "points": 6 },
+    { "slot": 4, "file_path": "questions/probability/q3-probability-exactly-one-head.php", "title": "Probability of Exactly One Head - exactly one head across n coin flips, where the trap is counting orderings", "qid": "1874489", "points": 6 },
+    { "slot": 5, "file_path": "questions/probability/q4-probability-two-dice-sum.php", "title": "Probability the Two-Dice Sum Equals a Target - count the favourable ordered pairs out of the 36", "qid": "1874490", "points": 6 },
+    { "slot": 6, "file_path": "questions/probability/q5-three-children-boys.php", "title": "Three Children Genders - P(exactly two of one gender) and P(at least one), on the eight-outcome sample space", "qid": "1874491", "points": 10 },
+    { "slot": 7, "file_path": "questions/probability/q6-set-ops-dice-events.php", "title": "Set Operations on Dice Events - write A union B, A intersect B and A complement as sets of outcomes, before any probability is taken", "qid": "1874493", "points": 12 },
+    { "slot": 8, "file_path": "questions/probability/q25-prob-set-ops-dice.php", "title": "Probability of Set Operations on Dice Events - P(A union B), P(A intersect B) and P(A complement) for two events on one die", "qid": "1874494", "points": 12 },
+    { "slot": 9, "file_path": "questions/probability/q9-king-or-heart.php", "title": "Probability of King or Heart - an OR across two overlapping card categories, counted from the deck rather than from the addition formula", "qid": "1874495", "points": 6 },
+    { "slot": 10, "file_path": "questions/probability/q11-identify-conditioning-event.php", "title": "Identify the Conditioning Event - pick the conditioning event out of a worded conditional probability statement", "qid": "1874496", "points": 6 },
+    { "slot": 11, "file_path": "questions/probability/q24-conditional-dice-reduced-sample-space.php", "title": "Conditional Probability via the Reduced Sample Space - given the sum of two dice, find the size of the reduced space and two conditional probabilities on it", "qid": "1874497", "points": 12 }
+  ]
+}

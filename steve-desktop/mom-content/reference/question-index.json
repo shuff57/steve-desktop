@@ -3217,10 +3217,11 @@
   "desc": "Count Outcomes - Sample space sizes for coins, dice, and a mixed coin/die experiment",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874481",
   "health": "ok"
  },
  {
@@ -3238,9 +3239,10 @@
   "desc": "Identify Conditioning Event - Pick the conditioning event from a worded conditional probability statement",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874496",
   "health": "ok"
  },
  {
@@ -3291,9 +3293,10 @@
   "desc": "Urn Draw - Sample space size and probability of a color and its complement",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch7-8-sets-counting-probability-ind"
   ],
-  "qsetid": null,
+  "qsetid": "1874486",
   "health": "ok"
  },
  {
@@ -3331,9 +3334,10 @@
   "desc": "P(Card) - Probability of a single named card category from a 52-card deck",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874487",
   "health": "ok"
  },
  {
@@ -3383,17 +3387,20 @@
   "desc": "Conditional via Reduced Sample Space - Two dice, given sum=k: find |reduced SS|, P(first=v|sum=k), P(first odd|sum=k)",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null,
+  "qsetid": "1874497",
   "health": "ok"
  },
  {
   "path": "questions/probability/q25-prob-set-ops-dice.php",
   "desc": "Probability of Set Ops on Dice Events - Find P(A union B), P(A intersect B), P(A complement) for two events on a single die",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "3-1-terminology"
+  ],
+  "qsetid": "1874494",
   "health": "ok"
  },
  {
@@ -3409,9 +3416,10 @@
   "desc": "P(Exactly One Head) - Probability of getting exactly one head when flipping n coins",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874489",
   "health": "ok"
  },
  {
@@ -3419,9 +3427,10 @@
   "desc": "P(Sum=k Two Dice) - Probability that the sum of two dice equals a target value",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874490",
   "health": "ok"
  },
  {
@@ -3429,9 +3438,10 @@
   "desc": "Three Children Genders - P(exactly 2 of one gender) and P(at least one) for a 3-child family",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874491",
   "health": "ok"
  },
  {
@@ -3439,10 +3449,11 @@
   "desc": "Set Ops on Dice Events - Find A union B, A intersect B, A complement for two events on a single die",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874493",
   "health": "ok"
  },
  {
@@ -3471,9 +3482,10 @@
   "desc": "P(King or Heart) - Apply Addition Rule on a single card draw with two overlapping card categories",
   "qtype": "multipart",
   "used_by": [
+   "3-1-terminology",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874495",
   "health": "ok"
  },
  {

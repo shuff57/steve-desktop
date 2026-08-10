@@ -1001,9 +1001,75 @@
   "qtype": "multipart"
  },
  "questions/descriptive-stats/empirical-rule-counts-in-context.php": {
-  "qsetid": "1874317",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- }
+   "qsetid": "1874317",
+   "cid": "334437",
+   "filed": "2026-08-09",
+   "qtype": "multipart"
+  },
+ "questions/probability/q1-count-outcomes.php": {
+   "qsetid": "1874481",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q16-urn-draw.php": {
+   "qsetid": "1874486",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q2-probability-card-draw.php": {
+   "qsetid": "1874487",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q3-probability-exactly-one-head.php": {
+   "qsetid": "1874489",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q4-probability-two-dice-sum.php": {
+   "qsetid": "1874490",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q5-three-children-boys.php": {
+   "qsetid": "1874491",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q6-set-ops-dice-events.php": {
+   "qsetid": "1874493",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q25-prob-set-ops-dice.php": {
+   "qsetid": "1874494",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q9-king-or-heart.php": {
+   "qsetid": "1874495",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q11-identify-conditioning-event.php": {
+   "qsetid": "1874496",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  },
+ "questions/probability/q24-conditional-dice-reduced-sample-space.php": {
+   "qsetid": "1874497",
+   "cid": "334437",
+   "filed": "2026-08-10",
+   "qtype": "multipart"
+  }
 }
