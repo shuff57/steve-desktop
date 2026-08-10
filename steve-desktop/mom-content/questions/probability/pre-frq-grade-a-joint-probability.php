@@ -35,6 +35,11 @@ $eventB = $eventB_labels[$i]
 $who_labels = array("customers", "riders", "visitors")
 $who = $who_labels[$i]
 
+// Singular form, for the one sentence that needs an article in front of it. Using the plural $who
+// there rendered "knowing a customers ordered dessert".
+$who_singular_labels = array("customer", "rider", "visitor")
+$whoOne = $who_singular_labels[$i]
+
 // Percentages as whole numbers so the arithmetic is exact. The overall rate for B is deliberately
 // well away from the conditional rate, so the two events are visibly NOT independent and picking
 // the wrong factor is a real mistake rather than a rounding difference.
@@ -51,7 +56,7 @@ $jointDec = $jointPct / 100
 // says why it is the right one -- that is $sJustify's job alone.
 $sRule = 'Finding the chance that one of the ' . $who . ' did both calls for the multiplication rule, because it asks for an AND rather than an OR.'
 $sApply = 'That works out as ' . $aDec . ' x ' . $bDec . ' = ' . $jointDec . ', or ' . $jointPct . '% of all ' . $who . '.'
-$sJustify = 'The second factor has to be the ' . $b . '% measured among those who ' . $eventA . ', not the ' . $bOverall . '% measured across everyone, because the two events are not independent: knowing a ' . $who . ' ' . $eventA . ' changes the chance they also ' . $eventB . '.'
+$sJustify = 'The second factor has to be the ' . $b . '% measured among those who ' . $eventA . ', not the ' . $bOverall . '% measured across everyone, because the two events are not independent: knowing that a ' . $whoOne . ' ' . $eventA . ' changes the chance they also ' . $eventB . '.'
 
 $rFull = $sRule . ' ' . $sApply . ' ' . $sJustify
 $rNoJustify = $sRule . ' ' . $sApply

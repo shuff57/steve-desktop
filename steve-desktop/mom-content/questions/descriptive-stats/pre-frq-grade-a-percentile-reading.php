@@ -51,7 +51,9 @@ $listPart2 = ($base + 10 * $step) . ', ' . ($base + 11 * $step) . ', ' . ($base 
 
 // One sentence per rubric category. None of them restates another.
 $sLocate = 'With 20 values in order, the ' . $p . 'th percentile falls at the ' . $rank . 'th value, which is ' . $valAtP . ' minutes.'
-$sMeaning = 'Saying a ' . $who . ' is at the ' . $p . 'th percentile means ' . $below . '% of the twenty values are at or below ' . $valAtP . ' minutes, and the other ' . $above . '% are longer.'
+// No article before an interpolated noun: "a order" and "a caller" cannot both be right, and the
+// sentence does not need one. Rendered as "a order" before this was reworded.
+$sMeaning = 'Being at the ' . $p . 'th percentile means ' . $below . '% of the twenty values are at or below ' . $valAtP . ' minutes, and the other ' . $above . '% are longer.'
 $sDirection = 'On this scale a longer time is worse, so scoring high here is bad news &mdash; the same percentile on an exam score would be good news, and the number alone does not tell you which.'
 
 $rFull = $sLocate . ' ' . $sMeaning . ' ' . $sDirection

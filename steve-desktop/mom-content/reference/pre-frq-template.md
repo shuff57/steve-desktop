@@ -126,5 +126,10 @@ first, then derive the indices from it.
   contradict the data above it.
 - **Part (b) must grade a different response than part (a) names.** Otherwise the second part is
   answered by the first.
+- **No article in front of an interpolated noun.** `'a ' . $who` is right for one context and wrong
+  for the next: it rendered *"a order"* on 2.3 and *"knowing a customers"* on 3.3, both live in
+  sample responses students read. Reword so no article is needed, or carry a separate singular array
+  and check every context. Randomised context means every sentence has to read correctly in **all**
+  of them, and only one is on screen at a time — cycle "New Version" through the full set.
 - **Scope the CSS** with a per-question wrapper class (`.qscope8`, `.qscope9`), as several of these
   can share one assignment page.
