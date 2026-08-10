@@ -21,6 +21,58 @@ landed**. Every URL and field name below was verified live against MOM in sandbo
 }
 ```
 
+## Who runs this
+
+The push is mechanical-but-fiddly against an exact spec and a proven script, which is the shape a
+cheap model is good at. Measured 2026-08-09 pushing 2.5/2.6/2.7 into 334437 — 30 questions filed, 34
+attached, all three totalling exactly 100 — `deepseek-v4-flash:0731` did nearly all of it and got it
+right, including recovering from the false-`FAILED` save without blind-retrying.
+
+```
+Opus  ──spec──▶  opencode / deepseek-v4-flash:0731  ──drives MOM──▶  push
+  ▲                                                                   │
+  └────────────────  gate: byte-exact, 100 pts, order, dupes  ◀───────┘
+```
+
+```bash
+opencode run "Check your inbox." --auto -m ollama-cloud/deepseek-v4-flash:0731
+```
+
+Hand off through the message center, not an inline prompt — `msg.mjs send --from claude --to
+opencode`, then read the threaded reply. Claim the files first so the run cannot edit its own gate.
+
+**Flash never owns the pass/fail call on its own work.** The gate is what makes this safe, not the
+model: byte-exact read-back, points total, question order, no duplicate library entries — all
+verified independently by whoever wrote the spec. Two failed reviews → rebuild on Sonnet, never send
+flash a third time.
+
+Opus keeps: which section, the points split, anything Steve has to decide, and the gate. It does not
+type the driving script.
+
+**One model, not two.** `MOM_TRANSFER_MODELS` in `src/integrations/mom/page-agent-config.ts` names
+`gemma4:cloud` as its default, and that is a *different road* — the in-app page-agent tool-calling
+loop, measured on a fixture form and never used to push a real question. Do not split the work
+across both. Once flash has written the driving script, executing it is `evalScript`, not a model
+decision, so there is no page-interaction seam for a second model to fill. Steve's call, 2026-08-10.
+
+## One tab, navigated — not a tab per page
+
+A push is dozens of sequential page loads: a `moddataset.php` per question, a `modquestion2.php` per
+attach, `addquestions2.php`, `assess2`. Drive them all through **one tab**.
+
+```
+new_tab(url)     ONCE, at the start of the session
+goto_url(url)    every navigation after that
+wait_for_load()  after each one
+ensure_real_tab() only when the current tab has gone stale or internal
+```
+
+browser-harness says *"First navigation is `new_tab(url)`, not `goto_url(url)`"* — that is about the
+**first** navigation only, and it reads as a blanket rule. Taken that way you get a new tab per
+question: thirty-odd tabs by the end of an eleven-question push, each holding a live MOM session.
+Seen 2026-08-10. It also makes the run harder to watch, which matters because watching it is how
+Steve catches a push going wrong early.
+
 ## Two ids, not one
 
 MOM stores a question **twice over**:
@@ -435,6 +487,37 @@ the answer from the rendered prompt.
 This is the slow way and it is the right way: an answer replayed out of the same file that generated
 the key cannot detect a wrong key. Solving the question independently can. `transfer-rules.md` has
 the worked mechanics for `matching`, which is the fiddly case.
+
+## Every homework carries one to three pre-FRQs
+
+Steve's rule, 2026-08-10: **at least one pre-FRQ per assignment, never more than three.** The exact
+count is the pusher's call within that range.
+
+A pre-FRQ is not a free response — it is the auto-graded mirror of one. It reuses an FRQ's scenario
+and its grading checklist, then has the student **grade four sample responses against the rubric**
+instead of writing one. That is why it coexists with the no-free-response rule below: it teaches the
+FRQ's standard and still marks itself. The seven in the bank are named `pre-frq-*.php`, and every one
+sits in the **last slot** of its assignment at **12 points**.
+
+How many:
+
+| Count | When |
+|---|---|
+| 1 | the default — the section is one coherent skill |
+| 2 | the section carries two genuinely different FRQ-able skills |
+| 3 | a chapter-capstone section, and only then |
+
+**"No FRQ to mirror" is not an exemption.** If nothing in `questions/frq/<family>/` covers the
+section, the pre-FRQ gets **written** — that is authoring work under the `mom-question` skill, done
+before the push, not a reason to ship an assignment without one. Check `questions/frq/` for a mirror
+first; say in the manifest `_note` which FRQ each pre-FRQ mirrors, or that one had to be authored.
+
+**Known backlog as of 2026-08-10** — 1.1, 1.2, 1.3, 1.4, 2.1, 2.2 and 2.4 have one each; **2.3, 2.5,
+2.6, 2.7, 3.1 and 3.3 have none.** Pre-FRQs were retrofitted onto the first seven in a later pass
+that never reached the rest, so this is an unfinished job rather than a set of deliberate omissions.
+2.5, 2.6 and 2.7 have obvious mirrors already in the bank (`q9-choosing-the-right-measure-of-center`,
+`q5-interpreting-bimodal-data`, `q7-comparing-means-and-standard-deviations`) — matched by filename,
+not yet by reading them.
 
 ## Homework carries no free response
 
