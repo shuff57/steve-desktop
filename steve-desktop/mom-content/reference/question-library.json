@@ -1191,5 +1191,41 @@
   "cid": "334437",
   "filed": "2026-08-10",
   "qtype": "multipart"
+ },
+ "questions/probability/q8-addition-rule-percentages.php": {
+  "qsetid": "1874699",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q23-addition-rule-formula.php": {
+  "qsetid": "1874702",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q27-complete-the-twoway-table.php": {
+  "qsetid": "1874711",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q28-three-denominators-one-table.php": {
+  "qsetid": "1874713",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q29-build-the-table-from-a-word-problem.php": {
+  "qsetid": "1874715",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
+ },
+ "questions/probability/q30-union-and-neither-from-a-table.php": {
+  "qsetid": "1874716",
+  "cid": "334437",
+  "filed": "2026-08-10",
+  "qtype": "multipart"
  }
 }

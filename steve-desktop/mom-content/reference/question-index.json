@@ -2480,6 +2480,30 @@
   "health": "ok"
  },
  {
+  "path": "questions/frq/probability/q2-sample-space-and-event-setup.php",
+  "desc": "Set Up a Probability from Scratch - Given a compound experiment, define the sample space, identify the event, and find its probability, showing why the denominator is what it is",
+  "qtype": "essay",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/frq/probability/q3-mutually-exclusive-versus-independent.php",
+  "desc": "Mutually Exclusive or Independent - Given three probabilities, run both tests, state both verdicts, and explain why they are different questions",
+  "qtype": "essay",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/frq/probability/q4-which-rule-and-why.php",
+  "desc": "Which Rule, and Why That Factor - Choose between the addition and multiplication rules, carry it out, and justify which of two competing rates belongs in the product",
+  "qtype": "essay",
+  "used_by": [],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
   "desc": "Explanatory vs Response Variable - Justify the Choice - Students identify which variable is the explanatory (predictor) and which is the response (outcome) in a randomized real-world scenario, justify the role assignment in context, and explain why this choice matters for a regression analysis.",
   "qtype": "multipart",
@@ -3467,9 +3491,10 @@
   "desc": "Addition Rule Formula - Given P(A), P(B), P(A∩B), find P(A∪B), P(A and not B), P(neither)",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch7-8-sets-counting-probability-group"
   ],
-  "qsetid": null,
+  "qsetid": "1874702",
   "health": "ok"
  },
  {
@@ -3504,6 +3529,36 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/q27-complete-the-twoway-table.php",
+  "desc": "Complete a Two-Way Table - Fill the missing cells and margins of a 2x2 from the counts that are given, then read one probability off the finished table",
+  "qtype": "multipart",
+  "used_by": [
+   "3-4-contingency-tables"
+  ],
+  "qsetid": "1874711",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q28-three-denominators-one-table.php",
+  "desc": "Three Denominators from One Table - Compute a marginal, a joint and a conditional probability off the same 2x2 and identify which total each one divides by",
+  "qtype": "multipart",
+  "used_by": [
+   "3-4-contingency-tables"
+  ],
+  "qsetid": "1874713",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q29-build-the-table-from-a-word-problem.php",
+  "desc": "Build a Two-Way Table from a Word Problem - Turn four sentences of counts into a complete 2x2 with margins, then read a conditional probability off what you built",
+  "qtype": "multipart",
+  "used_by": [
+   "3-4-contingency-tables"
+  ],
+  "qsetid": "1874715",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/q3-probability-exactly-one-head.php",
   "desc": "P(Exactly One Head) - Probability of getting exactly one head when flipping n coins",
   "qtype": "multipart",
@@ -3513,6 +3568,56 @@
   ],
   "qsetid": "1874489",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/q30-union-and-neither-from-a-table.php",
+  "desc": "Union and Neither from a Two-Way Table - Count the union directly off the table, check it against the addition rule, and find the probability of neither event",
+  "qtype": "multipart",
+  "used_by": [
+   "3-4-contingency-tables"
+  ],
+  "qsetid": "1874716",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q31-venn-four-regions-from-counts.php",
+  "desc": "Read Four Probabilities off a Venn Diagram - Take the four region counts from a two-circle Venn and produce a marginal, a joint, a union and a neither",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q32-tree-two-draws-without-replacement.php",
+  "desc": "Two Draws Without Replacement on a Tree - Fill the second-stage branch probabilities, multiply along a path, and add the paths that satisfy the event",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q33-with-versus-without-replacement.php",
+  "desc": "With Replacement or Without - Compute the same two-draw probability both ways and say which assumption makes the draws independent",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q34-fill-the-venn-from-probabilities.php",
+  "desc": "Fill a Venn from Three Probabilities - Given P(A), P(B) and P(A and B), work out all four region probabilities and confirm they account for everyone",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/q4-probability-two-dice-sum.php",
@@ -3565,9 +3670,10 @@
   "desc": "Addition Rule (Percentages) - Apply P(A union B) = P(A) + P(B) - P(A intersect B) to a real-context word problem",
   "qtype": "multipart",
   "used_by": [
+   "3-2-independent-and-mutually-exclusive-events",
    "ch8-probability-mixed"
   ],
-  "qsetid": null,
+  "qsetid": "1874699",
   "health": "ok"
  },
  {
