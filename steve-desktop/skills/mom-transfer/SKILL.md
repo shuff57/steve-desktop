@@ -390,6 +390,15 @@ solution box. If a question fails: reopen `moddataset.php?id=<qsetid>&cid=<cid>`
 field through CodeMirror, submit, and render again. Loop until clean or until you have failed the
 same question twice — then stop and report it rather than grinding.
 
+**The screenshot must be FULL PAGE, and you have to check that it is.** A default capture is
+viewport-height and stops partway down a long question — on 2026-08-10 four pre-FRQ captures came
+back at 49-59KB against 235KB for the same kind of question captured whole, cutting off above the
+sample responses and every answer widget. Nothing reported an error; the images simply ended. That
+is the worst shape a check can take, because a truncated screenshot reads as a completed visual
+check while covering none of the part that usually breaks. Use `Page.captureScreenshot` with
+`captureBeyondViewport: true`, or grow the viewport, or scroll and stitch — then confirm the image
+actually reaches the bottom of the question before reporting it.
+
 ## Write back to the manifest
 
 Two fields, both of which make the next run cheap and safe:
@@ -498,6 +507,10 @@ and its grading checklist, then has the student **grade four sample responses ag
 instead of writing one. That is why it coexists with the no-free-response rule below: it teaches the
 FRQ's standard and still marks itself. The seven in the bank are named `pre-frq-*.php`, and every one
 sits in the **last slot** of its assignment at **12 points**.
+
+**The full pattern is written up in `mom-content/reference/pre-frq-template.md`** — the invariant
+three-part structure, the two legitimate variants, the dropped-category table, and the `$answers[1]`
+typo that silently leaves a part with no answer key. Read it before writing one.
 
 How many:
 
