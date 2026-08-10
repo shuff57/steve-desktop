@@ -395,9 +395,18 @@ viewport-height and stops partway down a long question — on 2026-08-10 four pr
 back at 49-59KB against 235KB for the same kind of question captured whole, cutting off above the
 sample responses and every answer widget. Nothing reported an error; the images simply ended. That
 is the worst shape a check can take, because a truncated screenshot reads as a completed visual
-check while covering none of the part that usually breaks. Use `Page.captureScreenshot` with
-`captureBeyondViewport: true`, or grow the viewport, or scroll and stitch — then confirm the image
-actually reaches the bottom of the question before reporting it.
+check while covering none of the part that usually breaks.
+
+**Take it in ONE shot: `Emulation.setDeviceMetricsOverride` to `scrollHeight` + margin, a single
+`Page.captureScreenshot`, then clear the override.** Do not scroll and stitch. Later the same day a
+stitched capture came back as the same top-of-page region repeated four times down the image — the
+output canvas advanced and the scroll position did not.
+
+**And do not accept pixel-height as the proof.** That stitched image was exactly `scrollHeight` tall
+and passed the extent check while showing none of the page below the first screenful. Height tells
+you the canvas is big enough, not that the content is there once. Confirm the page's own landmarks
+appear **once each** — "Four students answered." once, the last part's prompt once, and the Submit
+button near the BOTTOM of the image rather than partway up.
 
 ## Write back to the manifest
 
