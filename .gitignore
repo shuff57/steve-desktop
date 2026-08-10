@@ -57,3 +57,7 @@ graphify-out/
 # sometimes ignored in favour of writing into the repo, so this catches the artifact rather
 # than relying on every run getting the path right.
 steve-desktop/.agents/evidence/
+
+# Agent working files. Runs drop CDP helpers, temp JSON and verification
+# screenshots here; none of it is source.
+steve-desktop/scratchpad/
