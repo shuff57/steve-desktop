@@ -885,5 +885,59 @@
   "cid": "334437",
   "filed": "2026-08-09",
   "qtype": "multipart"
+ },
+ "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php": {
+  "qsetid": "1874296",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/skew-is-named-for-the-tail-not-the-bulk.php": {
+  "qsetid": "1874297",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/order-mean-median-mode-on-a-skewed-picture.php": {
+  "qsetid": "1874298",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/skew-from-summary-statistics.php": {
+  "qsetid": "1874299",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/name-the-skew-from-a-box-plot.php": {
+  "qsetid": "1874300",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/identify-a-bimodal-distribution.php": {
+  "qsetid": "1874301",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/median-is-the-honest-center-for-skewed-data.php": {
+  "qsetid": "1874302",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/q2-compare-two-distributions.php": {
+  "qsetid": "1874303",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
+ },
+ "questions/descriptive-stats/describe-a-distribution-shape-center-spread.php": {
+  "qsetid": "1874304",
+  "cid": "334437",
+  "filed": "2026-08-09",
+  "qtype": "multipart"
  }
 }
