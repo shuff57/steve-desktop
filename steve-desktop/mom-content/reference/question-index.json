@@ -3287,6 +3287,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/probability/pre-frq-grade-a-diagram-setup.php",
+  "desc": "Pre-FRQ Grade a Diagram Setup - A two-stage tree-or-Venn scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874873",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/pre-frq-grade-a-joint-probability.php",
   "desc": "Pre-FRQ Grade a Joint Probability - A multiplication-rule scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
@@ -3586,7 +3596,7 @@
   "used_by": [
    "3-5-tree-and-venn-diagrams"
   ],
-  "qsetid": null,
+  "qsetid": "1874862",
   "health": "unchecked"
  },
  {
@@ -3596,7 +3606,7 @@
   "used_by": [
    "3-5-tree-and-venn-diagrams"
   ],
-  "qsetid": null,
+  "qsetid": "1874868",
   "health": "unchecked"
  },
  {
@@ -3606,7 +3616,7 @@
   "used_by": [
    "3-5-tree-and-venn-diagrams"
   ],
-  "qsetid": null,
+  "qsetid": "1874869",
   "health": "unchecked"
  },
  {
@@ -3616,7 +3626,57 @@
   "used_by": [
    "3-5-tree-and-venn-diagrams"
   ],
-  "qsetid": null,
+  "qsetid": "1874865",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q35-read-a-given-tree.php",
+  "desc": "Read a Given Tree - Multiply along two named paths, total the second-stage event across both, and confirm the four leaves sum to 1",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874866",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q36-conditional-from-a-venn.php",
+  "desc": "Conditional from a Venn - Compute a conditional both directions, where the denominator is a circle total rather than the grand total",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874867",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q37-three-draws-without-replacement.php",
+  "desc": "Three Draws Without Replacement - Multiply along a three-step path, then a complement, then a third-draw conditional given the first two",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874870",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q38-set-operations-on-a-venn.php",
+  "desc": "Set Operations on a Venn - Read A and not B, neither, A or B, and the complement of the union off a four-region Venn",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874871",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/q39-at-least-one-two-ways.php",
+  "desc": "At Least One, Two Ways - Add every path that satisfies \"at least one\", then recompute it as 1 minus none, and see why the complement is the route worth learning",
+  "qtype": "multipart",
+  "used_by": [
+   "3-5-tree-and-venn-diagrams"
+  ],
+  "qsetid": "1874872",
   "health": "unchecked"
  },
  {

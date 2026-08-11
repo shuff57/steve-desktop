@@ -1,1231 +1,1291 @@
 {
- "questions/data-sampling/classify-data-qualitative-discrete-continuous.php": {
-  "qsetid": "1868253",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php": {
-  "qsetid": "1867371",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php": {
-  "qsetid": "1867373",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php": {
-  "qsetid": "1867374",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php": {
-  "qsetid": "1867370",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php": {
-  "qsetid": "1867375",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php": {
-  "qsetid": "1867376",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php": {
-  "qsetid": "1867377",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q09-identify-population-multiple-choice.php": {
-  "qsetid": "1867369",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php": {
-  "qsetid": "1867378",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php": {
-  "qsetid": "1867379",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q12-classify-one-variable-data-type.php": {
-  "qsetid": "1868230",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q13-select-all-quantitative-discrete.php": {
-  "qsetid": "1868232",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/q14-purchase-list-three-data-types.php": {
-  "qsetid": "1868240",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q15-name-the-sampling-method.php": {
-  "qsetid": "1868241",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php": {
-  "qsetid": "1868243",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php": {
-  "qsetid": "1868244",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php": {
-  "qsetid": "1868245",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q21-percent-versus-count-comparison.php": {
-  "qsetid": "1868246",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q22-choose-the-right-display.php": {
-  "qsetid": "1868247",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q23-match-error-and-bias-terms.php": {
-  "qsetid": "1868248",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php": {
-  "qsetid": "1868249",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php": {
-  "qsetid": "1868250",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/q26-two-samples-different-results.php": {
-  "qsetid": "1868251",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q27-with-or-without-replacement.php": {
-  "qsetid": "1868252",
-  "cid": "334243",
-  "filed": "2026-08-02",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q01-fitness-center-key-terms.php": {
-  "qsetid": "1873341",
-  "cid": "334437",
-  "filed": "2026-08-08"
- },
- "questions/descriptive-stats/identify-population-from-study-description.php": {
-  "qsetid": "1873351",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php": {
-  "qsetid": "1873352",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/complete-grouped-frequency-table-survival.php": {
-  "qsetid": "1873353",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/identify-what-data-refers-to.php": {
-  "qsetid": "1873354",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/sample-size-adequate-narrow-population.php": {
-  "qsetid": "1873355",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/sample-size-inadequate-wide-population.php": {
-  "qsetid": "1873356",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/conflicting-conclusions-from-two-samples.php": {
-  "qsetid": "1873357",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/incentive-announced-in-advance-bias.php": {
-  "qsetid": "1873358",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/large-random-sample-reliability.php": {
-  "qsetid": "1873359",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/volunteer-sample-self-selection.php": {
-  "qsetid": "1873360",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/leading-survey-question-fairness.php": {
-  "qsetid": "1873361",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/tiny-sample-representativeness.php": {
-  "qsetid": "1873362",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/two-well-run-experiments-differ.php": {
-  "qsetid": "1873363",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/compute-mean-from-fifty-values.php": {
-  "qsetid": "1873369",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "number"
- },
- "questions/descriptive-stats/classify-measurement-scale.php": {
-  "qsetid": "1873370",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/complete-simple-frequency-table.php": {
-  "qsetid": "1873371",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/back-solve-frequency-from-cumulative.php": {
-  "qsetid": "1873372",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/audit-frequency-table-errors.php": {
-  "qsetid": "1873374",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/grouped-frequency-table-and-graphs.php": {
-  "qsetid": "1873375",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/relative-frequency-from-hurricane-table.php": {
-  "qsetid": "1873376",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/cumulative-relative-frequency-at-most.php": {
-  "qsetid": "1873377",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/q18-relative-and-cumulative-frequency.php": {
-  "qsetid": "1873378",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q19-proportion-and-percent-from-a-table.php": {
-  "qsetid": "1873379",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php": {
-  "qsetid": "1873380",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/grouped-interval-boundary-select-all.php": {
-  "qsetid": "1873381",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php": {
-  "qsetid": "1873382",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/classify-then-build-frequency-table.php": {
-  "qsetid": "1873383",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php": {
-  "qsetid": "1873384",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/design-experiment-full-anatomy.php": {
-  "qsetid": "1873390",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/informed-consent-violation-identification.php": {
-  "qsetid": "1873391",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/repeated-measures-design-identification.php": {
-  "qsetid": "1873392",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/misleading-axis-scale-comparison.php": {
-  "qsetid": "1873393",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/raw-count-vs-rate-airline-complaints.php": {
-  "qsetid": "1873394",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/survey-percent-and-extrapolation.php": {
-  "qsetid": "1873395",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/sampling-frame-bias-critique.php": {
-  "qsetid": "1873396",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/experimental-design-key-terms-matching.php": {
-  "qsetid": "1873397",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/blinding-and-placebo-identification.php": {
-  "qsetid": "1873398",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/control-group-placebo-blinding-matching.php": {
-  "qsetid": "1873399",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "matching"
- },
- "questions/descriptive-stats/randomized-block-design-application.php": {
-  "qsetid": "1873400",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/associated-vs-independent-variables-select-all.php": {
-  "qsetid": "1873401",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/informed-consent-validity-select-all.php": {
-  "qsetid": "1873402",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/double-blind-vs-single-blind-identification.php": {
-  "qsetid": "1873403",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "choices"
- },
- "questions/descriptive-stats/rate-vs-count-then-honest-display.php": {
-  "qsetid": "1873404",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/research-ethics-violation-select-all.php": {
-  "qsetid": "1873405",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multans"
- },
- "questions/descriptive-stats/lurking-variable-observational-study-critique.php": {
-  "qsetid": "1873406",
-  "cid": "334437",
-  "filed": "2026-08-08",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/read-a-stemplot-rows-and-values.php": {
-  "qsetid": "1874036",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/choose-the-honest-bar-graph.php": {
-  "qsetid": "1874039",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/build-a-stemplot-from-raw-data.php": {
-  "qsetid": "1874040",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/round-then-stemplot-prices.php": {
-  "qsetid": "1874041",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php": {
-  "qsetid": "1874042",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/choose-the-correct-stemplot.php": {
-  "qsetid": "1874043",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/line-graph-from-frequency-table.php": {
-  "qsetid": "1874044",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/choose-the-correct-line-graph.php": {
-  "qsetid": "1874045",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/bar-graph-counts-versus-percentages.php": {
-  "qsetid": "1874046",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/two-series-bar-graph-over-representation.php": {
-  "qsetid": "1874047",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php": {
-  "qsetid": "1874048",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/read-a-bar-graph-comparisons.php": {
-  "qsetid": "1874049",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/which-display-preserves-the-data.php": {
-  "qsetid": "1874050",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/time-series-line-graph-change-over-time.php": {
-  "qsetid": "1874051",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/build-a-stemplot-fill-in-the-blanks.php": {
-  "qsetid": "1874074",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/draw-a-line-graph-from-a-frequency-table.php": {
-  "qsetid": "1874075",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "draw"
- },
- "questions/descriptive-stats/pre-frq-judge-a-distribution-comparison.php": {
-  "qsetid": "1874076",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-sampling-critique.php": {
-  "qsetid": "1874125",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/frequency-columns-what-they-sum-to.php": {
-  "qsetid": "1874131",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/displays/q2-histogram-relative-frequency.php": {
-  "qsetid": "1874132",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/histogram-bin-width-comparison.php": {
-  "qsetid": "1874133",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/compare-two-relative-frequency-histograms.php": {
-  "qsetid": "1874134",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/histogram-classes-and-shape-from-data.php": {
-  "qsetid": "1874135",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/build-the-grouped-frequency-table.php": {
-  "qsetid": "1874136",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/read-a-box-plot.php": {
-  "qsetid": "1874141",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/median-is-not-the-center-of-the-box.php": {
-  "qsetid": "1874142",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/spread-within-each-quarter-of-a-box-plot.php": {
-  "qsetid": "1874143",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/outlier-check-from-a-box-plot.php": {
-  "qsetid": "1874144",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/what-a-box-plot-does-not-show.php": {
-  "qsetid": "1874145",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/compare-three-box-plots.php": {
-  "qsetid": "1874146",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/box-plot-from-a-frequency-table.php": {
-  "qsetid": "1874147",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/box-plot-and-histogram-of-the-same-data.php": {
-  "qsetid": "1874148",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/displays/q4-boxplot-outliers-context.php": {
-  "qsetid": "1874149",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/five-number-summary-from-unsorted-data.php": {
-  "qsetid": "1874150",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/build-the-five-number-summary.php": {
-  "qsetid": "1874151",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/find-a-percentile-from-a-list.php": {
-  "qsetid": "1874158",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percentile-of-a-given-value.php": {
-  "qsetid": "1874159",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/class-rank-to-percentile.php": {
-  "qsetid": "1874160",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/interpret-a-percentile-in-context.php": {
-  "qsetid": "1874161",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percentile-and-share-of-the-group.php": {
-  "qsetid": "1874162",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percentile-is-not-a-score.php": {
-  "qsetid": "1874163",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/quartiles-from-a-frequency-table.php": {
-  "qsetid": "1874164",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percentiles-from-a-frequency-table.php": {
-  "qsetid": "1874165",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php": {
-  "qsetid": "1874166",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/percentages-from-a-relative-frequency-table.php": {
-  "qsetid": "1874167",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/median-age-comparison-reasoning.php": {
-  "qsetid": "1874168",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q1-mean-median-iqr-from-data.php": {
-  "qsetid": "1874169",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/displays/q3-boxplot-five-number.php": {
-  "qsetid": "1874170",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/unconditional-probability-first-event.php": {
-  "qsetid": "1874177",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "number"
- },
- "questions/probability/unconditional-probability-second-event.php": {
-  "qsetid": "1874178",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "number"
- },
- "questions/probability/identify-conditional-probability-from-wording.php": {
-  "qsetid": "1874179",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "number"
- },
- "questions/probability/interpret-conditional-event-in-words.php": {
-  "qsetid": "1874180",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "choices"
- },
- "questions/probability/multiplication-rule-joint-probability.php": {
-  "qsetid": "1874181",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "number"
- },
- "questions/probability/interpret-joint-event-in-words.php": {
-  "qsetid": "1874182",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "choices"
- },
- "questions/probability/test-independence-two-ways.php": {
-  "qsetid": "1874183",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/addition-rule-union-probability.php": {
-  "qsetid": "1874184",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "number"
- },
- "questions/probability/interpret-union-event-in-words.php": {
-  "qsetid": "1874185",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "choices"
- },
- "questions/probability/test-mutually-exclusive.php": {
-  "qsetid": "1874186",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/survey-two-conditionals-full-workup.php": {
-  "qsetid": "1874187",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/poll-proportion-complement-and-headcount.php": {
-  "qsetid": "1874188",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/roulette-single-spin-events.php": {
-  "qsetid": "1874189",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/probability/roulette-bet-types-probabilities.php": {
-  "qsetid": "1874190",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-variable-classification.php": {
-  "qsetid": "1874242",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php": {
-  "qsetid": "1874243",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-study-critique.php": {
-  "qsetid": "1874244",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-bimodal-interpretation.php": {
-  "qsetid": "1874534",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-center-recommendation.php": {
-  "qsetid": "1874526",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-consistency-comparison.php": {
-  "qsetid": "1874537",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-display-choice.php": {
-  "qsetid": "1874245",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-an-outlier-check.php": {
-  "qsetid": "1874246",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/pre-frq-grade-a-percentile-reading.php": {
-  "qsetid": "1874545",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php": {
-  "qsetid": "1874282",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php": {
-  "qsetid": "1874283",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q3-resistant-measure-choice.php": {
-  "qsetid": "1874284",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/mean-median-mode-from-a-dot-plot.php": {
-  "qsetid": "1874285",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/mode-for-categorical-and-multimodal-data.php": {
-  "qsetid": "1874286",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/find-the-missing-value-from-the-mean.php": {
-  "qsetid": "1874287",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/weighted-mean-course-grade.php": {
-  "qsetid": "1874289",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/mean-of-combined-groups.php": {
-  "qsetid": "1874290",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/outlier-effect-on-mean-and-median.php": {
-  "qsetid": "1874291",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/sample-mean-versus-population-mean.php": {
-  "qsetid": "1874292",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php": {
-  "qsetid": "1874296",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/skew-is-named-for-the-tail-not-the-bulk.php": {
-  "qsetid": "1874297",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/order-mean-median-mode-on-a-skewed-picture.php": {
-  "qsetid": "1874298",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/skew-from-summary-statistics.php": {
-  "qsetid": "1874299",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/name-the-skew-from-a-box-plot.php": {
-  "qsetid": "1874300",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/identify-a-bimodal-distribution.php": {
-  "qsetid": "1874301",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/median-is-the-honest-center-for-skewed-data.php": {
-  "qsetid": "1874302",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/q2-compare-two-distributions.php": {
-  "qsetid": "1874303",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/describe-a-distribution-shape-center-spread.php": {
-  "qsetid": "1874304",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/standard-deviation-step-by-step.php": {
-  "qsetid": "1874307",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/compare-across-groups-with-z-scores.php": {
-  "qsetid": "1874308",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/same-range-different-spread.php": {
-  "qsetid": "1874309",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/interpret-standard-deviation-in-context.php": {
-  "qsetid": "1874310",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/standard-deviation-from-a-frequency-table.php": {
-  "qsetid": "1874311",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/sample-versus-population-standard-deviation.php": {
-  "qsetid": "1874312",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/outlier-effect-on-range-iqr-and-standard-deviation.php": {
-  "qsetid": "1874313",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/value-a-number-of-deviations-from-the-mean.php": {
-  "qsetid": "1874314",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/normal-distribution/q1-z-score-compute.php": {
-  "qsetid": "1874315",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/normal-distribution/q4-empirical-rule.php": {
-  "qsetid": "1874316",
-  "cid": "334437",
-  "filed": "2026-08-09",
-  "qtype": "multipart"
- },
- "questions/descriptive-stats/empirical-rule-counts-in-context.php": {
-   "qsetid": "1874317",
-   "cid": "334437",
-   "filed": "2026-08-09",
-   "qtype": "multipart"
+  "questions/data-sampling/classify-data-qualitative-discrete-continuous.php": {
+    "qsetid": "1868253",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
   },
- "questions/probability/q1-count-outcomes.php": {
-   "qsetid": "1874481",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q02-ski-lesson-age-key-terms.php": {
+    "qsetid": "1867371",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q16-urn-draw.php": {
-   "qsetid": "1874486",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q03-cardiologist-recovery-key-terms.php": {
+    "qsetid": "1867373",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q2-probability-card-draw.php": {
-   "qsetid": "1874487",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q04-insurance-health-costs-key-terms.php": {
+    "qsetid": "1867374",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q3-probability-exactly-one-head.php": {
-   "qsetid": "1874489",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q05-politician-approval-proportion-key-terms.php": {
+    "qsetid": "1867370",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q4-probability-two-dice-sum.php": {
-   "qsetid": "1874490",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q06-marriage-counselor-proportion-key-terms.php": {
+    "qsetid": "1867375",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q5-three-children-boys.php": {
-   "qsetid": "1874491",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q07-pollster-cause-proportion-key-terms.php": {
+    "qsetid": "1867376",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q6-set-ops-dice-events.php": {
-   "qsetid": "1874493",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q08-marketing-product-proportion-key-terms.php": {
+    "qsetid": "1867377",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
   },
- "questions/probability/q25-prob-set-ops-dice.php": {
-   "qsetid": "1874494",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q09-identify-population-multiple-choice.php": {
+    "qsetid": "1867369",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
   },
- "questions/probability/q9-king-or-heart.php": {
-   "qsetid": "1874495",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q10-classify-x-as-variable-multiple-choice.php": {
+    "qsetid": "1867378",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
   },
- "questions/probability/q11-identify-conditioning-event.php": {
-   "qsetid": "1874496",
-   "cid": "334437",
-   "filed": "2026-08-10",
-   "qtype": "multipart"
+  "questions/descriptive-stats/q11-sample-mean-is-a-statistic-multiple-choice.php": {
+    "qsetid": "1867379",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
   },
- "questions/probability/q24-conditional-dice-reduced-sample-space.php": {
-  "qsetid": "1874497",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/pre-frq-grade-a-joint-probability.php": {
-  "qsetid": "1874548",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/pre-frq-grade-a-probability-setup.php": {
-  "qsetid": "1874546",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q7-mutually-exclusive-yesno.php": {
-  "qsetid": "1874568",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q18-genre-twoway-mutex.php": {
-  "qsetid": "1874569",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q26-independence-multiplication-rule.php": {
-  "qsetid": "1874570",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q21-conditional-2x2-with-independence.php": {
-  "qsetid": "1874571",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q12-three-children-given-first-boy.php": {
-  "qsetid": "1874572",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q17-survey-overlap.php": {
-  "qsetid": "1874574",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q13-conditional-probability-formula.php": {
-  "qsetid": "1874576",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/pre-frq-grade-an-independence-check.php": {
-  "qsetid": "1874578",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q10-twoway-table-addition.php": {
-  "qsetid": "1874601",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q14-twoway-conditional.php": {
-  "qsetid": "1874603",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q20-class-twoway-asymmetry.php": {
-  "qsetid": "1874605",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q19-medical-test-bayes.php": {
-  "qsetid": "1874606",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q15-conditional-from-union.php": {
-  "qsetid": "1874608",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/pre-frq-grade-a-conditional-reading.php": {
-  "qsetid": "1874610",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q8-addition-rule-percentages.php": {
-  "qsetid": "1874699",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q23-addition-rule-formula.php": {
-  "qsetid": "1874702",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q27-complete-the-twoway-table.php": {
-  "qsetid": "1874711",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q28-three-denominators-one-table.php": {
-  "qsetid": "1874713",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q29-build-the-table-from-a-word-problem.php": {
-  "qsetid": "1874715",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- },
- "questions/probability/q30-union-and-neither-from-a-table.php": {
-  "qsetid": "1874716",
-  "cid": "334437",
-  "filed": "2026-08-10",
-  "qtype": "multipart"
- }
+  "questions/descriptive-stats/q12-classify-one-variable-data-type.php": {
+    "qsetid": "1868230",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q13-select-all-quantitative-discrete.php": {
+    "qsetid": "1868232",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q14-purchase-list-three-data-types.php": {
+    "qsetid": "1868240",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q15-name-the-sampling-method.php": {
+    "qsetid": "1868241",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q16-match-sampling-methods-to-studies.php": {
+    "qsetid": "1868243",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q17-cluster-sample-conditions-select-all.php": {
+    "qsetid": "1868244",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q20-do-the-percents-allow-a-pie-chart.php": {
+    "qsetid": "1868245",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q21-percent-versus-count-comparison.php": {
+    "qsetid": "1868246",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q22-choose-the-right-display.php": {
+    "qsetid": "1868247",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q23-match-error-and-bias-terms.php": {
+    "qsetid": "1868248",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/q24-response-rate-and-type-of-bias.php": {
+    "qsetid": "1868249",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q25-critique-a-funded-volunteer-study.php": {
+    "qsetid": "1868250",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/q26-two-samples-different-results.php": {
+    "qsetid": "1868251",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q27-with-or-without-replacement.php": {
+    "qsetid": "1868252",
+    "cid": "334243",
+    "filed": "2026-08-02",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q01-fitness-center-key-terms.php": {
+    "qsetid": "1873341",
+    "cid": "334437",
+    "filed": "2026-08-08"
+  },
+  "questions/descriptive-stats/identify-population-from-study-description.php": {
+    "qsetid": "1873351",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php": {
+    "qsetid": "1873352",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/complete-grouped-frequency-table-survival.php": {
+    "qsetid": "1873353",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/identify-what-data-refers-to.php": {
+    "qsetid": "1873354",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/sample-size-adequate-narrow-population.php": {
+    "qsetid": "1873355",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/sample-size-inadequate-wide-population.php": {
+    "qsetid": "1873356",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/conflicting-conclusions-from-two-samples.php": {
+    "qsetid": "1873357",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/incentive-announced-in-advance-bias.php": {
+    "qsetid": "1873358",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/large-random-sample-reliability.php": {
+    "qsetid": "1873359",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/volunteer-sample-self-selection.php": {
+    "qsetid": "1873360",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/leading-survey-question-fairness.php": {
+    "qsetid": "1873361",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/tiny-sample-representativeness.php": {
+    "qsetid": "1873362",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/two-well-run-experiments-differ.php": {
+    "qsetid": "1873363",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/compute-mean-from-fifty-values.php": {
+    "qsetid": "1873369",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "number"
+  },
+  "questions/descriptive-stats/classify-measurement-scale.php": {
+    "qsetid": "1873370",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/complete-simple-frequency-table.php": {
+    "qsetid": "1873371",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/back-solve-frequency-from-cumulative.php": {
+    "qsetid": "1873372",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/audit-frequency-table-errors.php": {
+    "qsetid": "1873374",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/grouped-frequency-table-and-graphs.php": {
+    "qsetid": "1873375",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/relative-frequency-from-hurricane-table.php": {
+    "qsetid": "1873376",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/cumulative-relative-frequency-at-most.php": {
+    "qsetid": "1873377",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/q18-relative-and-cumulative-frequency.php": {
+    "qsetid": "1873378",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q19-proportion-and-percent-from-a-table.php": {
+    "qsetid": "1873379",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php": {
+    "qsetid": "1873380",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/grouped-interval-boundary-select-all.php": {
+    "qsetid": "1873381",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/diagnose-cumulative-vs-individual-percent-claim.php": {
+    "qsetid": "1873382",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/classify-then-build-frequency-table.php": {
+    "qsetid": "1873383",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php": {
+    "qsetid": "1873384",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/design-experiment-full-anatomy.php": {
+    "qsetid": "1873390",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/informed-consent-violation-identification.php": {
+    "qsetid": "1873391",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/repeated-measures-design-identification.php": {
+    "qsetid": "1873392",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/misleading-axis-scale-comparison.php": {
+    "qsetid": "1873393",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/raw-count-vs-rate-airline-complaints.php": {
+    "qsetid": "1873394",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/survey-percent-and-extrapolation.php": {
+    "qsetid": "1873395",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/sampling-frame-bias-critique.php": {
+    "qsetid": "1873396",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/experimental-design-key-terms-matching.php": {
+    "qsetid": "1873397",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/blinding-and-placebo-identification.php": {
+    "qsetid": "1873398",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/control-group-placebo-blinding-matching.php": {
+    "qsetid": "1873399",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "matching"
+  },
+  "questions/descriptive-stats/randomized-block-design-application.php": {
+    "qsetid": "1873400",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/associated-vs-independent-variables-select-all.php": {
+    "qsetid": "1873401",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/informed-consent-validity-select-all.php": {
+    "qsetid": "1873402",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/double-blind-vs-single-blind-identification.php": {
+    "qsetid": "1873403",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "choices"
+  },
+  "questions/descriptive-stats/rate-vs-count-then-honest-display.php": {
+    "qsetid": "1873404",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/research-ethics-violation-select-all.php": {
+    "qsetid": "1873405",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multans"
+  },
+  "questions/descriptive-stats/lurking-variable-observational-study-critique.php": {
+    "qsetid": "1873406",
+    "cid": "334437",
+    "filed": "2026-08-08",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/read-a-stemplot-rows-and-values.php": {
+    "qsetid": "1874036",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/choose-the-honest-bar-graph.php": {
+    "qsetid": "1874039",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/build-a-stemplot-from-raw-data.php": {
+    "qsetid": "1874040",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/round-then-stemplot-prices.php": {
+    "qsetid": "1874041",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/stemplot-outlier-and-empty-rows.php": {
+    "qsetid": "1874042",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/choose-the-correct-stemplot.php": {
+    "qsetid": "1874043",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/line-graph-from-frequency-table.php": {
+    "qsetid": "1874044",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/choose-the-correct-line-graph.php": {
+    "qsetid": "1874045",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/bar-graph-counts-versus-percentages.php": {
+    "qsetid": "1874046",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/two-series-bar-graph-over-representation.php": {
+    "qsetid": "1874047",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php": {
+    "qsetid": "1874048",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/read-a-bar-graph-comparisons.php": {
+    "qsetid": "1874049",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/which-display-preserves-the-data.php": {
+    "qsetid": "1874050",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/time-series-line-graph-change-over-time.php": {
+    "qsetid": "1874051",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/build-a-stemplot-fill-in-the-blanks.php": {
+    "qsetid": "1874074",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/draw-a-line-graph-from-a-frequency-table.php": {
+    "qsetid": "1874075",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "draw"
+  },
+  "questions/descriptive-stats/pre-frq-judge-a-distribution-comparison.php": {
+    "qsetid": "1874076",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-sampling-critique.php": {
+    "qsetid": "1874125",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/frequency-columns-what-they-sum-to.php": {
+    "qsetid": "1874131",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/displays/q2-histogram-relative-frequency.php": {
+    "qsetid": "1874132",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/histogram-bin-width-comparison.php": {
+    "qsetid": "1874133",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/compare-two-relative-frequency-histograms.php": {
+    "qsetid": "1874134",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/histogram-classes-and-shape-from-data.php": {
+    "qsetid": "1874135",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/build-the-grouped-frequency-table.php": {
+    "qsetid": "1874136",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/read-a-box-plot.php": {
+    "qsetid": "1874141",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/median-is-not-the-center-of-the-box.php": {
+    "qsetid": "1874142",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/spread-within-each-quarter-of-a-box-plot.php": {
+    "qsetid": "1874143",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/outlier-check-from-a-box-plot.php": {
+    "qsetid": "1874144",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/what-a-box-plot-does-not-show.php": {
+    "qsetid": "1874145",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/compare-three-box-plots.php": {
+    "qsetid": "1874146",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/box-plot-from-a-frequency-table.php": {
+    "qsetid": "1874147",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/box-plot-and-histogram-of-the-same-data.php": {
+    "qsetid": "1874148",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/displays/q4-boxplot-outliers-context.php": {
+    "qsetid": "1874149",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/five-number-summary-from-unsorted-data.php": {
+    "qsetid": "1874150",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/build-the-five-number-summary.php": {
+    "qsetid": "1874151",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/find-a-percentile-from-a-list.php": {
+    "qsetid": "1874158",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percentile-of-a-given-value.php": {
+    "qsetid": "1874159",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/class-rank-to-percentile.php": {
+    "qsetid": "1874160",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/interpret-a-percentile-in-context.php": {
+    "qsetid": "1874161",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percentile-and-share-of-the-group.php": {
+    "qsetid": "1874162",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percentile-is-not-a-score.php": {
+    "qsetid": "1874163",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/quartiles-from-a-frequency-table.php": {
+    "qsetid": "1874164",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percentiles-from-a-frequency-table.php": {
+    "qsetid": "1874165",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php": {
+    "qsetid": "1874166",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/percentages-from-a-relative-frequency-table.php": {
+    "qsetid": "1874167",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/median-age-comparison-reasoning.php": {
+    "qsetid": "1874168",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q1-mean-median-iqr-from-data.php": {
+    "qsetid": "1874169",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/displays/q3-boxplot-five-number.php": {
+    "qsetid": "1874170",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/unconditional-probability-first-event.php": {
+    "qsetid": "1874177",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "number"
+  },
+  "questions/probability/unconditional-probability-second-event.php": {
+    "qsetid": "1874178",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "number"
+  },
+  "questions/probability/identify-conditional-probability-from-wording.php": {
+    "qsetid": "1874179",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "number"
+  },
+  "questions/probability/interpret-conditional-event-in-words.php": {
+    "qsetid": "1874180",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "choices"
+  },
+  "questions/probability/multiplication-rule-joint-probability.php": {
+    "qsetid": "1874181",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "number"
+  },
+  "questions/probability/interpret-joint-event-in-words.php": {
+    "qsetid": "1874182",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "choices"
+  },
+  "questions/probability/test-independence-two-ways.php": {
+    "qsetid": "1874183",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/addition-rule-union-probability.php": {
+    "qsetid": "1874184",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "number"
+  },
+  "questions/probability/interpret-union-event-in-words.php": {
+    "qsetid": "1874185",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "choices"
+  },
+  "questions/probability/test-mutually-exclusive.php": {
+    "qsetid": "1874186",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/survey-two-conditionals-full-workup.php": {
+    "qsetid": "1874187",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/poll-proportion-complement-and-headcount.php": {
+    "qsetid": "1874188",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/roulette-single-spin-events.php": {
+    "qsetid": "1874189",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/roulette-bet-types-probabilities.php": {
+    "qsetid": "1874190",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-variable-classification.php": {
+    "qsetid": "1874242",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php": {
+    "qsetid": "1874243",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-study-critique.php": {
+    "qsetid": "1874244",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-bimodal-interpretation.php": {
+    "qsetid": "1874534",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-center-recommendation.php": {
+    "qsetid": "1874526",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-consistency-comparison.php": {
+    "qsetid": "1874537",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-display-choice.php": {
+    "qsetid": "1874245",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-an-outlier-check.php": {
+    "qsetid": "1874246",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/pre-frq-grade-a-percentile-reading.php": {
+    "qsetid": "1874545",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/mean-from-a-grouped-frequency-table.php": {
+    "qsetid": "1874282",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php": {
+    "qsetid": "1874283",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q3-resistant-measure-choice.php": {
+    "qsetid": "1874284",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/mean-median-mode-from-a-dot-plot.php": {
+    "qsetid": "1874285",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/mode-for-categorical-and-multimodal-data.php": {
+    "qsetid": "1874286",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/find-the-missing-value-from-the-mean.php": {
+    "qsetid": "1874287",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/weighted-mean-course-grade.php": {
+    "qsetid": "1874289",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/mean-of-combined-groups.php": {
+    "qsetid": "1874290",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/outlier-effect-on-mean-and-median.php": {
+    "qsetid": "1874291",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/sample-mean-versus-population-mean.php": {
+    "qsetid": "1874292",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php": {
+    "qsetid": "1874296",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/skew-is-named-for-the-tail-not-the-bulk.php": {
+    "qsetid": "1874297",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/order-mean-median-mode-on-a-skewed-picture.php": {
+    "qsetid": "1874298",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/skew-from-summary-statistics.php": {
+    "qsetid": "1874299",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/name-the-skew-from-a-box-plot.php": {
+    "qsetid": "1874300",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/identify-a-bimodal-distribution.php": {
+    "qsetid": "1874301",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/median-is-the-honest-center-for-skewed-data.php": {
+    "qsetid": "1874302",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/q2-compare-two-distributions.php": {
+    "qsetid": "1874303",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/describe-a-distribution-shape-center-spread.php": {
+    "qsetid": "1874304",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/standard-deviation-step-by-step.php": {
+    "qsetid": "1874307",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/compare-across-groups-with-z-scores.php": {
+    "qsetid": "1874308",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/same-range-different-spread.php": {
+    "qsetid": "1874309",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/interpret-standard-deviation-in-context.php": {
+    "qsetid": "1874310",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/standard-deviation-from-a-frequency-table.php": {
+    "qsetid": "1874311",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/sample-versus-population-standard-deviation.php": {
+    "qsetid": "1874312",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/outlier-effect-on-range-iqr-and-standard-deviation.php": {
+    "qsetid": "1874313",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/value-a-number-of-deviations-from-the-mean.php": {
+    "qsetid": "1874314",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q1-z-score-compute.php": {
+    "qsetid": "1874315",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q4-empirical-rule.php": {
+    "qsetid": "1874316",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/empirical-rule-counts-in-context.php": {
+    "qsetid": "1874317",
+    "cid": "334437",
+    "filed": "2026-08-09",
+    "qtype": "multipart"
+  },
+  "questions/probability/q1-count-outcomes.php": {
+    "qsetid": "1874481",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q16-urn-draw.php": {
+    "qsetid": "1874486",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q2-probability-card-draw.php": {
+    "qsetid": "1874487",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q3-probability-exactly-one-head.php": {
+    "qsetid": "1874489",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q4-probability-two-dice-sum.php": {
+    "qsetid": "1874490",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q5-three-children-boys.php": {
+    "qsetid": "1874491",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q6-set-ops-dice-events.php": {
+    "qsetid": "1874493",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q25-prob-set-ops-dice.php": {
+    "qsetid": "1874494",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q9-king-or-heart.php": {
+    "qsetid": "1874495",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q11-identify-conditioning-event.php": {
+    "qsetid": "1874496",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q24-conditional-dice-reduced-sample-space.php": {
+    "qsetid": "1874497",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/pre-frq-grade-a-joint-probability.php": {
+    "qsetid": "1874548",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/pre-frq-grade-a-probability-setup.php": {
+    "qsetid": "1874546",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q7-mutually-exclusive-yesno.php": {
+    "qsetid": "1874568",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q18-genre-twoway-mutex.php": {
+    "qsetid": "1874569",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q26-independence-multiplication-rule.php": {
+    "qsetid": "1874570",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q21-conditional-2x2-with-independence.php": {
+    "qsetid": "1874571",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q12-three-children-given-first-boy.php": {
+    "qsetid": "1874572",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q17-survey-overlap.php": {
+    "qsetid": "1874574",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q13-conditional-probability-formula.php": {
+    "qsetid": "1874576",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/pre-frq-grade-an-independence-check.php": {
+    "qsetid": "1874578",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q10-twoway-table-addition.php": {
+    "qsetid": "1874601",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q14-twoway-conditional.php": {
+    "qsetid": "1874603",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q20-class-twoway-asymmetry.php": {
+    "qsetid": "1874605",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q19-medical-test-bayes.php": {
+    "qsetid": "1874606",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q15-conditional-from-union.php": {
+    "qsetid": "1874608",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/pre-frq-grade-a-conditional-reading.php": {
+    "qsetid": "1874610",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q8-addition-rule-percentages.php": {
+    "qsetid": "1874699",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q23-addition-rule-formula.php": {
+    "qsetid": "1874702",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q27-complete-the-twoway-table.php": {
+    "qsetid": "1874711",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q28-three-denominators-one-table.php": {
+    "qsetid": "1874713",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q29-build-the-table-from-a-word-problem.php": {
+    "qsetid": "1874715",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q30-union-and-neither-from-a-table.php": {
+    "qsetid": "1874716",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q31-venn-four-regions-from-counts.php": {
+    "qsetid": "1874862",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q34-fill-the-venn-from-probabilities.php": {
+    "qsetid": "1874865",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q35-read-a-given-tree.php": {
+    "qsetid": "1874866",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q36-conditional-from-a-venn.php": {
+    "qsetid": "1874867",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q32-tree-two-draws-without-replacement.php": {
+    "qsetid": "1874868",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q33-with-versus-without-replacement.php": {
+    "qsetid": "1874869",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q37-three-draws-without-replacement.php": {
+    "qsetid": "1874870",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q38-set-operations-on-a-venn.php": {
+    "qsetid": "1874871",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/q39-at-least-one-two-ways.php": {
+    "qsetid": "1874872",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  },
+  "questions/probability/pre-frq-grade-a-diagram-setup.php": {
+    "qsetid": "1874873",
+    "cid": "334437",
+    "filed": "2026-08-10",
+    "qtype": "multipart"
+  }
 }

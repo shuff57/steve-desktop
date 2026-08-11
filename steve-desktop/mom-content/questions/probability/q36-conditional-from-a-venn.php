@@ -14,10 +14,13 @@ $anstypes = array("numfunc", "numfunc", "numfunc", "numfunc")
 
 $i = rand(0, 2)
 
+// "$total $context" opens the stem, so each string has to survive being read as a whole sentence.
+// "100 customers who ordered a drink and who ordered dessert" says all 100 did both -- the exact
+// claim the Venn then contradicts. "sorted by whether" is what keeps the count neutral.
 $contexts = array(
-  "students in a class who play an instrument and who play a sport",
-  "customers who ordered a drink and who ordered dessert",
-  "members who go mornings and who take classes"
+  "students in a class, sorted by whether they play an instrument and whether they play a sport",
+  "customers, sorted by whether they ordered a drink and whether they ordered dessert",
+  "gym members, sorted by whether they go mornings and whether they take classes"
 )
 $context = $contexts[$i]
 

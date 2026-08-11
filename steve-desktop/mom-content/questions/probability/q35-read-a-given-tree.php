@@ -14,9 +14,9 @@ $anstypes = array("numfunc", "numfunc", "numfunc", "numfunc")
 $i = rand(0, 2)
 
 $contexts = array(
-  "adults screened for a rare condition",
-  "patients tested for a rare infection",
-  "employees screened for a rare marker"
+  "Adults are screened for a rare condition",
+  "Patients are tested for a rare infection",
+  "Employees are screened for a rare marker"
 )
 $context = $contexts[$i]
 
@@ -25,6 +25,11 @@ $hasName = $hasNames[$i]
 
 $posNames = array("test positive", "test positive", "screen positive")
 $posName = $posNames[$i]
+
+// The negative leaf label has to match the verb the positive one uses -- hard-coding "test negative"
+// paired "screen positive" with "test negative" on the third context.
+$negNames = array("test negative", "test negative", "screen negative")
+$negName = $negNames[$i]
 
 $whoLabels = array("adult", "patient", "employee")
 $who = $whoLabels[$i]
@@ -56,7 +61,11 @@ $answer[2] = $pPositive
 $answer[3] = $sum
 
 // --- the tree ---
-$tw = 470
+// Leaf text starts at x=340 and the longest label ("not carry the marker and screen negative", 40
+// chars of Arial 13) runs ~260px, so a 470-wide viewBox CLIPPED it -- and clipped the two bottom
+// leaves to the same visible string, which made them impossible to tell apart. The card's content
+// box is 648px, so 640 is the widest this can be and still fit.
+$tw = 640
 $th = 260
 $svg = '<svg width="' . $tw . '" height="' . $th . '" viewBox="0 0 ' . $tw . ' ' . $th . '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tree diagram of a two-stage screening test" style="display:block;margin:12px auto;background:#fff">'
 $svg = $svg . '<circle cx="30" cy="130" r="5" fill="#21242c"/>'
@@ -75,9 +84,9 @@ $svg = $svg . '<text x="255" y="100" font-family="Arial" font-size="13" fill="#3
 $svg = $svg . '<text x="255" y="156" font-family="Arial" font-size="13" fill="#374151">' . $s2 . '/' . 100 . '</text>'
 $svg = $svg . '<text x="255" y="228" font-family="Arial" font-size="13" fill="#374151">' . (100 - $s2) . '/' . 100 . '</text>'
 $svg = $svg . '<text x="340" y="33" font-family="Arial" font-size="13" fill="#21242c">' . $hasName . ' and ' . $posName . '</text>'
-$svg = $svg . '<text x="340" y="110" font-family="Arial" font-size="13" fill="#21242c">' . $hasName . ' and test negative</text>'
+$svg = $svg . '<text x="340" y="110" font-family="Arial" font-size="13" fill="#21242c">' . $hasName . ' and ' . $negName . '</text>'
 $svg = $svg . '<text x="340" y="163" font-family="Arial" font-size="13" fill="#21242c">not ' . $hasName . ' and ' . $posName . '</text>'
-$svg = $svg . '<text x="340" y="237" font-family="Arial" font-size="13" fill="#21242c">not ' . $hasName . ' and test negative</text>'
+$svg = $svg . '<text x="340" y="237" font-family="Arial" font-size="13" fill="#21242c">not ' . $hasName . ' and ' . $negName . '</text>'
 $svg = $svg . '<text x="30" y="20" font-family="Arial" font-size="12" fill="#6b7280">first stage</text>'
 $svg = $svg . '<text x="228" y="20" font-family="Arial" font-size="12" fill="#6b7280">second stage</text>'
 $svg = $svg . '</svg>'

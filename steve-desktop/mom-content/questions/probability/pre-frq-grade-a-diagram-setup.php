@@ -20,9 +20,9 @@ $anstypes = array("choices", "multans", "choices")
 $i = rand(0, 2)
 
 $contexts = array(
-  "a bag of marbles",
-  "a drawer of socks",
-  "a box of pens"
+  "A bag of marbles",
+  "A drawer of socks",
+  "A box of pens"
 )
 $context = $contexts[$i]
 
