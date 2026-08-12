@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { actionKeyOf, isUnproductiveOutput } from './page-agent-loop';
+import { actionKeyOf, isUnproductiveOutput, isRepeatedStallAction } from './page-agent-loop';
 
 describe('stall detection', () => {
   // These strings are what the tools actually return; the model sees the same.
@@ -21,5 +21,23 @@ describe('stall detection', () => {
     expect(actionKeyOf('select_dropdown_option', { index: 4, text: 'Kiwi' })).toBe(a);
     expect(actionKeyOf('select_dropdown_option', { index: 5, text: 'Kiwi' })).not.toBe(a);
     expect(actionKeyOf('click_element_by_index', { index: 4, text: 'Kiwi' })).not.toBe(a);
+  });
+
+  test('a repeated non-wait action counts as a stall', () => {
+    const key = actionKeyOf('select_dropdown_option', { index: 4, text: 'Kiwi' });
+    expect(isRepeatedStallAction('select_dropdown_option', key, key)).toBe(true);
+  });
+
+  test('a repeated wait or wait_for_condition never counts as a stall', () => {
+    const waitKey = actionKeyOf('wait', { seconds: 5 });
+    expect(isRepeatedStallAction('wait', waitKey, waitKey)).toBe(false);
+
+    const condKey = actionKeyOf('wait_for_condition', { condition: "document.querySelector('video')?.ended" });
+    expect(isRepeatedStallAction('wait_for_condition', condKey, condKey)).toBe(false);
+  });
+
+  test('a non-repeat is never a stall regardless of tool name', () => {
+    expect(isRepeatedStallAction('click_element_by_index', 'a', 'b')).toBe(false);
+    expect(isRepeatedStallAction('wait', 'a', 'b')).toBe(false);
   });
 });

@@ -146,6 +146,19 @@ export function actionKeyOf(name: string, input: unknown): string {
 }
 
 /**
+ * Wait-family tools are exempt from the "repeated action = stall" check: re-issuing
+ * wait_for_condition after a timeout (try again, or wait through the next segment of a
+ * multi-part video) is often the correct next step, not a model going in circles. A tool
+ * that reports its own failure via isUnproductiveOutput still counts against stall either way.
+ */
+const WAIT_TOOL_NAMES = new Set(['wait', 'wait_for_condition']);
+
+/** Does this step's action key match the previous step's, in a way that counts as a stall? */
+export function isRepeatedStallAction(name: string, key: string, lastActionKey: string): boolean {
+  return key === lastActionKey && !WAIT_TOOL_NAMES.has(name);
+}
+
+/**
  * Run the page-agent Re-Act loop until done, a stall, or maxSteps.
  *
  * @param config — task + LLM config + skill narrowing
@@ -333,7 +346,7 @@ export async function runAgentLoop(
       // repeating itself usually has not noticed; told plainly, it often
       // switches approach and finishes. Killing it silently never does.
       const key = actionKeyOf(name, actionInput);
-      const repeated = key === lastActionKey;
+      const repeated = isRepeatedStallAction(name, key, lastActionKey);
       lastActionKey = key;
       stall = isUnproductiveOutput(output) || repeated ? stall + 1 : 0;
 

@@ -103,7 +103,10 @@ async function secondsSinceLastChange(ctx: ToolContext): Promise<number> {
 export const waitTool: PageAgentTool<{ seconds: number }> = {
   name: 'wait',
   primaryParam: 'seconds',
-  description: 'Wait for x seconds. Can be used to wait until the page or data is fully loaded.',
+  description:
+    'Wait for x seconds (max 10). For "let this settle" pauses only — for an open-ended wait ' +
+    '(a video finishing, a status becoming true, anything that could take minutes) use ' +
+    'wait_for_condition instead: repeating this tool to cover a long wait reads as a stall.',
   execute: async (ctx, params) => {
     const asked = Math.max(1, Math.min(10, params.seconds ?? 1));
     const idle = await secondsSinceLastChange(ctx);
@@ -112,6 +115,71 @@ export const waitTool: PageAgentTool<{ seconds: number }> = {
     return idle > 0.2
       ? `✅ Waited ${asked}s (the page had already been still for ${idle.toFixed(1)}s, so ${remaining.toFixed(1)}s was spent).`
       : `✅ Waited for ${asked} seconds.`;
+  },
+};
+
+/**
+ * wait_for_condition — an open-ended, condition-based wait for tasks like watching a
+ * training video through to completion, where the actual duration is unknown up front.
+ *
+ * `wait` alone cannot cover this: it caps at 10s per call, and re-issuing it enough times
+ * to cover several minutes trips the loop's stall detector (page-agent-loop.ts: an
+ * identically-repeated action counts as "no progress"), plus the accumulated-wait warning
+ * actively tells the model to stop waiting after 3s. This tool polls internally — inside
+ * ONE step/history entry, however long the real wait turns out to be (bounded by
+ * `timeoutSeconds`) — so the loop's step budget and stall detector never see the individual
+ * poll ticks, only the one call.
+ */
+export const waitForConditionTool: PageAgentTool<{
+  condition: string;
+  timeoutSeconds?: number;
+  pollSeconds?: number;
+}> = {
+  name: 'wait_for_condition',
+  primaryParam: 'condition',
+  description:
+    'Wait until a JS boolean expression evaluated against the page becomes true, or until ' +
+    'timeout — for open-ended waits (a video finishing, a panel appearing, a status flipping) ' +
+    'where you do not know how long it will take. Polls internally; costs one step no matter ' +
+    'how long the real wait is. Params: { condition: string — a JS expression evaluated in the ' +
+    'page and coerced to boolean, e.g. "document.querySelector(\'video\')?.ended === true"; ' +
+    'timeoutSeconds?: number (default 120, max 1200); pollSeconds?: number (default 5, how often ' +
+    'to recheck) }. If it times out, decide whether to call it again, try something else, or ' +
+    'report the task blocked — do not assume timeout means failure.',
+  execute: async (ctx, params) => {
+    const condition = String(params.condition ?? '').trim();
+    if (!condition) {
+      return '❌ wait_for_condition needs a condition. Expected { condition: string }.';
+    }
+    const timeoutSeconds = Math.max(5, Math.min(1200, params.timeoutSeconds ?? 120));
+    const pollSeconds = Math.max(1, Math.min(30, params.pollSeconds ?? 5));
+    const deadline = Date.now() + timeoutSeconds * 1000;
+    let lastError: string | null = null;
+
+    while (Date.now() < deadline) {
+      ctx.signal.throwIfAborted();
+      try {
+        const res = (await ctx.cdpSend('Runtime.evaluate', {
+          expression: `Boolean(${condition})`,
+          returnByValue: true,
+        })) as { result?: { value?: boolean }; exceptionDetails?: unknown };
+        if (res.exceptionDetails) {
+          lastError = `condition threw: ${JSON.stringify(res.exceptionDetails).slice(0, 200)}`;
+        } else if (res.result?.value === true) {
+          const waited = Math.round(timeoutSeconds - (deadline - Date.now()) / 1000);
+          return `✅ Condition became true after ~${waited}s.`;
+        }
+      } catch (e) {
+        lastError = e instanceof Error ? e.message : String(e);
+      }
+      const remainingMs = deadline - Date.now();
+      if (remainingMs <= 0) break;
+      await new Promise((r) => setTimeout(r, Math.min(pollSeconds * 1000, remainingMs)));
+    }
+    return (
+      `⏱️ Timed out after ${timeoutSeconds}s waiting for the condition to become true.` +
+      (lastError ? ` Last error: ${lastError}` : '')
+    );
   },
 };
 
@@ -315,6 +383,7 @@ export function makeAskUserTool(
 export const DEFAULT_TOOLS: PageAgentTool<any>[] = [
   doneTool,
   waitTool,
+  waitForConditionTool,
   clickElementByIndexTool,
   inputTextTool,
   selectDropdownOptionTool,

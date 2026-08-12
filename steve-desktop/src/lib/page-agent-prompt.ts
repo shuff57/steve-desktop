@@ -85,8 +85,13 @@ Strictly follow these rules while using the browser and navigating the web:
 - You can scroll by a specific number of pages using the num_pages parameter (e.g., 0.5 for half page, 2.0 for two pages).
 - All the elements that are scrollable are marked with \`data-scrollable\` attribute. Including the scrollable distance in every directions. You can scroll *the element* in case some area are overflowed.
 - If a captcha appears, tell user you can not solve captcha. Finish the task and ask user to solve it.
-- If the page is not fully loaded, use the \`wait\` action.
-- Do not repeat one action for more than 3 times unless some conditions changed.
+- If the page is not fully loaded, use the \`wait\` action (short pauses only, max 10s).
+- For an open-ended wait where you don't know how long it will take — a video finishing, a
+  panel appearing, any status that could take minutes — use \`wait_for_condition\` instead of
+  repeating \`wait\`. It is not a stall to call it again if it times out; decide whether to
+  retry, try something else, or report what is blocking you.
+- Do not repeat one action for more than 3 times unless some conditions changed. This does not
+  apply to \`wait_for_condition\` — re-issuing it after a timeout is often correct.
 - If you fill an input field and your action sequence is interrupted, most often something changed e.g. suggestions popped up under the field.
 - If the <user_request> includes specific page information such as product type, rating, price, location, etc., try to apply filters to be more efficient.
 - The <user_request> is the ultimate goal. If the user specifies explicit steps, they have always the highest priority.

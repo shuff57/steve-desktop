@@ -5,6 +5,7 @@ import {
   executeTool,
   doneTool,
   makeAskUserTool,
+  waitForConditionTool,
   type ToolContext,
 } from './page-agent-tools';
 
@@ -60,6 +61,10 @@ describe('page-agent-tools', () => {
     });
     expect(name).toBe('wait');
     expect(output).toContain('Waited for 1 seconds');
+  });
+
+  test('DEFAULT_TOOLS includes wait_for_condition', () => {
+    expect(DEFAULT_TOOLS.map((t) => t.name)).toContain('wait_for_condition');
   });
 
   test('executeTool with unknown tool returns error', async () => {
@@ -131,5 +136,103 @@ describe('ask_user — handing a question back instead of guessing', () => {
   test('an empty question is refused with the shape it wanted', async () => {
     const tool = makeAskUserTool(async () => 'x');
     expect(await tool.execute(makeMockCtx(), { question: '  ' })).toContain('{ question: string }');
+  });
+});
+
+describe('wait_for_condition — open-ended waits that do not fit in `wait`', () => {
+  test('an empty condition is refused with the shape it wanted', async () => {
+    const out = await waitForConditionTool.execute(makeMockCtx(), { condition: '  ' });
+    expect(out).toContain('{ condition: string }');
+  });
+
+  test('returns success as soon as the condition reads true, without waiting out the timeout', async () => {
+    const cdpSend = vi.fn(async () => ({ result: { value: true } }));
+    const ctx = makeMockCtx({ cdpSend });
+    const out = await waitForConditionTool.execute(ctx, {
+      condition: "document.querySelector('video')?.ended === true",
+      timeoutSeconds: 120,
+    });
+    expect(out).toContain('✅ Condition became true');
+    // Only one poll needed — true on the first check.
+    expect(cdpSend).toHaveBeenCalledTimes(1);
+    expect(cdpSend).toHaveBeenCalledWith(
+      'Runtime.evaluate',
+      expect.objectContaining({
+        expression: expect.stringContaining("document.querySelector('video')?.ended === true"),
+      }),
+    );
+  });
+
+  test('polls again after a false read, then succeeds once true', async () => {
+    vi.useFakeTimers();
+    try {
+      let calls = 0;
+      const cdpSend = vi.fn(async () => ({ result: { value: (++calls) >= 3 } }));
+      const ctx = makeMockCtx({ cdpSend });
+      const p = waitForConditionTool.execute(ctx, {
+        condition: 'window.done',
+        timeoutSeconds: 60,
+        pollSeconds: 5,
+      });
+      // Let the poll loop run to completion without real delay.
+      await vi.runAllTimersAsync();
+      const out = await p;
+      expect(out).toContain('✅ Condition became true');
+      expect(calls).toBe(3);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  test('times out and says so, rather than reading as a hard failure', async () => {
+    vi.useFakeTimers();
+    try {
+      const cdpSend = vi.fn(async () => ({ result: { value: false } }));
+      const ctx = makeMockCtx({ cdpSend });
+      const p = waitForConditionTool.execute(ctx, {
+        condition: 'window.neverHappens',
+        timeoutSeconds: 5,
+        pollSeconds: 1,
+      });
+      await vi.runAllTimersAsync();
+      const out = await p;
+      expect(out).toContain('⏱️ Timed out after 5s');
+      // The stall detector reads a leading ❌/"failed"/"not found" as no-progress —
+      // a timeout must not accidentally look like one of those.
+      expect(out).not.toMatch(/^❌/);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  test('a condition that throws is reported, not silently swallowed', async () => {
+    vi.useFakeTimers();
+    try {
+      const cdpSend = vi.fn(async () => ({ exceptionDetails: { text: 'ReferenceError: x is not defined' } }));
+      const ctx = makeMockCtx({ cdpSend });
+      const p = waitForConditionTool.execute(ctx, {
+        condition: 'x.y.z',
+        timeoutSeconds: 5,
+        pollSeconds: 1,
+      });
+      await vi.runAllTimersAsync();
+      const out = await p;
+      expect(out).toContain('Timed out');
+      expect(out).toContain('condition threw');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  test('timeoutSeconds and pollSeconds are clamped to sane bounds', async () => {
+    const cdpSend = vi.fn(async () => ({ result: { value: true } }));
+    const ctx = makeMockCtx({ cdpSend });
+    // Absurdly large/small requests should not hang the test or throw.
+    const out = await waitForConditionTool.execute(ctx, {
+      condition: 'true',
+      timeoutSeconds: 999999,
+      pollSeconds: 0,
+    });
+    expect(out).toContain('✅ Condition became true');
   });
 });
