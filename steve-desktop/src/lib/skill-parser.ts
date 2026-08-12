@@ -1,4 +1,3 @@
-import matter from 'gray-matter';
 import { Marked } from 'marked';
 
 export interface ParsedSkill {
@@ -11,6 +10,71 @@ export interface ParsedSkill {
 }
 
 type SkillFrontmatter = Partial<Pick<ParsedSkill, 'name' | 'description' | 'author' | 'tags' | 'urlPatterns'>>;
+
+function stripQuotes(value: string): string {
+  if (value.length >= 2) {
+    const first = value[0];
+    const last = value[value.length - 1];
+    if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
+      return value.slice(1, -1);
+    }
+  }
+  return value;
+}
+
+/**
+ * gray-matter needs Node's Buffer, which doesn't exist in the WebView ("Run failed: Buffer is
+ * not defined" — see workflow-skill.ts for the same fix applied there). Handles the flat
+ * scalar/list shape skill frontmatter actually uses: `key: value`, `key: [a, b]`, and block
+ * lists (`key:` followed by `  - item` lines). Not general YAML — frontmatter here is always
+ * either our own generated output or a simple imported .md file.
+ */
+function parseFrontmatter(rawContent: string): { data: Record<string, unknown>; content: string } {
+  const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(rawContent);
+  if (!match) {
+    return { data: {}, content: rawContent };
+  }
+  const [, frontmatter, body] = match;
+  const data: Record<string, unknown> = {};
+  let currentKey: string | null = null;
+  let currentList: string[] | null = null;
+
+  const flushList = () => {
+    if (currentKey && currentList) data[currentKey] = currentList;
+    currentKey = null;
+    currentList = null;
+  };
+
+  for (const line of frontmatter.split(/\r?\n/)) {
+    const listItem = /^\s*-\s*(.*)$/.exec(line);
+    if (listItem && currentList) {
+      currentList.push(stripQuotes(listItem[1].trim()));
+      continue;
+    }
+    flushList();
+
+    const kv = /^([A-Za-z0-9_]+):\s*(.*)$/.exec(line);
+    if (!kv) continue;
+    const [, key, rawValue] = kv;
+    const value = rawValue.trim();
+    if (!value) {
+      // Empty value — either a block list starts on the following lines, or the key is blank.
+      currentKey = key;
+      currentList = [];
+      continue;
+    }
+    const inlineList = /^\[(.*)\]$/.exec(value);
+    data[key] = inlineList
+      ? inlineList[1]
+          .split(',')
+          .map((s) => stripQuotes(s.trim()))
+          .filter((s) => s.length > 0)
+      : stripQuotes(value);
+  }
+  flushList();
+
+  return { data, content: body };
+}
 
 function parseStringArray(value: unknown): string[] | undefined {
   if (!Array.isArray(value)) {
@@ -25,8 +89,8 @@ export function parseSkillFrontmatter(rawContent: string): SkillFrontmatter {
     return {};
   }
 
-  const { data } = matter(rawContent);
-  const frontmatter = data as Record<string, unknown>;
+  const { data } = parseFrontmatter(rawContent);
+  const frontmatter = data;
 
   return {
     name: typeof frontmatter.name === 'string' ? frontmatter.name : undefined,
@@ -46,8 +110,8 @@ export function parseSkillMarkdown(rawContent: string): ParsedSkill {
     };
   }
 
-  const { data, content: bodyContent } = matter(rawContent);
-  const frontmatter = data as Record<string, unknown>;
+  const { data, content: bodyContent } = parseFrontmatter(rawContent);
+  const frontmatter = data;
 
   let name = typeof frontmatter.name === 'string' ? frontmatter.name : '';
   let description = typeof frontmatter.description === 'string' ? frontmatter.description : '';

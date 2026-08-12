@@ -90,7 +90,13 @@ async fn create_embedded_browser(
     let x0 = if offscreen == Some(true) { -4000.0 } else { 0.0 };
 
     let app_clone = app.clone();
-    tauri::async_runtime::spawn(async move {
+    // WebView2 controllers are STA COM objects: `add_child` must run on the main thread. Off it
+    // (as a plain tauri::async_runtime::spawn task), creation still reports Ok — the tab gets
+    // registered — but the controller's native message pump is never serviced again once that
+    // one-off task thread exits, so every later call into it hangs (`wv.url()` fails with
+    // "failed to receive message from webview") and it never appears as a CDP target. The Linux
+    // branch below already does this correctly for the same reason (GTK has the same constraint).
+    let scheduled = app.run_on_main_thread(move || {
         let label = format!("embedded-browser-{}", tab_id);
         let emit_nav = app_clone.clone();
         let emit_load = app_clone.clone();
@@ -163,6 +169,10 @@ async fn create_embedded_browser(
             let _ = app_clone.emit("browser-status", "error");
         }
     });
+    if let Err(e) = scheduled {
+        eprintln!("Failed to schedule embedded browser creation: {}", e);
+        let _ = app.emit("browser-status", "error");
+    }
 
     Ok(())
 }
