@@ -123,7 +123,8 @@ const DARK_CSS = `<style data-dark-css>
     {background:rgba(255,255,255,.05)!important;color:#e8e6f0!important}
 
   /* blues — part labels and prompts */
-  [style*="#e8f0fe"],[style*="#f0f4ff"],[style*="#e3f2fd"],[style*="#eef2ff"],[style*="#d1ecf1"]
+  [style*="#e8f0fe"],[style*="#f0f4ff"],[style*="#e3f2fd"],[style*="#eef2ff"],[style*="#d1ecf1"],
+  [style*="#eef4ff"]
     {background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
 
   /* greens — answers and confirmations */
@@ -140,10 +141,18 @@ const DARK_CSS = `<style data-dark-css>
   /* pale reds — the "a classmate wrote this, find the flaw" callout, paired with a #b91c1c rule */
   [style*="#fef7f7"],[style*="#fef2f2"]{background:rgba(239,68,68,.18)!important;color:#fbd9d9!important}
 
-  /* Same five colours again where the sandbox sets them from a stylesheet rather than inline. */
+  /* The same colours again where the sandbox sets them from a stylesheet rather than inline. A
+     [style*=] selector cannot reach these: the colour lives in a class rule, not a style attribute,
+     so each one needs naming here as well as in the lists above. */
   .sol-wrap details{background:#1e1b2b!important}
   .sol-wrap summary{background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
-  .sol-body{background:rgba(255,255,255,.05)!important}
+  /* The colour matters as much as the background here: .sol-wrap carries an inline color:#21242c,
+     which the body text inherits, so recolouring only the background leaves the marking notes dark
+     grey on dark grey. Caught by looking at a render — the bank-wide guard scans background
+     declarations and cannot see a dark colour sitting on a dark background. */
+  .sol-body{background:rgba(255,255,255,.05)!important;color:#e8e6f0!important}
+  /* the full-credit model answer on the FRQ solution guides — blue, paired with a #1865f2 border */
+  .ideal{background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
 </style>`;
 
 /** Every hex the dark sheet targets, read out of the sheet itself so the two cannot drift apart. */
