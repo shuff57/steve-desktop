@@ -116,6 +116,10 @@
   let tabs = $state<Tab[]>([]);
   let activeTabId = $state('');
   let creatingTabId = $state('');
+  /** Which tab's native webview is currently SHOWN. Distinct from activeTabId, which stays put
+   *  while the app is on another page and the webview is hidden. Guards the redundant
+   *  show/re-bound in switchTab — see the note there for what that costs. */
+  let shownTabId = $state('');
 
   let currentTab = $derived(tabs.find(t => t.id === activeTabId));
   // Which tab's ActionPanel to show. Normally the active tab's own panel — but if the active tab
@@ -349,10 +353,25 @@
   }
 
   async function switchTab(id: string) {
+    // Re-showing/re-bounding a webview that is ALREADY the shown one is not a harmless no-op:
+    // the native show+resize suspends that webview's media pipeline (the video pauses, and no
+    // visibilitychange fires, so the page cannot even tell) and does the work on the main thread
+    // the CDP endpoint is served from. page_wait re-activates the run's tab on every poll, so a
+    // 10-minute video ran this ~120 times: measured 0.046x playback (7.8s of video in 169s, ending
+    // paused) against 0.996x with the same poll cadence and no re-activation. It is also the
+    // main-thread starvation behind the "debug endpoint has been unresponsive" watchdog alarm.
+    //
+    // The guard has to be on what is actually SHOWN, not on activeTabId alone: when the app
+    // navigates away from Browse the webview is hidden while it stays the active tab, and
+    // page_wait re-activating is exactly what brings such a tab back (measured recovery ~2s).
+    // Keying on shownTabId keeps that recovery while making the redundant case free.
+    if (activeTabId === id && shownTabId === id) return;
+
     if (activeTabId && activeTabId !== id) {
       const prev = tabs.find(t => t.id === activeTabId);
       if (prev?.browserCreated) {
         await hideWebview(activeTabId).catch(() => {});
+        if (shownTabId === activeTabId) shownTabId = '';
       }
     }
     activeTabId = id;
@@ -363,6 +382,7 @@
     }
     if (tab?.browserCreated) {
       await showWebview(id).catch(() => {});
+      shownTabId = id;
       await tick();
       updateWebviewBounds();
     }
@@ -372,6 +392,9 @@
     const tab = tabs.find(t => t.id === id);
     if (tab?.browserCreated) {
       await destroyWebview(id).catch(() => {});
+      // Else a later switchTab back to this id would believe it is still shown and skip the
+      // show it genuinely needs.
+      if (shownTabId === id) shownTabId = '';
     }
     tabs = tabs.filter(t => t.id !== id);
     if (activeTabId === id) {
@@ -434,11 +457,15 @@
   $effect(() => {
     const id = activeTabId;
     if (!active) {
-      if (id) hideWebview(id).catch(() => {});
+      if (id) {
+        hideWebview(id).catch(() => {});
+        if (shownTabId === id) shownTabId = '';
+      }
       return;
     }
     if (id && browserCreated) {
       showWebview(id).catch(() => {});
+      shownTabId = id;
       tick().then(() => updateWebviewBounds());
     }
   });
@@ -592,6 +619,7 @@
           await tick();
           updateWebviewBounds();
           await showWebview(tid).catch(() => {});
+          shownTabId = tid;
         }
       } else if (status === 'error') {
         if (creatingTabId) {
