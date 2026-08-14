@@ -112,6 +112,37 @@ fn tool_definitions() -> Value {
             }
         },
         {
+            "name": "page_wait",
+            "description":
+                "Wait until a JS boolean expression evaluated on the page becomes true, or until \
+                 timeout — for an open-ended wait (a video finishing, a status flipping) where you \
+                 do not know how long it will take. Prefer this over your own sleep-and-poll loop: \
+                 each tab here is a separate native browser window, and switching away from one \
+                 (activating another tab, or the user navigating the app itself away from Browse) \
+                 hides it — and a hidden tab does not merely run slow, its video PAUSES outright \
+                 and stays paused, because nothing replays it when the tab comes back on its own. \
+                 page_wait re-activates your tab on every poll, so a tab that got hidden resumes \
+                 within one poll interval instead of stalling until you notice, and it costs one \
+                 call no matter how long the real wait turns out to be. \
+                 ALWAYS set timeoutSeconds to match how long the wait could actually take — for a \
+                 video, its full remaining duration plus a margin. The 120s default is far shorter \
+                 than a typical training video, and letting the wait time out reports a failed step \
+                 for something that was progressing normally.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "condition": {
+                        "type": "string",
+                        "description": "A JS expression evaluated on the page and coerced to boolean, e.g. \"document.querySelector('video')?.ended === true\"."
+                    },
+                    "timeoutSeconds": { "type": "integer", "description": "How long to keep waiting. Default 120, max 1200. Set this deliberately from the expected wait — do not leave it at the default for a video longer than two minutes." },
+                    "pollSeconds": { "type": "integer", "description": "How often to recheck. Default 5." }
+                },
+                "required": ["condition"],
+                "additionalProperties": false
+            }
+        },
+        {
             "name": "page_click",
             "description":
                 "Click the element with this index, from the most recent page_read. Also selects an \
@@ -519,6 +550,7 @@ mod tests {
                 "page_read",
                 "page_task",
                 "page_map",
+                "page_wait",
                 "page_click",
                 "page_type",
                 "page_navigate",
@@ -560,7 +592,7 @@ mod tests {
     #[test]
     fn tools_list_is_answered_here_but_tools_call_is_not() {
         let listed = dispatch_local(&json!({"method": "tools/list"}), json!(2)).unwrap();
-        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 10);
+        assert_eq!(listed["result"]["tools"].as_array().unwrap().len(), 11);
         // tools/call is the one method that has to reach the webview.
         assert!(dispatch_local(&json!({"method": "tools/call"}), json!(3)).is_none());
     }

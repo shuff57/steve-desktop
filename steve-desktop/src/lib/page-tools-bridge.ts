@@ -21,6 +21,7 @@ import { listen } from '@tauri-apps/api/event';
 import { handlePageAction, handlePageMap, handlePageTask, readPage, type PageTaskOptions, type PageTaskResult } from './page-tool';
 import { confinementRefusal } from './page-agent-run';
 import { maskForRun } from './page-agent-mask';
+import { getActiveTabId } from './browser';
 import type { ToolContext } from './page-agent-tools';
 
 export interface PageToolsEndpoint {
@@ -33,6 +34,7 @@ export const PAGE_TOOL_NAMES = {
   read: 'mcp__page__page_read',
   task: 'mcp__page__page_task',
   map: 'mcp__page__page_map',
+  wait: 'mcp__page__page_wait',
   click: 'mcp__page__page_click',
   type: 'mcp__page__page_type',
   navigate: 'mcp__page__page_navigate',
@@ -119,6 +121,9 @@ export async function dispatchPageTool(
     case 'page_read':
       return readPage(o.runId, ctx);
 
+    case 'page_wait':
+      return wait(o, ctx, args);
+
     case 'page_task': {
       const task = String(args.task ?? '').trim();
       if (!task) throw new Error('page_task needs a `task` describing what to do on this page.');
@@ -194,6 +199,69 @@ async function captureToArtifacts(ctx: ToolContext): Promise<string> {
 /** Sortable, filename-safe, second resolution. */
 function stamp(): string {
   return new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+}
+
+const PAGE_WAIT_MIN_TIMEOUT = 5;
+const PAGE_WAIT_MAX_TIMEOUT = 1200;
+const PAGE_WAIT_DEFAULT_TIMEOUT = 120;
+const PAGE_WAIT_DEFAULT_POLL = 5;
+
+function clamp(n: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, n));
+}
+
+/**
+ * An open-ended wait, polling internally so it costs one tool call no matter how long the real
+ * wait turns out to be — and re-activating the run's tab on every poll tick.
+ *
+ * The re-activation is the point, not a courtesy: each tab here is a separate native webview
+ * (browser.ts), and hiding one does not merely slow it down — WebView2 fires visibilitychange and
+ * the video PAUSES. Measured: hide and the <video> emits `pause` in the same tick; show and it
+ * emits `play`/`playing` and resumes from where it stopped. Nothing replays it in between, so an
+ * unattended hidden tab sits paused indefinitely (observed: 47s, ending only when re-activated by
+ * hand). JS timers are NOT the problem — they keep ticking at full rate, so a poll loop of your
+ * own would happily count down while the video it is waiting on has stopped dead.
+ *
+ * A tab goes hidden either because this agent switched to another one (page_tabs activate) or
+ * because the USER navigated the app itself away from Browse (Browser.svelte hides the webview
+ * when another page is showing) — page_wait counters both by re-asserting activation itself
+ * rather than assuming nothing else touched tab visibility during a wait that can run for
+ * minutes. That caps the damage at one poll interval per hide event.
+ */
+async function wait(o: PageToolsContext, ctx: ToolContext, args: Record<string, unknown>): Promise<string> {
+  const condition = String(args.condition ?? '').trim();
+  if (!condition) throw new Error("page_wait needs a `condition` — a JS expression evaluated on the page.");
+  const timeoutSeconds = clamp(Number(args.timeoutSeconds) || PAGE_WAIT_DEFAULT_TIMEOUT, PAGE_WAIT_MIN_TIMEOUT, PAGE_WAIT_MAX_TIMEOUT);
+  const pollSeconds = clamp(Number(args.pollSeconds) || PAGE_WAIT_DEFAULT_POLL, 1, 30);
+  const tabId = getActiveTabId();
+  const deadline = Date.now() + timeoutSeconds * 1000;
+  let lastError: string | null = null;
+
+  while (Date.now() < deadline) {
+    if (tabId) await steveControl().activate(tabId, o.runId).catch(() => undefined);
+    try {
+      const res = (await ctx.cdpSend('Runtime.evaluate', {
+        expression: `Boolean(${condition})`,
+        returnByValue: true,
+      })) as { result?: { value?: boolean }; exceptionDetails?: unknown };
+      if (res.exceptionDetails) {
+        lastError = `condition threw: ${JSON.stringify(res.exceptionDetails).slice(0, 200)}`;
+      } else if (res.result?.value === true) {
+        const waited = Math.round(timeoutSeconds - (deadline - Date.now()) / 1000);
+        return withPage(`✅ Condition became true after ~${waited}s.`, await readPage(o.runId, ctx));
+      }
+    } catch (e) {
+      lastError = e instanceof Error ? e.message : String(e);
+    }
+    const remainingMs = deadline - Date.now();
+    if (remainingMs <= 0) break;
+    await new Promise((r) => setTimeout(r, Math.min(pollSeconds * 1000, remainingMs)));
+  }
+  return withPage(
+    `⏱️ Timed out after ${timeoutSeconds}s waiting for the condition to become true.` +
+      (lastError ? ` Last error: ${lastError}` : ''),
+    await readPage(o.runId, ctx),
+  );
 }
 
 /**
@@ -292,6 +360,10 @@ export function describePageTool(name: string, args?: Record<string, unknown>): 
   switch (name) {
     case 'page_read':
       return 'reading the page';
+    case 'page_wait': {
+      const c = String(args?.condition ?? '').replace(/\s+/g, ' ').trim();
+      return c ? `waiting for "${c.slice(0, 60)}" (keeping the tab active)` : 'waiting';
+    }
     case 'page_map': {
       const q = String(args?.query ?? '').replace(/\s+/g, ' ').trim();
       return q ? `looking up the site map for "${q.slice(0, 48)}"` : 'looking up the site map';

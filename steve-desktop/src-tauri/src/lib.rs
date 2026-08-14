@@ -90,12 +90,22 @@ async fn create_embedded_browser(
     let x0 = if offscreen == Some(true) { -4000.0 } else { 0.0 };
 
     let app_clone = app.clone();
+    let (tx, rx) = oneshot::channel::<Result<(), String>>();
     // WebView2 controllers are STA COM objects: `add_child` must run on the main thread. Off it
     // (as a plain tauri::async_runtime::spawn task), creation still reports Ok — the tab gets
     // registered — but the controller's native message pump is never serviced again once that
     // one-off task thread exits, so every later call into it hangs (`wv.url()` fails with
     // "failed to receive message from webview") and it never appears as a CDP target. The Linux
     // branch below already does this correctly for the same reason (GTK has the same constraint).
+    //
+    // Scheduling alone is not enough: run_on_main_thread only QUEUES the closure, so returning
+    // right after it left the caller racing the creation it just asked for. The frontend took the
+    // Ok as "the webview exists", set browserCreated, and immediately called show_webview /
+    // set_webview_bounds against a label the main thread had not registered yet — those calls hit
+    // a half-built controller, and the tab ended up alive in the tab strip but never a CDP target,
+    // with every later call failing "failed to receive message from webview". A creation failure
+    // was invisible for the same reason: the error stayed in the closure and the caller saw Ok.
+    // So await the closure's result, exactly as the Linux branch does, and report it.
     let scheduled = app.run_on_main_thread(move || {
         let label = format!("embedded-browser-{}", tab_id);
         let emit_nav = app_clone.clone();
@@ -145,34 +155,42 @@ async fn create_embedded_browser(
                 tauri::webview::NewWindowResponse::Deny
             });
 
-        if let Some(window) = app_clone.get_window("main") {
-            match window.add_child(
-                builder,
-                tauri::LogicalPosition::new(x0, 60.0),
-                tauri::LogicalSize::new(800.0, 600.0),
-            ) {
-                Ok(_) => {
-                    {
-                        let state = app_clone.state::<Mutex<WebviewState>>();
-                        let mut guard = state.lock().unwrap();
-                        guard.tabs.insert(tab_id.clone(), label.clone());
-                    }
-                    let _ = app_clone.emit("browser-status", "embedded-open");
-                }
-                Err(e) => {
-                    eprintln!("Failed to create embedded browser: {}", e);
-                    let _ = app_clone.emit("browser-status", "error");
-                }
+        let result = (|| -> Result<(), String> {
+            let window = app_clone
+                .get_window("main")
+                .ok_or_else(|| "Main window not found for embedded browser".to_string())?;
+            window
+                .add_child(
+                    builder,
+                    tauri::LogicalPosition::new(x0, 60.0),
+                    tauri::LogicalSize::new(800.0, 600.0),
+                )
+                .map_err(|e| format!("Failed to create embedded browser: {}", e))?;
+            {
+                let state = app_clone.state::<Mutex<WebviewState>>();
+                let mut guard = state
+                    .lock()
+                    .map_err(|e| format!("Webview state lock poisoned: {}", e))?;
+                guard.tabs.insert(tab_id.clone(), label.clone());
             }
-        } else {
-            eprintln!("Main window not found for embedded browser");
+            let _ = app_clone.emit("browser-status", "embedded-open");
+            Ok(())
+        })();
+
+        if let Err(e) = &result {
+            eprintln!("[steve] {}", e);
             let _ = app_clone.emit("browser-status", "error");
         }
+        let _ = tx.send(result);
     });
     if let Err(e) = scheduled {
-        eprintln!("Failed to schedule embedded browser creation: {}", e);
+        eprintln!("[steve] Failed to schedule embedded browser creation: {}", e);
         let _ = app.emit("browser-status", "error");
+        return Err(format!("Failed to schedule embedded browser creation: {}", e));
     }
+
+    rx.await
+        .map_err(|_| "Main thread response channel closed".to_string())??;
 
     Ok(())
 }
@@ -2877,15 +2895,34 @@ pub fn run() {
         }
         found
     };
+    // Every embedded course tab is a separate native WebView2 window, and Chromium deprioritizes
+    // one hard whenever it isn't the OS-focused window: video playback measured as slow as 1/174x
+    // real time. Fixing this by forcing OS focus (SetForegroundWindow) doesn't work reliably —
+    // Windows silently blocks a background process from stealing focus without a user gesture —
+    // and even when it does work, it would yank the user's actual keyboard focus away from
+    // whatever else they're doing every time an embedded video polls. Disabling the timer/occluded-
+    // window throttles avoids both problems: playback stays real-time regardless of which window
+    // has focus. Set once, before any webview (main or embedded) is created — WebView2 only reads
+    // this env var at environment-creation time, so setting it later would miss the first one.
+    //
+    // Deliberately NOT included: --disable-renderer-backgrounding. It sounds like the same family
+    // as the two flags below, but empirically it breaks child WebView2 controller creation outright
+    // — a tab created with it present never becomes a CDP target and every later call into it hangs
+    // with "failed to receive message from webview" (the same symptom the main-thread fix above
+    // addresses, but this is a distinct cause: reproduced with run_on_main_thread intact, and
+    // disappears the instant this one flag is dropped, isolated by testing each of the three flags
+    // individually). The other two flags already cover JS timer throttling, which is the dominant
+    // cause of the slow-video symptom; do not add this one back without re-verifying embedded tabs
+    // still register as CDP targets.
+    let mut browser_args = String::new();
     if let Some(port) = cdp_port {
-        std::env::set_var(
-            "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-            format!("--remote-debugging-port={} --remote-allow-origins=*", port),
-        );
+        browser_args.push_str(&format!("--remote-debugging-port={} --remote-allow-origins=*", port));
         eprintln!("[steve] CDP enabled on port {} (dynamic allocation)", port);
     } else {
         eprintln!("[steve] CDP unavailable: all ports 9222-9242 are in use");
     }
+    browser_args.push_str(" --disable-background-timer-throttling --disable-backgrounding-occluded-windows");
+    std::env::set_var("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", browser_args);
 
     let migrations = vec![
         Migration {
