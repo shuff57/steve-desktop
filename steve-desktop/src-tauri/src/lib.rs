@@ -1856,6 +1856,51 @@ fn claude_command(args: &[&str]) -> Result<tokio::process::Command, String> {
     Ok(cmd)
 }
 
+/// Pay the agent CLI's cold-start cost at app startup, while nothing is playing yet.
+///
+/// The FIRST spawn of `claude`/`opencode` in a process's lifetime is expensive — Node module load
+/// plus MCP config resolve, cold off disk. `cdp-watchdog.ts` already documents that this stalls the
+/// WebView2 main thread ~15s, and carries a warmup window purely to stop it raising a false
+/// "endpoint unresponsive" alarm. What that note misses is what the same stall does to a video: the
+/// media element PAUSES, nothing replays it, and it sits there. Measured on a live SafeSchools
+/// section, video started at 0 and a run fired immediately:
+///
+///   cold spawn, first run of the app   pause at ct 47.35, still paused 2 minutes later
+///   warm spawn, same shallow buffer    173s continuous, never paused
+///   warm spawn, deep buffer            182s at rate 1.000
+///   no agent at all                    full 315s section, no mid-video pause
+///
+/// Only coldness separates those, so this runs the expensive spawn once at setup — before any tab
+/// or video can exist, which is what makes it a fix rather than a race the user can lose. `--version`
+/// is enough: the cost is loading the binary and its module tree off disk, and it neither contacts
+/// the API nor starts a session.
+///
+/// Deliberately not the alternative fix of resuming a video that got paused: the app cannot tell its
+/// own stall-induced pause from a legitimate one (an in-video knowledge check pauses exactly the same
+/// way), and silently resuming past a check would skip required training.
+fn prewarm_agent_engines() {
+    for engine in ["claude", "opencode"] {
+        let Some(bin) = resolve_on_path(engine) else { continue };
+        std::thread::spawn(move || {
+            let mut cmd = std::process::Command::new(&bin);
+            cmd.arg("--version")
+                .stdin(std::process::Stdio::null())
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null());
+            #[cfg(windows)]
+            {
+                use std::os::windows::process::CommandExt;
+                cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+            }
+            // Best-effort: a missing or unhappy CLI must never keep the app from starting. Reap it
+            // rather than leaving a zombie, but do not care what it said.
+            if let Ok(mut child) = cmd.spawn() {
+                let _ = child.wait();
+            }
+        });
+    }
+}
+
 /// An in-flight `claude auth login` process, held between start (which returns the sign-in URL) and
 /// submit (which feeds back the pasted code). One login at a time.
 struct LoginChild {
@@ -3239,6 +3284,9 @@ INSERT OR IGNORE INTO app_settings (key, value) VALUES ('history_visible_columns
         .setup(|app| {
             // Ship the question-writing skill to where a spawned CLI can actually find it.
             install_mom_skill(app.handle());
+
+            // Before any webview exists, so no video can be playing to lose. See the fn's note.
+            prewarm_agent_engines();
 
             // Set window icon explicitly (required for Linux dev mode)
             if let Some(window) = app.get_webview_window("main") {
