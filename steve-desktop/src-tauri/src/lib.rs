@@ -159,6 +159,35 @@ async fn create_embedded_browser(
             let window = app_clone
                 .get_window("main")
                 .ok_or_else(|| "Main window not found for embedded browser".to_string())?;
+
+            // A child webview is positioned inside the main window's client area, so a window with
+            // no client area gives it nowhere to render. add_child still returns Ok, and the tab
+            // appears in the strip, but it never paints, never registers as a CDP target, and every
+            // later call into it fails "failed to receive message from webview". The only symptom
+            // the user got was the CDP watchdog's "debug endpoint has been unresponsive" ~40s later,
+            // which describes a consequence and names nothing actionable. Minimizing the app is
+            // enough to cause it (measured: is_minimized true, inner_size 0x0, tabs dead; restoring
+            // the window made the very next tab register immediately).
+            //
+            // Refuse up front and say which window state is the problem. Deliberately NOT
+            // auto-restoring: pulling the window to the foreground mid-run is the same
+            // steal-the-user's-focus behaviour the browser-args note above rejected.
+            if window.is_minimized().unwrap_or(false) {
+                return Err("The app window is minimized, so an embedded browser tab has nowhere \
+                            to render. Restore the window and try again."
+                    .to_string());
+            }
+            match window.inner_size() {
+                Ok(size) if size.width == 0 || size.height == 0 => {
+                    return Err(format!(
+                        "The app window has no drawable area ({}x{}), so an embedded browser tab \
+                         has nowhere to render. Restore or resize the window and try again.",
+                        size.width, size.height
+                    ));
+                }
+                _ => {}
+            }
+
             window
                 .add_child(
                     builder,

@@ -815,6 +815,12 @@
       }
     } catch (e) {
       tabs = tabs.map(t => t.id === activeTabId ? { ...t, isLoading: false } : t);
+      // Swallowing this left the only failure signal as a tab that silently never loaded — and,
+      // 40s later, a CDP watchdog alarm about an unresponsive debug endpoint that named no cause.
+      // The backend now explains refusals it can diagnose (a minimized / zero-size window), so
+      // show them rather than discarding the one message that says what to do.
+      showToast(e instanceof Error ? e.message : String(e));
+      creatingTabId = '';
     }
   }
 
