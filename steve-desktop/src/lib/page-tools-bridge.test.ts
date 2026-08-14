@@ -43,6 +43,14 @@ describe('what the CLI is handed', () => {
     expect(cfg.mcpServers.page.headers.Authorization).toBe('Bearer tok-abc');
   });
 
+  // An http MCP server gets a 60s per-request timer by default, which silently truncated
+  // page_wait to ~53s no matter what timeoutSeconds it was handed. Without this the longest
+  // wait the tool advertises cannot actually happen.
+  test('the mcp config lets a wait run to page_wait\'s full ceiling', () => {
+    const cfg = JSON.parse(mcpConfigFor({ port: 51234, token: 'tok-abc' }));
+    expect(cfg.mcpServers.page.timeout).toBeGreaterThan(1200 * 1000);
+  });
+
   test('the tool names match what Claude Code namespaces them as', () => {
     expect(PAGE_TOOL_NAMES.read).toBe('mcp__page__page_read');
     expect(PAGE_TOOL_NAMES.task).toBe('mcp__page__page_task');

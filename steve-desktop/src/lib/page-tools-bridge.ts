@@ -78,7 +78,16 @@ export interface PageToolsContext {
 }
 
 /** The `--mcp-config` value. Loopback plus a per-run bearer token: anything else on the machine
- *  could otherwise read the user's gradebook through this endpoint. */
+ *  could otherwise read the user's gradebook through this endpoint.
+ *
+ *  `timeout` is load-bearing for page_wait, not boilerplate. This is an `http` server, and Claude
+ *  Code gives HTTP/SSE/WebSocket servers a per-request timer that defaults to 60s — so a
+ *  page_wait asked to wait 300s came back after ~53s of tool time with the condition unmet, while
+ *  a 30s wait ran its full course. The tool's own loop was honouring the argument; the transport
+ *  was cutting the call short, which reads identically from the model's side and cost a wrong
+ *  diagnosis once already. Setting `timeout` (milliseconds) raises that per-request timer to
+ *  match, so derive it from the tool's own ceiling rather than picking a number that can drift
+ *  away from it. The margin covers the page read page_wait does after the loop ends. */
 export function mcpConfigFor(endpoint: PageToolsEndpoint): string {
   return JSON.stringify({
     mcpServers: {
@@ -86,6 +95,7 @@ export function mcpConfigFor(endpoint: PageToolsEndpoint): string {
         type: 'http',
         url: `http://127.0.0.1:${endpoint.port}/mcp`,
         headers: { Authorization: `Bearer ${endpoint.token}` },
+        timeout: (PAGE_WAIT_MAX_TIMEOUT + 60) * 1000,
       },
     },
   });
