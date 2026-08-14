@@ -233,10 +233,16 @@ function clamp(n: number, min: number, max: number): number {
  * own would happily count down while the video it is waiting on has stopped dead.
  *
  * A tab goes hidden either because this agent switched to another one (page_tabs activate) or
- * because the USER navigated the app itself away from Browse (Browser.svelte hides the webview
- * when another page is showing) — page_wait counters both by re-asserting activation itself
- * rather than assuming nothing else touched tab visibility during a wait that can run for
- * minutes. That caps the damage at one poll interval per hide event.
+ * because the USER navigated the app itself away from Browse. Re-asserting activation recovers the
+ * FIRST, capping the damage at one poll interval rather than assuming nothing else touched tab
+ * visibility during a wait that can run for minutes.
+ *
+ * It does NOT recover the second, and must not try. A native child webview paints over the app's
+ * own HTML and takes the mouse with it, so honouring this request while the user is on another
+ * page put the tab over that page's UI — and since it fires every poll, leaving and coming back
+ * could not shake it off. Browser.svelte now refuses the show off-Browse (mayShowWebview), so the
+ * video stalls until the user returns to Browse. That stall is the real constraint of a native
+ * webview, not a bug to route around; the wait simply outlasts it.
  */
 async function wait(o: PageToolsContext, ctx: ToolContext, args: Record<string, unknown>): Promise<string> {
   const condition = String(args.condition ?? '').trim();

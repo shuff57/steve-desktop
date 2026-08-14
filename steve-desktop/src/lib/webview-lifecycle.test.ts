@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   calculatePostAnimationDelay,
   createDestroyGuard,
+  mayShowWebview,
   scheduleBoundsUpdateAfterAnimation,
   shouldTriggerSidebarAnimation,
 } from './webview-lifecycle';
@@ -10,6 +11,15 @@ describe('webview-lifecycle', () => {
   it('shouldTriggerSidebarAnimation mirrors browserCreated state', () => {
     expect(shouldTriggerSidebarAnimation(true)).toBe(true);
     expect(shouldTriggerSidebarAnimation(false)).toBe(false);
+  });
+
+  // page_wait re-asserts activation every poll to un-hide the tab it is waiting on. Off Browse
+  // that dragged the native webview over whatever page the user was on — and it fired again each
+  // poll, so leaving and returning could not shake it off.
+  it('mayShowWebview refuses to show a webview while Browse is off screen', () => {
+    expect(mayShowWebview({ browseIsOnScreen: false, browserCreated: true })).toBe(false);
+    expect(mayShowWebview({ browseIsOnScreen: true, browserCreated: true })).toBe(true);
+    expect(mayShowWebview({ browseIsOnScreen: true, browserCreated: false })).toBe(false);
   });
 
   it('calculatePostAnimationDelay clamps at zero', () => {

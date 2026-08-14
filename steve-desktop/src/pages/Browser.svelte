@@ -27,6 +27,7 @@
     shouldTriggerSidebarAnimation,
     scheduleBoundsUpdateAfterAnimation,
     createDestroyGuard,
+    mayShowWebview,
   } from '../lib/webview-lifecycle';
   import { getSetting, setSetting, getSiteCredentials, saveSiteCredential, getBookmarks, addBookmark, deleteBookmark, type Bookmark, type SiteCredential } from '../lib/db';
   import { ICON_STRIP_WIDTH } from '../lib/constants';
@@ -361,10 +362,10 @@
     // paused) against 0.996x with the same poll cadence and no re-activation. It is also the
     // main-thread starvation behind the "debug endpoint has been unresponsive" watchdog alarm.
     //
-    // The guard has to be on what is actually SHOWN, not on activeTabId alone: when the app
-    // navigates away from Browse the webview is hidden while it stays the active tab, and
-    // page_wait re-activating is exactly what brings such a tab back (measured recovery ~2s).
-    // Keying on shownTabId keeps that recovery while making the redundant case free.
+    // The guard has to be on what is actually SHOWN, not on activeTabId alone: a tab hidden by a
+    // switch away and back is still the active one, and re-activating is what brings it back
+    // (measured recovery ~2s). Keying on shownTabId keeps that recovery while making the
+    // redundant case free.
     if (activeTabId === id && shownTabId === id) return;
 
     if (activeTabId && activeTabId !== id) {
@@ -380,11 +381,17 @@
     if (tab) {
       urlInput = tab.url;
     }
-    if (tab?.browserCreated) {
+    if (mayShowWebview({ browseIsOnScreen: active, browserCreated: !!tab?.browserCreated })) {
       await showWebview(id).catch(() => {});
       shownTabId = id;
       await tick();
       updateWebviewBounds();
+    } else if (tab?.browserCreated && !active) {
+      // Switched to while the app is on another page — an agent's page_wait re-asserting its tab,
+      // usually. It becomes the active tab but stays hidden; the `active` effect below shows it
+      // when Browse is on screen again.
+      await hideWebview(id).catch(() => {});
+      shownTabId = '';
     }
   }
 
@@ -414,8 +421,11 @@
     const sidebar = document.querySelector('.sidebar');
     const sidebarWidth = sidebar ? sidebar.getBoundingClientRect().width : 60;
     
+    // No fallback height: a missing or unmeasurable nav bar means this page is not on screen, and
+    // calculateWebviewBounds refuses that rather than sizing the webview to the whole window.
+    // Standing in a plausible 50 would have forged exactly the measurement that has to be caught.
     const navBar = document.querySelector('.nav-bar');
-    const navBarHeight = navBar ? navBar.getBoundingClientRect().height : 50;
+    const navBarHeight = navBar ? navBar.getBoundingClientRect().height : 0;
 
     const tabBarEl = document.querySelector('.tab-bar');
     const tabBarHeight = tabBarEl ? tabBarEl.getBoundingClientRect().height : 0;
@@ -457,10 +467,14 @@
   $effect(() => {
     const id = activeTabId;
     if (!active) {
-      if (id) {
-        hideWebview(id).catch(() => {});
-        if (shownTabId === id) shownTabId = '';
+      // Sweep EVERY created tab, not just the active one. Only one is meant to be visible at a
+      // time, but a webview left showing by any other path would float over the page the user is
+      // actually on with no control of its own to dismiss it — so this is the backstop that makes
+      // "off Browse means no native webview" true regardless of how one got shown.
+      for (const t of tabs) {
+        if (t.browserCreated) hideWebview(t.id).catch(() => {});
       }
+      shownTabId = '';
       return;
     }
     if (id && browserCreated) {
@@ -615,7 +629,9 @@
         const tid = creatingTabId;
         creatingTabId = '';
         tabs = tabs.map(t => t.id === tid ? { ...t, browserCreated: true, isLoading: false } : t);
-        if (tid === activeTabId) {
+        // Only when Browse is on screen: an agent can open a tab while the user is on another
+        // page, and showing it there puts a native webview over that page's UI.
+        if (tid === activeTabId && mayShowWebview({ browseIsOnScreen: active, browserCreated: true })) {
           await tick();
           updateWebviewBounds();
           await showWebview(tid).catch(() => {});

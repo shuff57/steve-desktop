@@ -30,6 +30,20 @@ describe('calculateWebviewBounds', () => {
     expect(bounds.height).toBe(0);
   });
 
+  // The regression: App hides the whole Browse subtree with display:none while another page shows,
+  // so every chrome measurement comes back 0. Sizing from that put a native webview over the full
+  // content area at y=0, swallowing every click in it.
+  it('refuses to size from chrome that measures as absent', () => {
+    const bounds = calculateWebviewBounds({
+      sidebarWidth: 60,
+      navBarHeight: 0,
+      windowWidth: 1280,
+      windowHeight: 900,
+    });
+
+    expect(bounds).toEqual({ x: 0, y: 0, width: 0, height: 0 });
+  });
+
   it('supports extra top offset', () => {
     const bounds = calculateWebviewBounds({
       sidebarWidth: 60,
