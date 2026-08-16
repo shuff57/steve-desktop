@@ -32,6 +32,18 @@ function check(file) {
 
   const qtextAt = lines.findIndex((l) => l.includes('=== QUESTION TEXT'));
 
+  // $answers is NOT always a typo. It is the documented variable for the types below:
+  //   draw / essay-file  reference/question-types/essay-file.md  "$answers -- string or array of
+  //                      strings describing points/curves"
+  //   choices / multans  reference/question-types/choice.md      "$answers -- list of correct indices"
+  //   matching           reference/question-types/choice.md      "$answers -- array of answers"
+  // Flagging those was noise: 5 of 11 hits on questions pulled live from MOM in Aug 2026 were draw
+  // questions that score correctly in front of students. The original bug (1.2, 2.1) was a
+  // single-answer question, so the rule is kept for everything else.
+  const qtypeLine = lines.find((l) => l.includes('=== SET QUESTION TYPE TO:')) || '';
+  const qtype = (qtypeLine.split('SET QUESTION TYPE TO:')[1] || '').replace(/=+/g, '').trim();
+  const answersIsValid = ['draw', 'essay', 'file', 'choices', 'multans', 'matching'].includes(qtype);
+
   // 4. The splitter matches the marker text anywhere, including inside a comment, so a comment that
   // QUOTES a marker cuts the file in the wrong place. (Marker COUNT is deliberately not checked:
   // essay FRQs and older questions legitimately carry three or four, and a rule that fires on fifty
@@ -75,7 +87,7 @@ function check(file) {
     const art = /(?:^|[^A-Za-z])(an?) ' \. \$([A-Za-z_]+)/.exec(line);
     if (art) findings.push({ kind: 'article', file: rel, n, detail: `${art[1]} ' . $${art[2]}` });
 
-    if (/\$answers\s*\[/.test(line)) findings.push({ kind: 'answers-plural', file: rel, n, detail: line.trim().slice(0, 60) });
+    if (!answersIsValid && /\$answers\s*\[/.test(line)) findings.push({ kind: 'answers-plural', file: rel, n, detail: line.trim().slice(0, 60) });
 
     if (qtextAt >= 0 && i > qtextAt && /^\s*\$answer\s*\[/.test(line)) {
       findings.push({ kind: 'key-after-qtext', file: rel, n, detail: line.trim().slice(0, 60) });

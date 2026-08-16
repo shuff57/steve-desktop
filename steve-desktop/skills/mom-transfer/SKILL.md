@@ -1,12 +1,12 @@
 ---
 name: mom-transfer
-description: Push questions from the local MyOpenMath bank into a real MOM course — create the assessment, file each question into the library, attach it, then render it and fix what did not come out right. Use when transferring an assignment, a book section, or a hand-picked set of questions into MyOpenMath.
+description: Move questions between the local bank and a real MyOpenMath course, in either direction. PUSH — create the assessment, file each question into the library, attach it, then render it and fix what did not come out right. PULL — read a live course's assessments and questions back into the repo, registering a book and importing the sources you authored. Use when transferring an assignment, a book section, or a hand-picked set of questions into MyOpenMath, and when adopting an existing MOM course into the repo.
 tags:
   - agent-task
   - myopenmath
 ---
 
-# mom-transfer — bank → MyOpenMath
+# mom-transfer — bank ⇄ MyOpenMath
 
 App-managed file. It is rewritten from `skills/mom-transfer/SKILL.md` in the S.T.E.V.E repo every
 launch, so edit it there, not here.
@@ -297,6 +297,89 @@ out rather than assuming MOM's default — the whole point is that the text and 
 
 The form also carries a `csrfp-token`. So you must **load the real form and submit that form** —
 never hand-roll a POST, it will be rejected.
+
+**The same table read right-to-left is the PULL direction.** `moddataset.php?id=<qsetid>` is the
+source of truth in both directions: push writes those five fields, pull reads them back off
+`element.value`. Nothing else is needed to reconstruct a bank `.php`.
+
+## PULL — MyOpenMath → bank
+
+Use when adopting a course that already exists in MOM. Two separate jobs; do them in this order and
+do not merge them.
+
+```
+1. REGISTER   course.php ──▶ books/<slug>/<track>/*.json      metadata only, no sources
+2. IMPORT     moddataset.php ──▶ questions/**.php             only what you authored
+```
+
+Registering is read-only and safe. Importing writes to the bank, so it needs the provenance check
+below first.
+
+### 1. Register a course
+
+Blocks are the whole problem. **A collapsed block renders none of its children into the course-page
+DOM**, so a populated course reads as empty. Walk `course.php?cid=<cid>&folder=<path>` recursively —
+the "Isolate" links give the child folder paths (`0-6`, `0-6-2`, `0-6-2-10`, …). Verified 2026-08-16:
+IM3 showed 6 assessments at `folder=0` and had 74; IM1 showed 0 and had 138.
+
+For each assessment, `addquestions2.php?aid=<aid>&cid=<cid>` lists its questions.
+
+**Use `mom-content/reference/extract-assessment-questions.js` verbatim. Do not write your own.**
+That page has **three table layouts** and a naive extractor silently returns zero rows on two of
+them — which reads as "this assessment is empty" and passes every structural check. It cost 163
+lost questions on a run that reported 71/71 green.
+
+| layout | what breaks a naive extractor |
+|---|---|
+| plain | — |
+| checkbox | `Order` is a `<select>` whose innerText is *every* option (`Q1\nQ2\n…`); `Points` is an `<input>` so the cell text is empty; the header reads `Points\nDefault:` |
+| group | header row has no qid and no `moddataset` link. Pool rows either carry `Q1-1`-style orders **or no order cell at all** (first cell is an `Ungroup` link) |
+
+Also: the library search table on the same page has far more `moddataset` links than the real one,
+so "pick the biggest table" picks the wrong one. Anchor on the `Questions in Assessment` heading.
+
+**Zero questions is only believable when the page literally says `No Questions currently in
+assessment`.** Any other zero is your extractor failing. Re-read once, then STOP and report.
+
+### 2. Decide what is actually yours — before importing anything
+
+Most questions in a real course are **MyOpenMath shared-library questions you assembled, not wrote**.
+Measured across IM1+IM3: 1 376 distinct questions, of which **1 183 were shared library** and only
+131 were locally authored.
+
+Do not import the shared-library ones. You already have permanent access to them by `qsetid`, which
+is exactly how MOM itself reuses them; copying 1 183 files you did not write buries your own bank.
+
+**Judge provenance by the `author` field on `moddataset.php`, not by the `(local for …)` marker in
+the title.** A title can carry several markers (`(local for X) (local for Steven Huff)`) and says
+only who copied it, not who wrote it. `author` is authoritative.
+
+### 3. Import the ones that are
+
+Read the five fields off `moddataset.php?id=<qsetid>` and write the markers back out in bank order:
+`NAME - DESCRIPTION`, `SET QUESTION TYPE TO`, `COMMON CONTROL`, `QUESTION TEXT`, `ANSWER`. Omit the
+`ANSWER` section when `solution` is empty — plenty of live questions have none.
+
+Then wire it up, or the import is invisible to the next authoring pass:
+
+```
+questions/<family>/<slug>.php        the source
+reference/question-library.json      path -> {qsetid, cid, qtype}
+books/**/*.json                      set file_path, drop "unbanked"
+bun reference/sync-index.ts          rebuild the derived index (never hand-edit it)
+```
+
+### Traps specific to pulling
+
+- **`question-lint.mjs` flags `$answers[` as a typo, and on pulled questions it is often wrong.**
+  `$answers` is the documented variable for `draw` (`essay-file.md`), `choices` and `matching`
+  (`choice.md`). A pulled file is a byte-for-byte copy of something already running in front of
+  students — **do not "fix" it to satisfy the lint.** Flag it. The only thing that settles an answer
+  key is answering the question and reading the score back.
+- Slugified descriptions collide often (21 of 131 needed a suffix — courses reuse names like
+  "Practice Test"). Disambiguate deterministically, in qsetid order.
+- A dead session serves the **login form at the content URL**, so it looks like an empty course
+  rather than an error. Check for `input[type=password]` on every navigation and stop on the first.
 
 ## Three traps that all look like success
 
