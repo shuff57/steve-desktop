@@ -6,15 +6,16 @@
   import { getSkills, saveSkill, deleteSkill, updateSkillActive, type Skill } from '../lib/db';
   import { parseSkillMarkdown } from '../lib/skill-parser';
   import { syncLocalSkills, syncSiteProfiles, seedSampleWorkflowSkill } from '../lib/skills-api';
-  import { skillToTask } from '../lib/agent-skill';
+  import { taskForSkill } from '../lib/agent-skill';
 
-  /** Run a saved agent-task skill: hand its task to the browser Agent panel and switch to it. */
+  /** Run a saved skill: hand a task to the browser Agent panel, force it open, and start it — one
+   *  click, no typing. See taskForSkill for how the task text is derived per skill kind. */
   function handleRun(skill: Skill) {
-    const t = skillToTask(skill.content);
-    if (!t) return;
-    sessionStorage.setItem('steve:pending-task', t.task); // AutomateRunner reads this on mount
-    window.dispatchEvent(new CustomEvent('steve:load-task', { detail: { task: t.task } })); // if already mounted
-    window.dispatchEvent(new CustomEvent('steve:navigate', { detail: 'browser' }));
+    const taskText = taskForSkill(skill);
+    sessionStorage.setItem('steve:pending-task', taskText); // AutomateRunner reads this on mount
+    sessionStorage.setItem('steve:pending-task-autorun', '1');
+    window.dispatchEvent(new CustomEvent('steve:load-task', { detail: { task: taskText, autoRun: true } })); // if already mounted
+    window.dispatchEvent(new CustomEvent('steve:navigate', { detail: 'browser-agent' })); // forces the Agent tab open
   }
 
   let currentView = $state<'my-skills' | 'find-skills' | 'create-skill'>('my-skills');

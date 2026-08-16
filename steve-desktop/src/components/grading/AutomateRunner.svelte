@@ -232,24 +232,44 @@
     }
   }
 
+  // Set by a "▶ Run" click on the Skills page — fires runDirect() itself once a provider is
+  // available, so the skill starts with no further click. The provider prop can still be empty
+  // right after mount (ProviderSelector restores it from settings asynchronously), so this is an
+  // $effect rather than a call inline in handleLoadTask: it keeps re-checking until provider
+  // lands, then fires exactly once.
+  let autoRunPending = $state(false);
+  $effect(() => {
+    if (autoRunPending && provider && task.trim() && !busy) {
+      autoRunPending = false;
+      runDirect();
+    }
+  });
+
   function handleLoadTask(e: Event) {
-    const detail = (e as CustomEvent<{ task?: string }>).detail;
+    const detail = (e as CustomEvent<{ task?: string; autoRun?: boolean }>).detail;
     if (!detail?.task) return;
     lastRun = null;
     plan = null;
     result = null;
     savedSkillMsg = '';
     task = detail.task;
-    msg = 'Loaded a saved skill — review it, then Plan or Run.';
+    if (detail.autoRun) {
+      msg = 'Starting…';
+      autoRunPending = true;
+    } else {
+      msg = 'Loaded a saved skill — review it, then Plan or Run.';
+    }
   }
   onMount(() => {
     window.addEventListener('steve:load-task', handleLoadTask);
     // The Skills page navigates here THEN hands over the task; a live event would fire before this
-    // component mounts, so it stashes the task and we pick it up on mount.
+    // component mounts, so it stashes the task (and whether to auto-run it) and we pick it up on mount.
     const pending = sessionStorage.getItem('steve:pending-task');
     if (pending) {
       sessionStorage.removeItem('steve:pending-task');
-      handleLoadTask(new CustomEvent('steve:load-task', { detail: { task: pending } }));
+      const autoRun = sessionStorage.getItem('steve:pending-task-autorun') === '1';
+      sessionStorage.removeItem('steve:pending-task-autorun');
+      handleLoadTask(new CustomEvent('steve:load-task', { detail: { task: pending, autoRun } }));
     }
   });
   onDestroy(() => window.removeEventListener('steve:load-task', handleLoadTask));

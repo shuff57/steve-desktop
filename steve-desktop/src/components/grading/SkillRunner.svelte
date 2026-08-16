@@ -13,6 +13,7 @@
   import { onMount } from 'svelte';
   import { getSkills, addRunEntry, getRunEntries, saveSkill, type Skill, type RunEntry } from '../../lib/db';
   import { skillToWorkflow } from '../../lib/workflow-skill';
+  import { taskForSkill } from '../../lib/agent-skill';
   import { replayLive } from '../../lib/replay-live';
   import { connectCDP, evalScript } from '../../lib/cdp-actions';
   import { workflowParams, bindWorkflow, parseRoster, rowLabel } from '../../lib/teach-params';
@@ -39,8 +40,20 @@
   /** Non-empty when the skills read itself failed (bad schema), as opposed to having no skills. */
   let loadError = $state('');
 
-  // Only skills carrying a recorded steps block can be replayed.
-  const replayable = $derived(skills.filter((s) => /```json/.test(s.content)));
+  // Every active skill is listed — a recorded-steps workflow replays literally; anything else
+  // (a prose/markdown skill, or an agent-task skill with no steps) hands off to the browser
+  // Agent tab instead (see runViaAgent). Toggling a skill off in AI Skills > My Skills drops it
+  // from this list too, since is_active also gates whether it can be matched into an agent run.
+  const listed = $derived(skills.filter((s) => s.is_active !== 0));
+
+  /** Does this skill have literal recorded steps to replay, vs. needing the Agent to interpret it? */
+  function isWorkflowSkill(skill: Skill): boolean {
+    try {
+      return skillToWorkflow(skill.content).steps.length > 0;
+    } catch {
+      return false;
+    }
+  }
 
   /** Arm the recorder beside this browser and switch to it. Same door the Skills page uses —
    *  recording has to watch the embedded browser, so it happens here, not on a page. */
@@ -128,8 +141,24 @@
     }
   }
 
+  /** Hand off to the browser Agent tab in this same drawer — same idiom the Skills page's ▶ Run
+   *  uses, minus the cross-page steve:navigate (we're already on Browse). Covers both cases: the
+   *  Agent panel already mounted (live event) and not yet mounted (sessionStorage, read on its
+   *  own mount). */
+  function runViaAgent(skill: Skill) {
+    const taskText = taskForSkill(skill);
+    sessionStorage.setItem('steve:pending-task', taskText);
+    sessionStorage.setItem('steve:pending-task-autorun', '1');
+    window.dispatchEvent(new CustomEvent('steve:load-task', { detail: { task: taskText, autoRun: true } }));
+    window.dispatchEvent(new CustomEvent('steve:action-panel', { detail: { mode: 'agent' } }));
+  }
+
   async function run(skill: Skill) {
     if (runningId) return;
+    if (!isWorkflowSkill(skill)) {
+      runViaAgent(skill);
+      return;
+    }
     // Parameterized skill → open the roster box instead of replaying the recorded literals
     // (there are none: parameterized steps store no value).
     if (paramsOf(skill).length) {
@@ -234,7 +263,7 @@
 
 <div class="skill-runner">
   <div class="runner-head">
-    <span class="hdr">Replayable skills</span>
+    <span class="hdr">Skills</span>
     <div class="runner-actions">
       <button class="record" onclick={recordSkill} title="Do the task once in this browser; STEVE writes the skill">
         🎓 Record Skill
@@ -247,19 +276,25 @@
     <p class="muted">Loading…</p>
   {:else if loadError}
     <p class="loaderr">Couldn't read your skills: {loadError}</p>
-  {:else if replayable.length === 0}
-    <p class="muted">No workflow skills yet. Capture one, or import a SKILL.md that has a recorded steps block.</p>
+  {:else if listed.length === 0}
+    <p class="muted">No active skills yet. Capture one, import a SKILL.md, or turn one on in AI Skills > My Skills.</p>
   {:else}
     <ul class="list">
-      {#each replayable as skill (skill.id)}
+      {#each listed as skill (skill.id)}
         {@const params = paramsOf(skill)}
+        {@const workflowSkill = isWorkflowSkill(skill)}
         <li class="row">
           <div class="info">
             <span class="name" title={skill.name}>{skill.name}</span>
             {#if skill.url_pattern}<span class="pat">{skill.url_pattern}</span>{/if}
             {#if params.length}<span class="pat">vars: {params.join(', ')}</span>{/if}
           </div>
-          <button class="run" disabled={runningId !== null} onclick={() => run(skill)} title={params.length ? 'Run with a roster of values' : 'Replay on the current page'}>
+          <button
+            class="run"
+            disabled={runningId !== null}
+            onclick={() => run(skill)}
+            title={!workflowSkill ? 'Run in the browser Agent' : params.length ? 'Run with a roster of values' : 'Replay on the current page'}
+          >
             {runningId === skill.id ? '⏳' : params.length ? '▶⋯' : '▶'}
           </button>
         </li>

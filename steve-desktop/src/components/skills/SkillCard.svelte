@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Skill } from '../../lib/db';
   import { renderSkillPreview } from '../../lib/skill-parser';
-  import { isAgentTaskSkill } from '../../lib/agent-skill';
 
   let { skill, onDelete, onToggle, onRun } = $props<{
     skill: Skill;
@@ -11,7 +10,11 @@
   }>();
 
   let expanded = $state(false);
-  const runnable = $derived(!!onRun && isAgentTaskSkill(skill.content));
+  // Every skill kind is runnable from here: an agent-task skill replays its saved task verbatim,
+  // a prose/markdown skill gets a task that names it (see Skills.svelte's handleRun) — either way
+  // the browser Agent panel picks it up and starts. Recorded-step workflow skills also get this
+  // button in addition to their own literal-replay ▶ in the Browse > Skills tab.
+  const runnable = $derived(!!onRun);
 
   function getSourceLabel(skill: Skill): string {
     if (skill.source === 'local') return 'Local';
@@ -64,7 +67,7 @@
     </div>
     <div class="actions">
       {#if runnable}
-        <button class="run-btn" onclick={(e) => { e.stopPropagation(); onRun?.(skill); }} title="Run this task in the browser Agent">▶ Run</button>
+        <button class="run-btn" onclick={(e) => { e.stopPropagation(); onRun?.(skill); }} title="Start this skill in the browser Agent">▶ Run</button>
       {/if}
       <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
       <label class="switch" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.key === 'Enter' && e.stopPropagation()}>

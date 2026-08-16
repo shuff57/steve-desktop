@@ -50,3 +50,14 @@ export function skillToTask(markdown: string): AgentTask | null {
 export function isAgentTaskSkill(markdown: string): boolean {
   return skillToTask(markdown) !== null;
 }
+
+/**
+ * The task text to hand the browser Agent panel for a one-click "▶ Run": an agent-task skill
+ * replays its saved task verbatim; anything else (a prose/markdown skill, matched by
+ * skill-match.ts on name or url_pattern) gets a task that just names it — enough for the agent
+ * to pick up its full instructions once matched into context.
+ */
+export function taskForSkill(skill: { name: string; content: string }): string {
+  const t = skillToTask(skill.content);
+  return t ? t.task : `Using the skill '${skill.name}', continue where I left off.`;
+}

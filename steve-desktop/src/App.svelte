@@ -76,6 +76,7 @@
   const PANEL_ROUTES: Record<string, string> = {
     'ogre-grading': 'ogre',
     'teach-record': 'teach',
+    'browser-agent': 'agent',
   };
 
   function navigate(page: string) {
