@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "7-3-a-population-proportion",
   "_note": "Built 2026-08-12. Two reuses (q2-ci-one-proportion, q5-ci-proportion-compute-interpret - both health=ok, never filed) plus eight authored (q21-sample-proportion, q22-proportion-conditions, q23-ebp-and-interval, q24-interpret-the-proportion-interval, q25-plus-four, q26-sample-size-proportion, q27-proportion-vs-mean, pre-frq-grade-a-proportion-interval) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 7.3 is the confidence interval for a population proportion: p' = x/n, EBP = z_(alpha/2)*sqrt(p'q'/n), the interval, the np'>5 and nq'>5 condition, the plus-four adjustment (x+2 and n+4), and the sample size formula n = z^2 p'q' / EBP^2 with p' = q' = 0.5 as the worst case, rounded up. Pre-FRQ mirrors frq/inference-for-proportions/q9-single-proportion-interpreting-results.php; dropped category is STATISTICAL DECISION (the mirror's first rubric line - a plausible answer writes the conclusion in context and interprets the evidence without ever comparing the p-value to the significance level). This is deliberately DIFFERENT from 7.1's (Confidence Level Meaning) and 7.2's (Assessing the Claim) pre-FRQ drops - the three pre-FRQs must not teach the same lesson.",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444272 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php", "title": "Construct a confidence interval for one proportion with randomized story contexts", "points": 10, "qid": null },

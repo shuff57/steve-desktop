@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "6-2-the-central-limit-theorem-for-sums",
   "_note": "Built 2026-08-12. All ten authored fresh (the bank had zero sums questions): q13-sum-notation, q14-sum-parameters, q15-sum-z-score, q16-sum-probability-greater, q17-sum-probability-less, q18-sum-probability-between, q19-sum-percentile, q20-sum-z-score-to-value, q21-sum-unit-conversion, pre-frq-grade-a-sum-interpretation. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 6.2 is the CLT for sums: Sigma X ~ N(n*mu, sqrt(n)*sigma), the z-score of a sum, probabilities and percentiles for a sum, and the unit-conversion habit. Pre-FRQ is authored-first (no sums FRQ to mirror; the CLT-reasoning mirror is claimed by 6.1's pre-FRQ): categories State the Sum's Parameters (3) / Compute the Probability or Percentile (5) / Interpret in Context (4), dropped category STATE THE SUM'S PARAMETERS.",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444264 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/sampling-distributions/q13-sum-notation.php", "title": "Sum Notation - the mean and standard deviation of Sigma X", "points": 10, "qid": null },

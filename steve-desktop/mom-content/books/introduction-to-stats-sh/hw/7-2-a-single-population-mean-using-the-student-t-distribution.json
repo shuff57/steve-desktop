@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "7-2-a-single-population-mean-using-the-student-t-distribution",
   "_note": "Built 2026-08-12. Two reuses (q4-ci-mean-t, q6-ci-mean-t-story - both health=ok, never filed) plus eight authored (q14-degrees-of-freedom, q15-t-vs-z, q16-t-critical-value, q17-t-interval-mean, q18-t-interval-interpret, q19-raw-data-to-interval, q20-t-width-dials, pre-frq-grade-a-t-interval) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 7.2 is the confidence interval for a population mean when sigma is unknown: the Student t-distribution, degrees of freedom n-1, the t-score, EBM = t_(alpha/2)*s/sqrt(n), the interval, and the interpretation. Pre-FRQ mirrors frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php; dropped category is ASSESSING THE CLAIM (the mirror's third rubric line - a plausible answer interprets the interval and explains the confidence level without ever checking whether a claimed value falls inside it). This is deliberately DIFFERENT from 7.1's pre-FRQ drop (Confidence Level Meaning) - the two pre-FRQs must not teach the same lesson.",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444271 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php", "title": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts", "points": 10, "qid": null },

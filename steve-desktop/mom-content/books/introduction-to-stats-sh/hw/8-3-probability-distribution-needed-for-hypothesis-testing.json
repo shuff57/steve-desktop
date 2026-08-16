@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "8-3-probability-distribution-needed-for-hypothesis-testing",
   "_note": "Built 2026-08-12. Two reuses (q16-full-ht-one-mean-fresh, q8-ht-one-proportion - both health=ok, never filed) plus eight authored (q32-which-distribution, q33-sigma-known-vs-unknown, q34-test-conditions, q35-np-nq-check, q36-proportion-condition-failure, q37-binomial-vs-normal, q38-mean-or-proportion, pre-frq-grade-a-distribution-selection) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 8.3 is the probability distribution needed for hypothesis testing: matching a test to its distribution (Table 8.3.1), the two questions that make the choice (mean or proportion? then is sigma known?), the assumptions each test requires, and the np > 5 / nq > 5 condition. Pre-FRQ is authored-first (no distribution-selection FRQ exists anywhere in questions/frq/): categories Name the Distribution (3) / State the Deciding Facts (4) / Check the Conditions (3), dropped category CHECK THE CONDITIONS (a plausible answer names the distribution and the deciding facts without ever verifying the assumptions).",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444279 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q16-full-ht-one-mean-fresh.php", "title": "Full HT for One Mean (Fresh Context) - Compute t-statistic, df, p-value, decision at alpha for a one-mean test with a randomized story context", "points": 10, "qid": null },

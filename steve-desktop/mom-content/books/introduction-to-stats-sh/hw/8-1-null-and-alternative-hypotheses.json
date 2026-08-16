@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "8-1-null-and-alternative-hypotheses",
   "_note": "Built 2026-08-12. Two reuses (q15-ho-ha-fresh-context, q6-null-alt-hypotheses - both health=ok, never filed) plus ten authored (q18-name-the-parameter, q19-describe-the-random-variable, q20-hypothesis-symbol-pairs, q21-claims-to-hypotheses, q22-proportion-claim-hypotheses, q23-the-two-decisions, q24-choose-the-correct-pair, q62-sort-the-numbers, q63-parameter-for-each-statement, pre-frq-grade-a-single-mean-hypotheses) = twelve. Points 8x11 + 12 = 100 (rebalanced from the SPEC's 120 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.1 is null and alternative hypotheses: the two hypotheses, choosing the symbols (=, !=, <=, <, >=, >), writing the pair from a claim about a mean or a proportion, naming the random variable in words, and the two decisions a test can end in (reject / do not reject - never accept). Pre-FRQ mirrors frq/inference-for-means/q1-single-mean-concept-and-hypotheses.php; dropped category is REAL-WORLD EXAMPLE (the mirror's second rubric line - a plausible answer states the purpose and writes the hypotheses without ever applying them to a concrete scenario).",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444277 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php", "title": "State H0 and Ha and Pick Test Direction - From a fresh story context, identify the parameter, write H0 and Ha, and pick left/right/two-tailed", "points": 8, "qid": null },

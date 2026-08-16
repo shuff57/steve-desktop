@@ -2546,5 +2546,125 @@
     "filed": "2026-08-16",
     "qtype": "multipart",
     "pulled": true
+  },
+  "questions/normal-distribution/q2-normal-probability.php": {
+    "qsetid": "1878580",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q5-normal-probability-context.php": {
+    "qsetid": "1878581",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q3-inverse-normal-percentile.php": {
+    "qsetid": "1878582",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q13-complement-tail.php": {
+    "qsetid": "1878583",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q14-at-least-percentile.php": {
+    "qsetid": "1878584",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q15-quartiles-and-iqr.php": {
+    "qsetid": "1878585",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q16-middle-percent.php": {
+    "qsetid": "1878586",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q17-interpret-the-percentile.php": {
+    "qsetid": "1878587",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q18-percentile-vs-probability.php": {
+    "qsetid": "1878588",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/pre-frq-grade-a-percentile-interpretation.php": {
+    "qsetid": "1878589",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q21-empirical-vs-theoretical.php": {
+    "qsetid": "1878694",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q22-pilot-mean-sd.php": {
+    "qsetid": "1878696",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q23-pilot-median-quartiles.php": {
+    "qsetid": "1878697",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q24-pilot-percentiles.php": {
+    "qsetid": "1878698",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q25-pilot-iqr.php": {
+    "qsetid": "1878699",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q26-theoretical-median-quartiles.php": {
+    "qsetid": "1878700",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q27-theoretical-percentiles.php": {
+    "qsetid": "1878701",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q28-theoretical-iqr.php": {
+    "qsetid": "1878702",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q29-compare-empirical-theoretical.php": {
+    "qsetid": "1878703",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/pre-frq-grade-a-normal-model-comparison.php": {
+    "qsetid": "1878705",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
   }
 }

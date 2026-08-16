@@ -4,7 +4,8 @@
   "kind": "hw",
   "slug": "8-4-rare-events-the-sample-decision-and-conclusion",
   "_note": "Built 2026-08-12. Two reuses (q5-pvalue-decision, q10-conclusion-in-context - both health=ok, never filed) plus eleven authored (q39-rare-event-reasoning, q40-what-a-p-value-measures, q41-pvalue-decision-edge, q42-pvalue-from-z, q43-pvalue-two-scenarios, q44-tail-picture, q45-conclusion-vs-claim, q65-sort-the-test-values, q66-s-vs-sigma, q67-sampling-distribution-under-h0, pre-frq-grade-a-pvalue-interpretation) = thirteen. Points 8x4 + 7x8 + 12 = 100 (rebalanced from the SPEC's 120 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.4 is rare events, the sample, decision and conclusion: the rare-event rule, what a p-value measures, the alpha > p-value decision rule with its equality edge case, and the conclusion written in plain sentences about the original claim. Pre-FRQ mirrors frq/inference-for-means/q2-single-mean-interpreting-p-value.php; dropped category is INTERPRETATION OF EVIDENCE (the mirror's third rubric line - a plausible answer compares the p-value to alpha and writes the conclusion in context without ever explaining what the p-value measures in repeated sampling). This is deliberately DIFFERENT from 7.3's pre-FRQ drop (Statistical Decision) - the two p-value pre-FRQs must not teach the same lesson.",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444280 },
+  "_aid_source": "Renamed from the merged \"8.4 + 8.5\" scaffold assessment on 2026-08-16 per Steve's SPLIT decision; it was empty, so the rename lost nothing.",
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php", "title": "P-Value is low/high, identify conclusion (Carey Smith)", "points": 8, "qid": null },

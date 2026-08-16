@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "8-2-outcomes-and-the-type-i-and-type-ii-errors",
   "_note": "Built 2026-08-12. Two reuses (q11-type-i-ii-context, q9-reject-nuanced - both health=ok, never filed) plus nine authored (q25-the-four-outcomes, q26-type-i-error-in-context, q27-type-ii-error-in-context, q28-alpha-beta-power, q29-which-error-costs-more, q30-power-and-beta, q31-error-consequences, q64-both-errors-template, pre-frq-grade-a-type-i-ii-errors) = eleven. Points 9x8 + 8x2 + 12 = 100 (rebalanced from the SPEC's 110 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.2 is outcomes and the Type I and Type II errors: the four outcomes of a hypothesis test, stating both errors in context, alpha and beta in words, the power of the test 1 - beta, and judging which error carries the heavier consequence. Pre-FRQ is authored-first (no Type I/II FRQ exists anywhere in questions/frq/ - the pre-FRQ defines the scenario and rubric a later FRQ should match): categories State Both Errors in Context (4) / Name the Probabilities (3) / Judge Which Error Costs More (3), dropped category NAME THE PROBABILITIES (a plausible answer states both errors in context and judges their consequences without ever attaching the lettered probabilities).",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444278 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php", "title": "Type I and Type II errors in context - given a scenario with a null hypothesis, identify which outcome corresponds to a Type I error and which corresponds to a Type II error", "points": 9, "qid": null },

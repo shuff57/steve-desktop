@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "7-1-a-single-population-mean-using-the-normal-distribution",
   "_note": "Built 2026-08-12. Two reuses (q4-ci-mean-t, q3-ci-width-factors - both health=ok, never filed) plus eight authored (q7-z-critical-value, q8-z-interval-mean, q9-ebm-and-interval, q10-interpret-the-interval, q11-width-dials, q12-backwards-from-interval, q13-sample-size-mean, pre-frq-grade-a-ci-interpretation) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 7.1 is the confidence interval for a population mean when sigma is known: the point estimate bar(x), EBM = z_(alpha/2)*sigma/sqrt(n), the interval, the critical values (1.645/1.96/2.326/2.576), the interpretation sentence, the two width dials, working backwards from an interval, and the sample size formula n = z^2 sigma^2 / EBM^2 rounded up. Pre-FRQ mirrors frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php; dropped category is CONFIDENCE LEVEL MEANING (the mirror's second rubric line - a plausible answer interprets the interval and assesses the claim without ever explaining what the confidence level means in repeated sampling).",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444270 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php", "title": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts", "points": 10, "qid": null },

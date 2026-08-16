@@ -4,7 +4,7 @@
   "kind": "hw",
   "slug": "6-1-the-central-limit-theorem-for-sample-means",
   "_note": "Built 2026-08-12. Three reuses (q2-x-bar-conditions, q4-x-bar-probability, q5-clt-single-vs-sample - all health=ok, never filed) plus seven authored (q7-x-bar-notation, q8-standard-error, q9-x-bar-probability-between, q10-x-bar-percentile, q11-se-half-and-quarter, q12-which-distribution, pre-frq-grade-a-clt-reasoning) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 6.1 is the CLT for sample means: bar(X) ~ N(mu, sigma/sqrt(n)), the standard error, z = (bar(x)-mu)/SE, probabilities and percentiles for a sample mean. Pre-FRQ mirrors frq/sampling-distributions/q1-sampling-distribution-reasoning.php; dropped category is CONDITIONS FOR CLT (the mirror's second rubric line - a plausible answer names the parameter and statistic and computes the standard error without ever verifying the sampling distribution is approximately normal).",
-  "target": { "cid": "334437", "aid": null },
+  "target": { "cid": "334437", "aid": 23444263 },
   "created_at": "2026-08-12",
   "questions": [
     { "slot": 1, "file_path": "questions/sampling-distributions/q2-x-bar-conditions.php", "title": "Sampling distribution of x-bar - check normality of population OR n>=30 and decide whether the sampling distribution is approximately normal", "points": 10, "qid": null },
