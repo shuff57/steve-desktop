@@ -216,10 +216,13 @@ six sections ago; rendering just the question in front of you never will.
 
 ## How many questions a set should hold
 
-**Between 10 and 15, aiming at 15.** These are practice assignments, so the count is a teaching
-decision — a section with eight numbered exercises does not mean eight is enough drilling. Keep every
-numbered exercise the section has, then invent the difference. Past 15 a single sitting becomes a
-slog; keep the ones that cover the most ground and say which you dropped.
+**Ten is the floor, fifteen is the ceiling — a homework set never ships below ten.** The floor is a
+hard rule, not a target: 3.2, 3.4 and 3.5 all live at exactly ten, and a section below ten gets
+pulled up to it before it is filed. Aim at fifteen when the section has the material; land at ten
+when it does not. These are practice assignments, so the count is a teaching decision — a section
+with eight numbered exercises does not mean eight is enough drilling. Keep every numbered exercise
+the section has, then invent the difference. Past 15 a single sitting becomes a slog; keep the ones
+that cover the most ground and say which you dropped.
 
 What you invent has to earn its slot. Two kinds do:
 
@@ -229,6 +232,23 @@ What you invent has to earn its slot. Two kinds do:
 
 Say in the brief which kind it is, and for the second, name the mistake it targets. Re-running an
 exercise with new numbers adds length, not practice.
+
+## Pre-FRQs: one to three per assignment, never zero
+
+Homework carries no free response, and a pre-FRQ is how the FRQ standard still gets taught: the
+student grades four sample responses against the rubric instead of writing one. The full pattern,
+invariant structure and traps are in `mom-content/reference/pre-frq-template.md` — read it before
+writing one. The rules here govern CHOICE, which is where specs get written:
+
+- **One to three per assignment, never zero** (Steve, 2026-08-10). Default is one; two only when
+  the section carries two genuinely different FRQ-able skills; three only for a chapter capstone.
+- **"No FRQ to mirror" is not an exemption.** If nothing in `questions/frq/<family>/` covers the
+  section, author the pre-FRQ anyway; it defines the scenario and rubric a later FRQ should match.
+  Say in the manifest `_note` which FRQ each pre-FRQ mirrors, or that one had to be authored.
+- **Last slot of the assignment, 12 points.** True of all originals.
+- **Dropped category is never reused across assignments.** Each pre-FRQ targets one rubric line
+  students habitually skip; the table of used ones lives in the template. A repeat wastes a slot.
+- Naming: `questions/<family>/pre-frq-<verb>-a-<thing>.php`.
 
 ## Make the student BUILD the display, not pick one (Steve, 2026-08-09)
 
@@ -268,6 +288,38 @@ are hand-formatted and a full round-trip rewrites every line.
 
 Do not invent a `target.cid` or `mom_settings`. Those describe a live MyOpenMath assignment; writing
 plausible values puts a lie in the file.
+
+## Spec a section before writing it (handoff pattern)
+
+When a section's questions are written by a separate run (or session) from the one that owns the
+book, freeze the design in a spec file first — the 3.5 precedent: `mom-content/SPEC-3-5.md`
+(authoring) and `mom-content/SPEC-3-5-PUSH.md` (transfer).
+
+**`SPEC-{section}.md`** — the authoring spec. Write it before any question file does:
+- Scope: directory, which existing files are the pattern to copy, what to read first.
+- Self-check: `node mom-content/reference/question-lint.mjs mom-content/questions` and what it
+  checks, plus a seed-sweep requirement — a throwaway script looping every `rand()` combination
+  and asserting a per-question invariant (e.g. "leaf probabilities sum to exactly 1 on every
+  seed"), reporting the combination count.
+- The non-negotiable dialect rules (short form — point at `dialect-rules.md`).
+- Per-question specs: parts, the concept each tests, the invariant to sweep.
+- Report contract: per file, the invariant + combination count, lint output, and which checks the
+  writer could not perform — an honest short list beats six files where two were rushed.
+
+**`SPEC-{section}-PUSH.md`** — the transfer spec. Written before `mom-transfer` runs:
+- Manifest path; whether points already sum to 100 (do not rebalance if they do).
+- Course settings: cid, kind, `copyfrom` template aid + unchecked flags, undated, order placement
+  (after which aid), Book-link derivation, description extraction (`NAME - DESCRIPTION:` marker,
+  no `//`, no `===`).
+- Verify contract: byte-exact read-back (em dash → `--`, trim leading newline), qtype vs file
+  marker, Teacher Preview answer-and-submit every part polling `.scoreresult`, done =
+  `102/100`/`100/100` Answered N/N.
+- Screenshots only where visuals matter; full-page one-shot, no scroll-and-stitch.
+- Write-backs: aid + qids into the manifest, `reference/question-library.json`,
+  `bun mom-content/reference/sync-index.ts`, `--check` clean.
+
+The PUSH spec names the transfer skill by its real path — `steve-desktop/skills/mom-transfer/` —
+not the stale `~/.claude/skills/mom-transfer` the 3.5 spec pointed at.
 
 ## Things not to do
 

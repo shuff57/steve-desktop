@@ -147,11 +147,13 @@ first, then derive the indices from it.
   by the same author, in the very next question. A paragraph did not stop it. A command does:
 
   ```bash
-  node mom-content/reference/article-lint.mjs mom-content/questions
+  node mom-content/reference/question-lint.mjs mom-content/questions
   ```
 
-  It lists every `a ' . $var` / `an ' . $var` site. Each hit needs the variable to be **singular**
-  and to begin with a **consonant sound** — `$kc` holding 70/80/90 produced *"a 80th percentile"* in
-  a question that was already live. Most hits are fine; the point is that you looked.
+  It flags every `a ' . $var` / `an ' . $var` site as kind `article`. Each hit needs the variable
+  to be **singular** and to begin with a **consonant sound** — `$kc` holding 70/80/90 produced
+  *"a 80th percentile"* in a question that was already live. Most hits are fine; the point is that
+  you looked. (There is no separate `article-lint.mjs` — the check is bundled in
+  `question-lint.mjs`.)
 - **Scope the CSS** with a per-question wrapper class (`.qscope8`, `.qscope9`), as several of these
   can share one assignment page.

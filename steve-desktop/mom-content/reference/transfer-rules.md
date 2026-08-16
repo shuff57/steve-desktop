@@ -411,3 +411,132 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   MathQuill field itself was set and the form resubmitted. This CONTRADICTS the older note that the
   hidden input can be set directly -- treat that as true only for single-part questions until
   someone re-measures it. Not personally verified end to end; the evidence is the score header.
+
+---
+
+## From the 4.1/4.2/4.3 pushes into master course 334437 (2026-08-14)
+
+- **A marker splitter that strips the leading `//` from the first comment line of a comment-first
+  `control` section CORRUPTS the question.** The first comment line becomes PHP code ("unquoted
+  string Three.. treating as string"), `$anstypes` is never seen, and the question renders as
+  "Error in question: missing $anstypes" with a single degraded control. The byte-exact read-back
+  does NOT catch it: the stored value is compared against the same broken split, so it passes.
+  Six of eleven 4.1 questions were filed this way and all six had to be re-saved. The splitter must
+  take the control section VERBATIM between the `// === COMMON CONTROL ===` and
+  `// === QUESTION TEXT ===` marker lines -- never strip comment prefixes. The same applies to
+  `qtext` and `solution`. Symptom to recognise: a question that renders with one control where the
+  source has three, or "Error in question: missing $anstypes" on `testquestion2.php`.
+- **`testquestion2.php?qsetid=<id>` is the cheap render check after every save.** It renders the
+  library question standalone with a fresh seed and reports PHP warnings/errors in the page head
+  ("Caught warning in the question code: ..."). Run it for every filed question before attaching;
+  it catches the splitter corruption, the `$scenario`-before-`$scenarios` ordering bug, and any
+  other control-code defect that a render in the assessment would show only as a degraded widget.
+- **A pre-existing bank defect: `$scenario = $scenarios[$i]` before `$scenarios = array(...)`**
+  (pre-frq-grade-an-ev-decision.php). The scenario renders empty and the question still saves and
+  attaches. Fixed at the source and re-saved. Grep for `$scenario = $scenarios` appearing before
+  the array definition when a pre-FRQ's scenario is blank.
+- **A pre-existing bank defect: `$validChoices` inverted in q2-legitimacy-check.php.** Legit tables
+  were keyed "No" and broken ones "Yes" -- every seed graded the opposite of correct. The
+  in-progress attempt kept grading the OLD key after the re-save ("Re-saving a library question
+  does NOT change an assessment attempt already in progress"), so the question had to be
+  regenerated with "Get a similar question" and re-answered. The 102/100 header was only reachable
+  after that.
+- **The Teacher Preview header lags the AJAX submits.** After a submit, the `.assess-header` can
+  read the old count for several seconds while the per-question `div.scoreresult` already shows
+  the new score. Read the per-question scoreresults (or reload) before concluding a submit was
+  dropped -- a "dropped" submit that actually landed shows up as "Your answers have not changed
+  since your last submission" on the next click, which is the real tell.
+- **Question numbers in the preview carry Unicode format markers** (`⁨3⁩` = U+2068/U+2069), so a
+  JS match on `Question 3` fails silently. Strip `[\u2068\u2069\u200b\u200c\u200d]` before
+  matching button text.
+- **MathQuill `latex()` writes do not always sync to the hidden input on re-submit.** On 4.2 Q7
+  the visible field showed the new value while the hidden input kept the old one, and the resubmit
+  graded the old answer. After any re-fill, read the hidden input's value back and set it directly
+  if it did not change.
+- **A question's part inputs are numbered by the ASSESSMENT, not the source.** 4.2 Q2's parts were
+  `qn2000` (plain text) / `qn2001` / `qn2002` while the source's `$answerbox[0..2]` suggested
+  MathQuill for all three. Read the live DOM's input list per question before filling; a
+  `numfunc` part can render as a plain text input when the source declares it otherwise.
+- **The `updatePts()` trap is the reverse of the documented one: setting `data-lastval` yourself
+  makes it see NO change.** `updatePts()` diffs each field against its `data-lastval` attribute;
+  if you set both, `haschg` stays false and nothing saves. Set only `.value`, then call
+  `updatePts()` once. (The documented "set every #pts-N then call updatePts() once" is right; the
+  extra attribute write is the new failure mode.)
+- **The assessment settings form's Save is `input[type=submit]` with value "Save Changes"**, not a
+  button. A click on a button named "Save" on that page does nothing. (On `moddataset.php` the
+  real Save IS a button -- the two pages differ.)
+- **`extreflinks[]` rows are plain HTML, not Vue** -- setting `.value` + dispatching `input` and
+  `change` works, but the row must be saved via the form's real submit (see previous rule).
+
+---
+
+## From the ch4 filing push and the rename survey (2026-08-15/16)
+
+- **`addassessment2.php?aid=<aid>&cid=<cid>` is NOT the edit form. It silently returns a blank
+  "Add Assessment" page.** The `aid` parameter is ignored entirely, every field comes back empty,
+  and the form action carries `block=` with no `id=`. Saving from there **creates a duplicate
+  assessment** instead of editing the one you meant, and nothing on the page says so -- the only
+  tell is the breadcrumb reading `Add Assessment` rather than `Modify Assessment`. The working
+  URL uses **`id=`**: `addassessment2.php?id=<aid>&cid=<cid>`. Verified live on aid 23444263:
+  `?aid=` gave an empty form, `?id=` gave `name = "7.1 The Central Limit Theorem for Sample
+  Means (Averages)"`. **`block=` is optional** -- the course page's own links include it, but the
+  form loads and reads back correctly without it, so no block-path lookup is needed to rename an
+  assessment. Blocks are a different page: `addblock.php?cid=<cid>&id=<blockpath>`, field
+  `[name=title]`, and that one IS plain HTML so `fetch` + parse reads it fine.
+- **Any save of the assessment settings form silently clears the passcode** unless you re-send it.
+  `assmpassword` is `<input type=password>`, so a plain form submit posts whatever is in the box --
+  and nothing repopulates it for you. **But MOM DOES echo the stored value back on load**, which
+  makes this recoverable: aid 23444268 (Chapter 7 Group Test) read back `ZDV4WC` on load. An empty
+  read means the assessment genuinely has no passcode, NOT that the value is hidden -- 23444263 and
+  23444270 both read empty because neither is passcoded. So the safe pattern is capture-then-restore:
+  read `assmpassword` BEFORE editing, and either re-set it in the same save or re-set and read it
+  back afterwards. Only the Group Tests are passcoded.
+- **Reading the settings form requires NAVIGATION, not `fetch`.** `fetch(addassessment2.php...)`
+  + `DOMParser` returns empty for `name`, `intro` and `extreflinks[]` alike -- the values are
+  filled in on mount. A sweep built on fetch reports "no Book link" for every assessment in the
+  course, which reads as a finding rather than as a bug in the sweep. Navigate, and poll for
+  `[name=name]` to become non-empty before reading anything.
+- **The attach GET is NOT idempotent.**
+  `modquestion2.php?qsetid=&cid=&aid=&from=addq&process=true&usedef=true` adds a **second
+  instance** of the same library question if it is already on the assessment -- one `qsetid`, two
+  rows, points counted twice. Re-running an already-filed slot to re-verify it is enough to
+  trigger this (hit 2026-08-15 on 4.4, which went to 11 questions). Always read
+  `input[name="curq[]"]` first and skip the attach if the qsetid is present. To remove the extra,
+  splice it out of the page's `itemarray` by its INSTANCE id and call `submitChanges()` once,
+  then reload and confirm.
+- **MOM HTML-escapes bare `<` and `>` in `qtext` on save**, so a byte-exact read-back raises a
+  FALSE failure on any question with inequalities in a math span: `` `P(1 < x < 4) =` `` is stored
+  as `` `P(1 &lt; x &lt; 4) =` ``. Growth is exactly 3 chars per angle character (+9 on a question
+  with three), and a screenshot confirms the math still typesets correctly -- the entity is a
+  storage form, not what the student sees. Normalise `&lt;`/`&gt;` on BOTH sides before comparing,
+  the same way the em dash is normalised. Do not "fix" the source.
+- **Two `.php` marker dialects exist in the bank and a strict splitter rejects the older one.**
+  Besides `// === COMMON CONTROL ===` / `// === ANSWER ===`, older files carry
+  `// === COMMON CONTROL (paste into Common Control) ===` (a parenthetical the marker regex must
+  tolerate) and separate `qtext` from the worked solution with a bare `///` line instead of an
+  `ANSWER` marker. Of 209 questions surveyed: 201 standard, 5 `///`-separated, 3 with no solution
+  section at all. Match `COMMON CONTROL\b.*?===`, and when no `ANSWER` marker follows
+  `QUESTION TEXT`, split the tail on a standalone `///`. A question with genuinely no solution
+  section is a content gap, not a parse failure -- file it with an empty `solution` and note it.
+- **The Book resource links were generated from MOM's chapter NUMBERS and are dead.** They carry
+  the correct topic slug but the stale number: aid 23444263 points at
+  `.../chapter-7-the-central-limit-theorem/7.1_...` while the book has
+  `chapter-6-the-central-limit-theorem/6.1_...`, and aid 23444270 points at
+  `.../chapter-8-confidence-intervals/8.1_...` while the book has `chapter-7-confidence-intervals`.
+  Both 404. Every assessment from MOM ch7 up is affected, and the correction is the same -1 shift
+  as the chapter renumber, so do the links in the same pass as the renames.
+- **The stored `intro` on these assessments hardcodes dates** ("Opens 01/04/2027 at 10:11 am and
+  is due 01/06/2027..."), which contradicts the standing rule that a master-course intro must not
+  name dates -- the master is undated and exists to be copied. Pre-existing on at least 23444263
+  and 23444270. Regenerate the intro whenever touching these assessments.
+- **A relative `fetch('/course/...')` silently queries whatever origin the tab is on.** After a
+  pass that verifies Book links by navigating to oerbookshelf.app, the browser is left there, and
+  the next audit's `fetch('/course/chgassessments2.php?cid=...')` hits **oerbookshelf.app** instead
+  of MyOpenMath. It does not throw: it returns a page that parses to zero rows, so the audit
+  reports "0 assessments" or "not found in any course" -- a clean, confident, entirely false
+  negative. Measured 2026-08-16: an orphan-assessment check reported `found:false` for all four
+  courses, when the item was present in all four. The documented rule ("navigating inside a loop
+  leaves the browser somewhere else") is the same trap, one step removed. Fix: open every sweep
+  with an origin assert --
+  `if (!/myopenmath\.com/.test(location.host)) return {abort:'wrong origin', host:location.host};`
+  -- and treat a total of 0 as a bug in the sweep, not a finding about the course.
