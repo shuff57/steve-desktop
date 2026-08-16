@@ -1287,5 +1287,299 @@
     "cid": "334437",
     "filed": "2026-08-10",
     "qtype": "multipart"
+  },
+  "questions/probability/q22-expected-value-of-discrete-rv.php": {
+    "qsetid": "1877030",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q3-ev-fill-missing-prob.php": {
+    "qsetid": "1877031",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q4-ev-discrete-rv.php": {
+    "qsetid": "1877032",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q5-ev-game-of-chance-2.php": {
+    "qsetid": "1877033",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q2-ev-insurance.php": {
+    "qsetid": "1877034",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q1-define-random-variable.php": {
+    "qsetid": "1877035",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q2-legitimacy-check.php": {
+    "qsetid": "1877036",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q3-read-probabilities-from-table.php": {
+    "qsetid": "1877037",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q4-build-pdf-from-description.php": {
+    "qsetid": "1877038",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q5-read-less-than-probabilities.php": {
+    "qsetid": "1877039",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/pre-frq-grade-an-ev-decision.php": {
+    "qsetid": "1877040",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q6-sd-of-distribution.php": {
+    "qsetid": "1877063",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q7-law-of-large-numbers.php": {
+    "qsetid": "1877064",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q8-find-the-mistake-in-table.php": {
+    "qsetid": "1877065",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q9-sd-compare-two-distributions.php": {
+    "qsetid": "1877066",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/q10-complete-the-ev-table.php": {
+    "qsetid": "1877067",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/pre-frq-grade-a-long-run-interpretation.php": {
+    "qsetid": "1877068",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q1-binomial-conditions.php": {
+    "qsetid": "1877073",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q2-binomial-notation.php": {
+    "qsetid": "1877074",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q3-binomial-exact-prob.php": {
+    "qsetid": "1877075",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q4-binomial-at-most.php": {
+    "qsetid": "1877076",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q5-binomial-at-least.php": {
+    "qsetid": "1877077",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q6-binomial-mean-sd.php": {
+    "qsetid": "1877078",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q7-binomial-translate.php": {
+    "qsetid": "1877080",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q8-not-binomial.php": {
+    "qsetid": "1877081",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q9-binomial-compare-outcomes.php": {
+    "qsetid": "1877082",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q10-binomial-greater-than.php": {
+    "qsetid": "1877083",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q11-binomial-or-not.php": {
+    "qsetid": "1877084",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/pre-frq-grade-a-binomial-setup.php": {
+    "qsetid": "1877085",
+    "cid": "334437",
+    "filed": "2026-08-14",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q12-theoretical-probability.php": {
+    "qsetid": "1878114",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q13-with-vs-without-replacement.php": {
+    "qsetid": "1878116",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q14-empirical-rf.php": {
+    "qsetid": "1878117",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q15-empirical-mean.php": {
+    "qsetid": "1878118",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q16-empirical-sd.php": {
+    "qsetid": "1878119",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q17-theoretical-pdf.php": {
+    "qsetid": "1878120",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q18-theoretical-mean-sd.php": {
+    "qsetid": "1878121",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q19-theoretical-probs.php": {
+    "qsetid": "1878122",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/q20-expected-count.php": {
+    "qsetid": "1878123",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/pre-frq-grade-a-lab-comparison.php": {
+    "qsetid": "1878125",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q1-pdf-legitimate.php": {
+    "qsetid": "1878126",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q2-probability-is-area.php": {
+    "qsetid": "1878127",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q3-single-value-zero.php": {
+    "qsetid": "1878128",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q4-complement-tail.php": {
+    "qsetid": "1878129",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q5-cdf-left-area.php": {
+    "qsetid": "1878131",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q6-uniform-mean-sd.php": {
+    "qsetid": "1878132",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q7-uniform-quartiles.php": {
+    "qsetid": "1878133",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q8-sanity-checks.php": {
+    "qsetid": "1878134",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/q9-height-vs-probability.php": {
+    "qsetid": "1878135",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
+  },
+  "questions/probability/uniform/pre-frq-grade-a-uniform-reasoning.php": {
+    "qsetid": "1878136",
+    "cid": "334437",
+    "filed": "2026-08-15",
+    "qtype": "multipart"
   }
 }

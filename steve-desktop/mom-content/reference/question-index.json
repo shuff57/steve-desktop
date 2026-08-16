@@ -343,7 +343,7 @@
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874074",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
@@ -363,7 +363,7 @@
    "2-4-box-plots"
   ],
   "qsetid": "1874151",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/build-the-grouped-frequency-table.php",
@@ -373,7 +373,7 @@
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874136",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/choose-the-correct-line-graph.php",
@@ -538,7 +538,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874304",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/design-experiment-full-anatomy.php",
@@ -579,7 +579,7 @@
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874075",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/empirical-rule-counts-in-context.php",
@@ -589,7 +589,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874317",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/experimental-design-key-terms-matching.php",
@@ -619,7 +619,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874287",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/find-the-wrong-percentage-in-a-table.php",
@@ -702,7 +702,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874301",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/identify-population-from-study-description.php",
@@ -772,7 +772,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874310",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/interval-scale-ratio-with-mean-composite.php",
@@ -842,7 +842,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874285",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/mean-median-mode-from-a-frequency-table.php",
@@ -862,7 +862,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874290",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/median-age-comparison-reasoning.php",
@@ -893,7 +893,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874302",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/misleading-axis-scale-comparison.php",
@@ -913,7 +913,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874286",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/name-the-skew-from-a-box-plot.php",
@@ -923,7 +923,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874300",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/order-mean-median-mode-on-a-skewed-picture.php",
@@ -933,7 +933,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874298",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/outlier-check-from-a-box-plot.php",
@@ -953,7 +953,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874291",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/outlier-effect-on-range-iqr-and-standard-deviation.php",
@@ -963,7 +963,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874313",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/percent-more-than-cutoff-via-complement.php",
@@ -1064,7 +1064,7 @@
    "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874245",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php",
@@ -1074,7 +1074,7 @@
    "1-3-frequency-frequency-tables-and-levels-of-measurement"
   ],
   "qsetid": "1874243",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-grade-a-percentile-reading.php",
@@ -1094,7 +1094,7 @@
    "1-2-data-sampling-and-variation-in-data-and-sampling"
   ],
   "qsetid": "1874125",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-grade-a-study-critique.php",
@@ -1104,7 +1104,7 @@
    "1-4-experimental-design-and-ethics"
   ],
   "qsetid": "1874244",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-grade-a-variable-classification.php",
@@ -1114,7 +1114,7 @@
    "1-1-definitions-of-statistics-probability-and-key-terms"
   ],
   "qsetid": "1874242",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-grade-an-outlier-check.php",
@@ -1124,7 +1124,7 @@
    "2-4-box-plots"
   ],
   "qsetid": "1874246",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/pre-frq-judge-a-distribution-comparison.php",
@@ -1134,7 +1134,7 @@
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874076",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php",
@@ -1585,7 +1585,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874309",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/sample-mean-versus-population-mean.php",
@@ -1595,7 +1595,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874292",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/sample-size-adequate-narrow-population.php",
@@ -1625,7 +1625,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874312",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/sampling-frame-bias-critique.php",
@@ -1645,7 +1645,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874299",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/skew-is-named-for-the-tail-not-the-bulk.php",
@@ -1655,7 +1655,7 @@
    "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874297",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php",
@@ -1685,7 +1685,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874311",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/standard-deviation-step-by-step.php",
@@ -1765,7 +1765,7 @@
    "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874314",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/volunteer-sample-self-selection.php",
@@ -1785,7 +1785,7 @@
    "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874289",
-  "health": "ok"
+  "health": "unchecked"
  },
  {
   "path": "questions/descriptive-stats/what-a-box-plot-does-not-show.php",
@@ -3091,28 +3091,243 @@
   "health": "ok"
  },
  {
+  "path": "questions/normal-distribution/pre-frq-grade-a-normal-model-comparison.php",
+  "desc": "Pre-FRQ Grade a Normal Model Comparison - a theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/pre-frq-grade-a-percentile-interpretation.php",
+  "desc": "Pre-FRQ Grade a Percentile Interpretation - the scenario and grading checklist of the percentile FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/pre-frq-grade-a-z-score-interpretation.php",
+  "desc": "Pre-FRQ Grade a z-Score Interpretation - the scenario and grading checklist of the z-score FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/normal-distribution/q1-z-score-compute.php",
   "desc": "Compute a z-Score and Compare Two Values - Compute z = (x - mu) / sigma for a given observation, then compare two z-scores to decide which is more unusual",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "5-1-the-standard-normal-distribution"
   ],
   "qsetid": "1874315",
   "health": "ok"
  },
  {
+  "path": "questions/normal-distribution/q10-empirical-rule-bands.php",
+  "desc": "The Empirical Rule Bands - the 68%, 95%, and 99.7% intervals of N(mu, sigma)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q11-empirical-rule-percentages.php",
+  "desc": "Empirical Rule Percentages - 34%, 13.5%, and 4.7% between the bands",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q12-compare-two-distributions.php",
+  "desc": "Compare Two Distributions by z-Score - equal z-scores from differently scaled normals",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q13-complement-tail.php",
+  "desc": "The Complement Tail - P(X > x) = 1 - P(X < x)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q14-at-least-percentile.php",
+  "desc": "The At-Least Percentile - invNorm needs the complement of a right-hand area",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q15-quartiles-and-iqr.php",
+  "desc": "Quartiles and the IQR of a Normal Distribution - Q1, Q3, and Q3 - Q1",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q16-middle-percent.php",
+  "desc": "The Middle Percent - the two endpoints that enclose the middle c%",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q17-interpret-the-percentile.php",
+  "desc": "Interpret the Percentile - the value, the interpretation sentence, and the complement",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q18-percentile-vs-probability.php",
+  "desc": "Percentile or Probability - which question is normalcdf and which is invNorm",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/normal-distribution/q2-normal-probability.php",
   "desc": "Normal Distribution Probabilities - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/normal-distribution/q21-empirical-vs-theoretical.php",
+  "desc": "Empirical vs Theoretical - the counted probability against the model's probability",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q22-pilot-mean-sd.php",
+  "desc": "The Pilot Mean and Standard Deviation - x-bar and s of the 12-value pilot",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q23-pilot-median-quartiles.php",
+  "desc": "The Pilot Median and Quartiles - locations in the sorted 12-value dataset",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q24-pilot-percentiles.php",
+  "desc": "The Pilot Percentiles - P15 and P85 by the index rule",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q25-pilot-iqr.php",
+  "desc": "The Pilot IQR - Q3 - Q1 of the 12-value pilot",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q26-theoretical-median-quartiles.php",
+  "desc": "The Theoretical Median and Quartiles - the model N(129.42, 2.52)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q27-theoretical-percentiles.php",
+  "desc": "The Theoretical Percentiles - P15 and P85 from the model N(129.42, 2.52)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q28-theoretical-iqr.php",
+  "desc": "The Theoretical IQR - 1.349 sigma from the model N(129.42, 2.52)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q29-compare-empirical-theoretical.php",
+  "desc": "Compare the Empirical and Theoretical - the gaps between the pilot and the model",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-normal-distribution-lap-times"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/normal-distribution/q3-inverse-normal-percentile.php",
   "desc": "Inverse Normal - Find the cutoff value x for a given percentile of N(mu, sigma), and find both endpoints of a centered middle-p% interval",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3121,7 +3336,8 @@
   "desc": "Empirical Rule (68-95-99.7) - Apply the empirical rule to estimate percentages within k SDs of the mean and a tail percentage on one side",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "5-1-the-standard-normal-distribution"
   ],
   "qsetid": "1874316",
   "health": "ok"
@@ -3130,9 +3346,51 @@
   "path": "questions/normal-distribution/q5-normal-probability-context.php",
   "desc": "Normal Distribution Probabilities (Context) - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "5-2-using-the-normal-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/normal-distribution/q6-read-notation.php",
+  "desc": "Read the Notation - mu, sigma, and the median of X ~ N(mu, sigma)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q7-z-score-from-x.php",
+  "desc": "Compute a z-Score from a Value - z = (x - mu) / sigma and its sign-and-size reading",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q8-x-from-z-score.php",
+  "desc": "Recover a Value from a z-Score - x = mu + z*sigma and its sign-and-size reading",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/normal-distribution/q9-read-sign-and-size.php",
+  "desc": "Read the Sign and Size of a z-Score - how far, which direction, and the mean",
+  "qtype": "multipart",
+  "used_by": [
+   "5-1-the-standard-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/addition-rule-union-probability.php",
@@ -3161,6 +3419,226 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/binomial/pre-frq-grade-a-binomial-setup.php",
+  "desc": "Pre-FRQ Grade a Binomial Setup - A binomial scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877085",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/pre-frq-grade-a-lab-comparison.php",
+  "desc": "Pre-FRQ Grade a Lab Comparison - A theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q1-binomial-conditions.php",
+  "desc": "Binomial Conditions - Test a described experiment against the three conditions",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877073",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q10-binomial-greater-than.php",
+  "desc": "Binomial Greater Than - P(X > k) as the complement of P(X <= k)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877083",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q11-binomial-or-not.php",
+  "desc": "Binomial or Not - Classify each described experiment",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877084",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q12-theoretical-probability.php",
+  "desc": "The Theoretical Probability - P(diamond) = 13/52 and X ~ B(10, 0.25)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q13-with-vs-without-replacement.php",
+  "desc": "With Replacement or Without - The two-draw probability both ways",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q14-empirical-rf.php",
+  "desc": "Empirical Relative Frequencies - RF(x = 2) and RF(x = 3) from the class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q15-empirical-mean.php",
+  "desc": "The Empirical Mean - x-bar of the 30-group class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q16-empirical-sd.php",
+  "desc": "The Empirical Standard Deviation - s of the 30-group class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q17-theoretical-pdf.php",
+  "desc": "The Theoretical PDF - P(X = 2) and P(X = 0) from the binomial formula",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q18-theoretical-mean-sd.php",
+  "desc": "The Theoretical Mean and SD - mu = np and sigma = sqrt(npq)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q19-theoretical-probs.php",
+  "desc": "Theoretical Probabilities - P(1 < x < 4) and P(x >= 8)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q2-binomial-notation.php",
+  "desc": "Binomial Notation - Read n, p and q from a scenario and write X ~ B(n, p)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877074",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q20-expected-count.php",
+  "desc": "The Expected Count - 30 times P(X = 2) against the observed 9",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q3-binomial-exact-prob.php",
+  "desc": "Binomial Exact Probability - P(X = k) by the formula",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877075",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q4-binomial-at-most.php",
+  "desc": "Binomial At Most - P(X <= k) as a running total",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877076",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q5-binomial-at-least.php",
+  "desc": "Binomial At Least - P(X >= k) via the complement",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877077",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q6-binomial-mean-sd.php",
+  "desc": "Binomial Mean and Standard Deviation - mu = np and sigma = sqrt(npq)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877078",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q7-binomial-translate.php",
+  "desc": "Translate Binomial Phrases - Which inequality does the English ask for",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877080",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q8-not-binomial.php",
+  "desc": "When an Experiment Is Not Binomial - Without replacement breaks independence",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877081",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q9-binomial-compare-outcomes.php",
+  "desc": "Which Outcome Is More Likely - The value nearer the mean wins",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877082",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/conditional-probability.php",
   "desc": "",
   "qtype": "?",
@@ -3177,6 +3655,36 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/expected-value/pre-frq-grade-a-long-run-interpretation.php",
+  "desc": "Pre-FRQ Grade a Long-Run Interpretation - The expected-value FRQ's scenario and checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877068",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/pre-frq-grade-an-ev-decision.php",
+  "desc": "Pre-FRQ Grade an EV Decision - The scenario and grading checklist of the expected-value FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877040",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q1-define-random-variable.php",
+  "desc": "Define the Random Variable - Name X and list the values it can take in a described situation",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877035",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/expected-value/q1-ev-game-of-chance.php",
   "desc": "Expected Value of a Game of Chance - Compute E(X) for the profit, predict 100-play total, decide if fair",
   "qtype": "multipart",
@@ -3185,36 +3693,137 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/expected-value/q10-complete-the-ev-table.php",
+  "desc": "Complete the Expected Value Table - Fill the x*P(x) column and read off mu",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877067",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/expected-value/q2-ev-insurance.php",
   "desc": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "4-1-discrete-random-variables",
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877034",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q2-legitimacy-check.php",
+  "desc": "Legitimate Distribution Check - Apply the two characteristics to a candidate table",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877036",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php",
   "desc": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "4-1-discrete-random-variables",
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877031",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q3-read-probabilities-from-table.php",
+  "desc": "Read Probabilities off a Distribution Table - P(x = k), P(x > k) and P(x >= k) as row sums",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877037",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q4-build-pdf-from-description.php",
+  "desc": "Build a PDF Table from a Description - recover the buried probability, then compute E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877038",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/expected-value/q4-ev-discrete-rv.php",
   "desc": "Expected Value - Verify valid probability distribution, compute E(X)",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877032",
   "health": "ok"
  },
  {
   "path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php",
   "desc": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "4-1-discrete-random-variables",
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877033",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q5-read-less-than-probabilities.php",
+  "desc": "Read Less-Than Probabilities off a Distribution Table - P(x < k) and P(x <= k) as row sums",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877039",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q6-sd-of-distribution.php",
+  "desc": "Standard Deviation of a Distribution - Compute mu, Var(X) and sigma from the deviation column",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877063",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q7-law-of-large-numbers.php",
+  "desc": "Law of Large Numbers - The long-run relative frequency approaches the theoretical probability",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877064",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q8-find-the-mistake-in-table.php",
+  "desc": "Find the Mistake in an EV Table - One wrong cell in the P(x) or x*P(x) column",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877065",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q9-sd-compare-two-distributions.php",
+  "desc": "Same Mean, Different Spread - Two distributions with equal mu but different sigma",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877066",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/identify-conditional-probability-from-wording.php",
@@ -3490,10 +4099,12 @@
   "desc": "Expected Value - Confirm probabilities sum to 1, compute E(X) and E(X^2) for a discrete random variable",
   "qtype": "multipart",
   "used_by": [
+   "4-1-discrete-random-variables",
+   "4-2-mean-expected-value-standard-deviation",
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
-  "qsetid": null,
+  "qsetid": "1877030",
   "health": "ok"
  },
  {
@@ -3816,6 +4427,206 @@
   ],
   "qsetid": "1874178",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/uniform/pre-frq-grade-a-uniform-lab-comparison.php",
+  "desc": "Pre-FRQ Grade a Uniform Lab Comparison - A theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/pre-frq-grade-a-uniform-reasoning.php",
+  "desc": "Pre-FRQ Grade a Uniform Reasoning - a flat-density scenario with its grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q1-pdf-legitimate.php",
+  "desc": "Is f(x) a Legitimate Density - The two properties of a probability density function",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q10-uniform-theoretical.php",
+  "desc": "The Theoretical Mean and SD of U(0,1) - mu = 0.5 and sigma = sqrt(1/12)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q11-uniform-quartiles-theoretical.php",
+  "desc": "The Theoretical Quartiles of U(0,1) - Q1 = 0.25, median = 0.5, Q3 = 0.75",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q12-pilot-median-quartiles.php",
+  "desc": "The Pilot Median and Quartiles - Locations in the sorted 12-value dataset",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q13-pilot-mean.php",
+  "desc": "The Pilot Mean - x-bar of the 12-value dataset",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q14-pilot-sd.php",
+  "desc": "The Pilot Standard Deviation - s of the 12-value dataset",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q15-bar-widths.php",
+  "desc": "Bar Widths and Expected Counts - 8 bars over [0,1] for 50 values",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q16-fences.php",
+  "desc": "The Outlier Fences - Q1 - 1.5(IQR) and Q3 + 1.5(IQR) for U(0,1)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q17-compare-pilot.php",
+  "desc": "Compare the Pilot to the Theory - The IQR and the two quartile gaps",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q18-500-vs-50.php",
+  "desc": "500 Values Instead of 50 - Which column changes and the new expected count",
+  "qtype": "multipart",
+  "used_by": [
+   "4-6-continuous-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q2-probability-is-area.php",
+  "desc": "Probability Is Area - P(c < x < d) as base times height under a flat density",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q3-single-value-zero.php",
+  "desc": "P(x = c) Is Zero - A single point has no width, so no area",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q4-complement-tail.php",
+  "desc": "The Complement Rule - P(X > x) = 1 - P(X < x)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q5-cdf-left-area.php",
+  "desc": "The Cumulative Distribution Function - P(X <= x) = (x - a) / (b - a)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q6-uniform-mean-sd.php",
+  "desc": "Uniform Mean and Standard Deviation - mu = (a+b)/2 and sigma = sqrt((b-a)^2/12)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q7-uniform-quartiles.php",
+  "desc": "Uniform Quartiles and Median - The percentiles of X ~ U(a, b)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q8-sanity-checks.php",
+  "desc": "The Two Sanity Checks - catch a probability bigger than 1 or negative",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/uniform/q9-height-vs-probability.php",
+  "desc": "Height Is a Density, Not a Probability - multiply by the width",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/quadratic-poly-rational/q1-quadratic-vertex-and-x-intercepts.php",
@@ -4482,6 +5293,46 @@
   "health": "ok"
  },
  {
+  "path": "questions/sampling-distributions/pre-frq-grade-a-clt-lab-comparison.php",
+  "desc": "Pre-FRQ Grade a CLT Lab Comparison - a pocket-change sampling scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/pre-frq-grade-a-clt-reasoning.php",
+  "desc": "Pre-FRQ Grade a CLT Reasoning - the scenario and grading checklist of the sampling-distribution FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/pre-frq-grade-a-continuity-correction.php",
+  "desc": "Pre-FRQ Grade a Continuity Correction - a binomial-approximation scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/pre-frq-grade-a-sum-interpretation.php",
+  "desc": "Pre-FRQ Grade a Sum Interpretation - a sums scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/sampling-distributions/q1-p-hat-conditions.php",
   "desc": "Sampling distribution of p-hat - check the np>=10 and n(1-p)>=10 conditions and decide whether the sampling distribution is approximately normal",
   "qtype": "multipart",
@@ -4490,12 +5341,215 @@
   "health": "ok"
  },
  {
+  "path": "questions/sampling-distributions/q10-x-bar-percentile.php",
+  "desc": "Percentile of the Sampling Distribution - k for a sample mean, and its average-focused interpretation",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q11-se-half-and-quarter.php",
+  "desc": "The Standard Error for n and 4n - what quadrupling the sample size does",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q12-which-distribution.php",
+  "desc": "Mean, Sum, or Individual - which distribution each kind of question uses",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q13-sum-notation.php",
+  "desc": "Sum Notation - the mean and standard deviation of Sigma X",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q14-sum-parameters.php",
+  "desc": "The Parameters of the Sum - mu_SigmaX = n*mu and sigma_SigmaX = sqrt(n)*sigma",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q15-sum-z-score.php",
+  "desc": "The z-Score of a Sum - z = (Sigma x - n*mu)/(sqrt(n)*sigma) and its sign-and-size reading",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q16-sum-probability-greater.php",
+  "desc": "Probability That a Sum Is Greater Than a Value - P(Sigma x > c)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q17-sum-probability-less.php",
+  "desc": "Probability That a Sum Is Less Than a Value - P(Sigma x < c)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q18-sum-probability-between.php",
+  "desc": "Probability That a Sum Falls Between Two Values - P(lo < Sigma x < hi)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q19-sum-percentile.php",
+  "desc": "Percentile of the Sum - k for a sum, and its interpretation",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/sampling-distributions/q2-x-bar-conditions.php",
   "desc": "Sampling distribution of x-bar - check normality of population OR n>=30 and decide whether the sampling distribution is approximately normal",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means",
+   "6-3-using-the-central-limit-theorem"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/sampling-distributions/q20-sum-z-score-to-value.php",
+  "desc": "Recover a Sum from a z-Score - s = n*mu + z*sqrt(n)*sigma and its sign-and-size reading",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q21-sum-unit-conversion.php",
+  "desc": "Unit Conversion for a Sum - minutes versus hours, and why it matters",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-the-central-limit-theorem-for-sums"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q22-mean-sum-or-individual.php",
+  "desc": "Mean, Sum, or Individual - which distribution each kind of question uses",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q23-law-of-large-numbers.php",
+  "desc": "The Law of Large Numbers - bigger samples, tighter sample means",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q24-normal-approx-conditions.php",
+  "desc": "Normal Approximation Conditions - np and nq, and whether the approximation is allowed",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q25-binomial-at-least.php",
+  "desc": "Binomial At Least with the Continuity Correction - P(X >= a) via the corrected boundary",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q26-binomial-at-most.php",
+  "desc": "Binomial At Most with the Continuity Correction - P(X <= a) via the corrected boundary",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q27-binomial-between-and-exact.php",
+  "desc": "Binomial Between and Exact with the Continuity Correction - strict strips and the half-unit",
+  "qtype": "multipart",
+  "used_by": [
+   "6-3-using-the-central-limit-theorem"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q28-headcount.php",
+  "desc": "The Lab Headcount - 30 singles + 30 pairs + 30 groups of five = 240",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q29-population-mean-sd.php",
+  "desc": "The Population Mean and SD - x-bar and s of the 30 pocket-change amounts",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/sampling-distributions/q3-p-hat-probability.php",
@@ -4506,10 +5560,83 @@
   "health": "ok"
  },
  {
+  "path": "questions/sampling-distributions/q30-population-median-shape.php",
+  "desc": "The Population Median and Shape - 0.585, mean above median, right-skewed",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q31-pair-averages.php",
+  "desc": "The Pair Averages - (0.13 + 1.52)/2 = 0.825 and (0.45 + 0.72)/2 = 0.585",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q32-predicted-pair-se.php",
+  "desc": "The Predicted Pair Standard Deviation - sigma/sqrt(2) ~ 0.3622",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q33-group-five-average.php",
+  "desc": "The Group-of-Five Average - (0.05 + 0.28 + 0.63 + 1.06 + 2.10)/5 = 0.824",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q34-standard-error-five.php",
+  "desc": "The Standard Error for n = 5 - sigma/sqrt(5) ~ 0.2291",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q35-z-scores-compared.php",
+  "desc": "The Two z-Scores Compared - the $2.10 individual vs the $0.824 average",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q36-x-bar-model.php",
+  "desc": "The Model for the Averages - N(0.70, 0.23) and the population's shape",
+  "qtype": "multipart",
+  "used_by": [
+   "6-4-central-limit-theorem-pocket-change"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/sampling-distributions/q4-x-bar-probability.php",
   "desc": "Sampling distribution of x-bar - compute the mean, standard error, and a less-than or greater-than probability for a sample mean",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means",
+   "6-3-using-the-central-limit-theorem"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4517,7 +5644,10 @@
   "path": "questions/sampling-distributions/q5-clt-single-vs-sample.php",
   "desc": "CLT - compare the probability of a single observation X to the probability of a sample mean x-bar at the same cutoff, then choose the correct explanation",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means",
+   "6-3-using-the-central-limit-theorem"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4528,6 +5658,36 @@
   "used_by": [],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/sampling-distributions/q7-x-bar-notation.php",
+  "desc": "Sampling Distribution Notation - mu, the standard error, and what the SE measures for bar(x)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q8-standard-error.php",
+  "desc": "The Standard Error - SE, the z-score of a sample mean, and what quadrupling n does",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/sampling-distributions/q9-x-bar-probability-between.php",
+  "desc": "Probability That a Sample Mean Falls Between Two Values - P(lo < bar(x) < hi)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-the-central-limit-theorem-for-sample-means"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/sets/q1-set-notation-months.php",
@@ -4817,6 +5977,46 @@
   "health": "ok"
  },
  {
+  "path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-ci-interpretation.php",
+  "desc": "Pre-FRQ Grade a CI Interpretation - the scenario and grading checklist of the single-mean CI FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-home-costs-interval.php",
+  "desc": "Pre-FRQ Grade a Home Costs Interval - a home-sale-price scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-proportion-interval.php",
+  "desc": "Pre-FRQ Grade a Proportion Interval - the scenario and grading checklist of the single-proportion FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-t-interval.php",
+  "desc": "Pre-FRQ Grade a t-Interval - the scenario and grading checklist of the single-mean CI FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php",
   "desc": "Confidence interval interpretation (p)",
   "qtype": "multans",
@@ -4825,26 +6025,303 @@
   "health": "ok"
  },
  {
+  "path": "questions/stats-tests/confidence-intervals/q10-interpret-the-interval.php",
+  "desc": "Interpret the Confidence Interval - the sentence, what the level promises, and the wrong reading",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q11-width-dials.php",
+  "desc": "The Two Width Dials - confidence level and sample size, and the EBM at 4n",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q12-backwards-from-interval.php",
+  "desc": "Working Backwards from an Interval - the error bound and the sample mean",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q13-sample-size-mean.php",
+  "desc": "The Sample Size for a Mean - n = z^2 sigma^2 / EBM^2, rounded up",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q14-degrees-of-freedom.php",
+  "desc": "Degrees of Freedom - df = n - 1 and why",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q15-t-vs-z.php",
+  "desc": "The t vs z Critical Values - why the t-value is larger",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q16-t-critical-value.php",
+  "desc": "The t Critical Value - t_(alpha/2) for a stated confidence level, and the area to feed invT",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q17-t-interval-mean.php",
+  "desc": "The t-Interval for a Mean - SE, EBM, and the upper endpoint when sigma is unknown",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q18-t-interval-interpret.php",
+  "desc": "Interpret the t-Interval - the sentence, the level's meaning, and the wrong reading",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q19-raw-data-to-interval.php",
+  "desc": "Raw Data to a t-Interval - bar(x), s, and the upper endpoint from a list",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
   "path": "questions/stats-tests/confidence-intervals/q2-ci-one-proportion.php",
   "desc": "Construct a confidence interval for one proportion with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q20-t-width-dials.php",
+  "desc": "The t-Interval Width Dials - confidence level, sample size, and the EBM at 4n",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q21-sample-proportion.php",
+  "desc": "The Sample Proportion - p', q', and the number of failures",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q22-proportion-conditions.php",
+  "desc": "The Proportion Conditions - np' and nq', and whether the normal approximation is allowed",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q23-ebp-and-interval.php",
+  "desc": "The Error Bound and the Interval for a Proportion - EBP, lower and upper endpoints",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q24-interpret-the-proportion-interval.php",
+  "desc": "Interpret the Proportion Interval - the sentence, the level's meaning, and the wrong reading",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q25-plus-four.php",
+  "desc": "The Plus Four Method - the adjusted proportion, the adjusted EBP, and why it works",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q26-sample-size-proportion.php",
+  "desc": "The Sample Size for a Proportion - n = z^2(0.25)/EBP^2, rounded up",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q27-proportion-vs-mean.php",
+  "desc": "Proportion or Mean - which signal says which, and the sample proportion",
+  "qtype": "multipart",
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q28-name-the-four-pieces.php",
+  "desc": "Name the Four Pieces - population, sample, parameter, and statistic",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q29-home-summary-stats.php",
+  "desc": "The Home Summary Statistics - x-bar, s, and n of the 35 prices",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php",
   "desc": "Widest/Narrowest Confidence Interval / Given confidence and sample size - PG",
   "qtype": "choices",
-  "used_by": [],
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q30-home-standard-error.php",
+  "desc": "The Home Standard Error - s/sqrt(n) ~ 19101",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q31-home-90-interval.php",
+  "desc": "The Home 90% Interval - EBM, lower and upper endpoints",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q32-home-alpha-tails.php",
+  "desc": "The Home Alpha and Tails - alpha = 0.10 and alpha/2 = 0.05",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q33-count-inside-interval.php",
+  "desc": "Count Inside the Interval - 9 of 35 prices, about 25.7%",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q34-interpret-the-home-interval.php",
+  "desc": "Interpret the Home Interval - the specific sentence, the general sentence, and the bad reading",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q35-four-confidence-levels.php",
+  "desc": "The Four Confidence Levels - the EBM at 50%, 80%, 95%, and 99%",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q36-ebm-trend.php",
+  "desc": "The EBM Trend - what happens to the error bound and the width as the confidence level rises",
+  "qtype": "multipart",
+  "used_by": [
+   "7-4-confidence-interval-home-costs"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php",
   "desc": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution",
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4852,7 +6329,9 @@
   "path": "questions/stats-tests/confidence-intervals/q5-ci-proportion-compute-interpret.php",
   "desc": "CI for one proportion — compute lower and upper bounds, then select correct interpretation",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "7-3-a-population-proportion"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4860,15 +6339,109 @@
   "path": "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php",
   "desc": "CI for One Mean (t) with Story Context - Compute a t-interval from a story scenario, then interpret the interval and the meaning of confidence",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "7-2-a-single-population-mean-using-the-student-t-distribution"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q7-z-critical-value.php",
+  "desc": "The z Critical Value - z_(alpha/2) for a stated confidence level, and the area to feed invNorm",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q8-z-interval-mean.php",
+  "desc": "The z-Interval for a Mean - SE, EBM, and the upper endpoint when sigma is known",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/confidence-intervals/q9-ebm-and-interval.php",
+  "desc": "The Error Bound and the Interval - EBM, lower and upper endpoints for a z-interval",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-a-single-population-mean-using-the-normal-distribution"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-distribution-selection.php",
+  "desc": "Pre-FRQ Grade a Distribution Selection - the scenario and grading checklist of the (authored-first) distribution-selection FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-full-ht-workflow.php",
+  "desc": "Pre-FRQ Grade a Full HT Workflow - the scenario and grading checklist of the full-HT-workflow FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-lab-hypothesis-test.php",
+  "desc": "Pre-FRQ Grade a Lab Hypothesis Test - the scenario and grading checklist of the (authored-first) lab hypothesis-test FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-pvalue-interpretation.php",
+  "desc": "Pre-FRQ Grade a P-Value Interpretation - the scenario and grading checklist of the single-mean interpreting-p-value FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-single-mean-hypotheses.php",
+  "desc": "Pre-FRQ Grade a Single-Mean Hypotheses - the scenario and grading checklist of the single-mean concept-and-hypotheses FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-type-i-ii-errors.php",
+  "desc": "Pre-FRQ Grade a Type I/II Errors - the scenario and grading checklist of the (authored-first) Type I/II errors FRQ, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php",
   "desc": "Write the conclusion of a hypothesis test in context - pick the correct phrasing that links the statistical decision back to the original claim",
   "qtype": "choices",
-  "used_by": [],
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4876,7 +6449,9 @@
   "path": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php",
   "desc": "Type I and Type II errors in context - given a scenario with a null hypothesis, identify which outcome corresponds to a Type I error and which corresponds to a Type II error",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4908,7 +6483,9 @@
   "path": "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php",
   "desc": "State H0 and Ha and Pick Test Direction - From a fresh story context, identify the parameter, write H0 and Ha, and pick left/right/two-tailed",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4916,7 +6493,9 @@
   "path": "questions/stats-tests/hypothesis-testing/q16-full-ht-one-mean-fresh.php",
   "desc": "Full HT for One Mean (Fresh Context) - Compute t-statistic, df, p-value, decision at alpha for a one-mean test with a randomized story context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4924,39 +6503,579 @@
   "path": "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php",
   "desc": "Full HT for One Mean (Fresh Context 2) - Compute t-statistic, p-value, decision at alpha for a one-mean test with a randomized story context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q18-name-the-parameter.php",
+  "desc": "Name the Parameter - mu for a mean claim, p for a proportion claim, and the claimed value as a parameter statement",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q19-describe-the-random-variable.php",
+  "desc": "Describe the Random Variable - the sample mean or sample proportion in words, and whether the test is about an average or a share",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q20-hypothesis-symbol-pairs.php",
+  "desc": "Hypothesis Symbol Pairs - the H0 and Ha symbols from the claim's direction, and the tail the test runs on",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q21-claims-to-hypotheses.php",
+  "desc": "Claims to Hypotheses - the full H0 and Ha pair in symbols for a mean claim with a direction",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q22-proportion-claim-hypotheses.php",
+  "desc": "Proportion Claim Hypotheses - the full H0 and Ha pair in symbols for a proportion claim with a direction",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q23-the-two-decisions.php",
+  "desc": "The Two Decisions - what do not reject means, why a test never accepts H0, and what reject means",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q24-choose-the-correct-pair.php",
+  "desc": "Choose the Correct Pair - the right H0/Ha pair against distractors built from the classic errors",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q25-the-four-outcomes.php",
+  "desc": "The Four Outcomes - the 2x2 table of decisions crossed with the truth, and which two are the errors",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q26-type-i-error-in-context.php",
+  "desc": "Type I Error in Context - reject a true null, worded about the claim, and the decision it is tied to",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q27-type-ii-error-in-context.php",
+  "desc": "Type II Error in Context - fail to reject a false null, worded about the claim, and the decision it is tied to",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q28-alpha-beta-power.php",
+  "desc": "Alpha, Beta, and Power - what each probability measures, and what the power of the test is",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q29-which-error-costs-more.php",
+  "desc": "Which Error Costs More - the heavier consequence in a high-stakes scenario, and the reason",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q30-power-and-beta.php",
+  "desc": "Power and Beta - beta = 1 - power, and what the power value means in context",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q31-error-consequences.php",
+  "desc": "Error Consequences - both errors stated against a flipped null, where swapping H0 and Ha swaps the errors",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q32-which-distribution.php",
+  "desc": "Which Distribution - the curve the test runs on, and the deciding fact that chose it",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q33-sigma-known-vs-unknown.php",
+  "desc": "Sigma Known vs Unknown - which spread you were given, and the distribution that follows",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q34-test-conditions.php",
+  "desc": "Test Conditions - the requirement at risk in the scenario, whether it is met, and why the condition exists",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q35-np-nq-check.php",
+  "desc": "The np and nq Check - n*p0 and n*(1-p0) under the null, and whether the normal approximation is allowed",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q36-proportion-condition-failure.php",
+  "desc": "Proportion Condition Failure - why the normal approximation cannot be used, and what the correct approach is",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q37-binomial-vs-normal.php",
+  "desc": "Binomial vs Normal - what the raw count follows, and when it may be treated as normal",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q38-mean-or-proportion.php",
+  "desc": "Mean or Proportion - the parameter from the claim, and which row of Table 8.3.1 the test lives in",
+  "qtype": "multipart",
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q39-rare-event-reasoning.php",
+  "desc": "Rare Event Reasoning - the probability of the observed event, and what observing it gives you",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q40-what-a-p-value-measures.php",
+  "desc": "What a P-Value Measures - the correct meaning, what it is NOT, and the region it stands for",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q41-pvalue-decision-edge.php",
+  "desc": "P-Value Decision Edge - the rigid rule when the p-value is close to or equal to alpha",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q42-pvalue-from-z.php",
+  "desc": "P-Value from a Z - the one-tailed p-value from the test statistic, and whether it is doubled",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q43-pvalue-two-scenarios.php",
+  "desc": "Two P-Values, One Test - which p-value rejects and why, and what the distance from alpha means for confidence",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q44-tail-picture.php",
+  "desc": "The Tail Picture - which tail the p-value lives in, and the shape of the shaded region",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q45-conclusion-vs-claim.php",
+  "desc": "Conclusion vs Claim - the conclusion worded about the population, and what it is NOT entitled to say",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q46-read-the-significance-level.php",
+  "desc": "Read the Significance Level - alpha as a decimal, and what it commits you to before the data arrive",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q47-tail-from-alternative.php",
+  "desc": "Tail from the Alternative - the tail the test runs on, and why the symbol in Ha names the test",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q48-full-z-test-mean.php",
+  "desc": "Full Z-Test for a Mean - z, p-value, decision, and conclusion when sigma is known",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q49-full-proportion-test.php",
+  "desc": "Full Proportion Test - z, p-value, decision, and conclusion for a one-proportion test",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php",
   "desc": "P-Value is low/high, identify conclusion (Carey Smith)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q50-mean-or-proportion-procedure.php",
+  "desc": "Mean or Proportion Procedure - which procedure the scenario calls for, the deciding facts, and the first number",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q51-test-stat-to-decision.php",
+  "desc": "Test Statistic to Decision - t, p-value from tcdf, and the decision at alpha",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q52-type-errors-for-a-full-test.php",
+  "desc": "Type Errors for a Full Test - both errors stated in context from the stated hypotheses",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q53-lab-name-the-distribution.php",
+  "desc": "Lab: Name the Distribution - normal, normal-for-a-proportion, and Student t with df = 7 for the three surveys",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q54-tv-test-statistic.php",
+  "desc": "Lab: Television Survey Test Statistic - SE, z, and p-value for the sigma-known mean test",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q55-tv-decision-and-conclusion.php",
+  "desc": "Lab: Television Survey Decision and Conclusion - reject at 5%, worded about the class",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q56-language-condition-check.php",
+  "desc": "Lab: Language Survey Condition Check - np0 and nq0 under the null",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q57-language-test-statistic.php",
+  "desc": "Lab: Language Survey Test Statistic - p', SE, and z for the two-tailed proportion test",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q58-language-decision-and-conclusion.php",
+  "desc": "Lab: Language Survey Decision and Conclusion - do not reject at 5%, worded about the school",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q59-jeans-test-statistic.php",
+  "desc": "Lab: Jeans Survey Test Statistic - SE, t with df = 7, and p-value",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php",
   "desc": "Identify the null and alternative hypotheses (`p`) and determine which type of test to use (e.g., right-tailed). Not Random. Scaffolded (local for Steven Huff)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q60-jeans-wrong-curve.php",
+  "desc": "Lab: Jeans Survey Wrong Curve - the p-value the same statistic would get on the normal curve, and the wrong conclusion it would produce",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q61-lab-honesty-check.php",
+  "desc": "Lab: Honesty Check - the convenience-sample limit and the self-reported-data caveat",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q62-sort-the-numbers.php",
+  "desc": "Sort the Numbers - which listed values the test uses, and which is the distractor",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q63-parameter-for-each-statement.php",
+  "desc": "Parameter for Each Statement - mu or p for each of three statements about the same study",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-null-and-alternative-hypotheses"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q64-both-errors-template.php",
+  "desc": "Both Errors with the Template - Type I and Type II errors stated in context from a stated null",
+  "qtype": "multipart",
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q65-sort-the-test-values.php",
+  "desc": "Sort the Test Values - which listed numbers the test statistic uses, and which is the distractor",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q66-s-vs-sigma.php",
+  "desc": "s vs sigma - which spread the test statistic uses when sigma is known, and what s is for",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q67-sampling-distribution-under-h0.php",
+  "desc": "The Sampling Distribution under H0 - the standard error, and the normal curve centered at the null value",
+  "qtype": "multipart",
+  "used_by": [
+   "8-4-rare-events-the-sample-decision-and-conclusion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q68-draw-the-picture.php",
+  "desc": "Draw the Picture - where the curve is centered, and where the shaded region sits for a one-tailed test",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q69-two-tailed-picture.php",
+  "desc": "The Two-Tailed Picture - why the shading is split, and what the two regions together represent",
+  "qtype": "multipart",
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php",
   "desc": "Full hypothesis test for one population mean (p-value approach) with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-5-additional-information-and-full-hypothesis-test-examples"
+  ],
   "qsetid": null,
   "health": "ok"
+ },
+ {
+  "path": "questions/stats-tests/hypothesis-testing/q70-lab-state-the-hypotheses.php",
+  "desc": "Lab: State the Hypotheses - the H0/Ha pair for each of the three surveys",
+  "qtype": "multipart",
+  "used_by": [
+   "8-6-hypothesis-testing-of-a-single-mean-and-single-proportion"
+  ],
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/stats-tests/hypothesis-testing/q8-ht-one-proportion.php",
   "desc": "Full hypothesis test for one population proportion (p-value approach) with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-3-probability-distribution-needed-for-hypothesis-testing"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -4964,7 +7083,9 @@
   "path": "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php",
   "desc": "Reject vs Fail to Reject - nuanced contexts where the p-value is close to the significance level alpha; students must apply the rule rigidly and avoid the \"accept the null\" misconception",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+  ],
   "qsetid": null,
   "health": "ok"
  },
