@@ -86,7 +86,9 @@ PY
 
 Then branch on the returned `mode`:
 
-- **`video`** → `watch()` (call again if it returns `video` — clip longer than one 9-min window).
+- **`video`** → read `dur`/`cur` from `state()` first. If `dur - cur` fits one `watch()` window
+  (≲8 min), just `watch()` (call again if it still returns `video`). If it's longer, **don't**
+  loop `watch()` turn-by-turn — hand off to the background poller in *Long videos* below.
 - **`question` / `assessment` with no `feedback`** → READ `st["text"]` + `st["options"]`, decide
   the correct answer from the course content / knowledge, then `answer("<option text>")`
   (pass a **list** for CHOOSE-ALL). Then loop.
@@ -117,6 +119,75 @@ Repeat across ALL assignments until done:
 
 Keep going until `assignments()` yields no startable/incomplete course. That is "nothing left
 to watch or click."
+
+## Long videos: don't block the conversation
+
+`watch()` blocks for at most ~9 min per call (the harness's own Bash ceiling). Looping it
+turn-by-turn across a long clip burns one full agent turn per window — for anything past a
+couple of windows that can exhaust the context budget mid-video with nothing to show for it.
+**Don't just say you'll "set up a watcher" — actually dispatch one.** The failure this section
+exists to prevent is exactly that: announcing a handoff and then never issuing it.
+
+1. Read the clip length once, from the same `state()` call that got you into `video` mode:
+   `dur` and `cur` are already there (seconds). If `dur - cur` fits one `watch()` window, skip
+   the rest of this section and just `watch()` normally.
+
+2. Otherwise, dispatch a background poller and free the turn — run it with the environment's
+   own "notify me once, in the background" primitive (`run_in_background` on Bash paired with
+   an until-style exit condition, or the `Monitor` tool), not a job you fire and then forget to
+   check on:
+
+   ```bash
+   DEADLINE=$(( $(date +%s) + 7200 ))   # hard stop after 2h regardless — never spins forever
+   while [ "$(date +%s)" -lt "$DEADLINE" ]; do
+     OUT=$(browser-harness <<'PY'
+   exec(open(r"C:\Users\shuff\.claude\skills\steve\sc.py").read())
+   import json
+   st = state()
+   if st.get("mode") == "video" and not st.get("ended") and st.get("paused"):
+       play_video()          # re-assert play; NEVER seeks
+   print(json.dumps(st))
+   PY
+   )
+     echo "$OUT"
+     echo "$OUT" | grep -q '"mode": *"video"' && { sleep 150; continue; }
+     echo "STEVE_WATCH_DONE: $OUT"
+     exit 0
+   done
+   echo "STEVE_WATCH_TIMEOUT"; exit 1
+   ```
+
+   Every 2-3 minutes this checks that nothing is lingering unattended (re-asserting play if the
+   clip paused itself) and exits the instant `state().mode` leaves `"video"` — an in-video
+   question appeared, the section ended, or playback finished. That single exit is your one
+   notification; you don't poll it from the conversation side.
+
+   **Verified live (2026-08-11, `chico-keenan.safeschools.com`): `ended:true` is not always
+   enough.** Some vendors gate "section complete" behind their own periodic tracking heartbeat
+   (`/rpc/v2/json/training/tracking_update`, observed firing only every ~5-10 min of focused
+   playback) rather than the native `<video>` `ended` event — the parent DOM can sit at
+   `ended:true` indefinitely with no transition, because the site is waiting on something
+   `state()` doesn't see. `_focus()`/`Page.bringToFront` matters here too: without OS window
+   focus the whole session, no heartbeat fires at all. If `ended` has been `true` for **3+ poll
+   cycles** (~6-9 min) with no mode change, treat it as **stuck**, not "still going":
+   - Confirm focus is actually held (`document.hasFocus()`), not just requested once.
+   - Retry **at most once** — e.g. click the real Replay control, not another raw
+     `play_video()` call, and give it one full pass. Do not loop retries: three real-time
+     attempts (~20 min total) here produced zero completion signals, and by the third attempt a
+     same-origin `fetch()` against the site started returning `403` — plausibly the vendor's own
+     abuse detection reacting to repeated automated interaction. More retries risk the account,
+     not just wasted time.
+   - Still stuck after that one retry → stop and hand back to the human with what you observed
+     (last `state()`, tracking calls seen via `performance.getEntriesByType('resource')`, focus
+     state). This is a real "needs a person or a vendor ticket" case, not a persistence problem
+     you can poll your way out of.
+
+3. Each poll reuses the **same already-open browser-harness session** — that's the whole point
+   of pulling `state()`/`play_video()` instead of relaunching anything. Don't `new_tab()` on
+   wake; that opens a second tab into the same course and strands the one actually playing.
+   When the notification arrives, just re-read `state()` in a fresh heredoc against that same
+   session and resume the normal `step()`/`watch()`/`answer()` branching from wherever the
+   video actually left off.
 
 ## Helper API (`sc.py`)
 
@@ -149,3 +220,14 @@ to watch or click."
 - **Background-tab throttling** → Chrome plays `<video>` at ~0.3x in a non-foreground tab, so a
   12-min clip would take ~40 min. `play_video()`/`watch()` call `Page.bringToFront` to keep it
   at real-time 1x; don't click away to another tab mid-watch.
+- **Looping `watch()` turn-by-turn on a long clip** → each call is a whole agent turn; enough of
+  them exhausts context before the video even finishes. Hand off to the background poller in
+  *Long videos* instead — and actually dispatch it, don't just announce that you will.
+- **Trusting `ended:true` to mean the section will progress** → some vendors gate completion
+  behind their own periodic tracking heartbeat, not the video's `ended` event. Sitting at
+  `ended:true` with no mode change for several poll cycles is a real *stuck* state, not "give it
+  more time." See *Long videos* for the bounded retry-then-stop handling.
+- **Retrying a stuck section more than once** → verified live that repeated automated
+  replay/interaction didn't unstick it and appeared to trip the vendor's own abuse detection
+  (a plain same-origin `fetch()` started returning `403` after ~20 min of automated activity on
+  one section). One retry, then stop and hand back to the human — don't hammer it.
