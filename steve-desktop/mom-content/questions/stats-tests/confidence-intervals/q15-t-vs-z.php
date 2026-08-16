@@ -25,6 +25,9 @@ $n = $contexts[$i][1]
 $cl = $contexts[$i][2]
 $t = $contexts[$i][3]
 
+$clPct = round($cl * 100)
+$df = $n - 1
+
 $z = 1.96
 
 $answer[0] = $t
@@ -69,10 +72,10 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Consider $ctx. The population standard deviation is unknown, so a t-distribution is used. Compare the t-critical value to the matching z-critical value for a ' . round($cl * 100) . '% confidence interval.</p>
+    <p style="margin:0;">Consider $ctx. The population standard deviation is unknown, so a t-distribution is used. Compare the t-critical value to the matching z-critical value for a $clPct% confidence interval.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> The t-critical value `t_(alpha/2)` for `df = ' . ($n - 1) . '`. (Round to 3 decimal places.)
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> The t-critical value `t_(alpha/2)` for `df = $df`. (Round to 3 decimal places.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

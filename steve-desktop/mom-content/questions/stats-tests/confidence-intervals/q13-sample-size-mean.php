@@ -23,6 +23,8 @@ $ebm = $contexts[$i][2]
 $cl = $contexts[$i][3]
 $z = $contexts[$i][4]
 
+$clPct = round($cl * 100)
+
 $raw = $z * $z * $sigma * $sigma / ($ebm * $ebm)
 $n = ceil($raw)
 
@@ -62,7 +64,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">The population standard deviation for $ctx is `sigma = $sigma`. We want to be ' . round($cl * 100) . '% confident that the sample mean is within `EBM = $ebm` of the true population mean. How many randomly selected individuals must be surveyed?</p>
+    <p style="margin:0;">The population standard deviation for $ctx is `sigma = $sigma`. We want to be $clPct% confident that the sample mean is within `EBM = $ebm` of the true population mean. How many randomly selected individuals must be surveyed?</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> The raw value of `n` before rounding. (Round to 2 decimal places.)

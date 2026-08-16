@@ -130,3 +130,109 @@ Safe to edit or delete by hand — a wrong rule here makes every later run worse
 - Both are only visible because the push verifies by reading each field BACK and comparing exactly.
   A length check would have caught the truncation but not the ellipsis; a render check would have
   caught neither.
+
+## `$anstypes` counts ANSWER BOXES, not lettered parts (2026-08-16, found live in 5.1)
+
+- **One `$anstypes` entry per answer box.** A part that asks for two numbers -- "between what two
+  values?" -- needs TWO entries, not one. `q10-empirical-rule-bands.php` declared
+  `array("numfunc","numfunc","numfunc")` for three lettered parts while setting `$answer[0..5]` and
+  referencing six `answerbox`es. IMathAS rendered boxes 1-3 only: part (a) got both its boxes,
+  part (b) lost its upper box, part (c) rendered **no boxes at all**.
+- **It still scored full marks.** The parts that never rendered could not be graded, so the
+  assignment read 102/100 with every question marked correct. Neither the byte-exact read-back, the
+  qtype audit, the points total, nor the score caught it -- the filed code was byte-identical to a
+  source that was itself wrong.
+- **Only a human-scale look at the render found it**, which is why the visual pass is not optional
+  and why it needs image input. The model driving the push had none and said so.
+- Static check, cheap, run it before pushing: compare the `$anstypes` entry count against
+  `max($answer[N]) + 1` and the `answerbox` reference count. An audit across all 395 questions in
+  `introduction-to-stats-sh` found exactly this one, so it is a real trap but not a systemic one.
+
+## QUESTION TEXT is not a PHP string (2026-08-16, 65 hits across 45 files)
+
+- **QUESTION TEXT interpolates `$var` directly.** A `' . $var . '` concatenation substitutes the
+  variable and leaves the quote-dot punctuation **visible to the student**:
+  `"Find k such that ' . 60 . '% of the values are at least k."` Live in 5.2 and in 4.3, which had
+  been signed off at 102/100 twelve days earlier.
+- **The identical syntax inside `$solutionguide`, `$rubric` or `$responses` is CORRECT** -- those
+  really are PHP strings built by concatenation. A blanket find-and-replace breaks every pre-FRQ in
+  the bank. Only QUESTION TEXT is wrong.
+- An expression cannot be interpolated. `' . ($b - $a) . '` and `' . round($cl * 100) . '` each need
+  a precomputed variable in COMMON CONTROL -- **defined AFTER everything it reads from.** A derived
+  variable placed above its own array is silently empty and renders as a blank; that mistake was
+  made once during this repair and caught by `_push/usecheck.mjs`.
+
+## Backticks are ASCIIMath delimiters, so a function NAME inside them is typeset (2026-08-16, 19 hits across 10 files)
+
+- `` `invNorm` `` renders as `∈ vN or m`; `` `normalcdf` `` as `‖a‖ lcdf`. Function names are plain
+  text, never backticked. Keep the math where it belongs:
+  `` `invNorm(' . round($x,3) . ', 0, 1)` `` becomes ``invNorm(`$xRounded`, 0, 1)``.
+- Applies in QUESTION TEXT and `$solutionguide` alike -- both render.
+
+### What caught these, and what did not
+
+Neither defect was visible to any automated gate. The byte-exact read-back **passed**, because the
+filed code matched a source that was itself wrong; the qtype audit passed; points totalled 100; the
+assignment scored 102/100 with every question marked correct. A rendered page reviewed by something
+with **image input** found them. The static audits (`_push/qtext-audit.mjs`,
+`_push/anstypes-audit.mjs`, `_push/usecheck.mjs`) were written afterwards, from the defects, and are
+cheap -- run all three before any push.
+
+## A freshly opened Teacher Preview shows NO prior score (2026-08-16)
+
+- Entering Teacher Preview again starts a **new attempt**. The header reads no score and no
+  question shows "Score on last try", **whether or not the assignment was ever graded**.
+- Measured: 5.2 (aid 23444258) was answered and graded 102/100 inside its own push run, and read
+  **0 questions with a score** when the preview was reopened minutes later. 4.5 reads the same, so
+  its zero is NOT evidence it was never verified.
+- **Consequence: grading must be read in the SAME session that answers.** "Open the preview and
+  check the header" is not a verification — it is a fresh attempt with nothing entered yet, and a
+  screenshot of one is a picture of an empty form, not of a failure.
+- This also means a capture taken for visual review shows an UNANSWERED page unless the capturing
+  run answered it first. Do not read "Score: 0/100, Answered: 0/10" on such a capture as a defect.
+- What IS durable evidence: the run's in-session report of what it entered and what MOM said back,
+  question by question. Which is why the report format asks for exactly that.
+
+## Choice options are SHUFFLED, so source indices do not address them (2026-08-16)
+
+- `$answer[n] = 0` means the **source's** first option. MOM renders the options in a shuffled order
+  and renumbers the `value` attributes, so "source index 0" is not "the option with `value=0`" and
+  is certainly not "the first radio in the DOM".
+- Measured on 5.3's pre-FRQ: source `$answer[1] = "1,2"` graded correct only when the boxes labelled
+  *State the Theoretical Value* and *Compare and Explain the Gap* were ticked — which rendered as
+  `value=2` and `value=0`. Selecting DOM positions 1 and 2 ticked *State the Empirical Value* and
+  scored 6.67/10 with the part marked Incorrect.
+- **Select choice and multans options by matching the LABEL TEXT**, taken from MOM's own
+  "Show All Answers" reveal, never by index. Reveal in a throwaway preview session first, then
+  answer in a fresh one — preview resets on re-entry, so revealing cannot contaminate the grading
+  pass.
+- A part marked Incorrect is not automatically a defect. Rule out your own option-mapping first; on
+  5.3 the "defect" was entirely the index assumption.
+
+## Every number MOM prints is wrapped in bidi isolates (2026-08-16)
+
+- `Score: ⁨100⁩/⁨100⁩` contains U+2068/U+2069 around each number. A regex like
+  `/Score:\s*([\d.]+)/` **silently returns null**, so a fully graded page reads as ungraded — which
+  is exactly how 5.3 appeared to score nothing while every question was in fact marked Correct.
+- Strip them before matching anything numeric:
+  `s.replace(/[\u2066-\u2069\u200e\u200f]/g, '')`.
+- Related layout fact: the per-question "Score on last try" line and the "Submit Question" buttons
+  live **outside** `[id^=questionwrap]`. Scoping a query to the question block finds neither.
+
+## Practice tests are due on the individual-test day (Steve, 2026-08-16)
+
+- In every stats class, a chapter's **Practice Test is due on the day the Individual Test is sat.**
+  It is preparation for that sitting, so its window closes when the sitting begins.
+- This is a **copy-time** setting, like every other date. The master course 334437 stays undated —
+  nothing is taught out of it, so a date there is never the date anyone sits. Apply this when the
+  course is copied into a teaching section, alongside `due_date_rule` in `assessment-presets.json`.
+- Consequence for the scaffold: each chapter's `Chapter N Practice Test` and
+  `Chapter N Individual Test` share a date. Whatever sets the Individual Test day sets both.
+
+## The session-dead check must look for the LOGIN form, not a password field
+
+- Assessment settings (`addassessment2.php`) carry an `assmpassword` passcode input. A guard written
+  as `document.querySelector('input[type=password]')` fires on it and reports a **dead session on a
+  perfectly live one** — measured 2026-08-16, which stopped a rename mid-task.
+- Test for the login form itself: `input[name=username]` present, a password field present, and no
+  `Log Out` in the page text. `_push/mom.mjs` now does this.

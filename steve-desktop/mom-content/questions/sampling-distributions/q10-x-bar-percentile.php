@@ -62,7 +62,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the percentile.</span> A percentile question runs the other way from a probability question: you are handed an area and asked for the value on the axis that cuts it off. The command is `invNorm`, and the only adjustment for sample means is that the standard deviation you type is the standard error:</p>
+      <p><span class="term-label">Part (a) &mdash; the percentile.</span> A percentile question runs the other way from a probability question: you are handed an area and asked for the value on the axis that cuts it off. The command is invNorm, and the only adjustment for sample means is that the standard deviation you type is the standard error:</p>
       <p>`SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
       <p>`k = mu + invnormalcdf(' . $p . ') * SE = ' . $mu . ' + (' . round($z, 3) . ')(' . round($se, 4) . ') ~= ' . round($k, 2) . '`</p>
       <p><span class="term-label">Part (b) &mdash; the interpretation.</span> A percentile of the SAMPLING distribution is a statement about averages, not about individuals. When you find that the ' . $pPct . 'th percentile of the sample mean is ' . round($k, 2) . ', you have not said that ' . $pPct . '% of users are younger than that. You have said that ' . $pPct . '% of SAMPLES of size ' . $n . ' would produce an average below ' . round($k, 2) . ' &mdash; a much narrower claim, because averages hug the center far more tightly than individuals do. That one word &mdash; "average" &mdash; is usually the difference between a correct interpretation and a plausible-sounding wrong one.</p>
@@ -77,11 +77,11 @@ $solutionguide = '
     <p style="margin:0;">$ctx, with `mu = $mu` and `sigma = $sigma`. A random sample of size `n = $n` is taken.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the ' . $pPct . 'th percentile for the sample mean. (Round to 1 decimal place.)
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the {$pPct}th percentile for the sample mean. (Round to 1 decimal place.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the ' . $pPct . 'th percentile?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the {$pPct}th percentile?
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
 </div>

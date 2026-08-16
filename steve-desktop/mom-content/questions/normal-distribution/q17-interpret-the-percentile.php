@@ -71,7 +71,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the value.</span> A percentile is an `invNorm` question: `z ~= ' . round($z, 3) . '`, so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
+      <p><span class="term-label">Part (a) &mdash; the value.</span> A percentile is an invNorm question: `z ~= ' . round($z, 3) . '`, so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
       <p><span class="term-label">Part (b) &mdash; the interpretation sentence.</span> The ' . $pPct . 'th percentile is ' . round($k, 2) . ' ' . $unit . ': ' . $pPct . '% of ' . $pop . ' are ' . round($k, 2) . ' ' . $unit . ' or less.</p>
       <p><span class="term-label">Part (c) &mdash; the other side of the same cut.</span> The same value read the other way describes the rest: the remaining ' . $restPct . '% of ' . $pop . ' are more than ' . round($k, 2) . ' ' . $unit . '. Both sentences are true and describe the same computation.</p>
       <p>A percentile is a rank, not a score: being at the ' . $pPct . 'th percentile does not mean you got ' . $pPct . '% of something right. It means ' . $pPct . '% of the group is at or below you.</p>
@@ -83,14 +83,14 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">$ctx are normally distributed with mean `mu = $mu` and standard deviation `sigma = $sigma`. Find the ' . $pPct . 'th percentile and interpret it.</p>
+    <p style="margin:0;">$ctx are normally distributed with mean `mu = $mu` and standard deviation `sigma = $sigma`. Find the {$pPct}th percentile and interpret it.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the ' . $pPct . 'th percentile `k`. (Round to 1 decimal place.)
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the {$pPct}th percentile `k`. (Round to 1 decimal place.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the ' . $pPct . 'th percentile?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the {$pPct}th percentile?
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

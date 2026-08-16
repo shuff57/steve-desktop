@@ -23,6 +23,8 @@ $mu = $contexts[$i][1]
 $sigma = $contexts[$i][2]
 $n = $contexts[$i][3]
 
+$n4 = 4 * $n
+
 $se1 = $sigma / sqrt($n)
 $se2 = $sigma / sqrt(4 * $n)
 
@@ -69,14 +71,14 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Consider $ctx. Find the standard deviation of the sample mean `bar(x)` for samples of size `n = $n` and for samples of size `4n = ' . (4 * $n) . '`.</p>
+    <p style="margin:0;">Consider $ctx. Find the standard deviation of the sample mean `bar(x)` for samples of size `n = $n` and for samples of size `4n = $n4`.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> The standard deviation of `bar(x)` for samples of size `n = $n`. (Round to 4 decimal places.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> The standard deviation of `bar(x)` for samples of size `4n = ' . (4 * $n) . '`. (Round to 4 decimal places.)
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> The standard deviation of `bar(x)` for samples of size `4n = $n4`. (Round to 4 decimal places.)
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

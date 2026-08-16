@@ -177,7 +177,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 8px 0;"><b>The scenario.</b> ' . $ctx . '</p>
+    <p style="margin:0 0 8px 0;"><b>The scenario.</b> $ctx</p>
     <p style="margin:8px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task students were given:</b> Set up the hypotheses, verify the conditions, compute the test statistic and p-value, make the decision at the stated significance level, and write a conclusion that connects the result back to the original claim.</p>
   </div>
   $rubric

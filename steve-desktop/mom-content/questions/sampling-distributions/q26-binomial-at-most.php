@@ -25,6 +25,8 @@ $n = $contexts[$i][1]
 $p = $contexts[$i][2]
 $a = $contexts[$i][3]
 
+$pPct = $p * 100
+
 $mu = $n * $p
 $sigma = sqrt($n * $p * (1 - $p))
 $boundary = $a + 0.5
@@ -60,7 +62,7 @@ $solutionguide = '
       <p>`P(X <= ' . $a . ')` becomes `P(Y <= ' . $boundary . ')`.</p>
       <p><span class="term-label">Part (b) &mdash; the probability.</span> Standardize: `z = (' . $boundary . ' - ' . $mu . ')/' . round($sigma, 4) . ' ~= ' . round($z, 3) . '`, so</p>
       <p>`P(X <= ' . $a . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`.</p>
-      <p>The left tail is a direct `normalcdf` &mdash; no complement needed. Getting the direction of the half-unit backwards shifts the answer by roughly one bar\'s worth of probability, which is small but consistently wrong, so it is worth reading the inequality out loud before typing.</p>
+      <p>The left tail is a direct normalcdf &mdash; no complement needed. Getting the direction of the half-unit backwards shifts the answer by roughly one bar\'s worth of probability, which is small but consistently wrong, so it is worth reading the inequality out loud before typing.</p>
     </div>
   </details>
 </div>'
@@ -69,7 +71,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">In a survey of `n = $n` people, ' . ($p * 100) . '% $ctx. Let `X` = the number who do, so `X ~ B($n, $p)`. Find the probability that at most $a $ctx, using the normal approximation with the continuity correction.</p>
+    <p style="margin:0;">In a survey of `n = $n` people, $pPct% $ctx. Let `X` = the number who do, so `X ~ B($n, $p)`. Find the probability that at most $a $ctx, using the normal approximation with the continuity correction.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What is the corrected boundary? (The value you standardize.)

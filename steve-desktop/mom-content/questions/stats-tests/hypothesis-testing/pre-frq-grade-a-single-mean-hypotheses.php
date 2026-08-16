@@ -171,7 +171,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 8px 0;"><b>The scenario.</b> Suppose ' . $topic . '. A researcher takes a random sample of size n = ' . $sample_size . ' to evaluate this claim.</p>
+    <p style="margin:0 0 8px 0;"><b>The scenario.</b> Suppose $topic. A researcher takes a random sample of size n = $sample_size to evaluate this claim.</p>
     <p style="margin:8px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task students were given:</b> Explain what a hypothesis test for a single population mean is trying to answer. Then use this scenario as your example to identify the population, the variable being measured, and what sample data would be collected. Finally, state the null and alternative hypotheses using &#956; notation and explain what H&#8320; assumes in plain language.</p>
   </div>
   $rubric

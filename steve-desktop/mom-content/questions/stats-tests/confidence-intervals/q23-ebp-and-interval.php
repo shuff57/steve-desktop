@@ -24,6 +24,8 @@ $n = $contexts[$i][2]
 $cl = $contexts[$i][3]
 $z = $contexts[$i][4]
 
+$clPct = round($cl * 100)
+
 $p = $x / $n
 $q = 1 - $p
 $se = sqrt($p * $q / $n)
@@ -68,7 +70,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">A survey of `n = $n` randomly selected people found that `x = $x` of them are $ctx. Construct a ' . round($cl * 100) . '% confidence interval for the true population proportion of $ctx.</p>
+    <p style="margin:0;">A survey of `n = $n` randomly selected people found that `x = $x` of them are $ctx. Construct a $clPct% confidence interval for the true population proportion of $ctx.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> The error bound `EBP`. (Round to 4 decimal places.)

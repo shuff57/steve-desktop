@@ -27,6 +27,8 @@ $alpha = 1 - $cl
 $half = $alpha / 2
 $leftArea = 1 - $half
 
+$clPct = round($cl * 100)
+
 $answer[0] = $t
 $abstolerance[0] = 0.005
 
@@ -57,7 +59,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Part (a) &mdash; the t-critical value.</span> With `CL = ' . round($cl, 2) . '`, `alpha = 1 - CL = ' . round($alpha, 2) . '` and `alpha/2 = ' . round($half, 3) . '`. The t-score with that much area to its right, using `df = n - 1 = ' . ($n - 1) . '`, is</p>
       <p>`t_(alpha/2) = t_(' . round($half, 3) . ') = ' . $t . '`</p>
-      <p><span class="term-label">Part (b) &mdash; what you feed invT.</span> `invT` works like `invNorm`: it wants the area BELOW the value. The area to the left is `1 - alpha/2 = ' . round($leftArea, 3) . '`, so you run `invT(' . round($leftArea, 3) . ', ' . ($n - 1) . ')`.</p>
+      <p><span class="term-label">Part (b) &mdash; what you feed invT.</span> `invT` works like invNorm: it wants the area BELOW the value. The area to the left is `1 - alpha/2 = ' . round($leftArea, 3) . '`, so you run `invT(' . round($leftArea, 3) . ', ' . ($n - 1) . ')`.</p>
       <p>The only place students reliably lose points is the left-versus-right tail flip: a table indexed by right-tail area wants `alpha/2`, and `invT` wants `1 - alpha/2`. Both give the same t-score; they just ask for it differently.</p>
     </div>
   </details>
@@ -67,7 +69,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Consider $ctx. The population standard deviation is unknown. Find the t-critical value for a ' . round($cl * 100) . '% confidence interval.</p>
+    <p style="margin:0;">Consider $ctx. The population standard deviation is unknown. Find the t-critical value for a $clPct% confidence interval.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> `t_(alpha/2) =`

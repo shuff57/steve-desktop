@@ -1,0 +1,11 @@
+# Only the durable tools live in git. Everything else here is per-push scratch:
+# one-off probes, fills and renders written by whoever drove that push, plus
+# full-page captures (~1MB each) that are evidence for one review and no use after.
+*
+!.gitignore
+!README.md
+!mom.mjs
+!crib.mjs
+!qtext-audit.mjs
+!anstypes-audit.mjs
+!usecheck.mjs

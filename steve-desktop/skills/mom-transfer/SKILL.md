@@ -402,7 +402,11 @@ bun reference/sync-index.ts          rebuild the derived index (never hand-edit 
 - Slugified descriptions collide often (21 of 131 needed a suffix — courses reuse names like
   "Practice Test"). Disambiguate deterministically, in qsetid order.
 - A dead session serves the **login form at the content URL**, so it looks like an empty course
-  rather than an error. Check for `input[type=password]` on every navigation and stop on the first.
+  rather than an error. **Do not guard on `input[type=password]` alone** — assessment settings
+  (`addassessment2.php`) carry an `assmpassword` passcode field of the same type, and that guard
+  false-fired on it, reporting a dead session on a live one and halting a rename (measured
+  2026-08-16). Test for the login form itself: `input[name=username]` present, a password field
+  present, and no `Log Out` in the page text. `_push/mom.mjs` does this.
 
 ## Three traps that all look like success
 
@@ -845,3 +849,42 @@ All four are bound to `quickSaveQuestion(true)` and any one commits the whole fo
 guard written to expect exactly one will refuse and save nothing — that cost a run its first attempt
 on 2026-08-16. Set all three editors, then click the topmost **once**; do not click several, which
 races and intermittently drops the `solution` field.
+
+## Answering a question in Teacher Preview — three things that make it fail silently
+
+Filling and submitting is where a verification run quietly produces nothing. All three measured
+2026-08-16 while verifying 5.3.
+
+**1. Every number MOM prints is wrapped in bidi isolates.** The header really reads
+`Score: ⁨100⁩/⁨100⁩` with U+2068/U+2069 around each number, so `/Score:\s*([\d.]+)/` returns
+**null** and a fully graded page reads as ungraded. Strip first:
+
+```js
+const strip = s => (s || '').replace(/[\u2066-\u2069\u200e\u200f]/g, '');
+```
+
+**2. The controls are OUTSIDE the question block.** Both the `Submit Question` buttons and the
+per-question `Score on last try` lines sit outside `[id^=questionwrap]`. Scoping a query to the
+question finds neither — collect them document-wide and index by position. Their labels also carry
+the bidi marks (`"Submit Question Question ⁨5⁩"`), so match on `/submit question/i` and take
+`[n-1]`, never on the trailing number.
+
+**3. Options are SHUFFLED, so source indices do not address them.** `$answer[n] = 0` means the
+*source's* first option; MOM reorders the options and renumbers `value`. On 5.3's pre-FRQ, source
+`$answer[1] = "1,2"` graded correct only when the boxes labelled *State the Theoretical Value* and
+*Compare and Explain the Gap* were ticked — rendering as `value=2` and `value=0`. Ticking DOM
+positions 1 and 2 hit the wrong category and scored 6.67/10.
+
+So: **select choices and multans by LABEL TEXT**, taken from MOM's own reveal.
+
+```
+pass 1  Teacher Preview → "Show All Answers" → record the correct option TEXT   (throwaway session)
+pass 2  fresh preview → fill numerics from the crib, choices by matching that text → submit → read
+```
+
+Two passes are safe precisely because preview resets on re-entry, so revealing cannot contaminate
+the grading pass. Numeric parts take their values from the crib and go in through
+`window.MathQuill.MathField(span).latex(value)` where `span` is `#mqinput-<hiddenInputName>`.
+
+**A part marked Incorrect is not automatically a defect.** Rule out your own option mapping first —
+on 5.3 the apparent defect was entirely the index assumption, and the question was correct.

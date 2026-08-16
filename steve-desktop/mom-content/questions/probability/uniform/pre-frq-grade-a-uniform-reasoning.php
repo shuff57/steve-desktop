@@ -41,6 +41,9 @@ $scenarios = array(
   "A traffic light cycles every 40 seconds, and the wait for the light to change is equally likely to be any length from 0 to 40 seconds. Let `x` be the wait (in seconds) until the light changes."
 )
 
+// Derived AFTER the array it reads from, so it is populated on every seed.
+$scenario = $scenarios[$i]
+
 $sProps = "The density is never negative on its interval, and the total area under the curve is exactly 1."
 
 $sCompute = array(
@@ -192,13 +195,13 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 8px 0;"><b>The scenario.</b> ' . $scenarios[$i] . '</p>
-    <p style="margin:8px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task students were given:</b> State the two properties of a probability density, compute `P(' . $c . ' < x < ' . $d . ')` as base times height, and interpret the area as the probability of the event, noting what `P(x = c)` is.</p>
+    <p style="margin:0 0 8px 0;"><b>The scenario.</b> $scenario</p>
+    <p style="margin:8px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task students were given:</b> State the two properties of a probability density, compute `P($c < x < $d)` as base times height, and interpret the area as the probability of the event, noting what `P(x = c)` is.</p>
   </div>
-  ' . $rubric . '
+  $rubric
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <p style="margin:0 0 4px 0;"><b>Four students answered.</b></p>
-    ' . $responses . '
+    $responses
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which response earns <b>full credit</b> on all three categories? $answerbox[0]

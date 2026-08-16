@@ -61,9 +61,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Translate the words.</span> "At least" means `x >= k`, which is the area to the RIGHT of `k`. The problem hands you a right-hand area of ' . $pPct . '%, but `invNorm` only accepts an area to the left.</p>
+      <p><span class="term-label">Translate the words.</span> "At least" means `x >= k`, which is the area to the RIGHT of `k`. The problem hands you a right-hand area of ' . $pPct . '%, but invNorm only accepts an area to the left.</p>
       <p><span class="term-label">Part (b) &mdash; subtract first.</span> The area to the left is `1 - ' . $p . ' = ' . $leftArea . '` (' . $leftPct . '%). That is the number you type.</p>
-      <p><span class="term-label">Part (a) &mdash; the value.</span> `z = invnormalcdf(' . $leftArea . ') ~= ' . round($z, 3) . '`, so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
+      <p><span class="term-label">Part (a) &mdash; the value.</span> z = invnormalcdf(' . $leftArea . ') ~= ' . round($z, 3) . ', so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
       <p>Skipping the subtraction is the single most common error in this subsection, and it fails quietly: you still get a plausible-looking value back, just the wrong one. A sanity check: an area to the left below 0.5 has to return a value below the mean, and above 0.5 a value above it.</p>
     </div>
   </details>
@@ -73,14 +73,14 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">$ctx are normally distributed with mean `mu = $mu` and standard deviation `sigma = $sigma`. Find the value `k` such that ' . $pPct . '% of the values are <b>at least</b> `k`.</p>
+    <p style="margin:0;">$ctx are normally distributed with mean `mu = $mu` and standard deviation `sigma = $sigma`. Find the value `k` such that $pPct% of the values are <b>at least</b> `k`.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find `k`. (Round to 1 decimal place.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which area must you feed to `invNorm`?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which area must you feed to invNorm?
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
 </div>

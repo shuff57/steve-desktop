@@ -64,7 +64,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Part (a) &mdash; the percentile.</span> The other direction gives you an area and asks for the total that cuts it off. The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '` and standard deviation `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`:</p>
       <p>`k = mu_SigmaX + invnormalcdf(' . $p . ') * sigma_SigmaX = ' . $muSum . ' + (' . round($z, 3) . ')(' . round($sigmaSum, 4) . ') ~= ' . round($k, 1) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the interpretation.</span> The ' . $pPct . 'th percentile of the sums is the total with ' . $pPct . '% of all possible totals of size ' . $n . ' at or below it. The answer carries the original units &mdash; years, minutes, dollars &mdash; and `invNorm` always wants the area to the LEFT. Getting an answer of 0.83 when the question asked for a number of years is the clearest possible sign you reached for the wrong command.</p>
+      <p><span class="term-label">Part (b) &mdash; the interpretation.</span> The ' . $pPct . 'th percentile of the sums is the total with ' . $pPct . '% of all possible totals of size ' . $n . ' at or below it. The answer carries the original units &mdash; years, minutes, dollars &mdash; and invNorm always wants the area to the LEFT. Getting an answer of 0.83 when the question asked for a number of years is the clearest possible sign you reached for the wrong command.</p>
     </div>
   </details>
 </div>'
@@ -76,11 +76,11 @@ $solutionguide = '
     <p style="margin:0;">$ctx with mean `mu = $mu` and standard deviation `sigma = $sigma`. A sample of size `n = $n` is drawn. Let `Sigma x` = the sum of the $n values.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the ' . $pPct . 'th percentile for the sum. (Round to 1 decimal place.)
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the {$pPct}th percentile for the sum. (Round to 1 decimal place.)
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the ' . $pPct . 'th percentile?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Which sentence correctly interprets the {$pPct}th percentile?
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
 </div>
