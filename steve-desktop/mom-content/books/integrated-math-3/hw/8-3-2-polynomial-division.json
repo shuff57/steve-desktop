@@ -1,0 +1,126 @@
+{
+  "name": "8.3.2 Polynomial Division",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "8-3-2-polynomial-division",
+  "target": {
+    "cid": "285887",
+    "aid": "22252164"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22252164"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "871534",
+      "title": "polynomial long division: \n Write the answer as one continuous polynomial.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075339",
+      "title": "Polynomial Long Division - Polynomial (4 terms) Divided by Binomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075348",
+      "title": "Polynomial Long Division - Polynomial (5 terms) Divided by Binomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075357",
+      "title": "Polynomial Long Division - Polynomial (5 terms) Divided by Trinomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709131",
+      "title": "Polynomial Synthetic Division - Polynomial (4 terms) Divided by Binomial - {Polynomials HHS}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "145328",
+      "title": "Polynomial long division, factoring, end behavior, zeros, and rough sketch [III.5.2.1]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345756",
+      "title": "Polynomial quotient (nondegenerate cubic over linear, leading coefficient 1), long division with remainder (multipart, breaks into quotient and remainder)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "323808",
+      "title": "Solve a cubic equation given one (integer) solution, first using polynomial long division, then factoring the quotient(local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "323811",
+      "title": "Solve a cubic equation given one fractional solution (1/n, n=-5 to 5) use polynomial long division and then factor the quotient. Negative coefficients in the cubic (local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "323813",
+      "title": "Solve a cubic equation, must first rearrange to cubic = 0, one (fraction) solution given, factor partially using polynomial long division, then factor the quotient and list all solutions(local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "611363",
+      "title": "Factor polynomial using synthetic division. Degree 4, integer and 2 imaginary roots, no repeat roots allowed. Two given factors (SL)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "865860",
+      "title": "Factor polynomial using synthetic division. Degree 4, integer and 2 imaginary roots, no repeat roots allowed. Two given factors (SL)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

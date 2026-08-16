@@ -1,0 +1,117 @@
+{
+  "name": "7.2.1 & 7.2.2 Determining Missing Parts of Triangles",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "7-2-1-7-2-2-determining-missing-parts-of-triangles",
+  "target": {
+    "cid": "285887",
+    "aid": "22100093"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100093"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4289",
+      "title": "Word problem involving solving a right triangle using basic trig. (p7.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4325",
+      "title": "Right triangle - find others given hypotenuse and one leg",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4327",
+      "title": "Right triangle - find others given angle and leg",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4328",
+      "title": "Right triangle - find others given angle and hypotenuse",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4330",
+      "title": "Trigonometry of right triangles, building height story",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4332",
+      "title": "ladder base",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4333",
+      "title": "ladder height",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4363",
+      "title": "func to ratio",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4375",
+      "title": "Stewart 6.2#40: advance right triangle trig",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4376",
+      "title": "Stewart 6.2#39: advance right triangle trig",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4377",
+      "title": "Stewart 6.2#41: advance right triangle trig",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

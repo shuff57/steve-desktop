@@ -1,0 +1,396 @@
+{
+  "name": "Mid Unit Review",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "mid-unit-review",
+  "target": {
+    "cid": "285887",
+    "aid": "22428234"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22428234"
+  },
+  "created_at": "2026-08-16",
+  "block": "0",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "138733",
+      "title": "trig (Review) (Unit 4)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "220850",
+      "title": "Given cosine A, find sine and tangent A (acute angle)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "664420",
+      "title": "Solving right triangle for missing angle. Trig sine, cosine, and tangent equations",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "220194",
+      "title": "Given adjacent side and hypotenuse of a right triangle, find sine, cosine, tangent.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "429226",
+      "title": "Find the sine, cosine, and tangent of an angle in a right triangle given the length of the hypotenuse and one leg.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "35558",
+      "title": "Pythagorean theorem, laptop problem. Exact and Approximate. (local for Laurel Clifford--added pic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31125",
+      "title": "Media Lesson: Solving Special Right Triangles",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709259",
+      "title": "Special Right Triangles - Adjacent Triangles - Version 2 - {Right Triangles HHS}",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "730947",
+      "title": "Solving right triangle for missing side. Special right triangle. 30-6-90. Given short leg = integer",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "731185",
+      "title": "Solving right triangle for missing side. Special right triangle. 30-6-90. Given hypotenuse = even integer with radical",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1131003",
+      "title": "Special Right triangles, two triangles 6RV#3",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "349498",
+      "title": "Special triangle sides. [IIH 3.3.24] (local for Keith Hanson Peter Wollin)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468549",
+      "title": "Unit Circle Identifying angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "753577",
+      "title": "Blank Unit Circle - Fill in Degrees Angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178549",
+      "title": "Plotting Angles on the Unit Circle (Negative Degrees)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468589",
+      "title": "Unit Circle Identifying angles radians",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "481107",
+      "title": "Plot points on Unit Circle given an angle in radians",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178550",
+      "title": "Plotting Angles on the Unit Circle (Positive Radians)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1359635",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) 2 Questions with DETAILED SOLN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1120731",
+      "title": "Convert from degrees to radians or radians to degrees without a calc [III.9.2.18] (copy by Sherri Bond)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "132811",
+      "title": "Convert an angle in degrees to radians. (multiples of 20 degrees)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "151948",
+      "title": "Unit Circle Trig -- angle in degrees from coordinates on the unit circle",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "151948",
+      "title": "Unit Circle Trig -- angle in degrees from coordinates on the unit circle",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "934726",
+      "title": "Unit Circle Trig -- angle in degrees from coordinates on the unit circle (local for Patrick Centner)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "789981",
+      "title": "Give coordinates of a point on the unit circle. [MAT 122]",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1798564",
+      "title": "Identify the Quadrant of a Terminal Point on the Unit Circle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1803702",
+      "title": "Find Reference Angle in Degrees and Radians from Terminal Point (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1798568",
+      "title": "Arc Length from Terminal Point on Circle with Variable Radius",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1798571",
+      "title": "Find Coterminal Angles from Terminal Point",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77643",
+      "title": "Video Lesson - Graphing Sine and Cosine Functions (video by James Sousa)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425004",
+      "title": "1 (a) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425007",
+      "title": "1 (c) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "502383",
+      "title": "Use Unit Circle to find sine and cosine value,",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1008641",
+      "title": "Use unit circle to approximate sine and cosine values #jsx (jsxgraph) [AA]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 35,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 36,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 38,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 39,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808001",
+      "title": "Cosine Graph Unit Circle Explanation - Choose the correct unit-circle explanation for why the cosine graph has a specific y-value at a key angle",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 40,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808249",
+      "title": "Tangent Graph from Unit Circle - Use terminal point coordinates to understand tan(θ) = y/x, identify why asymptotes occur, and determine the period of y = tan(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 41,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 42,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

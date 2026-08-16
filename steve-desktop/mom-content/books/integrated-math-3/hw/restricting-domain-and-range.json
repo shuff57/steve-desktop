@@ -1,0 +1,126 @@
+{
+  "name": "Restricting Domain and Range",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "restricting-domain-and-range",
+  "target": {
+    "cid": "285887",
+    "aid": "21673286"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21673286"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3333",
+      "title": "Find the inverse of a quadratic and restricted domain",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15854",
+      "title": "Find the inverse of a quadratic and restricted domain (video)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172363",
+      "title": "D12 Graphing a line \n with restricted domain",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241132",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(ax+b)+d. This is a generic problem used for in other questions with more restrictions on f(x).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241354",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(x+b). Uses 241132 as the base.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241358",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(x+b)+d. Uses 241132 as the base.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241378",
+      "title": "Find inverse of quadratic with domain restriction. f(x) = a (x - h)^2 + k where x >= h or x <= h. This is a generic problem used for in other questions with more restrictions on f(x).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "611909",
+      "title": "PGCC: Determine which of the given graphs possess inverses. Two have inverses, two don't. Graphs are randomly drawn from two banks of functions and multiplied by a randomly drawn integer. 1/9/20 - scoremethod allornothing",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "990930",
+      "title": "Determine if a function has an inverse given its graph, and then identify the graph of its inverse.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "62833",
+      "title": "Given a point on the graph of \n, determine a point on the graph of the inverse of \n.",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1200331",
+      "title": "S2 OUR 4.7.19 given graph, graph inverse",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1200334",
+      "title": "S2 OUR 4.7.20 given graph, graph inverse",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

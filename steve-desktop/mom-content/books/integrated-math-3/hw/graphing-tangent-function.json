@@ -1,0 +1,72 @@
+{
+  "name": "Graphing Tangent Function",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "graphing-tangent-function",
+  "target": {
+    "cid": "285887",
+    "aid": "22417024"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22417024"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808249",
+      "title": "Tangent Graph from Unit Circle - Use terminal point coordinates to understand tan(θ) = y/x, identify why asymptotes occur, and determine the period of y = tan(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808949",
+      "title": "Graph Tangent Parent Function - Use unit circle terminal point coordinates to find key anchor points and understand the shape of y = tan(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808964",
+      "title": "Tangent from a Non-Standard Terminal Point - Given a Pythagorean triple terminal point on the unit circle, compute tan(θ) = y/x and analyze sign changes from reflections",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

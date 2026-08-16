@@ -1,0 +1,549 @@
+{
+  "name": "Chapter 7 Practice Test",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "chapter-7-practice-test",
+  "target": {
+    "cid": "340140",
+    "aid": "23498508"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498508"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "48642",
+      "title": "Congruence/Similarity - ID triangles that are congruent,similar to given triangle and ID scale factors of similar triangles.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "116578",
+      "title": "8.EE.6 Slope and idea of similar triangles, contains a triangle (SBAC, DOK 2, drawing similar triangle) with label hack",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "881130",
+      "title": "Similar Polygons: Given similar polygons and side lengths, find x (quadrilaterals and triangles)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "32076",
+      "title": "Are the triangles similar? v1",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "42493",
+      "title": "[Mayo75, Ch 1 Sec 2, Q 73] Similar triangles solve for the unknowns",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "590552",
+      "title": "Quiz 8.1-8.3 #6 (4pts) Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "134886",
+      "title": "Congruence - critique 2 sequences",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "162603",
+      "title": "Use triangle congruence DONE [free]",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "162613",
+      "title": "Triangle congruence statement (Unit 3) DONE",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "247064",
+      "title": "SR.9.1 triangle congruence",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251292",
+      "in_group": "Q11",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251298",
+      "in_group": "Q11",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251307",
+      "in_group": "Q11",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "order": "Q12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657972",
+      "in_group": "Q12",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test A",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657975",
+      "in_group": "Q12",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test B",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657977",
+      "in_group": "Q12",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test C",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "order": "Q13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826257",
+      "in_group": "Q13",
+      "title": "9th Grade Concept #94 Test A - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 1 (local for Becky Anderson)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826261",
+      "in_group": "Q13",
+      "title": "9th Grade Concept #94 Test B - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 2 (local for Becky Anderson)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826265",
+      "in_group": "Q13",
+      "title": "9th Grade Concept #94 Test C - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 3 (local for Becky Anderson)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "order": "Q14-17",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 10 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240354",
+      "in_group": "Q14-17",
+      "title": "ID corresponding sides",
+      "qtype": "matching"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240355",
+      "in_group": "Q14-17",
+      "title": "ID corresponding sides b",
+      "qtype": "matching"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240356",
+      "in_group": "Q14-17",
+      "title": "ID corresponding sides c",
+      "qtype": "matching"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240365",
+      "in_group": "Q14-17",
+      "title": "ID corresponding sides abc",
+      "qtype": "matching"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240439",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Angles",
+      "qtype": "matching"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240440",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Angles b",
+      "qtype": "matching"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240441",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Angles c",
+      "qtype": "matching"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240442",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Parts",
+      "qtype": "matching"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240443",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Parts b",
+      "qtype": "matching"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240444",
+      "in_group": "Q14-17",
+      "title": "ID Corresponding Parts c",
+      "qtype": "matching"
+    },
+    {
+      "slot": 34,
+      "order": "Q18",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570391",
+      "title": "SAS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 35,
+      "order": "Q19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570393",
+      "title": "ASA (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 36,
+      "order": "Q20",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570394",
+      "title": "SSS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "order": "Q21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094306",
+      "title": "Congruence flow chart, HL Congruence. Answer in any order +. CPCTC Answer choices grouped by angle and ratios) From 835861",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 38,
+      "order": "Q22",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "560376",
+      "title": "Congruence flow chart, NOT CONGRUENT, SSA. Answer in any order +.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 39,
+      "order": "Q23",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1092528",
+      "title": "Congruence flow chart, SSS, Given, revlexive. Answer in any order +. (Answer choices grouped by angle and ratios) From 560458",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 40,
+      "order": "Q24",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094023",
+      "title": "Congruence flow chart, NOT CONGRUENT, SSA. Answer in any order +. (Answer choices grouped by angle and ratios) From 560376",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 41,
+      "order": "Q25",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1091949",
+      "title": "Congruence flow chart, ASA, 2 triangles all givens . Answer in any order +. (Answer choices grouped by angle and ratios) From 560393",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 42,
+      "order": "Q26",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094326",
+      "title": "Congruence flow chart, AAS, vertical, alternate interior angles. Answer in any order +. CPCTC Answer choices grouped by angle and ratios) From 835892",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 43,
+      "order": "Q27",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "869486",
+      "title": "Ditty 9.1: Vocab - Identifying congruent angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 44,
+      "order": "Q28",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "874562",
+      "title": "Ditty 9.2: Solving Parallelogram, opposite angles are congruent, linear, true solution",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 45,
+      "order": "Q29",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "874579",
+      "title": "Ditty 9.2: Solving Parallelograms, supplementary angles, and opposite sides are congruent, both true solutions",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 46,
+      "order": "Q30",
+      "file_path": "questions/im1/area-of-non-right-triangle-given-corner-points.php",
+      "qid": "1580158",
+      "title": "Area of non-right triangle given corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 47,
+      "order": "Q31",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "30069",
+      "title": "Find the distance between two points (distance formula). Always integer answer.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 48,
+      "order": "Q32",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "149032",
+      "title": "Find the distance between two points (distance formula), give exact answer, always an integer. (112)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 49,
+      "order": "Q33",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "262844",
+      "title": "Geom.5.Midpoint 2 -- Integer Midpoint, Find A",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 50,
+      "order": "Q34",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "262845",
+      "title": "Geom.5.Midpoint 2 -- Fractional Midpoint, Find A",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 51,
+      "order": "Q35",
+      "file_path": "questions/im1/area-of-rectangle-given-coordinates-of-corner-points.php",
+      "qid": "1576511",
+      "title": "Area of rectangle given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 52,
+      "order": "Q36",
+      "file_path": "questions/im1/graph-and-area-of-square-given-coordinates-of-corner-points.php",
+      "qid": "1576523",
+      "title": "Graph and Area of square given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 53,
+      "order": "Q37",
+      "file_path": "questions/im1/area-of-parallelogram-given-coordinates-of-corner-points.php",
+      "qid": "1576528",
+      "title": "Area of parallelogram given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 54,
+      "order": "Q38",
+      "file_path": "questions/im1/area-of-trapezoid-given-coordinates-of-corner-points.php",
+      "qid": "1576529",
+      "title": "Area of trapezoid given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 55,
+      "order": "Q39",
+      "file_path": "questions/im1/given-similar-quadrilaterals-and-some-of-the-sides-find-one-side-on-se.php",
+      "qid": "1576540",
+      "title": "Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second and area of second given those on first (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 56,
+      "order": "Q40",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572224",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 57,
+      "order": "Q41",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572224",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

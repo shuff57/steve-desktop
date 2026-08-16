@@ -1,0 +1,108 @@
+{
+  "name": "Piecewise Functions",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "piecewise-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "21098730"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21098730"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1226249",
+      "title": "02-3 Lecture piecewise functions, 4pts .myers.precalc.functions.piecewise functions.lecture",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1521267",
+      "title": "02-3 Prelude piecewise functions, 2pts .myers.precalc.functions.piecewise functions.prelude",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1285176",
+      "title": "Draw Piecewise Functions - 3 Functions",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "73945",
+      "title": "Lesson 1 Functions Quiz - MAT150 - Evaluate piecewise function.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135560",
+      "title": "Piecewise Functions [II.12.1.10]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "146644",
+      "title": "Graph the piecewise functions. [II.11.R.9]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "146645",
+      "title": "Graph the piecewise functions. [II.11.R.10]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "193064",
+      "title": "Piecewise Functions [11.2.1]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "194627",
+      "title": "Piecewise Functions [11.4.1]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "194634",
+      "title": "Piecewise Functions [11.4.2]",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

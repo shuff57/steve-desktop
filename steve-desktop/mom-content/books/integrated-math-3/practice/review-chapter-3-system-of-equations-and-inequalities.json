@@ -1,0 +1,171 @@
+{
+  "name": "Review - Chapter 3 - System of Equations and Inequalities",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "review-chapter-3-system-of-equations-and-inequalities",
+  "target": {
+    "cid": "285887",
+    "aid": "21223233"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21223233"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "929245",
+      "title": "Solving Systems of Equations by Substitution - Both Equations in Slope-Intercept Form - {Systems}",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "351059",
+      "title": "LL, IntAlg, Linear Systems, Solve Systems in Two Variables. Solve a system of linear equations by graphing (2).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "134672",
+      "title": "Systems of quadratic equations: \n, \n; integer answers",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "583213",
+      "title": "SM1 P5.1A.1 Solving Systems of Linear Equations by Graphing",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "443659",
+      "title": "LL, IntAlg, Linear Inequalities, Solve Single and Multi-step inequalities. Express solutions to inequalities graphically, with interval notation, and as an inequality (1).",
+      "points": 1,
+      "qtype": "calcinterval"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "997924",
+      "title": "Graphing inequalities 2x2 system - Given a graph select the correct system of inequalities (local for Shirley Izaguirre)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "87011",
+      "title": "2x2-System of Inequalities1-Is (x,y) a solution of the system (no)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197658",
+      "title": "Solve system of inequalities by graphing (no calculator). [III.12.2.12]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709884",
+      "title": "Graph a system of non-linear inequalities (local for Kevin Clyde) (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "494225",
+      "title": "Graph a system of nonlinear inequalities, line and parabola",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1285176",
+      "title": "Draw Piecewise Functions - 3 Functions",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "73945",
+      "title": "Lesson 1 Functions Quiz - MAT150 - Evaluate piecewise function.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "91271",
+      "title": "Identify the region that is the solution to the system of inequalities",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "192844",
+      "title": "Graph a system of linear inequalities with testing points",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3552",
+      "title": "Graph a system of linear inequalities",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "337603",
+      "title": "Q2-5 Draw a System of inequalities (Graph) a linear inequality in 2 dimensions (better version) 3 inequalities 4pts",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599119",
+      "title": "Determine system of linear inequalities from graph",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

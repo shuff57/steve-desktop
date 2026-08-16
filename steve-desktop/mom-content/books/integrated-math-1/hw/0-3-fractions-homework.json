@@ -1,0 +1,135 @@
+{
+  "name": "0.3 Fractions (homework)",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "0-3-fractions-homework",
+  "target": {
+    "cid": "340140",
+    "aid": "23498442"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498442"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-1-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "350292",
+      "title": "Formatting (enter a fraction with a denominator) (new assessment version)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "221656",
+      "title": "Producing an Equivalent Fraction",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "224293",
+      "title": "Multiplying Fractions by an Integer",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333599",
+      "title": "Multiplying a fraction by its denominator (concrete form)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270738",
+      "title": "Evaluate x^n when x is a fraction",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270731",
+      "title": "Multiplying Fractions (no cancellation, both negative)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270732",
+      "title": "Multiplying Fractions (no cancellation, one negative, one positive)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281134",
+      "title": "Dividing Fractions (one variable, no cancellation)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281135",
+      "title": "Dividing Fractions (two variables, no cancellation)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336021",
+      "title": "Dividing Fractions (fraction by a variable, no cancellation)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336022",
+      "title": "Dividing Fractions (number by a variable fraction, no cancellation)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336023",
+      "title": "Dividing Fractions (ax divided by c/d)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "242873",
+      "title": "Adding two fractions, same denominator",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

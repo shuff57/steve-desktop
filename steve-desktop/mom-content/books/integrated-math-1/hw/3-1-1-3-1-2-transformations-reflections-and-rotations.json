@@ -1,0 +1,134 @@
+{
+  "name": "3.1.1 & 3.1.2 Transformations, Reflections, and Rotations",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "3-1-1-3-1-2-transformations-reflections-and-rotations",
+  "target": {
+    "cid": "340140",
+    "aid": "23498464"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498464"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475095",
+      "title": "Determine the rigid transformation (reflection)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475098",
+      "title": "Determine the rigid transformation (transformation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475099",
+      "title": "Determine rigid transformation (reflection)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475116",
+      "title": "Determine rigid transformation (rotation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476547",
+      "title": "Determine the transformation (rotation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476550",
+      "title": "Determine the transformation (reflection)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476551",
+      "title": "Determine the transformation (reflection)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476569",
+      "title": "Determine the transformation (translation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im1/translate-polygon.php",
+      "qid": "1476576",
+      "title": "Translate Polygon (local for Steven Huff)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1478117",
+      "title": "Translate Polygon #2",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125271",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Positive slope. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125483",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Negative slope. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125515",
+      "title": "Use the Distance Formula to find the distance between two points. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

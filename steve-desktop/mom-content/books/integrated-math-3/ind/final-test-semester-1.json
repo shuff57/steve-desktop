@@ -1,0 +1,153 @@
+{
+  "name": "Final Test - Semester 1",
+  "book": "integrated-math-3",
+  "kind": "ind",
+  "slug": "final-test-semester-1",
+  "target": {
+    "cid": "285887",
+    "aid": "21278729"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21278729"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1004835",
+      "title": "draw piecewise function, one linear, two constant (video help) (twopoint) At point of continuity in piecewise function, an optional closed point may be included.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1657",
+      "title": "Evaluate piecewise function. College Algebra by Larson and Hostetler (lh2-2_35.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1742",
+      "title": "Write formula for piecewise function, linear and constant pieces",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3412",
+      "title": "identify solution from graph",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "70349",
+      "title": "Graph a system of non-linear inequalities",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "150710",
+      "title": "Factoring out the GCF. The GCF is a monomial. (Instruction: factor out the GCF).",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "216204",
+      "title": "II HW 2.7 Factoring Quadratics",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15739",
+      "title": "Evaluate cubic f(-a)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "242969",
+      "title": "I HW 4.4 Systems of equations",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "872602",
+      "title": "Solving rational equations (a/x + c = e/x^2), rational solutions (copy by DEVON OROURKE)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "190446",
+      "title": "Identifying forbidden values in rational expression (integer value, quadratic/quadratic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760709",
+      "title": "Murphy SM3.04.1: Determine holes and vertical asymptotes from a factored rational function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "105056",
+      "title": "Vertical and Slant Asymptotes of quadratic/linear, equation entry",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "554208",
+      "title": "Given square root parent function, a) what's the new eq. if stated transformations done, b) what's the domain of the transformed function?",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1239867",
+      "title": "Graphing Transformations: Cubic Given a function, draw its graph.",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

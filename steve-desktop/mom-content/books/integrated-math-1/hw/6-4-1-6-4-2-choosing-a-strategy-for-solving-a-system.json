@@ -1,0 +1,206 @@
+{
+  "name": "6.4.1 & 6.4.2 Choosing a Strategy for Solving a System",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "6-4-1-6-4-2-choosing-a-strategy-for-solving-a-system",
+  "target": {
+    "cid": "340140",
+    "aid": "23498497"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498497"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "842856",
+      "title": "Elimination application",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "842866",
+      "title": "Elimination application Vans",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "861091",
+      "title": "System Application - Graph on Tree Height Given (NSC)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "861170",
+      "title": "Systems Applications - Gym Cost (NSC)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "861182",
+      "title": "Systems Applications - Ticket Price and Revenue (NSC)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "861193",
+      "title": "Systems Applications - Numbers (NSC)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "861204",
+      "title": "Systems Applications - Baseball Concession Stand (NSC)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38339",
+      "title": "14.1 Solve a system of equations by graphing",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "75211",
+      "title": "Solving a system of linear equations by graphing",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77095",
+      "title": "Solving a System of Linear Equations by Graphing (2x2)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": "questions/im1/system-of-linear-equations-by-graphing-word-problem.php",
+      "qid": "1544928",
+      "title": "System of Linear Equations (by graphing): Word Problem (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "653059",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "922133",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "922138",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "922160",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations (copy by Sheri Dean) (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "923122",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations (copy by Sheri Dean) (copy by Sheri Dean) (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "568586",
+      "title": "Solve 2x2 System of equations by graphing. Identify 1, none, many solutions. (hard) (Lumen) (local for Ryan Meyering)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "652494",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions?",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "687229",
+      "title": "Solve a system of two linear equations, both in standard form, by graphing. (\nly-many solutions).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "687244",
+      "title": "Solve a system of two linear equations, both in standard form, by graphing. (0 solutions).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "687245",
+      "title": "Solve a system of two linear equations, both in standard form, by graphing. (1 solution). [fixed...again...hopefully:/]",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "name": "Practice Test",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "practice-test",
+  "target": {
+    "cid": "285887",
+    "aid": "22100099"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100099"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14387",
+      "title": "Convert exponential equations to logarithmic form [GL][7430] (local for James Sousa)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "25581",
+      "title": "Simplify logarithm with simple algebraic expression",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "25583",
+      "title": "Simplify logarithm with simple algebraic expression",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "100155",
+      "title": "Find the logarithm",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "100163",
+      "title": "Find the logarithm (common log)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "311998",
+      "title": "Evaluating Logarithms Base 2, 3, or 4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45610",
+      "title": "Logarithmic Properties-01 + (with video)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45612",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45618",
+      "title": "Logarithmic Properties-10 power (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45620",
+      "title": "Logarithmic Properties-14 single log (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271526",
+      "title": "Expanding Logarithms ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13571",
+      "title": "Logarithm Properties: Other Properties [log_b(1)]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "160738",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (copy by Hungwen Chang)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13579",
+      "title": "Logarithm Properties: Power Rule",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16925",
+      "title": "Logarithm Properties: Power Rule Neg Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16932",
+      "title": "Logarithm Properties: Contract Power Rule Neg Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "355948",
+      "title": "LOG.2 - LA(10) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "412524",
+      "title": "Logarithms - Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418656",
+      "title": "Use the quotient property to expand log_b((ax+cy)/z)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "700882",
+      "title": "LOG.2 - LA(11) Condense with Quotient Property - rewrite (local for Nicole Lang)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356165",
+      "title": "LOG.2 - LA(17) log - Condense 4 with Product/Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356175",
+      "title": "LOG.2 - LA(15) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249917",
+      "title": "D11 Determine if a function is exponential growth, or exponential decay (Exponential Decay) decimals",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "918265",
+      "title": "Lesson 5 - Evaluate an Exponential Function at several points and using function notation (local for DEVON OROURKE)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2616",
+      "title": "Find expo. func. given \n-int. and point (increasing) [GL][7300]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3735",
+      "title": "Find equation of exponential between 2 points, decreasing",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "100147",
+      "title": "Find equation of exponential between 2 points, decreasing",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "244222",
+      "title": "II HW 4.6 Finding inverse functions",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1559843",
+      "title": "AP Pre-Calculus 2.7 Composition of Functions. 2) Find the composition of three linear functions.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "379886",
+      "title": "Inverse of exponential functions - y = b*a^(x+h)+k",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125620",
+      "title": "MAT14x - Pythagorean Theorem - Find the missing side using the Pythagorean Theorem - Different orientations",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "35558",
+      "title": "Pythagorean theorem, laptop problem. Exact and Approximate. (local for Laurel Clifford--added pic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "220191",
+      "title": "Given two legs of a right triangle, find sine, cosine, tangent.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "220197",
+      "title": "Given three sides of a right triangle, find sine, cosine, tangent (angle in top location)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 35,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "429226",
+      "title": "Find the sine, cosine, and tangent of an angle in a right triangle given the length of the hypotenuse and one leg.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 36,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135854",
+      "title": "Section 4 - Complex Numbers/Simplify 8 complex numbers:",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135856",
+      "title": "Section 4 - Complex Numbers/Algebra problem: subtracting complex numbers (video)",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 38,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135858",
+      "title": "Section 4 - Complex Numbers/Algebra problem: divide complex numbers (a+bi)/(ci) (video)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 39,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1701133",
+      "title": "2.4.5 Complex Numbers/Algebra problem: multiplying complex numbers. (local for Lyle ONeal)",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 40,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3136",
+      "title": "complex numbers:",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 41,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3138",
+      "title": "complex numbers:",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 42,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3140",
+      "title": "complex numbers:",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 43,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4289",
+      "title": "Word problem involving solving a right triangle using basic trig. (p7.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 44,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4327",
+      "title": "Right triangle - find others given angle and leg",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 45,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4330",
+      "title": "Trigonometry of right triangles, building height story",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 46,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4333",
+      "title": "ladder height",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 47,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4375",
+      "title": "Stewart 6.2#40: advance right triangle trig",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 48,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4377",
+      "title": "Stewart 6.2#41: advance right triangle trig",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 49,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "730991",
+      "title": "Find the missing side of the triangle using the Law of Sines. (video) Asks for Law of Sines set-up equation",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 50,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130538",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 51,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4316",
+      "title": "Law of sines (srw6_4_15.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 52,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4423",
+      "title": "Stewart 6.4#34: apps law of sines: Lake",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 53,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "413286",
+      "title": "Solve triangle using law of sines or law of cosines given SAS. [III.T4.R.47]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 54,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130340",
+      "title": "Law of Sines/Cosines - SSS - Cosines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 55,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4322",
+      "title": "Apply law of cosines (srw6_5_27.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 56,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4419",
+      "title": "Stewart 6.5#48: apps law of cosines: guy wire",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 57,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "97466",
+      "title": "Find the area of obtuse triangle using Sine",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 58,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "298867",
+      "title": "Find area of triangle using Law of Sines",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 59,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1484092",
+      "title": "Find area of triangle using Law of Sines (local for Ryan Stones)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 60,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1742827",
+      "title": "Find the area of acute triangle using Sine (local for Michelle King)",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

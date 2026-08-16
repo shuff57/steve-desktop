@@ -1,0 +1,244 @@
+{
+  "name": "Chapter 0 Group Quiz",
+  "book": "integrated-math-1",
+  "kind": "group",
+  "slug": "chapter-0-group-quiz",
+  "target": {
+    "cid": "340140",
+    "aid": "23498445"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498445"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/translating-statement-into-mathematical-expression-a-more-than-b-times.php",
+      "qid": "1437594",
+      "in_group": "Q1",
+      "title": "Translating statement into mathematical expression (a more than b times) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/im1/translating-statement-into-mathematical-expression-a-less-than-b-times.php",
+      "qid": "1437595",
+      "in_group": "Q1",
+      "title": "Translating statement into mathematical expression (a less than b times) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-d-c.php",
+      "qid": "1437597",
+      "in_group": "Q2",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a > b, d > c (local for Steven Huff)",
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d.php",
+      "qid": "1437598",
+      "in_group": "Q2",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a < b, c < d (local for Steven Huff)",
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d-2.php",
+      "qid": "1437599",
+      "in_group": "Q2",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a < b, c < d (local for Steven Huff)",
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im1/removing-common-factor-p-q-qr-x-openstax-college-algebra-1-5-328.php",
+      "qid": "1437601",
+      "in_group": "Q2",
+      "title": "Removing common factor (p/q) qr x (OpenStax College Algebra 1.5 #328) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "order": "Q3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1437583",
+      "title": "Evaluate an expression (x^2 + pxy + y^2) (x, y negative)(local copy Steven Huff)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "order": "Q4",
+      "file_path": "questions/im1/evaluate-x-n-when-x-is-a-fraction.php",
+      "qid": "1437590",
+      "title": "Evaluate x^n when x is a fraction (local for Steven Huff)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 12,
+      "file_path": "questions/im1/polynomial-product-a-bx-c.php",
+      "qid": "1437592",
+      "in_group": "Q5",
+      "title": "Polynomial product -a(bx + c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": "questions/im1/polynomial-product-a-bx-c-2.php",
+      "qid": "1437593",
+      "in_group": "Q5",
+      "title": "Polynomial product a(bx - c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": "questions/im1/polynomial-product-a-bx-c-3.php",
+      "qid": "1437603",
+      "in_group": "Q5",
+      "title": "Polynomial product -a(bx - c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": "questions/im1/polynomial-product-a-bx-c-4.php",
+      "qid": "1437605",
+      "in_group": "Q5",
+      "title": "Polynomial product a(bx + c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "order": "Q6",
+      "file_path": "questions/im1/subtracting-algebraic-terms-a-bx-c-dx-e.php",
+      "qid": "1437606",
+      "title": "Subtracting algebraic terms: a(bx + c) - (dx + e) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 18,
+      "file_path": "questions/im1/graph-a-n-on-number-line-a-n-n-from-2-to-5.php",
+      "qid": "1437608",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (a < n, n from 2 to 5) (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 19,
+      "file_path": "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2.php",
+      "qid": "1437609",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (a/n between 1 and 2) (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 20,
+      "file_path": "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2-2.php",
+      "qid": "1437610",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (-a/n between 1 and 2) (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 21,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 22,
+      "file_path": "questions/im1/polynomial-product-a-b-a-x-c.php",
+      "qid": "1437611",
+      "in_group": "Q8",
+      "title": "Polynomial product a(b/a x + c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 23,
+      "file_path": "questions/im1/polynomial-product-a-b-a-x-c-2.php",
+      "qid": "1437612",
+      "in_group": "Q8",
+      "title": "Polynomial product a(b/a x - c) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 24,
+      "order": "Q9",
+      "file_path": "questions/im1/adding-algebraic-terms-two-variables-negative-coefficients.php",
+      "qid": "1437613",
+      "title": "Adding algebraic terms (two variables, negative coefficients) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 25,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 26,
+      "file_path": "questions/im1/dividing-fractions-fraction-by-a-variable-no-cancellation.php",
+      "qid": "1437614",
+      "in_group": "Q10",
+      "title": "Dividing Fractions (fraction by a variable, no cancellation) (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 27,
+      "file_path": "questions/im1/dividing-fractions-number-by-a-variable-fraction-no-cancellation.php",
+      "qid": "1437615",
+      "in_group": "Q10",
+      "title": "Dividing Fractions (number by a variable fraction, no cancellation) (local for Steven Huff)",
+      "qtype": "numfunc"
+    }
+  ]
+}

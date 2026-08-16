@@ -1,0 +1,99 @@
+{
+  "name": "HW Functions",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-functions",
+  "target": {
+    "cid": "340140",
+    "aid": "23498448"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498448"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2-6",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432198",
+      "title": "1-49 identifying patterns and growth rate",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1728",
+      "title": "Which graphs are functions?",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1729",
+      "title": "Which tables represent functions",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2467",
+      "title": "Which tables represent functions? (ver2)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4035",
+      "title": "Which graphs are functions? (copy by Tyler Wallace)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1639",
+      "title": "Evaluate function notation from a graph",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1640",
+      "title": "Evaluate a formula with function notation",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432177",
+      "title": "1-47 determine if the relationship is a function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "213978",
+      "title": "I HW 2.1 Solving one-step equations",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

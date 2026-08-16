@@ -1,0 +1,216 @@
+{
+  "name": "7.1.5 More Conditions for Triangle Congruence",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "7-1-5-more-conditions-for-triangle-congruence",
+  "target": {
+    "cid": "340140",
+    "aid": "23498504"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498504"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1576503",
+      "title": "Video Lesson - Triangle congruence (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "654292",
+      "title": "Determine whether figures are congruent, similar or neither [M8.9.6.9]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "654286",
+      "title": "Determine whether figures are congruent, similar or neither [M8.9.6.8]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "654274",
+      "title": "Determine whether figures are congruent, similar or neither [M8.9.6.7]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407156",
+      "title": "Determine whether figures are congruent, similar or neither [M8.9.2ef.6]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407152",
+      "title": "Determine whether figures are congruent, similar or neither [M8.9.2ef.5]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "156737",
+      "title": "Given the similar figures, solve for the missing variable(s) [II.2.5.8]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "156735",
+      "title": "Given the similar figures, solve for the missing variable(s) [II.2.5.7]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "156733",
+      "title": "Given the similar figures, solve for the missing variable(s) [II.2.5.5]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "156729",
+      "title": "Given the similar figures, solve for the missing variable(s) [II.2.5.1]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "117429",
+      "title": "081 Unit 10 - Find Missing Sides in Similar Figures (test version-no change)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "117418",
+      "title": "081 Unit 10 - Find Missing Sides in Similar Figures",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "810737",
+      "title": "G.SRT.B.5 - Application similar triangles - tree shadows (local for Becky Anderson)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570391",
+      "title": "SAS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570393",
+      "title": "ASA (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570394",
+      "title": "SSS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094306",
+      "title": "Congruence flow chart, HL Congruence. Answer in any order +. CPCTC Answer choices grouped by angle and ratios) From 835861",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "560376",
+      "title": "Congruence flow chart, NOT CONGRUENT, SSA. Answer in any order +.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1092528",
+      "title": "Congruence flow chart, SSS, Given, revlexive. Answer in any order +. (Answer choices grouped by angle and ratios) From 560458",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094023",
+      "title": "Congruence flow chart, NOT CONGRUENT, SSA. Answer in any order +. (Answer choices grouped by angle and ratios) From 560376",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1091949",
+      "title": "Congruence flow chart, ASA, 2 triangles all givens . Answer in any order +. (Answer choices grouped by angle and ratios) From 560393",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1094326",
+      "title": "Congruence flow chart, AAS, vertical, alternate interior angles. Answer in any order +. CPCTC Answer choices grouped by angle and ratios) From 835892",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

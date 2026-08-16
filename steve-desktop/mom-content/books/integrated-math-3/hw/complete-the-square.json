@@ -1,0 +1,117 @@
+{
+  "name": "Complete the Square",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "complete-the-square",
+  "target": {
+    "cid": "285887",
+    "aid": "20869294"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20869294"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1676929",
+      "title": "Video Lesson - Completing the Square",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3565",
+      "title": "Completing the square...\n: Find \n,and\n.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3565",
+      "title": "Completing the square...\n: Find \n,and\n.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3566",
+      "title": "Completing the square...\n: Find \n,and\n.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3566",
+      "title": "Completing the square...\n: Find \n,and\n.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345855",
+      "title": "7.6.5 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345855",
+      "title": "7.6.5 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345870",
+      "title": "7.6.6 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345870",
+      "title": "7.6.6 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "312217",
+      "title": "4-2 Identify vertex & y-intercept and give vertex form from expanded form of a quadratic function -- a is integer (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "312217",
+      "title": "4-2 Identify vertex & y-intercept and give vertex form from expanded form of a quadratic function -- a is integer (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

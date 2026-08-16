@@ -1,0 +1,369 @@
+{
+  "name": "Chapter 5 & Chapter 8 Individual Test",
+  "book": "integrated-math-1",
+  "kind": "ind",
+  "slug": "chapter-5-chapter-8-individual-test",
+  "target": {
+    "cid": "340140",
+    "aid": "23498489"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498489"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249895",
+      "in_group": "Q1",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Growth)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249897",
+      "in_group": "Q1",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Decay)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1761",
+      "title": "Match graphs of exponentials with equations",
+      "points": 5,
+      "qtype": "matching"
+    },
+    {
+      "slot": 5,
+      "order": "Q3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3607",
+      "in_group": "Q3",
+      "title": "Identify basic exponential function (b^x) based on its graph.",
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516953",
+      "in_group": "Q3",
+      "title": "Identify basic exponential function (b^x) based on its graph. (copy by Steven Huff)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 8,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3606",
+      "in_group": "Q4",
+      "title": "Identify Base of \n based on table values.",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516952",
+      "in_group": "Q4",
+      "title": "Identify Base of \n based on table values. (copy by Steven Huff)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2446",
+      "in_group": "Q5",
+      "title": "Find eqn of exponential a^x given y-int of 1 and second point",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2447",
+      "in_group": "Q5",
+      "title": "Find eqn of exponential a^x given y-int of 1 and second point; whole number a",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525169",
+      "title": "Given two points find the exponential equation between (copy by Steven Huff)",
+      "points": 5,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 16,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "in_group": "Q7",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 17,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "in_group": "Q7",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 18,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "in_group": "Q7",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "qtype": "choices"
+    },
+    {
+      "slot": 19,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 8 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525283",
+      "in_group": "Q8",
+      "title": "Find the next two terms in a Sequence - Geometric Increasing - Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525283",
+      "in_group": "Q8",
+      "title": "Find the next two terms in a Sequence - Geometric Increasing - Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525287",
+      "in_group": "Q8",
+      "title": "Find the next two terms in a Sequence ARITHMETIC DECREASE (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525287",
+      "in_group": "Q8",
+      "title": "Find the next two terms in a Sequence ARITHMETIC DECREASE (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526222",
+      "in_group": "Q8",
+      "title": "Find the Next Three Terms - Arithmetic Increasing Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526222",
+      "in_group": "Q8",
+      "title": "Find the Next Three Terms - Arithmetic Increasing Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526223",
+      "in_group": "Q8",
+      "title": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526223",
+      "in_group": "Q8",
+      "title": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 29,
+      "file_path": "questions/im1/continue-an-arithmetic-sequence-write-an-equation-create-a-plot.php",
+      "qid": "1526257",
+      "in_group": "Q9",
+      "title": "Continue an arithmetic sequence. Write an equation. Create a plot. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone.php",
+      "qid": "1526281",
+      "in_group": "Q9",
+      "title": "9th Grade Concept #33 - Identify the graph of a sequence as linear, exponential, or neither - Arithmetic With Equation (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 31,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 32,
+      "file_path": "questions/im1/find-the-formula-for-an-arithmetic-sequence-given-the-first-term-a-1-a.php",
+      "qid": "1530192",
+      "in_group": "Q10",
+      "title": "Find the formula for an arithmetic sequence given the first term \n and the common difference \n. Help video from James Sousa. (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 33,
+      "file_path": "questions/im1/find-formula-for-arithmetic-sequence-given-initial-term-and-common-dif.php",
+      "qid": "1530194",
+      "in_group": "Q10",
+      "title": "Find formula for arithmetic sequence given initial term and common difference (ur_sq_4_6.pg) (copy by Janell Woods) (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "order": "Q11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 35,
+      "file_path": "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste.php",
+      "qid": "1533427",
+      "in_group": "Q11",
+      "title": "Arithmetic Increasing Sequence with table. Explicit formula (copy by Steve Lang) (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 36,
+      "file_path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult.php",
+      "qid": "1530817",
+      "in_group": "Q11",
+      "title": "Geometric Increasing Sequence from table missing 2 values. decimal multiplier explicit formula(copy by Steve Lang) (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "order": "Q12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 38,
+      "file_path": "questions/im1/sequence-graph-exponential.php",
+      "qid": "1530819",
+      "in_group": "Q12",
+      "title": "Sequence - Graph Exponential (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 39,
+      "file_path": "questions/im1/sequence-graph-exponential-2.php",
+      "qid": "1530837",
+      "in_group": "Q12",
+      "title": "Sequence - Graph Exponential (local for Steven Huff)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 40,
+      "order": "Q13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "23971",
+      "title": "Lesson 6 - Decay Rate and Decay Factor",
+      "points": 5,
+      "qtype": "multipart"
+    }
+  ]
+}

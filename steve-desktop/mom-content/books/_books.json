@@ -3,6 +3,8 @@
   "books": [
     { "slug": "applied-finite-math",           "title": "Applied Finite Math" },
     { "slug": "introduction-to-stats-sh",      "title": "Introduction to Stats — SH" },
-    { "slug": "introduction-to-stats-archive", "title": "Introduction to Stats (Archive)", "archived": true }
+    { "slug": "introduction-to-stats-archive", "title": "Introduction to Stats (Archive)", "archived": true },
+    { "slug": "integrated-math-3",             "title": "Integrated Math 3" },
+    { "slug": "integrated-math-1",             "title": "Integrated Math 1" }
   ]
 }

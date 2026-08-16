@@ -1,0 +1,126 @@
+{
+  "name": "Composition of functions",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "composition-of-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "21574537"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21574537"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1590",
+      "title": "Algebra problem: compose functions (beth4algfun.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1592",
+      "title": "Composite Functions (pcomp.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1595",
+      "title": "Given two polynomial functions, find their composition (s0_1_85a.pg)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1597",
+      "title": "Algebra problem: evalute composition at a point (srw2_8_17.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1598",
+      "title": "Algebra problem: triple composition of functions (srw2_8_43.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599",
+      "title": "Algebra problem: decomposition of functions (srw2_8_45.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1600",
+      "title": "Algebra problem: decomposition of functions (srw2_8_48.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1603",
+      "title": "Given root and quadratic function, find domain of their composition (ur_fn_2_4.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1604",
+      "title": "Given two rational functions, find domain of their composition (ur_fn_2_5.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4052",
+      "title": "Composite Functions at point",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15928",
+      "title": "Composition of functions using values based on graphs (copy by James Sousa)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "535638",
+      "title": "Evaluate function composition from a table and a graph",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

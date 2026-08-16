@@ -1,0 +1,132 @@
+{
+  "name": "7.2.1 Studying Quadrilaterals on a Coordinate Grid",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+  "target": {
+    "cid": "340140",
+    "aid": "23498506"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498506"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im1/area-of-rectangle-given-coordinates-of-corner-points.php",
+      "qid": "1576511",
+      "title": "Area of rectangle given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/area-of-rectangle-given-coordinates-of-corner-points.php",
+      "qid": "1576511",
+      "title": "Area of rectangle given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/im1/graph-and-area-of-square-given-coordinates-of-corner-points.php",
+      "qid": "1576523",
+      "title": "Graph and Area of square given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im1/graph-and-area-of-square-given-coordinates-of-corner-points.php",
+      "qid": "1576523",
+      "title": "Graph and Area of square given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/area-of-parallelogram-given-coordinates-of-corner-points.php",
+      "qid": "1576528",
+      "title": "Area of parallelogram given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/area-of-parallelogram-given-coordinates-of-corner-points.php",
+      "qid": "1576528",
+      "title": "Area of parallelogram given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/area-of-trapezoid-given-coordinates-of-corner-points.php",
+      "qid": "1576529",
+      "title": "Area of trapezoid given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im1/area-of-trapezoid-given-coordinates-of-corner-points.php",
+      "qid": "1576529",
+      "title": "Area of trapezoid given coordinates of corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im1/given-similar-quadrilaterals-and-some-of-the-sides-find-one-side-on-se.php",
+      "qid": "1576540",
+      "title": "Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second and area of second given those on first (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im1/given-similar-quadrilaterals-and-some-of-the-sides-find-one-side-on-se.php",
+      "qid": "1576540",
+      "title": "Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second and area of second given those on first (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": "questions/im1/graph-and-area-of-square-rotated-given-coordinates-of-corner-points-co.php",
+      "qid": "1576525",
+      "title": "Graph and Area of square (rotated) given coordinates of corner points (local for Steven Huff) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": "questions/im1/graph-and-area-of-square-rotated-given-coordinates-of-corner-points-co.php",
+      "qid": "1576525",
+      "title": "Graph and Area of square (rotated) given coordinates of corner points (local for Steven Huff) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "664165",
+      "title": "13.7 Day 1 HW #8 Coordinate Geometry Find area of triangle given coordinates",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "664165",
+      "title": "13.7 Day 1 HW #8 Coordinate Geometry Find area of triangle given coordinates",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

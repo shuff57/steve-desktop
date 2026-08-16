@@ -1,0 +1,135 @@
+{
+  "name": "2.3.1 Writing the Equation of a Line Given the Slope and a Point HW",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-3-1-writing-the-equation-of-a-line-given-the-slope-and-a-point-hw",
+  "target": {
+    "cid": "340140",
+    "aid": "23498459"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498459"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435819",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435874",
+      "title": "Use the slope formula to calculate the slope of a line given two points. All coordinates are positive. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462413",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "103509",
+      "title": "Given slope and point, write eqn of line in point-slope and slope-intercept forms. Accepts either of the point-slope forms",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "957463",
+      "title": "Given slope and point, write eqn of line in point-slope form. Requires both slope-intercept and point-slope form",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51439",
+      "title": "Point Slope-3-4 Given a point and a slope (integer) put into the point slope form of the line then the slope intercept form",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51440",
+      "title": "Point Slope-6-7 Given a point and a slope (fraction) put into the point slope form of the line then the slope intercept form",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51441",
+      "title": "Point Slope-5 Given a point and a slope (integer) put into the point slope form of the line then the slope intercept form",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "110518",
+      "title": "3a3 D1 Write Linear Equation in Slope Int given graph",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "111404",
+      "title": "D6 Write Linear Equation in Standard form given graph",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13867",
+      "title": "write equation for linear graph given - easy intercepts (video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13874",
+      "title": "write equation for linear graph given - easy intercepts (copy by James Sousa)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "92992",
+      "title": "write equation for linear graph given - easy intercepts (Lumen)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

@@ -1,0 +1,737 @@
+{
+  "name": "Final Review",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "final-review",
+  "target": {
+    "cid": "340140",
+    "aid": "23498521"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498521"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-6",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2745",
+      "title": "Match graph to inequality choices [GL][8195]",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2746",
+      "title": "Match inequality to graph choices [GL][8196]",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3603",
+      "title": "1-var inequality graphing.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "65460",
+      "title": "Match inequality after solving",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "542676",
+      "title": "Write inequality given graph a<x<b -inequality ans",
+      "points": 1,
+      "qtype": "calcinterval"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "143618",
+      "title": "Match graph to three-part inequality",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599106",
+      "title": "Determine linear inequality from graph",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14002",
+      "title": "Graph a linear inequality (two var), < or >",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "19705",
+      "title": "Graph a linear inequality (two var) <= or >=",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1357605",
+      "title": "9-94 Given linear inequality, choose matching graph (copy by Tabitha Fish)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "35263",
+      "title": "Given linear inequality, choose matching graph",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1164708",
+      "title": "Given linear inequality of the form \n, graph the solution (multiple choice)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14004",
+      "title": "Match inequalities with graphs. Lite rand (local for James Sousa)",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594563",
+      "title": "Solve and Graph inequalities in one variable.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594575",
+      "title": "Review Solve and Graph inequalities in one variable.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "338653",
+      "title": "Solve by elimination method medium (copy by Steve Lang)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "769844",
+      "title": "Systems - Equal Values Method (by Jon Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86980",
+      "title": "Conceptual Multiple Choice - Substitution Method",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "122130",
+      "title": "Solve a system of two linear equations by elimination. Must multiply both equations. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "437867",
+      "title": "Solve a system of two linear equations by elimination. Must multiply both equations. Help video from Devin Henson.",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86993",
+      "title": "Conceptual Multiple Choice - The Elimination Method Without Multiplication",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "396015",
+      "title": "3D.1-Solve a system by using any method you want (Elimination Standard Form)",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "908663",
+      "title": "Re-write fraction with multiple variables with negative exponents with positive exponents only; part of initial learning about negative exponents.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "908692",
+      "title": "Re-write expression with negative exponents as a fraction and with positive exponents only; part of initial learning about negative exponents.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "185093",
+      "title": "Exponent product rule easy a^n*a^m (JH vid)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "99998",
+      "title": "Exponent Rules - Quotient Rule - y^n/y^m where n<m (Carla Kulinsky)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "888784",
+      "title": "Rules of Exponents TUTORIAL: Quotient Rule\n n>m (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1302",
+      "title": "Exponent rules: a^n*a^m, (a^n)^m",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1873",
+      "title": "(x/a)^n variables randomly chose from x,y, or z [LM] (RB 6.5.3)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1874",
+      "title": "(x^2/a)^n variables randomly chose from x,y, or z [LM] (RB 6.5.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1875",
+      "title": "variables randomly chose from x,y, or z [LM] (RB 6.5.5)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1880",
+      "title": "variables randomly chose from x,y, or z [LM] (RB 6.5.10)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "742370",
+      "title": "§6.5 Blitzer-4: Zero Exponent v1 (with variables) (copy by Sarai Peterson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "901427",
+      "title": "Zero exponents (integers) (copy by Sheri Dean)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 35,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251292",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 36,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251298",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251307",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 38,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570391",
+      "title": "SAS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 39,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570393",
+      "title": "ASA (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 40,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "570394",
+      "title": "SSS (copy by Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 41,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "609772",
+      "title": "C33 - Rotations - Write the Coordinates from a 90 degree counter-clockwise rotation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 42,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "608775",
+      "title": "C32 - Reflection -points (x-axis)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 43,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "608777",
+      "title": "C32 Reflection -points (y-axis)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 44,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1564670",
+      "title": "C31 - Translations - describe rule from graph (copy by Liz Larsen)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 45,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1564671",
+      "title": "C31 Translations -Translate Coordinates of Figure REGENERATING (copy by Liz Larsen)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 46,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "741965",
+      "title": "6.4 (10) Use the slope formula to find the slope of the line between two points (x1,y1) and (x2,y2)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 47,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "173601",
+      "title": "Slope between two points (non-horizontal line)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 48,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "173603",
+      "title": "Perpendicular slope between two points.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 49,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125276",
+      "title": "Use the Distance Formula to find the length of a line segment. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 50,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15428",
+      "title": "Find the distance of a line segment from a graph",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 51,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "884",
+      "title": "Similar Tri v",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 52,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "42493",
+      "title": "[Mayo75, Ch 1 Sec 2, Q 73] Similar triangles solve for the unknowns",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 53,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204054",
+      "title": "congruent triangles, solve for x,y",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 54,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "247064",
+      "title": "SR.9.1 triangle congruence",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 55,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "89000",
+      "title": "percent change multiplier in context",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 56,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "339459",
+      "title": "Convert percent increase and decrease to multipliers SL",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 57,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "945825",
+      "title": "Given first four terms of a GEOMETRIC sequence, determine if the sequence is geometric or arithmetic and then find the next two terms of the sequence (\n and \n are integers)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 58,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "945829",
+      "title": "Given first four terms of a ARITHMETIC sequence, determine if the sequence is geometric or arithmetic and then find the next two terms of the sequence (\n and \n are integers)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 59,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "628999",
+      "title": "C39 - Scientific Notation - Convert a decimal to Scientific Notation.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 60,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "629007",
+      "title": "C39 - Scientific Notation - Convert a whole number to Scientific Notation.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 61,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "213390",
+      "title": "Write Linear Equation of vertical line given graph",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 62,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300764",
+      "title": "Write equations of a line in different forms -- given graph (SClement)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 63,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "436045",
+      "title": "Write the slope-intercept equation of a line given a graph. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 64,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1477317",
+      "title": "CE1010 Given a Table of Values, Complete the Table and Write a Linear Equation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 65,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "637213",
+      "title": "Write the equation of the line in slope-intercept form given a table. Integer slopes.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 66,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190676",
+      "title": "S2 OUR 2.9.1 multiply binomials using open area models",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 67,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "354803",
+      "title": "Q1 14 Multiply binomial and binomial minus monomial times binomial",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 68,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "128048",
+      "title": "D2 Multiply binomial and binomial",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 69,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "475857",
+      "title": "Find midpoint using the midpoint formula, reduced fraction only",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 70,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657827",
+      "title": "9th Grade Concept #84 Part A - Use the Midpoint Formula to Calculate the Midpoint of a Line with the Set of Given Endpoints - REGENERATING",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 71,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657830",
+      "title": "9th Grade Concept #84 Part B - Use the Midpoint Formula to Calculate the Midpoint of a Line with the Set of Given Endpoints - REGENERATING",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 72,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343362",
+      "title": "Given equation of a line in slope-intercept form, find slope of line parallel and slope of line perpendicular",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 73,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240334",
+      "title": "Solve a formula for a variable; standard form linear, solve for y",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 74,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249895",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Growth)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 75,
+      "file_path": "questions/im1/exponential-growth-horizontal-table-complete-table-and-find-the-rule-y.php",
+      "qid": "1535534",
+      "title": "Exponential Growth!! Horizontal Table ~ Complete Table and Find the Rule y = a(b)^x a = 2 to 7 b = 2 to 5 by 1's Eric Petterson (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 76,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2616",
+      "title": "Find expo. func. given \n-int. and point (increasing) [GL][7300]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 77,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2617",
+      "title": "Find expo. func. given \n-int. and point (decreasing) [GL][7301]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 78,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1884",
+      "title": "Simpify a^-n [LM] (RB 6.7.1) 2712",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 79,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1885",
+      "title": "Simpify (a)^-n [LM] (RB 6.7.2) 2713",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 80,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1887",
+      "title": "(a/b)^-n [LM] (RB 6.7.4) 2715",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

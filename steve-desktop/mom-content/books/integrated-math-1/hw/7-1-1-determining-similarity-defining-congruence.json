@@ -1,0 +1,108 @@
+{
+  "name": "7.1.1 Determining Similarity & Defining Congruence",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "7-1-1-determining-similarity-defining-congruence",
+  "target": {
+    "cid": "340140",
+    "aid": "23498501"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498501"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "48642",
+      "title": "Congruence/Similarity - ID triangles that are congruent,similar to given triangle and ID scale factors of similar triangles.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "881130",
+      "title": "Similar Polygons: Given similar polygons and side lengths, find x (quadrilaterals and triangles)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "32076",
+      "title": "Are the triangles similar? v1",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "35559",
+      "title": "similar triangles, shadow story (ur_ab_6_2.pg) (local for Laurel Clifford)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "42493",
+      "title": "[Mayo75, Ch 1 Sec 2, Q 73] Similar triangles solve for the unknowns",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "42494",
+      "title": "[Mayo75, Ch 1 Sec 2, Q 74] Similar triangles solve for the unknowns",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "257548",
+      "title": "Similar quadrilaterals [III.8.4.12]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "590552",
+      "title": "Quiz 8.1-8.3 #6 (4pts) Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "133436",
+      "title": "Congruence - are figures congruent (trans,ref)? v2",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "134886",
+      "title": "Congruence - critique 2 sequences",
+      "points": 1,
+      "qtype": "choices"
+    }
+  ]
+}

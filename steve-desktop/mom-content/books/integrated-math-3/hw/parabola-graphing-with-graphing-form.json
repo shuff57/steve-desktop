@@ -1,0 +1,89 @@
+{
+  "name": "Parabola Graphing with Graphing Form",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "parabola-graphing-with-graphing-form",
+  "target": {
+    "cid": "285887",
+    "aid": "20819157"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20819157"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178770",
+      "title": "Matching Basic Parent Functions to Parent Graphs",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178771",
+      "title": "Matching Functions to their Parent Functions",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "128673",
+      "title": "Parent Functions (Quadratic)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1668518",
+      "title": "Plotting transformations   plot graph of the parent function    \n   then plot a transformation (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "conditional"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720061",
+      "title": "8.5.1 Identifying transformations of a quadratic parent function. NOT RANDOM",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720304",
+      "title": "Identifying transformations of a quadratic parent function version 1 a-stretch h-positive k-positive",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720808",
+      "title": "Identifying transformations of a quadratic parent function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im3/parent-functions-and-transformations-1-f-x-x-2.php",
+      "qid": "1671770",
+      "title": "Parent Functions and Transformations #1: \n (local for DEYCI LOPEZ) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

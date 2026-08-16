@@ -1,0 +1,180 @@
+{
+  "name": "Review on all unit Circle",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "review-on-all-unit-circle",
+  "target": {
+    "cid": "285887",
+    "aid": "22352637"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22352637"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "668653",
+      "title": "Unit Circle Trig -- angle in radians from coordinates on the unit circle (find positive and negative angle) (Luther Rojo)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "158825",
+      "title": "Plot points on Unit Circle given Radian measure (positive angle)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "159686",
+      "title": "Plot points on Unit Circle given Radian measure (negative angle)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "299989",
+      "title": "Identify radian measure of special angle on unit circle",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "299990",
+      "title": "Identify radian measure of 3 special angles on unit circle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356538",
+      "title": "Label angles on unit circle (radians), random order",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "408476",
+      "title": "UC.1C-Plot points on Unit Circle given Radian measure (positive angle)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "785178",
+      "title": "Plot points on Unit Circle given Radian measure (negative angle)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "843247",
+      "title": "Label angles on unit circle (radians and degrees), random order",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1142910",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) with DETAILED SOLN",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1359635",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) 2 Questions with DETAILED SOLN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1622695",
+      "title": "Murphy SM3.07.4: Use the Unit Circle to show locations of negative angles (degrees and radians)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1747822",
+      "title": "Murphy SM3.12.1: Using radius and a radian angle in standard position, determine xy-coordinate point. (no polar coordinates, only use unit circle angles and positive radius)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1747826",
+      "title": "Murphy SM3.12.1: Using rectangular coordinates, determine radius and a radian angle in standard position. (no polar coordinates, only use unit circle angles and positive radius)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468589",
+      "title": "Unit Circle Identifying angles radians",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468619",
+      "title": "Unit Circle Identifying angles radians #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1800122",
+      "title": "Non-Unit Circle Coordinates - Find terminal point coordinates on a circle of radius r",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1800134",
+      "title": "Arc Length to Angle Measure - Find radian and degree measure from arc length on a non-unit circle",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

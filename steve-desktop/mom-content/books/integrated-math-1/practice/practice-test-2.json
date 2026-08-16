@@ -1,0 +1,636 @@
+{
+  "name": "Practice Test",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "practice-test-2",
+  "target": {
+    "cid": "340140",
+    "aid": "23498461"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498461"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-8",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342752",
+      "title": "Linear tile pattern - find equation from info",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342773",
+      "title": "Tile pattern equation given, predict tiles from fig #",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 6 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342944",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #1",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342945",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #2",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342946",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #3",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342947",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #4",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343676",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #5",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "344390",
+      "in_group": "Q3",
+      "title": "Tile Pattern - fill in table, find equation #6",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "129491",
+      "in_group": "Q4",
+      "title": "Calculate the slope of a line given its graph. Negative slope. Help video from Davitily.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "129486",
+      "in_group": "Q4",
+      "title": "Calculate the slope of a line given its graph. Positive or negative slope. Help video from 2 Minute Classroom.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1177420",
+      "in_group": "Q5",
+      "title": "Calculate Slope - From Graph with Helper Dots - positive slope",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178846",
+      "in_group": "Q5",
+      "title": "Calculate Slope - From Graph with Helper Dots - negative slope",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 16,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1177421",
+      "in_group": "Q6",
+      "title": "Calculate Slope - From Graph without Helper Dots - positive slope",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178847",
+      "in_group": "Q6",
+      "title": "Calculate Slope - From Graph without Helper Dots - negative slope",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 19,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86333",
+      "in_group": "Q7",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86337",
+      "in_group": "Q7",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "210967",
+      "in_group": "Q7",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1, y= notation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 24,
+      "file_path": "questions/im1/graph-y-2x-b-give-table-of-values-graph-at-least-3-points-and-graph-li.php",
+      "qid": "1468909",
+      "in_group": "Q8",
+      "title": "Graph \n. Give table of values, graph at least 3 points, and graph line. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "825308",
+      "in_group": "Q8",
+      "title": "Graph \n. Give table of values, graph at least 3 points, and graph line.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 5 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 27,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-basic.php",
+      "qid": "1468902",
+      "in_group": "Q9",
+      "title": "Determining the Linear Equation from a graph - Basic (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope.php",
+      "qid": "1468904",
+      "in_group": "Q9",
+      "title": "Determining the Linear Equation from a graph - Fraction Slope (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 29,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope-through-or.php",
+      "qid": "1468905",
+      "in_group": "Q9",
+      "title": "Determining the Linear Equation from a graph - Fraction Slope through origin (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-0-slope.php",
+      "qid": "1468906",
+      "in_group": "Q9",
+      "title": "Determining the Linear Equation from a graph - 0 slope (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 31,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-large-scale.php",
+      "qid": "1468907",
+      "in_group": "Q9",
+      "title": "Determining the Linear Equation from a graph - Large Scale (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 32,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1469864",
+      "in_group": "Q10",
+      "title": "graph mx+b (slope=m/5)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1470059",
+      "in_group": "Q10",
+      "title": "graph mx+b #2 (slope=m/2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 35,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1470062",
+      "in_group": "Q10",
+      "title": "graph mx+b #3 (slope=m/3)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 36,
+      "order": "Q11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 37,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435874",
+      "in_group": "Q11",
+      "title": "Use the slope formula to calculate the slope of a line given two points. All coordinates are positive. Help video from James Sousa.",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 38,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435819",
+      "in_group": "Q11",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Help video from James Sousa.",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 39,
+      "order": "Q12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 40,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435934",
+      "in_group": "Q12",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. Help video from Tyler Wallace.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 41,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435937",
+      "in_group": "Q12",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. Help video from James Sousa.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 42,
+      "order": "Q13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "827224",
+      "title": "Given the equation of a line in general form \n, find the slope. Fraction. Students don't have yet the connection between the equation of a line and the slope. They only have the slope formula, given two points.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 43,
+      "order": "Q14",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 44,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462413",
+      "in_group": "Q14",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 45,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462411",
+      "in_group": "Q14",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value). #2",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 46,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462414",
+      "in_group": "Q14",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value) #3",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 47,
+      "order": "Q15",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 48,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "103509",
+      "in_group": "Q15",
+      "title": "Given slope and point, write eqn of line in point-slope and slope-intercept forms. Accepts either of the point-slope forms",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 49,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "957463",
+      "in_group": "Q15",
+      "title": "Given slope and point, write eqn of line in point-slope form. Requires both slope-intercept and point-slope form",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 50,
+      "order": "Q16",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 51,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51439",
+      "in_group": "Q16",
+      "title": "Point Slope-3-4 Given a point and a slope (integer) put into the point slope form of the line then the slope intercept form",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 52,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51440",
+      "in_group": "Q16",
+      "title": "Point Slope-6-7 Given a point and a slope (fraction) put into the point slope form of the line then the slope intercept form",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 53,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51441",
+      "in_group": "Q16",
+      "title": "Point Slope-5 Given a point and a slope (integer) put into the point slope form of the line then the slope intercept form",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 54,
+      "order": "Q17",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 55,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "110518",
+      "in_group": "Q17",
+      "title": "3a3 D1 Write Linear Equation in Slope Int given graph",
+      "qtype": "choices"
+    },
+    {
+      "slot": 56,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "111404",
+      "in_group": "Q17",
+      "title": "D6 Write Linear Equation in Standard form given graph",
+      "qtype": "choices"
+    },
+    {
+      "slot": 57,
+      "order": "Q18",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 58,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13867",
+      "in_group": "Q18",
+      "title": "write equation for linear graph given - easy intercepts (video)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 59,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13874",
+      "in_group": "Q18",
+      "title": "write equation for linear graph given - easy intercepts (copy by James Sousa)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 60,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "92992",
+      "in_group": "Q18",
+      "title": "write equation for linear graph given - easy intercepts (Lumen)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 61,
+      "order": "Q19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 62,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462424",
+      "in_group": "Q19",
+      "title": "2-102.1 Given table, write equation (linear)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 63,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462431",
+      "in_group": "Q19",
+      "title": "2-102.2 Given table, write equation (linear)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 64,
+      "order": "Q20",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462434",
+      "title": "2-102.3 Given table (fractions), write equation (linear)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 65,
+      "order": "Q21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 66,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "741965",
+      "in_group": "Q21",
+      "title": "6.4 (10) Use the slope formula to find the slope of the line between two points (x1,y1) and (x2,y2)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 67,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "76733",
+      "in_group": "Q21",
+      "title": "Find slope between two points. Fractional coordinates",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 68,
+      "order": "Q22",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "76718",
+      "title": "Definition of slope between two points",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 69,
+      "order": "Q23",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "173602",
+      "title": "Equation of line between two points (point-slope form)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

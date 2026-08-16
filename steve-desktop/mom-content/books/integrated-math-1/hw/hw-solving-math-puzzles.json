@@ -1,0 +1,134 @@
+{
+  "name": "HW Solving Math Puzzles",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-solving-math-puzzles",
+  "target": {
+    "cid": "340140",
+    "aid": "23498446"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498446"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1430885",
+      "title": "1-9 Simplifying expressions",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1430890",
+      "title": "1-10 substituting values",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2371",
+      "title": "Write algebraic expression; more than",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2372",
+      "title": "Write algebraic expression; less than",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2373",
+      "title": "Write algebraic expression; twice or half",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "838546",
+      "title": "Block pattern \n. Find number of blocks (numerical).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/block-pattern-4x-k-find-number-of-blocks-numerical-and-write-the-formu.php",
+      "qid": "1439793",
+      "title": "Block pattern \n. Find number of blocks (numerical) and write the formula. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "534959",
+      "title": "Multiple Choice - Expressions - Using Properties to Simplify Expressions [7.5.3]",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1430838",
+      "title": "1-7 Simple abs val 4 parts",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "534980",
+      "title": "Multiple Choice - Expressions - Using Properties to Simplify Expressions [7.5.8]",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "37978",
+      "title": "1.8 Simplify with order of operations and absolute value",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "145007",
+      "title": "Simplify Absolute Value Integers.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "145009",
+      "title": "Simplify Absolute Value Integers.",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

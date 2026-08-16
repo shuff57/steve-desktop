@@ -1,0 +1,90 @@
+{
+  "name": "HW Zero and Negative Exponents",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-zero-and-negative-exponents",
+  "target": {
+    "cid": "340140",
+    "aid": "23498451"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498451"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2-9",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3646",
+      "title": "Rules of Exponents TUTORIAL: Negative Exponents",
+      "points": 2,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3861",
+      "title": "(a x^m y^0)(b x^0) (by Tyler Wallace)",
+      "points": 2,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3860",
+      "title": "(ax^b)^0 (by Tyler Wallace)",
+      "points": 2,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1890",
+      "title": "1/(ax^-n) [LM] (RB 6.7.5) 2718",
+      "points": 2,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1889",
+      "title": "`x^-n/y^-m ` [LM] (RB 6.7.6) 2717",
+      "points": 2,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1885",
+      "title": "Simpify (a)^-n [LM] (RB 6.7.2) 2713",
+      "points": 2,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1884",
+      "title": "Simpify a^-n [LM] (RB 6.7.1) 2712",
+      "points": 2,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1303",
+      "title": "Algebra problem: raising integers to powers (one neg exponent) (.pg)",
+      "points": 2,
+      "qtype": "multipart"
+    }
+  ]
+}

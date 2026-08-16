@@ -1,0 +1,233 @@
+{
+  "name": "Chapter 1 Practice Test",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "chapter-1-practice-test",
+  "target": {
+    "cid": "285887",
+    "aid": "20764950"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20764950"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "493430",
+      "title": "Solving quadratics with square root.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "150710",
+      "title": "Factoring out the GCF. The GCF is a monomial. (Instruction: factor out the GCF).",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1013844",
+      "title": "Factoring out the GCF. The GCF is a monomial. (Instruction: factor out the GCF). (copy by Liz Larsen)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "216204",
+      "title": "II HW 2.7 Factoring Quadratics",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "216206",
+      "title": "II HW 2.7 Factoring Quadratics",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "23847",
+      "title": "Lesson 2 - Simplifying Polynomials Review - Multiplying",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15739",
+      "title": "Evaluate cubic f(-a)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525328",
+      "title": "For the function \n, find \n, \n,",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525339",
+      "title": "For the function \n, find \n, \n,",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "164812",
+      "title": "Evaluate a perfect square root, the square root of zero, and the square root of a negative number (DNE).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342355",
+      "title": "Evaluate square root function given in function notation at several points (125) (local for Steve Lang)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1016509",
+      "title": "Given a parabola in quadratic form find the vertex, aos, direction of opening, max/min, domain, range, increasing, decreasing, x-intercepts and y-intercepts. Opens up positive integer x-intercepts (factorable).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1016801",
+      "title": "Given a parabola in quadratic form find the vertex, aos, direction of opening, max/min, domain, range, increasing, decreasing, x-intercepts and y-intercepts. Opens up negative integer x-intercepts (factorable).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204195",
+      "title": "Lehmann - Find x-intercepts, y-intercepts, vertex and graph parabola given: f(x)= x^2 + bx + c",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407405",
+      "title": "T-13A Domain-Range find the Domain and Range of a part of a graph - answer as inequality",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204403",
+      "title": "find domain and range from graph -- quadratic over restricted domain. (122)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "852336",
+      "title": "Solve a quadratic equation \n graphically by finding the intersection points given graph of a parabola. Two integer solutions. Help video by James Sousa. (fixed \n issue)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "59306",
+      "title": "Solving systems of linear equations (answers are integers) 1139",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "242969",
+      "title": "I HW 4.4 Systems of equations",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3762",
+      "title": "Fractions with exponents[1]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3859",
+      "title": "Exponent rules: (a x^m y^n z^o)(b x^p y^q) (copy by Tyler Wallace)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 22,
+      "file_path": "questions/im3/sac-rev-j3-rules-of-exponents-tutorial-x-m-n.php",
+      "qid": "1660036",
+      "title": "SAC Rev J3 Rules of Exponents TUTORIAL: \n (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "189260",
+      "title": "Simplify expression with rational exponents. Give exact answer in rational exponents and nth root notation. Give decimal approximation to 3 decimal places. (a^1/n)/(a^1/m)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1139198",
+      "title": "Murphy SM3.01.2: Solve Using Quadratic Formula (fill in the formula, two real irrational solutions, allows \n for answer)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

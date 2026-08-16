@@ -1,0 +1,99 @@
+{
+  "name": "Entering Answers",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "entering-answers",
+  "target": {
+    "cid": "340140",
+    "aid": "23498439"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498439"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38",
+      "title": "Entering Number answers",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "43",
+      "title": "Multiple-choice type",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "44",
+      "title": "Multiple-answer type",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45",
+      "title": "Matching type",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51635",
+      "title": "Entering Algebraic Expression using MathQuill - Quadratic",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38975",
+      "title": "Entering Algebraic Expression using MathQuill - Exponential 2",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38976",
+      "title": "Entering Algebraic Expression using MathQuill - Interval and Inequality Notation",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51641",
+      "title": "Entering Algebraic Expression using MathQuill -Radical #1",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51655",
+      "title": "Entering Algebraic Expression using MathQuill -Exponential",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

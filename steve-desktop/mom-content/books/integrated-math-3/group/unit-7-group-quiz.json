@@ -1,0 +1,144 @@
+{
+  "name": "Unit 7 Group Quiz",
+  "book": "integrated-math-3",
+  "kind": "group",
+  "slug": "unit-7-group-quiz",
+  "target": {
+    "cid": "285887",
+    "aid": "22100100"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100100"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271483",
+      "title": "Expanding Logarithms ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "160738",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (copy by Hungwen Chang)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418282",
+      "title": "Use the quotient property to expand log(m)/log(n)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720058",
+      "title": "Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13591",
+      "title": "Solving Log Equations Using Log Properties [-]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "764155",
+      "title": "Given increasing exponential graph, get table, equation, input, output, no context, sandbox template (copy by Ann Differding) CAN'T REALLY CREATE NEW VERSION",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "379880",
+      "title": "Inverse of exponential functions - y = a^(x+h)+k",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1701133",
+      "title": "2.4.5 Complex Numbers/Algebra problem: multiplying complex numbers. (local for Lyle ONeal)",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1753971",
+      "title": "Word problem involving solving a right triangle using basic trig. (p7.pg) (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4325",
+      "title": "Right triangle - find others given hypotenuse and one leg",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130333",
+      "title": "Law of Sines/Cosines - SAS - Cosines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1484092",
+      "title": "Find area of triangle using Law of Sines (local for Ryan Stones)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302063",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "730991",
+      "title": "Find the missing side of the triangle using the Law of Sines. (video) Asks for Law of Sines set-up equation",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

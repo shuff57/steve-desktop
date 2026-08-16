@@ -1,0 +1,153 @@
+{
+  "name": "Graphing Logs using Exponentials",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "graphing-logs-using-exponentials",
+  "target": {
+    "cid": "285887",
+    "aid": "21673322"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21673322"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1575",
+      "title": "Solve simple equations involving logs (problem5.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14405",
+      "title": "Solve simple equations involving logs (problem5.pg) (local for James Sousa)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "74320",
+      "title": "Solve simple equations involving logs (problem5.pg) (local for Phil Clark)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1581",
+      "title": "Solve equations involving logs for the base (srw4_3_41-42.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2655",
+      "title": "Use logs to solve \n; irrational solution",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "311998",
+      "title": "Evaluating Logarithms Base 2, 3, or 4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "312000",
+      "title": "Evaluating Logarithms Base 4,9,16 positive and negative answers, 1/2 as answer",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1784",
+      "title": "vertical asymptote of log(x+a)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1787",
+      "title": "Match graphs of 10^x,e^x,log(x),ln(x) with equations",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3736",
+      "title": "Domain of log(b+ax), interval notation answer",
+      "points": 1,
+      "qtype": "calcinterval"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14399",
+      "title": "Domain of log(b+ax), interval notation answer (copy by James Sousa)",
+      "points": 1,
+      "qtype": "calcinterval"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "432065",
+      "title": "Draw \n , \n , and \n on the same graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491908",
+      "title": "Graph log_a(x) [MR]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491909",
+      "title": "Graph log_a(x)+k",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491910",
+      "title": "Graph log_a(x-h)+k",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

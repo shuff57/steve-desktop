@@ -1,0 +1,108 @@
+{
+  "name": "8.2.1 Curve Fitting",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "8-2-1-curve-fitting",
+  "target": {
+    "cid": "340140",
+    "aid": "23498482"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498482"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557807",
+      "title": "Given function representation, identify linear or exponential and build function (table/exponential)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557809",
+      "title": "Given function representation, identify linear or exponential and build function (story/exponential)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557813",
+      "title": "Given function representation, identify linear or exponential and build function (story/exponential)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557814",
+      "title": "Given function representation, identify linear or exponential and build function (story/exponential)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "536647",
+      "title": "Determine exponential function. Given two points of exponential decay, extrapolate to get a third point.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "392995",
+      "title": "NOT RANDOM Given two points find the exponential equation between",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525136",
+      "title": "Given two points find the exponential equation between (copy by Steven Huff) #1",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525169",
+      "title": "Given two points find the exponential equation between (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525169",
+      "title": "Given two points find the exponential equation between (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525169",
+      "title": "Given two points find the exponential equation between (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

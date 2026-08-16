@@ -1,0 +1,90 @@
+{
+  "name": "2.1.1 Standard Form to Graphing Form",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "2-1-1-standard-form-to-graphing-form",
+  "target": {
+    "cid": "285887",
+    "aid": "20819159"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20819159"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1668537",
+      "title": "Parabola Extension - Graph to Roots, Graphing, and Standard Form (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "934363",
+      "title": "Graphing form to Standard Form SL sp",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "507015",
+      "title": "S3.T1 Review.17 Convert quadratic function from standard form to vertex form by completing the square.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "507019",
+      "title": "S3.T1 Review.18 Convert quadratic function from standard form to vertex form by completing the square.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "788687",
+      "title": "S3.MQ#4.4 convert quadratic from Standard Form to Vertex Form \n by completing the square (randomized)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1411096",
+      "title": "S3 Unit 2 Test.5 convert quadratic from Standard Form to Vertex Form \n by completing the square (randomized)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "757394",
+      "title": "Regenerating graphing a parabola from standard form where a can be [-3,3], then list the vertex, y-int, & the function in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "112866",
+      "title": "8.1.13 - 8.1.14 Graph a quadratic function in vertex form `f(x) = a(x-h)^2+k' (new graphing tool) (Andy & Kristina Burch) (video) (copy by Ryan Majerus)",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

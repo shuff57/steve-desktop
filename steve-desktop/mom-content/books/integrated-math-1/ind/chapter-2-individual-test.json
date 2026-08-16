@@ -1,0 +1,296 @@
+{
+  "name": "Chapter 2 Individual Test",
+  "book": "integrated-math-1",
+  "kind": "ind",
+  "slug": "chapter-2-individual-test",
+  "target": {
+    "cid": "340140",
+    "aid": "23498463"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498463"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-8",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 6 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-1.php",
+      "qid": "1471375",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #1 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-2.php",
+      "qid": "1471376",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #2 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-3.php",
+      "qid": "1471377",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #3 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-4.php",
+      "qid": "1471379",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #4 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-5.php",
+      "qid": "1471409",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #5 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-6.php",
+      "qid": "1474982",
+      "in_group": "Q1",
+      "title": "Tile Pattern - fill in table, find equation #6 (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178846",
+      "title": "Calculate Slope - From Graph with Helper Dots - negative slope",
+      "points": 5,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 9,
+      "order": "Q3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1177420",
+      "title": "Calculate Slope - From Graph with Helper Dots - positive slope",
+      "points": 5,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86333",
+      "in_group": "Q4",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86337",
+      "in_group": "Q4",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "210967",
+      "in_group": "Q4",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1, y= notation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1469864",
+      "in_group": "Q5",
+      "title": "graph mx+b (slope=m/5)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1470059",
+      "in_group": "Q5",
+      "title": "graph mx+b #2 (slope=m/2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1470062",
+      "in_group": "Q5",
+      "title": "graph mx+b #3 (slope=m/3)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 18,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 19,
+      "file_path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point.php",
+      "qid": "1474977",
+      "in_group": "Q6",
+      "title": "Use the slope formula to calculate the slope of a line given two points. All coordinates are positive. (local for Steven Huff)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 20,
+      "file_path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-2.php",
+      "qid": "1474978",
+      "in_group": "Q6",
+      "title": "Use the slope formula to calculate the slope of a line given two points. (local for Steven Huff)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 21,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 22,
+      "file_path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-3.php",
+      "qid": "1474980",
+      "in_group": "Q7",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-4.php",
+      "qid": "1474981",
+      "in_group": "Q7",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 24,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462413",
+      "in_group": "Q8",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462411",
+      "in_group": "Q8",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value). #2",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462414",
+      "in_group": "Q8",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value) #3",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 29,
+      "file_path": "questions/im1/given-slope-and-point-write-eqn-of-line-in-point-slope-and-slope-inter.php",
+      "qid": "1474984",
+      "in_group": "Q9",
+      "title": "Given slope and point, write eqn of line in point-slope and slope-intercept forms. Accepts either of the point-slope forms (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "957463",
+      "in_group": "Q9",
+      "title": "Given slope and point, write eqn of line in point-slope form. Requires both slope-intercept and point-slope form",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 31,
+      "order": "Q10",
+      "file_path": "questions/im1/write-equation-for-linear-graph-given-easy-intercepts-video.php",
+      "qid": "1474989",
+      "title": "write equation for linear graph given - easy intercepts (video) (local for Steven Huff)",
+      "points": 5,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 32,
+      "order": "Q11",
+      "file_path": "questions/im1/equation-of-line-between-two-points-point-slope-form.php",
+      "qid": "1474990",
+      "title": "Equation of line between two points (point-slope form) (local for Steven Huff)",
+      "points": 5,
+      "qtype": "numfunc"
+    }
+  ]
+}

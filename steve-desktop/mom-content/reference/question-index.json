@@ -2774,6 +2774,1469 @@
   "health": "ok"
  },
  {
+  "path": "questions/im1/14-1-solve-a-system-of-equations-by-graphing.php",
+  "desc": "14.1 Solve a system of equations by graphing (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-6-group-test",
+   "chapter-6-individual-test"
+  ],
+  "qsetid": "1568318",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone-2.php",
+  "desc": "9th Grade Concept #33 - Identify the graph of a sequence as linear, exponential, or neither - Arithmetic With No Equation (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences"
+  ],
+  "qsetid": "1530163",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone.php",
+  "desc": "9th Grade Concept #33 - Identify the graph of a sequence as linear, exponential, or neither - Arithmetic With Equation (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1526281",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/adding-algebraic-terms-two-variables-negative-coefficients.php",
+  "desc": "Adding algebraic terms (two variables, negative coefficients)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437613",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/algebra-problem-raising-integers-to-powers-one-neg-exponent-pg.php",
+  "desc": "Algebra problem: raising integers to powers (one neg exponent) (.pg) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450816",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/area-of-non-right-triangle-given-corner-points.php",
+  "desc": "Area of non-right triangle given corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-7-more-congruence-flowcharts",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1580158",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/area-of-parallelogram-given-coordinates-of-corner-points.php",
+  "desc": "Area of parallelogram given coordinates of corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1576528",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/area-of-rectangle-given-coordinates-of-corner-points.php",
+  "desc": "Area of rectangle given coordinates of corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1576511",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/area-of-right-triangle-given-corner-points.php",
+  "desc": "Area of right triangle given corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-1-7-more-congruence-flowcharts"
+  ],
+  "qsetid": "1580137",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/area-of-trapezoid-given-coordinates-of-corner-points.php",
+  "desc": "Area of trapezoid given coordinates of corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1576529",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/arithmetic-decreasing-sequence-find-explicit-equation-and-terms-copy-b.php",
+  "desc": "Arithmetic decreasing Sequence  Find explicit equation and terms (copy by Stephen Lang) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences"
+  ],
+  "qsetid": "1530185",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/arithmetic-decreasing-sequence-find-next-3-terms-and-equation.php",
+  "desc": "Arithmetic Decreasing Sequence find next 3 terms and equation (local for Martha Allen) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences"
+  ],
+  "qsetid": "1526274",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste-2.php",
+  "desc": "Arithmetic Increasing Sequence with table. Explicit formula (copy by Steve Lang) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs"
+  ],
+  "qsetid": "1534312",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste.php",
+  "desc": "Arithmetic Increasing Sequence with table. Explicit formula (copy by Steve Lang) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1533427",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/basic-arithmetic-sequence-identify-continue-and-write-the-equation.php",
+  "desc": "Basic arithmetic sequence: Identify, continue, and write the equation. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences"
+  ],
+  "qsetid": "1526225",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/block-pattern-4x-k-find-number-of-blocks-numerical-and-write-the-formu-2.php",
+  "desc": "Block pattern `4x+k`. Find number of blocks (numerical) and write the formula. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-group-test",
+   "chapter-1-individual-test",
+   "chapter-1-review",
+   "practice-test"
+  ],
+  "qsetid": "1440396",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/block-pattern-4x-k-find-number-of-blocks-numerical-and-write-the-formu.php",
+  "desc": "Block pattern `4x+k`. Find number of blocks (numerical) and write the formula. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "hw-solving-math-puzzles"
+  ],
+  "qsetid": "1439793",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/continue-an-arithmetic-sequence-write-an-equation-create-a-plot.php",
+  "desc": "Continue an arithmetic sequence. Write an equation. Create a plot. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1526257",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-recursive-and-explicit-equations-for-sequences-from-graphs.php",
+  "desc": "Determining recursive and explicit equations for sequences (from graphs) (local for David Waung) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs"
+  ],
+  "qsetid": "1532434",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-the-linear-equation-from-a-graph-0-slope.php",
+  "desc": "Determining the Linear Equation from a graph -  0 slope (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468906",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-the-linear-equation-from-a-graph-basic.php",
+  "desc": "Determining the Linear Equation from a graph - Basic (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468902",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope-through-or.php",
+  "desc": "Determining the Linear Equation from a graph -  Fraction Slope through origin (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468905",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope.php",
+  "desc": "Determining the Linear Equation from a graph -  Fraction Slope (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468904",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/determining-the-linear-equation-from-a-graph-large-scale.php",
+  "desc": "Determining the Linear Equation from a graph - Large Scale (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468907",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/dividing-fractions-fraction-by-a-variable-no-cancellation.php",
+  "desc": "Dividing Fractions (fraction by a variable, no cancellation)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437614",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/dividing-fractions-number-by-a-variable-fraction-no-cancellation.php",
+  "desc": "Dividing Fractions (number by a variable fraction, no cancellation)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437615",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/equation-of-line-between-two-points-point-slope-form.php",
+  "desc": "Equation of line between two points (point-slope form) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474990",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluate-a-m-n.php",
+  "desc": "Evaluate a^(m/n) (local for Steven Huff)",
+  "qtype": "calculated",
+  "used_by": [
+   "hw-rewriting-expressions-with-exponents"
+  ],
+  "qsetid": "1455031",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluate-x-n-when-x-is-a-fraction.php",
+  "desc": "Evaluate x^n when x is a fraction (local for Steven Huff)",
+  "qtype": "calculated",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437590",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d-2.php",
+  "desc": "Evaluating absolute value expression:  | a - b| - |c - d|, a < b, c < d  (local for Steven Huff)",
+  "qtype": "number",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437599",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d.php",
+  "desc": "Evaluating absolute value expression:  | a - b| - |c - d|, a < b, c < d  (local for Steven Huff)",
+  "qtype": "number",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437598",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-d-c.php",
+  "desc": "Evaluating absolute value expression:  | a - b| - |c - d|, a > b, d > c (local for Steven Huff)",
+  "qtype": "number",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437597",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/exponential-growth-equations-from-a-table-vertical-table-y-a-b-x-a-2-t.php",
+  "desc": "Exponential Growth!!  Equations from a Table ~ Vertical Table  y = a(b)^x  a = 2 to 7 b = 2 to 5 by 1's  Eric Petterson    (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1535535",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/exponential-growth-horizontal-table-complete-table-and-find-the-rule-y.php",
+  "desc": "Exponential Growth!!   Horizontal Table ~ Complete Table and Find the Rule y = a(b)^x  a = 2 to 7 b = 2 to 5 by 1's  Eric Petterson   (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-practice-test",
+   "final-review"
+  ],
+  "qsetid": "1535534",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/find-formula-for-arithmetic-sequence-given-initial-term-and-common-dif.php",
+  "desc": "Find formula for arithmetic sequence given initial term and common difference (ur_sq_4_6.pg) (copy by Janell Woods) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1530194",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/find-the-formula-for-an-arithmetic-sequence-given-the-first-term-a-1-a.php",
+  "desc": "Find the formula for an arithmetic sequence given the first term `a_1` and the common difference `d`.  Help video from James Sousa. (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "5-2-2-generalizing-arithmetic-sequences",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1530192",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/finding-sequence-formula-from-table-arithmetic.php",
+  "desc": "Finding sequence formula from table (arithmetic) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs"
+  ],
+  "qsetid": "1530796",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/finding-sequence-formula-from-table-geometric.php",
+  "desc": "Finding sequence formula from table (geometric) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs"
+  ],
+  "qsetid": "1530792",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult-2.php",
+  "desc": "Geometric Increasing Sequence from  table missing 2 values. decimal multiplier (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs"
+  ],
+  "qsetid": "1530816",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult.php",
+  "desc": "Geometric Increasing Sequence from  table missing 2 values. decimal multiplier explicit formula(copy by Steve Lang) (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1530817",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/given-ax-by-c-rewrite-in-slope-intercept-form-identify-slope-identify.php",
+  "desc": "Given `ax + by = c`, rewrite in slope intercept form. Identify slope. Identify `y`-intercept. Graph the line.  (Slope rational, `y`-intercept integer) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "2-1-4-slope-and-mx-b-hw",
+   "6-1-1-working-with-multi-variable-equations"
+  ],
+  "qsetid": "1462408",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/given-similar-quadrilaterals-and-some-of-the-sides-find-one-side-on-se.php",
+  "desc": "Given similar quadrilaterals and some of the sides, find one side on second and perimeter of second and area of second given those on first (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1576540",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/given-slope-and-point-write-eqn-of-line-in-point-slope-and-slope-inter.php",
+  "desc": "Given slope and point, write eqn of line in point-slope and slope-intercept forms. Accepts either of the point-slope forms (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474984",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2-2.php",
+  "desc": "Graph a/n on number line (-a/n between 1 and 2) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437610",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2.php",
+  "desc": "Graph a/n on number line (a/n between 1 and 2) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437609",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-a-n-on-number-line-a-n-n-from-2-to-5.php",
+  "desc": "Graph a/n on number line (a < n, n from 2 to 5) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437608",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-and-area-of-square-given-coordinates-of-corner-points.php",
+  "desc": "Graph and Area of square given coordinates of corner points (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid",
+   "chapter-7-group-test",
+   "chapter-7-individual-test",
+   "chapter-7-practice-test"
+  ],
+  "qsetid": "1576523",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-and-area-of-square-rotated-given-coordinates-of-corner-points-co.php",
+  "desc": "Graph and Area of square (rotated) given coordinates of corner points (local for Steven Huff) (copy by Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "7-2-1-studying-quadrilaterals-on-a-coordinate-grid"
+  ],
+  "qsetid": "1576525",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/graph-y-2x-b-give-table-of-values-graph-at-least-3-points-and-graph-li.php",
+  "desc": "Graph `y = 2x + b`. Give table of values, graph at least 3 points, and graph line.  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "practice-test-2"
+  ],
+  "qsetid": "1468909",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-2.php",
+  "desc": "I HW Unit 4 Review Solve and Graph inequalities in one variable.   (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "9-1-3-solving-absolute-value-equations-and-inequalities",
+   "chapter-9-group-test",
+   "chapter-9-individual-test",
+   "chapter-9-practice-test"
+  ],
+  "qsetid": "1594581",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-3.php",
+  "desc": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "9-1-2-more-solving-inequalities",
+   "chapter-9-practice-test"
+  ],
+  "qsetid": "1594529",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-4.php",
+  "desc": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "9-1-2-more-solving-inequalities"
+  ],
+  "qsetid": "1594530",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable.php",
+  "desc": "I HW Unit 4 Review Solve and Graph inequalities in one variable.   (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "9-1-3-solving-absolute-value-equations-and-inequalities",
+   "chapter-9-group-test",
+   "chapter-9-individual-test",
+   "chapter-9-practice-test"
+  ],
+  "qsetid": "1594548",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions-2.php",
+  "desc": "II HW 2.8H Writing an area model as a quadratic expressions  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "3-2-1-3-2-2-exploring-the-area-model"
+  ],
+  "qsetid": "1486420",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions-3.php",
+  "desc": "II HW 2.8H Writing an area model as a quadratic expressions  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "3-2-1-3-2-2-exploring-the-area-model"
+  ],
+  "qsetid": "1486424",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions.php",
+  "desc": "II HW 2.8H Writing an area model as a quadratic expressions (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "3-2-1-3-2-2-exploring-the-area-model"
+  ],
+  "qsetid": "1486416",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-b-a-x-c-2.php",
+  "desc": "Polynomial product a(b/a x - c) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437612",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-b-a-x-c.php",
+  "desc": "Polynomial product a(b/a x + c) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437611",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-bx-c-2.php",
+  "desc": "Polynomial product a(bx - c)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437593",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-bx-c-3.php",
+  "desc": "Polynomial product -a(bx - c)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437603",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-bx-c-4.php",
+  "desc": "Polynomial product a(bx + c) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437605",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/polynomial-product-a-bx-c.php",
+  "desc": "Polynomial product -a(bx + c)  (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437592",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2-line-show.php",
+  "desc": "Reflections - perform a reflection given line of reflection (v2) line shown (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482406",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2.php",
+  "desc": "Reflections - perform a reflection given line of reflection (v2) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482409",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection.php",
+  "desc": "Reflections - perform a reflection given line of reflection (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482407",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/removing-common-factor-p-q-qr-x-openstax-college-algebra-1-5-328.php",
+  "desc": "Removing common factor (p/q) qr x (OpenStax College Algebra 1.5 #328) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437601",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/rewrite-x-1-n-as-root-n-x.php",
+  "desc": "Rewrite `x^(1/n)` as `root(n)(x)`. (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450575",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/rotations-id-aor-in-90-deg-increments-cor-origin.php",
+  "desc": "Rotations - ID AoR in 90 deg increments & CoR (origin) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "review"
+  ],
+  "qsetid": "1482930",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/rotations-perform-a-rotation-about-the-origin-given-angle-of-rotation.php",
+  "desc": "Rotations - perform a rotation about the origin given angle of rotation in 90 deg increments (v2) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482391",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/sequence-graph-exponential-2.php",
+  "desc": "Sequence - Graph Exponential (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1530837",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/sequence-graph-exponential.php",
+  "desc": "Sequence - Graph Exponential (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "5-3-1-comparing-growth-in-tables-and-graphs",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1530819",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-a-desc.php",
+  "desc": "Simple rotation `(90^circ,180^circ,270^circ)` of a coordinate given a description (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "review"
+  ],
+  "qsetid": "1482401",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-the-tr.php",
+  "desc": "Simple rotation `(90^circ,180^circ,270^circ)` of a coordinate given the tranformation rule (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482402",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simple-rotation-of-polygon-given-a-description.php",
+  "desc": "Simple Rotation of polygon given a description (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "review"
+  ],
+  "qsetid": "1482404",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplify-exponents-all-rules.php",
+  "desc": "Simplify exponents all rules (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-group-test",
+   "chapter-1-individual-test",
+   "chapter-1-review"
+  ],
+  "qsetid": "1455845",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplify-using-exponent-rules-pg.php",
+  "desc": "Simplify using exponent rules (.pg) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450812",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplifying-a-radical-of-the-form-root-n-x-m-where-n-gt-m.php",
+  "desc": "Simplifying a radical of the form `root(n)(x^m)` where `n&gt;m`. (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450576",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/solve-and-graphing-inequalities-in-one-variable.php",
+  "desc": "Solve and graphing inequalities in one variable.  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "9-1-2-more-solving-inequalities",
+   "chapter-9-group-test",
+   "chapter-9-individual-test",
+   "chapter-9-practice-test"
+  ],
+  "qsetid": "1595450",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/solve-system-by-graphing-y-mx-b-drawing-2.php",
+  "desc": "Solve system by graphing y=mx+b; drawing (local for James Sousa) (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "6-2-1-equal-values-method"
+  ],
+  "qsetid": "1552410",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/solve-system-by-graphing-y-mx-b-drawing.php",
+  "desc": "Solve system by graphing y=mx+b; drawing (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "6-2-1-equal-values-method"
+  ],
+  "qsetid": "1552396",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/solve-system-by-graphing-y-mx-b.php",
+  "desc": "Solve system by graphing y=mx+b (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-2-1-equal-values-method"
+  ],
+  "qsetid": "1552413",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/solving-a-system-of-linear-equations-by-graphing-2x2.php",
+  "desc": "Solving a System of Linear Equations by Graphing (2x2) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-6-group-test",
+   "chapter-6-individual-test"
+  ],
+  "qsetid": "1568313",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/subtracting-algebraic-terms-a-bx-c-dx-e.php",
+  "desc": "Subtracting algebraic terms:  a(bx + c) - (dx + e) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437606",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/system-of-linear-equations-by-graphing-word-problem.php",
+  "desc": "System of Linear Equations (by graphing): Word Problem (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "6-1-2-summary-of-solving-equations",
+   "6-4-1-6-4-2-choosing-a-strategy-for-solving-a-system"
+  ],
+  "qsetid": "1544928",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-1.php",
+  "desc": "Tile Pattern - fill in table, find equation #1 (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1471375",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-2.php",
+  "desc": "Tile Pattern - fill in table, find equation #2  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1471376",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-3.php",
+  "desc": "Tile Pattern - fill in table, find equation #3 (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1471377",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-4.php",
+  "desc": "Tile Pattern - fill in table, find equation #4 (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1471379",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-5.php",
+  "desc": "Tile Pattern - fill in table, find equation #5 (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1471409",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/tile-pattern-fill-in-table-find-equation-6.php",
+  "desc": "Tile Pattern - fill in table, find equation #6  (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474982",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/translate-polygon.php",
+  "desc": "Translate Polygon (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations",
+   "chapter-3-group-test",
+   "review"
+  ],
+  "qsetid": "1476576",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/translating-statement-into-mathematical-expression-a-less-than-b-times.php",
+  "desc": "Translating statement into mathematical expression (a less than b times) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437595",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/translating-statement-into-mathematical-expression-a-more-than-b-times.php",
+  "desc": "Translating statement into mathematical expression (a more than b times) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-0-group-quiz"
+  ],
+  "qsetid": "1437594",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/translation-of-a-polygon-given-a-description.php",
+  "desc": "Translation of a polygon given a description (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482410",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/translation-of-a-polygon-given-a-transformation-rule.php",
+  "desc": "Translation of a polygon given a transformation rule (local for Steven Huff)",
+  "qtype": "draw",
+  "used_by": [
+   "3-1-4-defining-rigid-transformations",
+   "chapter-3-group-test",
+   "chapter-3-individual-test",
+   "chapter-3-review",
+   "review"
+  ],
+  "qsetid": "1482412",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+  "desc": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+  "qtype": "choices",
+  "used_by": [
+   "5-2-1-generating-sequences",
+   "chapter-5-chapter-8-group-test",
+   "chapter-5-chapter-8-individual-test",
+   "chapter-5-chapter-8-practice-test"
+  ],
+  "qsetid": "1525282",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-2.php",
+  "desc": "Use the slope formula to calculate the slope of a line given two points. (local for Steven Huff)",
+  "qtype": "calculated",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474978",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-3.php",
+  "desc": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474980",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-4.php",
+  "desc": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474981",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point.php",
+  "desc": "Use the slope formula to calculate the slope of a line given two points.  All coordinates are positive. (local for Steven Huff)",
+  "qtype": "calculated",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474977",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/which-graphs-are-functions-copy-by-tyler-wallace.php",
+  "desc": "Which graphs are functions? (copy by Tyler Wallace) (local for Steven Huff)",
+  "qtype": "multans",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450801",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/which-graphs-are-functions.php",
+  "desc": "Which graphs are functions? (local for Steven Huff)",
+  "qtype": "multans",
+  "used_by": [
+   "practice-test"
+  ],
+  "qsetid": "1450799",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/write-equation-for-linear-graph-given-easy-intercepts-video.php",
+  "desc": "write equation for linear graph given - easy intercepts (video) (local for Steven Huff)",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-2-individual-test",
+   "chapter-2-review"
+  ],
+  "qsetid": "1474989",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/x-a-b-one-step-includes-inverse-operation-2.php",
+  "desc": "`x/a`=b one step (includes inverse operation) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-group-test",
+   "chapter-1-individual-test",
+   "chapter-1-review",
+   "practice-test"
+  ],
+  "qsetid": "1450807",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/x-a-b-one-step-includes-inverse-operation-3.php",
+  "desc": "x÷a=b one step (includes inverse operation) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-group-test",
+   "chapter-1-individual-test",
+   "chapter-1-review",
+   "practice-test"
+  ],
+  "qsetid": "1450808",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/x-a-b-one-step-includes-inverse-operation.php",
+  "desc": "x+a=b one step (includes inverse operation) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-group-test",
+   "chapter-1-individual-test",
+   "chapter-1-review",
+   "practice-test"
+  ],
+  "qsetid": "1450802",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/9th-grade-concept-27-combining-linear-functions-using-function-notatio.php",
+  "desc": "9th Grade Concept #27 - Combining Linear Functions using function notation With Multiplication (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "1-1-4-combining-linear-functions"
+  ],
+  "qsetid": "1656404",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/apply-law-of-cosines-srw6-5-27-pg.php",
+  "desc": "Apply law of cosines (srw6_5_27.pg) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "law-of-cosine"
+  ],
+  "qsetid": "1774383",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/create-inverse-function-from-exponential-graph-hardcoded-for-test.php",
+  "desc": "Create inverse function from exponential graph (local for Steven Huff) hardcoded for test",
+  "qtype": "draw",
+  "used_by": [
+   "group-test-chapter-5-scantron"
+  ],
+  "qsetid": "1752929",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/evaluating-logarithms-base-2-3-or-4-hardcoded-for-test.php",
+  "desc": "Evaluating Logarithms Base 2, 3, or 4 (local for Steven Huff)hardcoded for test",
+  "qtype": "multipart",
+  "used_by": [
+   "group-test-chapter-5-scantron"
+  ],
+  "qsetid": "1752936",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/exponent-rules-a-n-a-m-a-n-m.php",
+  "desc": "Exponent rules: a^n*a^m, (a^n)^m (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "exponents-and-quadratics-review"
+  ],
+  "qsetid": "1649366",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/factored-polynomial-find-roots-end-behavior-graph-of-polynomial-freeha.php",
+  "desc": "Factored polynomial find roots, end behavior, graph of polynomial (Freehand) (copy by Edward Co) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "8-1-2-predicting-and-creating-graphs"
+  ],
+  "qsetid": "1779812",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/find-angle-in-degrees-and-radians-from-terminal-point.php",
+  "desc": "Find Angle in Degrees and Radians from Terminal Point (local for DEYCI LOPEZ) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "finding-terminal-points"
+  ],
+  "qsetid": "1798630",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/graph-log-a-x-h-k-hardcoded-for-test.php",
+  "desc": "Graph log_a(x-h)+k (local for Steven Huff) hardcoded for test",
+  "qtype": "draw",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753193",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/law-of-sines.php",
+  "desc": "Law of Sines (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "mixed-triangle-review"
+  ],
+  "qsetid": "1778160",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/log-2-la-10-condense-with-quotient-property-rewrite-hardcoded-for-test.php",
+  "desc": "LOG.2 - LA(10) Condense with Quotient Property  - rewrite  (local for Steven Huff) hardcoded for test",
+  "qtype": "multipart",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753198",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/logarithmic-properties-03-log-x-log-x-n-with-video-hardcoded-for-test.php",
+  "desc": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (local for Steven Huff) hardcoded for test",
+  "qtype": "numfunc",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753195",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/logarithmic-properties-09-power-with-video-hardcoded-for-test.php",
+  "desc": "Logarithmic Properties-09 power (with video) (local for Steven Huff) hardcoded for test",
+  "qtype": "numfunc",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753197",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/media-lesson-systems-of-linear-inequalities.php",
+  "desc": "Media Lesson:  Systems of Linear Inequalities (local for Steven Huff)",
+  "qtype": "multans",
+  "used_by": [
+   "system-of-non-linear-inequalities"
+  ],
+  "qsetid": "1721341",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/multiply-rational-expressions-factoring-required-with-video-reducing-r.php",
+  "desc": "Multiply Rational Expressions, Factoring Required (with video). Reducing required. Require variables occur =1 and coefficients >0 (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "rational-functions-unit-ind-test"
+  ],
+  "qsetid": "1711300",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/murphy-sm3-05-3-inverse-function-tutorial-find-inverse-of-sqrt-functio.php",
+  "desc": "Murphy SM3.05.3: Inverse Function Tutorial (find inverse of sqrt function, including domain and range) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "undoing-a-function"
+  ],
+  "qsetid": "1735887",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/parent-functions-and-transformations-1-f-x-x-2.php",
+  "desc": "Parent Functions and Transformations #1: `f(x)=x^2` (local for DEYCI LOPEZ) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "parabola-graphing-with-graphing-form"
+  ],
+  "qsetid": "1671770",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-2-b-write-inverse-domain.php",
+  "desc": "PGCC: Find inverse of quadratic function `f(x) = x^2+b`. Write inverse, domain and range of original and inverse functions. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "undoing-a-function"
+  ],
+  "qsetid": "1735881",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-a-2-write-inverse-domain.php",
+  "desc": "PGCC: Find inverse of quadratic function `f(x) = (x-a)^2`. Write inverse, domain and range of original and inverse functions. (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "undoing-a-function"
+  ],
+  "qsetid": "1735883",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/q2-9-write-a-system-of-linear-inequalities-and-graph-it-it-grades-base.php",
+  "desc": "Q2-9 Write a system of linear inequalities and graph it. It grades based on correct inequalities AND if their graph matches THEIR inequalities 7pts (level 4) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "systems-of-linear-inequalities"
+  ],
+  "qsetid": "1716280",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/sac-rev-j3-rules-of-exponents-tutorial-x-m-n.php",
+  "desc": "SAC Rev J3 Rules of Exponents TUTORIAL: `x^(m/n)` (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-practice-test",
+   "exponents-and-quadratics-review",
+   "review-chapter-1-functions-and-algebra"
+  ],
+  "qsetid": "1660036",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/solve-log-a-x-b-log-a-1-log-x-c-one-solution-hardcoded-for-test.php",
+  "desc": "Solve `log(a x + b) - log(a + 1) = log(x + c)`, one solution (local for Steven Huff) hardcoded for test",
+  "qtype": "number",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753204",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/solve-simple-equations-involving-logs-problem5-pg-hardcoded-for-test.php",
+  "desc": "Solve simple equations involving logs (problem5.pg) (local for Steven Huff) hardcoded for test",
+  "qtype": "multipart",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1752933",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/solving-a-system-of-linear-equations-by-graphing.php",
+  "desc": "Solving a system of linear equations by graphing (local for Doli Bambhania) (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-strategies-for-solving-equations"
+  ],
+  "qsetid": "1715020",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/use-the-quotient-property-to-expand-log-b-x-y-z-hardcoded-for-test.php",
+  "desc": "Use the quotient property to expand log_b((x-y)/z) (local for Steven Huff) hardcoded for test",
+  "qtype": "numfunc",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753200",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im3/write-exponential-function-between-1-y-1-and-2-y-2-exponential-growth.php",
+  "desc": "Write exponential function between `(1,y_1)` and `(2,y_2)`. Exponential growth. (local for Steven Huff) hardcoded for test",
+  "qtype": "numfunc",
+  "used_by": [
+   "group-test-chapter-5-scantron",
+   "individual-test-chapter-5-a",
+   "individual-test-chapter-5-b"
+  ],
+  "qsetid": "1753201",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/inequalities/q1-inequality-properties.php",
   "desc": "Linear Inequality Properties - Identify boundary slope, intercept, line style, and shaded region",
   "qtype": "multipart",
@@ -3117,7 +4580,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878502",
   "health": "unchecked"
  },
  {
@@ -3138,7 +4601,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878498",
   "health": "unchecked"
  },
  {
@@ -3148,7 +4611,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878500",
   "health": "unchecked"
  },
  {
@@ -3158,7 +4621,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878501",
   "health": "unchecked"
  },
  {
@@ -3359,7 +4822,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878485",
   "health": "unchecked"
  },
  {
@@ -3369,7 +4832,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878494",
   "health": "unchecked"
  },
  {
@@ -3379,7 +4842,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878495",
   "health": "unchecked"
  },
  {
@@ -3389,7 +4852,7 @@
   "used_by": [
    "5-1-the-standard-normal-distribution"
   ],
-  "qsetid": null,
+  "qsetid": "1878496",
   "health": "unchecked"
  },
  {
@@ -3435,7 +4898,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878125",
   "health": "unchecked"
  },
  {
@@ -3475,7 +4938,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878114",
   "health": "unchecked"
  },
  {
@@ -3485,7 +4948,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878116",
   "health": "unchecked"
  },
  {
@@ -3495,7 +4958,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878117",
   "health": "unchecked"
  },
  {
@@ -3505,7 +4968,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878118",
   "health": "unchecked"
  },
  {
@@ -3515,7 +4978,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878119",
   "health": "unchecked"
  },
  {
@@ -3525,7 +4988,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878120",
   "health": "unchecked"
  },
  {
@@ -3535,7 +4998,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878121",
   "health": "unchecked"
  },
  {
@@ -3545,7 +5008,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878122",
   "health": "unchecked"
  },
  {
@@ -3565,7 +5028,7 @@
   "used_by": [
    "4-4-discrete-distribution-playing-card-experiment"
   ],
-  "qsetid": null,
+  "qsetid": "1878123",
   "health": "unchecked"
  },
  {
@@ -4445,7 +5908,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878136",
   "health": "unchecked"
  },
  {
@@ -4455,7 +5918,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878126",
   "health": "unchecked"
  },
  {
@@ -4555,7 +6018,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878127",
   "health": "unchecked"
  },
  {
@@ -4565,7 +6028,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878128",
   "health": "unchecked"
  },
  {
@@ -4575,7 +6038,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878129",
   "health": "unchecked"
  },
  {
@@ -4585,7 +6048,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878131",
   "health": "unchecked"
  },
  {
@@ -4595,7 +6058,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878132",
   "health": "unchecked"
  },
  {
@@ -4605,7 +6068,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878133",
   "health": "unchecked"
  },
  {
@@ -4615,7 +6078,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878134",
   "health": "unchecked"
  },
  {
@@ -4625,7 +6088,7 @@
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": null,
+  "qsetid": "1878135",
   "health": "unchecked"
  },
  {

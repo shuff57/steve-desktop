@@ -1,0 +1,90 @@
+{
+  "name": "5.1.1 Representing Exponential Growth",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-1-1-representing-exponential-growth",
+  "target": {
+    "cid": "340140",
+    "aid": "23498478"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498478"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249895",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Growth)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249897",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Decay)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "746623",
+      "title": "Write exponential growth and linear growth equation given a table of values, sandbox template",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "772286",
+      "title": "Write exponential growth and linear growth equation given a table of values, sandbox template, version 2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249906",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Something Else)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "660898",
+      "title": "Exponential Growth!! Horizontal Table ~ Complete Table and Find the Rule y = a(b)^x a = 2 to 7 b = 2 to 5 by 1's Eric Petterson",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "660900",
+      "title": "Exponential Growth!! Equations from a Table ~ Vertical Table y = a(b)^x a = 2 to 7 b = 2 to 5 by 1's Eric Petterson",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "352009",
+      "title": "Complete a table of values and determine if it represents exponential growth or decay.",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

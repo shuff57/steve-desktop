@@ -1,0 +1,180 @@
+{
+  "name": "Area of a Triangle",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "area-of-a-triangle",
+  "target": {
+    "cid": "285887",
+    "aid": "22100098"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100098"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "97465",
+      "title": "Find the area of acute triangle using Sine",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "97466",
+      "title": "Find the area of obtuse triangle using Sine",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270758",
+      "title": "Find the area of acute triangle using Sine",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "298867",
+      "title": "Find area of triangle using Law of Sines",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "543002",
+      "title": "Find second side of triangle using Law of Sines, given area, first side, and included angle.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1484092",
+      "title": "Find area of triangle using Law of Sines (local for Ryan Stones)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1582684",
+      "title": "8.1 TCC Find area of acute triangle using sine(copy 97465)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1742827",
+      "title": "Find the area of acute triangle using Sine (local for Michelle King)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "943763",
+      "title": "Simplifying Radicals - Square Roots Numeric Only - Perfect Squares 2-20 - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1277791",
+      "title": "Simplifying Radicals - Square Roots Numeric Only - Perfect Squares 2-12 - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "52332",
+      "title": "Video Lesson – Simplifying Radicals (copy by Cindy Moss)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "58606",
+      "title": "Simplifying a sum of different radicals (they all are related to the same radical after simplification). Same as 59202, only added a video in July 2020.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "243563",
+      "title": "Simplifying difference of radicals (b sqrt (n^2) - c sqrt(a)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302047",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302063",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302068",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302083",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "302088",
+      "title": "Simplifying Radicals ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

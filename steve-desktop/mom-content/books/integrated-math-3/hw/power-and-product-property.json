@@ -1,0 +1,180 @@
+{
+  "name": "Power and Product Property",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "power-and-product-property",
+  "target": {
+    "cid": "285887",
+    "aid": "21951528"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21951528"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45610",
+      "title": "Logarithmic Properties-01 + (with video)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45611",
+      "title": "Logarithmic Properties-02: log(n) + log(x) (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45612",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45617",
+      "title": "Logarithmic Properties-09 power (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45618",
+      "title": "Logarithmic Properties-10 power (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45619",
+      "title": "Logarithmic Properties-13 single log (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45620",
+      "title": "Logarithmic Properties-14 single log (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271483",
+      "title": "Expanding Logarithms ~ \n ~ GREEN",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "355888",
+      "title": "LOG.2 - LA(4) Expand logs property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13571",
+      "title": "Logarithm Properties: Other Properties [log_b(1)]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13572",
+      "title": "Logarithm Properties: Other Properties [log_b(b)]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "160738",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (copy by Hungwen Chang)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "285841",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (local for OCMath Faculty)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13579",
+      "title": "Logarithm Properties: Power Rule",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16923",
+      "title": "Logarithm Properties: Power Rule Pos Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16925",
+      "title": "Logarithm Properties: Power Rule Neg Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16931",
+      "title": "Logarithm Properties: Contract Power Rule Pos Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "16932",
+      "title": "Logarithm Properties: Contract Power Rule Neg Exp (copy by William Pierpoint)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

@@ -1581,5 +1581,970 @@
     "cid": "334437",
     "filed": "2026-08-15",
     "qtype": "multipart"
+  },
+  "questions/normal-distribution/q6-read-notation.php": {
+    "qsetid": "1878485",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q7-z-score-from-x.php": {
+    "qsetid": "1878494",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q8-x-from-z-score.php": {
+    "qsetid": "1878495",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q9-read-sign-and-size.php": {
+    "qsetid": "1878496",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q10-empirical-rule-bands.php": {
+    "qsetid": "1878498",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q11-empirical-rule-percentages.php": {
+    "qsetid": "1878500",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/q12-compare-two-distributions.php": {
+    "qsetid": "1878501",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/normal-distribution/pre-frq-grade-a-z-score-interpretation.php": {
+    "qsetid": "1878502",
+    "cid": "334437",
+    "filed": "2026-08-16",
+    "qtype": "multipart"
+  },
+  "questions/im1/translating-statement-into-mathematical-expression-a-more-than-b-times.php": {
+    "qsetid": "1437594",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/translating-statement-into-mathematical-expression-a-less-than-b-times.php": {
+    "qsetid": "1437595",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-d-c.php": {
+    "qsetid": "1437597",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "number",
+    "pulled": true
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d.php": {
+    "qsetid": "1437598",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "number",
+    "pulled": true
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d-2.php": {
+    "qsetid": "1437599",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "number",
+    "pulled": true
+  },
+  "questions/im1/removing-common-factor-p-q-qr-x-openstax-college-algebra-1-5-328.php": {
+    "qsetid": "1437601",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/evaluate-x-n-when-x-is-a-fraction.php": {
+    "qsetid": "1437590",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "calculated",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-bx-c.php": {
+    "qsetid": "1437592",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-bx-c-2.php": {
+    "qsetid": "1437593",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-bx-c-3.php": {
+    "qsetid": "1437603",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-bx-c-4.php": {
+    "qsetid": "1437605",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/subtracting-algebraic-terms-a-bx-c-dx-e.php": {
+    "qsetid": "1437606",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/graph-a-n-on-number-line-a-n-n-from-2-to-5.php": {
+    "qsetid": "1437608",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2.php": {
+    "qsetid": "1437609",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/graph-a-n-on-number-line-a-n-between-1-and-2-2.php": {
+    "qsetid": "1437610",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-b-a-x-c.php": {
+    "qsetid": "1437611",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/polynomial-product-a-b-a-x-c-2.php": {
+    "qsetid": "1437612",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/adding-algebraic-terms-two-variables-negative-coefficients.php": {
+    "qsetid": "1437613",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/dividing-fractions-fraction-by-a-variable-no-cancellation.php": {
+    "qsetid": "1437614",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/dividing-fractions-number-by-a-variable-fraction-no-cancellation.php": {
+    "qsetid": "1437615",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-1.php": {
+    "qsetid": "1471375",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-2.php": {
+    "qsetid": "1471376",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-3.php": {
+    "qsetid": "1471377",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-4.php": {
+    "qsetid": "1471379",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-5.php": {
+    "qsetid": "1471409",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/graph-y-2x-b-give-table-of-values-graph-at-least-3-points-and-graph-li.php": {
+    "qsetid": "1468909",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-the-linear-equation-from-a-graph-basic.php": {
+    "qsetid": "1468902",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope.php": {
+    "qsetid": "1468904",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-the-linear-equation-from-a-graph-fraction-slope-through-or.php": {
+    "qsetid": "1468905",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-the-linear-equation-from-a-graph-0-slope.php": {
+    "qsetid": "1468906",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-the-linear-equation-from-a-graph-large-scale.php": {
+    "qsetid": "1468907",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/translate-polygon.php": {
+    "qsetid": "1476576",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/rotations-perform-a-rotation-about-the-origin-given-angle-of-rotation.php": {
+    "qsetid": "1482391",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-a-desc.php": {
+    "qsetid": "1482401",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-the-tr.php": {
+    "qsetid": "1482402",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/simple-rotation-of-polygon-given-a-description.php": {
+    "qsetid": "1482404",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/rotations-id-aor-in-90-deg-increments-cor-origin.php": {
+    "qsetid": "1482930",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2-line-show.php": {
+    "qsetid": "1482406",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/reflections-perform-a-reflection-given-line-of-reflection.php": {
+    "qsetid": "1482407",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2.php": {
+    "qsetid": "1482409",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/translation-of-a-polygon-given-a-description.php": {
+    "qsetid": "1482410",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/translation-of-a-polygon-given-a-transformation-rule.php": {
+    "qsetid": "1482412",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/exponential-growth-horizontal-table-complete-table-and-find-the-rule-y.php": {
+    "qsetid": "1535534",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/exponential-growth-equations-from-a-table-vertical-table-y-a-b-x-a-2-t.php": {
+    "qsetid": "1535535",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php": {
+    "qsetid": "1525282",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "choices",
+    "pulled": true
+  },
+  "questions/im1/continue-an-arithmetic-sequence-write-an-equation-create-a-plot.php": {
+    "qsetid": "1526257",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone.php": {
+    "qsetid": "1526281",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/find-the-formula-for-an-arithmetic-sequence-given-the-first-term-a-1-a.php": {
+    "qsetid": "1530192",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/find-formula-for-arithmetic-sequence-given-initial-term-and-common-dif.php": {
+    "qsetid": "1530194",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste.php": {
+    "qsetid": "1533427",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult.php": {
+    "qsetid": "1530817",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/sequence-graph-exponential.php": {
+    "qsetid": "1530819",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/sequence-graph-exponential-2.php": {
+    "qsetid": "1530837",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/14-1-solve-a-system-of-equations-by-graphing.php": {
+    "qsetid": "1568318",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/solving-a-system-of-linear-equations-by-graphing-2x2.php": {
+    "qsetid": "1568313",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/solve-and-graphing-inequalities-in-one-variable.php": {
+    "qsetid": "1595450",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable.php": {
+    "qsetid": "1594548",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-2.php": {
+    "qsetid": "1594581",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/given-ax-by-c-rewrite-in-slope-intercept-form-identify-slope-identify.php": {
+    "qsetid": "1462408",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions.php": {
+    "qsetid": "1486416",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions-2.php": {
+    "qsetid": "1486420",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions-3.php": {
+    "qsetid": "1486424",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/basic-arithmetic-sequence-identify-continue-and-write-the-equation.php": {
+    "qsetid": "1526225",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone-2.php": {
+    "qsetid": "1530163",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/arithmetic-decreasing-sequence-find-explicit-equation-and-terms-copy-b.php": {
+    "qsetid": "1530185",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/finding-sequence-formula-from-table-geometric.php": {
+    "qsetid": "1530792",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/finding-sequence-formula-from-table-arithmetic.php": {
+    "qsetid": "1530796",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult-2.php": {
+    "qsetid": "1530816",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste-2.php": {
+    "qsetid": "1534312",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/system-of-linear-equations-by-graphing-word-problem.php": {
+    "qsetid": "1544928",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/solve-system-by-graphing-y-mx-b-drawing.php": {
+    "qsetid": "1552396",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im1/solve-system-by-graphing-y-mx-b.php": {
+    "qsetid": "1552413",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/area-of-right-triangle-given-corner-points.php": {
+    "qsetid": "1580137",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/graph-and-area-of-square-rotated-given-coordinates-of-corner-points-co.php": {
+    "qsetid": "1576525",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-3.php": {
+    "qsetid": "1594529",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-4.php": {
+    "qsetid": "1594530",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/evaluate-a-m-n.php": {
+    "qsetid": "1455031",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "calculated",
+    "pulled": true
+  },
+  "questions/im1/block-pattern-4x-k-find-number-of-blocks-numerical-and-write-the-formu.php": {
+    "qsetid": "1439793",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/tile-pattern-fill-in-table-find-equation-6.php": {
+    "qsetid": "1474982",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point.php": {
+    "qsetid": "1474977",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "calculated",
+    "pulled": true
+  },
+  "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-2.php": {
+    "qsetid": "1474978",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "calculated",
+    "pulled": true
+  },
+  "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-3.php": {
+    "qsetid": "1474980",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/use-the-slope-formula-to-calculate-the-slope-of-a-line-given-two-point-4.php": {
+    "qsetid": "1474981",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/given-slope-and-point-write-eqn-of-line-in-point-slope-and-slope-inter.php": {
+    "qsetid": "1474984",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/write-equation-for-linear-graph-given-easy-intercepts-video.php": {
+    "qsetid": "1474989",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/equation-of-line-between-two-points-point-slope-form.php": {
+    "qsetid": "1474990",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im3/create-inverse-function-from-exponential-graph-hardcoded-for-test.php": {
+    "qsetid": "1752929",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im3/solve-simple-equations-involving-logs-problem5-pg-hardcoded-for-test.php": {
+    "qsetid": "1752933",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/evaluating-logarithms-base-2-3-or-4-hardcoded-for-test.php": {
+    "qsetid": "1752936",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/graph-log-a-x-h-k-hardcoded-for-test.php": {
+    "qsetid": "1753193",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im3/logarithmic-properties-03-log-x-log-x-n-with-video-hardcoded-for-test.php": {
+    "qsetid": "1753195",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im3/logarithmic-properties-09-power-with-video-hardcoded-for-test.php": {
+    "qsetid": "1753197",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im3/log-2-la-10-condense-with-quotient-property-rewrite-hardcoded-for-test.php": {
+    "qsetid": "1753198",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/use-the-quotient-property-to-expand-log-b-x-y-z-hardcoded-for-test.php": {
+    "qsetid": "1753200",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im3/write-exponential-function-between-1-y-1-and-2-y-2-exponential-growth.php": {
+    "qsetid": "1753201",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im3/solve-log-a-x-b-log-a-1-log-x-c-one-solution-hardcoded-for-test.php": {
+    "qsetid": "1753204",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "number",
+    "pulled": true
+  },
+  "questions/im3/9th-grade-concept-27-combining-linear-functions-using-function-notatio.php": {
+    "qsetid": "1656404",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/factored-polynomial-find-roots-end-behavior-graph-of-polynomial-freeha.php": {
+    "qsetid": "1779812",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/apply-law-of-cosines-srw6-5-27-pg.php": {
+    "qsetid": "1774383",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/multiply-rational-expressions-factoring-required-with-video-reducing-r.php": {
+    "qsetid": "1711300",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/media-lesson-systems-of-linear-inequalities.php": {
+    "qsetid": "1721341",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multans",
+    "pulled": true
+  },
+  "questions/im3/q2-9-write-a-system-of-linear-inequalities-and-graph-it-it-grades-base.php": {
+    "qsetid": "1716280",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-2-b-write-inverse-domain.php": {
+    "qsetid": "1735881",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-a-2-write-inverse-domain.php": {
+    "qsetid": "1735883",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/murphy-sm3-05-3-inverse-function-tutorial-find-inverse-of-sqrt-functio.php": {
+    "qsetid": "1735887",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/sac-rev-j3-rules-of-exponents-tutorial-x-m-n.php": {
+    "qsetid": "1660036",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/exponent-rules-a-n-a-m-a-n-m.php": {
+    "qsetid": "1649366",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/law-of-sines.php": {
+    "qsetid": "1778160",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/arithmetic-decreasing-sequence-find-next-3-terms-and-equation.php": {
+    "qsetid": "1526274",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/determining-recursive-and-explicit-equations-for-sequences-from-graphs.php": {
+    "qsetid": "1532434",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/solve-system-by-graphing-y-mx-b-drawing-2.php": {
+    "qsetid": "1552410",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "draw",
+    "pulled": true
+  },
+  "questions/im3/solving-a-system-of-linear-equations-by-graphing.php": {
+    "qsetid": "1715020",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/find-angle-in-degrees-and-radians-from-terminal-point.php": {
+    "qsetid": "1798630",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im3/parent-functions-and-transformations-1-f-x-x-2.php": {
+    "qsetid": "1671770",
+    "cid": "285887",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/block-pattern-4x-k-find-number-of-blocks-numerical-and-write-the-formu-2.php": {
+    "qsetid": "1440396",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/x-a-b-one-step-includes-inverse-operation.php": {
+    "qsetid": "1450802",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/x-a-b-one-step-includes-inverse-operation-2.php": {
+    "qsetid": "1450807",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/x-a-b-one-step-includes-inverse-operation-3.php": {
+    "qsetid": "1450808",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/simplify-exponents-all-rules.php": {
+    "qsetid": "1455845",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/area-of-non-right-triangle-given-corner-points.php": {
+    "qsetid": "1580158",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/area-of-rectangle-given-coordinates-of-corner-points.php": {
+    "qsetid": "1576511",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/graph-and-area-of-square-given-coordinates-of-corner-points.php": {
+    "qsetid": "1576523",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/area-of-parallelogram-given-coordinates-of-corner-points.php": {
+    "qsetid": "1576528",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/area-of-trapezoid-given-coordinates-of-corner-points.php": {
+    "qsetid": "1576529",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/given-similar-quadrilaterals-and-some-of-the-sides-find-one-side-on-se.php": {
+    "qsetid": "1576540",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/which-graphs-are-functions.php": {
+    "qsetid": "1450799",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multans",
+    "pulled": true
+  },
+  "questions/im1/which-graphs-are-functions-copy-by-tyler-wallace.php": {
+    "qsetid": "1450801",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multans",
+    "pulled": true
+  },
+  "questions/im1/simplify-using-exponent-rules-pg.php": {
+    "qsetid": "1450812",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
+  },
+  "questions/im1/rewrite-x-1-n-as-root-n-x.php": {
+    "qsetid": "1450575",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/simplifying-a-radical-of-the-form-root-n-x-m-where-n-gt-m.php": {
+    "qsetid": "1450576",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "numfunc",
+    "pulled": true
+  },
+  "questions/im1/algebra-problem-raising-integers-to-powers-one-neg-exponent-pg.php": {
+    "qsetid": "1450816",
+    "cid": "340140",
+    "filed": "2026-08-16",
+    "qtype": "multipart",
+    "pulled": true
   }
 }

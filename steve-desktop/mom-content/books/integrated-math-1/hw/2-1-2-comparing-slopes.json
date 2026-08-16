@@ -1,0 +1,198 @@
+{
+  "name": "2.1.2 Comparing Slopes",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-1-2-comparing-slopes",
+  "target": {
+    "cid": "340140",
+    "aid": "23498456"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498456"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "129491",
+      "title": "Calculate the slope of a line given its graph. Negative slope. Help video from Davitily.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "129486",
+      "title": "Calculate the slope of a line given its graph. Positive or negative slope. Help video from 2 Minute Classroom.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1177420",
+      "title": "Calculate Slope - From Graph with Helper Dots - positive slope",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1177421",
+      "title": "Calculate Slope - From Graph without Helper Dots - positive slope",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178846",
+      "title": "Calculate Slope - From Graph with Helper Dots - negative slope",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178847",
+      "title": "Calculate Slope - From Graph without Helper Dots - negative slope",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "415128",
+      "title": "REV.1A - solve for x, easy, Solve equation ax+b=c, a neg, b,c integers",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1252",
+      "title": "Combine like terms",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1254",
+      "title": "Add monomials",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1255",
+      "title": "Subtract monomials",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1256",
+      "title": "Add list of monomials, combining like terms",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36417",
+      "title": "Check solution",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36648",
+      "title": "Simplify five terms, product and powers of two variables -- random signs -- constant -- no powers, only xy terms combine",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36656",
+      "title": "Distribute then simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36657",
+      "title": "Distribute then simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36658",
+      "title": "Distribute then simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36659",
+      "title": "Distribute then simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "36660",
+      "title": "Distribute then simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "293247",
+      "title": "One-step equations \n (integer answers - 1)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "293285",
+      "title": "Solve the one step linear equation \n. Help video by HCCMathHelp. (copy by Kevin Clyde)",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

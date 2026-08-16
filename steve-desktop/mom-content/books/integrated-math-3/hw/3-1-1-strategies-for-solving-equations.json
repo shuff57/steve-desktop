@@ -1,0 +1,98 @@
+{
+  "name": "3.1.1 Strategies for Solving Equations",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "3-1-1-strategies-for-solving-equations",
+  "target": {
+    "cid": "285887",
+    "aid": "21085996"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21085996"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1197907",
+      "title": "S2 OUR 3.8.25 Strategies for solving quadratic equations",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "75211",
+      "title": "Solving a system of linear equations by graphing",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77095",
+      "title": "Solving a System of Linear Equations by Graphing (2x2)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im3/solving-a-system-of-linear-equations-by-graphing.php",
+      "qid": "1715020",
+      "title": "Solving a system of linear equations by graphing (local for Doli Bambhania) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "929245",
+      "title": "Solving Systems of Equations by Substitution - Both Equations in Slope-Intercept Form - {Systems}",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "351059",
+      "title": "LL, IntAlg, Linear Systems, Solve Systems in Two Variables. Solve a system of linear equations by graphing (2).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "653059",
+      "title": "C42 - Solve Systems of Linear Equations by Graphing - How many solutions from equations",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "134672",
+      "title": "Systems of quadratic equations: \n, \n; integer answers",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135236",
+      "title": "Systems of nonlinear equations-2 parab-elim: \n, \n; (JH-vid)",
+      "points": 1,
+      "qtype": "calcntuple"
+    }
+  ]
+}

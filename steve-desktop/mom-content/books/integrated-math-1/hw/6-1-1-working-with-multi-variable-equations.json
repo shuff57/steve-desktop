@@ -1,0 +1,161 @@
+{
+  "name": "6.1.1 Working with Multi-Variable Equations",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "6-1-1-working-with-multi-variable-equations",
+  "target": {
+    "cid": "340140",
+    "aid": "23498490"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498490"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256199",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256200",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256201",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256202",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256203",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "256204",
+      "title": "I HW 5.4-5.5 Write linear equations in standard form",
+      "points": 1,
+      "qtype": "string"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "629706",
+      "title": "PGCC: Linear function. \n. Rewrite in slope-intercept format.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "773700",
+      "title": "PGCC: Linear function. \n. Rewrite in slope-intercept format.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "357483",
+      "title": "Given \n, rewrite in slope intercept form. Identify slope. Identify \n-intercept. Graph the line. (Slope rational, \n-intercept integer)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im1/given-ax-by-c-rewrite-in-slope-intercept-form-identify-slope-identify.php",
+      "qid": "1462408",
+      "title": "Given \n, rewrite in slope intercept form. Identify slope. Identify \n-intercept. Graph the line. (Slope rational, \n-intercept integer) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1513202",
+      "title": "Rewrite in slope-intercept form from standard form. Then find slope and y-intercept.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "357476",
+      "title": "Given \n, rewrite in function form. Identify slope. Identify \n-intercept. Graph the line. (Slope integer, \n-intercept integer)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "521483",
+      "title": "Rewrite line in slope-intercept form, find the slope, find the y-intercept",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "62001",
+      "title": "2.2) Given Linear Equation (standard form), make a table then graph (3 ordered pairs)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "79760",
+      "title": "Standard form two-variable linear equation, find intercepts then graph.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "111404",
+      "title": "D6 Write Linear Equation in Standard form given graph",
+      "points": 1,
+      "qtype": "choices"
+    }
+  ]
+}

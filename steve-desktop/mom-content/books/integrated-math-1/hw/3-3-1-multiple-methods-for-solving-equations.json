@@ -1,0 +1,189 @@
+{
+  "name": "3.3.1 Multiple Methods for Solving Equations",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "3-3-1-multiple-methods-for-solving-equations",
+  "target": {
+    "cid": "340140",
+    "aid": "23498470"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498470"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4-8",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204080",
+      "title": "ax+b=cx+d",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "481719",
+      "title": "Algebra problem: solve a linear equation, requires distribution (copy by Janell Woods)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483203",
+      "title": "a(x+b)=cx+d",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483206",
+      "title": "Solve -5(2x+4)=-20-12x+6, distribute, add like, variables on both sides",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483212",
+      "title": "ax+bx+c=d - all pos - vars move -add like terms",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483213",
+      "title": "ax+bx+c=d - some neg - vars move -add like terms",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483214",
+      "title": "4x - 2 + 3x - 7 = -51",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483215",
+      "title": "a+bx+dx=c+e where b+d=1",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483218",
+      "title": "c=a(x-b), \n solve 2-step linear equation with distribute",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483219",
+      "title": "c=a(x+b) \n solve 2-step linear equation with distribute",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483220",
+      "title": "solve a(bx-c)-d=e, distribute n add like, x is integer",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "692716",
+      "title": "d=a(bx+c) \n solve 2-step linear equation with distribute (new vid)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483208",
+      "title": "a(bx+c)=d(ex+f) x=fract",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "222285",
+      "title": "Solve linear sum \n (local for Curtis James)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483279",
+      "title": "find missing tri-angle w/ expression",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270769",
+      "title": "Solve (p/q)x + b = cx + (r/s)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270819",
+      "title": "Solve ax + b = cx + d, a, b, c, d decimals (hundredths), fractional answer required",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281426",
+      "title": "Solve 1/p(bx + c) = 1/q(ex + f), (OpenStax Intermediate Algebra 2.1 #56",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270822",
+      "title": "Solve ax + b = cx + d, a, b, c, d decimals (tenths and hundredths, fractional answer required)",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

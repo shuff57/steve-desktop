@@ -1,0 +1,90 @@
+{
+  "name": "8.2.1 Writing Equations Using Complex Roots",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "8-2-1-writing-equations-using-complex-roots",
+  "target": {
+    "cid": "285887",
+    "aid": "22197264"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22197264"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "524799",
+      "title": "Solve quadratic with complex roots does not prompt student that roots are complex (CTC-McKay)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "98445",
+      "title": "Solve quadratic with complex roots (use square roots, pure imaginary answer)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "212125",
+      "title": "Add, subtract, and multiply the same two complex numbers. This time they are conjugates of each other.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "120096",
+      "title": "Solve quadratic with complex roots (use square roots, pure imaginary answer) (local for Ryan Majerus)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "665417",
+      "title": "Polynomial given roots (pure complex root, two integer roots)",
+      "points": 1,
+      "qtype": "conditional"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1186266",
+      "title": "Find roots of ax^2 + bx + c (complex roots)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1777891",
+      "title": "Quadratic with Imaginary Roots (bi)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1777912",
+      "title": "Irrational Roots",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

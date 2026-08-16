@@ -1,0 +1,306 @@
+{
+  "name": "Review - Chapter 2 - Parent Functions and Solving Rational Functions",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "review-chapter-2-parent-functions-and-solving-rational-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "21191473"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21191473"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "176055",
+      "title": "Solving rational equations (a/(x + b) + c/(x + d) = e), rational solutions",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "872602",
+      "title": "Solving rational equations (a/x + c = e/x^2), rational solutions (copy by DEVON OROURKE)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1534912",
+      "title": "Multiply/Divide Rational Expressions, Factoring Required (with video). Reducing required. Require variables occur =1 and coefficients >0",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1466",
+      "title": "Add rationals, form 1/(x+a) + 1/(x+b) (lhp5_60.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "114822",
+      "title": "Add",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "169068",
+      "title": "Algebra problem: subtract rationals, quadratic denoms (sw1_5_35.pg)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "190446",
+      "title": "Identifying forbidden values in rational expression (integer value, quadratic/quadratic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "455507",
+      "title": "Identify vertical asymptote of",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760709",
+      "title": "Murphy SM3.04.1: Determine holes and vertical asymptotes from a factored rational function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760753",
+      "title": "Murphy SM3.04.1: Determine x-intercept, hole, and VA from unfactored non-monic rational function (0 or 1 holes)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "761286",
+      "title": "Murphy SM3.04.2: Horizontal asymptote for variety rational functions (ratios of constants, linears, quadratics)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "105056",
+      "title": "Vertical and Slant Asymptotes of quadratic/linear, equation entry",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1203439",
+      "title": "Identify and draw vertical slant/oblique asymptotes on graph of rational function. (local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178770",
+      "title": "Matching Basic Parent Functions to Parent Graphs",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178771",
+      "title": "Matching Functions to their Parent Functions",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720061",
+      "title": "8.5.1 Identifying transformations of a quadratic parent function. NOT RANDOM",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "554208",
+      "title": "Given square root parent function, a) what's the new eq. if stated transformations done, b) what's the domain of the transformed function?",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "215561",
+      "title": "Graphing a square-root function using transformations, horizontal reflection. (copy by Gary Parker)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "255669",
+      "title": "Graphing Transformations: Square Root going right. Given a function, draw its graph.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1239867",
+      "title": "Graphing Transformations: Cubic Given a function, draw its graph.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "847912",
+      "title": "Absolute Value: Transformations - identify the graph and describe the transformations (always reflect, always stretch, h, k).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300652",
+      "title": "3-1 Graph an Absolute Value Function with transformation and give range and domain -- all variables integers (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "765307",
+      "title": "Write the formula for a transformation of the absolute value function given its graph.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "821504",
+      "title": "Transformations: Given a graph of +- a*f(x-h)+k, give a description and write the equation - absolute value",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "351582",
+      "title": "D6 Exponentials Graph an Exponential function Growth \n GRAPH 3 VALID POINTS (not normal graphing tools) After 2 attempts, shows the graph to help[disable last line in code if you do not want this]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "352445",
+      "title": "D6 Exponentials Graph an Exponential function Decay \n GRAPH 3 VALID POINTS (not normal graphing tools) After 2 attempts, shows the graph to help[disable last line in code if you do not want this]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805589",
+      "title": "Graphing an exponential function using transformations, horizontal translation, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805744",
+      "title": "Graphing an exponential function using transformations, vertical reflection, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805765",
+      "title": "Graphing an exponential function using transformations, vertical stretch, horizontal translation, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805771",
+      "title": "Graphing a reflected exponential growth function with translations(SL) Allows for graphing optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345855",
+      "title": "7.6.5 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "345855",
+      "title": "7.6.5 Find x-intercepts, factored form, stretch, vertex, and vertex form of quadratic given in standard form.",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

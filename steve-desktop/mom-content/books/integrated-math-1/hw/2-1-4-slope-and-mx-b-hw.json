@@ -1,0 +1,107 @@
+{
+  "name": "2.1.4 Slope and mx+b HW",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-1-4-slope-and-mx-b-hw",
+  "target": {
+    "cid": "340140",
+    "aid": "23498458"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498458"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im1/given-ax-by-c-rewrite-in-slope-intercept-form-identify-slope-identify.php",
+      "qid": "1462408",
+      "title": "Given \n, rewrite in slope intercept form. Identify slope. Identify \n-intercept. Graph the line. (Slope rational, \n-intercept integer) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435819",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435874",
+      "title": "Use the slope formula to calculate the slope of a line given two points. All coordinates are positive. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435934",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. Help video from Tyler Wallace.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435937",
+      "title": "Use the slope formula to calculate the slope of a line given two points. Slope is 0 or undefined. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "827224",
+      "title": "Given the equation of a line in general form \n, find the slope. Fraction. Students don't have yet the connection between the equation of a line and the slope. They only have the slope formula, given two points.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "435828",
+      "title": "Use the slope formula to calculate the slope of a line given two points. All coordinates are negative. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462413",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462411",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value). #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462414",
+      "title": "Find the missing value in the table (linear...calculate slope and then use slope to identify missing value) #3",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

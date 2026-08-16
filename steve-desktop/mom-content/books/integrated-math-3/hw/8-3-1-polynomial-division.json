@@ -1,0 +1,207 @@
+{
+  "name": "8.3.1 Polynomial Division",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "8-3-1-polynomial-division",
+  "target": {
+    "cid": "285887",
+    "aid": "22252163"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22252163"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "19252",
+      "title": "Media Lesson: Polynomial Division - Long Division",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "231758",
+      "title": "Polynomial Division- Long division",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1662010",
+      "title": "Polynomial long division Scratchbox version. Attach as a link or iframe to a problem which needs long division.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "871534",
+      "title": "polynomial long division: \n Write the answer as one continuous polynomial.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075339",
+      "title": "Polynomial Long Division - Polynomial (4 terms) Divided by Binomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075348",
+      "title": "Polynomial Long Division - Polynomial (5 terms) Divided by Binomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1075357",
+      "title": "Polynomial Long Division - Polynomial (5 terms) Divided by Trinomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1463212",
+      "title": "CA 5.4.1 Dividing Polynomials; Remainder and Factor Theorem. 02) Dividing polynomials using long division with no remainder",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1463219",
+      "title": "CA 5.4.1 Dividing Polynomials; Remainder and Factor Theorem. 03) Dividing polynomials using long division with no remainder",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1463234",
+      "title": "CA 5.4.1 Dividing Polynomials; Remainder and Factor Theorem. 06) Dividing polynomials using long division with a remainder",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709107",
+      "title": "Polynomial Long Division - Polynomial (5 terms) Divided by Quadratic Binomial - {Exponents, Radicals, and Polynomials}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709133",
+      "title": "Polynomial Synthetic Division - Polynomial (5 terms) Divided by Binomial - {Polynomials HHS}",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "25460",
+      "title": "09X 5.6.17 - 5.6.20 Polynomial long division (Cubic with missing x term divided by linear). (Andrew & Kristina Burch)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40205",
+      "title": "Polynomial Division-4 (binomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40206",
+      "title": "Polynomial Division-3 (binomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40208",
+      "title": "Polynomial Division-6 (binomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40226",
+      "title": "Polynomial Division-1 (monomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40227",
+      "title": "Polynomial Division-2 (monomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40228",
+      "title": "Polynomial Division-7 (binomial) (cubes x coeficient==1)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "40229",
+      "title": "Polynomial Division-7a (binomial) (cubes x coeficient!=1)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "100124",
+      "title": "Polynomial division, `(ax^3+bx^2+cx+d)/(ex^2+f) write in quotient + remainder/divisor form, single answer box",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

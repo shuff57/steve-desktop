@@ -1,0 +1,126 @@
+{
+  "name": "6.2.2 Substitution Method",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "6-2-2-substitution-method",
+  "target": {
+    "cid": "340140",
+    "aid": "23498494"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498494"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2185",
+      "title": "Solve system by sub v1 (3909)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2186",
+      "title": "Solve system by sub v2 (3910)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2187",
+      "title": "Solve system by sub v3 (3911)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2188",
+      "title": "Solve system by sub v4 (3912)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2189",
+      "title": "Solve system by sub v5 (3913)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "115158",
+      "title": "Solve system by sub v6 (3914) (separate selection for no solution/infinite number of solutions)",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2516",
+      "title": "Find intersection of lines \n and \n, integer soln's. [GL][6378]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2517",
+      "title": "Find intersection of lines \n and \n, decimal soln's. [GL][6379]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2518",
+      "title": "Find intersection of lines \n and \n; fractional soln's. [GL][6380]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3421",
+      "title": "choose substitution then Solve -systems",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "115192",
+      "title": "Solve a linear system of equations. Infinite solutions(dependent system) (separate selection for no solution/infinite number of solutions)",
+      "points": 1,
+      "qtype": "ntuple"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "115137",
+      "title": "Solve a system by substitution given either y= or x= (separate selection for no solution/infinite number of solutions)",
+      "points": 1,
+      "qtype": "ntuple"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "name": "6.1.2 Summary of Solving Equations",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "6-1-2-summary-of-solving-equations",
+  "target": {
+    "cid": "340140",
+    "aid": "23498491"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498491"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4150",
+      "title": "Solve \n for r or t (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4151",
+      "title": "Solve \n for r (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4152",
+      "title": "Solve \n for P, r, or t (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4153",
+      "title": "Solve \n for h (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4154",
+      "title": "Solve \n for b (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4155",
+      "title": "Solve \n for P or T (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4157",
+      "title": "Solve \n for b or h (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4158",
+      "title": "Solve \n for a or b (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4159",
+      "title": "Solve \n for a or b (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4164",
+      "title": "Solve \n for g (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4167",
+      "title": "Solve \n for P (Rb 5th - 2.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38339",
+      "title": "14.1 Solve a system of equations by graphing",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "75211",
+      "title": "Solving a system of linear equations by graphing",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77095",
+      "title": "Solving a System of Linear Equations by Graphing (2x2)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": "questions/im1/system-of-linear-equations-by-graphing-word-problem.php",
+      "qid": "1544928",
+      "title": "System of Linear Equations (by graphing): Word Problem (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

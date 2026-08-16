@@ -1,0 +1,96 @@
+{
+  "name": "Undoing a function",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "undoing-a-function",
+  "target": {
+    "cid": "285887",
+    "aid": "21478256"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21478256"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "454108",
+      "title": "Construct a function that 'undoes' a linear function (intro to inverse functions).",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1198903",
+      "title": "Inverse function: Original function given in words, \"Double/Triple..etc a number and add/subtract \n, choose the words for its inverse then write out the inverse in math language (local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1198997",
+      "title": "Inverse function: Original function given in words, \"Square root / Cube Root a number and add/subtract \n, choose the words for its inverse then write out the inverse in math language (local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-2-b-write-inverse-domain.php",
+      "qid": "1735881",
+      "title": "PGCC: Find inverse of quadratic function \n. Write inverse, domain and range of original and inverse functions. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im3/pgcc-find-inverse-of-quadratic-function-f-x-x-a-2-write-inverse-domain.php",
+      "qid": "1735883",
+      "title": "PGCC: Find inverse of quadratic function \n. Write inverse, domain and range of original and inverse functions. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "528169",
+      "title": "Inverse function values based on table, inverse of a inverse",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "673657",
+      "title": "Murphy SM3.05.3: Inverse Function Tutorial (find inverse of linear function)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "673680",
+      "title": "Murphy SM3.05.3: Inverse Function Tutorial (find inverse of cubic function)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im3/murphy-sm3-05-3-inverse-function-tutorial-find-inverse-of-sqrt-functio.php",
+      "qid": "1735887",
+      "title": "Murphy SM3.05.3: Inverse Function Tutorial (find inverse of sqrt function, including domain and range) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

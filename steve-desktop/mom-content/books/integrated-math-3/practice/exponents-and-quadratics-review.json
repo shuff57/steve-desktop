@@ -1,0 +1,259 @@
+{
+  "name": "Exponents and Quadratics Review",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "exponents-and-quadratics-review",
+  "target": {
+    "cid": "285887",
+    "aid": "20699845"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20699845"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im3/exponent-rules-a-n-a-m-a-n-m.php",
+      "qid": "1649366",
+      "title": "Exponent rules: a^n*a^m, (a^n)^m (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1871",
+      "title": "[LM] (RB 6.5.2)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1961",
+      "title": "Exponent rules: variables change a^n*a^m [LM] 6.2 RB 3118",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1962",
+      "title": "Exponent rules: variables change (x^n)^m [LM] 6.2 RB 3119",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1965",
+      "title": "Exponent rules: variables change (ax^m)(bx^n)(cx^l) [LM] 6.2 RB 3122",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2456",
+      "title": "Simplify \n or \n (\n = pos. integer) [GL][6053]",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2866",
+      "title": "Exponent rules: a^n*a^m (MC)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3644",
+      "title": "Rules of Exponents TUTORIAL: Zero Exponent Rule",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3762",
+      "title": "Fractions with exponents[1]",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3859",
+      "title": "Exponent rules: (a x^m y^n z^o)(b x^p y^q) (copy by Tyler Wallace)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "269315",
+      "title": "Rational exponents (variable to 1/n)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1352020",
+      "title": "1.1 Rational exponents (whole numbers to \n)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": "questions/im3/sac-rev-j3-rules-of-exponents-tutorial-x-m-n.php",
+      "qid": "1660036",
+      "title": "SAC Rev J3 Rules of Exponents TUTORIAL: \n (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "189260",
+      "title": "Simplify expression with rational exponents. Give exact answer in rational exponents and nth root notation. Give decimal approximation to 3 decimal places. (a^1/n)/(a^1/m)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1359",
+      "title": "Identify GCF",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1902",
+      "title": "Factor \n [LM] (RB 7.1.3)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1913",
+      "title": "Factor \n [LM] (RB 7.1.4)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "14137",
+      "title": "Identify GCF (MC) CRS 7.2b (local for James Sousa)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "124794",
+      "title": "Factor cubic trinomial with GCF, \n. Help video by James Sousa",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "124824",
+      "title": "Factor quadratic trinomial with negative GCF. Help video from James Sousa.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "194570",
+      "title": "Solving a quadratic equation involving binomials. Factoring out the GCF will get you the answer. One is zero, the other one is an integer. Of the form \n. Marta Hidegkuti added a video on March 2020",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "258822",
+      "title": "D11 Solve \n by zero product property",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "126934",
+      "title": "Solve the quadratic equation \n using the zero product property. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333763",
+      "title": "Solving Quadratic Equation using Zero Product Property, two steps.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1139196",
+      "title": "Murphy SM3.01.2: Solve Using Quadratic Formula (fill in the formula, two integer solutions)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1139197",
+      "title": "Murphy SM3.01.2: Solve Using Quadratic Formula (fill in the formula, two integer or rational solutions)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1139198",
+      "title": "Murphy SM3.01.2: Solve Using Quadratic Formula (fill in the formula, two real irrational solutions, allows \n for answer)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

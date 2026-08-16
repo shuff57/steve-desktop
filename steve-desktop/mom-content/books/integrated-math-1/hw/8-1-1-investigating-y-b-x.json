@@ -1,0 +1,108 @@
+{
+  "name": "8.1.1 Investigating y=b^x",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "8-1-1-investigating-y-b-x",
+  "target": {
+    "cid": "340140",
+    "aid": "23498479"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498479"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1761",
+      "title": "Match graphs of exponentials with equations",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2460",
+      "title": "Reading a graph, coffee cooling [GL][6131]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2740",
+      "title": "Reading a graph, coffee cooling, eqn given",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3350",
+      "title": "2^x in-out, find missing",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3606",
+      "title": "Identify Base of \n based on table values.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3607",
+      "title": "Identify basic exponential function (b^x) based on its graph.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516952",
+      "title": "Identify Base of \n based on table values. (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516953",
+      "title": "Identify basic exponential function (b^x) based on its graph. (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516955",
+      "title": "3^x in-out, find missing (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1516956",
+      "title": ".5^x in-out, find missing (copy by Steven Huff) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

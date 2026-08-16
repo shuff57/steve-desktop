@@ -1,0 +1,135 @@
+{
+  "name": "8.2.2 More Real and Complex Roots",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "8-2-2-more-real-and-complex-roots",
+  "target": {
+    "cid": "285887",
+    "aid": "22197265"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22197265"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407892",
+      "title": "PGCC: Algebra problem: write equation for polynomial function with given roots and point",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407894",
+      "title": "PGCC: Algebra problem: write equation for polynomial function with given roots and y-intercept",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "427466",
+      "title": "PGCC: Analyze polynomial. Numbers vary. Multiplicity 4 factor, multiplicity 1 factor.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "427468",
+      "title": "PGCC: Analyze polynomial. Numbers vary. Multiplicity 1 factor, multiplicity 2 factor.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "457555",
+      "title": "ACT/SAT (Polynomials and Rationals) #1",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "457564",
+      "title": "ACT/SAT (Polynomials and Rationals) #5",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "652475",
+      "title": "state multiplicity for intercepts from graph (not random) 1600-poll-3.4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "693895",
+      "title": "Polynomial intercepts, end behavior, graph cubic (local for Jaree Hudson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3706",
+      "title": "Write equation for quintic graphed; based on intercepts",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267827",
+      "title": "Solve a difference of cubes equation partially factored; cubic complex",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "726262",
+      "title": "Write a formula for a polynomial function given 2 complex roots, one integer root, and y-intercept (122b) (local for Matthew Brown)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1040781",
+      "title": "Find polynomial function given a complex root, one integer root and y-intercept",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1637980",
+      "title": "Write polynomial with real coefficients given one real root and two complex roots",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

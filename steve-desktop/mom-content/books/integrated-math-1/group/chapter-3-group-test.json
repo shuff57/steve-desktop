@@ -1,0 +1,837 @@
+{
+  "name": "Chapter 3 Group Test",
+  "book": "integrated-math-1",
+  "kind": "group",
+  "slug": "chapter-3-group-test",
+  "target": {
+    "cid": "340140",
+    "aid": "23498473"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498473"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 10 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475095",
+      "in_group": "Q1",
+      "title": "Determine the rigid transformation (reflection)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475098",
+      "in_group": "Q1",
+      "title": "Determine the rigid transformation (transformation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475099",
+      "in_group": "Q1",
+      "title": "Determine rigid transformation (reflection)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1475116",
+      "in_group": "Q1",
+      "title": "Determine rigid transformation (rotation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476547",
+      "in_group": "Q1",
+      "title": "Determine the transformation (rotation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476550",
+      "in_group": "Q1",
+      "title": "Determine the transformation (reflection)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476551",
+      "in_group": "Q1",
+      "title": "Determine the transformation (reflection)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1476569",
+      "in_group": "Q1",
+      "title": "Determine the transformation (translation)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im1/translate-polygon.php",
+      "qid": "1476576",
+      "in_group": "Q1",
+      "title": "Translate Polygon (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1478117",
+      "in_group": "Q1",
+      "title": "Translate Polygon #2",
+      "qtype": "draw"
+    },
+    {
+      "slot": 12,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125271",
+      "in_group": "Q2",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Positive slope. Help video by James Sousa.",
+      "qtype": "number"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125483",
+      "in_group": "Q2",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Negative slope. Help video by James Sousa.",
+      "qtype": "number"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125515",
+      "in_group": "Q2",
+      "title": "Use the Distance Formula to find the distance between two points. Help video by James Sousa.",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 16,
+      "order": "Q3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343362",
+      "in_group": "Q3",
+      "title": "Given equation of a line in slope-intercept form, find slope of line parallel and slope of line perpendicular",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "442518",
+      "in_group": "Q3",
+      "title": "MAT09x - Linear Functions - Slope-Intercept Form - Given slope (negative integer) of a line, find slope of lines that are parallel and perpendicular #ADA (old #54927, new for MAT114)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "517326",
+      "in_group": "Q3",
+      "title": "2.2 Linear Equations: Given a point and slope write the equation in slope-intercept AND in point-slope form for the lines that are parallel and perpendicular.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343737",
+      "in_group": "Q3",
+      "title": "Given equation of a line in general form, find slope of line parallel and slope of line perpendicular",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479933",
+      "in_group": "Q4",
+      "title": "Graph a perpendicular line through a given point #1",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479959",
+      "in_group": "Q4",
+      "title": "Graph a perpendicular line through a given point #2",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479963",
+      "in_group": "Q4",
+      "title": "Graph a perpendicular line through a given point (no start equation) #1",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479980",
+      "in_group": "Q4",
+      "title": "Graph a perpendicular line through a given point (no start equation) #2",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 8 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 27,
+      "file_path": "questions/im1/rotations-perform-a-rotation-about-the-origin-given-angle-of-rotation.php",
+      "qid": "1482391",
+      "in_group": "Q5",
+      "title": "Rotations - perform a rotation about the origin given angle of rotation in 90 deg increments (v2) (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 28,
+      "file_path": "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-a-desc.php",
+      "qid": "1482401",
+      "in_group": "Q5",
+      "title": "Simple rotation \n of a coordinate given a description (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 29,
+      "file_path": "questions/im1/simple-rotation-90-circ-180-circ-270-circ-of-a-coordinate-given-the-tr.php",
+      "qid": "1482402",
+      "in_group": "Q5",
+      "title": "Simple rotation \n of a coordinate given the tranformation rule (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 30,
+      "file_path": "questions/im1/simple-rotation-of-polygon-given-a-description.php",
+      "qid": "1482404",
+      "in_group": "Q5",
+      "title": "Simple Rotation of polygon given a description (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 31,
+      "file_path": "questions/im1/rotations-id-aor-in-90-deg-increments-cor-origin.php",
+      "qid": "1482930",
+      "in_group": "Q5",
+      "title": "Rotations - ID AoR in 90 deg increments & CoR (origin) (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "133093",
+      "in_group": "Q5",
+      "title": "Rotations - ID AoR in 90 deg increments & CoR (vertex)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "133195",
+      "in_group": "Q5",
+      "title": "Rotations - ID AoR in 90 deg increments & CoR (origin) 90ccw",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "133198",
+      "in_group": "Q5",
+      "title": "Rotations - ID AoR in 90 deg increments & CoR (vertex) 90 cw",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 35,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 36,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "132599",
+      "in_group": "Q6",
+      "title": "Reflections - perform a reflection given line of reflection (line shown)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 37,
+      "file_path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2-line-show.php",
+      "qid": "1482406",
+      "in_group": "Q6",
+      "title": "Reflections - perform a reflection given line of reflection (v2) line shown (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 38,
+      "file_path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection.php",
+      "qid": "1482407",
+      "in_group": "Q6",
+      "title": "Reflections - perform a reflection given line of reflection (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 39,
+      "file_path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2.php",
+      "qid": "1482409",
+      "in_group": "Q6",
+      "title": "Reflections - perform a reflection given line of reflection (v2) (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 40,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 41,
+      "file_path": "questions/im1/translation-of-a-polygon-given-a-description.php",
+      "qid": "1482410",
+      "in_group": "Q7",
+      "title": "Translation of a polygon given a description (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 42,
+      "file_path": "questions/im1/translation-of-a-polygon-given-a-transformation-rule.php",
+      "qid": "1482412",
+      "in_group": "Q7",
+      "title": "Translation of a polygon given a transformation rule (local for Steven Huff)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 43,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1482303",
+      "in_group": "Q7",
+      "title": "Translation of a polygon given a description #2",
+      "qtype": "draw"
+    },
+    {
+      "slot": 44,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1482305",
+      "in_group": "Q7",
+      "title": "Translation of a polygon given a transformation rule #2",
+      "qtype": "draw"
+    },
+    {
+      "slot": 45,
+      "order": "Q8-9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 15 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 46,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "889983",
+      "in_group": "Q8-9",
+      "title": "Distributive property area model: \n (version 1)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 47,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "890038",
+      "in_group": "Q8-9",
+      "title": "Distributive property area model: \n (version 1)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 48,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "890299",
+      "in_group": "Q8-9",
+      "title": "Distributive property area model: \n (version 2)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 49,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "890472",
+      "in_group": "Q8-9",
+      "title": "Distributive property area model: \n (version 2)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 50,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1187158",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.8.9 open area model for quadratic",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 51,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1187161",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.8.10 open area model for quadratic",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 52,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1187179",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.8.11 open area model for quadratic",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 53,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190676",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.1 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 54,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190678",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.2 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 55,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190679",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.3 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 56,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190681",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.5 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 57,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190683",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.6 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 58,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190684",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.7 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 59,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190687",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.8 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 60,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1190690",
+      "in_group": "Q8-9",
+      "title": "S2 OUR 2.9.9 multiply binomials using open area models",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 61,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 62,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "239261",
+      "in_group": "Q10",
+      "title": "Polynomial product (ax + b)^2, detailed solution by area model",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 63,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241676",
+      "in_group": "Q10",
+      "title": "Polynomial product (x + b)^2, detailed solution by area model",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 64,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241678",
+      "in_group": "Q10",
+      "title": "Polynomial product (ax + b)^2, detailed solution by area model",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 65,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "255506",
+      "in_group": "Q10",
+      "title": "Polynomial product (ax + b)(cx + d), detailed solution by area model (local for Jeff Suzuki Faculty)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 66,
+      "order": "Q11-13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 14 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 67,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204080",
+      "in_group": "Q11-13",
+      "title": "ax+b=cx+d",
+      "qtype": "number"
+    },
+    {
+      "slot": 68,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "481719",
+      "in_group": "Q11-13",
+      "title": "Algebra problem: solve a linear equation, requires distribution (copy by Janell Woods)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 69,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483203",
+      "in_group": "Q11-13",
+      "title": "a(x+b)=cx+d",
+      "qtype": "number"
+    },
+    {
+      "slot": 70,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483206",
+      "in_group": "Q11-13",
+      "title": "Solve -5(2x+4)=-20-12x+6, distribute, add like, variables on both sides",
+      "qtype": "number"
+    },
+    {
+      "slot": 71,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483212",
+      "in_group": "Q11-13",
+      "title": "ax+bx+c=d - all pos - vars move -add like terms",
+      "qtype": "number"
+    },
+    {
+      "slot": 72,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483213",
+      "in_group": "Q11-13",
+      "title": "ax+bx+c=d - some neg - vars move -add like terms",
+      "qtype": "number"
+    },
+    {
+      "slot": 73,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483214",
+      "in_group": "Q11-13",
+      "title": "4x - 2 + 3x - 7 = -51",
+      "qtype": "number"
+    },
+    {
+      "slot": 74,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483215",
+      "in_group": "Q11-13",
+      "title": "a+bx+dx=c+e where b+d=1",
+      "qtype": "number"
+    },
+    {
+      "slot": 75,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483218",
+      "in_group": "Q11-13",
+      "title": "c=a(x-b), \n solve 2-step linear equation with distribute",
+      "qtype": "number"
+    },
+    {
+      "slot": 76,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483219",
+      "in_group": "Q11-13",
+      "title": "c=a(x+b) \n solve 2-step linear equation with distribute",
+      "qtype": "number"
+    },
+    {
+      "slot": 77,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483220",
+      "in_group": "Q11-13",
+      "title": "solve a(bx-c)-d=e, distribute n add like, x is integer",
+      "qtype": "number"
+    },
+    {
+      "slot": 78,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "692716",
+      "in_group": "Q11-13",
+      "title": "d=a(bx+c) \n solve 2-step linear equation with distribute (new vid)",
+      "qtype": "number"
+    },
+    {
+      "slot": 79,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483208",
+      "in_group": "Q11-13",
+      "title": "a(bx+c)=d(ex+f) x=fract",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 80,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "222285",
+      "in_group": "Q11-13",
+      "title": "Solve linear sum \n (local for Curtis James)",
+      "qtype": "number"
+    },
+    {
+      "slot": 81,
+      "order": "Q14-16",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 11 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 82,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1289",
+      "in_group": "Q14-16",
+      "title": "Solve equation (a/b)x + c = d",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 83,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1286",
+      "in_group": "Q14-16",
+      "title": "Solve linear equation involving fractions",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 84,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1287",
+      "in_group": "Q14-16",
+      "title": "Algebra problem: solve a linear equation, fractional coefficients (sw1_6_13.pg)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 85,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1288",
+      "in_group": "Q14-16",
+      "title": "Solving a linear equation with fractional coefficients (Test2_11.pg)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 86,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1290",
+      "in_group": "Q14-16",
+      "title": "Solve linear equation involving fractions and one paren: 1/a x + 1/b = c(d/f x + g)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 87,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2409",
+      "in_group": "Q14-16",
+      "title": "Solve x+a=b; decimal a,b; neg ans",
+      "qtype": "number"
+    },
+    {
+      "slot": 88,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2410",
+      "in_group": "Q14-16",
+      "title": "Solve ax=b; decimal a,b",
+      "qtype": "number"
+    },
+    {
+      "slot": 89,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2411",
+      "in_group": "Q14-16",
+      "title": "Solve ax+b=c, decimal b,c; signed answer",
+      "qtype": "number"
+    },
+    {
+      "slot": 90,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2412",
+      "in_group": "Q14-16",
+      "title": "Solve ax+b=cx+d, decimal a,b,c,d; signed answer",
+      "qtype": "number"
+    },
+    {
+      "slot": 91,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1291",
+      "in_group": "Q14-16",
+      "title": "Solve linear equation with decimals and parens",
+      "qtype": "number"
+    },
+    {
+      "slot": 92,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13826",
+      "in_group": "Q14-16",
+      "title": "Solve linear equation with decimals and parens (local for James Sousa)",
+      "qtype": "number"
+    }
+  ]
+}

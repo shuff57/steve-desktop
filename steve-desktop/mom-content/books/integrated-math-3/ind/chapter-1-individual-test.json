@@ -1,0 +1,17 @@
+{
+  "name": "Chapter 1 Individual Test",
+  "book": "integrated-math-3",
+  "kind": "ind",
+  "slug": "chapter-1-individual-test",
+  "target": {
+    "cid": "285887",
+    "aid": "20000049"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20000049"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": []
+}

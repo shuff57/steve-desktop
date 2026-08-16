@@ -1,0 +1,117 @@
+{
+  "name": "1.1.2 Using Graphing to Explore a Function - Domain and Range",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "1-1-2-using-graphing-to-explore-a-function-domain-and-range",
+  "target": {
+    "cid": "285887",
+    "aid": "19999337"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "19999337"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "407405",
+      "title": "T-13A Domain-Range find the Domain and Range of a part of a graph - answer as inequality",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "165392",
+      "title": "1.2 Domain and Range from graph of quadratic with limited domain",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "204403",
+      "title": "find domain and range from graph -- quadratic over restricted domain. (122)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1425936",
+      "title": "SAC Rev E2 Find domain and range from graph -- quadratic over restricted domain.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "767316",
+      "title": "State vertex, axis of symmetry, domain, range, and \n- and \n- intercepts of quadratic graph. Select graph showing correct quadrant and opening. (fractional vertex, no x intercepts).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1434758",
+      "title": "State vertex, axis of symmetry, domain, range, and \n- and \n- intercepts of quadratic graph Select graph showing correct quadrant and opening. (fractional vertex, has x-intercepts) (local for Ryan Stones)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805589",
+      "title": "Graphing an exponential function using transformations, horizontal translation, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805744",
+      "title": "Graphing an exponential function using transformations, vertical reflection, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805746",
+      "title": "Graphing an exponential function using transformations, vertical reflection, decay. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300646",
+      "title": "3-1 Graph a basic Absolute Value Functions and give range and domain -- #1 (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300652",
+      "title": "3-1 Graph an Absolute Value Function with transformation and give range and domain -- all variables integers (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

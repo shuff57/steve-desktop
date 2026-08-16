@@ -1,0 +1,171 @@
+{
+  "name": "Cubic/Absolute Value/ Square Root",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "cubic-absolute-value-square-root",
+  "target": {
+    "cid": "285887",
+    "aid": "20819158"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20819158"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31081",
+      "title": "Media Lesson – Function Transformation Summary - The Square Root Function",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "554208",
+      "title": "Given square root parent function, a) what's the new eq. if stated transformations done, b) what's the domain of the transformed function?",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "215561",
+      "title": "Graphing a square-root function using transformations, horizontal reflection. (copy by Gary Parker)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "255669",
+      "title": "Graphing Transformations: Square Root going right. Given a function, draw its graph.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "318064",
+      "title": "Graphing a square-root function using transformations, horizontal and vertical.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "335488",
+      "title": "Graphing a square-root function using transformations, horizontal reflection. (copy by Gary Parker) (local for Ryan Majerus)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "455448",
+      "title": "Graphing a square-root function using transformations, horizontal reflection V2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "947242",
+      "title": "graph transformation given parent function (cubic)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "948374",
+      "title": "transformation of cubic/cube root/sqrt/abs function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1239867",
+      "title": "Graphing Transformations: Cubic Given a function, draw its graph.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "205016",
+      "title": "Graphing by transformation of parent graph (x, x^2, x^3, square root, cube root, absolute value, 1/x) shifted up/down. Identify parent, graph of parent, and identify transformation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "847912",
+      "title": "Absolute Value: Transformations - identify the graph and describe the transformations (always reflect, always stretch, h, k).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300652",
+      "title": "3-1 Graph an Absolute Value Function with transformation and give range and domain -- all variables integers (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "300655",
+      "title": "3-1 Graph an Absolute Value Function with transformation and give range and domain -- with fractions for variables (by Jeffery Muhlestein)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "765300",
+      "title": "Graph a transformation of the absolute value function.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "765307",
+      "title": "Write the formula for a transformation of the absolute value function given its graph.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "821504",
+      "title": "Transformations: Given a graph of +- a*f(x-h)+k, give a description and write the equation - absolute value",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

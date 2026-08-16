@@ -1,0 +1,100 @@
+{
+  "name": "5.3.1 Comparing Growth in Tables and Graphs",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-3-1-comparing-growth-in-tables-and-graphs",
+  "target": {
+    "cid": "340140",
+    "aid": "23498485"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498485"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-8",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im1/finding-sequence-formula-from-table-geometric.php",
+      "qid": "1530792",
+      "title": "Finding sequence formula from table (geometric) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/finding-sequence-formula-from-table-arithmetic.php",
+      "qid": "1530796",
+      "title": "Finding sequence formula from table (arithmetic) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "339449",
+      "title": "Arithmetic Decreasing Sequence with table.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "339456",
+      "title": "Geometric Increasing Sequence from complete table values. (copy by Steve Lang)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult-2.php",
+      "qid": "1530816",
+      "title": "Geometric Increasing Sequence from table missing 2 values. decimal multiplier (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/arithmetic-increasing-sequence-with-table-explicit-formula-copy-by-ste-2.php",
+      "qid": "1534312",
+      "title": "Arithmetic Increasing Sequence with table. Explicit formula (copy by Steve Lang) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult.php",
+      "qid": "1530817",
+      "title": "Geometric Increasing Sequence from table missing 2 values. decimal multiplier explicit formula(copy by Steve Lang) (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im1/sequence-graph-exponential.php",
+      "qid": "1530819",
+      "title": "Sequence - Graph Exponential (local for Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im1/sequence-graph-exponential-2.php",
+      "qid": "1530837",
+      "title": "Sequence - Graph Exponential (local for Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im1/determining-recursive-and-explicit-equations-for-sequences-from-graphs.php",
+      "qid": "1532434",
+      "title": "Determining recursive and explicit equations for sequences (from graphs) (local for David Waung) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "name": "HW Domain and Range",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-domain-and-range",
+  "target": {
+    "cid": "340140",
+    "aid": "23498449"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498449"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2-7",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1728",
+      "title": "Which graphs are functions?",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1729",
+      "title": "Which tables represent functions",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2467",
+      "title": "Which tables represent functions? (ver2)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4035",
+      "title": "Which graphs are functions? (copy by Tyler Wallace)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15762",
+      "title": "Func? Domain Range from pts.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "72181",
+      "title": "Find domain of a relation expressed as ordered pairs",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "72193",
+      "title": "Find domain and range for relation",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "73156",
+      "title": "Definition of range",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "73181",
+      "title": "Domain and Range from a table. Is it a function? Yes",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "73184",
+      "title": "Domain and Range from a table. Is it a function? No",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

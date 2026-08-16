@@ -1,0 +1,90 @@
+{
+  "name": "1.1.1 Functions",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "1-1-1-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "19998939"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "19998939"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "498291",
+      "title": "Function machine Evaluate 2",
+      "points": 12,
+      "qtype": "number"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "498291",
+      "title": "Function machine Evaluate 2",
+      "points": 12,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1423793",
+      "title": "1-6 Function Machine",
+      "points": 13,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1423793",
+      "title": "1-6 Function Machine",
+      "points": 13,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432147",
+      "title": "1-38 functions, given input",
+      "points": 13,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432147",
+      "title": "1-38 functions, given input",
+      "points": 13,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432177",
+      "title": "1-47 determine if the relationship is a function",
+      "points": 12,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432177",
+      "title": "1-47 determine if the relationship is a function",
+      "points": 12,
+      "qtype": "multipart"
+    }
+  ]
+}

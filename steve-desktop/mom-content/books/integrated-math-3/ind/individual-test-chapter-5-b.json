@@ -1,0 +1,127 @@
+{
+  "name": "Individual Test Chapter 5 - B",
+  "book": "integrated-math-3",
+  "kind": "ind",
+  "slug": "individual-test-chapter-5-b",
+  "target": {
+    "cid": "285887",
+    "aid": "22074532"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22074532"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1752565",
+      "title": "Construct a function that 'undoes' a linear function (intro to inverse functions). Hardcoded for test",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1752569",
+      "title": "Inverse function values based on table, inverse of a inverse hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1752571",
+      "title": "Algebra problem: decomposition of functions (srw2_8_45.pg) hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1752577",
+      "title": "Composition of functions using values based on graphs (copy by James Sousa) hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1752584",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(ax+b)+d. This is a generic problem used for in other questions with more restrictions on f(x). Hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im3/solve-simple-equations-involving-logs-problem5-pg-hardcoded-for-test.php",
+      "qid": "1752933",
+      "title": "Solve simple equations involving logs (problem5.pg) (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im3/graph-log-a-x-h-k-hardcoded-for-test.php",
+      "qid": "1753193",
+      "title": "Graph log_a(x-h)+k (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im3/logarithmic-properties-03-log-x-log-x-n-with-video-hardcoded-for-test.php",
+      "qid": "1753195",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video) (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im3/logarithmic-properties-09-power-with-video-hardcoded-for-test.php",
+      "qid": "1753197",
+      "title": "Logarithmic Properties-09 power (with video) (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im3/log-2-la-10-condense-with-quotient-property-rewrite-hardcoded-for-test.php",
+      "qid": "1753198",
+      "title": "LOG.2 - LA(10) Condense with Quotient Property - rewrite (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": "questions/im3/use-the-quotient-property-to-expand-log-b-x-y-z-hardcoded-for-test.php",
+      "qid": "1753200",
+      "title": "Use the quotient property to expand log_b((x-y)/z) (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": "questions/im3/write-exponential-function-between-1-y-1-and-2-y-2-exponential-growth.php",
+      "qid": "1753201",
+      "title": "Write exponential function between \n and \n. Exponential growth. (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": "questions/im3/solve-log-a-x-b-log-a-1-log-x-c-one-solution-hardcoded-for-test.php",
+      "qid": "1753204",
+      "title": "Solve \n, one solution (local for Steven Huff) hardcoded for test",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

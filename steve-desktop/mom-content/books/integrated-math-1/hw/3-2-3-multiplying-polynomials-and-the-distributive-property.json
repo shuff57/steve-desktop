@@ -1,0 +1,117 @@
+{
+  "name": "3.2.3 Multiplying Polynomials and the Distributive Property",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "3-2-3-multiplying-polynomials-and-the-distributive-property",
+  "target": {
+    "cid": "340140",
+    "aid": "23498469"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498469"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4-7",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31062",
+      "title": "Media Lesson: Multiplying Polynomials",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "88471",
+      "title": "Conceptual Multiple Choice - Multiplying Polynomials rectangle picture",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "88472",
+      "title": "Conceptual Multiple Choice - Multiplying Polynomials - Find the product",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "88481",
+      "title": "Conceptual Multiple Choice - Multiplying Polynomials - Special Cases",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "88482",
+      "title": "Conceptual Multiple Choice - Multiplying Polynomials - Special Cases",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "88484",
+      "title": "Conceptual Multiple Choice - Multiplying Polynomials - Special Cases",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38806",
+      "title": "Lesson 3 - Multiplying Polynomials - Very Basic",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "511013",
+      "title": "Media Lesson Multiplying Polynomials - multiply a binomial times a trinomial with problem 70831",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "38808",
+      "title": "Lesson 3 - Multiplying Polynomials - Part 2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "48408",
+      "title": "Polynomials - Multiplying Trinomial by 4-term polynomial",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "53810",
+      "title": "Multiplying Polynomials - Very Basic",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

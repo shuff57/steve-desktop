@@ -1,0 +1,99 @@
+{
+  "name": "5.3.2 Using Multipliers to Solve Problems",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-3-2-using-multipliers-to-solve-problems",
+  "target": {
+    "cid": "340140",
+    "aid": "23498486"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498486"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-9",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "23971",
+      "title": "Lesson 6 - Decay Rate and Decay Factor",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "914716",
+      "title": "Exponential decay problem given initial quantity and % decay rate.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "727631",
+      "title": "Car depreciation with annual decay rate (local for Matthew Brown)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1384039",
+      "title": "Exponential Growth / Decay Model - Write equation and find amount after time t (Dow video)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2639",
+      "title": "Write expo. func. given initial population and growth rate",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2640",
+      "title": "Write expo. func. given initial population and decay rate",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238903",
+      "title": "Constant annual rate of depreciation: Given an incomplete table of values, finish the table and write an equation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "499978",
+      "title": "How to increase or decrease a number by a percent",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557814",
+      "title": "Given function representation, identify linear or exponential and build function (story/exponential)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

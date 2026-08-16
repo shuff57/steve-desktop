@@ -1,0 +1,157 @@
+{
+  "name": "HW Rewriting Expressions with Exponents",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-rewriting-expressions-with-exponents",
+  "target": {
+    "cid": "340140",
+    "aid": "23498450"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498450"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "51759",
+      "title": "expo - Exponent Properties (all)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483464",
+      "title": "",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483459",
+      "title": "",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483458",
+      "title": "product to a power of a power -exponents",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "502124",
+      "title": "Simplify",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "515785",
+      "in_group": "Q6",
+      "title": "The expression \n can be simplified to. verision 3",
+      "qtype": "choices"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "515780",
+      "in_group": "Q6",
+      "title": "The expression \n can be simplified to. verision 2",
+      "qtype": "choices"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "515778",
+      "in_group": "Q6",
+      "title": "The expression \n can be simplified to",
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1309",
+      "title": "Simplify using exponent rules (.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1310",
+      "title": "Simplify using exponent rules (.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1312",
+      "title": "Simplify using exponent rules (.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "52131",
+      "title": "exponents - addition or multiplication in the exponent. \n and",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "order": "Q11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3539",
+      "title": "Rewrite \n as \n.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "order": "Q12",
+      "file_path": "questions/im1/evaluate-a-m-n.php",
+      "qid": "1455031",
+      "title": "Evaluate a^(m/n) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

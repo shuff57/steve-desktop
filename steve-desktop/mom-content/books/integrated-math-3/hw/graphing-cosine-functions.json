@@ -1,0 +1,99 @@
+{
+  "name": "Graphing Cosine Functions",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "graphing-cosine-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "22408255"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22408255"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807345",
+      "title": "Graph Parent Cosine Function - Connect terminal point x-coordinates from the unit circle to the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808001",
+      "title": "Cosine Graph Unit Circle Explanation - Choose the correct unit-circle explanation for why the cosine graph has a specific y-value at a key angle",
+      "points": 1,
+      "qtype": "choices"
+    }
+  ]
+}

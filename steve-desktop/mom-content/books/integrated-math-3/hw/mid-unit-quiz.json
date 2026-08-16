@@ -1,0 +1,238 @@
+{
+  "name": "Mid Unit Quiz",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "mid-unit-quiz",
+  "target": {
+    "cid": "285887",
+    "aid": "22437996"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22437996"
+  },
+  "created_at": "2026-08-16",
+  "block": "0",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group, choosing 6 without replacement",
+      "points": null,
+      "features": "1ea"
+    },
+    {
+      "slot": 2,
+      "order": "Q1-1",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "138733",
+      "title": "trig (Review) (Unit 4)",
+      "points": null,
+      "qtype": "multans"
+    },
+    {
+      "slot": 3,
+      "order": "Q1-2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "664420",
+      "title": "Solving right triangle for missing angle. Trig sine, cosine, and tangent equations",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "order": "Q1-3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "429226",
+      "title": "Find the sine, cosine, and tangent of an angle in a right triangle given the length of the hypotenuse and one leg.",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "order": "Q1-4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31125",
+      "title": "Media Lesson: Solving Special Right Triangles",
+      "points": null,
+      "qtype": "multans"
+    },
+    {
+      "slot": 6,
+      "order": "Q1-5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "730947",
+      "title": "Solving right triangle for missing side. Special right triangle. 30-6-90. Given short leg = integer",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "order": "Q1-6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1131003",
+      "title": "Special Right triangles, two triangles 6RV#3",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "order": "Q1-7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468549",
+      "title": "Unit Circle Identifying angles",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "order": "Q1-8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178549",
+      "title": "Plotting Angles on the Unit Circle (Negative Degrees)",
+      "points": null,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "order": "Q1-9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "481107",
+      "title": "Plot points on Unit Circle given an angle in radians",
+      "points": null,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "order": "Q1-10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1359635",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) 2 Questions with DETAILED SOLN",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "order": "Q1-11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "132811",
+      "title": "Convert an angle in degrees to radians. (multiples of 20 degrees)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 13,
+      "order": "Q1-12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "151948",
+      "title": "Unit Circle Trig -- angle in degrees from coordinates on the unit circle",
+      "points": null,
+      "qtype": "number"
+    },
+    {
+      "slot": 14,
+      "order": "Q1-13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "789981",
+      "title": "Give coordinates of a point on the unit circle. [MAT 122]",
+      "points": null,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 15,
+      "order": "Q1-14",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1803702",
+      "title": "Find Reference Angle in Degrees and Radians from Terminal Point (local for DEYCI LOPEZ)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "order": "Q1-15",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1798571",
+      "title": "Find Coterminal Angles from Terminal Point",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "order": "Q1-16",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425004",
+      "title": "1 (a) Match point on unit circle with points on graphs of cosine and sine",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "order": "Q1-17",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "502383",
+      "title": "Use Unit Circle to find sine and cosine value,",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "order": "Q1-18",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1807996",
+      "title": "Cosine Value from Terminal Point - Given a labeled terminal point on the unit circle, identify the cosine value that becomes the y-value on the graph of y = cos(x)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "order": "Q1-19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808000",
+      "title": "Ordered Pair on Cosine Graph - Given a terminal point at angle theta, write the coordinate (theta, cos theta) that gets plotted on the graph of y = cos(x)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 21,
+      "order": "Q1-20",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808001",
+      "title": "Cosine Graph Unit Circle Explanation - Choose the correct unit-circle explanation for why the cosine graph has a specific y-value at a key angle",
+      "points": null,
+      "qtype": "choices"
+    },
+    {
+      "slot": 22,
+      "order": "Q1-21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808960",
+      "title": "Three Trig Ratios from One Terminal Point - Given a standard angle terminal point, find sin, cos, and tan, and explain the sign of tan using quadrant reasoning",
+      "points": null,
+      "qtype": "multipart"
+    }
+  ]
+}

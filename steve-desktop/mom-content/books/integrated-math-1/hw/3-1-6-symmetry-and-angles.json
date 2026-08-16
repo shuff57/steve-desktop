@@ -1,0 +1,117 @@
+{
+  "name": "3.1.6 Symmetry and Angles",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "3-1-6-symmetry-and-angles",
+  "target": {
+    "cid": "340140",
+    "aid": "23498467"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498467"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "313595",
+      "title": "naming polygons",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "367375",
+      "title": "8-Polygon Angle Measures #10 (measure of int angle)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "367587",
+      "title": "8-Polygon Angle Measures #11 (measure of int angle)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "368401",
+      "title": "8.49 (regular polygon interior angle, number of sides)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "368475",
+      "title": "8.55a ( polygon interior angle w/ diagrams)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "368478",
+      "title": "8.55b ( polygon interior angle w/ diagrams)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "368530",
+      "title": "8.55c ( polygon interior angle w/ diagrams)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "368560",
+      "title": "8.55d ( polygon interior angle w/ diagrams)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "385202",
+      "title": "Interior Angle Measures of Polygons [IIH.15.1.12]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "394351",
+      "title": "Sum of the angles in a regular polygon - [8, 24]",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "324456",
+      "title": "Identify the polygon given its interior angle.",
+      "points": 1,
+      "qtype": "choices"
+    }
+  ]
+}

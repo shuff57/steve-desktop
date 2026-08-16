@@ -1,0 +1,80 @@
+{
+  "name": "Rational Functions Unit - Ind Test",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "rational-functions-unit-ind-test",
+  "target": {
+    "cid": "285887",
+    "aid": "21076884"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21076884"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "176055",
+      "title": "Solving rational equations (a/(x + b) + c/(x + d) = e), rational solutions",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im3/multiply-rational-expressions-factoring-required-with-video-reducing-r.php",
+      "qid": "1711300",
+      "title": "Multiply Rational Expressions, Factoring Required (with video). Reducing required. Require variables occur =1 and coefficients >0 (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "169068",
+      "title": "Algebra problem: subtract rationals, quadratic denoms (sw1_5_35.pg)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "190446",
+      "title": "Identifying forbidden values in rational expression (integer value, quadratic/quadratic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "455507",
+      "title": "Identify vertical asymptote of",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760709",
+      "title": "Murphy SM3.04.1: Determine holes and vertical asymptotes from a factored rational function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "105056",
+      "title": "Vertical and Slant Asymptotes of quadratic/linear, equation entry",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

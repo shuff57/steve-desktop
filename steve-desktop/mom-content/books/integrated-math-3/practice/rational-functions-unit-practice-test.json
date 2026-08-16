@@ -1,0 +1,135 @@
+{
+  "name": "Rational Functions Unit - Practice Test",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "rational-functions-unit-practice-test",
+  "target": {
+    "cid": "285887",
+    "aid": "21064022"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21064022"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "176055",
+      "title": "Solving rational equations (a/(x + b) + c/(x + d) = e), rational solutions",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "872602",
+      "title": "Solving rational equations (a/x + c = e/x^2), rational solutions (copy by DEVON OROURKE)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1534912",
+      "title": "Multiply/Divide Rational Expressions, Factoring Required (with video). Reducing required. Require variables occur =1 and coefficients >0",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1466",
+      "title": "Add rationals, form 1/(x+a) + 1/(x+b) (lhp5_60.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "114822",
+      "title": "Add",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "169068",
+      "title": "Algebra problem: subtract rationals, quadratic denoms (sw1_5_35.pg)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "190446",
+      "title": "Identifying forbidden values in rational expression (integer value, quadratic/quadratic)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "455507",
+      "title": "Identify vertical asymptote of",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760709",
+      "title": "Murphy SM3.04.1: Determine holes and vertical asymptotes from a factored rational function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "760753",
+      "title": "Murphy SM3.04.1: Determine x-intercept, hole, and VA from unfactored non-monic rational function (0 or 1 holes)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "761286",
+      "title": "Murphy SM3.04.2: Horizontal asymptote for variety rational functions (ratios of constants, linears, quadratics)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "105056",
+      "title": "Vertical and Slant Asymptotes of quadratic/linear, equation entry",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1203439",
+      "title": "Identify and draw vertical slant/oblique asymptotes on graph of rational function. (local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

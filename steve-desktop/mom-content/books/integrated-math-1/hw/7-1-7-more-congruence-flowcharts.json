@@ -1,0 +1,151 @@
+{
+  "name": "7.1.7 More Congruence Flowcharts",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "7-1-7-more-congruence-flowcharts",
+  "target": {
+    "cid": "340140",
+    "aid": "23498505"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498505"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "483264",
+      "title": "// w trans congruent angles find x",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "869486",
+      "title": "Ditty 9.1: Vocab - Identifying congruent angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "874562",
+      "title": "Ditty 9.2: Solving Parallelogram, opposite angles are congruent, linear, true solution",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "874579",
+      "title": "Ditty 9.2: Solving Parallelograms, supplementary angles, and opposite sides are congruent, both true solutions",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1168",
+      "title": "Area of right triangle; formula given",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1169",
+      "title": "Area of triangle",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/area-of-right-triangle-given-corner-points.php",
+      "qid": "1580137",
+      "title": "Area of right triangle given corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im1/area-of-non-right-triangle-given-corner-points.php",
+      "qid": "1580158",
+      "title": "Area of non-right triangle given corner points (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1174",
+      "title": "Area of right triangle given pic on coordinate plane",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "30201",
+      "title": "Find midpoint between two points, rational coordinates.",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1441943",
+      "title": "find midpoint using coordinates",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "30069",
+      "title": "Find the distance between two points (distance formula). Always integer answer.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "149032",
+      "title": "Find the distance between two points (distance formula), give exact answer, always an integer. (112)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "262844",
+      "title": "Geom.5.Midpoint 2 -- Integer Midpoint, Find A",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "262845",
+      "title": "Geom.5.Midpoint 2 -- Fractional Midpoint, Find A",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

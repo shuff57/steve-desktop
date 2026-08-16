@@ -1,0 +1,153 @@
+{
+  "name": "Chapter 7 Group Test",
+  "book": "integrated-math-3",
+  "kind": "group",
+  "slug": "chapter-7-group-test",
+  "target": {
+    "cid": "285887",
+    "aid": "22273439"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22273439"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135856",
+      "title": "Section 4 - Complex Numbers/Algebra problem: subtracting complex numbers (video)",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "135858",
+      "title": "Section 4 - Complex Numbers/Algebra problem: divide complex numbers (a+bi)/(ci) (video)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1701133",
+      "title": "2.4.5 Complex Numbers/Algebra problem: multiplying complex numbers. (local for Lyle ONeal)",
+      "points": 1,
+      "qtype": "complex"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4333",
+      "title": "ladder height",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130538",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4316",
+      "title": "Law of sines (srw6_4_15.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1045592",
+      "title": "End behavior of polynomial functions. Standard polynomial.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1461008",
+      "title": "CA 5.3.2 Polynomial Functions and Their Graphs. 01) Find the zeros and respective multiplicity of the polynomial function in factored form.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3910",
+      "title": "Identify equation of polynomial graph in factored form[1]",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1762808",
+      "title": "Writing Exact Polynomial Equations(copy by DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "524799",
+      "title": "Solve quadratic with complex roots does not prompt student that roots are complex (CTC-McKay)",
+      "points": 1,
+      "qtype": "calccomplex"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "652475",
+      "title": "state multiplicity for intercepts from graph (not random) 1600-poll-3.4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "726262",
+      "title": "Write a formula for a polynomial function given 2 complex roots, one integer root, and y-intercept (122b) (local for Matthew Brown)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1463212",
+      "title": "CA 5.4.1 Dividing Polynomials; Remainder and Factor Theorem. 02) Dividing polynomials using long division with no remainder",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "323813",
+      "title": "Solve a cubic equation, must first rearrange to cubic = 0, one (fraction) solution given, factor partially using polynomial long division, then factor the quotient and list all solutions(local for Stephen Burns)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

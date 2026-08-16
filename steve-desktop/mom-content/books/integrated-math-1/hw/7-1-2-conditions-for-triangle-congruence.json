@@ -1,0 +1,225 @@
+{
+  "name": "7.1.2 Conditions for Triangle Congruence",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "7-1-2-conditions-for-triangle-congruence",
+  "target": {
+    "cid": "340140",
+    "aid": "23498502"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498502"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "162603",
+      "title": "Use triangle congruence DONE [free]",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "162613",
+      "title": "Triangle congruence statement (Unit 3) DONE",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "247064",
+      "title": "SR.9.1 triangle congruence",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251292",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251298",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "251307",
+      "title": "II HW 5.3-5.4 Triangle Congruence",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657972",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test A",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657975",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test B",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "657977",
+      "title": "9th Grade Concept #90 - Identify corresponding sides and corresponding angles of congruent triangles - Test C",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826257",
+      "title": "9th Grade Concept #94 Test A - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 1 (local for Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826261",
+      "title": "9th Grade Concept #94 Test B - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 2 (local for Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "826265",
+      "title": "9th Grade Concept #94 Test C - Identify corresponding sides and corresponding angles of congruent triangles Version 2 Question 3 (local for Becky Anderson)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "134795",
+      "title": "rigid motions - (rotation) recognize corresponding parts",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240354",
+      "title": "ID corresponding sides",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240355",
+      "title": "ID corresponding sides b",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240356",
+      "title": "ID corresponding sides c",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240365",
+      "title": "ID corresponding sides abc",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240439",
+      "title": "ID Corresponding Angles",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240440",
+      "title": "ID Corresponding Angles b",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240441",
+      "title": "ID Corresponding Angles c",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240442",
+      "title": "ID Corresponding Parts",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240443",
+      "title": "ID Corresponding Parts b",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "240444",
+      "title": "ID Corresponding Parts c",
+      "points": 1,
+      "qtype": "matching"
+    }
+  ]
+}

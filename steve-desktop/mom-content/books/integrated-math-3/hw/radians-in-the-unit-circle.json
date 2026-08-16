@@ -1,0 +1,126 @@
+{
+  "name": "Radians in the Unit Circle",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "radians-in-the-unit-circle",
+  "target": {
+    "cid": "285887",
+    "aid": "22313213"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22313213"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468589",
+      "title": "Unit Circle Identifying angles radians",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468619",
+      "title": "Unit Circle Identifying angles radians #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "481107",
+      "title": "Plot points on Unit Circle given an angle in radians",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1142910",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) with DETAILED SOLN",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178550",
+      "title": "Plotting Angles on the Unit Circle (Positive Radians)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178551",
+      "title": "Plotting Angles on the Unit Circle (Negative Radians)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1359635",
+      "title": "Convert an angle in degrees to radians (all unit circle exact values from 30 to 330) 2 Questions with DETAILED SOLN",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1120724",
+      "title": "Convert from degrees to radians or radians to degrees without a calc [III.9.2.18] (copy by Sherri Bond)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1120731",
+      "title": "Convert from degrees to radians or radians to degrees without a calc [III.9.2.18] (copy by Sherri Bond)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "557223",
+      "title": "[EXACT ANSWERS ONLY] Convert \n radians into degrees and \n into radians. CHANGES FROM 4181 Displays and expects exact answers only. Added solution. Added instructions.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "132811",
+      "title": "Convert an angle in degrees to radians. (multiples of 20 degrees)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4188",
+      "title": "Convert an angle in radians to degrees.",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

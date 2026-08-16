@@ -1,0 +1,189 @@
+{
+  "name": "Practice Test Chapter 5",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "practice-test-chapter-5",
+  "target": {
+    "cid": "285887",
+    "aid": "21673437"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21673437"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "454108",
+      "title": "Construct a function that 'undoes' a linear function (intro to inverse functions).",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "528169",
+      "title": "Inverse function values based on table, inverse of a inverse",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599",
+      "title": "Algebra problem: decomposition of functions (srw2_8_45.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15928",
+      "title": "Composition of functions using values based on graphs (copy by James Sousa)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "683613",
+      "title": "Murphy SM3.05.3: Composition of Inverse Functions (Rational)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241132",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(ax+b)+d. This is a generic problem used for in other questions with more restrictions on f(x).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "241354",
+      "title": "Find inverse of square root function with domain restriction. f(x) = +/- sqrt(x+b). Uses 241132 as the base.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1288596",
+      "title": "Graphing logarithm that is the inverse of given exponential graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "434298",
+      "title": "Create inverse function from exponential graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1575",
+      "title": "Solve simple equations involving logs (problem5.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "311998",
+      "title": "Evaluating Logarithms Base 2, 3, or 4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491910",
+      "title": "Graph log_a(x-h)+k",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45612",
+      "title": "Logarithmic Properties-03: log(x) + log(x+n) (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "45617",
+      "title": "Logarithmic Properties-09 power (with video)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "355948",
+      "title": "LOG.2 - LA(10) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418661",
+      "title": "Use the quotient property to expand log_b((x-y)/z)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1593347",
+      "title": "Write exponential function between \n and \n. Exponential growth.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1725023",
+      "title": "solve log equation with sum of common logs (video) May be log=log or log=number after condensing randomized. Sometimes = number, sometimes = another log (local for Tori Royall)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1580320",
+      "title": "Solve \n, one solution",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "name": "Undoing Exponentials - Intro to Logs",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "undoing-exponentials-intro-to-logs",
+  "target": {
+    "cid": "285887",
+    "aid": "21673287"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21673287"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3350",
+      "title": "2^x in-out, find missing",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3600",
+      "title": "Identify equation of exponential function (b^x+k) based on its graph.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3606",
+      "title": "Identify Base of \n based on table values.",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3609",
+      "title": "Identify equation of exponential function (a*b^x) based on its graph.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34533",
+      "title": "Graphing an exponential function using transformations, horizontal translation, growth.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34534",
+      "title": "Graphing an exponential function using transformations, horizontal translation, decay.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34535",
+      "title": "Graphing an exponential function using transformations, vertical reflection, growth.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34536",
+      "title": "Graphing an exponential function using transformations, vertical reflection, decay.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34537",
+      "title": "Graphing an exponential function using transformations, horizontal translation/vertical reflection, growth.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "34538",
+      "title": "Graphing an exponential function using transformations, horizontal translation/vertical reflection, decay.",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1288592",
+      "title": "Graphing exponential that is the inverse of given log graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1288596",
+      "title": "Graphing logarithm that is the inverse of given exponential graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "434298",
+      "title": "Create inverse function from exponential graph",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "434298",
+      "title": "Create inverse function from exponential graph",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

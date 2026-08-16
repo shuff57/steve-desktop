@@ -1,0 +1,163 @@
+{
+  "name": "Chapter 9 Group Test",
+  "book": "integrated-math-1",
+  "kind": "group",
+  "slug": "chapter-9-group-test",
+  "target": {
+    "cid": "340140",
+    "aid": "23498519"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498519"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im1/solve-and-graphing-inequalities-in-one-variable.php",
+      "qid": "1595450",
+      "title": "Solve and graphing inequalities in one variable. (local for Steven Huff)",
+      "points": 3,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594532",
+      "title": "Review Solve and Graph inequalities in one variable.",
+      "points": 3,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594537",
+      "in_group": "Q3",
+      "title": "Review Solve and Graph inequalities in one variable.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable.php",
+      "qid": "1594548",
+      "in_group": "Q3",
+      "title": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594575",
+      "in_group": "Q3",
+      "title": "Review Solve and Graph inequalities in one variable.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-2.php",
+      "qid": "1594581",
+      "in_group": "Q3",
+      "title": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1598023",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 3,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "87011",
+      "title": "2x2-System of Inequalities1-Is (x,y) a solution of the system (no)",
+      "points": 3,
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599106",
+      "title": "Determine linear inequality from graph",
+      "points": 3,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599119",
+      "title": "Determine system of linear inequalities from graph",
+      "points": 3,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238910",
+      "in_group": "Q8",
+      "title": "Graph a system of linear inequalities (given in slope-intercept form). Students then have to enter three coordinates from the feasible region. (mx+b is regenerative, \n and \n)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238993",
+      "in_group": "Q8",
+      "title": "Graph a system of linear inequalities (given in slope-intercept form). Students then have to enter three coordinates from the feasible region. (mx+b is regenerative,\n and \n)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238994",
+      "in_group": "Q8",
+      "title": "Graph a system of linear inequalities (given in slope-intercept form). Students then have to enter three coordinates from the feasible region. (mx+b is regenerative,\n and \n)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "91246",
+      "title": "Describing the solution to a system of inequalities",
+      "points": 3,
+      "qtype": "choices"
+    }
+  ]
+}

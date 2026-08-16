@@ -1,0 +1,126 @@
+{
+  "name": "Exponential and Hyperbola Graphing Form",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "exponential-and-hyperbola-graphing-form",
+  "target": {
+    "cid": "285887",
+    "aid": "20894250"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "20894250"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "351582",
+      "title": "D6 Exponentials Graph an Exponential function Growth \n GRAPH 3 VALID POINTS (not normal graphing tools) After 2 attempts, shows the graph to help[disable last line in code if you do not want this]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "352445",
+      "title": "D6 Exponentials Graph an Exponential function Decay \n GRAPH 3 VALID POINTS (not normal graphing tools) After 2 attempts, shows the graph to help[disable last line in code if you do not want this]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805589",
+      "title": "Graphing an exponential function using transformations, horizontal translation, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805744",
+      "title": "Graphing an exponential function using transformations, vertical reflection, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805746",
+      "title": "Graphing an exponential function using transformations, vertical reflection, decay. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805753",
+      "title": "Graphing an exponential function using transformations, horizontal translation/vertical reflection, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805765",
+      "title": "Graphing an exponential function using transformations, vertical stretch, horizontal translation, growth. Allows for graphing of optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "805771",
+      "title": "Graphing a reflected exponential growth function with translations(SL) Allows for graphing optional parent function and asks for domain and range.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3600",
+      "title": "Identify equation of exponential function (b^x+k) based on its graph.",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "372032",
+      "title": "Graph Rational Functions - transformations of reciprocal function",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "498870",
+      "title": "Match parent functions with graphs (linear, abs, quadratic, square root, cubing, reciprocal) [NR] (local for Laurel Clifford)",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "723767",
+      "title": "Graph a Reciprocal Linear Function 3",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

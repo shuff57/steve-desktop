@@ -1,0 +1,116 @@
+{
+  "name": "System of Non-Linear Inequalities",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "system-of-non-linear-inequalities",
+  "target": {
+    "cid": "285887",
+    "aid": "21098729"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21098729"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/im3/media-lesson-systems-of-linear-inequalities.php",
+      "qid": "1721341",
+      "title": "Media Lesson: Systems of Linear Inequalities (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "997924",
+      "title": "Graphing inequalities 2x2 system - Given a graph select the correct system of inequalities (local for Shirley Izaguirre)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1224597",
+      "title": "Graphing inequalities 2x2 system - Given a graph select the correct system of inequalities (local for Savannah Lee) (local for Melissa Greene)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "87011",
+      "title": "2x2-System of Inequalities1-Is (x,y) a solution of the system (no)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197658",
+      "title": "Solve system of inequalities by graphing (no calculator). [III.12.2.12]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197665",
+      "title": "Solve system of inequalities by graphing (no calculator). [III.12.2.15]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197669",
+      "title": "Solve system of inequalities by graphing (no calculator). [III.12.2.13]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1709884",
+      "title": "Graph a system of non-linear inequalities (local for Kevin Clyde) (local for DEYCI LOPEZ)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "494223",
+      "title": "Systems of nonlinear inequalities-2 parabolas: \n,",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "494224",
+      "title": "Systems of nonlinear inequalities-2 parabolas: \n,",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "494225",
+      "title": "Graph a system of nonlinear inequalities, line and parabola",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

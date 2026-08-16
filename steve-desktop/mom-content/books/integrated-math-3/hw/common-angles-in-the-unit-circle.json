@@ -1,0 +1,72 @@
+{
+  "name": "Common Angles in the Unit Circle",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "common-angles-in-the-unit-circle",
+  "target": {
+    "cid": "285887",
+    "aid": "22313212"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22313212"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468549",
+      "title": "Unit Circle Identifying angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "468616",
+      "title": "Unit Circle Identifying angles #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "753577",
+      "title": "Blank Unit Circle - Fill in Degrees Angles",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "766115",
+      "title": "Fill in blank unit circle (degree angles only)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178549",
+      "title": "Plotting Angles on the Unit Circle (Negative Degrees)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1178548",
+      "title": "Plotting Angles on the Unit Circle (Positive Degrees)",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "name": "6.2.1 Equal Values Method",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "6-2-1-equal-values-method",
+  "target": {
+    "cid": "340140",
+    "aid": "23498493"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498493"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2180",
+      "title": "Solve system by graphing y=mx+b (3903)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/solve-system-by-graphing-y-mx-b-drawing.php",
+      "qid": "1552396",
+      "title": "Solve system by graphing y=mx+b; drawing (local for Steven Huff)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2481",
+      "title": "Solve 2x2 linear system (1, 0, or oo solutions) [GL][6384]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im1/solve-system-by-graphing-y-mx-b.php",
+      "qid": "1552413",
+      "title": "Solve system by graphing y=mx+b (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3534",
+      "title": "Solve system by graphing y=mx+b; drawing (two point drawing)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13930",
+      "title": "Solve system by graphing y=mx+b (3903) (local for James Sousa)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/solve-system-by-graphing-y-mx-b-drawing-2.php",
+      "qid": "1552410",
+      "title": "Solve system by graphing y=mx+b; drawing (local for James Sousa) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "13946",
+      "title": "Solve 2x2 linear system (1, 0, or oo solutions) [GL][6384] (local for James Sousa)",
+      "points": 1,
+      "qtype": "calcntuple"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15629",
+      "title": "Solve system by graphing y=mx+b and standard",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15634",
+      "title": "Given equations (ax+by=c), TF solution of system (False to solution) (Rb 5th - 5.1)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15635",
+      "title": "Given equations (ax+by=c), TF solution of system (True to solution) (Rb 5th - 5.1)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15636",
+      "title": "Given equations (one ax+by=c, one y = mx + b), TF solution of system (Rb 5th - 5.1)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "15637",
+      "title": "Given equations (y = mx + b), TF solution of system (Rb 5th - 5.1)",
+      "points": 1,
+      "qtype": "choices"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "name": "5.2.2 Generalizing Arithmetic Sequences",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-2-2-generalizing-arithmetic-sequences",
+  "target": {
+    "cid": "340140",
+    "aid": "23498484"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498484"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-7",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525283",
+      "title": "Find the next two terms in a Sequence - Geometric Increasing - Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525287",
+      "title": "Find the next two terms in a Sequence ARITHMETIC DECREASE (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526222",
+      "title": "Find the Next Three Terms - Arithmetic Increasing Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526223",
+      "title": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/basic-arithmetic-sequence-identify-continue-and-write-the-equation.php",
+      "qid": "1526225",
+      "title": "Basic arithmetic sequence: Identify, continue, and write the equation. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/continue-an-arithmetic-sequence-write-an-equation-create-a-plot.php",
+      "qid": "1526257",
+      "title": "Continue an arithmetic sequence. Write an equation. Create a plot. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/arithmetic-decreasing-sequence-find-next-3-terms-and-equation.php",
+      "qid": "1526274",
+      "title": "Arithmetic Decreasing Sequence find next 3 terms and equation (local for Martha Allen) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone.php",
+      "qid": "1526281",
+      "title": "9th Grade Concept #33 - Identify the graph of a sequence as linear, exponential, or neither - Arithmetic With Equation (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/im1/9th-grade-concept-33-identify-the-graph-of-a-sequence-as-linear-expone-2.php",
+      "qid": "1530163",
+      "title": "9th Grade Concept #33 - Identify the graph of a sequence as linear, exponential, or neither - Arithmetic With No Equation (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/im1/arithmetic-decreasing-sequence-find-explicit-equation-and-terms-copy-b.php",
+      "qid": "1530185",
+      "title": "Arithmetic decreasing Sequence Find explicit equation and terms (copy by Stephen Lang) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "286373",
+      "title": "Find first term and common difference for arithmetic sequence given two terms (ur_sq_4_7.pg) (local for OCMath Faculty)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": "questions/im1/find-the-formula-for-an-arithmetic-sequence-given-the-first-term-a-1-a.php",
+      "qid": "1530192",
+      "title": "Find the formula for an arithmetic sequence given the first term \n and the common difference \n. Help video from James Sousa. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": "questions/im1/find-formula-for-arithmetic-sequence-given-initial-term-and-common-dif.php",
+      "qid": "1530194",
+      "title": "Find formula for arithmetic sequence given initial term and common difference (ur_sq_4_6.pg) (copy by Janell Woods) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "name": "3.1.3 Slopes of Parallel and Perpendicular Lines",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "3-1-3-slopes-of-parallel-and-perpendicular-lines",
+  "target": {
+    "cid": "340140",
+    "aid": "23498465"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498465"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343362",
+      "title": "Given equation of a line in slope-intercept form, find slope of line parallel and slope of line perpendicular",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "442518",
+      "title": "MAT09x - Linear Functions - Slope-Intercept Form - Given slope (negative integer) of a line, find slope of lines that are parallel and perpendicular #ADA (old #54927, new for MAT114)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "517326",
+      "title": "2.2 Linear Equations: Given a point and slope write the equation in slope-intercept AND in point-slope form for the lines that are parallel and perpendicular.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343737",
+      "title": "Given equation of a line in general form, find slope of line parallel and slope of line perpendicular",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479933",
+      "title": "Graph a perpendicular line through a given point #1",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479959",
+      "title": "Graph a perpendicular line through a given point #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479963",
+      "title": "Graph a perpendicular line through a given point (no start equation) #1",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1479980",
+      "title": "Graph a perpendicular line through a given point (no start equation) #2",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

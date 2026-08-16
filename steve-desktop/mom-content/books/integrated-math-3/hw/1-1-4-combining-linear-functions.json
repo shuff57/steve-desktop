@@ -1,0 +1,98 @@
+{
+  "name": "1.1.4 Combining Linear Functions",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "1-1-4-combining-linear-functions",
+  "target": {
+    "cid": "285887",
+    "aid": "19999389"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "19999389"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1589",
+      "title": "Algebra problem: combining functions (beth1.pg)",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1596",
+      "title": "Algebra problem: combining functions, with domain (srw2_8_1.pg)",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "57832",
+      "title": "Algebra problem: combining functions",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "260557",
+      "title": "Combining Functions II - No Domains - Rand Polynomials - GREEN",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "23855",
+      "title": "Lesson 2 - Combining Functions with add,subtract,mult,divide,given tables of values using Function Notation",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "23856",
+      "title": "Lesson 2 - Combining Functions with add,subtract,mult,divide,given ordered pairs of values using Function Notation",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im3/9th-grade-concept-27-combining-linear-functions-using-function-notatio.php",
+      "qid": "1656404",
+      "title": "9th Grade Concept #27 - Combining Linear Functions using function notation With Multiplication (local for Steven Huff)",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1656441",
+      "title": "Combining Functions II - No Domains - Rand Polynomials - GREEN Graphing",
+      "points": 11,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1656441",
+      "title": "Combining Functions II - No Domains - Rand Polynomials - GREEN Graphing",
+      "points": 12,
+      "qtype": "multipart"
+    }
+  ]
+}

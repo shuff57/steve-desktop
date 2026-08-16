@@ -1,0 +1,81 @@
+{
+  "name": "Sine Function Basic Transformations",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "sine-function-basic-transformations",
+  "target": {
+    "cid": "285887",
+    "aid": "22437997"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22437997"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808097",
+      "title": "Sine Function Transformations - Identify amplitude, period, phase shift, and vertical shift from y = a·sin(b(x-h))+k and describe how each transforms the parent function y = sin(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808097",
+      "title": "Sine Function Transformations - Identify amplitude, period, phase shift, and vertical shift from y = a·sin(b(x-h))+k and describe how each transforms the parent function y = sin(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808097",
+      "title": "Sine Function Transformations - Identify amplitude, period, phase shift, and vertical shift from y = a·sin(b(x-h))+k and describe how each transforms the parent function y = sin(x)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808114",
+      "title": "Sine Transformations from Graph - Given a graph of a transformed sine function, identify the amplitude, period, and vertical shift",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808116",
+      "title": "Write Sine Equation from Description - Given a verbal description of transformations, write the equation in the form y = a sin(b(x-h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1808132",
+      "title": "Max Min and Midline of Transformed Sine - Given y = a sin(bx) + k, identify the maximum value, minimum value, and midline equation",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1809064",
+      "title": "Graph Transformed Sine Function - Given y = a*sin(x) + k with period 2pi, identify key features and graph one full period using pi-labeled anchor points",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "name": "5.2.1 Generating Sequences",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-2-1-generating-sequences",
+  "target": {
+    "cid": "340140",
+    "aid": "23498483"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498483"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-6",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1528074",
+      "title": "Video Lesson - basics of sequences",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/im1/use-sequence-notation-to-identify-the-location-of-a-term-of-a-sequence.php",
+      "qid": "1525282",
+      "title": "Use sequence notation to identify the location of a term of a sequence given as a list. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525283",
+      "title": "Find the next two terms in a Sequence - Geometric Increasing - Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525283",
+      "title": "Find the next two terms in a Sequence - Geometric Increasing - Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525287",
+      "title": "Find the next two terms in a Sequence ARITHMETIC DECREASE (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1525287",
+      "title": "Find the next two terms in a Sequence ARITHMETIC DECREASE (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526222",
+      "title": "Find the Next Three Terms - Arithmetic Increasing Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526222",
+      "title": "Find the Next Three Terms - Arithmetic Increasing Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526223",
+      "title": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1526223",
+      "title": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "name": "Graphing Sine Function",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "graphing-sine-function",
+  "target": {
+    "cid": "285887",
+    "aid": "22395197"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22395197"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77643",
+      "title": "Video Lesson - Graphing Sine and Cosine Functions (video by James Sousa)",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "358720",
+      "title": "cosines and sines on unit circle (for degrees) randomized",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425004",
+      "title": "1 (a) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425005",
+      "title": "1 (b) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425007",
+      "title": "1 (c) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "425011",
+      "title": "1 (d) Match point on unit circle with points on graphs of cosine and sine",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "502383",
+      "title": "Use Unit Circle to find sine and cosine value,",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "502387",
+      "title": "Use Unit Circle to find sine and cosine value,",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1008641",
+      "title": "Use unit circle to approximate sine and cosine values #jsx (jsxgraph) [AA]",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

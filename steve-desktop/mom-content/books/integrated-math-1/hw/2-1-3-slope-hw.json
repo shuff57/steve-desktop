@@ -1,0 +1,153 @@
+{
+  "name": "2.1.3 Slope HW",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-1-3-slope-hw",
+  "target": {
+    "cid": "340140",
+    "aid": "23498457"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498457"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86333",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86337",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "86344",
+      "title": "Find slope-intercept form from a table (y-int given on table, fractional slope)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "210967",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on table, delta x greater than 1, y= notation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "825155",
+      "title": "Graph \n. Give table of values, graph at least 3 points, and graph line.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "825308",
+      "title": "Graph \n. Give table of values, graph at least 3 points, and graph line.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1404459",
+      "title": "Graph \n. Give table of values, graph at least 3 points, and graph line. (local for Jerett Pfannenstiel)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "39060",
+      "title": "Lesson 11 - Determining the Linear Equation from a graph - Basic",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "39061",
+      "title": "Lesson 11 - Determining the Linear Equation from a graph - Fraction Slope",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "39062",
+      "title": "Lesson 11 - Determining the Linear Equation from a graph - Fraction Slope through origin",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "39063",
+      "title": "Lesson 11 - Determining the Linear Equation from a graph - 0 slope",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "39064",
+      "title": "Lesson 11 - Determining the Linear Equation from a graph - Large Scale",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "614499",
+      "title": "Graph a linear equation given in slope intercept form - fractional slope (slope 1/2, 3/2) [9R.5.2.1]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "614502",
+      "title": "Graph a linear equation given in slope intercept form - fractional slope (slope 1/5, 2/5, 3/5) [9R.5.2.4]",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "614506",
+      "title": "Graph a linear equation given in slope intercept form - fractional slope (slope 1/4, 3/4, 5/4) [9R.5.2.5]",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

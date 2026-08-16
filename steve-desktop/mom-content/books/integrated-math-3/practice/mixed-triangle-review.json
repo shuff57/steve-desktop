@@ -1,0 +1,247 @@
+{
+  "name": "Mixed Triangle Review",
+  "book": "integrated-math-3",
+  "kind": "practice",
+  "slug": "mixed-triangle-review",
+  "target": {
+    "cid": "285887",
+    "aid": "22100097"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100097"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group, choosing 10 without replacement",
+      "points": null,
+      "features": "1ea"
+    },
+    {
+      "slot": 2,
+      "order": "Q1-1",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "371682",
+      "title": "Stewart 6.2#40: advance right triangle trig [GH-14959] (video) (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 3,
+      "order": "Q1-2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "371699",
+      "title": "Stewart 6.2#39: advance right triangle trig [GH-14948] (video) (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 4,
+      "order": "Q1-3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "371700",
+      "title": "right triangle trig; Height of tower from angle of elevation and depression (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "order": "Q1-4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "371703",
+      "title": "Right triangle - find others given angle and hypotenuse (video) (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "order": "Q1-5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "371704",
+      "title": "Right triangle - find others given angle and leg (video) (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "order": "Q1-6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "373729",
+      "title": "Stitz-zeager precalc inverse trig #212 (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "order": "Q1-7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "460160",
+      "title": "Find the missing side of the triangle using the Law of Cosines. with feedback and hints embedded calculator",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 9,
+      "order": "Q1-8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "461716",
+      "title": "Stewart6.5#11-18: Law of cosines SSS solve triangle [GH-15055] embedded calculator",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "order": "Q1-9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "461735",
+      "title": "Stewart6.5#11-18: Law of cosines SAS [GH-15054] embedded calculator",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 11,
+      "order": "Q1-10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491968",
+      "title": "Solve \n degrees",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 12,
+      "order": "Q1-11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "491969",
+      "title": "Solve \n degrees",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 13,
+      "order": "Q1-12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "492329",
+      "title": "Lean To, find height",
+      "points": null,
+      "qtype": "number"
+    },
+    {
+      "slot": 14,
+      "order": "Q1-13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "515828",
+      "title": "Stewart 6.2#39: advance right triangle trig [GH-14948] (local for Brian brian_gleason)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 15,
+      "order": "Q1-14",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "726318",
+      "title": "trig ratio (SPANISH)",
+      "points": null,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "order": "Q1-15",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130351",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "order": "Q1-16",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130538",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 18,
+      "order": "Q1-17",
+      "file_path": "questions/im3/law-of-sines.php",
+      "qid": "1778160",
+      "title": "Law of Sines (local for Steven Huff)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 19,
+      "order": "Q1-18",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130333",
+      "title": "Law of Sines/Cosines - SAS - Cosines",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "order": "Q1-19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1742807",
+      "title": "Law of Sines/Cosines - SSS - Cosines Find only one angle. (copy by Michelle King)",
+      "points": null,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 21,
+      "order": "Q1-20",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4424",
+      "title": "Stewart 6.5#37: apps law of cosines: Lake",
+      "points": null,
+      "qtype": "number"
+    },
+    {
+      "slot": 22,
+      "order": "Q1-21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "8468",
+      "title": "Apply law of cosines (srw6_5_27.pg)",
+      "points": null,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 23,
+      "order": "Q1-22",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "174512",
+      "title": "Word problem using law of cosines. [III.10.4.7]",
+      "points": null,
+      "qtype": "multipart"
+    }
+  ]
+}

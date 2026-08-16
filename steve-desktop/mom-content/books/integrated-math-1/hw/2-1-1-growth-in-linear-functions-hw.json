@@ -1,0 +1,144 @@
+{
+  "name": "2.1.1 Growth in Linear Functions HW",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-1-1-growth-in-linear-functions-hw",
+  "target": {
+    "cid": "340140",
+    "aid": "23498455"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498455"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342752",
+      "title": "Linear tile pattern - find equation from info",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342755",
+      "title": "Tile pattern, given f2 and f5, find table and equation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342773",
+      "title": "Tile pattern equation given, predict tiles from fig #",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342861",
+      "title": "Tile Pattern to Equation #7",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342944",
+      "title": "Tile Pattern - fill in table, find equation #1",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342945",
+      "title": "Tile Pattern - fill in table, find equation #2",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342946",
+      "title": "Tile Pattern - fill in table, find equation #3",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342947",
+      "title": "Tile Pattern - fill in table, find equation #4",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343616",
+      "title": "Tile pattern, given 2 terms, find slope, equation, and tiles in figure n.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "343676",
+      "title": "Tile Pattern - fill in table, find equation #5",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "344390",
+      "title": "Tile Pattern - fill in table, find equation #6",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2509",
+      "title": "Std 8.1c Evaluate and solve function notation from a graph",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1639",
+      "title": "Evaluate function notation from a graph",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "139228",
+      "title": "Evaluate function from a graph; function notation",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}

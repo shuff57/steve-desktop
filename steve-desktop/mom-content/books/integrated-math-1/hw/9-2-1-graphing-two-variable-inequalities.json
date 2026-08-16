@@ -1,0 +1,90 @@
+{
+  "name": "9.2.1 Graphing Two-Variable Inequalities",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "9-2-1-graphing-two-variable-inequalities",
+  "target": {
+    "cid": "340140",
+    "aid": "23498514"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498514"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31046",
+      "title": "Media Lesson: Linear Inequalities in Two Variables",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1597998",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1597998",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1597998",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1597998",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1598023",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1598023",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1598023",
+      "title": "Graphing randomized Linear Inequalities (Two Variables).",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Coordinate Geometry and Midpoints",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "coordinate-geometry-and-midpoints",
+  "target": {
+    "cid": "340140",
+    "aid": "23498507"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498507"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572176",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572176",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572224",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1572224",
+      "title": "midpoint, area, perimeter of triangle",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1584970",
+      "title": "determine the midpoint",
+      "points": 1,
+      "qtype": "interval"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1584970",
+      "title": "determine the midpoint",
+      "points": 1,
+      "qtype": "interval"
+    }
+  ]
+}

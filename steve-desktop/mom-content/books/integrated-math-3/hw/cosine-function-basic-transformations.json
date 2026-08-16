@@ -1,0 +1,117 @@
+{
+  "name": "Cosine Function Basic Transformations",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "cosine-function-basic-transformations",
+  "target": {
+    "cid": "285887",
+    "aid": "22454172"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22454172"
+  },
+  "created_at": "2026-08-16",
+  "block": "0",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813107",
+      "title": "Cosine Transformation Parameters - Identify amplitude, period, phase shift, and vertical shift in y = a·cos(b(x−h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813107",
+      "title": "Cosine Transformation Parameters - Identify amplitude, period, phase shift, and vertical shift in y = a·cos(b(x−h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813107",
+      "title": "Cosine Transformation Parameters - Identify amplitude, period, phase shift, and vertical shift in y = a·cos(b(x−h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813277",
+      "title": "Read Transformed Cosine from a Graph - Given a plotted y = a·cos(x) + k, identify amplitude, period, midline, max, min, and equation ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813277",
+      "title": "Read Transformed Cosine from a Graph - Given a plotted y = a·cos(x) + k, identify amplitude, period, midline, max, min, and equation ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813277",
+      "title": "Read Transformed Cosine from a Graph - Given a plotted y = a·cos(x) + k, identify amplitude, period, midline, max, min, and equation ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813278",
+      "title": "Build Cosine Equation from Verbal Description - Given amplitude, period, phase shift, vertical shift and reflection in words, identify a, b, h, k and find max and min ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813278",
+      "title": "Build Cosine Equation from Verbal Description - Given amplitude, period, phase shift, vertical shift and reflection in words, identify a, b, h, k and find max and min ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813278",
+      "title": "Build Cosine Equation from Verbal Description - Given amplitude, period, phase shift, vertical shift and reflection in words, identify a, b, h, k and find max and min ===",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813284",
+      "title": "Cosine Transformation Error Analysis - Identify and correct a common parameter mistake in y = a·cos(b(x−h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1813284",
+      "title": "Cosine Transformation Error Analysis - Identify and correct a common parameter mistake in y = a·cos(b(x−h)) + k",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

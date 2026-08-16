@@ -1,0 +1,117 @@
+{
+  "name": "5.1.2 & 8.1.4 Rebound Ratios & Exponential Decay",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "5-1-2-8-1-4-rebound-ratios-exponential-decay",
+  "target": {
+    "cid": "340140",
+    "aid": "23498480"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498480"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249897",
+      "title": "D11 Given a table, state if Exponential Growth, Exponential Decay, or Something Else (Exponential Decay)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249916",
+      "title": "D11 Determine if a function is exponential growth, or exponential decay (Exponential Decay)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249917",
+      "title": "D11 Determine if a function is exponential growth, or exponential decay (Exponential Decay) decimals",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "206124",
+      "title": "Exponential/linear decay story problem - determine whether it is linear or exponential, and whether it is growth or decay. (125)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "914716",
+      "title": "Exponential decay problem given initial quantity and % decay rate.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520654",
+      "title": "Exponential Equation from Graph - Increasing (There are key points plotted on the graph no vert shift) (local for Scott Cater) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520654",
+      "title": "Exponential Equation from Graph - Increasing (There are key points plotted on the graph no vert shift) (local for Scott Cater) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520654",
+      "title": "Exponential Equation from Graph - Increasing (There are key points plotted on the graph no vert shift) (local for Scott Cater) (copy by Steven Huff)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520663",
+      "title": "graphing exponential simple",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520663",
+      "title": "graphing exponential simple",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1520663",
+      "title": "graphing exponential simple",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

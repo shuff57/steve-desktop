@@ -1,0 +1,99 @@
+{
+  "name": "HW Function Machines",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "hw-function-machines",
+  "target": {
+    "cid": "340140",
+    "aid": "23498447"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498447"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-2-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432147",
+      "title": "1-38 functions, given input",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432162",
+      "title": "1-39 find value of exponential",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1432155",
+      "title": "1-41 simplify expressions",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "342753",
+      "title": "Evaluate 3 equations by substituting values for variables.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1271",
+      "title": "Evaluate linear formula in two variables: ax+by given x and y",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "43324",
+      "title": "Evaluate a/y + by + c for given values of a,b, and c. (by Brenda Gardner)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "99384",
+      "title": "Evaluate x^2-bx+c for x neg (copy by Desiree Davis)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1175184",
+      "title": "Murphy ACT Concepts (Equation Graph Relationships): Evaluate linear graph at values of",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1175191",
+      "title": "Murphy ACT Concepts (Equation Graph Relationships): Evaluate quadratic graph at values of",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

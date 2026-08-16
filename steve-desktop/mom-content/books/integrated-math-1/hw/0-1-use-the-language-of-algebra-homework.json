@@ -1,0 +1,153 @@
+{
+  "name": "0.1 Use the Language of Algebra (homework)",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "0-1-use-the-language-of-algebra-homework",
+  "target": {
+    "cid": "340140",
+    "aid": "23498440"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498440"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-1-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "349431",
+      "title": "Format (algebraic expressions and powers, new assessment version)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340765",
+      "title": "Order of Operations (a - b - c)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340768",
+      "title": "Order of Operations (a div b div c)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340770",
+      "title": "Order of operations (ab^n vs. (ab)^n)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266918",
+      "title": "Order of operations (a div b + c (d - e)), d > e",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270702",
+      "title": "Order of operations a(b + cd) - e^n",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270705",
+      "title": "Evaluate exponents (x^n, n a whole number)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270706",
+      "title": "Evaluate exponential expression (n^x, n a whole number)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266916",
+      "title": "Evaluate an expression (x^2 + pxy + y^2) (x, y positive)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266919",
+      "title": "Translating into an algebraic expression (difference between)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266920",
+      "title": "Translating into an algebraic expression (quotient)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266921",
+      "title": "Translating into an algebraic expression (sum)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266922",
+      "title": "Translating into an algebraic expression (subtraction)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274272",
+      "title": "Translating statement into mathematical expression (a more than b times)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274276",
+      "title": "Translating statement into mathematical expression (a less than b times)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

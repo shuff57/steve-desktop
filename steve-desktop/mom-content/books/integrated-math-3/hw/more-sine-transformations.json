@@ -1,0 +1,198 @@
+{
+  "name": "More Sine Transformations",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "more-sine-transformations",
+  "target": {
+    "cid": "285887",
+    "aid": "22463005"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22463005"
+  },
+  "created_at": "2026-08-16",
+  "block": "0",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817769",
+      "title": "Identify Sine Transformations from Equation - Medium (two transformations active)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817789",
+      "title": "Identify Sine Transformations from Equation - Hard (three transformations active)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817790",
+      "title": "Identify Sine Transformations from Equation - Advanced (all four transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817788",
+      "title": "Identify Sine Transformations from Equation - Easy (one transformation active)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817813",
+      "title": "Sine Max/Min/Midline - Easy (vertical shift only)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817814",
+      "title": "Sine Max/Min/Midline - Medium (amplitude + vertical shift)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817816",
+      "title": "Sine Max/Min/Midline - Hard (amplitude + period + vertical shift)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817817",
+      "title": "Sine Max/Min/Midline - Advanced (all four transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817818",
+      "title": "Write Sine Equation from Description - Easy (one transformation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817820",
+      "title": "Write Sine Equation from Description - Medium (two transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817821",
+      "title": "Write Sine Equation from Description - Hard (three transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817822",
+      "title": "Write Sine Equation from Description - Advanced (all four transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817823",
+      "title": "Sine Features from Graph - Easy (one transformation)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817824",
+      "title": "Sine Features from Graph - Medium (two transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817825",
+      "title": "Sine Features from Graph - Hard (three transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817826",
+      "title": "Sine Features from Graph - Advanced (all four transformations)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817827",
+      "title": "Graph Sine Transformation - Easy (one transformation; degrees)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817828",
+      "title": "Graph Sine Transformation - Medium (two transformations; degrees)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817829",
+      "title": "Graph Sine Transformation - Hard (three transformations; degrees)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1817830",
+      "title": "Graph Sine Transformation - Advanced (all four transformations; degrees)",
+      "points": 1,
+      "qtype": "draw"
+    }
+  ]
+}

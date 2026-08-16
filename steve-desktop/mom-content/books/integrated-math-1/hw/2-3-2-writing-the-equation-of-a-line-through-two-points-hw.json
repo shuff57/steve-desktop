@@ -1,0 +1,108 @@
+{
+  "name": "2.3.2 Writing the Equation of a Line Through Two Points HW",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "2-3-2-writing-the-equation-of-a-line-through-two-points-hw",
+  "target": {
+    "cid": "340140",
+    "aid": "23498460"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498460"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462424",
+      "title": "2-102.1 Given table, write equation (linear)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462431",
+      "title": "2-102.2 Given table, write equation (linear)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1462434",
+      "title": "2-102.3 Given table (fractions), write equation (linear)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "741965",
+      "title": "6.4 (10) Use the slope formula to find the slope of the line between two points (x1,y1) and (x2,y2)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "76718",
+      "title": "Definition of slope between two points",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "76733",
+      "title": "Find slope between two points. Fractional coordinates",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125271",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Positive slope. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "125483",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Negative slope. Help video by James Sousa.",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "149082",
+      "title": "Use the Distance Formula to find the distance between two points. Graph provided. Positive slope. (112)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "173602",
+      "title": "Equation of line between two points (point-slope form)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

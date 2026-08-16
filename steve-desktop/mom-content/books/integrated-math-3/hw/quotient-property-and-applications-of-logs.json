@@ -1,0 +1,216 @@
+{
+  "name": "Quotient Property and Applications of Logs",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "quotient-property-and-applications-of-logs",
+  "target": {
+    "cid": "285887",
+    "aid": "21951529"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21951529"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-1",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "355944",
+      "title": "LOG.2 - LA(9) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "355948",
+      "title": "LOG.2 - LA(10) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356155",
+      "title": "LOG.2 - LA(21)-HON- ln - Expand with Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "412524",
+      "title": "Logarithms - Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418282",
+      "title": "Use the quotient property to expand log(m)/log(n)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418656",
+      "title": "Use the quotient property to expand log_b((ax+cy)/z)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "418661",
+      "title": "Use the quotient property to expand log_b((x-y)/z)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "700882",
+      "title": "LOG.2 - LA(11) Condense with Quotient Property - rewrite (local for Nicole Lang)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "720058",
+      "title": "Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356165",
+      "title": "LOG.2 - LA(17) log - Condense 4 with Product/Quotient Property",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356168",
+      "title": "LOG.2 - LA(13) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "356175",
+      "title": "LOG.2 - LA(15) Condense with Quotient Property - rewrite",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249915",
+      "title": "D11 Determine if a function is exponential growth, or exponential decay (Exponential Growth)",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "249917",
+      "title": "D11 Determine if a function is exponential growth, or exponential decay (Exponential Decay) decimals",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1593347",
+      "title": "Write exponential function between \n and \n. Exponential growth.",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "918265",
+      "title": "Lesson 5 - Evaluate an Exponential Function at several points and using function notation (local for DEVON OROURKE)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1711884",
+      "title": "solve log equation with sum of common logs (video) May be log=log or log=number after condensing linear after condensing randomized. Sometimes = number, sometimes = another log (copy by Katherine Cliff) (local for Tori Royall)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1725023",
+      "title": "solve log equation with sum of common logs (video) May be log=log or log=number after condensing randomized. Sometimes = number, sometimes = another log (local for Tori Royall)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1545727",
+      "title": "4.4 Solve log eq with sum; \n (copy 15912)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "593902",
+      "title": "solve log equation with log = log (local for David Mills)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1580320",
+      "title": "Solve \n, one solution",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1743818",
+      "title": "6.6.39 Solve \n -- randomly choose base between \n, \n, and \n.",
+      "points": 1,
+      "qtype": "calculated"
+    }
+  ]
+}

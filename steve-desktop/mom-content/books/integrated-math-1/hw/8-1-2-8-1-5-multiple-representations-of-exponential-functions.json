@@ -1,0 +1,99 @@
+{
+  "name": "8.1.2 & 8.1.5 Multiple Representations of Exponential Functions",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "8-1-2-8-1-5-multiple-representations-of-exponential-functions",
+  "target": {
+    "cid": "340140",
+    "aid": "23498481"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498481"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-1-4",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2446",
+      "title": "Find eqn of exponential a^x given y-int of 1 and second point",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2447",
+      "title": "Find eqn of exponential a^x given y-int of 1 and second point; whole number a",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2616",
+      "title": "Find expo. func. given \n-int. and point (increasing) [GL][7300]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2617",
+      "title": "Find expo. func. given \n-int. and point (decreasing) [GL][7301]",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2639",
+      "title": "Write expo. func. given initial population and growth rate",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "2640",
+      "title": "Write expo. func. given initial population and decay rate",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "429222",
+      "title": "Linear vs Exponential: Table and Equation (Context: Monsters) (local for Kari Rothi)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238903",
+      "title": "Constant annual rate of depreciation: Given an incomplete table of values, finish the table and write an equation.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "499978",
+      "title": "How to increase or decrease a number by a percent",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

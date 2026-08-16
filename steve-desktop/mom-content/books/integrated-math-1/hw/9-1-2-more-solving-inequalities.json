@@ -1,0 +1,114 @@
+{
+  "name": "9.1.2 More Solving Inequalities",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "9-1-2-more-solving-inequalities",
+  "target": {
+    "cid": "340140",
+    "aid": "23498512"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498512"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-7-5",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "53903",
+      "title": "VLC02S06: Introduction to Basic Inequalities in One Variable",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "53904",
+      "title": "VLC02S06: Solving Linear Inequalities in One Variable",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "53906",
+      "title": "VLC02S06: Solving Two-Step Linear Inequalities in One Variable",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1135067",
+      "title": "Matching simple one variable inequalities (Frederick Siegeltuch based on Matching example2)",
+      "points": 1,
+      "qtype": "matching"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/solve-and-graphing-inequalities-in-one-variable.php",
+      "qid": "1595450",
+      "title": "Solve and graphing inequalities in one variable. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-3.php",
+      "qid": "1594529",
+      "title": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-4.php",
+      "qid": "1594530",
+      "title": "I HW Unit 4 Review Solve and Graph inequalities in one variable. (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "517528",
+      "title": "9th Grade Concept #18 - Solve inequalities with one variable REGENERATES",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594531",
+      "title": "I HW Unit 4 Review Solve and Graph inequalities in one variable.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594532",
+      "title": "Review Solve and Graph inequalities in one variable.",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1594533",
+      "title": "Solve and Graph inequalities in one variable.",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

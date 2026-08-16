@@ -1,0 +1,307 @@
+{
+  "name": "0.5 Properties of Real Numbers (homework)",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "0-5-properties-of-real-numbers-homework",
+  "target": {
+    "cid": "340140",
+    "aid": "23498444"
+  },
+  "filing": {
+    "cid": "340140",
+    "aid": "23498444"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-6-1-6",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336027",
+      "title": "Associative property of addition (given the value of ax + by, find the value of ax + c + by)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267006",
+      "title": "Adding algebraic terms (two variables, negative coefficients)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271481",
+      "title": "Removing common factor (p/q) qr x (OpenStax College Algebra 1.5 #328)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271477",
+      "title": "Adding algebraic expression (variable terms cancel) (OpenStax College Algebra 1.5 #329)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267007",
+      "title": "Cancellation (a/b) (c/d) (b/a) OpenStax Intermediate Algebra 1.5 #335",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271478",
+      "title": "Multiplication (10^-n times 10^n) (OpenStax College Algebra #334)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271480",
+      "title": "Division of 0 by linear term (OpenStax College Algebra 1.5 #337)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267008",
+      "title": "Division by zero (variable expression over 0) (OpenStax College Algebra 1.5 #339)",
+      "points": 1,
+      "qtype": "calculated"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274963",
+      "title": "Commutative property of addition (linear combination ax + by vs. by + ax)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336030",
+      "title": "Commutative and associative property of addition (linear combination ax + by + cz vs. permutation)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274965",
+      "title": "Commutative property of multiplication (linear combination (ax)( by) vs. (by)( ax)",
+      "points": 1,
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "order": "Q12-15",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172823",
+      "in_group": "Q12-15",
+      "title": "Polynomial product -a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172821",
+      "in_group": "Q12-15",
+      "title": "Polynomial product a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172820",
+      "in_group": "Q12-15",
+      "title": "Polynomial product -a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172809",
+      "in_group": "Q12-15",
+      "title": "Polynomial product a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "order": "Q16-19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "features": "ea"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334539",
+      "in_group": "Q16-19",
+      "title": "Polynomial product a(b/a x + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334540",
+      "in_group": "Q16-19",
+      "title": "Polynomial product a(b/a x - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "347513",
+      "in_group": "Q20",
+      "title": "Polynomial product a(bx + c) (b, c decimal with same order of magnitude)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "347517",
+      "in_group": "Q20",
+      "title": "Polynomial product a(bx + c) (b, c decimal with different orders of magnitude)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 23,
+      "order": "Q21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197559",
+      "title": "Subtracting Algebraic terms: ax + b - (cx + d)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 24,
+      "order": "Q22",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267009",
+      "title": "Subtracting algebraic terms: a(bx + c) - (dx + e)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 25,
+      "order": "Q23",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "332698",
+      "title": "Polynomial product p/q(bx - c) (fractional coefficients)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 26,
+      "order": "Q24",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333581",
+      "title": "Multiplying a fraction by its denominator (abstract form)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 27,
+      "order": "Q25",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333585",
+      "title": "Multiplying a fraction by its denominator (abstract form, binomial numerators and denominators)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 28,
+      "order": "Q26",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333586",
+      "title": "Multiplying a fraction by its denominator (abstract form, binomial numerators and denominators), right multiplication",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 29,
+      "order": "Q27",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333588",
+      "title": "Simplifying fraction with denominator 1 (abstract form, binomial numerator)",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 30,
+      "order": "Q28",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333591",
+      "title": "Simplifying fraction with equal numerator and denominator",
+      "points": 1,
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 31,
+      "order": "Q29",
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333594",
+      "title": "Rewrite as fraction with denominator 1 (abstract form, binomial)",
+      "points": 1,
+      "qtype": "numfunc"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "name": "Systems of Linear Inequalities",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "systems-of-linear-inequalities",
+  "target": {
+    "cid": "285887",
+    "aid": "21107841"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "21107841"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-3-3",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "31049",
+      "title": "Media Lesson: Systems of Linear Inequalities",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1716253",
+      "title": "Video Lesson: Solving the system of linear inequalities",
+      "points": 1,
+      "qtype": "multans"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "91246",
+      "title": "Describing the solution to a system of inequalities",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "330131",
+      "title": "Solutions to systems of linear inequalities",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "77548",
+      "title": "True or False, is a random point a solution to a system of two variable linear inequalities?",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "91271",
+      "title": "Identify the region that is the solution to the system of inequalities",
+      "points": 1,
+      "qtype": "choices"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "192844",
+      "title": "Graph a system of linear inequalities with testing points",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "95933",
+      "title": "Graph a system of linear inequalities",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "3552",
+      "title": "Graph a system of linear inequalities",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "290430",
+      "title": "4.4 Systems of Linear Inequalities in Two Variables - Two Inequalities (mindy video problems)",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "337603",
+      "title": "Q2-5 Draw a System of inequalities (Graph) a linear inequality in 2 dimensions (better version) 3 inequalities 4pts",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "239401",
+      "title": "D13 Draw a System of inequalities (Graph) a linear inequality in 2 dimensions (better version) 4 inequalities",
+      "points": 1,
+      "qtype": "draw"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "233281",
+      "title": "Graph a system of linear inequalities (level 3)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 14,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599119",
+      "title": "Determine system of linear inequalities from graph",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1599119",
+      "title": "Determine system of linear inequalities from graph",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "238994",
+      "title": "Graph a system of linear inequalities (given in slope-intercept form). Students then have to enter three coordinates from the feasible region. (mx+b is regenerative,\n and \n)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 17,
+      "file_path": "questions/im3/q2-9-write-a-system-of-linear-inequalities-and-graph-it-it-grades-base.php",
+      "qid": "1716280",
+      "title": "Q2-9 Write a system of linear inequalities and graph it. It grades based on correct inequalities AND if their graph matches THEIR inequalities 7pts (level 4) (local for Steven Huff)",
+      "points": 1,
+      "qtype": "multipart"
+    }
+  ]
+}

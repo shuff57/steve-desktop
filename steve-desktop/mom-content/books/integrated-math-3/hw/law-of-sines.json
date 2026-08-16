@@ -1,0 +1,81 @@
+{
+  "name": "Law Of Sines",
+  "book": "integrated-math-3",
+  "kind": "hw",
+  "slug": "law-of-sines",
+  "target": {
+    "cid": "285887",
+    "aid": "22100094"
+  },
+  "filing": {
+    "cid": "285887",
+    "aid": "22100094"
+  },
+  "created_at": "2026-08-16",
+  "block": "0-4-2",
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "730991",
+      "title": "Find the missing side of the triangle using the Law of Sines. (video) Asks for Law of Sines set-up equation",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130351",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "1130538",
+      "title": "Law of Sines/Cosines - ASA - Sines",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4315",
+      "title": "Apply law of sines (srw6_4_11.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4316",
+      "title": "Law of sines (srw6_4_15.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4318",
+      "title": "Apply law of sines (srw6_4_23.pg)",
+      "points": 1,
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "4423",
+      "title": "Stewart 6.4#34: apps law of sines: Lake",
+      "points": 1,
+      "qtype": "number"
+    }
+  ]
+}
