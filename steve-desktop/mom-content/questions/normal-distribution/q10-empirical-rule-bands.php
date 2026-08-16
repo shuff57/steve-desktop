@@ -3,11 +3,14 @@
 
 // === COMMON CONTROL ===
 
-// N(mu, sigma) with clean parameters. Parts: (a) numfunc - the 68% band
-// (b) numfunc - the 95% band (c) numfunc - the 99.7% band.
+// N(mu, sigma) with clean parameters. Parts: (a) the 68% band (b) the 95% band
+// (c) the 99.7% band - each part takes TWO numfunc boxes, a lower and an upper, so
+// six anstypes for three lettered parts. One entry per ANSWER BOX, not per part:
+// three entries rendered only boxes 1-3, so (b) lost its upper box and (c) lost both,
+// and the missing parts could not be graded, so it still scored full marks.
 // Invariant: the bands are mu +/- k*sigma for k = 1, 2, 3 exactly on every seed.
 
-$anstypes = array("numfunc", "numfunc", "numfunc")
+$anstypes = array("numfunc", "numfunc", "numfunc", "numfunc", "numfunc", "numfunc")
 
 $contexts = array(
   "the scores on a college entrance exam, in points",

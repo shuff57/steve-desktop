@@ -168,6 +168,29 @@ to copy from — useful confirmation, not an error.
 in another (verified live 2026-08-08: questions filed from 334243 attached into 334437). That is what
 makes one library entry serve every section. Prove it on ONE question before looping.
 
+**And it works for questions you never filed.** A MyOpenMath *shared-library* `qsetid` — one written
+by someone else, that has never been through step 2 here — attaches by the same step-3 GET. Verified
+live 2026-08-16: `468549` (multipart) and `1178549` (draw), both from IM3's course, attached into a
+fresh assessment in 334243 and came back as Q1/Q2 with the right ids and titles.
+
+That is what makes a **pull**ed book pushable. An IM1/IM3 manifest has a `qid` on every slot and a
+`file_path` on almost none — 2 791 of 3 091 slots have no source in this repo, because the questions
+are MOM's, not ours. Such a manifest is still a complete, replayable assignment:
+
+```
+file_path + qid   →  skip step 2, attach          (already in the library)
+file_path, no qid →  step 2 then step 3           (the normal push)
+qid, no file_path →  skip step 2, attach          (shared library — never file it)
+neither           →  STOP. nothing identifies the question
+```
+
+**Never try to "fix" a `qid, no file_path` slot by authoring a replacement.** The question exists,
+it is what students have been answering, and a lookalike you write is a different question with a
+different id. Attach the id.
+
+The one thing you lose is repair: with no source, a shared-library question cannot be edited here
+and re-pushed. That is correct — it is not ours to edit. Report it and leave it.
+
 ## Settings are Steve's call, once per kind
 
 MOM's defaults are not what Steve wants, and every homework should match every other homework.
@@ -391,6 +414,23 @@ Setting `textarea.value` appears to work and saves **empty**. CodeMirror overwri
 from its own (empty) document when the form submits. `description` *is* a plain textarea and saves
 correctly either way — which is exactly what makes this read as a partial success instead of a bug.
 
+**CodeMirror attaches AFTER page load, and that is the version of this trap that actually bites.**
+Evaluate too early and `nextElementSibling.CodeMirror` is undefined, your code takes the
+`ta.value = text` fallback, the save reports success and the question body is EMPTY. Measured
+2026-08-16 filing 5.3: the first attempt fell through to the textarea path on `qtext` and
+`solution`, saved, and returned **no qsetid at all**. Wait for the editors before touching them:
+
+```js
+await page.waitForFunction(() => ['control','qtext','solution'].every(n => {
+  const ta = document.querySelector(`[name=${n}]`);
+  return ta && ta.nextElementSibling && ta.nextElementSibling.CodeMirror;
+}), { timeout: 30000 });
+```
+
+Once they exist, the page's own handles are the most reliable route — they are what `saveEditors()`
+itself uses: `window.controlEditor`, `window.qEditor.qtext`, `window.qEditor.solution`. Fall back to
+the sibling div only if those are absent.
+
 Write through the editor instance, which CM5 exposes on the sibling div:
 
 ```js
@@ -455,6 +495,39 @@ evalScript(`(function(){ var d = ${JSON.stringify(sections)}; ... })()`)
 `JSON.stringify` on the whole section object is what keeps it byte-exact. After filling, **compare
 the read-back field values against the source sections with an exact string equality check**. A
 length check is not enough.
+
+## The markers are DELIMITERS. Never file them.
+
+The five `// === ... ===` lines map a source section onto a form field. They are not part of any
+value. Strip the marker line, and any blank line directly after it, before filing.
+
+`qtext` is **HTML, not code** — `//` is not a comment there. A push on 2026-08-16 filed the markers
+and `// === QUESTION TEXT ===` rendered as visible text at the top of **all ten** questions of 5.2.
+
+It passed that run's own byte-exact read-back, because the run compared against a baseline that also
+contained the markers. **A verifier that derives its expectation the same way the writer did agrees
+with the writer's mistake.** The cheap independent check is a count on the rendered page:
+
+```js
+(document.body.innerText.match(/===\s*(QUESTION TEXT|COMMON CONTROL|ANSWER)/g) || []).length  // must be 0
+```
+
+## A freshly opened Teacher Preview shows NO prior score
+
+Re-entering Teacher Preview starts a **new attempt**. The header shows no score and no question
+shows "Score on last try" — **whether or not the assignment was ever graded**. Measured 2026-08-16:
+5.2 was answered and graded 102/100 inside its own run, and read zero questions-with-a-score when
+the preview was reopened minutes later.
+
+Consequences:
+
+- **Grading must be read in the SAME session that answers.** "Open it later and check the header" is
+  not a verification; it is a fresh attempt with nothing entered.
+- A capture taken for visual review shows an **unanswered** page unless the capturing run answered it
+  first. Do not read `Score: 0/100, Answered: 0/10` on such a capture as a defect — that mistake was
+  made today and cost a re-run.
+- The durable evidence is the run's in-session report of what it entered and what MOM said back,
+  question by question. Which is why the report format asks for exactly that.
 
 ## Verify, then fix, then verify again
 
@@ -702,3 +775,73 @@ written to `~/.claude/skills/mom-transfer/` on launch, so it arrives with the ap
 it. Edits here are replaced on the next launch — change the copy in the repo at
 `steve-desktop/skills/mom-transfer/SKILL.md` instead. The rules it points at
 (`transfer-rules.md`) are ordinary files and are yours to edit freely.
+
+## Byte-exactness proves the transfer, never the content
+
+Three separate defect classes were found in this bank on 2026-08-16. **Every one scored 102/100 with
+every question marked correct, and every one passed the byte-exact read-back and the qtype audit.**
+
+| Defect | What rendered | Why the gates missed it |
+|---|---|---|
+| `$anstypes` declared 3 entries for a question setting `$answer[0..5]` | part (b) lost its upper box, part (c) rendered **no boxes** | the filed code matched the source exactly — the SOURCE was wrong. Ungraded parts cannot lose points, so it scored full marks |
+| PHP concat in QUESTION TEXT | `the middle ' . 80 . '% of the values` | same: faithful copy of a wrong source |
+| function name inside backticks | `` `invNorm` `` typeset as `∈ vN or m` | same |
+
+A byte-exact read-back answers "did MOM store what the file says". It cannot answer "is the file
+right". **Only two things caught these: a human-scale look at the rendered page, and static audits
+written afterwards from the defects themselves.**
+
+So a push is not finished when the read-back matches. Run the static audits first, and get eyes on
+the render.
+
+### The static audits — run all three before any push
+
+They live in `mom-content/_push/` and take seconds:
+
+```bash
+cd steve-desktop
+node mom-content/_push/qtext-audit.mjs      # concat leak in QUESTION TEXT; function names in backticks
+node mom-content/_push/anstypes-audit.mjs   # $anstypes count vs max($answer[N])+1 vs answerbox count
+node mom-content/_push/usecheck.mjs         # a derived variable defined ABOVE the array it reads
+```
+
+Each was written from a real defect and each found exactly the class it was written for and nothing
+else. Treat "clean" as meaning *clean against the three things we know to check* — not as a
+guarantee. See `mom-content/reference/learned-rules.md` for the measured detail.
+
+### The visual pass needs image input, and the pushing model does not have it
+
+`deepseek-v4-flash` has no image input. It says so when asked, which is the right behaviour — but it
+means **the render check cannot be part of the push run.** Capture the page, then route the image to
+a model that can see. Both defects found by eyes on 2026-08-16 were invisible to every text check.
+
+Capture rules are in "Verify, then fix, then verify again": one-shot full page, never scroll-and-
+stitch, and confirm landmarks appear once each rather than trusting pixel height.
+
+## Long pushes get killed. Structure the work so a kill costs one step.
+
+Six consecutive dispatches were killed mid-task on 2026-08-16; the last died having read ten source
+files without touching MOM. The runs that survived were the small ones.
+
+Three habits, each of which demonstrably saved work:
+
+- **Pre-extract what the run would otherwise read.** `mom-content/_push/crib.mjs <manifest>` emits an
+  answer crib — `$anstypes`, the seed arrays, the derived variables, every `$answer[...]` and the
+  tolerances — at roughly a tenth the size of the sources. The run then spends its budget driving
+  the browser instead of reading PHP.
+- **Split the push.** file+attach+points is one task; answer-and-grade is another. A combined push
+  is the shape that kept dying.
+- **Report incrementally, via the message centre, as you go.** The 4.5 verification survived only
+  because its report was sent *before* the kill. Five questions verified and reported beats ten
+  verified and lost. The message log is the durable record; the run's ending is not.
+
+If the dispatch channel itself starts failing — several kills in a row, each earlier than the last —
+stop re-dispatching and do the step directly. That is escalation, not stubbornness; re-sending into
+a failing channel is the grind the roster rules warn about.
+
+## `moddataset.php` has FOUR identical Save buttons
+
+All four are bound to `quickSaveQuestion(true)` and any one commits the whole form over AJAX. A
+guard written to expect exactly one will refuse and save nothing — that cost a run its first attempt
+on 2026-08-16. Set all three editors, then click the topmost **once**; do not click several, which
+races and intermittently drops the `solution` field.
