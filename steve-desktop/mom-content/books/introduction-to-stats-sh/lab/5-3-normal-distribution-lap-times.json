@@ -1,0 +1,21 @@
+{
+  "name": "5.3 Normal Distribution (Lap Times) - Lab",
+  "book": "introduction-to-stats-sh",
+  "kind": "lab",
+  "slug": "5-3-normal-distribution-lap-times",
+  "_note": "Built 2026-08-12. All ten authored fresh (lab kind): q21-empirical-vs-theoretical, q22-pilot-mean-sd, q23-pilot-median-quartiles, q24-pilot-percentiles, q25-pilot-iqr, q26-theoretical-median-quartiles, q27-theoretical-percentiles, q28-theoretical-iqr, q29-compare-empirical-theoretical, pre-frq-grade-a-normal-model-comparison. Points 10x10 = 100. BookSHelf 5.3 is a lab: stratify 36 lap times from the Appendix C dataset (Terri Vogel's 20-race logbook), then answer the same questions empirically (by counting) and theoretically (from a normal model) and compare. The MOM assignment checks the theoretical half (fixed) and gives the section's own Try It Now 5.4 pilot (12 values: 125.9..134.1) for the empirical half, so every answer is deterministic. The theoretical model is the pilot's own N(129.42, 2.52) per the lab's Analyze-the-Distribution step. Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories State the Empirical Value (3) / State the Theoretical Value (3) / Compare and Explain the Gap (4), dropped category STATE THE EMPIRICAL VALUE - deliberately DIFFERENT from the 4.4/4.6 lab pre-FRQs' dropped category (State the Theoretical Value), since a third repeat would teach the same lesson again.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/normal-distribution/q21-empirical-vs-theoretical.php", "title": "Empirical vs Theoretical - the counted probability against the model's probability", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/normal-distribution/q22-pilot-mean-sd.php", "title": "The Pilot Mean and Standard Deviation - x-bar and s of the 12-value pilot", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/normal-distribution/q23-pilot-median-quartiles.php", "title": "The Pilot Median and Quartiles - locations in the sorted 12-value dataset", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/normal-distribution/q24-pilot-percentiles.php", "title": "The Pilot Percentiles - P15 and P85 by the index rule", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/normal-distribution/q25-pilot-iqr.php", "title": "The Pilot IQR - Q3 - Q1 of the 12-value pilot", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/normal-distribution/q26-theoretical-median-quartiles.php", "title": "The Theoretical Median and Quartiles - the model N(129.42, 2.52)", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/normal-distribution/q27-theoretical-percentiles.php", "title": "The Theoretical Percentiles - P15 and P85 from the model N(129.42, 2.52)", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/normal-distribution/q28-theoretical-iqr.php", "title": "The Theoretical IQR - 1.349 sigma from the model N(129.42, 2.52)", "points": 10, "qid": null },
+    { "slot": 9, "file_path": "questions/normal-distribution/q29-compare-empirical-theoretical.php", "title": "Compare the Empirical and Theoretical - the gaps between the pilot and the model", "points": 10, "qid": null },
+    { "slot": 10, "file_path": "questions/normal-distribution/pre-frq-grade-a-normal-model-comparison.php", "title": "Pre-FRQ Grade a Normal Model Comparison - a theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 10, "qid": null }
+  ]
+}

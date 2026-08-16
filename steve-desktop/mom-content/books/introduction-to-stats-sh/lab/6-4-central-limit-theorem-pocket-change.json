@@ -1,0 +1,21 @@
+{
+  "name": "6.4 Central Limit Theorem (Pocket Change) - Lab",
+  "book": "introduction-to-stats-sh",
+  "kind": "lab",
+  "slug": "6-4-central-limit-theorem-pocket-change",
+  "_note": "Built 2026-08-12. All ten authored fresh (lab kind): q28-headcount, q29-population-mean-sd, q30-population-median-shape, q31-pair-averages, q32-predicted-pair-se, q33-group-five-average, q34-standard-error-five, q35-z-scores-compared, q36-x-bar-model, pre-frq-grade-a-clt-lab-comparison. Points 10x10 = 100. BookSHelf 6.4 is a lab: collect 30 pocket-change amounts, sketch the lopsided population, then build the sampling distribution of the mean by averaging pairs and groups of five and watch the shape turn toward a bell. The MOM assignment checks the numbers on the section's OWN class dataset (Table 6.4.2: 30 sorted amounts, total $21.00, sum of squares 22.3092, so x-bar = 0.70, s ~ 0.5122, median 0.585), which is fixed - so every answer is deterministic. Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories State the Empirical Value (3) / State the Theoretical Value (3) / Compare and Explain the Gap (4), dropped category COMPARE AND EXPLAIN THE GAP - deliberately DIFFERENT from the 4.4/4.6 labs' drop (State the Theoretical Value) and the 5.3 lab's drop (State the Empirical Value), since the 6.4 lab teaches the CLT mechanism rather than the empirical-vs-theoretical pair, and the template forbids repeating a dropped category.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/sampling-distributions/q28-headcount.php", "title": "The Lab Headcount - 30 singles + 30 pairs + 30 groups of five = 240", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/sampling-distributions/q29-population-mean-sd.php", "title": "The Population Mean and SD - x-bar and s of the 30 pocket-change amounts", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/sampling-distributions/q30-population-median-shape.php", "title": "The Population Median and Shape - 0.585, mean above median, right-skewed", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/sampling-distributions/q31-pair-averages.php", "title": "The Pair Averages - (0.13 + 1.52)/2 = 0.825 and (0.45 + 0.72)/2 = 0.585", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/sampling-distributions/q32-predicted-pair-se.php", "title": "The Predicted Pair Standard Deviation - sigma/sqrt(2) ~ 0.3622", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/sampling-distributions/q33-group-five-average.php", "title": "The Group-of-Five Average - (0.05 + 0.28 + 0.63 + 1.06 + 2.10)/5 = 0.824", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/sampling-distributions/q34-standard-error-five.php", "title": "The Standard Error for n = 5 - sigma/sqrt(5) ~ 0.2291", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/sampling-distributions/q35-z-scores-compared.php", "title": "The Two z-Scores Compared - the $2.10 individual vs the $0.824 average", "points": 10, "qid": null },
+    { "slot": 9, "file_path": "questions/sampling-distributions/q36-x-bar-model.php", "title": "The Model for the Averages - N(0.70, 0.23) and the population's shape", "points": 10, "qid": null },
+    { "slot": 10, "file_path": "questions/sampling-distributions/pre-frq-grade-a-clt-lab-comparison.php", "title": "Pre-FRQ Grade a CLT Lab Comparison - a pocket-change sampling scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 10, "qid": null }
+  ]
+}

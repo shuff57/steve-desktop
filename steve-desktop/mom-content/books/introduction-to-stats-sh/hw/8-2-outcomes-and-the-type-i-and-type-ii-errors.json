@@ -1,0 +1,22 @@
+{
+  "name": "8.2 Outcomes and the Type I and Type II Errors",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "8-2-outcomes-and-the-type-i-and-type-ii-errors",
+  "_note": "Built 2026-08-12. Two reuses (q11-type-i-ii-context, q9-reject-nuanced - both health=ok, never filed) plus nine authored (q25-the-four-outcomes, q26-type-i-error-in-context, q27-type-ii-error-in-context, q28-alpha-beta-power, q29-which-error-costs-more, q30-power-and-beta, q31-error-consequences, q64-both-errors-template, pre-frq-grade-a-type-i-ii-errors) = eleven. Points 9x8 + 8x2 + 12 = 100 (rebalanced from the SPEC's 110 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.2 is outcomes and the Type I and Type II errors: the four outcomes of a hypothesis test, stating both errors in context, alpha and beta in words, the power of the test 1 - beta, and judging which error carries the heavier consequence. Pre-FRQ is authored-first (no Type I/II FRQ exists anywhere in questions/frq/ - the pre-FRQ defines the scenario and rubric a later FRQ should match): categories State Both Errors in Context (4) / Name the Probabilities (3) / Judge Which Error Costs More (3), dropped category NAME THE PROBABILITIES (a plausible answer states both errors in context and judges their consequences without ever attaching the lettered probabilities).",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q11-type-i-ii-context.php", "title": "Type I and Type II errors in context - given a scenario with a null hypothesis, identify which outcome corresponds to a Type I error and which corresponds to a Type II error", "points": 9, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/hypothesis-testing/q9-reject-nuanced.php", "title": "Reject vs Fail to Reject - nuanced contexts where the p-value is close to the significance level alpha; students must apply the rule rigidly and avoid the accept-the-null misconception", "points": 9, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/hypothesis-testing/q25-the-four-outcomes.php", "title": "The Four Outcomes - the 2x2 table of decisions crossed with the truth, and which two are the errors", "points": 9, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/hypothesis-testing/q26-type-i-error-in-context.php", "title": "Type I Error in Context - reject a true null, worded about the claim, and the decision it is tied to", "points": 9, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/hypothesis-testing/q27-type-ii-error-in-context.php", "title": "Type II Error in Context - fail to reject a false null, worded about the claim, and the decision it is tied to", "points": 9, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/hypothesis-testing/q28-alpha-beta-power.php", "title": "Alpha, Beta, and Power - what each probability measures, and what the power of the test is", "points": 9, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/hypothesis-testing/q29-which-error-costs-more.php", "title": "Which Error Costs More - the heavier consequence in a high-stakes scenario, and the reason", "points": 8, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/hypothesis-testing/q30-power-and-beta.php", "title": "Power and Beta - beta = 1 - power, and what the power value means in context", "points": 8, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/hypothesis-testing/q31-error-consequences.php", "title": "Error Consequences - both errors stated against a flipped null, where swapping H0 and Ha swaps the errors", "points": 9, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/hypothesis-testing/q64-both-errors-template.php", "title": "Both Errors with the Template - Type I and Type II errors stated in context from a stated null", "points": 9, "qid": null },
+    { "slot": 11, "file_path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-type-i-ii-errors.php", "title": "Pre-FRQ Grade a Type I/II Errors - the scenario and grading checklist of the (authored-first) Type I/II errors FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

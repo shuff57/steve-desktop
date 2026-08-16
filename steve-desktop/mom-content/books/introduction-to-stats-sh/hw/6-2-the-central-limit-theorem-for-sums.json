@@ -1,0 +1,21 @@
+{
+  "name": "6.2 The Central Limit Theorem for Sums",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "6-2-the-central-limit-theorem-for-sums",
+  "_note": "Built 2026-08-12. All ten authored fresh (the bank had zero sums questions): q13-sum-notation, q14-sum-parameters, q15-sum-z-score, q16-sum-probability-greater, q17-sum-probability-less, q18-sum-probability-between, q19-sum-percentile, q20-sum-z-score-to-value, q21-sum-unit-conversion, pre-frq-grade-a-sum-interpretation. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 6.2 is the CLT for sums: Sigma X ~ N(n*mu, sqrt(n)*sigma), the z-score of a sum, probabilities and percentiles for a sum, and the unit-conversion habit. Pre-FRQ is authored-first (no sums FRQ to mirror; the CLT-reasoning mirror is claimed by 6.1's pre-FRQ): categories State the Sum's Parameters (3) / Compute the Probability or Percentile (5) / Interpret in Context (4), dropped category STATE THE SUM'S PARAMETERS.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/sampling-distributions/q13-sum-notation.php", "title": "Sum Notation - the mean and standard deviation of Sigma X", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/sampling-distributions/q14-sum-parameters.php", "title": "The Parameters of the Sum - mu_SigmaX = n*mu and sigma_SigmaX = sqrt(n)*sigma", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/sampling-distributions/q15-sum-z-score.php", "title": "The z-Score of a Sum - z = (Sigma x - n*mu)/(sqrt(n)*sigma) and its sign-and-size reading", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/sampling-distributions/q16-sum-probability-greater.php", "title": "Probability That a Sum Is Greater Than a Value - P(Sigma x > c)", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/sampling-distributions/q17-sum-probability-less.php", "title": "Probability That a Sum Is Less Than a Value - P(Sigma x < c)", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/sampling-distributions/q18-sum-probability-between.php", "title": "Probability That a Sum Falls Between Two Values - P(lo < Sigma x < hi)", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/sampling-distributions/q19-sum-percentile.php", "title": "Percentile of the Sum - k for a sum, and its interpretation", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/sampling-distributions/q20-sum-z-score-to-value.php", "title": "Recover a Sum from a z-Score - s = n*mu + z*sqrt(n)*sigma and its sign-and-size reading", "points": 9, "qid": null },
+    { "slot": 9, "file_path": "questions/sampling-distributions/q21-sum-unit-conversion.php", "title": "Unit Conversion for a Sum - minutes versus hours, and why it matters", "points": 9, "qid": null },
+    { "slot": 10, "file_path": "questions/sampling-distributions/pre-frq-grade-a-sum-interpretation.php", "title": "Pre-FRQ Grade a Sum Interpretation - a sums scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

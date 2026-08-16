@@ -1,0 +1,22 @@
+{
+  "name": "4.2 Mean or Expected Value and Standard Deviation",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "4-2-mean-expected-value-standard-deviation",
+  "_note": "Built 2026-08-11. Four reuses (q22, q3-ev-fill-missing-prob, q5-ev-game-of-chance-2, q2-ev-insurance — health=ok, never filed; also slotted by 4.1, which is fine: a question serves any number of assignments) plus six authored (q6-sd-of-distribution, q7-law-of-large-numbers, q8-find-the-mistake-in-table, q9-sd-compare-two-distributions, q10-complete-the-ev-table, pre-frq-grade-a-long-run-interpretation) = ten, the homework floor. Points 4x10 + 9 + 10 + 9 + 10 + 10 + 12 = 100. BookSHelf 4.2 is EV + SD of a discrete distribution: the EV half is carried by the reuses, the six new files carry the SD column, Law of Large Numbers, faulty-table catch, same-mean-different-sigma comparison, EV-table completion, and a pre-FRQ mirroring frq/probability/q1-expected-value-decision.php with dropped category VERIFY THE PROBABILITIES SUM TO 1 (the section's stated habit; distinct from 4.1's dropped State the Values).",
+  "target": { "cid": "334437", "aid": 23437798 },
+  "created_at": "2026-08-11",
+  "_pushed": "PUSHED 2026-08-14 as aid 23437798 in the master 334437. Four reuses attached from 4.1's library entries (1877030/1877031/1877033/1877034), six new filed (1877063-1877068), points set (4x10 + 9 + 10 + 9 + 10 + 10 + 12 = 100), every question answered in Teacher Preview: header read 102/100, Answered 10/10.",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php", "title": "Expected Value - Confirm probabilities sum to 1, compute E(X) and E(X^2) for a discrete random variable", "points": 10, "qid": "1877030" },
+    { "slot": 2, "file_path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php", "title": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)", "points": 10, "qid": "1877031" },
+    { "slot": 3, "file_path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php", "title": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair", "points": 10, "qid": "1877033" },
+    { "slot": 4, "file_path": "questions/probability/expected-value/q2-ev-insurance.php", "title": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy", "points": 10, "qid": "1877034" },
+    { "slot": 5, "file_path": "questions/probability/expected-value/q6-sd-of-distribution.php", "title": "Standard Deviation of a Distribution - compute mu, Var(X) and sigma from the deviation column", "points": 9, "qid": "1877063" },
+    { "slot": 6, "file_path": "questions/probability/expected-value/q7-law-of-large-numbers.php", "title": "Law of Large Numbers - the long-run relative frequency approaches the theoretical probability", "points": 10, "qid": "1877064" },
+    { "slot": 7, "file_path": "questions/probability/expected-value/q8-find-the-mistake-in-table.php", "title": "Find the Mistake in an EV Table - one wrong cell in the P(x) or x*P(x) column", "points": 9, "qid": "1877065" },
+    { "slot": 8, "file_path": "questions/probability/expected-value/q9-sd-compare-two-distributions.php", "title": "Same Mean, Different Spread - two distributions with equal mu but different sigma", "points": 10, "qid": "1877066" },
+    { "slot": 9, "file_path": "questions/probability/expected-value/q10-complete-the-ev-table.php", "title": "Complete the Expected Value Table - fill the x*P(x) column and read off mu", "points": 10, "qid": "1877067" },
+    { "slot": 10, "file_path": "questions/probability/expected-value/pre-frq-grade-a-long-run-interpretation.php", "title": "Pre-FRQ Grade a Long-Run Interpretation - the expected-value FRQ's scenario and checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": "1877068" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "7.4 Confidence Interval (Home Costs) - Lab",
+  "book": "introduction-to-stats-sh",
+  "kind": "lab",
+  "slug": "7-4-confidence-interval-home-costs",
+  "_note": "Built 2026-08-12. All ten authored fresh (lab kind): q28-name-the-four-pieces, q29-home-summary-stats, q30-home-standard-error, q31-home-90-interval, q32-home-alpha-tails, q33-count-inside-interval, q34-interpret-the-home-interval, q35-four-confidence-levels, q36-ebm-trend, pre-frq-grade-a-home-costs-interval. Points 10x10 = 100. BookSHelf 7.4 is a lab: collect 35 home sale prices from a newspaper, compute the sample mean and standard deviation, build a t-interval (sigma unknown, so 7.2's machinery applies), interpret it, and fill a table of intervals at four confidence levels. The MOM assignment checks the numbers on the section's OWN demonstration dataset (Table 7.4.1: 35 sorted prices, sum $14,350,000, sum of squares 6,317,692 x 10^6, so x-bar = $410,000, s ~ $113,006, n = 35, df = 34), which is fixed - so every answer is deterministic. Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories State the Sample Summary (3) / Build the Interval (3) / Interpret in Context (4), dropped category BUILD THE INTERVAL - deliberately DIFFERENT from the 4.4/4.6/5.3/6.4 lab pre-FRQs' drops (State the Theoretical Value / State the Empirical Value / Compare and Explain the Gap) and from 7.1/7.2/7.3's (Confidence Level Meaning / Assessing the Claim / Statistical Decision), since the template forbids repeating a dropped category.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q28-name-the-four-pieces.php", "title": "Name the Four Pieces - population, sample, parameter, and statistic", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/confidence-intervals/q29-home-summary-stats.php", "title": "The Home Summary Statistics - x-bar, s, and n of the 35 prices", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/confidence-intervals/q30-home-standard-error.php", "title": "The Home Standard Error - s/sqrt(n) ~ 19101", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/confidence-intervals/q31-home-90-interval.php", "title": "The Home 90% Interval - EBM, lower and upper endpoints", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/confidence-intervals/q32-home-alpha-tails.php", "title": "The Home Alpha and Tails - alpha = 0.10 and alpha/2 = 0.05", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/confidence-intervals/q33-count-inside-interval.php", "title": "Count Inside the Interval - 9 of 35 prices, about 25.7%", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/confidence-intervals/q34-interpret-the-home-interval.php", "title": "Interpret the Home Interval - the specific sentence, the general sentence, and the bad reading", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/confidence-intervals/q35-four-confidence-levels.php", "title": "The Four Confidence Levels - the EBM at 50%, 80%, 95%, and 99%", "points": 10, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/confidence-intervals/q36-ebm-trend.php", "title": "The EBM Trend - what happens to the error bound and the width as the confidence level rises", "points": 10, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-home-costs-interval.php", "title": "Pre-FRQ Grade a Home Costs Interval - a home-sale-price scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 10, "qid": null }
+  ]
+}

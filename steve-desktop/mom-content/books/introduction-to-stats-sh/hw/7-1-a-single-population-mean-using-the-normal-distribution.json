@@ -1,0 +1,21 @@
+{
+  "name": "7.1 A Single Population Mean using the Normal Distribution",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "7-1-a-single-population-mean-using-the-normal-distribution",
+  "_note": "Built 2026-08-12. Two reuses (q4-ci-mean-t, q3-ci-width-factors - both health=ok, never filed) plus eight authored (q7-z-critical-value, q8-z-interval-mean, q9-ebm-and-interval, q10-interpret-the-interval, q11-width-dials, q12-backwards-from-interval, q13-sample-size-mean, pre-frq-grade-a-ci-interpretation) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 7.1 is the confidence interval for a population mean when sigma is known: the point estimate bar(x), EBM = z_(alpha/2)*sigma/sqrt(n), the interval, the critical values (1.645/1.96/2.326/2.576), the interpretation sentence, the two width dials, working backwards from an interval, and the sample size formula n = z^2 sigma^2 / EBM^2 rounded up. Pre-FRQ mirrors frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php; dropped category is CONFIDENCE LEVEL MEANING (the mirror's second rubric line - a plausible answer interprets the interval and assesses the claim without ever explaining what the confidence level means in repeated sampling).",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php", "title": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/confidence-intervals/q3-ci-width-factors.php", "title": "Widest/Narrowest Confidence Interval - given confidence and sample size", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/confidence-intervals/q7-z-critical-value.php", "title": "The z Critical Value - z_(alpha/2) for a stated confidence level, and the area to feed invNorm", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/confidence-intervals/q8-z-interval-mean.php", "title": "The z-Interval for a Mean - SE, EBM, and the upper endpoint when sigma is known", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/confidence-intervals/q9-ebm-and-interval.php", "title": "The Error Bound and the Interval - EBM, lower and upper endpoints for a z-interval", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/confidence-intervals/q10-interpret-the-interval.php", "title": "Interpret the Confidence Interval - the sentence, what the level promises, and the wrong reading", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/confidence-intervals/q11-width-dials.php", "title": "The Two Width Dials - confidence level and sample size, and the EBM at 4n", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/confidence-intervals/q12-backwards-from-interval.php", "title": "Working Backwards from an Interval - the error bound and the sample mean", "points": 9, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/confidence-intervals/q13-sample-size-mean.php", "title": "The Sample Size for a Mean - n = z^2 sigma^2 / EBM^2, rounded up", "points": 9, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-ci-interpretation.php", "title": "Pre-FRQ Grade a CI Interpretation - the scenario and grading checklist of the single-mean CI FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

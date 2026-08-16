@@ -1,0 +1,23 @@
+{
+  "name": "8.5 Additional Information and Full Hypothesis Test Examples",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "8-5-additional-information-and-full-hypothesis-test-examples",
+  "_note": "Built 2026-08-12. Two reuses (q7-ht-one-mean, q17-full-ht-one-mean-fresh-2 - both health=ok, never filed) plus ten authored (q46-read-the-significance-level, q47-tail-from-alternative, q48-full-z-test-mean, q49-full-proportion-test, q50-mean-or-proportion-procedure, q51-test-stat-to-decision, q52-type-errors-for-a-full-test, q68-draw-the-picture, q69-two-tailed-picture, pre-frq-grade-a-full-ht-workflow) = twelve. Points 8x11 + 12 = 100 (rebalanced from the SPEC's 110 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.5 is additional information and full hypothesis test examples: reading the level of significance, deciding left/right/two-tailed from the alternative alone, and carrying full tests end to end for a single mean (z with sigma known, t with sigma unknown) and a single proportion, plus stating the Type I and Type II errors for a test in the wording of the problem it came from. Pre-FRQ mirrors frq/inference-for-proportions/q14-full-ht-workflow-context.php; dropped category is TEST STAT + P-VALUE (the mirror's third rubric line - a plausible answer writes the hypotheses and reaches the decision and conclusion without ever showing the arithmetic).",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q7-ht-one-mean.php", "title": "Full hypothesis test for one population mean (p-value approach) with randomized story contexts", "points": 8, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/hypothesis-testing/q17-full-ht-one-mean-fresh-2.php", "title": "Full HT for One Mean (Fresh Context 2) - Compute t-statistic, p-value, decision at alpha for a one-mean test with a randomized story context", "points": 8, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/hypothesis-testing/q46-read-the-significance-level.php", "title": "Read the Significance Level - alpha as a decimal, and what it commits you to before the data arrive", "points": 8, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/hypothesis-testing/q47-tail-from-alternative.php", "title": "Tail from the Alternative - the tail the test runs on, and why the symbol in Ha names the test", "points": 8, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/hypothesis-testing/q48-full-z-test-mean.php", "title": "Full Z-Test for a Mean - z, p-value, decision, and conclusion when sigma is known", "points": 8, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/hypothesis-testing/q49-full-proportion-test.php", "title": "Full Proportion Test - z, p-value, decision, and conclusion for a one-proportion test", "points": 8, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/hypothesis-testing/q50-mean-or-proportion-procedure.php", "title": "Mean or Proportion Procedure - which procedure the scenario calls for, the deciding facts, and the first number", "points": 8, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/hypothesis-testing/q51-test-stat-to-decision.php", "title": "Test Statistic to Decision - t, p-value from tcdf, and the decision at alpha", "points": 8, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/hypothesis-testing/q52-type-errors-for-a-full-test.php", "title": "Type Errors for a Full Test - both errors stated in context from the stated hypotheses", "points": 8, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/hypothesis-testing/q68-draw-the-picture.php", "title": "Draw the Picture - where the curve is centered, and where the shaded region sits for a one-tailed test", "points": 8, "qid": null },
+    { "slot": 11, "file_path": "questions/stats-tests/hypothesis-testing/q69-two-tailed-picture.php", "title": "The Two-Tailed Picture - why the shading is split, and what the two regions together represent", "points": 8, "qid": null },
+    { "slot": 12, "file_path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-full-ht-workflow.php", "title": "Pre-FRQ Grade a Full HT Workflow - the scenario and grading checklist of the full-HT-workflow FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

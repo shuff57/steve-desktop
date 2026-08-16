@@ -1,0 +1,21 @@
+{
+  "name": "6.3 Using the Central Limit Theorem",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "6-3-using-the-central-limit-theorem",
+  "_note": "Built 2026-08-12. Three reuses (q5-clt-single-vs-sample, q4-x-bar-probability, q2-x-bar-conditions - all health=ok, never filed, cross-assignment reuse is fine) plus seven authored (q22-mean-sum-or-individual, q23-law-of-large-numbers, q24-normal-approx-conditions, q25-binomial-at-least, q26-binomial-at-most, q27-binomial-between-and-exact, pre-frq-grade-a-continuity-correction) = ten. Points 10+10+10+10+10+10+9+9+10+12 = 100. BookSHelf 6.3 is using the CLT: the mean-vs-sum-vs-individual decision, the law of large numbers, and the normal approximation to the binomial with the continuity correction (P(X>=a) becomes P(Y>=a-0.5), etc. - all corrected boundaries precomputed, never binompdf/binomcdf). Pre-FRQ is authored-first (no continuity-correction FRQ to mirror; the CLT-reasoning and sum-interpretation mirrors are claimed by 6.1/6.2): categories State the Binomial Setup (3) / Apply the Continuity Correction (5) / Compute and Interpret (4), dropped category APPLY THE CONTINUITY CORRECTION.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/sampling-distributions/q5-clt-single-vs-sample.php", "title": "CLT - compare the probability of a single observation X to the probability of a sample mean x-bar at the same cutoff, then choose the correct explanation", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/sampling-distributions/q4-x-bar-probability.php", "title": "Sampling distribution of x-bar - compute the mean, standard error, and a less-than or greater-than probability for a sample mean", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/sampling-distributions/q2-x-bar-conditions.php", "title": "Sampling distribution of x-bar - check normality of population OR n>=30 and decide whether the sampling distribution is approximately normal", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/sampling-distributions/q22-mean-sum-or-individual.php", "title": "Mean, Sum, or Individual - which distribution each kind of question uses", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/sampling-distributions/q23-law-of-large-numbers.php", "title": "The Law of Large Numbers - bigger samples, tighter sample means", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/sampling-distributions/q24-normal-approx-conditions.php", "title": "Normal Approximation Conditions - np and nq, and whether the approximation is allowed", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/sampling-distributions/q25-binomial-at-least.php", "title": "Binomial At Least with the Continuity Correction - P(X >= a) via the corrected boundary", "points": 9, "qid": null },
+    { "slot": 8, "file_path": "questions/sampling-distributions/q26-binomial-at-most.php", "title": "Binomial At Most with the Continuity Correction - P(X <= a) via the corrected boundary", "points": 9, "qid": null },
+    { "slot": 9, "file_path": "questions/sampling-distributions/q27-binomial-between-and-exact.php", "title": "Binomial Between and Exact with the Continuity Correction - strict strips and the half-unit", "points": 10, "qid": null },
+    { "slot": 10, "file_path": "questions/sampling-distributions/pre-frq-grade-a-continuity-correction.php", "title": "Pre-FRQ Grade a Continuity Correction - a binomial-approximation scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

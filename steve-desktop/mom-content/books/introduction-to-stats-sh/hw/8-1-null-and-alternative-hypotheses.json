@@ -1,0 +1,23 @@
+{
+  "name": "8.1 Null and Alternative Hypotheses",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "8-1-null-and-alternative-hypotheses",
+  "_note": "Built 2026-08-12. Two reuses (q15-ho-ha-fresh-context, q6-null-alt-hypotheses - both health=ok, never filed) plus ten authored (q18-name-the-parameter, q19-describe-the-random-variable, q20-hypothesis-symbol-pairs, q21-claims-to-hypotheses, q22-proportion-claim-hypotheses, q23-the-two-decisions, q24-choose-the-correct-pair, q62-sort-the-numbers, q63-parameter-for-each-statement, pre-frq-grade-a-single-mean-hypotheses) = twelve. Points 8x11 + 12 = 100 (rebalanced from the SPEC's 120 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.1 is null and alternative hypotheses: the two hypotheses, choosing the symbols (=, !=, <=, <, >=, >), writing the pair from a claim about a mean or a proportion, naming the random variable in words, and the two decisions a test can end in (reject / do not reject - never accept). Pre-FRQ mirrors frq/inference-for-means/q1-single-mean-concept-and-hypotheses.php; dropped category is REAL-WORLD EXAMPLE (the mirror's second rubric line - a plausible answer states the purpose and writes the hypotheses without ever applying them to a concrete scenario).",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q15-ho-ha-fresh-context.php", "title": "State H0 and Ha and Pick Test Direction - From a fresh story context, identify the parameter, write H0 and Ha, and pick left/right/two-tailed", "points": 8, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/hypothesis-testing/q6-null-alt-hypotheses.php", "title": "Identify the null and alternative hypotheses (p) and determine which type of test to use (e.g., right-tailed)", "points": 8, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/hypothesis-testing/q18-name-the-parameter.php", "title": "Name the Parameter - mu for a mean claim, p for a proportion claim, and the claimed value as a parameter statement", "points": 8, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/hypothesis-testing/q19-describe-the-random-variable.php", "title": "Describe the Random Variable - the sample mean or sample proportion in words, and whether the test is about an average or a share", "points": 8, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/hypothesis-testing/q20-hypothesis-symbol-pairs.php", "title": "Hypothesis Symbol Pairs - the H0 and Ha symbols from the claim's direction, and the tail the test runs on", "points": 8, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/hypothesis-testing/q21-claims-to-hypotheses.php", "title": "Claims to Hypotheses - the full H0 and Ha pair in symbols for a mean claim with a direction", "points": 8, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/hypothesis-testing/q22-proportion-claim-hypotheses.php", "title": "Proportion Claim Hypotheses - the full H0 and Ha pair in symbols for a proportion claim with a direction", "points": 8, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/hypothesis-testing/q23-the-two-decisions.php", "title": "The Two Decisions - what do not reject means, why a test never accepts H0, and what reject means", "points": 8, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/hypothesis-testing/q24-choose-the-correct-pair.php", "title": "Choose the Correct Pair - the right H0/Ha pair against distractors built from the classic errors", "points": 8, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/hypothesis-testing/q62-sort-the-numbers.php", "title": "Sort the Numbers - which listed values the test uses, and which is the distractor", "points": 8, "qid": null },
+    { "slot": 11, "file_path": "questions/stats-tests/hypothesis-testing/q63-parameter-for-each-statement.php", "title": "Parameter for Each Statement - mu or p for each of three statements about the same study", "points": 8, "qid": null },
+    { "slot": 12, "file_path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-single-mean-hypotheses.php", "title": "Pre-FRQ Grade a Single-Mean Hypotheses - the scenario and grading checklist of the single-mean concept-and-hypotheses FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

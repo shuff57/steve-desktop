@@ -1,0 +1,24 @@
+{
+  "name": "8.4 Rare Events, the Sample, Decision and Conclusion",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "8-4-rare-events-the-sample-decision-and-conclusion",
+  "_note": "Built 2026-08-12. Two reuses (q5-pvalue-decision, q10-conclusion-in-context - both health=ok, never filed) plus eleven authored (q39-rare-event-reasoning, q40-what-a-p-value-measures, q41-pvalue-decision-edge, q42-pvalue-from-z, q43-pvalue-two-scenarios, q44-tail-picture, q45-conclusion-vs-claim, q65-sort-the-test-values, q66-s-vs-sigma, q67-sampling-distribution-under-h0, pre-frq-grade-a-pvalue-interpretation) = thirteen. Points 8x4 + 7x8 + 12 = 100 (rebalanced from the SPEC's 120 on 2026-08-14 to the every-assignment-is-100 rule). BookSHelf 8.4 is rare events, the sample, decision and conclusion: the rare-event rule, what a p-value measures, the alpha > p-value decision rule with its equality edge case, and the conclusion written in plain sentences about the original claim. Pre-FRQ mirrors frq/inference-for-means/q2-single-mean-interpreting-p-value.php; dropped category is INTERPRETATION OF EVIDENCE (the mirror's third rubric line - a plausible answer compares the p-value to alpha and writes the conclusion in context without ever explaining what the p-value measures in repeated sampling). This is deliberately DIFFERENT from 7.3's pre-FRQ drop (Statistical Decision) - the two p-value pre-FRQs must not teach the same lesson.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/hypothesis-testing/q5-pvalue-decision.php", "title": "P-Value is low/high, identify conclusion (Carey Smith)", "points": 8, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/hypothesis-testing/q10-conclusion-in-context.php", "title": "Write the conclusion of a hypothesis test in context - pick the correct phrasing that links the statistical decision back to the original claim", "points": 8, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/hypothesis-testing/q39-rare-event-reasoning.php", "title": "Rare Event Reasoning - the probability of the observed event, and what observing it gives you", "points": 8, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/hypothesis-testing/q40-what-a-p-value-measures.php", "title": "What a P-Value Measures - the correct meaning, what it is NOT, and the region it stands for", "points": 8, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/hypothesis-testing/q41-pvalue-decision-edge.php", "title": "P-Value Decision Edge - the rigid rule when the p-value is close to or equal to alpha", "points": 7, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/hypothesis-testing/q42-pvalue-from-z.php", "title": "P-Value from a Z - the one-tailed p-value from the test statistic, and whether it is doubled", "points": 7, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/hypothesis-testing/q43-pvalue-two-scenarios.php", "title": "Two P-Values, One Test - which p-value rejects and why, and what the distance from alpha means for confidence", "points": 7, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/hypothesis-testing/q44-tail-picture.php", "title": "The Tail Picture - which tail the p-value lives in, and the shape of the shaded region", "points": 7, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/hypothesis-testing/q45-conclusion-vs-claim.php", "title": "Conclusion vs Claim - the conclusion worded about the population, and what it is NOT entitled to say", "points": 7, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/hypothesis-testing/q65-sort-the-test-values.php", "title": "Sort the Test Values - which listed numbers the test statistic uses, and which is the distractor", "points": 7, "qid": null },
+    { "slot": 11, "file_path": "questions/stats-tests/hypothesis-testing/q66-s-vs-sigma.php", "title": "s vs sigma - which spread the test statistic uses when sigma is known, and what s is for", "points": 7, "qid": null },
+    { "slot": 12, "file_path": "questions/stats-tests/hypothesis-testing/q67-sampling-distribution-under-h0.php", "title": "The Sampling Distribution under H0 - the standard error, and the normal curve centered at the null value", "points": 7, "qid": null },
+    { "slot": 13, "file_path": "questions/stats-tests/hypothesis-testing/pre-frq-grade-a-pvalue-interpretation.php", "title": "Pre-FRQ Grade a P-Value Interpretation - the scenario and grading checklist of the single-mean interpreting-p-value FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}

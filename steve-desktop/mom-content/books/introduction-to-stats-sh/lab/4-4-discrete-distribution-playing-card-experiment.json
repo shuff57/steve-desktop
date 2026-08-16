@@ -1,0 +1,21 @@
+{
+  "name": "4.4 Discrete Distribution (Playing Card Experiment) - Lab",
+  "book": "introduction-to-stats-sh",
+  "kind": "lab",
+  "slug": "4-4-discrete-distribution-playing-card-experiment",
+  "_note": "Built 2026-08-11. All ten authored fresh (lab kind, first lab manifest in the -SH book): q12-theoretical-probability, q13-with-vs-without-replacement, q14-empirical-rf, q15-empirical-mean, q16-empirical-sd, q17-theoretical-pdf, q18-theoretical-mean-sd, q19-theoretical-probs, q20-expected-count, pre-frq-grade-a-lab-comparison. Points 10x10 = 100. BookSHelf 4.4 is a lab: draw 10 cards with replacement, compare empirical to theoretical X~B(10,0.25). The MOM assignment checks the theoretical half (fixed) and gives the section's own 30-group dataset (2,5,9,7,4,2,1) for the empirical half, so every answer is deterministic. Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories State the Theoretical Value (3) / State the Empirical Value (3) / Compare and Explain the Gap (4), dropped category STATE THE THEORETICAL VALUE.",
+  "target": { "cid": "334437", "aid": "23444251" },
+  "created_at": "2026-08-11",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/binomial/q12-theoretical-probability.php", "title": "The Theoretical Probability - P(diamond) = 13/52 and X ~ B(10, 0.25)", "points": 10, "qid": "1878114" },
+    { "slot": 2, "file_path": "questions/probability/binomial/q13-with-vs-without-replacement.php", "title": "With Replacement or Without - the two-draw probability both ways", "points": 10, "qid": "1878116" },
+    { "slot": 3, "file_path": "questions/probability/binomial/q14-empirical-rf.php", "title": "Empirical Relative Frequencies - RF(x = 2) and RF(x = 3) from the class data", "points": 10, "qid": "1878117" },
+    { "slot": 4, "file_path": "questions/probability/binomial/q15-empirical-mean.php", "title": "The Empirical Mean - x-bar of the 30-group class data", "points": 10, "qid": "1878118" },
+    { "slot": 5, "file_path": "questions/probability/binomial/q16-empirical-sd.php", "title": "The Empirical Standard Deviation - s of the 30-group class data", "points": 10, "qid": "1878119" },
+    { "slot": 6, "file_path": "questions/probability/binomial/q17-theoretical-pdf.php", "title": "The Theoretical PDF - P(X = 2) and P(X = 0) from the binomial formula", "points": 10, "qid": "1878120" },
+    { "slot": 7, "file_path": "questions/probability/binomial/q18-theoretical-mean-sd.php", "title": "The Theoretical Mean and SD - mu = np and sigma = sqrt(npq)", "points": 10, "qid": "1878121" },
+    { "slot": 8, "file_path": "questions/probability/binomial/q19-theoretical-probs.php", "title": "Theoretical Probabilities - P(1 < x < 4) and P(x >= 8)", "points": 10, "qid": "1878122" },
+    { "slot": 9, "file_path": "questions/probability/binomial/q20-expected-count.php", "title": "The Expected Count - 30 times P(X = 2) against the observed 9", "points": 10, "qid": "1878123" },
+    { "slot": 10, "file_path": "questions/probability/binomial/pre-frq-grade-a-lab-comparison.php", "title": "Pre-FRQ Grade a Lab Comparison - a theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 10, "qid": "1878125" }
+  ]
+}

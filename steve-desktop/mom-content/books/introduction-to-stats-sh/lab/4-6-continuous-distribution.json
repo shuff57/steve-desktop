@@ -1,0 +1,21 @@
+{
+  "name": "4.6 Continuous Distribution - Lab",
+  "book": "introduction-to-stats-sh",
+  "kind": "lab",
+  "slug": "4-6-continuous-distribution",
+  "_note": "Built 2026-08-11. All ten authored fresh (lab kind): q10-uniform-theoretical, q11-uniform-quartiles-theoretical, q12-pilot-median-quartiles, q13-pilot-mean, q14-pilot-sd, q15-bar-widths, q16-fences, q17-compare-pilot, q18-500-vs-50, pre-frq-grade-a-uniform-lab-comparison. Points 10x10 = 100. BookSHelf 4.6 is a lab: generate 50 values from U(0,1), compare empirical to theoretical. The MOM assignment checks the theoretical half (fixed: mu=0.5, sigma~0.2887, Q1=0.25, median=0.5, Q3=0.75, fences -0.5/1.5) and gives the section's own 12-value pilot dataset (0.0412..0.9564) for the empirical half, so every answer is deterministic. Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories State the Theoretical Value (3) / State the Empirical Value (3) / Compare and Explain the Gap (4), dropped category STATE THE THEORETICAL VALUE — deliberately the same as the 4.4 lab pre-FRQ's dropped category, because the two labs are a matched pair teaching the same empirical-vs-theoretical lesson.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-11",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/uniform/q10-uniform-theoretical.php", "title": "The Theoretical Mean and SD of U(0,1) - mu = 0.5 and sigma = sqrt(1/12)", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/probability/uniform/q11-uniform-quartiles-theoretical.php", "title": "The Theoretical Quartiles of U(0,1) - Q1 = 0.25, median = 0.5, Q3 = 0.75", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/probability/uniform/q12-pilot-median-quartiles.php", "title": "The Pilot Median and Quartiles - locations in the sorted 12-value dataset", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/probability/uniform/q13-pilot-mean.php", "title": "The Pilot Mean - x-bar of the 12-value dataset", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/probability/uniform/q14-pilot-sd.php", "title": "The Pilot Standard Deviation - s of the 12-value dataset", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/probability/uniform/q15-bar-widths.php", "title": "Bar Widths and Expected Counts - 8 bars over [0,1] for 50 values", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/probability/uniform/q16-fences.php", "title": "The Outlier Fences - Q1 - 1.5(IQR) and Q3 + 1.5(IQR) for U(0,1)", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/probability/uniform/q17-compare-pilot.php", "title": "Compare the Pilot to the Theory - the IQR and the two quartile gaps", "points": 10, "qid": null },
+    { "slot": 9, "file_path": "questions/probability/uniform/q18-500-vs-50.php", "title": "500 Values Instead of 50 - which column changes and the new expected count", "points": 10, "qid": null },
+    { "slot": 10, "file_path": "questions/probability/uniform/pre-frq-grade-a-uniform-lab-comparison.php", "title": "Pre-FRQ Grade a Uniform Lab Comparison - a theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 10, "qid": null }
+  ]
+}

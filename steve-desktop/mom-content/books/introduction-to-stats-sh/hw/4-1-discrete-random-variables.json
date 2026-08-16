@@ -1,0 +1,23 @@
+{
+  "name": "4.1 Discrete Random Variables and Probability Distributions",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "4-1-discrete-random-variables",
+  "_note": "Built 2026-08-11. Five reuses (q22, q3-ev-fill-missing-prob, q4-ev-discrete-rv, q5-ev-game-of-chance-2, q2-ev-insurance — all health=ok, never filed) plus six authored (q1-define-random-variable, q2-legitimacy-check, q3-read-probabilities-from-table, q4-build-pdf-from-description, q5-read-less-than-probabilities, pre-frq-grade-an-ev-decision) = eleven. Points 5x10 + 7 + 8 + 8 + 8 + 7 + 12 = 100. BookSHelf 4.1 is the PDF-of-a-discrete-RV section (define the variable, two legitimacy characteristics, read P(x=k)/P(x>k)/P(x>=k)/P(x<k)/P(x<=k), build a table from a description); EV is in the problem set and covered by the reuses. q5-read-less-than-probabilities added 2026-08-11 for the strict-vs-inclusive reading (problem set 4.1.16/17). Pre-FRQ mirrors frq/probability/q1-expected-value-decision.php; dropped category is STATE THE VALUES AND PROBABILITIES (mirror's first rubric line — a plausible answer shows the arithmetic and the decision without ever listing X and P(X) separately). Pre-FRQ is authored first and defines the shape.",
+  "target": { "cid": "334437", "aid": 23435537 },
+  "created_at": "2026-08-11",
+  "_pushed": "PUSHED 2026-08-14 as aid 23435537 in the master 334437. All 11 questions filed, attached, points set (5x10 + 7 + 8x3 + 7 + 12 = 100), and every one answered in Teacher Preview: header read 102/100 (the 2% bonus), Answered 11/11. During the push two bank defects were found and fixed at the source then re-saved: q1-define-random-variable.php's control had $scenario referenced before $scenarios was defined (empty scenario in render), and q2-legitimacy-check.php's $validChoices array was inverted (legit tables keyed 'No', broken ones 'Yes'). Both fixed in the .php and re-pushed to their qsetids.",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/q22-expected-value-of-discrete-rv.php", "title": "Expected Value - Confirm probabilities sum to 1, compute E(X) and E(X^2) for a discrete random variable", "points": 10, "qid": "1877030" },
+    { "slot": 2, "file_path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php", "title": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)", "points": 10, "qid": "1877031" },
+    { "slot": 3, "file_path": "questions/probability/expected-value/q4-ev-discrete-rv.php", "title": "Expected Value - Verify valid probability distribution, compute E(X)", "points": 10, "qid": "1877032" },
+    { "slot": 4, "file_path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php", "title": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair", "points": 10, "qid": "1877033" },
+    { "slot": 5, "file_path": "questions/probability/expected-value/q2-ev-insurance.php", "title": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy", "points": 10, "qid": "1877034" },
+    { "slot": 6, "file_path": "questions/probability/expected-value/q1-define-random-variable.php", "title": "Define the Random Variable - Name X and list the values it can take in a described situation", "points": 7, "qid": "1877035" },
+    { "slot": 7, "file_path": "questions/probability/expected-value/q2-legitimacy-check.php", "title": "Legitimate Distribution Check - Apply the two characteristics to a candidate table", "points": 8, "qid": "1877036" },
+    { "slot": 8, "file_path": "questions/probability/expected-value/q3-read-probabilities-from-table.php", "title": "Read Probabilities off a Distribution Table - P(x = k), P(x > k) and P(x >= k) as row sums", "points": 8, "qid": "1877037" },
+    { "slot": 9, "file_path": "questions/probability/expected-value/q4-build-pdf-from-description.php", "title": "Build a PDF Table from a Description - recover the buried probability, then compute E(X)", "points": 8, "qid": "1877038" },
+    { "slot": 10, "file_path": "questions/probability/expected-value/q5-read-less-than-probabilities.php", "title": "Read Less-Than Probabilities off a Distribution Table - P(x < k) and P(x <= k) as row sums", "points": 7, "qid": "1877039" },
+    { "slot": 11, "file_path": "questions/probability/expected-value/pre-frq-grade-an-ev-decision.php", "title": "Pre-FRQ Grade an EV Decision - the scenario and grading checklist of the expected-value FRQ, but the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": "1877040" }
+  ]
+}

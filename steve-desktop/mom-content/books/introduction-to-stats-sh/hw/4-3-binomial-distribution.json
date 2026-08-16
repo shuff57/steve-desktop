@@ -1,0 +1,24 @@
+{
+  "name": "4.3 Binomial Distribution",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "4-3-binomial-distribution",
+  "_note": "Built 2026-08-11. All twelve authored fresh (the bank had zero binomial files): q1-binomial-conditions, q2-binomial-notation, q3-binomial-exact-prob, q4-binomial-at-most, q5-binomial-at-least, q6-binomial-mean-sd, q7-binomial-translate, q8-not-binomial, q9-binomial-compare-outcomes, q10-binomial-greater-than, q11-binomial-or-not, pre-frq-grade-a-binomial-setup. Points 7+7+9+8+8+8+7+8+10+8+8+12 = 100. BookSHelf 4.3 is the binomial distribution: three conditions, X~B(n,p), the formula P(X=x)=C(n,x)p^x q^(n-x), mu=np and sigma=sqrt(npq), translating at least/at most/more than/less than, and the without-replacement tell. q10 (P(X>k) via complement) and q11 (mixed binomial-or-not classification) added 2026-08-11 for the section's problem set 4.3.7/4.3.20 and the When-an-Experiment-Is-Not-Binomial section. Pre-FRQ is authored-first (no binomial FRQ to mirror): categories Name the Parameters (2) / State the Probability Question (5) / Compute and Interpret (5), dropped category NAME THE PARAMETERS.",
+  "target": { "cid": "334437", "aid": 23438245 },
+  "created_at": "2026-08-11",
+  "_pushed": "PUSHED 2026-08-14 as aid 23438245 in the master 334437. All twelve filed (1877073-1877085), points set (7+7+9+8+8+8+7+8+10+8+8+12 = 100), every question answered in Teacher Preview: header read 102/100, Answered 12/12.",
+  "questions": [
+    { "slot": 1, "file_path": "questions/probability/binomial/q1-binomial-conditions.php", "title": "Binomial Conditions - test a described experiment against the three conditions", "points": 7, "qid": "1877073" },
+    { "slot": 2, "file_path": "questions/probability/binomial/q2-binomial-notation.php", "title": "Binomial Notation - read n, p and q from a scenario and write X ~ B(n, p)", "points": 7, "qid": "1877074" },
+    { "slot": 3, "file_path": "questions/probability/binomial/q3-binomial-exact-prob.php", "title": "Binomial Exact Probability - P(X = k) by the formula", "points": 9, "qid": "1877075" },
+    { "slot": 4, "file_path": "questions/probability/binomial/q4-binomial-at-most.php", "title": "Binomial At Most - P(X <= k) as a running total", "points": 8, "qid": "1877076" },
+    { "slot": 5, "file_path": "questions/probability/binomial/q5-binomial-at-least.php", "title": "Binomial At Least - P(X >= k) via the complement", "points": 8, "qid": "1877077" },
+    { "slot": 6, "file_path": "questions/probability/binomial/q6-binomial-mean-sd.php", "title": "Binomial Mean and Standard Deviation - mu = np and sigma = sqrt(npq)", "points": 8, "qid": "1877078" },
+    { "slot": 7, "file_path": "questions/probability/binomial/q7-binomial-translate.php", "title": "Translate Binomial Phrases - which inequality does the English ask for", "points": 7, "qid": "1877080" },
+    { "slot": 8, "file_path": "questions/probability/binomial/q8-not-binomial.php", "title": "When an Experiment Is Not Binomial - without replacement breaks independence", "points": 8, "qid": "1877081" },
+    { "slot": 9, "file_path": "questions/probability/binomial/q9-binomial-compare-outcomes.php", "title": "Which Outcome Is More Likely - the value nearer the mean wins", "points": 10, "qid": "1877082" },
+    { "slot": 10, "file_path": "questions/probability/binomial/q10-binomial-greater-than.php", "title": "Binomial Greater Than - P(X > k) as the complement of P(X <= k)", "points": 8, "qid": "1877083" },
+    { "slot": 11, "file_path": "questions/probability/binomial/q11-binomial-or-not.php", "title": "Binomial or Not - classify each described experiment", "points": 8, "qid": "1877084" },
+    { "slot": 12, "file_path": "questions/probability/binomial/pre-frq-grade-a-binomial-setup.php", "title": "Pre-FRQ Grade a Binomial Setup - a binomial scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": "1877085" }
+  ]
+}

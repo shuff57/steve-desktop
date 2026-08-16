@@ -1,0 +1,21 @@
+{
+  "name": "7.2 A Single Population Mean using the Student t Distribution",
+  "book": "introduction-to-stats-sh",
+  "kind": "hw",
+  "slug": "7-2-a-single-population-mean-using-the-student-t-distribution",
+  "_note": "Built 2026-08-12. Two reuses (q4-ci-mean-t, q6-ci-mean-t-story - both health=ok, never filed) plus eight authored (q14-degrees-of-freedom, q15-t-vs-z, q16-t-critical-value, q17-t-interval-mean, q18-t-interval-interpret, q19-raw-data-to-interval, q20-t-width-dials, pre-frq-grade-a-t-interval) = ten. Points 10+10+10+10+10+10+10+9+9+12 = 100. BookSHelf 7.2 is the confidence interval for a population mean when sigma is unknown: the Student t-distribution, degrees of freedom n-1, the t-score, EBM = t_(alpha/2)*s/sqrt(n), the interval, and the interpretation. Pre-FRQ mirrors frq/inference-for-means/q3-single-mean-interpreting-confidence-interval.php; dropped category is ASSESSING THE CLAIM (the mirror's third rubric line - a plausible answer interprets the interval and explains the confidence level without ever checking whether a claimed value falls inside it). This is deliberately DIFFERENT from 7.1's pre-FRQ drop (Confidence Level Meaning) - the two pre-FRQs must not teach the same lesson.",
+  "target": { "cid": "334437", "aid": null },
+  "created_at": "2026-08-12",
+  "questions": [
+    { "slot": 1, "file_path": "questions/stats-tests/confidence-intervals/q4-ci-mean-t.php", "title": "Construct a confidence interval for a population mean (sigma unknown, t-distribution) with randomized story contexts", "points": 10, "qid": null },
+    { "slot": 2, "file_path": "questions/stats-tests/confidence-intervals/q6-ci-mean-t-story.php", "title": "CI for One Mean (t) with Story Context - compute a t-interval from a story scenario, then interpret the interval and the meaning of confidence", "points": 10, "qid": null },
+    { "slot": 3, "file_path": "questions/stats-tests/confidence-intervals/q14-degrees-of-freedom.php", "title": "Degrees of Freedom - df = n - 1 and why", "points": 10, "qid": null },
+    { "slot": 4, "file_path": "questions/stats-tests/confidence-intervals/q15-t-vs-z.php", "title": "The t vs z Critical Values - why the t-value is larger", "points": 10, "qid": null },
+    { "slot": 5, "file_path": "questions/stats-tests/confidence-intervals/q16-t-critical-value.php", "title": "The t Critical Value - t_(alpha/2) for a stated confidence level, and the area to feed invT", "points": 10, "qid": null },
+    { "slot": 6, "file_path": "questions/stats-tests/confidence-intervals/q17-t-interval-mean.php", "title": "The t-Interval for a Mean - SE, EBM, and the upper endpoint when sigma is unknown", "points": 10, "qid": null },
+    { "slot": 7, "file_path": "questions/stats-tests/confidence-intervals/q18-t-interval-interpret.php", "title": "Interpret the t-Interval - the sentence, the level's meaning, and the wrong reading", "points": 10, "qid": null },
+    { "slot": 8, "file_path": "questions/stats-tests/confidence-intervals/q19-raw-data-to-interval.php", "title": "Raw Data to a t-Interval - bar(x), s, and the upper endpoint from a list", "points": 9, "qid": null },
+    { "slot": 9, "file_path": "questions/stats-tests/confidence-intervals/q20-t-width-dials.php", "title": "The t-Interval Width Dials - confidence level, sample size, and the EBM at 4n", "points": 9, "qid": null },
+    { "slot": 10, "file_path": "questions/stats-tests/confidence-intervals/pre-frq-grade-a-t-interval.php", "title": "Pre-FRQ Grade a t-Interval - the scenario and grading checklist of the single-mean CI FRQ, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": null }
+  ]
+}
