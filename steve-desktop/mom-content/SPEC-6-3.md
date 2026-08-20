@@ -1,5 +1,8 @@
 # SPEC — §6.3 Using the Central Limit Theorem (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/sampling-distributions/` (read
 `q4-x-bar-probability.php`, `q5-clt-single-vs-sample.php` and `q2-x-bar-conditions.php` first —
 the family pattern — plus `questions/sampling-distributions/AGENTS.md` and

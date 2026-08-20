@@ -1,5 +1,8 @@
 # SPEC — §8.6 Hypothesis Testing of a Single Mean and Single Proportion (Intro Stats -SH) — LAB
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **eleven** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (read `q16-full-ht-one-mean-fresh.php` and `q8-ht-one-proportion.php` first — the z/t and
 proportion machinery — plus `questions/stats-tests/AGENTS.md`, `questions/probability/AGENTS.md`

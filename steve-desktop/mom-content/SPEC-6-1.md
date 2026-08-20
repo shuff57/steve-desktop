@@ -1,5 +1,8 @@
 # SPEC — §6.1 The Central Limit Theorem for Sample Means (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **six** IMathAS question files into `mom-content/questions/sampling-distributions/` (the
 files already there are the pattern — **read `q2-x-bar-conditions.php`, `q4-x-bar-probability.php`
 and `q5-clt-single-vs-sample.php` before starting**, plus `questions/sampling-distributions/AGENTS.md`

@@ -1,5 +1,8 @@
 # SPEC — re-file corrected question sources into their EXISTING library ids
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 49 question sources were repaired today (two rendering defect classes, both confirmed visible to
 students). MOM still holds the **old, broken** versions of the ones already filed. This task pushes
 the corrected code back.

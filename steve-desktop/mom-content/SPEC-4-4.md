@@ -1,5 +1,8 @@
 # SPEC — §4.4 Discrete Distribution (Playing Card Experiment) — LAB (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/probability/binomial/` (the
 4.3 files are the pattern — read `q3-binomial-exact-prob.php`, `q6-binomial-mean-sd.php` and
 `q5-binomial-at-least.php` first; also read `questions/probability/AGENTS.md` and

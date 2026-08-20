@@ -1,5 +1,8 @@
 # SPEC — §8.5 Additional Information and Full Hypothesis Test Examples (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **twelve** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (the files already there are the pattern — **read `q7-ht-one-mean.php`,
 `q8-ht-one-proportion.php` and `q17-full-ht-one-mean-fresh-2.php` before starting**, plus

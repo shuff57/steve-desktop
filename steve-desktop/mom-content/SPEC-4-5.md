@@ -1,5 +1,8 @@
 # SPEC — §4.5 Continuous Probability Functions (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/probability/uniform/` (new
 folder — read `questions/probability/AGENTS.md` and `questions/probability/expected-value/AGENTS.md`
 first for the family conventions: white-card UI, blue-chip part labels, `jointrandfrom` parallel

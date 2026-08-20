@@ -1,5 +1,8 @@
 # SPEC — Register Integrated Math 3 (MOM course 285887)
 
+**Book:** integrated-math-3
+**Skill:** mom-transfer
+
 Read a live MyOpenMath course and write down what is in it.
 
 **This is a READ-ONLY survey of MyOpenMath.** You create nothing in MOM, you edit nothing in MOM,

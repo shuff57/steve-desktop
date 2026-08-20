@@ -1,5 +1,8 @@
 # SPEC — §4.1 Probability Distribution Function for a Discrete Random Variable (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **five** IMathAS question files into `mom-content/questions/probability/expected-value/`
 (the files already there are the pattern to copy — **read `q4-ev-discrete-rv.php`,
 `q3-ev-fill-missing-prob.php` and `q22-expected-value-of-discrete-rv.php` before starting**, plus

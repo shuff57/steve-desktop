@@ -1,5 +1,8 @@
 # SPEC — repair 5.2: the section markers were filed into the question fields
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 **Gate result on 5.2 (aid 23444258): FAILED.** The push is otherwise good — 10 filed, attached in
 slot order, points exactly 100, qtype `multipart` on all 10, no duplicates, manifest and library
 written. One defect, and it is student-visible on every question.

@@ -1,5 +1,8 @@
 # SPEC — finish Chapter 5 in the master course 334437
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 Three assignments. **5.1 is already pushed** and needs only its final verification; **5.2 and 5.3
 are empty and need the full push.** Every question `.php` already exists and every manifest is
 complete — this is not authoring.

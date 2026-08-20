@@ -1,5 +1,8 @@
 # SPEC — push 5.3 into its existing empty assessment (PHASE 1: file, attach, points)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 **Phase 1 only. Do NOT answer questions or verify grading — that is a separate task.** Runs here get
 killed on elapsed budget, so this is deliberately half a push.
 

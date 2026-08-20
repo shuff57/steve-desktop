@@ -1,5 +1,8 @@
 # SPEC — §8.3 Probability Distribution Needed for Hypothesis Testing (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (the files already there are the pattern — **read `q16-full-ht-one-mean-fresh.php` and
 `q8-ht-one-proportion.php` before starting** — plus `questions/stats-tests/AGENTS.md` and

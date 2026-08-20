@@ -1,5 +1,8 @@
 # SPEC — §6.4 Central Limit Theorem (Pocket Change) — LAB (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/sampling-distributions/` (the
 6.1–6.3 files are the pattern — read `q4-x-bar-probability.php` and `q5-clt-single-vs-sample.php`
 first; also read `questions/sampling-distributions/AGENTS.md`, `questions/probability/AGENTS.md`

@@ -540,3 +540,29 @@ question renders AND grades correctly, so it subsumes the per-question checks.
   with an origin assert --
   `if (!/myopenmath\.com/.test(location.host)) return {abort:'wrong origin', host:location.host};`
   -- and treat a total of 0 as a bug in the sweep, not a finding about the course.
+- **An expired session returns the login page with HTTP 200.** Not 401, not 302 to a login URL --
+  a plain 200 carrying the login form. So `if (!r.ok) throw` never fires, `DOMParser` parses it
+  happily, and every selector finds nothing: an assessment sweep reports 0 assessments, a roster
+  check reports 0 students, a link audit reports no Book links. All clean, all well-formed, all
+  wrong. The tell is **byte-identical response lengths across two different `cid`s** (6799 bytes
+  for both 334437 and 339304, measured 2026-08-16). Assert on page CONTENT, never on status:
+  `/action=newuser|Forgot your password|Register as a new student/i` means logged out; the inverse
+  check is that a real course page contains `Course Messages` or `chgassessments2`. Re-authenticate
+  before drawing any conclusion from a sweep that came back empty.
+- **The roster is `listusers.php?cid=<id>`. There is no `roster.php` -- it 404s.** A sweep that
+  guesses the filename parses the 404 body, finds no user links, and reports **0 students for every
+  course** -- including ones known to hold ~27 and ~29. Nothing errors. Same failure family as the
+  two above; the sanity floor that catches it is "a uniform zero across courses I know are
+  non-empty is impossible", applied to the RESULT rather than to whether the call succeeded. Take
+  the URL off the course page's own nav instead of guessing it.
+  Counting: student rows link out with `uid=`, so `new Set` over `a[href*="uid="]` is the count.
+  Measured 2026-08-16 -- Global 0, P3 27, P4 **0**, P7 29, with body sizes corroborating (~11.8KB
+  for the empty rosters vs ~27-28KB for the full ones). **Keep a known non-empty course in every
+  such sweep as a control**: it is what distinguishes "this course is empty" from "my parser is
+  broken", and the two are indistinguishable without it.
+
+> Three sweeps in one session returned confident, well-formed, entirely wrong answers: a relative
+> fetch against the wrong origin, a 404 parsed as data, and a 200 login page parsed as data. **None
+> was caught by the call reporting failure; every one was caught by asking whether the RESULT was
+> plausible.** Build the floor into the sweep -- an origin assert, a logged-out assert, and an
+> expected-range check on the count -- and return `{abort: ...}` rather than a number when one trips.

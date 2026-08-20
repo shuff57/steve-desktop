@@ -1,5 +1,8 @@
 # SPEC — repair QUESTION TEXT rendering defects, ONE BATCH
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 **Source repair only. Do not touch MyOpenMath. No browser. No pushing.**
 
 Work **only** the files listed in the batch file named in the launch note (e.g.

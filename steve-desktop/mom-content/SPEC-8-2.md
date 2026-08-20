@@ -1,5 +1,8 @@
 # SPEC — §8.2 Outcomes and the Type I and Type II Errors (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **eleven** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (the files already there are the pattern — **read `q11-type-i-ii-context.php`,
 `q9-reject-nuanced.php` and `q16-full-ht-one-mean-fresh.php` before starting**, plus

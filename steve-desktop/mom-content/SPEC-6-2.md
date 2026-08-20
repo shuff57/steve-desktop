@@ -1,5 +1,8 @@
 # SPEC — §6.2 The Central Limit Theorem for Sums (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/sampling-distributions/` (read
 `q4-x-bar-probability.php` and `q5-clt-single-vs-sample.php` first — the pattern for
 probability-with-standardization — plus `questions/sampling-distributions/AGENTS.md` and

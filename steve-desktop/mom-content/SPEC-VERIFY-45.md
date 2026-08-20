@@ -1,5 +1,8 @@
 # SPEC — confirm 4.5 actually grades
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 **One task. Small on purpose.** Four previous runs were killed on elapsed budget; the last died
 having read ten source files and touched nothing. So the answers are pre-extracted for you — **do
 not open the question sources.**

@@ -1,5 +1,8 @@
 # SPEC — §8.1 Null and Alternative Hypotheses (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **twelve** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (the files already there are the pattern — **read `q15-ho-ha-fresh-context.php`,
 `q6-null-alt-hypotheses.php` and `q16-full-ht-one-mean-fresh.php` before starting**, plus

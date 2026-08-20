@@ -1,5 +1,8 @@
 # SPEC — §5.3 Normal Distribution (Lap Times) — LAB (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/normal-distribution/` (the
 5.1/5.2 files are the pattern — read `q2-normal-probability.php`, `q3-inverse-normal-percentile.php`
 and `q1-z-score-compute.php` first; also read `questions/normal-distribution/AGENTS.md`,

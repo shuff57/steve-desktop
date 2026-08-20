@@ -1,5 +1,8 @@
 # SPEC — repair two source defect classes across the intro-stats-sh question bank
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 **Source repair only. Do NOT push, file, attach or touch MyOpenMath in this task.** Re-filing the
 corrected questions is a separate gated pass. No browser needed at all.
 

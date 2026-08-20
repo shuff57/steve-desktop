@@ -1,5 +1,8 @@
 # SPEC — push 3.5 Tree and Venn Diagrams into master course 334437
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 Read first, both in full:
 - `C:/Users/shuff/.claude/skills/mom-transfer/SKILL.md`
 - `C:/Users/shuff/Documents/GitHub/steve-desktop/steve-desktop/mom-content/reference/transfer-rules.md`

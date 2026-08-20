@@ -1,5 +1,8 @@
 # SPEC — §7.3 A Population Proportion (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/stats-tests/confidence-intervals/`
 (read `q2-ci-one-proportion.php` and `q5-ci-proportion-compute-interpret.php` first — the
 proportion pattern — plus `questions/stats-tests/AGENTS.md` and `questions/probability/AGENTS.md`).

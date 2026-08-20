@@ -1,5 +1,8 @@
 # SPEC — §4.2 Mean or Expected Value and Standard Deviation (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **six** IMathAS question files into `mom-content/questions/probability/expected-value/`
 (read `q5-ev-game-of-chance-2.php`, `q3-ev-fill-missing-prob.php`, `q2-ev-insurance.php` and
 `q22-expected-value-of-discrete-rv.php` first — the four reused files carry the section's EV core

@@ -1,5 +1,8 @@
 # SPEC — §5.1 The Standard Normal Distribution (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **eight** IMathAS question files into `mom-content/questions/normal-distribution/` (the
 files already there are the pattern — **read `q1-z-score-compute.php`, `q4-empirical-rule.php`
 and `q2-normal-probability.php` before starting**, plus `questions/normal-distribution/AGENTS.md`

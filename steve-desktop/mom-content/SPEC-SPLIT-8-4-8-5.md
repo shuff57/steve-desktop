@@ -1,5 +1,8 @@
 # SPEC — split the merged 8.4+8.5 assessment into two
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 Steve's decision, 2026-08-16: **split.** The master course scaffold merged §8.4 and §8.5 into one
 assessment before the questions existed — a planning guess. The repo now holds two complete,
 balanced 100-point assignments, and merging would mean discarding roughly half the authored work.

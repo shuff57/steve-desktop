@@ -1,5 +1,8 @@
 # SPEC — verify 4.5 actually grades, then push 5.3
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-transfer
+
 Two tasks. Do **Task A first and report**, then Task B.
 
 Drive Playwright over CDP `http://127.0.0.1:9223` via

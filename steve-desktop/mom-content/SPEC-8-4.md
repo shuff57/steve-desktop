@@ -1,5 +1,8 @@
 # SPEC — §8.4 Rare Events, the Sample, Decision and Conclusion (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **thirteen** IMathAS question files into `mom-content/questions/stats-tests/hypothesis-testing/`
 (the files already there are the pattern — **read `q5-pvalue-decision.php`,
 `q10-conclusion-in-context.php` and `q16-full-ht-one-mean-fresh.php` before starting**, plus

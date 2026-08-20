@@ -1,5 +1,8 @@
 # SPEC — §4.6 Continuous Distribution — LAB (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/probability/uniform/` (the
 4.5 files are the pattern — read `q6-uniform-mean-sd.php`, `q7-uniform-quartiles.php` and
 `q4-complement-tail.php` first; also read `questions/probability/AGENTS.md` and

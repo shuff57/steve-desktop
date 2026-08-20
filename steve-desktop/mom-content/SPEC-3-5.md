@@ -1,5 +1,8 @@
 # SPEC — the six remaining questions for 3.5 Tree and Venn Diagrams
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write six IMathAS question files into `mom-content/questions/probability/`. Four of the section's ten
 already exist and are the pattern to copy — **read `q31`, `q32`, `q33` and `q34` in that directory
 before starting.** They establish the file shape, the inline-SVG approach and the solution-guide

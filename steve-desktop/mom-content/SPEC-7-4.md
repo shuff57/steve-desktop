@@ -1,5 +1,8 @@
 # SPEC — §7.4 Confidence Interval (Home Costs) — LAB (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/stats-tests/confidence-intervals/`
 (read `q4-ci-mean-t.php` and `q6-ci-mean-t-story.php` first — the t-interval pattern — plus
 `questions/stats-tests/AGENTS.md`, `questions/probability/AGENTS.md` and

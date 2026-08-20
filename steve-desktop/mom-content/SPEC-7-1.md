@@ -1,5 +1,8 @@
 # SPEC — §7.1 A Single Population Mean using the Normal Distribution (Intro Stats -SH)
 
+**Book:** introduction-to-stats-sh
+**Skill:** mom-question
+
 Write **ten** IMathAS question files into `mom-content/questions/stats-tests/confidence-intervals/`
 (the files already there are the pattern — **read `q4-ci-mean-t.php`, `q5-ci-proportion-compute-interpret.php`
 and `q6-ci-mean-t-story.php` before starting**, plus `questions/stats-tests/AGENTS.md` and
