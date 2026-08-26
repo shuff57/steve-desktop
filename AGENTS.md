@@ -28,6 +28,32 @@ report the measurements and let the reviewer call it.
 
 Full protocol: `~/.config/opencode/AGENTS.md`.
 
+## 0.5) "What do we resume?" — the inbox is the hub. Read, don't ask.
+
+The message center (`.msgbox/`) is the single hub for state between agents AND sessions — a work
+order, a progress report, a half-finished task's next step all live there, not in the user's head.
+
+When a fresh session is asked "what do we resume / pick up on / continue / what's the state" —
+or when you simply need where the work stands — answer from the log, never with a question back:
+
+```
+node C:/Users/shuff/.claude/bin/msg.mjs read --as opencode    # your inbox (work orders, latest asks)
+node C:/Users/shuff/.claude/bin/msg.mjs log --n 20           # the thread tail, read-only
+```
+
+Then state what is done, what is next, and act on the latest work order. Replying "what were we
+doing?" is the same silent failure class as the no-inbox dead end: it looks like a completed
+answer and does no work.
+
+Write-side: a session that ends with loose ends posts a handoff summary for the next one —
+`send --from opencode --to claude --re last --text "..."` — so a fresh session of EITHER agent
+or a fresh conversation can pick up without this one. The log is shared; only the inbox cursor
+is per-agent, and every message is addressed to an agent so `read` stays one-sided.
+
+The log self-trims past 400 lines (keeps the newest 30, never drops an unread message or a
+claim/release event; cursors recalibrate automatically). `prune --dry-run` previews the trim;
+ids are positional, so thread with `--re last`.
+
 ## 1) Agent Identity
 
 - You are working inside **S.T.E.V.E** — a video watching automation tool (Sitting Through Every Video Entirely).
