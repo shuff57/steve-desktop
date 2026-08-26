@@ -2646,6 +2646,7 @@ async fn mom_create_book_file(root: String, path: String, text: String) -> Resul
 /// silently is not there. Embedding makes "the binary exists" and "the skill exists" the same fact.
 const MOM_SKILL: &str = include_str!("../../skills/mom-question/SKILL.md");
 const MOM_TRANSFER_SKILL: &str = include_str!("../../skills/mom-transfer/SKILL.md");
+const ATTENDANCE_SKILL: &str = include_str!("../../skills/attendance/SKILL.md");
 
 /// Install the bundled skill into the user's Claude Code skills directory.
 ///
@@ -2661,6 +2662,7 @@ const MOM_TRANSFER_SKILL: &str = include_str!("../../skills/mom-transfer/SKILL.m
 fn install_mom_skill(app: &tauri::AppHandle) {
     install_bundled_skill(app, "mom-question", MOM_SKILL);
     install_bundled_skill(app, "mom-transfer", MOM_TRANSFER_SKILL);
+    install_bundled_skill(app, "attendance", ATTENDANCE_SKILL);
 }
 
 /// Write one embedded skill to `~/.claude/skills/<name>/SKILL.md`.
