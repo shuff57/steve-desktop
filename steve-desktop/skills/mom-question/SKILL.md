@@ -250,6 +250,14 @@ writing one. The rules here govern CHOICE, which is where specs get written:
   students habitually skip; the table of used ones lives in the template. A repeat wastes a slot.
 - Naming: `questions/<family>/pre-frq-<verb>-a-<thing>.php`.
 
+**This is a stats pattern. IM1 and IM3 do not get pre-FRQs** (Steve's call). Those books carry no
+FRQs; instead every IM1/IM3 assignment takes one **find-the-mistake** question — a worked solution
+with one planted error that the student audits (wrong step, corrected value, the habit behind it).
+Same slot policy, shorter: last slot, 8–10 points. The pattern and traps are in
+`mom-content/reference/find-the-mistake-template.md`; naming is
+`questions/<family>/find-the-mistake-in-<topic>.php`. The example to copy is
+`questions/inequalities/find-the-mistake-in-linear-inequality.php`.
+
 ## Make the student BUILD the display, not pick one (Steve, 2026-08-09)
 
 For any question about a display — stemplot, line graph, bar graph, histogram, box plot — the
@@ -296,6 +304,9 @@ book, freeze the design in a spec file first — the 3.5 precedent: `mom-content
 (authoring) and `mom-content/SPEC-3-5-PUSH.md` (transfer).
 
 **`SPEC-{section}.md`** — the authoring spec. Write it before any question file does:
+- A `**Book:** <slug>` line (the `_books.json` slug, e.g. `introduction-to-stats-sh`,
+  `integrated-math-1`) and a `**Skill:** <name>` line (this skill or `mom-transfer`) directly under
+  the title, so the file self-identifies. Every existing SPEC carries both — keep the format.
 - Scope: directory, which existing files are the pattern to copy, what to read first.
 - Self-check: `node mom-content/reference/question-lint.mjs mom-content/questions` and what it
   checks, plus a seed-sweep requirement — a throwaway script looping every `rand()` combination
@@ -307,6 +318,8 @@ book, freeze the design in a spec file first — the 3.5 precedent: `mom-content
   writer could not perform — an honest short list beats six files where two were rushed.
 
 **`SPEC-{section}-PUSH.md`** — the transfer spec. Written before `mom-transfer` runs:
+- `**Book:** <slug>` and `**Skill:** mom-transfer` lines under the title (same convention as the
+  authoring spec).
 - Manifest path; whether points already sum to 100 (do not rebalance if they do).
 - Course settings: cid, kind, `copyfrom` template aid + unchecked flags, undated, order placement
   (after which aid), Book-link derivation, description extraction (`NAME - DESCRIPTION:` marker,

@@ -13,5 +13,15 @@
   },
   "created_at": "2026-08-16",
   "block": "0-7-5",
-  "questions": []
+  "questions": [
+    {
+      "slot": 1,
+      "file_path": "questions/inequalities/find-the-mistake-in-linear-inequality.php",
+      "title": "Find the Mistake in a Linear Inequality - A worked solution contains one error (the sign flip); identify the step, give the corrected solution, and name the habit",
+      "points": 8,
+      "qid": null,
+      "unbanked": true,
+      "qtype": "multipart"
+    }
+  ]
 }

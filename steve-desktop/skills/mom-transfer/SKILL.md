@@ -710,6 +710,14 @@ section, the pre-FRQ gets **written** — that is authoring work under the `mom-
 before the push, not a reason to ship an assignment without one. Check `questions/frq/` for a mirror
 first; say in the manifest `_note` which FRQ each pre-FRQ mirrors, or that one had to be authored.
 
+**Pre-FRQs are a stats pattern. IM1 and IM3 never carry one** (Steve's call): those books have no
+FRQs, so the audit question instead is a **find-the-mistake** item — a worked solution with one
+planted error; the student names the wrong step, gives the corrected value, and names the habit.
+One per IM1/IM3 assignment, last slot, 8–10 points, authored under `mom-question` per
+`mom-content/reference/find-the-mistake-template.md`. The worked example is
+`questions/inequalities/find-the-mistake-in-linear-inequality.php`. A find-the-mistake counts
+toward the ten-question floor like a pre-FRQ does.
+
 **Known backlog as of 2026-08-10** — 1.1, 1.2, 1.3, 1.4, 2.1, 2.2 and 2.4 have one each; **2.3, 2.5,
 2.6, 2.7, 3.1 and 3.3 have none.** Pre-FRQs were retrofitted onto the first seven in a later pass
 that never reached the rest, so this is an unfinished job rather than a set of deliberate omissions.

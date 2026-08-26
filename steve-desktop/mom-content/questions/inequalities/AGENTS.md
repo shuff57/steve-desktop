@@ -1,17 +1,18 @@
 # Inequalities Questions — Solving Linear Inequalities
 
 **Parent:** `../../AGENTS.md`
-**Files:** 1 autograded question covering solving a two-sided linear inequality with sign-flip awareness
+**Files:** 2 autograded questions covering solving a two-sided linear inequality with sign-flip awareness and auditing a worked solution for the sign-flip error
 
 ## OVERVIEW
 
-The inequalities family currently has one item: solving `ax + b <= cx + d` algebraically and identifying whether the solution direction flips. Six precomputed scenarios alternate between positive-coefficient (no flip) and negative-coefficient (flip) cases so students encounter the sign-flip rule half the time.
+The inequalities family has two items: solving `ax + b <= cx + d` algebraically and identifying whether the solution direction flips, and a find-the-mistake question where the student audits a worked solution that commits the sign-flip error. The latter is the IM1/IM3 replacement for the stats pre-FRQ — see `mom-content/reference/find-the-mistake-template.md`.
 
 ## QUESTION TYPES
 
 | File | Parts | Answer Types | Description |
 |------|-------|--------------|-------------|
 | `q1-solve-linear-inequality.php` | 2 | number, choices (select) | Boundary value and direction (x <= k or x >= k) for a randomized two-sided linear inequality |
+| `find-the-mistake-in-linear-inequality.php` | 3 | choices, choices, choices | A worked solution commits the sign flip; name the wrong step, pick the corrected inequality, name the habit |
 
 ## CONVENTIONS
 
@@ -20,6 +21,7 @@ The inequalities family currently has one item: solving `ax + b <= cx + d` algeb
 3. **Sign-flip callout.** When `$coeff_diff < 0`, the solution guide injects a yellow warning box (`background:#fff3cd; border-left:4px solid #f59e0b`) explaining the flip. This is built into `$flip_note` in CC.
 4. **Display helpers.** `$lhs` and `$rhs` are built with sign-handling (`$b >= 0` / `else abs($b)`) so the rendered inequality never shows `"+ -"`.
 5. **Solution guide.** `$solutionguide` uses the standard `.sol-wrap details/summary` collapsible with two algebraic steps plus the final result.
+6. **Find-the-mistake rule.** The find-the-mistake question must keep `(a - c) < 0` on every scenario (the planted error only exists when division flips the sign), must show exactly three steps with only Step 3 wrong, and the corrected solution in the guide must use the flipped direction.
 
 ## ADDING A NEW INEQUALITIES QUESTION
 
