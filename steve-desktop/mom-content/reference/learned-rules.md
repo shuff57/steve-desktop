@@ -236,3 +236,97 @@ cheap -- run all three before any push.
   perfectly live one** — measured 2026-08-16, which stopped a rename mid-task.
 - Test for the login form itself: `input[name=username]` present, a password field present, and no
   `Log Out` in the page text. `_push/mom.mjs` now does this.
+
+## Group/Individual Test due-times were wrong in 3 of 4 live sections (found and fixed 2026-08-21)
+
+- Audited every Group Test and Individual Test in the three live Stats teaching sections (period 3
+  `cid 339304`, period 4 `cid 334243`, period 7 `cid 339625`) against the rule in
+  `intro-stats-assessment-settings.md` / `bell-schedule-2026-27.md`: both should OPEN and CLOSE on
+  the SAME day, closing at period-end+7 (`11:47 am` regular, `12:01 pm` Wednesday, `10:44 am` on a
+  minimum day). **44 of the 72 tests were wrong** — periods 3 and 7 had chapters 1-5 closing at
+  period-START instead (the open/close times were identical) and spanning 2-6 calendar days instead
+  of one; period 4 had every chapter spanning multiple days, plus chapters 4-5 also reverted to
+  closing at period-start. Chapters 7+ in periods 3/7 were already correct, which is how the defect
+  was found — the pattern broke cleanly at one chapter and never got backfilled.
+- **The MyOpenMath course Calendar's Agenda view (`showcalendar.php?cid=`, `setcalview(1)` to switch
+  from month to agenda) is the fast way to read every assessment's due date+time in one page** —
+  far cheaper than opening `addassessment2.php` per assessment. But it is a DISPLAY, not proof: the
+  actual fix and its verification both went through the live settings form. Set the "Show N weeks"
+  select to its max option before switching views, or the agenda only covers ~4 weeks.
+- **Confirmed the write recipe from mom-transfer's Vue trap actually works on `sdate`/`edate`/
+  `stime`/`etime`**: use the native `HTMLInputElement.prototype.value` setter (not plain `.value =`,
+  which some Vue builds still pick up via property descriptor tricks — do it the documented way
+  anyway) then dispatch `input` and `change` with `{bubbles:true}`, then click the real
+  `input[type=submit]` "Save Changes" button. **Never trust the DOM state right after the click** —
+  it redirects to `course.php`. The only real proof is navigating back to
+  `addassessment2.php?id=<aid>&cid=<cid>` FRESH and reading the values off that reload. All 44
+  fixes were confirmed this way; 0 failed.
+- `_push/mom-live.mjs` and `_push/_audit-dates.mjs` are the reusable tools for this — connect to the
+  S.T.E.V.E Desktop app's own CDP port (not the standalone-Chrome `mom.mjs` on 9223) so the write
+  goes through the teacher's already-logged-in session, and never guess or hardcode a `cid`; read it
+  from `listClasses()`.
+
+## Term retime (2026-08-21) — period 7 whole-course block fix done; IM1 blocked
+
+- **Root cause of the period-7 defect above**: period 7's course (`cid 339625`) was carrying the
+  period 3/4 block's clock times (`10:11am` etc.) on every single assessment, not just tests — the
+  "retime pass" flagged as still-pending in `intro-stats-assessment-settings.md`'s 2026-08-02 note
+  had never been done. **Fixed and verified 2026-08-21: all 92 assessments now use the 7-or-8 block**
+  (`2:03/2:09pm` open regular/Wed, `3:39/3:37pm` test-close, `11:56am`/`1:03pm` on a minimum day).
+  `sdate`/`edate` were never touched — only `stime`/`etime`. Periods 3 and 4 were already on their
+  correct block (3-or-4) and needed no block correction, only the same-day/period-end+7 fix recorded
+  above.
+- **`bookSHelf` has authoritative per-course pacing calendars** — `projects/Introduction to
+  Stats/stats_course_schedule.md` (odd-day / even-day columns; period 3 & 7 = odd, period 4 = even —
+  confirmed by cross-checking against the live dates, which matched exactly) and `projects/Integrated
+  Math 1/im1_course_schedule.md` (period 6 = even only). Both already bake in the real 2026-27
+  holiday/break calendar — check these before ever computing dates by hand.
+- **Homework/lab due-date rule, from Steve directly**: due at the START of the NEXT time that exact
+  class period is in session — not a fixed +1 day. A Friday-opened homework in a period that doesn't
+  meet again until Tuesday is due Tuesday, at that day's period-start time. Rotation is simple A/B
+  alternation by school day (skip weekends/holidays, don't count them — matches the "closure doesn't
+  advance the odd/even counter" rule already stated in `stats_course_schedule.md`).
+- **Stats retime confirmed the existing chapter-to-date sequence is correct** — cross-checked several
+  live dates against `stats_course_schedule.md` and they matched exactly, so a stats retime only ever
+  needs a TIME correction (block/day-type), never a date recompute.
+- **IM1 (`cid 340140`, period 6) is NOT ready for the same treatment — stopped 2026-08-21, needs
+  Steve to reconcile first.** The live course carries 138 assessments and is a copy of an OLDER
+  curriculum, not a clean base:
+  - Past Chapter 3, the live course's chapter numbers do not match `im1_course_schedule.md`'s new
+    numbering — e.g. the calendar's Chapter 4 (Sequences) corresponds to a live assessment set
+    labeled "Chapter 5 & Chapter 8"; the calendar's Chapter 6 (Congruence) corresponds to live's
+    "Chapter 7". A title-fuzzy-match script would silently mis-date everything past Ch3.
+  - The live course also carries real cruft that must never get a 2026-27 date: `AAA Homework
+    Setting Master`, `AAA Practice Quiz`, `AAA Quiz Setting Master`, `demonstration`, `Sample
+    Questions`, `Chapter 3 Quiz (Spring 2020)`, `Exam 1/2/3 Practice`, and a parallel set of
+    old-numbering homeworks (`5.1`, `6.1`, `7.1`, `8.1`, `9.1`...) left over from a prior course
+    version.
+  - Even within the clean-looking Ch0-3 region, granularity does not match 1:1 — e.g. calendar's
+    single "1.5 Working with Exponents" day corresponds to TWO live homeworks ("Rewriting
+    Expressions with Exponents" + "Zero and Negative Exponents"). And Chapter 0 is missing its
+    Practice Test and Individual Test entirely — only a "Chapter 0 Group Quiz" exists.
+  - **Steve's call, 2026-08-21: fix the calendar/course mismatch first, then the reconciled calendar
+    becomes the one source of truth for assignments AND due dates** — not a job to resume by
+    guessing matches. Whoever picks this up next should start by reconciling
+    `im1_course_schedule.md` against the live `cid 340140` assessment list, not by writing a
+    fuzzy-matcher.
+- `_push/_audit-all.mjs` (whole-course, any assessment kind — used for the period 7 audit) and the
+  scratch computation scripts referenced in this session (not committed; rebuild from this recipe if
+  needed) are the pattern for any future retime: audit all → compute target sdate/stime/edate/etime
+  against the bookSHelf calendar → present the full diff for confirmation → apply in the same
+  generalized `_apply-fixes.mjs` (`stime`/`etime`-only for a block-time fix, `edate`/`etime`-only for
+  a same-day-close fix) → verify every write from a fresh page reload, never from the post-save DOM.
+
+## Period pairs 3&4, 5&6, 7&8 share one start/due TIME-OF-DAY (Steve, 2026-08-21)
+
+- This is a **block schedule** — Period 3 and Period 4 meet in the same daily time slot (10:11-11:40
+  regular, 10:33-11:54 Wednesday, 9:37-10:37 minimum day), likewise 5&6 and 7&8. So any course taught
+  in period 3 shares its class-time-of-day with whatever course is taught in period 4 that slot, and
+  the same for 5&6 and 7&8. See `bell-schedule-2026-27.md` for the full table.
+- Consequence: a due-date TIME rule (e.g. "period start", "period end +7 min") set for one course in
+  a pair is the same clock time for the other course in that pair — only the DATE can differ, driven
+  by each course's own syllabus/day. Which course sits in which period comes from that course's
+  syllabus (bookSHelf repo), not from anything in this repo.
+- This is still provisional, like `due_date_rule` in `assessment-presets.json` — it is scheduling
+  for Steve's not-yet-built term calendar, not something to apply to the undated master course
+  334437. Apply it at copy time, alongside the bell-schedule table.

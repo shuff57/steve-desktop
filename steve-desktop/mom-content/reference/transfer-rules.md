@@ -566,3 +566,63 @@ question renders AND grades correctly, so it subsumes the per-question checks.
 > was caught by the call reporting failure; every one was caught by asking whether the RESULT was
 > plausible.** Build the floor into the sweep -- an origin assert, a logged-out assert, and an
 > expected-range check on the count -- and return `{abort: ...}` rather than a number when one trips.
+
+## `assess/index.php?cid=` 404s — and the 404 reads as an empty course (2026-08-24)
+
+Filling the empty 1.3 in the three live Stats sections. The first recon reported
+**"expected exactly one 1.3, found 0"** for a course that had one all along.
+
+- `https://www.myopenmath.com/assess/index.php?cid=<cid>` returns Apache's **404 Not Found**
+  page. It is a normal 200-shaped navigation as far as Playwright is concerned, the
+  dead-session guard passes (no login form on it), and a scrape for
+  `a[href*="addassessment2.php?id="]` finds **zero links** — which is indistinguishable from a
+  course with no assessments. Nothing anywhere says "not found" unless you read `document.title`.
+- The working listing is `course/chgassessments2.php?cid=<cid>` (what `_audit-all.mjs` already
+  used): one checkbox per assessment, `value` = aid, label text = name. Filter to `/^\d{6,}$/` —
+  the mass-change panel contributes stray boxes valued `on` or a small integer.
+- **Every page in this area is under `/course/`, not `/assess/`**: `chgassessments2.php`,
+  `addassessment2.php`, `addquestions2.php`, `modquestion2.php`, `moddataset.php`. The
+  skill body writes them bare, which reads as `/assess/` if you have just come from `assess2/`.
+- `mom-live.mjs` carried the dead URL inside `readAssessmentDates()`. Now fixed: a new
+  exported `listAssessments(page, cid)` owns the listing and `readAssessmentDates` calls it.
+
+Recognise it by: a course you know is populated reporting zero assessments, or a named
+assessment "not found". Assert on `document.title` / body text before believing an empty list.
+
+## Attaching a filed assignment into a live teaching section (2026-08-24)
+
+`mom-transfer` says pushes go to the master and Steve copies into sections by hand. When a
+section's assessment stub exists but is **empty**, the cheap fix is not a delete-and-recopy:
+
+- An assessment does not contain questions, it **points at library ones**, so an empty stub is
+  not damaged — it is pointing at nothing. Attaching the master's own qsetids fills it with
+  literally the same library entries, not a copy that could drift.
+- Attaching is a plain GET per question:
+  `course/modquestion2.php?qsetid=<qid>&cid=<cid>&aid=<aid>&from=addq&process=true&usedef=true`
+- **Do not delete and re-copy from the master.** The master is deliberately undated, so the copy
+  would overwrite the section's real bell-schedule dates (the ones repaired 2026-08-21) with
+  nothing. Attaching never opens the settings form, so dates are untouched by construction.
+- Guard the write on `No Questions currently in assessment` — refuse to attach on top of
+  existing questions rather than silently doubling an assignment.
+- Content re-verification is NOT needed for questions already live and verified in the master:
+  same qsetid means same question, not a copy. What IS new per section is the attach and the
+  per-instance points, so verify those directly — re-read every `points` value from a fresh
+  navigation and assert the total.
+
+Done for 1.3 in period 3 (339304/23440092), period 4 (334243/23114376) and period 7
+(339625/23464599): 16 questions each, 15x6 + 1x10 = 100, all three rendering 16 questions in
+Teacher Preview with zero `Eeek!`, zero marker leak and zero literal `$vars`.
+
+## The three live sections are shells past 1.2 (measured 2026-08-24)
+
+Swept every assessment in all three for attached-question count:
+
+| section | cid | assessments | filled | empty |
+|---|---|---|---|---|
+| period 3 | 339304 | 92 | 4 | 88 |
+| period 4 | 334243 | 92 | 3 | 89 |
+| period 7 | 339625 | 92 | 3 | 89 |
+
+All 92 stubs exist in each, with dates and settings, and content was only ever filled for
+`Entering Answers`, 1.1 and 1.2 (period 3 also had 1.3 as of this run, before 4 and 7 were
+done). This is unfinished authoring, not a broken copy — the stub structure is fine everywhere.

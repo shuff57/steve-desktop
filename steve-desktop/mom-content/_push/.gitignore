@@ -5,6 +5,10 @@
 !.gitignore
 !README.md
 !mom.mjs
+!mom-live.mjs
+!_audit-dates.mjs
+!_audit-all.mjs
+!_apply-fixes.mjs
 !crib.mjs
 !qtext-audit.mjs
 !anstypes-audit.mjs
