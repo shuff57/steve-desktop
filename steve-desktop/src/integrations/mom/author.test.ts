@@ -18,6 +18,8 @@ import {
   MIN_SET,
   MAX_SET,
   REFERENCE_INDEX,
+  DEFAULT_AUTHOR_PREFS,
+  authorPrefsBlock,
 } from './author';
 import { MOM_DIALECT_RULES } from './revise';
 
@@ -126,6 +128,57 @@ describe('buildRepairPrompt', () => {
     expect(p).toContain('boom on line 12');
     expect(p).toMatch(/Re-read it from disk/i);
     expect(p).toContain(REFERENCE_INDEX);
+  });
+
+  it('carries the standing prefs on a cold repair', () => {
+    const p = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, [], false, 'answers take reduced fractions');
+    expect(p).toContain('STANDING PREFS');
+    expect(p).toContain('answers take reduced fractions');
+  });
+
+  it('rides the same resumed/cold wave as the rules', () => {
+    // A repair that continues the write session already carries the prefs from the write prompt,
+    // so restating them would re-litigate a rule that session is following. Same wave as RULES:.
+    const cold = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, [], false, 'numfunc everywhere');
+    const resumed = buildRepairPrompt(req.targetPath, ['x'], 2, ROOT, [], true, 'numfunc everywhere');
+    expect(cold).toContain('numfunc everywhere');
+    expect(resumed).not.toContain('numfunc everywhere');
+  });
+});
+
+describe('standing prefs', () => {
+  /** The default is engine truth, not aspiration: numfunc ignores answerformat fraction/decimal. */
+  it('defaults to numfunc for numeric blanks, with form enforced through $requiretimes', () => {
+    expect(DEFAULT_AUTHOR_PREFS).toMatch(/numfunc/);
+    expect(DEFAULT_AUTHOR_PREFS).toContain('$requiretimes');
+    expect(DEFAULT_AUTHOR_PREFS).toContain('regex:');
+  });
+
+  it('warns against the levers the engine ignores on numfunc', () => {
+    // Writing $answerformat = "fraction" on a numfunc part looks right and enforces nothing —
+    // the exact silent failure a standing pref exists to prevent.
+    expect(DEFAULT_AUTHOR_PREFS).toMatch(/Do not set \$answerformat/);
+    expect(DEFAULT_AUTHOR_PREFS).toMatch('calculated');
+  });
+
+  it('omits the block entirely when prefs are blank', () => {
+    expect(authorPrefsBlock('')).toBe('');
+    expect(authorPrefsBlock('   ')).toBe('');
+    expect(authorPrefsBlock(null)).toBe('');
+    expect(authorPrefsBlock(undefined)).toBe('');
+    expect(buildAuthorPrompt({ ...req, prefs: '' })).not.toContain('STANDING PREFS');
+    expect(buildAuthorPrompt(req)).not.toContain('STANDING PREFS');
+  });
+
+  it('labels the prefs as binding so they outrank the prompt defaults', () => {
+    const block = authorPrefsBlock('numeric blanks take reduced fractions');
+    expect(block).toMatch(/bind/i);
+    expect(block).toContain('numeric blanks take reduced fractions');
+  });
+
+  it('keeps the prefs verbatim in the write prompt, trimmed', () => {
+    const p = buildAuthorPrompt({ ...req, prefs: '  use 3 decimals  ' });
+    expect(p).toContain('use 3 decimals');
   });
 });
 
@@ -242,6 +295,12 @@ describe('buildSetPlanPrompt', () => {
     const p = buildSetPlanPrompt({ link: req.link, family: req.family, root: 'C:/mom-content' });
     expect(p).toMatch(/ONLY a JSON array/i);
     expect(p).toMatch(/Do NOT write any question files in this turn/i);
+  });
+
+  it('carries the standing prefs, because the plan decides the types', () => {
+    const p = buildSetPlanPrompt({ link: req.link, family: req.family, prefs: 'require 2 decimals via $requiretimes' });
+    expect(p).toContain('STANDING PREFS');
+    expect(p).toContain('require 2 decimals via $requiretimes');
   });
 
   it('tells the agent to read the section before planning', () => {

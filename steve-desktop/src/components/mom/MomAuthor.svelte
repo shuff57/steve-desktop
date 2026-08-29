@@ -31,6 +31,7 @@ import {
   type PlannedQuestion,
   type PlanView,
   type SetPlanMode,
+  DEFAULT_AUTHOR_PREFS,
 } from '../../integrations/mom/author';
   import { addQuestionToAssignment } from '../../integrations/mom/book-membership';
   import { createBook, createAssignment, assignmentPath, slugify } from '../../integrations/mom/create';
@@ -63,6 +64,8 @@ import {
   const PLAN_SETTING = 'mom_author_plan';
   /** Where finished questions get filed. Persisted for the same reason the plan is. */
   const DEST_SETTING = 'mom_author_dest';
+  /** Standing question-style preferences (the numfunc/fraction/decimal defaults and overrides). */
+  const PREFS_SETTING = 'mom_author_prefs';
 
   let {
     root,
@@ -228,6 +231,37 @@ import {
   let setError = $state<string | null>(null);
   let planMode = $state<'exercises' | 'invent'>('exercises');
 
+  /**
+   * Standing prefs, typed once in a plain textarea and sent with every write, plan and repair.
+   *
+   * The default is the engine truth (numfunc honors $requiretimes; fraction/decimal answerformats
+   * belong to calculated), because a pref the engine silently ignores teaches the writer an error.
+   * Persisted like the destination: set occasionally, survives remounts.
+   */
+  let prefs = $state(DEFAULT_AUTHOR_PREFS);
+  let prefsOpen = $state(false);
+  /** Guards the save effect until the stored value (or the default) has been restored. */
+  let prefsLoaded = $state(false);
+
+  async function loadPrefs() {
+    try {
+      const raw = await getSetting(PREFS_SETTING).catch(() => null);
+      if (raw !== null && raw !== undefined && raw.trim()) prefs = raw;
+    } finally {
+      prefsLoaded = true;
+    }
+  }
+
+  async function persistPrefs() {
+    await setSetting(PREFS_SETTING, prefs);
+  }
+
+  // Save on change, but only after the restore has run — same guard as the destination.
+  $effect(() => {
+    void prefs;
+    if (prefsLoaded) persistPrefs().catch(() => {});
+  });
+
   /** Persist the current plan so a refresh does not wipe it. */
   async function persistPlan() {
     if (!planned) {
@@ -385,6 +419,7 @@ import {
     if (root) {
       loadPlan();
       loadDest();
+      loadPrefs();
     }
   });
 
@@ -487,10 +522,10 @@ import {
     clearThread(viewKey);
     try {
       // The plan decides each question's TYPE, and the writer never sees anything but the brief —
-      // so the rules have to reach the planner, not just the writer.
+      // so the rules have to reach the planner, not just the writer. Prefs steer type too.
       learnedRules = await loadLearnedRules(root);
       const reply = await turn(
-        buildSetPlanPrompt({ link: link.trim(), family: family.trim(), root, mode: planMode, learned: learnedRules }),
+        buildSetPlanPrompt({ link: link.trim(), family: family.trim(), root, mode: planMode, learned: learnedRules, prefs }),
       );
       if (reply) log(reply, 'agent');
     const list = parseSetPlan(reply || '');
@@ -876,6 +911,7 @@ import {
           targetPath: path,
           root,
           learned: learnedRules,
+          prefs,
         }),
         session,
       );
@@ -933,9 +969,10 @@ import {
           return { ok: false, path };
         }
         // `session.started` doubles as "the rules are already in this conversation" — on a resumed
-        // turn the repair prompt drops them rather than restating twenty rules every round.
+        // turn the repair prompt drops them rather than restating twenty rules every round. The
+        // prefs ride the same wave: restated only on a cold repair.
         reply = await turn(
-          buildRepairPrompt(path, errors, localAttempts.length + 1, root, learnedRules, session.started),
+          buildRepairPrompt(path, errors, localAttempts.length + 1, root, learnedRules, session.started, prefs),
           session,
         );
         if (reply) log(reply, 'agent');
@@ -1180,6 +1217,26 @@ import {
     <!-- The detached "create" panel is gone: name, kind and Create now live in the field
          whose + opened them. Only the failure needs the full width. -->
     {#if createErr}<p class="bad wide">{createErr}</p>{/if}
+
+    <!-- Standing prefs: a one-time edit, collapsed to a one-line summary like the rest of
+         the strip. Open by default the first time, so the default rules are SEEEN, not shipped
+         silently — a pref that quietly differs from what the teacher wanted is worse than none. -->
+    <div class="field wide prefs-row">
+      <button class="aim-what as-button" title="Standing question-style preferences" onclick={() => (prefsOpen = !prefsOpen)}>
+        <span class="chev">{prefsOpen ? '▾' : '▸'}</span>
+        Standing prefs
+      </button>
+    </div>
+    {#if prefsOpen}
+      <textarea
+        class="wide prefs"
+        rows="6"
+        bind:value={prefs}
+        disabled={running}
+        spellcheck="false"
+        title="Sent with every write, plan and repair prompt"
+      ></textarea>
+    {/if}
     <p class="target wide" title={target}>{target || 'Set the MOM root first.'}</p>
   </div>
   {/if}
@@ -1306,6 +1363,9 @@ import {
   .field { display: flex; gap: 4px; align-items: flex-end; min-width: 0; }
   .field label { flex: 1; min-width: 0; }
   .field select, .field input { width: 100%; min-width: 0; box-sizing: border-box; }
+  .prefs-row { margin-top: 2px; }
+  .prefs { width: 100%; box-sizing: border-box; resize: vertical;
+           font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; line-height: 1.45; }
   .wide { grid-column: 1 / -1; }
   /* Scoped to the destination strip, and no longer shouting.
      As a bare `label` selector this styled EVERY label in the rail — it is what stacked

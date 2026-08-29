@@ -68,6 +68,8 @@ export interface AuthorRequest {
   root?: string;
   /** Rules the loop taught itself on earlier runs. Carried alongside the hand-written ones. */
   learned?: string[];
+  /** The teacher's standing preferences (question-style defaults), verbatim in the prompt. */
+  prefs?: string | null;
 }
 
 /**
@@ -154,6 +156,7 @@ export function buildAuthorPrompt(req: AuthorRequest): string {
     ...sources,
     'One question, not a set.',
     '',
+    authorPrefsBlock(req.prefs),
     'FORMAT — a MOM question file has these markers, in this order:',
     '  // === NAME - DESCRIPTION: <what the question assesses> ===',
     '  // === SET QUESTION TYPE TO: <number|choices|multipart> ===',
@@ -198,6 +201,51 @@ export interface PlannedQuestion {
 
 /** How the planner should derive the candidate questions from the supplied link. */
 export type SetPlanMode = 'exercises' | 'invent';
+
+/**
+ * Standing preferences the teacher sets once and every authoring prompt then carries.
+ *
+ * Keyed to how the MOM engine actually grades, checked against IMathAS source rather than the
+ * help docs: a `numfunc` part scores by evaluating student and answer at 20 test points, and its
+ * only format lever that bites is `checkreqtimes` on `$requiretimes` (symbol counts, `regex:`,
+ * `#` for whole numbers). `fraction`/`reducedfraction`/`decimal`/`$reqdecimals` are silently
+ * ignored on `numfunc` — those belong to the `calculated` type. The default text below spells
+ * that out so the writer doesn't reach for a restriction the engine will not enforce.
+ *
+ * Steve's call, 2026-08-29: numeric fill-in-the-blanks use `numfunc` anyway (one entry look for
+ * number blanks across the bank outweighs the format types only `calculated` honors), so when a
+ * DECIMAL or FRACTION form must actually be enforced, the lever is `$requiretimes` — the engine's
+ * count-based matcher — not `$answerformat`.
+ */
+export interface MomAuthorPrefs {
+  /** The standing preference text, verbatim in the prompt. Empty = no prefs block. */
+  text: string;
+}
+
+/** Shown in the rail before the teacher edits it; editable, not a hidden constant. */
+export const DEFAULT_AUTHOR_PREFS = [
+  'Use numfunc for any fill-in-the-blank part whose answer is a number, as well as for expressions.',
+  'When such a part must take a specific FORM, enforce it with $requiretimes, which numfunc honors:',
+  '  - exactly N decimal places:  $requiretimes[i] = "regex:^-?[0-9]+\\.[0-9]{N}$"',
+  '  - a fraction: require the slash, count it exactly once:  $requiretimes[i] = "/,=1"',
+  '  - reduce-or-not and integer-only are likewise $requiretimes or a regex away. If a rule',
+  '    cannot be stated as a symbol count or regex, do not pretend the engine enforces it.',
+  'Do not set $answerformat = "fraction" / "reducedfraction" / "fracordec" / "decimal" or',
+  '$reqdecimals on a numfunc part: the engine ignores those there. They belong to calculated;',
+  '$reqdecimals stays valid on number/calculated parts of the same question.',
+].join('\n');
+
+/** A prompt block carrying the standing prefs; empty string when there are none. */
+export function authorPrefsBlock(prefs?: string | null): string {
+  const text = (prefs ?? '').trim();
+  if (!text) return '';
+  return [
+    'STANDING PREFS — how the teacher wants questions in this bank written. These bind this',
+    'question regardless of what the rest of this prompt says:',
+    text,
+    '',
+  ].join('\n');
+}
 
 /**
  * Pull `family` and `slug` back out of a written question's path.
@@ -270,12 +318,15 @@ export function buildSetPlanPrompt(req: {
   mode?: SetPlanMode;
   /** Same rules the writer gets. The plan decides the question type, so it needs them more. */
   learned?: string[];
+  /** Same standing prefs the writer gets. The plan decides the types, so it needs them too. */
+  prefs?: string | null;
 }): string {
   const link = req.link.trim();
   const mode: SetPlanMode = req.mode ?? 'exercises';
   return [
     'Plan a problem set. Do NOT write any question files in this turn.',
     '',
+    authorPrefsBlock(req.prefs),
     isUrl(link)
       ? `SOURCE — open and read this problem set: ${link}`
       : ['SOURCE — read this bookSHelf section first:', '```', sectionCommand(link), '```',
@@ -468,6 +519,8 @@ export function buildRepairPrompt(
   root?: string,
   learned?: string[],
   resumed = false,
+  /** Standing prefs ride along on a COLD repair; a resumed one already has them in context. */
+  prefs?: string | null,
 ): string {
   return [
     `The question at ${targetPath} does not render. This is attempt ${attempt} of ${MAX_ATTEMPTS}.`,
@@ -487,6 +540,7 @@ export function buildRepairPrompt(
         ]
       : []),
     ...(resumed ? [] : ['RULES:', ...rulesBlock(learned), '']),
+    ...(resumed || !prefs?.trim() ? [] : [authorPrefsBlock(prefs)]),
     `Edit ONLY ${targetPath}. Reply with ONE short line describing the fix.`,
   ].join('\n');
 }
