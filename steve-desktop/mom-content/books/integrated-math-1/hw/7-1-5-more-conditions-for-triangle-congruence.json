@@ -1,18 +1,17 @@
 {
-  "name": "7.1.5 More Conditions for Triangle Congruence",
+  "name": "6.3 More Conditions for Triangle Congruence",
   "book": "integrated-math-1",
   "kind": "hw",
   "slug": "7-1-5-more-conditions-for-triangle-congruence",
   "target": {
-    "cid": "340140",
-    "aid": "23498504"
+    "cid": "334437",
+    "aid": "23995615"
   },
   "filing": {
-    "cid": "340140",
-    "aid": "23498504"
+    "cid": "334437",
+    "aid": "23995615"
   },
   "created_at": "2026-08-16",
-  "block": "0-7-3",
   "questions": [
     {
       "slot": 1,
@@ -212,5 +211,14 @@
       "points": 1,
       "qtype": "multipart"
     }
-  ]
+  ],
+  "source": {
+    "cid": "340140",
+    "aid": "23498504",
+    "name": "7.1.5 More Conditions for Triangle Congruence",
+    "_what": "Pulled from the live IM1 course 340140; that course is a SOURCE only and is never written to. The \"name\" field here is the CPM-numbered name it still carries there.",
+    "block": "0-7-3"
+  },
+  "global_block": "0-3-4-3",
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-09-01, block 0-3-4-3. RENUMBERED from CPM to book sections (Steve, 2026-09-01): the book stopped sharing CPM's chapter numbers on 2026-08-17, so CPM 5=book 4, 6=5, 7=6, 8=7, 9=8. The mapping is _cpm_spine.md + book-outline.md in bookSHelf, not a guess; the \"source.name\" field keeps the old CPM name. Created in book-section order, undated, HW category, hw template 23258795. Every question attached by qsetid -- nothing filed, nothing copied. Read back with the exact question count, the exact qsetid ORDER and the exact points total from the manifest. NO Book link: chapters 2-8 are not written in bookSHelf yet, so these still carry the stats 2.1 link inherited from the template -- outstanding, see MAP-IM1-GLOBAL.md."
 }

@@ -1,0 +1,142 @@
+{
+  "name": "1.2 Representing a Growing Pattern",
+  "book": "integrated-math-1",
+  "kind": "hw",
+  "slug": "1-2-representing-a-growing-pattern",
+  "_note": "Built 2026-08-31 to the 15-question standard. Five slots authored fresh (2,7,8,9,15) and filed into the GLOBAL question class 334437; the other ten are existing library questions attached by qsetid. Every figure is drawn in code with showasciisvg/rect - no uploaded images - because the six tile-pattern-* files in the bank reference an undefined $tile and draw nothing. Slot 2 replaced block-pattern-4x-k (1439793/1440396), which renders only one of its three answer boxes; see REVIEW-NEEDED.md. IM1 runs ONE POINT PER QUESTION (checked across all 57 IM1 hw manifests), so this totals 15, not 100 - the 100-point rule belongs to introduction-to-stats-sh. Last slot is a find-the-mistake, not a pre-FRQ, per the IM1/IM3 convention.",
+  "_verification": "All 15 render in Teacher Preview with zero Eeek!, zero undefined-variable text and zero literal $vars. The five authored questions were each answered and graded CORRECT in Teacher Preview (choices matched by label text, since MOM shuffles options). The ten pre-existing library questions were render-checked only, NOT answer-verified - they are attached, not copied, so a defect in one is a bank defect rather than a copy defect.",
+  "target": {
+    "cid": "334437",
+    "aid": "23993518"
+  },
+  "filing": {
+    "cid": "334437",
+    "aid": "23993518"
+  },
+  "created_at": "2026-08-31",
+  "questions": [
+    {
+      "slot": 1,
+      "sub_topic": "1.2.1 sequence notation - locate a term",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1525282"
+    },
+    {
+      "slot": 2,
+      "sub_topic": "1.2.2 adding pattern: figure to table + explicit rule",
+      "file_path": "questions/im1/adding-pattern-figure-to-table.php",
+      "title": null,
+      "points": 1,
+      "qid": "1893443"
+    },
+    {
+      "slot": 3,
+      "sub_topic": "1.2.2 the pattern of change (common difference)",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1530194"
+    },
+    {
+      "slot": 4,
+      "sub_topic": "1.2.2 recursive and explicit from a graph",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1532434"
+    },
+    {
+      "slot": 5,
+      "sub_topic": "1.2.2 explicit rule from a table (arithmetic)",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1530796"
+    },
+    {
+      "slot": 6,
+      "sub_topic": "1.2.2 the graph - continue and plot the sequence",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1526257"
+    },
+    {
+      "slot": 7,
+      "sub_topic": "1.2.3 multiplying pattern: figure to table",
+      "file_path": "questions/im1/multiplying-pattern-figure-to-table.php",
+      "title": null,
+      "points": 1,
+      "qid": "1893402"
+    },
+    {
+      "slot": 8,
+      "sub_topic": "1.2.3 multiplying: recursive and explicit rules",
+      "file_path": "questions/im1/multiplying-pattern-recursive-and-explicit-rules.php",
+      "title": null,
+      "points": 1,
+      "qid": "1893403"
+    },
+    {
+      "slot": 9,
+      "sub_topic": "1.2.3 multiplying vs adding: graph and crossover",
+      "file_path": "questions/im1/multiplying-versus-adding-graph-and-crossover.php",
+      "title": null,
+      "points": 1,
+      "qid": "1893404"
+    },
+    {
+      "slot": 10,
+      "sub_topic": "1.2.4 telling the two apart from a graph",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1530163"
+    },
+    {
+      "slot": 11,
+      "sub_topic": "1.2.4 explicit rule from a table (geometric)",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1530792"
+    },
+    {
+      "slot": 12,
+      "sub_topic": "1.2.5 reading an exponential sequence graph",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1530819"
+    },
+    {
+      "slot": 13,
+      "sub_topic": "1.2.5 equation of a line from its graph",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1468902"
+    },
+    {
+      "slot": 14,
+      "sub_topic": "1.2.6 moving between table and rule",
+      "file_path": null,
+      "title": null,
+      "points": 1,
+      "qid": "1535534"
+    },
+    {
+      "slot": 15,
+      "sub_topic": "find the mistake (last slot)",
+      "file_path": "questions/im1/find-the-mistake-in-a-growing-pattern-rule.php",
+      "title": null,
+      "points": 1,
+      "qid": "1893405"
+    }
+  ],
+  "global_block": "0-3-3-2",
+  "book_url": "https://oerbookshelf.app/integrated-math-1/chapter-1-functions/1.2_representing_a_growing_pattern.html",
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-08-31, block 0-3-3-2 \"Chapter 1: Functions\", created in BOOK order (1.1, 1.2, 1.3 x2, 1.4, 1.5 x2) rather than the live course order. Names are still the legacy CPM ones; renaming them to the book section numbers is a separate decision. Undated, HW category, hw template 23258795. Questions attached by qsetid; per-instance points were replayed from this manifest through itemarray[i][4] + submitChanges() where the library default of 1 was wrong."
+}

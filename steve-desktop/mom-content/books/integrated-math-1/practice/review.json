@@ -1,18 +1,17 @@
 {
-  "name": "Review",
+  "name": "Chapter 3 Practice Test",
   "book": "integrated-math-1",
   "kind": "practice",
   "slug": "review",
   "target": {
-    "cid": "340140",
-    "aid": "23498472"
+    "cid": "334437",
+    "aid": "23996090"
   },
   "filing": {
-    "cid": "340140",
-    "aid": "23498472"
+    "cid": "334437",
+    "aid": "23996090"
   },
   "created_at": "2026-08-16",
-  "block": "0-6-4",
   "questions": [
     {
       "slot": 1,
@@ -933,5 +932,14 @@
       "title": "Solve linear equation with decimals and parens (local for James Sousa)",
       "qtype": "number"
     }
-  ]
+  ],
+  "source": {
+    "cid": "340140",
+    "aid": "23498472",
+    "name": "Review",
+    "_what": "Pulled from the live IM1 course 340140; that course is a SOURCE only and is never written to. The \"name\" field here is the CPM-numbered name it still carries there.",
+    "block": "0-6-4"
+  },
+  "global_block": "0-3-3-4",
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-09-01, block 0-3-3-4, gradebook category HW. RENUMBERED from CPM to book chapters (Steve, 2026-09-01): CPM 5=book 4, 6=5, 7=6, 8=7, 9=8, per _cpm_spine.md in bookSHelf. Undated; hw template 23258795 supplied the settings and the category was set on top of it. Questions attached by qsetid in manifest order, per-question points replayed through itemarray[i][4]+submitChanges(), then question GROUPS rebuilt with groupSelected() highest-index-first (grouping renumbers the rows behind it). Read back with the exact question count, the exact group count and the exact points total. NOTE: a group scores ONCE, so the points total is below the question count wherever groups are used. No Book link: chapters 2-8 do not exist in bookSHelf yet, so these still carry the stats 2.1 link inherited from the template."
 }

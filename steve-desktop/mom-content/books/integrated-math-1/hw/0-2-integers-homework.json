@@ -4,15 +4,14 @@
   "kind": "hw",
   "slug": "0-2-integers-homework",
   "target": {
-    "cid": "340140",
-    "aid": "23498441"
+    "cid": "334437",
+    "aid": "23993508"
   },
   "filing": {
-    "cid": "340140",
-    "aid": "23498441"
+    "cid": "334437",
+    "aid": "23993508"
   },
   "created_at": "2026-08-16",
-  "block": "0-6-1-3",
   "questions": [
     {
       "slot": 1,
@@ -228,5 +227,14 @@
       "points": 1,
       "qtype": "multipart"
     }
-  ]
+  ],
+  "source": {
+    "cid": "340140",
+    "aid": "23498441",
+    "_what": "Pulled from the live IM1 course 340140; that course is a SOURCE only and is never written to.",
+    "block": "0-6-1-3"
+  },
+  "global_block": "0-3-3-1",
+  "book_url": "https://oerbookshelf.app/integrated-math-1/chapter-0-foundations/0.2_integers.html",
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-08-31, block 0-3-3-1 \"Chapter 0: Foundations\". Created from the hw template 23258795 (copyfrom), undated (sdatetype=0 / edatetype=2000000000), gradebook category HW. Every question is a MyOpenMath shared-library qsetid attached by GET -- nothing was filed, nothing copied, so a defect in one is a library defect, not a push defect. Question groups were rebuilt with groupSelected() on addquestions2.php and persisted with submitChanges(); a group scores as ONE point, which is why the points total is below the question count."
 }

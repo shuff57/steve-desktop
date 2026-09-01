@@ -626,3 +626,289 @@ Swept every assessment in all three for attached-question count:
 All 92 stubs exist in each, with dates and settings, and content was only ever filled for
 `Entering Answers`, 1.1 and 1.2 (period 3 also had 1.3 as of this run, before 4 and 7 were
 done). This is unfinished authoring, not a broken copy — the stub structure is fine everywhere.
+
+## Drive MOM with `playwright-cli`, not a hand-rolled CDP connect (Steve, 2026-08-31)
+
+Every push before this one connected Playwright-over-CDP to a browser somebody had already
+started and logged in by hand — `_push/mom.mjs` (hardcoded port 9223) or `_push/mom-live.mjs`
+(the app's own dynamic port). That is the step that kept being missing: on 2026-08-31 nothing
+on the box was listening on 9222-9242 and no Chrome was running with
+`--remote-debugging-port`, so a transfer could not start at all. `mom.mjs` had also been
+carrying a stale `C:/Users/shuff/` in its `createRequire` path since a username change, which
+throws `MODULE_NOT_FOUND` the moment you connect — fixed the same day.
+
+**Use the `playwright-cli` skill instead. It owns the browser, so there is nothing to start
+first.** Installed globally on this box: `npm install -g @playwright/cli@latest` (0.1.18).
+
+```bash
+node _push/mom-session.mjs                 # ensure a live session; opens the login if needed
+playwright-cli -s=mom goto "https://www.myopenmath.com/course/course.php?cid=334437"
+playwright-cli -s=mom close                # keeps the profile; delete-data destroys it
+```
+
+- **`--persistent` does NOT save the MyOpenMath login. Corrected 2026-08-31 - the earlier
+  version of this section claimed it did.** MOM issues `PHPSESSID` with `expires: -1`, a
+  *session* cookie: it lives in the browser's memory and is never written to the profile, so
+  there is nothing on disk for a restart to reload. The login form has no "remember me" either
+  (`username`, `password`, and passkey fields, nothing else). The profile at
+  `%LOCALAPPDATA%\ms-playwright\daemon\<hash>\ud-mom-chrome` is real and does persist
+  history, prefs and non-session cookies - just not the one that matters.
+
+  How the wrong claim survived: the browser was never closed during the session that made it,
+  so "it persists" was inferred from the profile directory existing rather than measured. One
+  line settles it, and it is cheap enough to run whenever the question comes up:
+
+  ```js
+  (await page.context().cookies('https://www.myopenmath.com/'))
+    .find(c => c.name === 'PHPSESSID').expires        // -1 => memory only
+  ```
+
+- **So expect to log in once per work session, and check BEFORE a long run.**
+  `_push/mom-session.mjs` does exactly that: it reports `live`, or opens the session headed at
+  the login page and exits non-zero so a push cannot start against a dead session. A `SESSION
+  DEAD` thrown twenty questions into a push is correct behaviour but expensive; this moves the
+  same discovery to second zero. `--wait` blocks until the login completes.
+- `state-save`/`state-load` would survive a restart, but it writes a live session token to a
+  file and MOM expires sessions server-side regardless, so it is not a real fix - it just moves
+  where the staleness shows up. Not used.
+- **`--headed` is required for the login itself.** Without it the session opens headless and
+  the browser Steve is supposed to type into does not exist on screen — the first attempt on
+  2026-08-31 did exactly this and read as a working session serving the login form.
+- **On Windows a MOM URL must be quoted, and `&` still bites.** `cmd.exe`/PowerShell treat `&`
+  as a command separator. Quote every URL, and in PowerShell use `playwright-cli --% goto
+  "...?a=1&b=2"`. Every MOM content URL in this file has at least two query params.
+- The session-dead check is unchanged and still matters: a dead session serves the LOGIN FORM
+  at a content URL. Test for `input[name=username]` **and** a password field **and** no
+  `Log Out` — never `input[type=password]` alone, which false-fires on the `assmpassword`
+  passcode field of the assessment settings form.
+- `.playwright-cli/` (snapshots, console logs, screenshots) is written into whatever directory
+  the command runs from. It is gitignored at the repo root as of this date.
+
+`mom.mjs` and `mom-live.mjs` still work and are not deleted — they remain the right tool for a
+scripted batch write like the 92-assessment retime, where driving one page at a time through a
+CLI would be absurd. The rule is about how a *transfer* starts: reach for `playwright-cli`
+first, and only fall back to a CDP connect when a run is genuinely a loop over hundreds of
+pages.
+
+## 1.5 lab into the three sections — and the manifest that lied (2026-08-31)
+
+Master `334437` aid **23444239**, sixteen questions, qsetids `1890450` and `1890458`-`1890472`,
+15x6 + 1x10 = 100.
+
+| section | cid | aid | state found | action |
+|---|---|---|---|---|
+| period 3 | 339304 | 23942582 | already 16/16, 100 pts | none |
+| period 4 | 334243 | 23114378 | `No Questions currently in assessment` | attached 16, set points, 100 |
+| period 7 | 339625 | 23948827 | already 16/16, 100 pts | none |
+
+**The manifest said none of this had ever happened.** `target.aid` was `null`, all sixteen `qid`s
+were `null`, and `question-library.json` had zero `data-collection` rows — while the master and two
+of the three sections were fully built. The repo record was three pushes behind reality, and a run
+that trusted it would have filed all sixteen questions a **second** time. That is the one failure
+that does not undo cleanly.
+
+So: **the write-back is not bookkeeping, it is the duplicate-filing guard.** Never treat a `null`
+qid as proof a question is unfiled — it is a prompt to go look. Read the assessment back off
+`addquestions2.php` first; that page is the only source of truth about what is filed. All sixteen
+ids, `target.aid`, the sixteen `question-library.json` rows and a `sync-index.ts` run were written
+on 2026-08-31, and `--check` now exits 0. Their `filed` date is recorded as the day they were read
+back off MOM, not the (unknown) day they were actually filed.
+
+**`usedef=true` on the attach gives the LIBRARY default, not the master's per-instance points.**
+All sixteen came into period 4 at **1 point each, total 16**, and the attach reported success for
+every one. Points are per-instance by design, so they cannot travel with a qsetid — step 4 is not
+optional on a section attach either. Read the instance ids off the page rather than assuming they
+are consecutive: period 4's ran `354238153`-`354238169` but **skipped `354238163`**.
+
+`points` on `modquestion2.php` is a hidden input and the page is **not** Vue — there are two visible
+`input[type=submit][value="Save Settings"]` buttons and either one commits. Set the value through
+the native setter, dispatch `input`+`change`, click Save, then re-read from a **fresh** navigation:
+period 4 read back 16/16 at 6,6,...,6,10 = 100.
+
+Dates were untouched by construction (neither the attach nor the points form opens the settings
+form) and read back intact afterwards: P3 08/28 10:11am -> 09/01 10:11am, P4 08/31 10:11am ->
+09/02 10:11am, P7 08/28 2:03pm -> 09/01 2:03pm.
+
+**Two defects found here that the attach did not cause, both fixed on Steve's say-so:**
+
+- **Period 4's lab closed 09/02/2026 at 10:11 am, and 09/02/2026 is a Wednesday.** The 3-or-4
+  block starts at **10:33 am** on Wednesdays, so it shut 22 minutes before the period it is due
+  at the start of, the same class of defect as the 44 found 2026-08-21. Now `10:33 am`, read
+  back from a fresh navigation.
+- **Period 7's lab carried the 1.1 Book link**
+  (`.../1.1_definitions_of_statistics_probability_and_key_terms`): the exact "previous section's
+  link left on a new assignment" failure this file warns about, and the reason it warns, since
+  nobody checks a link that looks present. Master, P3 and P4 all had the right one. All three
+  now read `.../1.5_data_collection_experiment` (URL confirmed 200).
+
+`addassessment2.php` carries exactly one visible `input[type=submit][value="Save Changes"]`.
+Neither `etime` nor `extreflinks[]` exposed a `v-model` attribute, but the native-setter plus
+`input`/`change` recipe was used anyway and both wrote correctly. **Guard the write on the value
+you expect to replace**: both fixes were written to abort rather than write if the pre-read did
+not match, which is what stops a rerun stamping over a hand-correction.
+
+## Chapter 1 Group / Practice / Individual Tests do not exist yet (measured 2026-08-31)
+
+All **twelve** stubs, three kinds across master and all three sections, report
+`No Questions currently in assessment`:
+
+| | master 334437 | period 3 339304 | period 4 334243 | period 7 339625 |
+|---|---|---|---|---|
+| Chapter 1 Practice Test | 23444240 | 23440095 | 23115818 | 23464602 |
+| Chapter 1 Group Test | 23444241 | 23440096 | 23114379 | 23464603 |
+| Chapter 1 Individual Test | 23444242 | 23440097 | 23114380 | 23464604 |
+
+And the `introduction-to-stats-sh` book has **no `group/` or `practice/` directory at all**, only
+`hw/` and `lab/`. So there is nothing to transfer: this is authoring work under `mom-question`,
+not a push. The `group`/`practice`/`ind` presets in `assessment-presets.json` describe how each is
+selected; the older `introduction-to-stats` book's `college/` and `high-school/` tracks hold
+group/practice manifests but on a different chapter alignment, so they are precedent, not source.
+
+## Chapter 1 Group + Practice Tests pushed to master (2026-08-31)
+
+Both were assembled from questions already in the library, then pushed into the stubs that already
+existed. Steve's calls this day: **real hand-graded FRQs, not pre-FRQs**, and the practice test
+covers the **same fourteen sub-topics as the group test with different questions** - zero shared
+qsetids, verified programmatically before the push.
+
+| | aid | questions | points | FRQ slots |
+|---|---|---|---|---|
+| Chapter 1 Group Test | 23444241 | 17 | 14x6 + 6 + 5 + 5 = 100 | 15-17 |
+| Chapter 1 Practice Test | 23444240 | 22 | 19x4 + 3x8 = 100 | 20-22 |
+
+Six FRQs filed (all byte-exact on all five fields, verified from a fresh navigation):
+`1893145` q1-identifying-sampling-bias, `1893146` q2-classification-and-justification,
+`1893148` q3-stratified-vs-simple-random-sampling, `1893149` q6-frequency-distribution-analysis,
+`1893150` q10-sampling-design-critique, `1893151` q12-reading-a-study-frq.
+
+### The FRQ sources use a DIFFERENT marker layout than the rest of the bank
+
+`questions/frq/**` predates the five-marker convention. It carries only the first three markers and
+then splits the remaining two fields with bare comment lines:
+
+```
+// === NAME - DESCRIPTION: ... ===
+// === SET QUESTION TYPE TO: ... ===
+// === COMMON CONTROL (paste into Common Control) ===
+   ...control...
+//question text          <- delimiter, NOT a comment in the control
+   $questiontext
+   $answerbox[0]
+///                      <- delimiter
+   $rubricanswerbutton
+```
+
+A splitter that only knows `// === QUESTION TEXT ===` and `// === ANSWER ===` finds neither, and
+the natural failure is filing the whole file as `control` with **empty qtext and solution** - which
+saves clean and renders `Eeek!`. All six of these files matched the layout exactly (`qtext` 27
+bytes, `solution` 19 bytes, every time), so test for both layouts rather than assuming.
+
+### Search the library BEFORE filing an FRQ
+
+Archive manifests reference these same FRQ files against a different course, so a copy could already
+have existed. `addquestions2.php` has a `#search` input: fill it, press Enter, read the
+`moddataset` rows. None of the six was there (only the two pre-FRQ **mirrors**, `1874125` and
+`1874244`, which are different questions). Two minutes of searching is the whole defence against the
+one failure that does not undo cleanly.
+
+### The post-save qsetid scrape is flaky - fall back to a search, never to a retry
+
+Filing q3 reported `no qsetid in response` and the run stopped. **The save had actually succeeded**
+(`1893148`); only the `/qsetid=(\d+)/` scrape of `document.body.innerHTML` came back empty that one
+time. Blind-retrying would have filed a second copy. Stopping was correct; the fix is a fallback
+that looks the question up by description in the library search before giving up.
+
+Also: a gap in the id sequence proves nothing. `1893147` sits between two of ours and is somebody
+else's question ("Acceleration, concept of linear acceleration") - MOM library ids are allocated
+globally across all authors, not per course.
+
+### Stub settings were three-quarters right, which is the dangerous amount
+
+The pre-existing stubs already carried a passcode and the right attempts/versions/category, so they
+read as configured. Against `intro-stats-assessment-settings.md` the group test was still wrong on
+**three** fields - no time limit (should be 89), a 2% early-finish bonus (tests get none) and late
+passes set to "Up to 1" (tests allow none) - and the practice test's **Book link still pointed at
+1.1**. All four fixed and read back fresh; both now point at
+`.../chapter-1-sampling-and-data` (a chapter test has no single section).
+
+Every one of those fields is `offsetParent === null` on load - they sit in collapsed panels. Being
+invisible does not stop them submitting, and does not stop the native-setter + `input`/`change`
+recipe writing them. Do not skip a field because a snapshot cannot see it.
+
+**Left deliberately: `timelimit` is 89, the regular-day period length.** Period 4's group test falls
+on Wed 09/02, where the 3-or-4 block runs 81 minutes. That is a copy-time correction, like the dates.
+
+## `intro` and `summary` are TinyMCE - and existing-but-not-`initialized` loses the write
+
+Third editor on this codebase, third variant of the same trap. `moddataset.php` wraps `control`/
+`qtext`/`solution` in **CodeMirror**; `addassessment2.php` is **Vue** for its plain fields and wraps
+`intro` and `summary` in **TinyMCE 8**. Each needs a different write, and all three fail the same
+way: the save reports success and stores the old value or nothing.
+
+```js
+await page.waitForFunction(() => {
+  const e = window.tinymce?.get?.('intro');
+  return e && e.initialized;            // NOT merely `e` - see below
+}, {timeout: 30000});
+await page.evaluate(html => {
+  const ed = window.tinymce.get('intro');
+  ed.setContent(html);                  // NOT textarea.value =
+  ed.save();                            // push the editor doc down into the textarea
+  document.querySelector('input[type=submit][value="Save Changes"]').click();
+}, html);
+```
+
+**`tinymce.get('intro')` returns an editor before that editor is usable.** Waiting only for the
+handle to exist, then calling `setContent`, silently loses the content: the POST goes out with
+`intro=` empty and the stored value is wiped. That is worse than a no-op - on 2026-08-31 it
+**destroyed** the group test's existing 508-character intro before the right recipe was found.
+`e.initialized` is the flag that distinguishes them, and `waitUntil:'load'` (not
+`'domcontentloaded'`) gives it a chance to become true.
+
+Two dead ends, so nobody re-walks them:
+
+- **Setting `textarea.value` through the native setter with `input`/`change` does not work**, even
+  though the same recipe is correct for every Vue-bound field on that form. TinyMCE re-syncs the
+  textarea from its own document on submit and overwrites you - the field keeps its OLD value, which
+  reads as "the save silently ignored my change".
+- **Writing the value and clicking submit in the same tick makes the POST look right and changes
+  nothing.** Captured via `page.on('request')`, the body carried `intro=<p>PROBE-BETA</p>` and the
+  stored value was still empty, because the editor itself had never initialized. A correct-looking
+  POST body is not evidence the write will land.
+
+Diagnostics worth reusing: `page.on('request', r => r.postData())` filtered to the form action shows
+exactly what left the browser, and submitting a **canary** to three fields at once (a TinyMCE field,
+a second TinyMCE field, and a plain input) is what separated "this one field is being dropped" from
+"the whole save is failing". `groupmax` makes a good inert canary on a non-group assessment - the
+server normalises it back, which is itself a useful signal that the save ran.
+
+`getContent()` returns `&mdash;` as the entity, and `introOk` string-compares false purely on
+whitespace between `<p>` blocks. Compare on normalised whitespace, or on paragraph and `<strong>`
+counts, rather than byte-exactly.
+
+### Intros must not hard-code dates or clock times
+
+The `hw` template's intro ends *"The opening and due dates are shown with the assignment on the
+course page"* and names no date. The 1.5 lab's and the group test's original intros both hard-coded
+`08/31/2026` and `10:11 am`/`11:40 am` - and the group test's was quoting a date that was not even
+its own class day, plus a close time that was about to change. Dates and clock times are **copy-time**
+values, and period 7 runs `2:03-3:32` while Wednesdays shift the whole block, so any hard-coded time
+is wrong for two of the three sections the moment it is copied. Describe the settings; point at the
+course page for the schedule.
+
+### Two more spec gaps found by auditing rather than assuming (2026-08-31)
+
+Both on assessments that had already passed a content check and looked configured:
+
+- **Chapter 1 Practice Test had NO `intro` at all** (0 characters), against
+  `intro-stats-assessment-settings.md`'s rule that student instructions are generated from the
+  settings. Now 1 105 characters covering attempts, regens, scoring, the three written-response
+  slots, the 2% bonus and the late pass.
+- **Chapter 1 Group Test closed at `11:40 am`, exactly period end, with `allowovertime` OFF.** The
+  spec is period end **+7** *because* overtime is granted: a 10:11 start plus an 89-minute timer
+  lands on 11:40, so the window shut at the instant the timer expired and any late start or overtime
+  was unusable. Both halves were wrong and both are fixed - `11:47 am`, `allowovertime` on. Same
+  defect class as the 44 found 2026-08-21.
+
+Read every row of the settings table off the live form. Three-quarters-right is the dangerous
+amount: the right passcode and category made this pair look done.
