@@ -2647,6 +2647,7 @@ async fn mom_create_book_file(root: String, path: String, text: String) -> Resul
 const MOM_SKILL: &str = include_str!("../../skills/mom-question/SKILL.md");
 const MOM_TRANSFER_SKILL: &str = include_str!("../../skills/mom-transfer/SKILL.md");
 const ATTENDANCE_SKILL: &str = include_str!("../../skills/attendance/SKILL.md");
+const MOM_SECTION_SYNC_SKILL: &str = include_str!("../../skills/mom-section-sync/SKILL.md");
 
 /// Install the bundled skill into the user's Claude Code skills directory.
 ///
@@ -2663,6 +2664,7 @@ fn install_mom_skill(app: &tauri::AppHandle) {
     install_bundled_skill(app, "mom-question", MOM_SKILL);
     install_bundled_skill(app, "mom-transfer", MOM_TRANSFER_SKILL);
     install_bundled_skill(app, "attendance", ATTENDANCE_SKILL);
+    install_bundled_skill(app, "mom-section-sync", MOM_SECTION_SYNC_SKILL);
 }
 
 /// Write one embedded skill to `~/.claude/skills/<name>/SKILL.md`.

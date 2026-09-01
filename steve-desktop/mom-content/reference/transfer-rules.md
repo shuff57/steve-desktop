@@ -912,3 +912,271 @@ Both on assessments that had already passed a content check and looked configure
 
 Read every row of the settings table off the live form. Three-quarters-right is the dangerous
 amount: the right passcode and category made this pair look done.
+
+## Detaching questions and repointing — one save, not N (2026-09-01)
+
+Trimming ch1 group (23444241) and practice (23444240) from 17/22 slots down to a hard 15 each was
+the first time anything was **removed** from a pushed assessment. The skill only ever documents the
+build-up direction, so the whole path below was discovered live. Nothing here is inferred.
+
+**`addquestions.php` is a client-side editor over one array, and the save carries points with it.**
+The page holds a global `itemarray`, one entry per attached item:
+
+```
+itemarray[i] = [instanceid, qsetid, description, qtype, points, ...]
+                    0          1         2          3      4
+```
+
+`generateOutput()` turns it into `pts["qn"+instanceid] = itemarray[i][4]` plus a comma-joined
+instance-id order string, and `submitChanges()` POSTs `order`, `text_order`, `pts`, `extracredit`
+and `defpts` to `addquestionssave.php?cid=&aid=` in ONE request.
+
+That matters because the skill's step 4 says to set points one question at a time through
+`modquestion2.php?id=<instanceid>`. That still works, but it is N page loads for something the
+manage-questions page does in a single POST. **Detach and repoint are the same save.** Fifteen
+round-trips became one, twice.
+
+So the whole re-sync is: splice the unwanted entries out of `itemarray` (match on `qsetid`, index 1
+— never on position, which shifts as you splice), write the new points into index 4, sort into the
+manifest's slot order, then call the page's own `submitChanges()`.
+
+**Call `submitChanges()`, never a hand-rolled POST.** It carries `lastitemhash`, an optimistic-
+concurrency token the server checks, and the save is `async:false` so it completes before the call
+returns. Rolling your own means reproducing the hash and the csrf handling for no gain.
+
+### `Remove` detaches; it does NOT delete the library question
+
+This was the real worry and it is now measured. `removeitem(loc)` and `removeSelected()` both call
+`doremoveitem()`, which is nothing but `itemarray.splice(loc, 1)` — a client-side list edit. The
+library question is untouched.
+
+Verified on all nine detached questions: every one still loads at
+`moddataset.php?id=<qsetid>&cid=334437` with its `description` and `qtype` intact —
+1867378, 1868241 (group) and 1867371, 1868243, 1867370, 1868244, 1873381, 1873393, 1890471
+(practice). A detached question is simply unattached stock, available to any later assignment.
+
+Both `removeitem` and `removeSelected` are wrapped in a `confirm()`. Calling `doremoveitem()` +
+`submitChanges()` directly does the same work with no dialog to handle — which is also why the
+per-row `Remove` link's 0-based index never has to be worked out.
+
+### `beentaken` silently drops the points half of the save
+
+`submitChanges()` only puts `pts`, `extracredit` and `defpts` in the payload when `beentaken` is
+falsy. On an assessment a student has attempted, the order saves and **the points quietly do not** —
+same shape as the CodeMirror and Vue traps: a save that reports success and stored half of what you
+asked. Read `beentaken` before relying on a points write; it was `0` on both of these because
+nothing in the master course is ever sat.
+
+### An empty `submitnotice` is not evidence
+
+The error path writes the message into `#submitnotice` and the success path *clears* it, so an empty
+notice is indistinguishable from the state you started in. It proves nothing on its own. Reload
+`addquestions.php` and re-read `itemarray` — count, per-question points, and the total — then read
+MOM's own verdict off Teacher Preview, whose header states both facts at once:
+
+```
+Score: 0/100  Answered: 0/15
+```
+
+That single line is the best available proof for a re-sync: it is the server's count of attached
+questions and the server's points total, and it cannot be produced by a client-side edit that failed
+to save. Both assessments read exactly that afterwards, with zero `Eeek!`.
+
+### The 100/100 completion test does not apply to a test carrying real FRQs
+
+The skill's "done when the header reads Score: 100/100" assumes a fully auto-graded homework. These
+two carry three hand-graded essay FRQs each (28 of the 100 points), which score 0 until Steve marks
+them, so 100/100 is unreachable by construction. Do not grind at it. The reachable target is every
+auto-graded question correct — `Score: 72/100, Answered: 12/15` here — and it must still be reached
+by actually answering.
+
+**Structure is not the check.** This push first reported GREEN on count, points, order and a zero
+`Eeek!` scan, on the reasoning that a re-sync changes attachment rather than content and so cannot
+break a question. That reasoning is wrong twice over: it is exactly the argument the skill already
+forbids ("rendering is not testing"), and working the questions afterwards immediately turned up a
+real `partial, 3 of 6` on group Q12 that every structural check had passed. The defect was in how
+the answer was written, not in the question — but nothing in the structural pass could tell the
+difference, which is the whole point. Re-answering is not redundant just because you believe you
+only moved attachments.
+
+### Both chapter-1 tests are DATED, unlike the rest of the master course
+
+`assessment-presets.json` records all twelve master assessments as deliberately undated. These two
+are not: the group test reads *"This assessment was due Mon 8/31/26, 11:47 am"* and is now open for
+un-graded practice. That predates this re-sync and was left alone, per the standing rule that a date
+in the master is inert and not a defect to repair. Worth knowing before someone reads the presets
+file and assumes the whole course is undated — it is not, and these are the exceptions.
+
+## `addassessment2.php?aid=` is a CREATE form wearing the settings page's face (2026-09-01)
+
+The settings page for an existing assessment is **`addassessment2.php?id=<aid>&cid=<cid>`** — the
+parameter is `id`, not `aid`. Every other URL in this whole flow takes `aid`, so `?aid=` is the
+natural guess and it is wrong in the worst possible way: it returns HTTP 200, renders the full
+settings form, and Vue populates it — with **blank-form defaults**, not this assessment's values.
+
+Measured on the ch1 group test (23444241), the two pages disagree on nearly everything:
+
+| Field | `?aid=` (create form) | `?id=` (real settings) |
+|---|---|---|
+| `defattempts` | 3 | 2 |
+| `defregens` (versions) | 20 | 1 |
+| `gbcategory` | 0 (Default) | 798369 (GROUP) |
+| `name` | *(empty)* | Chapter 1 Group Test |
+
+Read the wrong page and you "discover" two defects that do not exist and miss the one that does.
+Both were nearly repaired on this push before the form was checked.
+
+**Two tells, either of which settles it before you touch a field:**
+
+- the submit button reads **"Create Assessment"** on `?aid=`, **"Save Changes"** on `?id=`;
+- the form `action` carries **no `id=`** on `?aid=`, and `...&id=23444241&...` on `?id=`.
+
+Check the `action` — not the button, which is only a label. Submitting the `?aid=` form would have
+POSTed a complete settings payload to the create endpoint and produced a **duplicate assessment**
+with the same name, which is far harder to notice and undo than a wrong setting.
+
+Generalise it: on this codebase a page that renders is not a page that is *about* the thing you
+asked for. Before writing to any MOM form, confirm the target id appears in `form.action`.
+
+## The answer box can be MathQuill — `.value` writes are discarded (2026-09-01)
+
+The skill documents CodeMirror eating writes to the *question-authoring* fields and Vue eating them
+on the *settings* form. The same failure exists a third time, on the **student answer side**: a
+`numfunc` answer box is a MathQuill field, not a text input.
+
+```
+<input type="hidden" id="qn12000" name="qn12000">      <- what submits
+<span id="mqinput-qn12000" class="mathquill-math-field mq-editable-field">  <- what the student types in
+```
+
+Setting the hidden input's `.value` and dispatching `input`/`change` looks like it worked — the value
+is readable straight back — and **submits empty**. On the ch1 group test this scored Q12 as
+`partial, 3 of 6`: part b (a radio) graded Correct, part a graded 0 with the field blank. A partial
+is exactly ambiguous enough to be misread as a bad answer key rather than a bad write.
+
+Write through the MathQuill interface instead, which populates the hidden input as a side effect:
+
+```js
+MathQuill.getInterface(2)(document.getElementById('mqinput-qn12000')).latex('0.35');
+document.getElementById('qn12000').value;   // now "0.35" — assert this BEFORE submitting
+```
+
+Detect it rather than guessing: a field needs the MathQuill path if
+`document.getElementById('mqinput-' + name)` exists. On the ch1 practice test exactly one of eight
+answer fields did (`qn12000`); the other seven were plain text and took `.value` correctly. So this
+is per-field, not per-question or per-assessment, and checking is one line.
+
+Assert the hidden input holds the value before spending an attempt — a test assessment may allow
+only two.
+
+### Submit buttons live OUTSIDE `questionwrap`
+
+`document.querySelectorAll('[id^=questionwrap]')[n]` does **not** contain that question's submit
+button; scoping the search to the wrap finds nothing and reports every question as unsubmittable.
+Select globally and index in DOM order:
+
+```js
+[...document.querySelectorAll('button')].filter(e => /Submit Question/.test(e.textContent))[n]
+```
+
+The visible label is `Submit Question Question ⁨1⁩`, with U+2068/U+2069 bidi isolates around the
+number — match on the `Submit Question` prefix, never on the digits.
+
+### What a green auto-graded check looks like on a test with FRQs
+
+Both ch1 tests carry three hand-graded essays worth 28 of the 100 points, so 100/100 is unreachable
+and the skill's usual completion test does not apply. The reachable target is every auto-graded
+question correct, which the header states directly:
+
+- group test 23444241 → `Score: 72/100, Answered: 12/15` (12 x 6, all twelve correct)
+- practice test 23444240 → `Score: 73.44/100, Answered: 12/15` (72 x 1.02 — the 2% early-finish
+  bonus, which incidentally re-proves the 100 total and that the HW bonus is live on the practice
+  test and correctly absent from the group test)
+
+## Master → live sections: the ch1 tests, and a 33-defect time audit (2026-09-01)
+
+First run of what is now the **`mom-section-sync`** skill
+(`steve-desktop/skills/mom-section-sync/SKILL.md`, scripts in `_push/section-sync/`). The
+attach mechanics in the 2026-08-24 section above all held; what follows is new.
+
+Chapter 1 group + practice tests, master `334437` → all three sections, 15 questions and 100 points
+each, verified from a fresh navigation, dates and `extreflinks[]` byte-identical before and after in
+every case:
+
+| | P3 339304 | P4 334243 | P7 339625 |
+|---|---|---|---|
+| Chapter 1 Group Test | 23440096 | 23114379 | 23464603 |
+| Chapter 1 Practice Test | 23440095 | 23115818 | 23464602 |
+
+### `usedef=true` attaches at **9999 points**, not 1
+
+The 2026-08-24 entry records this step landing sixteen questions at 1 point each. This time the same
+attach produced **9999 points each, total 149,985** on both practice tests. So the failure is not "it
+gives you 1 point" — it is "it gives you *something arbitrary*, reports success, and MOM never
+complains". Never infer the points from a previous run's symptom; read them back.
+
+### `submitChanges()` drops the points payload when `beentaken` — and the sections ARE taken
+
+The one-save fast path documented above (set `itemarray[i][4]`, call `submitChanges()`) only includes
+`pts`/`extracredit`/`defpts` when `beentaken` is falsy. Both section practice tests came back
+`beentaken: 1`, so the fast path was refused and the per-question `modquestion2.php` path used
+instead — 15 saves each, then a fresh read confirming 100.
+
+**`beentaken` is set by a student OPENING the assessment, not by scoring.** Both were `beentaken: 1`
+while still holding **zero questions**, because the stubs had been open to students since 08/28 and
+08/31. On a live section, expect the slow path to be the normal one and the fast path the exception —
+the reverse of the master course, where nothing is ever sat.
+
+Guard on it explicitly (`if (beentaken) throw`) rather than discovering it from a silently wrong
+total. Instance ids again non-consecutive: `354583830`-`354583836` then jumping to `354583842`.
+
+### Enumerating a section: the course page lazy-loads, and a short read looks identical to a clean one
+
+`course.php?cid=&folder=0` ships **2** of its 92 aids in the initial HTML; the rest arrive when the
+collapsed blocks are expanded (`a[id^=blockh]`, target `div#block<N>.hidden`). The blocks then fill
+by AJAX, so the count keeps climbing for several seconds after the clicks.
+
+This produced the worst failure of the run. An expansion loop that stopped as soon as
+`hidden === 0 && count === previous` exited early on a mid-load reading and swept **57** of 92 in P4
+and **59** of 92 in P7 — and printed `DONE`. A short sweep reporting zero mismatches is
+indistinguishable from a clean course. Two fixes, both needed:
+
+- require the count **stable across two consecutive passes**, not one, with a settle before the first
+  click;
+- assert a floor (`< 80 assessments` aborts) so a short read fails loudly. This caught both
+  truncations; without it the audit below would have reported "P4: clean".
+
+Also: the gradebook exposes **no** aids and is full of student PII, and the calendar agenda gives due
+times but not start times and caps at 25 weeks. Neither replaces the course page.
+
+### Long sweeps must be resumable — CDP times out
+
+276 settings pages is minutes of navigation and the connection dropped mid-run with
+`RuntimeError: Runtime.evaluate timed out; expression: document.readyState`, losing the whole sweep.
+Rewritten to append one JSONL record per assessment with a `flush()` after each, skip ids already in
+the file, and retry each page three times. A timeout now costs one page.
+
+### The audit: 276 assessments swept, 33 wrong, and it is almost entirely period 4
+
+Every assessment in all three sections, START and DUE, checked against
+`bell-schedule-2026-27.md`. The check needs no knowledge of the assignment kind: derive the day-type
+from the date, then require the time to be one of that day-type's three slot times.
+
+| section | mismatches |
+|---|---|
+| P3 339304 | 1 |
+| P4 334243 | **32** |
+| P7 339625 | 0 |
+
+P7 is perfectly clean, which is what makes P4 diagnostic rather than random: **P4's calendar is
+offset by one class day.** Every Wednesday date carries the regular-day `10:11 am`, and every
+Thu/Fri/Tue date carries the Wednesday `10:33 am` — the two errors alternate down the whole year,
+from `Entering Answers` on 08/19/2026 to `Chapter 8 Practice Test` on 02/26/2027. That is a generated
+schedule that walked the wrong weekday, not 32 independent typos, and it means the fix is mechanical.
+
+Two also land on the **minimum day** 10/27/2026 (4.1 DUE and 4.2 START, both `10:11 am`, should be
+`9:37 am`) — a third schedule that is even easier to miss than Wednesday.
+
+Five of the 33 are already in the past as of 2026-09-01 and were left alone pending Steve's call;
+28 are upcoming. **Not fixed in this run** — the audit was the ask, and rewriting a closed
+assignment's due date is a decision about student work, not a repair.

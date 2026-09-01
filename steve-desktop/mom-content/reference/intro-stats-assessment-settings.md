@@ -13,7 +13,7 @@ homework template, and then adjusted per the table.
 
 | Setting | Homework | Practice | Lab | Group Test | Individual Test |
 |---|---|---|---|---|---|
-| Attempts per question | 3 | 3 | 3 | 2 | 2 |
+| Attempts per question | 3 | 3 | 3 | 3 | 2 |
 | Versions per question | 20 | 20 | 20 | 1 | 1 |
 | Penalty per version | 0 | 0 | 0 | (absent) | (absent) |
 | Penalty per attempt | 0 | 0 | 0 | 0 | 50 |
