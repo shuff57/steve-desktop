@@ -98,3 +98,4 @@ at runtime (a typo in the formula is a wrong answer on some seeds).
 | Assignment | Family | Error habit | Notes |
 |---|---|---|---|
 | (example) 9.1.1 Solving Linear, One-Variable Inequalities | `questions/inequalities/` | sign flip on division by a negative | authored 2026-08-20, not yet pushed |
+| IM1 1.2 Representing a Growing Pattern | `questions/im1/` | counting a SHARED piece once per part (double-counted overlap) | authored 2026-08-31, filed as qsetid 1893405, graded correct in Teacher Preview |

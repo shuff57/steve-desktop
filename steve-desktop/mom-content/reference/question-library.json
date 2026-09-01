@@ -2666,5 +2666,803 @@
     "cid": "334437",
     "filed": "2026-08-16",
     "qtype": "multipart"
+  },
+  "questions/data-collection/systematic-sampling-positions.php": {
+    "qsetid": "1890450",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/why-twelve-distinct-marks.php": {
+    "qsetid": "1890458",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/systematic-versus-srs.php": {
+    "qsetid": "1890459",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/ungrouped-table-blanks.php": {
+    "qsetid": "1890460",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/cumulative-relative-frequency-named-row.php": {
+    "qsetid": "1890461",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/grouped-table-blanks.php": {
+    "qsetid": "1890462",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/at-most-two-which-table.php": {
+    "qsetid": "1890463",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/at-most-three-which-table.php": {
+    "qsetid": "1890464",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/more-than-two-which-table.php": {
+    "qsetid": "1890465",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/more-than-three-which-table.php": {
+    "qsetid": "1890466",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/grouping-hides-the-question.php": {
+    "qsetid": "1890467",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/bottom-row-cumulative-check.php": {
+    "qsetid": "1890468",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/camila-vs-rosa-settlement.php": {
+    "qsetid": "1890469",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/why-switch-tables.php": {
+    "qsetid": "1890470",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/grouping-the-data-differently.php": {
+    "qsetid": "1890471",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/data-collection/pre-frq-grade-a-table-comparison.php": {
+    "qsetid": "1890472",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q1-identifying-sampling-bias.php": {
+    "qsetid": "1893145",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q2-classification-and-justification.php": {
+    "qsetid": "1893146",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q3-stratified-vs-simple-random-sampling.php": {
+    "qsetid": "1893148",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q6-frequency-distribution-analysis.php": {
+    "qsetid": "1893149",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q10-sampling-design-critique.php": {
+    "qsetid": "1893150",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "essay"
+  },
+  "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php": {
+    "qsetid": "1893151",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/multiplying-pattern-figure-to-table.php": {
+    "qsetid": "1893402",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/multiplying-pattern-recursive-and-explicit-rules.php": {
+    "qsetid": "1893403",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/multiplying-versus-adding-graph-and-crossover.php": {
+    "qsetid": "1893404",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-mistake-in-a-growing-pattern-rule.php": {
+    "qsetid": "1893405",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/adding-pattern-figure-to-table.php": {
+    "qsetid": "1893443",
+    "cid": "334437",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-7-simple-abs-val-4-parts.php": {
+    "qsetid": "1430838",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-9-simplifying-expressions.php": {
+    "qsetid": "1430885",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-10-substituting-values.php": {
+    "qsetid": "1430890",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-38-functions-given-input.php": {
+    "qsetid": "1432147",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-41-simplify-expressions.php": {
+    "qsetid": "1432155",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-39-find-value-of-exponential.php": {
+    "qsetid": "1432162",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-47-determine-if-the-relationship-is-a-function.php": {
+    "qsetid": "1432177",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-49-identifying-patterns-and-growth-rate.php": {
+    "qsetid": "1432198",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-domain-and-range-from-graph-set-notation-notation.php": {
+    "qsetid": "1430907",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/evaluate-an-expression-x-2-pxy-y-2-x-y-negative-local-copy-steven-huff.php": {
+    "qsetid": "1437583",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/find-domain-and-range-from-graph-set-notation-notation-2.php": {
+    "qsetid": "1452311",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-domain-and-range-from-graph-set-notation-notation-3.php": {
+    "qsetid": "1452314",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-domain-and-range-from-graph-set-notation-notation-4.php": {
+    "qsetid": "1452316",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-domain-and-range-from-graph-set-notation-notation-5.php": {
+    "qsetid": "1452330",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/simpify-a-n.php": {
+    "qsetid": "1455857",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/1-ax-n-and-1-ax-n.php": {
+    "qsetid": "1455868",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-a-b-c.php": {
+    "qsetid": "1455928",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-a-div-b-div-c.php": {
+    "qsetid": "1455929",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-ab-n-vs-ab-n.php": {
+    "qsetid": "1455930",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-a-div-b-c-d-e-d-e.php": {
+    "qsetid": "1455931",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-a-b-cd-e-n.php": {
+    "qsetid": "1455932",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/evaluate-exponents-x-n-n-a-whole-number.php": {
+    "qsetid": "1455933",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/evaluate-exponential-expression-n-x-n-a-whole-number.php": {
+    "qsetid": "1455935",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-d-c-2.php": {
+    "qsetid": "1455936",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d-3.php": {
+    "qsetid": "1455937",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/evaluating-absolute-value-expression-a-b-c-d-a-b-c-d-4.php": {
+    "qsetid": "1455939",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/adding-integers-and-comparison-with-subtraction-a-b-vs-a-b-a-b.php": {
+    "qsetid": "1455940",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/dividing-integers-all-variations.php": {
+    "qsetid": "1455942",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-a-b-c-d-e-b-c-0.php": {
+    "qsetid": "1455943",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-a-b-c-d-e.php": {
+    "qsetid": "1455944",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-a-b-cd-e-n-2.php": {
+    "qsetid": "1455945",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/multiplying-fractions-by-an-integer.php": {
+    "qsetid": "1455946",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/multiplying-a-fraction-by-its-denominator-concrete-form.php": {
+    "qsetid": "1455947",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/multiplying-fractions-no-cancellation-both-negative.php": {
+    "qsetid": "1455948",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/multiplying-fractions-no-cancellation-one-negative-one-positive.php": {
+    "qsetid": "1455949",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/dividing-fractions-one-variable-no-cancellation.php": {
+    "qsetid": "1455950",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/dividing-fractions-two-variables-no-cancellation.php": {
+    "qsetid": "1455951",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/dividing-fractions-fraction-by-a-variable-no-cancellation-2.php": {
+    "qsetid": "1455952",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/dividing-fractions-number-by-a-variable-fraction-no-cancellation-2.php": {
+    "qsetid": "1455953",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/dividing-fractions-ax-divided-by-c-d.php": {
+    "qsetid": "1455954",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/adding-two-fractions-same-denominator.php": {
+    "qsetid": "1455955",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/removing-common-factor-p-q-qr-x.php": {
+    "qsetid": "1455956",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/adding-algebraic-expression-variable-terms-cancel.php": {
+    "qsetid": "1455957",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "number"
+  },
+  "questions/im1/cancellation-a-b-c-d-b-a.php": {
+    "qsetid": "1455958",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/multiplication-10-n-times-10-n.php": {
+    "qsetid": "1455959",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-5.php": {
+    "qsetid": "1455960",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-6.php": {
+    "qsetid": "1455961",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-7.php": {
+    "qsetid": "1455963",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-8.php": {
+    "qsetid": "1455964",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-b-a-x-c-3.php": {
+    "qsetid": "1455965",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-b-a-x-c-4.php": {
+    "qsetid": "1455966",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-b-c-decimal-with-same-order-of-magnitude.php": {
+    "qsetid": "1455968",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/polynomial-product-a-bx-c-b-c-decimal-with-different-orders-of-magnitude.php": {
+    "qsetid": "1455969",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/subtracting-algebraic-terms-ax-b-cx-d.php": {
+    "qsetid": "1455970",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/subtracting-algebraic-terms-a-bx-c-dx-e-2.php": {
+    "qsetid": "1455971",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/find-the-missing-value-in-the-table-linear-calculate-slope-and-then-use-.php": {
+    "qsetid": "1462411",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-missing-value-in-the-table-linear-calculate-slope-and-then--2.php": {
+    "qsetid": "1462413",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-missing-value-in-the-table-linear-calculate-slope-and-then--3.php": {
+    "qsetid": "1462414",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/2-102-1-given-table-write-equation-linear.php": {
+    "qsetid": "1462424",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/2-102-2-given-table-write-equation-linear.php": {
+    "qsetid": "1462431",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/2-102-3-given-table-fractions-write-equation-linear.php": {
+    "qsetid": "1462434",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-mx-b-slope-m-5.php": {
+    "qsetid": "1469864",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/graph-mx-b-2-slope-m-2.php": {
+    "qsetid": "1470059",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/graph-mx-b-3-slope-m-3.php": {
+    "qsetid": "1470062",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/determine-the-rigid-transformation-reflection.php": {
+    "qsetid": "1475095",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-the-rigid-transformation-transformation.php": {
+    "qsetid": "1475098",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-rigid-transformation-reflection.php": {
+    "qsetid": "1475099",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-rigid-transformation-rotation.php": {
+    "qsetid": "1475116",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-the-transformation-rotation.php": {
+    "qsetid": "1476547",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-the-transformation-reflection.php": {
+    "qsetid": "1476550",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-the-transformation-reflection-2.php": {
+    "qsetid": "1476551",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-the-transformation-translation.php": {
+    "qsetid": "1476569",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/translate-polygon-2.php": {
+    "qsetid": "1478117",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/graph-a-perpendicular-line-through-a-given-point-1.php": {
+    "qsetid": "1479933",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-perpendicular-line-through-a-given-point-2.php": {
+    "qsetid": "1479959",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-perpendicular-line-through-a-given-point-no-start-equation-1.php": {
+    "qsetid": "1479963",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-perpendicular-line-through-a-given-point-no-start-equation-2.php": {
+    "qsetid": "1479980",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/translation-of-a-polygon-given-a-description-2.php": {
+    "qsetid": "1482303",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/translation-of-a-polygon-given-a-transformation-rule-2.php": {
+    "qsetid": "1482305",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/identify-base-of-f-x-b-x-based-on-table-values-copy-by-steven-huff.php": {
+    "qsetid": "1516952",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/identify-basic-exponential-function-b-x-based-on-its-graph-copy-by-steve.php": {
+    "qsetid": "1516953",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "choices"
+  },
+  "questions/im1/3-x-in-out-find-missing-copy-by-steven-huff.php": {
+    "qsetid": "1516955",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/5-x-in-out-find-missing-copy-by-steven-huff-copy-by-steven-huff.php": {
+    "qsetid": "1516956",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "calculated"
+  },
+  "questions/im1/exponential-equation-from-graph-increasing-there-are-key-points-plotted-.php": {
+    "qsetid": "1520654",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/graphing-exponential-simple.php": {
+    "qsetid": "1520663",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "draw"
+  },
+  "questions/im1/given-two-points-find-the-exponential-equation-between-copy-by-steven-hu.php": {
+    "qsetid": "1525136",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/given-two-points-find-the-exponential-equation-between-copy-by-steve-2.php": {
+    "qsetid": "1525169",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "numfunc"
+  },
+  "questions/im1/find-the-next-two-terms-in-a-sequence-geometric-increasing-identify-if-a.php": {
+    "qsetid": "1525283",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-next-two-terms-in-a-sequence-arithmetic-decrease-copy-by-steven.php": {
+    "qsetid": "1525287",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-next-three-terms-arithmetic-increasing-identify-if-a-sequence-h.php": {
+    "qsetid": "1526222",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-next-three-terms-in-a-sequence-geometric-decrease-identify-if-a.php": {
+    "qsetid": "1526223",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/video-lesson-basics-of-sequences.php": {
+    "qsetid": "1528074",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multans"
+  },
+  "questions/im1/midpoint-area-perimeter-of-triangle.php": {
+    "qsetid": "1572176",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/midpoint-area-perimeter-of-triangle-2.php": {
+    "qsetid": "1572224",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/video-lesson-triangle-congruence-copy-by-steven-huff.php": {
+    "qsetid": "1576503",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multans"
+  },
+  "questions/im1/determine-the-midpoint.php": {
+    "qsetid": "1584970",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "interval"
+  },
+  "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-5.php": {
+    "qsetid": "1594531",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/review-solve-and-graph-inequalities-in-one-variable.php": {
+    "qsetid": "1594532",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/solve-and-graph-inequalities-in-one-variable.php": {
+    "qsetid": "1594533",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/review-solve-and-graph-inequalities-in-one-variable-2.php": {
+    "qsetid": "1594537",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/solve-and-graph-inequalities-in-one-variable-2.php": {
+    "qsetid": "1594563",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/review-solve-and-graph-inequalities-in-one-variable-3.php": {
+    "qsetid": "1594575",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graphing-randomized-linear-inequalities-two-variables.php": {
+    "qsetid": "1597998",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/graphing-randomized-linear-inequalities-two-variables-2.php": {
+    "qsetid": "1598023",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-linear-inequality-from-graph.php": {
+    "qsetid": "1599106",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
+  },
+  "questions/im1/determine-system-of-linear-inequalities-from-graph.php": {
+    "qsetid": "1599119",
+    "cid": "340140",
+    "filed": "2026-08-31",
+    "qtype": "multipart"
   }
 }

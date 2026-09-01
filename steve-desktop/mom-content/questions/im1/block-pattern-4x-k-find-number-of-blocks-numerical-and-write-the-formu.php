@@ -43,6 +43,9 @@ for ($i=0..2) {
   $const = 2*$a+2*$b-4
   $answer[$i] = "4 x + $const" if ($i == 2)
 }
+$structA = $n[0]
+$structB = $n[1]
+
 if (stuansready($stuanswers,$thisq,[2])) {
   $stu = getstuans($stuanswers,$thisq,2)
   if (comparefunctions($stu,"4 x + $const")) {
@@ -54,13 +57,13 @@ if (stuansready($stuanswers,$thisq,[2])) {
 Someone is using a pattern to build structures out of square blocks. The first three structures are shown below:
 <p style="text-align:center">$im[0] $im[1] $im[2]</p>
 
-How many blocks (the smallest squares) would be needed for Structure `#$n[0]`?
+How many blocks (the smallest squares) would be needed for Structure `#$structA`?
 
 Answer: $answerbox[0]
 
 ///
 
-How many blocks (the smallest squares) would be needed for Structure `#$n[1]`?
+How many blocks (the smallest squares) would be needed for Structure `#$structB`?
 
 Answer: $answerbox[1]
 

@@ -341,3 +341,19 @@ Every graph macro returns its accessible text alternative rather than an image w
 `connectthedots` + `showplot` emits a full coordinate dump — every plotted point, listed. A student on text-alternative display mode reading "which statement describes this graph's shape" is handed all the underlying values.
 
 `replacealttext($plot, "...")` is the fix, and it should be standing practice for any read-the-display question. The stats-library macros (`fdbargraph`, `histogram`, `stem_plot`, `boxplot`) are better behaved — their alt text is the data table, which is what the picture shows anyway.
+
+## `block-pattern-4x-k-find-number-of-blocks-*` renders only ONE of its three answer boxes
+
+Found 2026-08-31 while assembling IM1 1.2. Both copies (`1439793`, `1440396`) show all three parts
+of the prompt but only **one** input, and `` `#$n[0]` `` / `` `#$n[1]` `` render as a bare `#`.
+The source looks structurally correct: `$anstypes` has 3 entries, `$answer[0..2]` and
+`$answerbox[0..2]` are all present, and there are 2 `///` separators.
+
+Precomputing the scalars (`$structA = $n[0]`) did **not** fix it, so the array-indexing-in-question-
+text rule is not the whole story — `$n` itself appears not to resolve, and
+`$n = diffrands(40,100,2,'inc') where (...)` is the prime suspect. Parts 2 and 3 are unanswerable,
+which means the question silently awards at most a third of its marks.
+
+**Not used in 1.2.** Replaced by `questions/im1/adding-pattern-figure-to-table.php` (qsetid
+`1893443`), authored on the template that does work. Both block-pattern copies are still attached to
+whatever used them before — check `2.1.1` and anything else before assuming this is harmless.

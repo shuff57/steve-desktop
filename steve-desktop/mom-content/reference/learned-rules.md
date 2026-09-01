@@ -330,3 +330,67 @@ cheap -- run all three before any push.
 - This is still provisional, like `due_date_rule` in `assessment-presets.json` — it is scheduling
   for Steve's not-yet-built term calendar, not something to apply to the undated master course
   334437. Apply it at copy time, alongside the bell-schedule table.
+
+## `$anstypes` as a comma string cannot be overridden per index (2026-08-31)
+
+This renders the last part with **no options at all** and no error anywhere:
+
+```
+$anstypes = "number,number,number,number,number"
+$anstypes[4] = "choices"        <-- silently does nothing
+```
+
+The string form is parsed once. Indexing into it afterwards is not an override; the part stays
+`number`, `$questions[4]` is never used, and the student sees a prompt with nothing to click.
+Declare every type up front instead: `$anstypes = "number,number,number,number,choices"`.
+
+Caught only by counting radio groups on the render. The question threw no error, scored, and read
+as fine in the byte-exact read-back, because the source really did say that.
+
+## CodeMirror auto-indents `///`, and an unclosed `<p>` is what triggers it
+
+The multipart separator has to sit at column 0. A QUESTION TEXT line like
+
+```
+<p>Answer: `t =` $answerbox[0]        <-- no </p>
+```
+
+leaves CodeMirror's HTML mode inside an open tag, so it indents the next line and the separator is
+filed as `  ///`. Measured 2026-08-31: the byte-exact read-back flagged a two-character `qtext`
+difference, which is the only reason it was noticed. Close every tag; check the read-back diff
+rather than assuming a two-byte difference is whitespace noise.
+
+## Read a rendered question's own values from `data-asciimath`
+
+`innerText` drops every backticked expression, because IMathAS renders AsciiMath through MathJax to
+SVG. A prompt reading "find the blocks at `t = 8` minutes" extracts as "find the blocks at minutes".
+MathJax keeps the source on the container:
+
+```js
+[...w.querySelectorAll('mjx-container')].map(e => e.getAttribute('data-asciimath'))
+// -> ["t = 8", "N = 1 * 3^t", "N(8) = 1 * 3^8 = 6561", ...]
+```
+
+That is how to answer a question from the page rather than replaying the source, which is required
+anyway because `choices` options are shuffled per seed. Match radio options by **label text**.
+
+## Two things block Playwright clicks inside an assessment
+
+- **`beforeunload`.** Once answers are entered, navigating away raises a native dialog, and an
+  unhandled one wedges every later tool call with `does not handle the modal state`. Register
+  `page.on('dialog', d => d.accept())` before the first fill.
+- **`.dialog-overlay`.** An in-page overlay intercepts pointer events, so Playwright's
+  actionability-checked `click()` times out after 30s while reporting the element as "visible,
+  enabled and stable". Click in-page instead — `page.evaluate(() => el.click())` — which bypasses
+  the interception. Both cost a run on 2026-08-31.
+
+## The render sandbox is blocked on the school network (2026-08-31)
+
+`mom.huffpalmer.fyi` returns the district filter's **"Web Page Blocked … Category: parked"** page
+over http, and its TLS interception certificate (`issuer=CN=205.155.196.228`) over https, which
+curl, Node and Chrome all reject independently. `myopenmath.com` and `oerbookshelf.app` are fine, so
+it is specific to this host.
+
+Until it is unblocked, verify in the real course instead: file into the global class, attach to a
+scratch assessment, and answer it in Teacher Preview. That is a stronger check than the sandbox
+anyway — it exercises grading, which the sandbox never does.
