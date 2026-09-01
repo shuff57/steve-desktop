@@ -9,11 +9,14 @@
 //    symbols ("∈ vN or m"), `normalcdf` likewise. Function names must be plain text, not math.
 import fs from 'node:fs';
 
-const ROOT = 'C:/Users/shuff/Documents/GitHub/steve-desktop/steve-desktop/mom-content';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BOOK = `${ROOT}/books/introduction-to-stats-sh`;
 
 const files = new Set();
-for (const dir of ['hw', 'lab']) {
+for (const dir of ['hw', 'lab', 'group', 'practice']) {
+  if (!fs.existsSync(`${BOOK}/${dir}`)) continue;
   for (const f of fs.readdirSync(`${BOOK}/${dir}`)) {
     if (!f.endsWith('.json')) continue;
     for (const q of JSON.parse(fs.readFileSync(`${BOOK}/${dir}/${f}`, 'utf8')).questions) files.add(q.file_path);

@@ -5,7 +5,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = 'C:/Users/shuff/Documents/GitHub/steve-desktop/steve-desktop/mom-content';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const BOOK = `${ROOT}/books/introduction-to-stats-sh`;
 
 const files = new Set();

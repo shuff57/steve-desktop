@@ -5,7 +5,9 @@
 // usage: node crib.mjs <manifest-abs-path> > crib.md
 import fs from 'node:fs';
 
-const ROOT = 'C:/Users/shuff/Documents/GitHub/steve-desktop/steve-desktop/mom-content';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const man = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 
 const out = [];

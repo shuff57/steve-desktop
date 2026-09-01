@@ -4,7 +4,9 @@
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 
-const REPO = 'C:/Users/shuff/Documents/GitHub/steve-desktop';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const files = execSync('git status --porcelain steve-desktop/mom-content/questions/', { cwd: REPO, encoding: 'utf8' })
   .trim().split('\n').filter(Boolean).map((l) => l.slice(3).trim());
 

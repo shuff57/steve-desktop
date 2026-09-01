@@ -1,7 +1,7 @@
 // Shared Playwright handle on the already-authenticated MOM Chrome (port 9223).
 // One tab, navigated — never a tab per page (mom-transfer skill).
 import { createRequire } from 'module';
-const require = createRequire('C:/Users/shuff/Documents/GitHub/bookSHelf/package.json');
+const require = createRequire('C:/Users/shuff57/Documents/GitHub/bookSHelf/package.json');
 const { chromium } = require('playwright');
 
 export const CID = '334437';
