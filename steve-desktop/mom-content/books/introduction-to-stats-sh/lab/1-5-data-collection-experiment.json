@@ -6,7 +6,7 @@
   "_note": "Built 2026-08-26. All sixteen authored fresh (lab kind, second lab manifest in the -SH book): systematic-sampling-positions, why-twelve-distinct-marks, systematic-versus-srs, ungrouped-table-blanks, cumulative-relative-frequency-named-row, grouped-table-blanks, at-most-two/more-than-two (ungrouped-only cuts), at-most-three/more-than-three (boundary cuts, either table), grouping-hides-the-question, bottom-row-cumulative-check, camila-vs-rosa-settlement, why-switch-tables, grouping-the-data-differently, pre-frq-grade-a-table-comparison. Points 15x6 + 10 = 100. BookSHelf 1.5 is the Data Collection Experiment lab: systematic sample of 12 classmates, 60 movie counts, both frequency tables, four at-most/more-than questions, Camila-vs-Rosa, three discussion questions. The MOM assignment mirrors the whole lab with per-student randomized 60-count datasets (frequencies are multiples of 3, so every relative frequency is exact and the bottom cumulative is exactly 1) and auto-grades every part; the four 'which table and why' questions are structurally identical across datasets (cut at 2 = ungrouped only, cut at 3 = either). Lab settings per reference/intro-stats-assessment-settings.md: 3 attempts x 20 versions, no penalty, no early-finish bonus, GROUP gradebook category, 2 late passes, no time limit. Pre-FRQ is authored-first (no lab FRQ to mirror): categories Defensible Position (3) / Evidence from Your Own Tables (4) / Addresses Grouping Tradeoffs (3), dropped category ADDRESSES GROUPING TRADEOFFS.",
   "target": {
     "cid": "334437",
-    "aid": null
+    "aid": "23444239"
   },
   "created_at": "2026-08-26",
   "questions": [
@@ -15,112 +15,112 @@
       "file_path": "questions/data-collection/systematic-sampling-positions.php",
       "title": "Systematic Sampling Positions - mark the 12 positions on a numbered list by stepping by 4 from a random start, wrapping back to the top at the bottom",
       "points": 6,
-      "qid": null
+      "qid": "1890450"
     },
     {
       "slot": 2,
       "file_path": "questions/data-collection/why-twelve-distinct-marks.php",
       "title": "Why Twelve Distinct Marks - a 24-name list and a step of 4 visit only 6 names before the pattern repeats",
       "points": 6,
-      "qid": null
+      "qid": "1890458"
     },
     {
       "slot": 3,
       "file_path": "questions/data-collection/systematic-versus-srs.php",
       "title": "Systematic Versus Simple Random - exactly one random decision in the whole procedure, and why that makes it systematic",
       "points": 6,
-      "qid": null
+      "qid": "1890459"
     },
     {
       "slot": 4,
       "file_path": "questions/data-collection/ungrouped-table-blanks.php",
       "title": "Ungrouped Frequency Table Blanks - back-solve a blanked frequency from the total 60 and read two relative frequencies off the completed class table",
       "points": 6,
-      "qid": null
+      "qid": "1890460"
     },
     {
       "slot": 5,
       "file_path": "questions/data-collection/cumulative-relative-frequency-named-row.php",
       "title": "Cumulative Relative Frequency at a Named Row - read one cumulative cell off the completed ungrouped table instead of adding the column by hand",
       "points": 6,
-      "qid": null
+      "qid": "1890461"
     },
     {
       "slot": 6,
       "file_path": "questions/data-collection/grouped-table-blanks.php",
       "title": "Grouped Frequency Table Blanks - back-solve a blanked group frequency and two group relative frequencies from the same 60 movie counts",
       "points": 6,
-      "qid": null
+      "qid": "1890462"
     },
     {
       "slot": 7,
       "file_path": "questions/data-collection/at-most-two-which-table.php",
       "title": "At Most Two Which Table - the proportion at most 2, then which table shows it and why",
       "points": 6,
-      "qid": null
+      "qid": "1890463"
     },
     {
       "slot": 8,
       "file_path": "questions/data-collection/at-most-three-which-table.php",
       "title": "At Most Three Which Table - the proportion at most 3, then which table shows it and why",
       "points": 6,
-      "qid": null
+      "qid": "1890464"
     },
     {
       "slot": 9,
       "file_path": "questions/data-collection/more-than-two-which-table.php",
       "title": "More Than Two Which Table - the share above 2 by complement, then which table shows it and why",
       "points": 6,
-      "qid": null
+      "qid": "1890465"
     },
     {
       "slot": 10,
       "file_path": "questions/data-collection/more-than-three-which-table.php",
       "title": "More Than Three Which Table - the share above 3 by complement, then which table shows it and why",
       "points": 6,
-      "qid": null
+      "qid": "1890466"
     },
     {
       "slot": 11,
       "file_path": "questions/data-collection/grouping-hides-the-question.php",
       "title": "Grouping Hides the Question - why a grouped table cannot answer more than two, and what the answer actually needs",
       "points": 6,
-      "qid": null
+      "qid": "1890467"
     },
     {
       "slot": 12,
       "file_path": "questions/data-collection/bottom-row-cumulative-check.php",
       "title": "Bottom-Row Cumulative Check - a miscounted table whose bottom cumulative is not 1; find the drop, name the row, fix the bottom",
       "points": 6,
-      "qid": null
+      "qid": "1890468"
     },
     {
       "slot": 13,
       "file_path": "questions/data-collection/camila-vs-rosa-settlement.php",
       "title": "Camila vs Rosa Settlement - more than three from both tables gives the same share, and the boundary explains why",
       "points": 6,
-      "qid": null
+      "qid": "1890469"
     },
     {
       "slot": 14,
       "file_path": "questions/data-collection/why-switch-tables.php",
       "title": "Why Switch Tables - which of the four questions forces a switch to the ungrouped table, and when staying is fine",
       "points": 6,
-      "qid": null
+      "qid": "1890470"
     },
     {
       "slot": 15,
       "file_path": "questions/data-collection/grouping-the-data-differently.php",
       "title": "Grouping the Data Differently - a legal regrouping of the same 60 counts and what a different grouping can and cannot change",
       "points": 6,
-      "qid": null
+      "qid": "1890471"
     },
     {
       "slot": 16,
       "file_path": "questions/data-collection/pre-frq-grade-a-table-comparison.php",
       "title": "Pre-FRQ Grade a Table Comparison - The scenario and grading checklist of the table-comparison FRQ, but the student grades four sample responses against the rubric instead of writing one",
       "points": 10,
-      "qid": null
+      "qid": "1890472"
     }
   ]
 }
