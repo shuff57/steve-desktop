@@ -1,0 +1,272 @@
+{
+  "name": "Chapter 0 Individual Test",
+  "book": "integrated-math-1",
+  "kind": "ind",
+  "slug": "chapter-0-individual-test",
+  "created_at": "2026-09-02",
+  "target": {
+    "cid": "334437",
+    "aid": "24020352"
+  },
+  "filing": {
+    "cid": "334437",
+    "aid": "24020352"
+  },
+  "global_block": "0-3-3-1",
+  "book_url": "https://oerbookshelf.app/integrated-math-1/chapter-0-foundations/",
+  "_settings": {
+    "defattempts": 2,
+    "defregens": 1,
+    "defattemptpenalty": 50
+  },
+  "source": {
+    "_what": "Mixed. Five questions were AUTHORED for this test (filed into 334437 on 2026-09-02, qsetids 1894925-1894930) because Chapter 0 had no unused multipart items left; the rest are shared-library qsetids already attached to a pushed Chapter 0 homework."
+  },
+  "_design": "Shares ZERO questions with the Chapter 0 Group Test, by construction. MAP-IM1-GLOBAL.md records that Chapter 1/2/3 ship Review, Group Test and Individual Test as the same questions three times over; this avoids that. Half the items (Q1, Q3, Q5, Q8, Q10) are full multipart processes rather than drills, which is what assessment-presets.json asks an individual test to be -- and which was impossible until the five new questions existed.",
+  "_authored": "4 multipart + 1 find-the-mistake written 2026-09-02 under the mom-question skill. The usual render-and-verify against mom.huffpalmer.fyi was NOT available: the school network runs a TLS-inspecting proxy (leaf issued by CN=205.155.196.228) whose root is trusted nowhere on the machine, so both node and Chrome refuse the sandbox. They were verified against the LIVE course instead -- byte-exact read-back on all five fields, then rendered and answered in Teacher Preview, which is the stronger check.",
+  "questions": [
+    {
+      "slot": 1,
+      "order": "Q1",
+      "file_path": "questions/im1/order-of-operations-grouping-and-translation.php",
+      "qid": "1894925",
+      "title": "Order of Operations, Grouping and Translation",
+      "points": 1,
+      "qtype": "multipart",
+      "section": "0.1",
+      "skill": "Evaluate, re-group, then translate (full process)"
+    },
+    {
+      "slot": 2,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "section": "0.1",
+      "skill": "Translate a statement into an expression"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274272",
+      "in_group": "Q2",
+      "title": "Translating statement into mathematical expression (a more than b times)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274276",
+      "in_group": "Q2",
+      "title": "Translating statement into mathematical expression (a less than b times)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 5,
+      "order": "Q3",
+      "file_path": "questions/im1/signed-numbers-absolute-value-and-exponents.php",
+      "qid": "1894926",
+      "title": "Signed Numbers, Absolute Value and Exponents",
+      "points": 1,
+      "qtype": "multipart",
+      "section": "0.2",
+      "skill": "Absolute value, then -a^2 against (-a)^2 (full process)"
+    },
+    {
+      "slot": 6,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Order of operations with negatives"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172789",
+      "in_group": "Q4",
+      "title": "Order of operations (a + (b - c) * d + e, b - c < 0",
+      "qtype": "number"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172795",
+      "in_group": "Q4",
+      "title": "Order of operations (a + b - c * (d + e))",
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270720",
+      "in_group": "Q4",
+      "title": "Order of operations a(b - cd) - e^n",
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "order": "Q5",
+      "file_path": "questions/im1/fraction-operations-multiply-divide-and-power.php",
+      "qid": "1894927",
+      "title": "Fraction Operations",
+      "points": 1,
+      "qtype": "multipart",
+      "section": "0.3",
+      "skill": "Multiply, divide and power one fraction pair (full process)"
+    },
+    {
+      "slot": 11,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "section": "0.3",
+      "skill": "Dividing fractions by a variable"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336021",
+      "in_group": "Q6",
+      "title": "Dividing Fractions (fraction by a variable, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336022",
+      "in_group": "Q6",
+      "title": "Dividing Fractions (number by a variable fraction, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 14,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.4",
+      "skill": "Place a fraction on a number line"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270745",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (a < n, n from 2 to 5)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271472",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (a/n between 1 and 2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271475",
+      "in_group": "Q7",
+      "title": "Graph a/n on number line (-a/n between 1 and 2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 18,
+      "order": "Q8",
+      "file_path": "questions/im1/distribute-combine-and-simplify.php",
+      "qid": "1894928",
+      "title": "Distribute, Combine and Simplify",
+      "points": 1,
+      "qtype": "multipart",
+      "section": "0.5",
+      "skill": "Expand, subtract, then clear a denominator (full process)"
+    },
+    {
+      "slot": 19,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Distribute +/-a(bx +/- c)"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172809",
+      "in_group": "Q9",
+      "title": "Polynomial product a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172820",
+      "in_group": "Q9",
+      "title": "Polynomial product -a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172821",
+      "in_group": "Q9",
+      "title": "Polynomial product a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172823",
+      "in_group": "Q9",
+      "title": "Polynomial product -a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 24,
+      "order": "Q10",
+      "file_path": "questions/im1/find-the-mistake-in-simplifying-a-fraction.php",
+      "qid": "1894930",
+      "title": "Find the Mistake in Simplifying a Fraction",
+      "points": 2,
+      "qtype": "multipart",
+      "section": "0.5",
+      "skill": "FIND THE MISTAKE - simplifying a fraction"
+    }
+  ],
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-09-02, block 0-3-3-1, gradebook category IND (798370), undated, 2 attempts / 1 version / 50% penalty per attempt. Created at the COURSE ROOT as always and moved in with the page's own moveitem(). Five questions were FILED (1894925-1894930, byte-exact read-back on all five fields each); the other 14 are shared-library qsetids attached by GET. READ BACK: 19 questions, 5 groups, 11 points. ANSWERED AND GRADED in Teacher Preview: all five authored questions scored full marks -- Q1 1.02/1, Q3 1.02/1, Q5 1.02/1, Q8 1.02/1, Q10 2.04/2. The numeric parts were answered from MOM's own View Key; every expression part (numfunc/calculated) was worked out from the RENDERED prompt by hand, because View Key does not reveal an expression answer -- so those five are verified against the question as a student sees it, not replayed from the file that generated the key.",
+  "_defect_found": "Q5 (fraction operations) shipped with a wrong SOLUTION GUIDE and was repaired before the test was finished. The guide claimed all three answers land in lowest terms; the seed constraints only guarantee that for the multiply and the power. Measured live on seed 7/6 and 5/8: the divide gives 56/30, which reduces to 28/15. Forcing all four values pairwise coprime over 2..9 is close to infeasible, so the divide answer is now reduced explicitly with gcd() and the guide shows the reduction as a step. qsetid 1894927 was UPDATED in place, not re-filed. Byte-exactness and a clean render both passed this question before the defect was seen; only reading the rendered arithmetic caught it."
+}

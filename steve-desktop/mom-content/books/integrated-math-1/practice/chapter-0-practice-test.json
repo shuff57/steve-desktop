@@ -1,0 +1,1023 @@
+{
+  "name": "Chapter 0 Practice Test",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "chapter-0-practice-test",
+  "created_at": "2026-09-02",
+  "target": {
+    "cid": "334437",
+    "aid": "24020166"
+  },
+  "filing": {
+    "cid": "334437",
+    "aid": "24020166"
+  },
+  "global_block": "0-3-3-1",
+  "book_url": "https://oerbookshelf.app/integrated-math-1/chapter-0-foundations/",
+  "source": {
+    "_what": "Composed from the Chapter 0 homework pool (books/integrated-math-1/hw/0-*.json). Every qid is a MyOpenMath shared-library qsetid already attached to a pushed Chapter 0 homework, so a push attaches by qsetid and files nothing."
+  },
+  "_design": "Covers the WHOLE Chapter 0 pool -- it is the rehearsal for both the group test and the individual test, so overlapping both is the point. Leads with the two answer-entry format questions, which exist to teach MOM answer entry and belong here rather than on a graded test.",
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-09-02, block 0-3-3-1, gradebook category HW (798368), undated, copyfrom=23258795 (3 attempts / 20 versions inherited, which is the practice profile). Created at the COURSE ROOT as always and moved into the block with the page's own moveitem(). Nothing filed -- all 83 are shared-library qsetids attached by GET. READ BACK on a fresh navigation: 83 questions, 21 groups, 21 points. Teacher Preview rendered 21 questions (one per group-select), zero Eeek!, zero marker leaks, every question carrying its answer widget.",
+  "questions": [
+    {
+      "slot": 1,
+      "order": "Q1",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "section": "0.1",
+      "skill": "How to enter algebraic answers (warm-up)"
+    },
+    {
+      "slot": 2,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "349431",
+      "in_group": "Q1",
+      "title": "Format (algebraic expressions and powers, new assessment version)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 3,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "350292",
+      "in_group": "Q1",
+      "title": "Formatting (enter a fraction with a denominator) (new assessment version)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 4,
+      "order": "Q2",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 5 \nWithout\nWith\n replacement. Label:",
+      "section": "0.1",
+      "skill": "Order of operations"
+    },
+    {
+      "slot": 5,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340765",
+      "in_group": "Q2",
+      "title": "Order of Operations (a - b - c)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340768",
+      "in_group": "Q2",
+      "title": "Order of Operations (a div b div c)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340770",
+      "in_group": "Q2",
+      "title": "Order of operations (ab^n vs. (ab)^n)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266918",
+      "in_group": "Q2",
+      "title": "Order of operations (a div b + c (d - e)), d > e",
+      "qtype": "number"
+    },
+    {
+      "slot": 9,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270702",
+      "in_group": "Q2",
+      "title": "Order of operations a(b + cd) - e^n",
+      "qtype": "number"
+    },
+    {
+      "slot": 10,
+      "order": "Q3",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.1",
+      "skill": "Exponents and evaluating expressions"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270705",
+      "in_group": "Q3",
+      "title": "Evaluate exponents (x^n, n a whole number)",
+      "qtype": "number"
+    },
+    {
+      "slot": 12,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270706",
+      "in_group": "Q3",
+      "title": "Evaluate exponential expression (n^x, n a whole number)",
+      "qtype": "number"
+    },
+    {
+      "slot": 13,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266916",
+      "in_group": "Q3",
+      "title": "Evaluate an expression (x^2 + pxy + y^2) (x, y positive)",
+      "qtype": "number"
+    },
+    {
+      "slot": 14,
+      "order": "Q4",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 7 \nWithout\nWith\n replacement. Label:",
+      "section": "0.1",
+      "skill": "Translate words into an expression"
+    },
+    {
+      "slot": 15,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266919",
+      "in_group": "Q4",
+      "title": "Translating into an algebraic expression (difference between)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 16,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266920",
+      "in_group": "Q4",
+      "title": "Translating into an algebraic expression (quotient)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 17,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266921",
+      "in_group": "Q4",
+      "title": "Translating into an algebraic expression (sum)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 18,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266922",
+      "in_group": "Q4",
+      "title": "Translating into an algebraic expression (subtraction)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 19,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274272",
+      "in_group": "Q4",
+      "title": "Translating statement into mathematical expression (a more than b times)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 20,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274276",
+      "in_group": "Q4",
+      "title": "Translating statement into mathematical expression (a less than b times)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281097",
+      "in_group": "Q4",
+      "title": "Translating into an algebraic statement, then evaluating (OpenStax Intermediate Algebra 1.2 #127)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 22,
+      "order": "Q5",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Absolute value and ordering"
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340059",
+      "in_group": "Q5",
+      "title": "Absolute values and inequalities (|a| and -a and |a| and -|a|), given numerical value of a. (Variant 2)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 24,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340058",
+      "in_group": "Q5",
+      "title": "Absolute values and inequalities (|a| and -a and |a| and -|a|), given numerical value of a.",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 25,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334919",
+      "in_group": "Q5",
+      "title": "Absolute values and inequalities (|a| and -a and |a| and -|a|), only sign of a known (a positive)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 26,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334920",
+      "in_group": "Q5",
+      "title": "Absolute values and inequalities (|a| and -a and |a| and -|a|), only sign of a known (a negative)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 27,
+      "order": "Q6",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Absolute value expressions"
+    },
+    {
+      "slot": 28,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270708",
+      "in_group": "Q6",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a > b, d > c",
+      "qtype": "number"
+    },
+    {
+      "slot": 29,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270709",
+      "in_group": "Q6",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a < b, c < d",
+      "qtype": "number"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270711",
+      "in_group": "Q6",
+      "title": "Evaluating absolute value expression: | a - b| - |c - d|, a < b, c < d",
+      "qtype": "number"
+    },
+    {
+      "slot": 31,
+      "order": "Q7",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Signs under multiplication and division"
+    },
+    {
+      "slot": 32,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "350388",
+      "in_group": "Q7",
+      "title": "Multiplying and dividing signed numbers (only signs given)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 33,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334922",
+      "in_group": "Q7",
+      "title": "Multiplying Integers (all permutations of positive and negative)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 34,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334925",
+      "in_group": "Q7",
+      "title": "Dividing Integers (all variations)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 35,
+      "order": "Q8",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Subtraction with negatives"
+    },
+    {
+      "slot": 36,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266929",
+      "in_group": "Q8",
+      "title": "Variations on subtraction: a - b, -a - b, a - (-b), -a -(-b)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 37,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "340056",
+      "in_group": "Q8",
+      "title": "Subtraction (abstract version, given a - b, find b - a; given value is positive)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 38,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274967",
+      "in_group": "Q8",
+      "title": "Adding integers and comparison with subtraction: a + (-b) vs. a - b (a > b)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 39,
+      "order": "Q9",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Order of operations with negatives, and (-a)^b"
+    },
+    {
+      "slot": 40,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172789",
+      "in_group": "Q9",
+      "title": "Order of operations (a + (b - c) * d + e, b - c < 0",
+      "qtype": "number"
+    },
+    {
+      "slot": 41,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172795",
+      "in_group": "Q9",
+      "title": "Order of operations (a + b - c * (d + e))",
+      "qtype": "number"
+    },
+    {
+      "slot": 42,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270720",
+      "in_group": "Q9",
+      "title": "Order of operations a(b - cd) - e^n",
+      "qtype": "number"
+    },
+    {
+      "slot": 43,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "261763",
+      "in_group": "Q9",
+      "title": "Distinguish (-a)^b from -a^b, even and odd exponents, all answers less than 500",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 44,
+      "order": "Q10",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "section": "0.2",
+      "skill": "Evaluate an expression at integer values"
+    },
+    {
+      "slot": 45,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270728",
+      "in_group": "Q10",
+      "title": "Evaluate an expression (ax + by, x, y integers)",
+      "qtype": "number"
+    },
+    {
+      "slot": 46,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "266930",
+      "in_group": "Q10",
+      "title": "Evaluate an expression (x^2 + pxy + y^2) (x, y negative)",
+      "qtype": "number"
+    },
+    {
+      "slot": 47,
+      "order": "Q11",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.3",
+      "skill": "Multiplying fractions"
+    },
+    {
+      "slot": 48,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "224293",
+      "in_group": "Q11",
+      "title": "Multiplying Fractions by an Integer",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 49,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270731",
+      "in_group": "Q11",
+      "title": "Multiplying Fractions (no cancellation, both negative)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 50,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270732",
+      "in_group": "Q11",
+      "title": "Multiplying Fractions (no cancellation, one negative, one positive)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 51,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "221656",
+      "in_group": "Q11",
+      "title": "Producing an Equivalent Fraction",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 52,
+      "order": "Q12",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 5 \nWithout\nWith\n replacement. Label:",
+      "section": "0.3",
+      "skill": "Dividing fractions"
+    },
+    {
+      "slot": 53,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281134",
+      "in_group": "Q12",
+      "title": "Dividing Fractions (one variable, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 54,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "281135",
+      "in_group": "Q12",
+      "title": "Dividing Fractions (two variables, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 55,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336023",
+      "in_group": "Q12",
+      "title": "Dividing Fractions (ax divided by c/d)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 56,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336021",
+      "in_group": "Q12",
+      "title": "Dividing Fractions (fraction by a variable, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 57,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336022",
+      "in_group": "Q12",
+      "title": "Dividing Fractions (number by a variable fraction, no cancellation)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 58,
+      "order": "Q13",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 3 \nWithout\nWith\n replacement. Label:",
+      "section": "0.3",
+      "skill": "Fraction powers and sums"
+    },
+    {
+      "slot": 59,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270738",
+      "in_group": "Q13",
+      "title": "Evaluate x^n when x is a fraction",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 60,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "242873",
+      "in_group": "Q13",
+      "title": "Adding two fractions, same denominator",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 61,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333599",
+      "in_group": "Q13",
+      "title": "Multiplying a fraction by its denominator (concrete form)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 62,
+      "order": "Q14",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 2 \nWithout\nWith\n replacement. Label:",
+      "section": "0.4",
+      "skill": "Round to tenth, hundredth, thousandth"
+    },
+    {
+      "slot": 63,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267164",
+      "in_group": "Q14",
+      "title": "Round to nearest tenth, hundredth, thousandth (number less than 10)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 64,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267166",
+      "in_group": "Q14",
+      "title": "Round to nearest tenth, hundredth, thousandth (number between 10 and 90)",
+      "qtype": "multipart"
+    },
+    {
+      "slot": 65,
+      "order": "Q15",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 5 \nWithout\nWith\n replacement. Label:",
+      "section": "0.4",
+      "skill": "Place a number on a number line"
+    },
+    {
+      "slot": 66,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "270745",
+      "in_group": "Q15",
+      "title": "Graph a/n on number line (a < n, n from 2 to 5)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 67,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271472",
+      "in_group": "Q15",
+      "title": "Graph a/n on number line (a/n between 1 and 2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 68,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271475",
+      "in_group": "Q15",
+      "title": "Graph a/n on number line (-a/n between 1 and 2)",
+      "qtype": "draw"
+    },
+    {
+      "slot": 69,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271473",
+      "in_group": "Q15",
+      "title": "Graph decimal (between 1 and 2, dx = 0.2) on number line",
+      "qtype": "draw"
+    },
+    {
+      "slot": 70,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271476",
+      "in_group": "Q15",
+      "title": "Graph decimal (between -1 and -2, dx = 0.2) on number line",
+      "qtype": "draw"
+    },
+    {
+      "slot": 71,
+      "order": "Q16",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 6 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Distribute, integer and decimal coefficients"
+    },
+    {
+      "slot": 72,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172809",
+      "in_group": "Q16",
+      "title": "Polynomial product a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 73,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172820",
+      "in_group": "Q16",
+      "title": "Polynomial product -a(bx + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 74,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172821",
+      "in_group": "Q16",
+      "title": "Polynomial product a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 75,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "172823",
+      "in_group": "Q16",
+      "title": "Polynomial product -a(bx - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 76,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "347513",
+      "in_group": "Q16",
+      "title": "Polynomial product a(bx + c) (b, c decimal with same order of magnitude)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 77,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "347517",
+      "in_group": "Q16",
+      "title": "Polynomial product a(bx + c) (b, c decimal with different orders of magnitude)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 78,
+      "order": "Q17",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Distribute with fractional coefficients"
+    },
+    {
+      "slot": 79,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334539",
+      "in_group": "Q17",
+      "title": "Polynomial product a(b/a x + c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 80,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "334540",
+      "in_group": "Q17",
+      "title": "Polynomial product a(b/a x - c)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 81,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "332698",
+      "in_group": "Q17",
+      "title": "Polynomial product p/q(bx - c) (fractional coefficients)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 82,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271481",
+      "in_group": "Q17",
+      "title": "Removing common factor (p/q) qr x (OpenStax College Algebra 1.5 #328)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 83,
+      "order": "Q18",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Add and subtract algebraic terms"
+    },
+    {
+      "slot": 84,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "197559",
+      "in_group": "Q18",
+      "title": "Subtracting Algebraic terms: ax + b - (cx + d)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 85,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267009",
+      "in_group": "Q18",
+      "title": "Subtracting algebraic terms: a(bx + c) - (dx + e)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 86,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267006",
+      "in_group": "Q18",
+      "title": "Adding algebraic terms (two variables, negative coefficients)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 87,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271477",
+      "in_group": "Q18",
+      "title": "Adding algebraic expression (variable terms cancel) (OpenStax College Algebra 1.5 #329)",
+      "qtype": "number"
+    },
+    {
+      "slot": 88,
+      "order": "Q19",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Commutative and associative properties"
+    },
+    {
+      "slot": 89,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274963",
+      "in_group": "Q19",
+      "title": "Commutative property of addition (linear combination ax + by vs. by + ax)",
+      "qtype": "number"
+    },
+    {
+      "slot": 90,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "274965",
+      "in_group": "Q19",
+      "title": "Commutative property of multiplication (linear combination (ax)( by) vs. (by)( ax)",
+      "qtype": "number"
+    },
+    {
+      "slot": 91,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336027",
+      "in_group": "Q19",
+      "title": "Associative property of addition (given the value of ax + by, find the value of ax + c + by)",
+      "qtype": "number"
+    },
+    {
+      "slot": 92,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "336030",
+      "in_group": "Q19",
+      "title": "Commutative and associative property of addition (linear combination ax + by + cz vs. permutation)",
+      "qtype": "number"
+    },
+    {
+      "slot": 93,
+      "order": "Q20",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 6 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Multiply a fraction by its denominator, simplify"
+    },
+    {
+      "slot": 94,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333581",
+      "in_group": "Q20",
+      "title": "Multiplying a fraction by its denominator (abstract form)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 95,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333585",
+      "in_group": "Q20",
+      "title": "Multiplying a fraction by its denominator (abstract form, binomial numerators and denominators)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 96,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333586",
+      "in_group": "Q20",
+      "title": "Multiplying a fraction by its denominator (abstract form, binomial numerators and denominators), right multiplication",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 97,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333588",
+      "in_group": "Q20",
+      "title": "Simplifying fraction with denominator 1 (abstract form, binomial numerator)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 98,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333591",
+      "in_group": "Q20",
+      "title": "Simplifying fraction with equal numerator and denominator",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 99,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "333594",
+      "in_group": "Q20",
+      "title": "Rewrite as fraction with denominator 1 (abstract form, binomial)",
+      "qtype": "numfunc"
+    },
+    {
+      "slot": 100,
+      "order": "Q21",
+      "file_path": null,
+      "unbanked": true,
+      "qid": null,
+      "group": true,
+      "points": 1,
+      "title": "Group Select  from group of 4 \nWithout\nWith\n replacement. Label:",
+      "section": "0.5",
+      "skill": "Zero, cancellation and exponent laws"
+    },
+    {
+      "slot": 101,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271480",
+      "in_group": "Q21",
+      "title": "Division of 0 by linear term (OpenStax College Algebra 1.5 #337)",
+      "qtype": "number"
+    },
+    {
+      "slot": 102,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267008",
+      "in_group": "Q21",
+      "title": "Division by zero (variable expression over 0) (OpenStax College Algebra 1.5 #339)",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 103,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "267007",
+      "in_group": "Q21",
+      "title": "Cancellation (a/b) (c/d) (b/a) OpenStax Intermediate Algebra 1.5 #335",
+      "qtype": "calculated"
+    },
+    {
+      "slot": 104,
+      "file_path": null,
+      "unbanked": true,
+      "qid": "271478",
+      "in_group": "Q21",
+      "title": "Multiplication (10^-n times 10^n) (OpenStax College Algebra #334)",
+      "qtype": "numfunc"
+    }
+  ]
+}
