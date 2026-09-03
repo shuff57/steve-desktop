@@ -48,10 +48,10 @@ Thumbs.db
 *.mp4
 graphify-out/
 
-# Cross-CLI message log. Local coordination state, not source: cursor-<agent> files are
-# per-machine READ POSITIONS, so a committed cursor makes another checkout skip messages
-# it never saw. agent-evo ignores it for the same reason.
-.msgbox/
+# Cross-CLI message log. Only the cursor-<agent> files are local state: they are per-machine
+# READ POSITIONS, so a committed cursor makes another checkout skip messages it never saw.
+# log.jsonl and FUTURE.md are meant to ship with the repo, so scope the ignore to the cursors.
+.msgbox/cursor-*
 
 # Verification screenshots dropped by agent runs. A spec that names a scratchpad path is
 # sometimes ignored in favour of writing into the repo, so this catches the artifact rather
@@ -73,3 +73,13 @@ steve-desktop/mom-content/qtext-audit.json
 steve-desktop/mom-content/anstypes-audit.json
 steve-desktop/qtext-audit.json
 steve-desktop/anstypes-audit.json
+
+# site-profile.mjs's selector-recipe cache. Same category as .agents/site-profiles/ above --
+# captured page content from live sites (SafeColleges training pages, MyOpenMath course pages)
+# that can carry real student names. Regenerable, and never meant to ship with the repo.
+scripts/_profile/
+
+# One-off scratch scripts dropped at the repo root during a session. Real tools live under
+# scripts/ or mom-content/_push/ with a name that says what they do; anything still prefixed
+# scratch- when the session ends was throwaway.
+steve-desktop/scratch-*.mjs
