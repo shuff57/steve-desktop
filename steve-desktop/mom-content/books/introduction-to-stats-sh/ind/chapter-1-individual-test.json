@@ -1,0 +1,203 @@
+{
+  "name": "Chapter 1 Individual Test",
+  "book": "introduction-to-stats-sh",
+  "kind": "ind",
+  "slug": "chapter-1-individual-test",
+  "_note": "PUSHED 2026-09-02 into aid 23444242, which had existed since 2026-08-31 as an EMPTY SHELL - named, placed in block 0-2-8 (Semester 1), correct settings, zero questions attached. This manifest filled it. Built to presets.ind: ~8 FULL multipart items, each exercising every step of a process, one per chapter section, plus EXACTLY 2 free response at the easy end touching the widest swath. Points 8x9 + 14 + 14 = 100. ZERO qsetid overlap with chapter-1-group-test.json AND chapter-1-practice-test.json - those two already share zero with each other, so all three tests are disjoint. That is deliberate: the practice test's window spans the group test, so a shared question is a leaked answer key. Slots 9-10 were AUTHORED for this test on 2026-09-02 (qsetids 1895083, 1895085) because all six Chapter-1 FRQs are consumed by the group and practice tests; the six unused FRQs (q4, q5, q7, q8, q9, q11) are Chapter 2 topics - boxplots, standard deviation, outliers, measures of center - and must not be attached here. Slot 1 was going to be a third authored question because section 1.1 has no multipart in the bank at all (all eleven of its questions are matching or choices); Steve's call 2026-09-02 was to attach the existing six-term matching item instead and accept recognition in that slot - see its _why. NO SETTINGS WERE WRITTEN. The shell already read back exactly the Individual Test column of reference/intro-stats-assessment-settings.md - gbcategory 798370 (IND), defattempts 2, defregens 1, defattemptpenalty 50, earlybonus 0, timelimit 81, allowlate 0, displaymethod full, showscores during, showans after_lastattempt, and all three resource links - so the settings step was skipped rather than run, because a settings save can clear fields that were already right.",
+  "_authoring_required": [
+    "none - slots 9 and 10 were authored and filed 2026-09-02 as qsetids 1895083 and 1895085"
+  ],
+  "_open_questions": [
+    "Slot 5 grouped-frequency-table-and-graphs.php asks which GRAPH SHAPE matches a grouped table. Grouped frequency distributions are 1.3, but graph shape edges toward Chapter 2. If Steve wants it kept strictly inside Chapter 1, the swap is questions/descriptive-stats/audit-frequency-table-errors.php (1873374, 5 parts, health ok, also unused) - an error audit rather than a display read.",
+    "The four 1.5 lab questions carry health 'unchecked' in reference/question-index.json, meaning the regress baseline has never replayed them. Two of their siblings (1890463, 1890465) are already live on the group and practice tests, so the family has been through a real push, but slot 8 specifically has not been rendered. Render it before the push, not after.",
+    "chapter-1-group-test.json slot 1 carries file_path questions/descriptive-stats/q01-identifying-the-population.php, which does not exist on disk. Its qid 1867369 is correct and belongs to q09-identify-population-multiple-choice.php. Stale path, does not affect this manifest, not fixed here."
+  ],
+  "coverage_spec": [
+    "1.1 key terms of a study (population, sample, parameter, statistic, variable, data)",
+    "1.2 classify data as qualitative, quantitative discrete, quantitative continuous",
+    "1.2 proportions, percents and fractions from a totals table",
+    "1.3 back-solve a frequency from cumulative relative frequency",
+    "1.3 read a grouped frequency table",
+    "1.4 anatomy of an experiment",
+    "1.4 repeated-measures design",
+    "1.5 which grouping answers the question, and why the boundary decides it",
+    "FRQ 1.1-1.2 what a sample can and cannot tell you",
+    "FRQ 1.4 designing a randomized comparative experiment"
+  ],
+  "mom_settings": {
+    "subtype": "Test",
+    "defattempts": 2,
+    "versions_per_question": 1,
+    "penalty": {
+      "per_attempt": 50,
+      "after_attempt": 1
+    },
+    "earlybonus": 0,
+    "gbcategory": "IND",
+    "gbcategory_id_334437": "798370",
+    "late_passes": 0,
+    "timelimit_min": 89,
+    "timelimit_wednesday_min": 81,
+    "allowovertime": true,
+    "passcode": "required - see ~/Documents/mom-test-passcodes-2026-27.md",
+    "displaymethod": "All questions on one page",
+    "show_scores": "on each question immediately",
+    "show_answers": "after the last try on a question"
+  },
+  "target": {
+    "cid": "334437",
+    "aid": "23444242"
+  },
+  "created_at": "2026-09-02",
+  "questions": [
+    {
+      "slot": 1,
+      "order": "Q1",
+      "sub_topic": "1.1 key terms of a study",
+      "file_path": "questions/descriptive-stats/q01-fitness-center-key-terms.php",
+      "title": "Fitness Center Key Terms",
+      "role": "matching",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873341",
+      "_why": "Steve's call 2026-09-02, replacing an authored 1.1 multipart. Section 1.1 carries no multipart in the bank - q01-q08 are matching, q09-q11 are choices, and its only multipart is a pre-FRQ - so this slot is recognition rather than the full-process item presets.ind describes. Accepted deliberately: it matches all six key terms (population, sample, parameter, statistic, variable, data) against one study in a single item, and it removes one of the three authoring jobs. The cost is that a student can reach it by elimination without ever producing a value; slot 9's FRQ opens on population and sample, which is where production of those terms is actually assessed."
+    },
+    {
+      "slot": 2,
+      "order": "Q2",
+      "sub_topic": "1.2 classify data as qualitative, discrete, continuous",
+      "file_path": "questions/data-sampling/classify-data-qualitative-discrete-continuous.php",
+      "title": "Classify Data as Qualitative, Quantitative Discrete, or Quantitative Continuous",
+      "role": "multipart",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1868253"
+    },
+    {
+      "slot": 3,
+      "order": "Q3",
+      "sub_topic": "1.2 proportions, percents and fractions from a totals table",
+      "file_path": "questions/descriptive-stats/proportions-and-percents-from-a-totals-table.php",
+      "title": "Proportions, Percents and Fractions from a Totals Table",
+      "role": "multipart",
+      "difficulty": "moderate",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873352"
+    },
+    {
+      "slot": 4,
+      "order": "Q4",
+      "sub_topic": "1.3 back-solve a frequency from cumulative relative frequency",
+      "file_path": "questions/descriptive-stats/back-solve-frequency-from-cumulative.php",
+      "title": "Back-Solve Frequency from Cumulative Relative Frequency",
+      "role": "multipart",
+      "difficulty": "hard",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873372"
+    },
+    {
+      "slot": 5,
+      "order": "Q5",
+      "sub_topic": "1.3 read a grouped frequency table",
+      "file_path": "questions/descriptive-stats/grouped-frequency-table-and-graphs.php",
+      "title": "Grouped Frequency Table and Graphs",
+      "role": "multipart",
+      "difficulty": "moderate",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873375"
+    },
+    {
+      "slot": 6,
+      "order": "Q6",
+      "sub_topic": "1.4 anatomy of an experiment",
+      "file_path": "questions/descriptive-stats/design-experiment-full-anatomy.php",
+      "title": "Anatomy of an Experiment",
+      "role": "multipart",
+      "difficulty": "moderate",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873390",
+      "_changed": "2026-09-03, Steve: six string parts became six multiple-choice dropdowns (choices, displayformat select, four options each, correct at index 0, shuffled by MOM). qsetid 1873390 UPDATED IN PLACE, so hw/1-4 slot 1 carries the same change. Verified on real MOM: six selects render in Teacher Preview on aid 23444242; the local sandbox was unreachable (network filter returns Web Page Blocked as HTTP 503, which render.mjs reports as CLEAN)."
+    },
+    {
+      "slot": 7,
+      "order": "Q7",
+      "sub_topic": "1.4 repeated-measures design",
+      "file_path": "questions/descriptive-stats/repeated-measures-design-identification.php",
+      "title": "Repeated-Measures Design Identification",
+      "role": "multipart",
+      "difficulty": "hard",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1873392"
+    },
+    {
+      "slot": 8,
+      "order": "Q8",
+      "sub_topic": "1.5 which grouping answers the question",
+      "file_path": "questions/data-collection/camila-vs-rosa-settlement.php",
+      "title": "Camila vs Rosa Settlement",
+      "role": "multipart",
+      "difficulty": "moderate",
+      "is_frq": false,
+      "points": 9,
+      "qid": "1890469"
+    },
+    {
+      "slot": 9,
+      "order": "Q9",
+      "sub_topic": "FRQ 1.1-1.2 what a sample can and cannot tell you",
+      "file_path": "questions/frq/descriptive-statistics/q13-what-the-sample-can-and-cannot-tell-you.php",
+      "title": "FRQ: What the Sample Can and Cannot Tell You",
+      "role": "essay",
+      "difficulty": "easy",
+      "is_frq": true,
+      "points": 14,
+      "qid": "1895083",
+      "_authored": "2026-09-02, filed byte-exact. Description had to be cut to <=254 chars: MOM truncates that field server-side with no maxlength attribute and reports the save as successful."
+    },
+    {
+      "slot": 10,
+      "order": "Q10",
+      "sub_topic": "FRQ 1.4 designing a randomized comparative experiment",
+      "file_path": "questions/frq/descriptive-statistics/q14-designing-a-randomized-comparative-experiment.php",
+      "title": "FRQ: Designing a Randomized Comparative Experiment",
+      "role": "essay",
+      "difficulty": "easy",
+      "is_frq": true,
+      "points": 14,
+      "qid": "1895085",
+      "_authored": "2026-09-02, filed byte-exact. Description had to be cut to <=254 chars: MOM truncates that field server-side with no maxlength attribute and reports the save as successful."
+    }
+  ],
+  "_settings": {
+    "defattempts": 2,
+    "defregens": 1,
+    "defattemptpenalty": 50,
+    "earlybonus": 0
+  },
+  "global_block": "0-2-8",
+  "filing": {
+    "cid": "334437",
+    "aid": "23444242",
+    "_what": "the ind test doubled as the filing vehicle for slots 9-10"
+  },
+  "_pushed": {
+    "date": "2026-09-02",
+    "aid": "23444242",
+    "cid": "334437",
+    "block": "0-2-8",
+    "gate": "PASSED - 10 questions / 0 groups / 100 points, read back off itemarray",
+    "render": "CLEAN in Teacher Preview - 10 questions, 0 Eeek!, no marker leak, no literal $vars, every question carries an answer widget",
+    "settings": "not written; the shell was already correct - see _note",
+    "steps_run": "attach, points, gate. create/move/settings/groups all skipped: the assessment already existed in the right block with the right settings, and this test has no group-selects.",
+    "_dates": "LEFT ALONE. All three Chapter 1 assessments are DATED (sdatetype=sdate), unlike the twelve older assessments in this course which are undated: group 08/31, practice 08/27-08/31, ind 09/02. That is how its siblings were built on 2026-08-31, so the ind test was left matching them rather than undated per the general master-course rule. Worth a decision from Steve, not a silent change.",
+    "_passcode": "STILL UNSET (password reads null on all three Chapter 1 tests). reference/intro-stats-assessment-settings.md says tests carry an access passcode. Passcode is a copy-time setting and must be the LAST write, since a later settings save clears it."
+  },
+  "_defect_found": "q13 slot 9, caught by READING THE RENDER after the gate and the clean render had both passed. Seed 1 drew its sample from the city VOTER REGISTRATION ROLL and then named that same frame as the flaw for the student to find - while the question text asserts that every member of the population had an equal chance of being selected. The prompt contradicted itself, and a student answering 'the sampling was not done well' would have been right about the question and wrong about the rubric. Fixed by moving seed 1 to a complete resident address list and giving it a leading-question threat instead, which also keeps the three threat types distinct (timing / leading question / nonresponse). qsetid 1895083 was UPDATED IN PLACE, never re-filed. Neither the lint, the byte-exact read-back, the qtype audit nor the clean render caught it."
+}

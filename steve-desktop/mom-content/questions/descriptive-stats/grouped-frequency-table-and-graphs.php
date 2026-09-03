@@ -24,27 +24,26 @@ $freqs = $freqsets[$fidx]
 $total = 60
 
 $intLabels = array()
-$ansA = 0
-$ansB = 0
-$ansC = 0
-$ansDcum = 0
 for ($i=0..6) {
   $lo = $lowers[$i]
   $hi = $lo + 4
   $intLabels[$i] = $lo . "&ndash;" . $hi
-  if ($hi >= 54 && $lo <= 65) {
-    $ansA = $ansA + $freqs[$i]
-  }
-  if ($lo >= 65) {
-    $ansB = $ansB + $freqs[$i]
-  }
-  if ($hi < 50) {
-    $ansC = $ansC + $freqs[$i]
-  }
-  if ($hi < 55) {
-    $ansDcum = $ansDcum + $freqs[$i]
-  }
 }
+
+// Every lowersets row steps by exactly 5, so class k+1's lower bound is always exactly one more
+// than class k's upper bound. Reading the four cutoffs straight off this draw's own $lowers array
+// (instead of fixed ages) is what keeps every phrase below landing on a real class edge no matter
+// which of the three lowersets got picked. A fixed number like 54 only lines up with one of them.
+$bLowMid = $lowers[3]
+$bHighMid = $lowers[5] + 4
+$bOlder = $lowers[5]
+$bUnder = $lowers[2]
+
+$ansA = $freqs[3] + $freqs[4] + $freqs[5]
+$ansB = $freqs[5] + $freqs[6]
+$ansC = $freqs[0] + $freqs[1]
+$ansDcum = $freqs[0] + $freqs[1] + $freqs[2]
+
 $ansBdec = round($ansB / $total, 4)
 $ansCdec = round($ansC / $total, 4)
 $ansDdec = round($ansDcum / $total, 4)
@@ -64,7 +63,7 @@ $descPairs = array(
   ),
   array(
     "increases to a single highest bar and then decreases",
-    "never goes down &mdash; each bar is at least as tall as the one before it, and the last bar reaches 1"
+    "never goes down: each bar is at least as tall as the one before it, and the last bar reaches 1"
   )
 )
 $dpick = rand(0, 1)
@@ -109,12 +108,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><strong>Step 1 &mdash; Confirm the sample size.</strong> The frequencies add to ' . $total . ', which matches the ' . $total . ' CEOs in the sample.</p>
-      <p><strong>Step 2 &mdash; Part (a): frequency for ages between 54 and 65.</strong> Add the frequencies of the intervals that overlap with 54 to 65: <b>' . $ansA . '</b>.</p>
-      <p><strong>Step 3 &mdash; Part (b): relative frequency of CEOs 65 or older.</strong> The total frequency for ages 65 and older is ' . $ansB . '. Divide by the total: ' . $ansB . '/' . $total . ' = ' . $ansBdec . ' (' . $ansBpct . '%).</p>
-      <p><strong>Step 4 &mdash; Part (c): relative frequency of ages under 50.</strong> The total frequency for ages under 50 is ' . $ansC . '. Divide by the total: ' . $ansC . '/' . $total . ' = ' . $ansCdec . ' (' . $ansCpct . '%).</p>
-      <p><strong>Step 5 &mdash; Part (d): cumulative relative frequency for CEOs younger than 55.</strong> The total frequency for ages under 55 is ' . $ansDcum . '. Divide by the total: ' . $ansDcum . '/' . $total . ' = ' . $ansDdec . ' (' . $ansDpct . '%).</p>
-      <p><strong>Step 6 &mdash; Part (e): identify the graphs.</strong> A relative-frequency graph shows each interval on its own, so its bars rise and then fall with the data. A cumulative graph can never go down &mdash; each bar includes everything before it &mdash; so its bars climb steadily and the last bar reaches 1.</p>
+      <p><strong>Step 1: Confirm the sample size.</strong> The frequencies add to ' . $total . ', which matches the ' . $total . ' CEOs in the sample.</p>
+      <p><strong>Step 2: Part (a): frequency for ages between ' . $bLowMid . ' and ' . $bHighMid . '.</strong> Add the frequencies of the classes from ' . $bLowMid . '&ndash;' . $bHighMid . ' up through the class ending at ' . $bHighMid . ': <b>' . $ansA . '</b>.</p>
+      <p><strong>Step 3: Part (b): relative frequency of CEOs ' . $bOlder . ' or older.</strong> The total frequency for ages ' . $bOlder . ' and older is ' . $ansB . '. Divide by the total: ' . $ansB . '/' . $total . ' = ' . $ansBdec . ' (' . $ansBpct . '%).</p>
+      <p><strong>Step 4: Part (c): relative frequency of ages under ' . $bUnder . '.</strong> The total frequency for ages under ' . $bUnder . ' is ' . $ansC . '. Divide by the total: ' . $ansC . '/' . $total . ' = ' . $ansCdec . ' (' . $ansCpct . '%).</p>
+      <p><strong>Step 5: Part (d): cumulative relative frequency for CEOs younger than ' . $bLowMid . '.</strong> The total frequency for ages under ' . $bLowMid . ' is ' . $ansDcum . '. Divide by the total: ' . $ansDcum . '/' . $total . ' = ' . $ansDdec . ' (' . $ansDpct . '%).</p>
+      <p><strong>Step 6: Part (e): identify the graphs.</strong> A relative-frequency graph shows each interval on its own, so its bars rise and then fall with the data. A cumulative graph can never go down, each bar includes everything before it, so its bars climb steadily and the last bar reaches 1.</p>
       <p><strong>Answers:</strong> (a) ' . $ansA . ', (b) ' . $ansBdec . ', (c) ' . $ansCdec . ', (d) ' . $ansDdec . '.</p>
     </div>
   </details>
@@ -144,10 +143,10 @@ $solutionguide = '
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 10px 0;"><strong>Use the table to answer the following questions.</strong></p>
-    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What is the frequency for CEO ages between 54 and 65? $answerbox[0]</p>
-    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What is the relative frequency (as a decimal) of CEOs who are 65 years or older? $answerbox[1]</p>
-    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> What is the relative frequency (as a decimal) of CEOs under 50? $answerbox[2]</p>
-    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> What is the cumulative relative frequency (as a decimal) for CEOs younger than 55? $answerbox[3]</p>
+    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What is the frequency for CEO ages between $bLowMid and $bHighMid? $answerbox[0]</p>
+    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What is the relative frequency (as a decimal) of CEOs who are $bOlder years or older? $answerbox[1]</p>
+    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> What is the relative frequency (as a decimal) of CEOs under $bUnder? $answerbox[2]</p>
+    <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> What is the cumulative relative frequency (as a decimal) for CEOs younger than $bLowMid? $answerbox[3]</p>
     <p style="margin:0 0 5px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">e.</span> Which statement correctly identifies the two graphs? $answerbox[4]</p>
   </div>
 </div>

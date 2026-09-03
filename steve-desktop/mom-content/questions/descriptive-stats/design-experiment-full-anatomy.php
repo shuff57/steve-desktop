@@ -3,7 +3,7 @@
 
 // === COMMON CONTROL ===
 
-$anstypes = array("string", "string", "string", "string", "string", "string")
+$anstypes = array("choices", "choices", "choices", "choices", "choices", "choices")
 
 $teaDoseOptions = array(150, 200, 250, 300)
 $teaDose = $teaDoseOptions[rand(0, 3)]
@@ -14,113 +14,122 @@ $walkMin = $walkMinOptions[rand(0, 3)]
 $nOptions = array(40, 50, 60, 75, 80, 100, 120)
 $n = $nOptions[rand(0, 6)]
 
-$scenarioDesc = array(
-  "Researchers want to know whether a " . $teaDose . " mg dose of an herbal sleep tea taken before bed shortens the time it takes to fall asleep.",
-  "Researchers want to know whether a " . $walkMin . "-minute brisk walk taken before an afternoon shift reduces a worker's self-reported fatigue score at the end of the shift."
-)
+// Two scenarios. Every option list puts the correct choice at index 0; MOM shuffles the
+// displayed order per seed, so the position never leaks. The distractors are the mistakes the
+// topic actually produces: swapping explanatory and response, naming the sample or one treatment
+// group as the population, naming the treatments as the units, naming the groups or the response
+// levels as the treatments, and confusing random assignment with blinding.
+$s = rand(0, 1)
 
-$expVarAns = array(
-  "which tea the participant drank before bed, the active herbal sleep tea versus the placebo tea or the type of pre-bed tea consumed, active herbal tea versus placebo tea",
-  "whether the participant took the brisk walk versus sitting quietly before the shift or the type of pre-shift activity assigned, walking versus sitting quietly"
-)
+if ($s == 0) {
+  $studyDesc = "Researchers want to know whether a " . $teaDose . " mg dose of an herbal sleep tea taken before bed shortens the time it takes to fall asleep."
+  $expShort = "which tea the participant drank before bed, the herbal sleep tea or the placebo tea"
+  $respShort = "the number of minutes it took the participant to fall asleep"
+  $popText = "adults who report occasional difficulty falling asleep"
+  $unitsText = "the individual volunteers enrolled in the sleep study"
+  $activeShort = "the herbal sleep tea at " . $teaDose . " mg"
+  $inactiveShort = "a placebo tea with no active ingredient, made to look and taste the same as the herbal tea"
+  $blindText = "Yes"
+  $blindReason = "the herbal tea and the placebo tea can be prepared to look, smell, and taste identical, so a participant cannot tell which one they drank"
+  $questions[0] = array(
+    "which tea the participant drank before bed, the herbal sleep tea or the placebo tea",
+    "the number of minutes it took the participant to fall asleep",
+    "the " . $teaDose . " mg dose of herbal sleep tea",
+    "the " . $n . " volunteers recruited for the study"
+  )
+  $questions[1] = array(
+    "the number of minutes it took the participant to fall asleep",
+    "which tea the participant drank before bed, the herbal sleep tea or the placebo tea",
+    "the placebo tea with no active ingredient",
+    "the " . $n . " volunteers recruited for the study"
+  )
+  $questions[2] = array(
+    "adults who report occasional difficulty falling asleep",
+    "the " . $n . " volunteers recruited for the study",
+    "the half of the volunteers who drank the herbal sleep tea",
+    "the minutes it took each volunteer to fall asleep"
+  )
+  $questions[3] = array(
+    "the individual volunteers enrolled in the sleep study",
+    "adults who report occasional difficulty falling asleep",
+    "the herbal sleep tea and the placebo tea",
+    "the minutes recorded for each volunteer"
+  )
+  $questions[4] = array(
+    "the herbal sleep tea and a look-alike placebo tea with no active ingredient",
+    "the herbal sleep tea and no tea at all",
+    "falling asleep quickly and falling asleep slowly",
+    "the volunteers who drank the herbal tea and the volunteers who drank the placebo"
+  )
+  $questions[5] = array(
+    "Yes. The herbal tea and the placebo tea can be made to look, smell, and taste the same, so a participant cannot tell which one they drank.",
+    "No. A participant always knows what they drank before bed.",
+    "Yes. The volunteers were assigned to the two teas at random.",
+    "No. The researchers know which tea each volunteer received."
+  )
+}
 
-$respVarAns = array(
-  "the number of minutes it took the participant to fall asleep or the time to fall asleep, measured in minutes",
-  "the participant's self-reported fatigue score at the end of the shift or the afternoon fatigue score reported by the participant"
-)
+if ($s == 1) {
+  $studyDesc = "Researchers want to know whether a " . $walkMin . "-minute brisk walk taken before an afternoon shift reduces the fatigue score a worker reports at the end of the shift."
+  $expShort = "whether the participant took a brisk walk or sat quietly before the shift"
+  $respShort = "the fatigue score the participant reported at the end of the shift"
+  $popText = "employees who work afternoon shifts at the company"
+  $unitsText = "the individual employee volunteers enrolled in the study"
+  $activeShort = "a " . $walkMin . "-minute brisk walk taken before the shift"
+  $inactiveShort = "sitting quietly for " . $walkMin . " minutes before the shift"
+  $blindText = "No"
+  $blindReason = "a participant obviously knows whether they walked or sat quietly before their shift, so the subject cannot be kept unaware of the treatment"
+  $questions[0] = array(
+    "whether the participant took a brisk walk or sat quietly before the shift",
+    "the fatigue score the participant reported at the end of the shift",
+    "the " . $walkMin . "-minute brisk walk",
+    "the " . $n . " employee volunteers recruited for the study"
+  )
+  $questions[1] = array(
+    "the fatigue score the participant reported at the end of the shift",
+    "whether the participant took a brisk walk or sat quietly before the shift",
+    "sitting quietly for " . $walkMin . " minutes before the shift",
+    "the " . $n . " employee volunteers recruited for the study"
+  )
+  $questions[2] = array(
+    "employees who work afternoon shifts at the company",
+    "the " . $n . " employee volunteers recruited for the study",
+    "the half of the volunteers who took the brisk walk",
+    "the fatigue scores reported at the end of the shift"
+  )
+  $questions[3] = array(
+    "the individual employee volunteers enrolled in the study",
+    "employees who work afternoon shifts at the company",
+    "the brisk walk and the quiet sitting",
+    "the fatigue score recorded for each volunteer"
+  )
+  $questions[4] = array(
+    "a " . $walkMin . "-minute brisk walk before the shift and sitting quietly for " . $walkMin . " minutes before the shift",
+    "a brisk walk before the shift and no instruction at all",
+    "high fatigue and low fatigue at the end of the shift",
+    "the volunteers who walked and the volunteers who sat quietly"
+  )
+  $questions[5] = array(
+    "No. A participant obviously knows whether they walked or sat quietly before the shift, so the subject cannot be kept unaware of the treatment.",
+    "Yes. The walk and the quiet sitting take the same amount of time, so a participant cannot tell which treatment they received.",
+    "Yes. The volunteers were assigned to the two activities at random.",
+    "No. The researchers know which activity each volunteer was assigned."
+  )
+}
 
-$popAns = array(
-  "adults who report occasional difficulty falling asleep or adults with occasional trouble falling asleep",
-  "employees who work afternoon shifts at the company or workers assigned to afternoon shifts at the company"
-)
+$answer[0] = 0
+$answer[1] = 0
+$answer[2] = 0
+$answer[3] = 0
+$answer[4] = 0
+$answer[5] = 0
 
-$unitsAns = array(
-  "the individual volunteers enrolled in the sleep study or the volunteer participants in the study",
-  "the individual employee volunteers enrolled in the study or the employee volunteers who participated in the study"
-)
-
-$treatAns = array(
-  "the active herbal sleep tea and a look-alike placebo tea with no active ingredient or an active dose of the herbal sleep tea versus a placebo tea with no active ingredient",
-  "a brisk walk before the shift and sitting quietly for the same amount of time or walking briskly before the shift versus sitting quietly for the same amount of time"
-)
-
-$blindAns = array(
-  "yes, subjects can be blinded because the active tea and the placebo tea can be made identical in appearance, smell, and taste or yes, blinding of the subjects is possible since the two teas can be prepared to look and taste the same",
-  "no, subjects cannot be blinded because a participant always knows which activity they were assigned, walking versus sitting quietly or no, blinding of the subjects is not possible since a person obviously knows whether they exercised before the shift"
-)
-
-$activeTreatShort = array(
-  "the active herbal sleep tea (" . $teaDose . " mg)",
-  "a " . $walkMin . "-minute brisk walk taken before the shift"
-)
-
-$inactiveTreatShort = array(
-  "a placebo tea with no active ingredient, made to look and taste the same as the herbal tea",
-  "sitting quietly for " . $walkMin . " minutes before the shift"
-)
-
-$expVarShort = array(
-  "which tea the participant drank before bed &ndash; the active herbal sleep tea or the placebo tea",
-  "whether the participant walked or sat quietly before their shift"
-)
-
-$respVarShort = array(
-  "the number of minutes it took the participant to fall asleep",
-  "the participant's self-reported fatigue score at the end of the shift"
-)
-
-$popShort = array(
-  "adults who report occasional difficulty falling asleep",
-  "employees who work afternoon shifts at the company"
-)
-
-$unitsShort = array(
-  "the individual volunteers enrolled in the sleep study",
-  "the individual employee volunteers enrolled in the study"
-)
-
-$blindYN = array("Yes", "No")
-
-$blindReasonShort = array(
-  "the active tea and the placebo tea can be prepared to look, smell, and taste identical, so a participant cannot tell which one they drank",
-  "a participant obviously knows whether they walked or sat quietly before their shift, so the subject cannot be kept unaware of the treatment"
-)
-
-$picked = jointrandfrom($scenarioDesc, $expVarAns, $respVarAns, $popAns, $unitsAns, $treatAns, $blindAns, $activeTreatShort, $inactiveTreatShort, $expVarShort, $respVarShort, $popShort, $unitsShort, $blindYN, $blindReasonShort)
-
-$studyDesc = $picked[0]
-$expVarAnswer = $picked[1]
-$respVarAnswer = $picked[2]
-$popAnswer = $picked[3]
-$unitsAnswer = $picked[4]
-$treatAnswer = $picked[5]
-$blindAnswer = $picked[6]
-$activeShort = $picked[7]
-$inactiveShort = $picked[8]
-$expShort = $picked[9]
-$respShort = $picked[10]
-$popText = $picked[11]
-$unitsText = $picked[12]
-$blindText = $picked[13]
-$blindReason = $picked[14]
-
-$answer[0] = $expVarAnswer
-$strflags[0] = "ignore_case,trim_whitespace"
-
-$answer[1] = $respVarAnswer
-$strflags[1] = "ignore_case,trim_whitespace"
-
-$answer[2] = $popAnswer
-$strflags[2] = "ignore_case,trim_whitespace"
-
-$answer[3] = $unitsAnswer
-$strflags[3] = "ignore_case,trim_whitespace"
-
-$answer[4] = $treatAnswer
-$strflags[4] = "ignore_case,trim_whitespace"
-
-$answer[5] = $blindAnswer
-$strflags[5] = "ignore_case,trim_whitespace"
+$displayformat[0] = "select"
+$displayformat[1] = "select"
+$displayformat[2] = "select"
+$displayformat[3] = "select"
+$displayformat[4] = "select"
+$displayformat[5] = "select"
 
 $solutionguide = '
 <style>
@@ -140,11 +149,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Name the variables.</span> ' . $studyDesc . ' The explanatory variable is ' . $expShort . '. The response variable is ' . $respShort . '.</p>
-      <p><span class="term-label">Step 2 &mdash; Population and experimental units.</span> The population is ' . $popText . '. The experimental units are ' . $unitsText . '.</p>
-      <p><span class="term-label">Step 3 &mdash; Treatments.</span> There are two treatments. The active treatment is ' . $activeShort . '. The inactive, placebo-like treatment is ' . $inactiveShort . '. Every experimental unit is assigned to one of the two treatments at random, not by letting participants choose &mdash; letting them choose would sort motivated or health-conscious participants into one group and hand the study a lurking variable.</p>
-      <p><span class="term-label">Step 4 &mdash; Blinding.</span> Can the subjects be blinded? <b>' . $blindText . '</b>, because ' . $blindReason . '.</p>
-      <p><b>Answer:</b> explanatory &ndash; ' . $expShort . '; response &ndash; ' . $respShort . '; population &ndash; ' . $popText . '; experimental units &ndash; ' . $unitsText . '; treatments &ndash; ' . $activeShort . ' (active) and ' . $inactiveShort . ' (inactive); blinding of subjects &ndash; ' . $blindText . '.</p>
+      <p><span class="term-label">Step 1: Name the variables.</span> ' . $studyDesc . ' The explanatory variable is ' . $expShort . '. The response variable is ' . $respShort . '.</p>
+      <p><span class="term-label">Step 2: Population and experimental units.</span> The population is ' . $popText . '. The experimental units are ' . $unitsText . '.</p>
+      <p><span class="term-label">Step 3: Treatments.</span> There are two treatments. The active treatment is ' . $activeShort . '. The inactive, placebo-like treatment is ' . $inactiveShort . '. Every experimental unit is assigned to one of the two treatments at random, not by letting participants choose: letting them choose would sort motivated or health-conscious participants into one group and hand the study a lurking variable.</p>
+      <p><span class="term-label">Step 4: Blinding.</span> Can the subjects be blinded? <b>' . $blindText . '</b>, because ' . $blindReason . '. Random assignment is a different idea: it decides who gets which treatment, and it does not hide the treatment from the subject.</p>
+      <p><b>Answer:</b> explanatory: ' . $expShort . '; response: ' . $respShort . '; population: ' . $popText . '; experimental units: ' . $unitsText . '; treatments: ' . $activeShort . ' as the active treatment and ' . $inactiveShort . ' as the inactive treatment; blinding of subjects: ' . $blindText . '.</p>
     </div>
   </details>
 </div>'
@@ -154,7 +163,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">$studyDesc They recruit $n volunteers for the study. Half of the volunteers will be randomly assigned to an active treatment and half to an inactive, placebo-like treatment.</p>
-    <p style="margin:12px 0 0 0;">Use the anatomy of an experiment to describe this design.</p>
+    <p style="margin:12px 0 0 0;">Use the anatomy of an experiment to describe this design. Choose the best description from each list.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What is the <b>explanatory variable</b> in this study? $answerbox[0]
@@ -163,16 +172,16 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What is the <b>response variable</b> in this study? $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Describe the <b>population</b> being studied. $answerbox[2]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Which describes the <b>population</b> being studied? $answerbox[2]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> What are the <b>experimental units</b>? $answerbox[3]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">e.</span> Name the <b>two treatments</b> used in this study &ndash; one active and one inactive (placebo-like). $answerbox[4]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">e.</span> Which pair names the <b>two treatments</b> used in this study, one active and one inactive? $answerbox[4]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">f.</span> Is <b>blinding</b> possible for the subjects in this study? Answer yes or no, and justify your answer in one sentence. $answerbox[5]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">f.</span> Is <b>blinding</b> possible for the subjects in this study? Choose the answer with the correct reason. $answerbox[5]
   </div>
 </div>
 
