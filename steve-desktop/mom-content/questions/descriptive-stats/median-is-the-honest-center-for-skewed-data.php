@@ -9,7 +9,7 @@
 // that fact is far more convincing than the instruction.
 //
 // The data is eight tightly clustered values plus one far larger, so the mean is always dragged above
-// the eighth value and the count below the mean is always 8 of 9 -- guaranteed by construction, not by
+// the eighth value and the count below the mean is always 8 of 9: guaranteed by construction, not by
 // the luck of the draw. n = 9 keeps the median a single value.
 $anstypes = array("number", "number", "number", "choices")
 
@@ -40,7 +40,7 @@ $e7 = $e6 + rand(1, 3)
 $clusterSum = $e0 + $e1 + $e2 + $e3 + $e4 + $e5 + $e6 + $e7
 
 // The ninth value is far above the cluster. Its size is chosen so the total is divisible by 9, so the
-// mean is exact, and so the mean always clears $e7 -- which is what makes the count in part (c) fixed.
+// mean is exact, and so the mean always clears $e7: which is what makes the count in part (c) fixed.
 $big = $e7 + 9 * rand(20, 30)
 $total = $clusterSum + $big
 $rem = $total % 9
@@ -85,13 +85,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the mean.</span> The nine values total ' . $total . ', so `bar x = ' . $total . ' -: 9 = ` <b>' . $mean . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">Step 2 &mdash; the median.</span> The values are already in order, so with nine of them the median is the 5th: <b>' . $median . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Step 1: the mean.</span> The nine values total ' . $total . ', so `bar x = ' . $total . ' -: 9 = ` <b>' . $mean . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Step 2: the median.</span> The values are already in order, so with nine of them the median is the 5th: <b>' . $median . '</b> ' . $unitWord . '.</p>
       <span class="srt">' . $e0 . ', ' . $e1 . ', ' . $e2 . ', ' . $e3 . ', <b>' . $median . '</b>, ' . $e5 . ', ' . $e6 . ', ' . $e7 . ', ' . $big . '</span>
       <p>The mean sits ' . $gap . ' ' . $unitWord . ' above the median. That gap is the single large value doing its work.</p>
-      <p><span class="term-label">Step 3 &mdash; the part that settles the argument.</span> Count how many of the nine values fall BELOW the mean of ' . $mean . ': every one of the first eight does. Only ' . $bigWho . ' is above it. So a report quoting ' . $mean . ' as the typical figure would be quoting a number that <b>8 of the 9</b> fall short of.</p>
+      <p><span class="term-label">Step 3: the part that settles the argument.</span> Count how many of the nine values fall BELOW the mean of ' . $mean . ': every one of the first eight does. Only ' . $bigWho . ' is above it. So a report quoting ' . $mean . ' as the typical figure would be quoting a number that <b>8 of the 9</b> fall short of.</p>
       <p><span class="term-label">Why the median does not have this problem.</span> The median is defined by POSITION: four values below, four above, always. It cannot be pulled away from the middle by one extreme value, because moving that value further out does not change which value is in the middle.</p>
-      <p><span class="term-label">The habit worth keeping.</span> Whenever a mean and a median disagree by a lot, ask how many observations actually sit near the mean. For ' . $thing . ', house prices, and anything else with a long high tail, the answer is usually "not many" &mdash; which is why the median is the figure normally published for them.</p>
+      <p><span class="term-label">The habit worth keeping.</span> Whenever a mean and a median disagree by a lot, ask how many observations actually sit near the mean. For ' . $thing . ', house prices, and anything else with a long high tail, the answer is usually "not many": which is why the median is the figure normally published for them.</p>
     </div>
   </details>
 </div>'

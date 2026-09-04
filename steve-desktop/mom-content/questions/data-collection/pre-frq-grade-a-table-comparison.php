@@ -10,7 +10,7 @@
 // Addresses Grouping Tradeoffs (3 pts) = 10.
 //
 // The dropped category is ADDRESSES GROUPING TRADEOFFS. A student can state a defensible position
-// and back it with evidence without ever grappling with the fact that grouping can hide a cut --
+// and back it with evidence without ever grappling with the fact that grouping can hide a cut:
 // which is the lab's real lesson. Part (c) exists to name that habit.
 //
 // Not reused from an earlier assignment: 2.3 Percentile, 2.4 Contextual Interpretation, 2.5
@@ -141,14 +141,14 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> takes a defensible position, cites the tables, and names what grouping can hide. Each of the other three misses a whole category.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noTradeLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> takes a defensible position, cites the tables, and names what grouping can hide. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noTradeLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Defensible Position &mdash; earned.</b> The response takes a clear position and defends it.</li>
-        <li><b>Evidence from Your Own Tables &mdash; earned.</b> It points to the rows and values the answer came from.</li>
-        <li><b>Addresses Grouping Tradeoffs &mdash; NOT earned.</b> Nothing in the response says what grouping can and cannot hide, which is the lab&rsquo;s real lesson.</li>
+        <li><b>Defensible Position: earned.</b> The response takes a clear position and defends it.</li>
+        <li><b>Evidence from Your Own Tables: earned.</b> It points to the rows and values the answer came from.</li>
+        <li><b>Addresses Grouping Tradeoffs: NOT earned.</b> Nothing in the response says what grouping can and cannot hide, which is the lab&rsquo;s real lesson.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the tradeoffs are their own category.</span> A defensible position backed by evidence is exactly the answer that still never grapples with the fact that grouping can hide the question. The tradeoffs have to be judged separately, because that is the one line a careful student skips.</p>
+      <p><span class="term-label">Part (c): why the tradeoffs are their own category.</span> A defensible position backed by evidence is exactly the answer that still never grapples with the fact that grouping can hide the question. The tradeoffs have to be judged separately, because that is the one line a careful student skips.</p>
     </div>
   </details>
 </div>'

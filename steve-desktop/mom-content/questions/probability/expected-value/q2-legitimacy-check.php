@@ -75,8 +75,8 @@ $noshuffle[2] = "all"
 $sumDisplay = $picked[11]
 
 $verdict = "Both characteristics hold, so the table is a legitimate probability distribution function."
-if ($answer[0] == 0 && $answer[2] == 1) { $verdict = "Every entry sits between 0 and 1, but the column sums to " . $sumDisplay . ", not 1 &mdash; so the table is not a legitimate distribution." }
-if ($answer[0] == 0 && $answer[2] == 0) { $verdict = "The column happens to sum to 1, but one entry is negative, and a probability can never be negative &mdash; so the table is not a legitimate distribution." }
+if ($answer[0] == 0 && $answer[2] == 1) { $verdict = "Every entry sits between 0 and 1, but the column sums to " . $sumDisplay . ", not 1: so the table is not a legitimate distribution." }
+if ($answer[0] == 0 && $answer[2] == 0) { $verdict = "The column happens to sum to 1, but one entry is negative, and a probability can never be negative: so the table is not a legitimate distribution." }
 
 $solutionguide = '
 <style>
@@ -97,8 +97,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The two characteristics.</span> Every probability must be between zero and one inclusive, and the column must sum to exactly one. Both must hold.</p>
-      <p><span class="term-label">Part (b) &mdash; the column sum.</span> Adding the entries gives <b>' . $sumDisplay . '</b>.</p>
-      <p><span class="term-label">Part (a) and (c) &mdash; the verdict.</span> ' . $verdict . '</p>
+      <p><span class="term-label">Part (b): the column sum.</span> Adding the entries gives <b>' . $sumDisplay . '</b>.</p>
+      <p><span class="term-label">Part (a) and (c): the verdict.</span> ' . $verdict . '</p>
       <p>A distribution is a budget: you have exactly one unit of probability to spend, and every value gets a share that is neither negative nor more than the whole.</p>
     </div>
   </details>

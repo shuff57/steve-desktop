@@ -6,13 +6,13 @@
 // Chapter 1's companion to the 2.x pre-FRQ. Same idea: the scenario and the SAME grading checklist
 // as the real free-response item (questions/frq/descriptive-statistics/q10-sampling-design-critique.php),
 // but every part auto-grades, so it can live in homework where free response is not allowed.
-// Keep the three categories and their point values identical to q10 -- the value of this question is
+// Keep the three categories and their point values identical to q10: the value of this question is
 // entirely that the checklist is the one students will actually be marked against.
 $anstypes = array("choices", "multans", "choices")
 
 // TWO of the four scenarios run too high and two run too low, on purpose. All three of the original
 // scenarios resolved "too high", which meant a student could answer part (b)'s direction correctly
-// without reading the plan at all -- and predicting the direction is the whole category the question
+// without reading the plan at all: and predicting the direction is the whole category the question
 // is built to drill. A rubric category a student can pass by pattern-matching is not being assessed.
 //
 // The scenario this replaced also had a soft answer: students outside a careers office were said to
@@ -62,11 +62,11 @@ else {
 }
 
 // The full-credit response hits all three categories. Each weaker one drops exactly one or two, and
-// which categories it drops is what part (b) asks for -- so every response has to be built against
+// which categories it drops is what part (b) asks for: so every response has to be built against
 // the checklist rather than written loosely.
 $rFull = "The plan is a " . $bias . " sample: " . $plan . " reaches only people already in one place, so " . $missed . " never get a chance to appear. That pushes the result " . $dir . ", because " . $why . ". A better design would take a simple random sample from " . $frame . ", so every member of the population has the same chance of being picked."
 
-// Names the bias and explains it, and proposes a fix -- but never says which way the answer is off.
+// Names the bias and explains it, and proposes a fix: but never says which way the answer is off.
 $rNoDirection = "This is a " . $bias . " sample, because " . $plan . " only reaches people who happen to be there, leaving out " . $missed . ". Instead they should take a simple random sample from " . $frame . " so that everyone has an equal chance of selection."
 
 // Direction and improvement, but never NAMES the bias or explains why the plan causes it.
@@ -79,7 +79,7 @@ $questions[0] = array($rFull, $rNoDirection, $rNoBias, $rNoDesign)
 $answer[0] = 0
 
 // Part (b) grades the NO-DIRECTION response: it earns Identify the Bias and Improved Design, and
-// fails only Predict the Direction. One category, not all three -- so ticking everything fails.
+// fails only Predict the Direction. One category, not all three: so ticking everything fails.
 $questions[1] = array(
   "Identify the Bias (4 pts)",
   "Predict the Direction (3 pts)",
@@ -116,9 +116,9 @@ $css_block = '
 $rubricblock = $css_block . '
 <div class="rubric-container">
   <details open>
-    <summary><span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span> Grading Checklist &mdash; 10 points</summary>
+    <summary><span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span> Grading Checklist: 10 points</summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> &mdash; a full-credit critique must address:</p>
+      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b>: a full-credit critique must address:</p>
       <table class="rubric-table">
         <tbody>
           <tr><th>Category</th><th>Requirement</th></tr>
@@ -163,15 +163,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a).</span> Only one response earns all three categories. It names the bias (' . $bias . ') AND says what about the plan causes it, states the direction (' . $dir . ') AND the reason, and proposes a randomized method together with the sampling frame &mdash; ' . $frame . '. Each of the other three drops at least one whole category.</p>
-      <p><span class="term-label">Part (b) &mdash; grade it category by category.</span> The response you were given is correct in everything it says. Work down the checklist:</p>
+      <p><span class="term-label">Part (a).</span> Only one response earns all three categories. It names the bias (' . $bias . ') AND says what about the plan causes it, states the direction (' . $dir . ') AND the reason, and proposes a randomized method together with the sampling frame: ' . $frame . '. Each of the other three drops at least one whole category.</p>
+      <p><span class="term-label">Part (b): grade it category by category.</span> The response you were given is correct in everything it says. Work down the checklist:</p>
       <ul>
-        <li><b>Identify the Bias &mdash; earned.</b> It names the bias and explains why the plan produces it.</li>
-        <li><b>Predict the Direction &mdash; not earned.</b> It never says whether the figure comes out too high or too low. This is the only category it misses.</li>
-        <li><b>Improved Design &mdash; earned.</b> Simple random sample, and it names the frame.</li>
+        <li><b>Identify the Bias: earned.</b> It names the bias and explains why the plan produces it.</li>
+        <li><b>Predict the Direction: not earned.</b> It never says whether the figure comes out too high or too low. This is the only category it misses.</li>
+        <li><b>Improved Design: earned.</b> Simple random sample, and it names the frame.</li>
       </ul>
       <p>So 7 of 10, for an answer with nothing wrong in it. Notice that ticking all three boxes would have been just as wrong as ticking none: the question is which categories were missed, not whether the answer was imperfect.</p>
-      <p><span class="term-label">Part (c) &mdash; why the direction is its own category.</span> "This sample is biased" tells a reader that the number cannot be trusted, but not which way to lean. A survey that runs ' . $dir . ' is a specific, checkable claim, and it is what makes the critique useful to whoever has to act on the figure. That is why the rubric awards it separately from naming the bias.</p>
+      <p><span class="term-label">Part (c): why the direction is its own category.</span> "This sample is biased" tells a reader that the number cannot be trusted, but not which way to lean. A survey that runs ' . $dir . ' is a specific, checkable claim, and it is what makes the critique useful to whoever has to act on the figure. That is why the rubric awards it separately from naming the bias.</p>
       <p><span class="term-label">Why this exists.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Finding the missing category in someone else\'s answer is the quickest way to stop leaving it out of your own.</p>
     </div>
   </details>
@@ -193,7 +193,7 @@ $solutionguide = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Now grade this one:
     $respBox
-    Select <b>every category it fails to earn</b>. Nothing it says is wrong &mdash; read it against the checklist before you choose. $answerbox[1]
+    Select <b>every category it fails to earn</b>. Nothing it says is wrong: read it against the checklist before you choose. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Is naming the bias enough on its own to cover the direction of the error? $answerbox[2]

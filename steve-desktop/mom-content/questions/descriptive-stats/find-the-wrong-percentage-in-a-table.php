@@ -88,10 +88,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; add the percentage column first.</span> It comes to ' . $shownTotal . '%. Every ' . $unitWord . ' falls in exactly one row, so the column has to come to 100% apart from a little rounding. It does not, so at least one row is wrong &mdash; and this one check finds the problem before any arithmetic.</p>
-      <p><span class="term-label">Step 2 &mdash; find the total count.</span> ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' + ' . $cts[4] . ' = <b>' . $n . '</b> ' . $unitWord . '. This is the whole that every percentage is a part of.</p>
-      <p><span class="term-label">Step 3 &mdash; recompute each row.</span> Work out 100 &times; count / ' . $n . ' for each row and compare. Every row matches its published figure except <b>' . $badLabel . '</b>, printed as ' . $badShown . '%.</p>
-      <p><span class="term-label">Step 4 &mdash; the correct figure.</span> 100 &times; ' . $badCount . ' / ' . $n . ' &approx; <b>' . $badTrue . '%</b>. Notice the count itself was never in doubt &mdash; only the percentage derived from it. A published percentage is somebody\'s arithmetic, and this is how you check it.</p>
+      <p><span class="term-label">Step 1: add the percentage column first.</span> It comes to ' . $shownTotal . '%. Every ' . $unitWord . ' falls in exactly one row, so the column has to come to 100% apart from a little rounding. It does not, so at least one row is wrong: and this one check finds the problem before any arithmetic.</p>
+      <p><span class="term-label">Step 2: find the total count.</span> ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' + ' . $cts[4] . ' = <b>' . $n . '</b> ' . $unitWord . '. This is the whole that every percentage is a part of.</p>
+      <p><span class="term-label">Step 3: recompute each row.</span> Work out 100 &times; count / ' . $n . ' for each row and compare. Every row matches its published figure except <b>' . $badLabel . '</b>, printed as ' . $badShown . '%.</p>
+      <p><span class="term-label">Step 4: the correct figure.</span> 100 &times; ' . $badCount . ' / ' . $n . ' &approx; <b>' . $badTrue . '%</b>. Notice the count itself was never in doubt: only the percentage derived from it. A published percentage is somebody\'s arithmetic, and this is how you check it.</p>
       <p><b>Answer:</b> (a) ' . $badLabel . ' &nbsp;&nbsp; (b) ' . $badTrue . '% &nbsp;&nbsp; (c) 100%</p>
     </div>
   </details>

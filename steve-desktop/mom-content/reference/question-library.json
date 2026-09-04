@@ -2791,7 +2791,7 @@
     "qsetid": "1893150",
     "cid": "334437",
     "filed": "2026-08-31",
-    "qtype": "essay"
+    "qtype": "multipart"
   },
   "questions/frq/descriptive-statistics/q12-reading-a-study-frq.php": {
     "qsetid": "1893151",
@@ -3464,5 +3464,50 @@
     "cid": "340140",
     "filed": "2026-08-31",
     "qtype": "multipart"
+  },
+  "questions/im1/order-of-operations-grouping-and-translation.php": {
+    "qsetid": "1894925",
+    "cid": "334437",
+    "filed": "2026-09-02",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/signed-numbers-absolute-value-and-exponents.php": {
+    "qsetid": "1894926",
+    "cid": "334437",
+    "filed": "2026-09-02",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/fraction-operations-multiply-divide-and-power.php": {
+    "qsetid": "1894927",
+    "cid": "334437",
+    "filed": "2026-09-02",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/distribute-combine-and-simplify.php": {
+    "qsetid": "1894928",
+    "cid": "334437",
+    "filed": "2026-09-02",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/find-the-mistake-in-simplifying-a-fraction.php": {
+    "qsetid": "1894930",
+    "cid": "334437",
+    "filed": "2026-09-02",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/frq/descriptive-statistics/q13-what-the-sample-can-and-cannot-tell-you.php": {
+    "qsetid": "1895083",
+    "cid": "334437",
+    "filed": "2026-09-02"
+  },
+  "questions/frq/descriptive-statistics/q14-designing-a-randomized-comparative-experiment.php": {
+    "qsetid": "1895085",
+    "cid": "334437",
+    "filed": "2026-09-02"
   }
 }

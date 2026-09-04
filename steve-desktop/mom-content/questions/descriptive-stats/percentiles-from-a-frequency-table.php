@@ -32,7 +32,7 @@ for ($c=0..4) {
   $tableRows = $tableRows . '<tr><td style="border:1px solid #d1d5db; padding:6px 20px; text-align:center;">' . $vals[$c] . '</td><td style="border:1px solid #d1d5db; padding:6px 20px; text-align:center;">' . $f[$c] . '</td></tr>'
 }
 
-// Same machinery as the quartiles, at percentiles that are not quartiles -- the point being that
+// Same machinery as the quartiles, at percentiles that are not quartiles: the point being that
 // 25, 50 and 75 are not special cases with their own rule, they are just three values of k.
 $ks = array(10, 70)
 $res = array(0, 0)
@@ -97,9 +97,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Quartiles are not a separate rule.</span> `Q_1`, the median and `Q_3` are just `k = 25`, `50` and `75`. Any other `k` works exactly the same way: `i = (k/100)(n+1)` with `n = ' . $n . '`, so `n + 1 = ' . $nPlus . '`.</p>
-      <p><span class="term-label">Part (a) &mdash; the 10th percentile.</span> `i = (10/100)(' . $nPlus . ') = ' . $i10 . '`. Counting down the frequency column to position ' . $posLo[0] . ' gives <b>' . $p10 . '</b>. Low percentiles land inside the first row or two, because those rows hold most of the early positions.</p>
-      <p><span class="term-label">Part (b) &mdash; the 70th percentile.</span> `i = (70/100)(' . $nPlus . ') = ' . $i70 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $p70 . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; saying it plainly.</span> The 70th percentile has about 70% of the data at or below it. So about 70% of the ' . $unitWord . ' reported ' . $p70 . ' or fewer and about 30% reported more. It is not a count of 70, and it is not 70% of the value &mdash; both of those readings survive a glance and fall apart on a second one.</p>
+      <p><span class="term-label">Part (a): the 10th percentile.</span> `i = (10/100)(' . $nPlus . ') = ' . $i10 . '`. Counting down the frequency column to position ' . $posLo[0] . ' gives <b>' . $p10 . '</b>. Low percentiles land inside the first row or two, because those rows hold most of the early positions.</p>
+      <p><span class="term-label">Part (b): the 70th percentile.</span> `i = (70/100)(' . $nPlus . ') = ' . $i70 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $p70 . '</b>.</p>
+      <p><span class="term-label">Part (c): saying it plainly.</span> The 70th percentile has about 70% of the data at or below it. So about 70% of the ' . $unitWord . ' reported ' . $p70 . ' or fewer and about 30% reported more. It is not a count of 70, and it is not 70% of the value: both of those readings survive a glance and fall apart on a second one.</p>
       <p><b>Answer:</b> (a) ' . $p10 . ' &nbsp;&nbsp; (b) ' . $p70 . '</p>
     </div>
   </details>

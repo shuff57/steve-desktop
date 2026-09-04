@@ -26,7 +26,7 @@ $loPct = round($lo * 100, 1)
 $hiPct = round($hi * 100, 1)
 
 $questions[0] = array(
-  "We estimate with " . $clPct . "% confidence that between " . $loPct . "% and " . $hiPct . "% of the population have the characteristic &mdash; " . $ctx . " is between " . $lo . " and " . $hi,
+  "We estimate with " . $clPct . "% confidence that between " . $loPct . "% and " . $hiPct . "% of the population have the characteristic: " . $ctx . " is between " . $lo . " and " . $hi,
   "There is a " . $clPct . "% chance that " . $ctx . " is between " . $lo . " and " . $hi,
   $clPct . "% of the sample has the characteristic"
 )
@@ -67,9 +67,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the interpretation sentence.</span> The interval is about the parameter, not the sample statistic. The template: "We estimate with [CL]% confidence that between [lower]% and [upper]% of [population] [characteristic]."</p>
-      <p><span class="term-label">Part (b) &mdash; what the level means.</span> The confidence level describes the method: ninety-five percent of the confidence intervals constructed in this way would contain the true value for the population proportion. Any single interval either contains it or misses it, and you never find out which.</p>
-      <p><span class="term-label">Part (c) &mdash; the wrong reading.</span> "There is a ' . $clPct . '% chance the true proportion is between the endpoints" treats p as a random quantity. p is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false.</p>
+      <p><span class="term-label">Part (a): the interpretation sentence.</span> The interval is about the parameter, not the sample statistic. The template: "We estimate with [CL]% confidence that between [lower]% and [upper]% of [population] [characteristic]."</p>
+      <p><span class="term-label">Part (b): what the level means.</span> The confidence level describes the method: ninety-five percent of the confidence intervals constructed in this way would contain the true value for the population proportion. Any single interval either contains it or misses it, and you never find out which.</p>
+      <p><span class="term-label">Part (c): the wrong reading.</span> "There is a ' . $clPct . '% chance the true proportion is between the endpoints" treats p as a random quantity. p is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false.</p>
     </div>
   </details>
 </div>'

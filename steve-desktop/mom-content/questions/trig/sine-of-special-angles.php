@@ -7,7 +7,7 @@ $degs = array(30, 45, 60, 120, 135, 150, 210, 225, 240, 300, 315, 330)
 $rad_nums = array(1, 1, 1, 2, 3, 5, 7, 5, 4, 5, 7, 11)
 $rad_dens = array(6, 4, 3, 3, 4, 6, 6, 4, 3, 3, 4, 6)
 
-// Sine values (y-coordinates) — exact form
+// Sine values (y-coordinates): exact form
 $sine_vals = array("1/2", "sqrt(2)/2", "sqrt(3)/2", "sqrt(3)/2", "sqrt(2)/2", "1/2", "-1/2", "-sqrt(2)/2", "-sqrt(3)/2", "-sqrt(3)/2", "-sqrt(2)/2", "-1/2")
 
 // Quadrant for each angle

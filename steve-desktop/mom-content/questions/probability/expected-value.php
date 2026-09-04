@@ -1,48 +1,48 @@
 // === COMMON CONTROL ===
-// Section 8.5/9.2 — Expected Value of a Discrete Random Variable (1 number answer)
+// Section 8.5/9.2: Expected Value of a Discrete Random Variable (1 number answer)
 // Fixed scenarios with precomputed outcomes to avoid C-style for loops.
 
 // Each scenario is fully self-contained:
-//   ctx_intro  — problem setup text
-//   ctx_xdesc  — what X represents
-//   ctx_q      — question stem
-//   vals       — outcome values (net gain in dollars, may be negative)
-//   probs      — exact probabilities as decimals (sum to 1)
-//   ev         — E(X) = sum of x*P(x), precomputed and rounded to 2 decimal places
-//   ev_sign    — "lose" or "gain" for interpretation
-//   ev_abs     — abs(ev) as string
+//   ctx_intro: problem setup text
+//   ctx_xdesc: what X represents
+//   ctx_q: question stem
+//   vals: outcome values (net gain in dollars, may be negative)
+//   probs: exact probabilities as decimals (sum to 1)
+//   ev: E(X) = sum of x*P(x), precomputed and rounded to 2 decimal places
+//   ev_sign: "lose" or "gain" for interpretation
+//   ev_abs: abs(ev) as string
 
-// Scenario 0: Carnival wheel — $2 to play, 4 outcomes
+// Scenario 0: Carnival wheel: $2 to play, 4 outcomes
 //   P(-2) = 10/20, P(0) = 6/20, P(3) = 3/20, P(8) = 1/20
 //   E(X) = -2*(0.5) + 0*(0.3) + 3*(0.15) + 8*(0.05) = -1 + 0 + 0.45 + 0.40 = -0.15
 
-// Scenario 1: Dice game — $3 to play, roll 1d6
-//   Roll 1,2,3 → lose $3 (net -3); Roll 4 → win $3 (net 0 after cost? — use net payout)
+// Scenario 1: Dice game: $3 to play, roll 1d6
+//   Roll 1,2,3 → lose $3 (net -3); Roll 4 → win $3 (net 0 after cost?: use net payout)
 //   Payout: 1-3 = $0, 4 = $6, 5 = $9, 6 = $15; net = payout - 3
 //   P(net -3) = 3/6, P(net 3) = 1/6, P(net 6) = 1/6, P(net 12) = 1/6
-//   E(X) = -3*(0.5) + 3*(1/6) + 6*(1/6) + 12*(1/6) = -1.5 + 0.5 + 1 + 2 = 2.0 — too favorable
+//   E(X) = -3*(0.5) + 3*(1/6) + 6*(1/6) + 12*(1/6) = -1.5 + 0.5 + 1 + 2 = 2.0: too favorable
 //   Revise: P(net -3) = 4/6, P(net 3) = 1/6, P(net 9) = 1/6
 //   E(X) = -3*(4/6) + 3*(1/6) + 9*(1/6) = -2 + 0.5 + 1.5 = 0. Use:
 //   Payouts: roll 1–4 = lose $3 (net -3), roll 5 = win $3 (net 0), roll 6 = win $9 (net 6)
-//   Wait — keep simple: 4 outcomes with round fractions.
+//   Wait: keep simple: 4 outcomes with round fractions.
 
-// Scenario 1: Raffle — 50 tickets at $2 each
+// Scenario 1: Raffle: 50 tickets at $2 each
 //   42 lose (-$2), 5 win $0 net (prize=$2, break even=0), 2 win $8 net, 1 win $48 net
 //   E = -2*(42/50) + 0*(5/50) + 8*(2/50) + 48*(1/50) = -84/50 + 0 + 16/50 + 48/50 = -20/50 = -0.40
 
-// Scenario 2: Slot machine — $1 to play
+// Scenario 2: Slot machine: $1 to play
 //   P(net -1) = 0.65, P(net 1) = 0.20, P(net 4) = 0.10, P(net 9) = 0.05
 //   E = -1*0.65 + 1*0.20 + 4*0.10 + 9*0.05 = -0.65+0.20+0.40+0.45 = 0.40
 //   Adjust so house wins: P(-1)=0.70, P(1)=0.20, P(4)=0.08, P(14)=0.02
-//   E = -0.70+0.20+0.32+0.28 = 0.10 — slight gain. Use P(-1)=0.75:
+//   E = -0.70+0.20+0.32+0.28 = 0.10: slight gain. Use P(-1)=0.75:
 //   E = -0.75+0.20+0.32+0.28 = 0.05. Still positive. Use:
 //   P(net -1)=0.60, P(net 0)=0.25, P(net 3)=0.10, P(net 9)=0.05
 //   E = -0.60+0+0.30+0.45 = 0.15. Use net +values only to keep clear signs.
 //   Settle on scenario: cost $1, outcomes: lose $1, break even (win $1 back), win $4, win $14
 //   net: -1, 0, 3, 13 with P=0.60, 0.25, 0.10, 0.05
-//   E = -0.60+0+0.30+0.65 = 0.35 (positive — player-friendly game)
+//   E = -0.60+0+0.30+0.65 = 0.35 (positive: player-friendly game)
 
-// Scenario 3: Insurance-style — expected payout
+// Scenario 3: Insurance-style: expected payout
 //   A small company self-insures a machine. Possible annual repair costs:
 //   $0 (prob 0.70), $500 (prob 0.20), $2000 (prob 0.08), $8000 (prob 0.02)
 //   E = 0*0.70 + 500*0.20 + 2000*0.08 + 8000*0.02 = 0+100+160+160 = 420

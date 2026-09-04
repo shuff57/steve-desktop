@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Chi-square Independence — compute two expected counts from a 2x2 table, then interpret the test result ===
+// === NAME - DESCRIPTION: Chi-square Independence: compute two expected counts from a 2x2 table, then interpret the test result ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -8,7 +8,7 @@ loadlibrary("stats")
 $anstypes = array("number","number","choices")
 $noshuffle[2] = "all"
 
-// 3 scenarios — all with integer expected counts
+// 3 scenarios: all with integer expected counts
 $ci = rand(0, 2)
 $contexts = array(
   array("exercise frequency (regular/irregular)", "sleep quality (good/poor)",
@@ -56,9 +56,9 @@ $choices[2] = array(
   "Reject H₀. $conclude",
   "Fail to reject H₀. There is no evidence of an association.",
   "Accept H₀. The variables are definitely associated.",
-  "Cannot conclude — the chi-square test requires equal sample sizes."
+  "Cannot conclude: the chi-square test requires equal sample sizes."
 )
-$answer[2] = 0   // index 0 = "Reject H₀" — every scenario here has p < 0.001
+$answer[2] = 0   // index 0 = "Reject H₀": every scenario here has p < 0.001
 
 $solutionguide = '
 <style>

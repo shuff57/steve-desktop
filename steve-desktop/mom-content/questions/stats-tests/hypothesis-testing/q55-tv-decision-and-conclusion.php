@@ -10,9 +10,9 @@
 $anstypes = array("choices", "choices")
 
 $questions[0] = array(
-  "Reject `H_0` &mdash; the p-value 0.0142 is below alpha = 0.05.",
-  "Fail to reject `H_0` &mdash; the p-value 0.0142 is above alpha = 0.05.",
-  "Accept `H_0` &mdash; the evidence is not strong enough."
+  "Reject `H_0`: the p-value 0.0142 is below alpha = 0.05.",
+  "Fail to reject `H_0`: the p-value 0.0142 is above alpha = 0.05.",
+  "Accept `H_0`: the evidence is not strong enough."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -43,9 +43,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the decision.</span> Compare the p-value 0.0142 to alpha = 0.05: 0.0142 is below 0.05, so we reject `H_0`.</p>
-      <p><span class="term-label">Part (b) &mdash; the conclusion.</span> At the 5% significance level there is sufficient evidence to conclude that the mean number of hours of television watched per day by students in this class is less than four.</p>
-      <p>Note the wording &mdash; the conclusion is about the population this convenience sample represents, and a p-value of 0.0142 means that if the true mean really were 4 hours, a sample average this low or lower would turn up about 1.4% of the time.</p>
+      <p><span class="term-label">Part (a): the decision.</span> Compare the p-value 0.0142 to alpha = 0.05: 0.0142 is below 0.05, so we reject `H_0`.</p>
+      <p><span class="term-label">Part (b): the conclusion.</span> At the 5% significance level there is sufficient evidence to conclude that the mean number of hours of television watched per day by students in this class is less than four.</p>
+      <p>Note the wording: the conclusion is about the population this convenience sample represents, and a p-value of 0.0142 means that if the true mean really were 4 hours, a sample average this low or lower would turn up about 1.4% of the time.</p>
     </div>
   </details>
 </div>'

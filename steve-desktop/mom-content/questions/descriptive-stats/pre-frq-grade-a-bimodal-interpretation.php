@@ -8,7 +8,7 @@
 // The three response sentences are the FRQ's own target strings, so a student who studies this one
 // is reading the exact prose the FRQ rewards.
 //
-// The dropped category here is FURTHER INVESTIGATION -- students name the shape and tell a story
+// The dropped category here is FURTHER INVESTIGATION: students name the shape and tell a story
 // about the two groups, then stop. Explaining feels like the finish line, and the rubric's last
 // three points are for proposing something that would actually TEST the story. Distinct from the
 // dropped categories on 2.4, 2.5 and 2.7.
@@ -179,15 +179,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the shape, offers a reason two groups might exist in this context, and proposes a step that would test it. Each of the other three drops a whole category.</p>
-      <p><span class="term-label">The picture.</span> Two peaks, around ' . $peak1 . ' and ' . $peak2 . ' ' . $unit_label . ', across ' . $n . ' ' . $subject_label . '. A single mean sitting between those peaks would describe almost nobody in the data &mdash; which is why the shape has to be named before any summary number is trusted.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noInvestigationLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the shape, offers a reason two groups might exist in this context, and proposes a step that would test it. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">The picture.</span> Two peaks, around ' . $peak1 . ' and ' . $peak2 . ' ' . $unit_label . ', across ' . $n . ' ' . $subject_label . '. A single mean sitting between those peaks would describe almost nobody in the data: which is why the shape has to be named before any summary number is trusted.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noInvestigationLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Pattern Recognition &mdash; earned.</b> It names the distribution bimodal and locates both centers.</li>
-        <li><b>Subgroup Explanation &mdash; earned.</b> It proposes two subpopulations and ties them to this context rather than to statistics in general.</li>
-        <li><b>Further Investigation &mdash; NOT earned.</b> It never says what anyone should DO next. The explanation is left as a story with nothing that would confirm or refute it. This is the only category it misses.</li>
+        <li><b>Pattern Recognition: earned.</b> It names the distribution bimodal and locates both centers.</li>
+        <li><b>Subgroup Explanation: earned.</b> It proposes two subpopulations and ties them to this context rather than to statistics in general.</li>
+        <li><b>Further Investigation: NOT earned.</b> It never says what anyone should DO next. The explanation is left as a story with nothing that would confirm or refute it. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why investigation is separate from explanation.</span> "There are probably two groups, and here is why" is a hypothesis. It is worth points, and it is not evidence. The rubric also asks for the move that would settle it: ' . $investigation_rec . '. If two unimodal distributions fall out, the story is supported; if the two peaks survive the split, it was the wrong story. A hypothesis nobody proposed to test is where a lot of bad statistics starts.</p>
+      <p><span class="term-label">Part (c): why investigation is separate from explanation.</span> "There are probably two groups, and here is why" is a hypothesis. It is worth points, and it is not evidence. The rubric also asks for the move that would settle it: ' . $investigation_rec . '. If two unimodal distributions fall out, the story is supported; if the two peaks survive the split, it was the wrong story. A hypothesis nobody proposed to test is where a lot of bad statistics starts.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Further Investigation is the category most often missing, because once you have explained the two peaks the thinking FEELS done.</p>
     </div>
   </details>

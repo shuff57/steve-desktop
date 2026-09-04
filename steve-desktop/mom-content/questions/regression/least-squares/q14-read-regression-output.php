@@ -5,7 +5,7 @@
 
 $anstypes = array("number", "number", "choices")
 
-// Scenario randomization — variable names
+// Scenario randomization: variable names
 $ctx_x      = array("study_hours",   "ad_spend",   "exercise_min",      "income",        "temperature")
 $ctx_y      = array("exam score",    "weekly sales", "resting heart rate", "monthly savings", "ice cream sales")
 $ctx_xlabel = array("study hours per week", "advertising spend (hundreds of dollars)", "weekly exercise minutes", "monthly income (thousands)", "outdoor temperature (&deg;F)")
@@ -26,7 +26,7 @@ $slope_est_options = array(0.42, 0.78, 1.15, 0.31, 0.95)
 $slope_est = $slope_est_options[rand(0, count($slope_est_options) - 1)]
 $slope_se = round($slope_est / $slope_t, 4)
 
-// Intercept row (cosmetic — not asked about)
+// Intercept row (cosmetic: not asked about)
 $int_est = round(rand(20, 80) / 10, 2)
 $int_se  = round(rand(5, 22) / 10, 2)
 $int_t   = round($int_est / $int_se, 2)

@@ -45,7 +45,7 @@ $solutionguide = '
   <p><b>Use the multiplication rule in the order the conditional was given.</b></p>
   <p>You were handed `P(' . $evB . '|' . $evA . ') = ' . $pcond . '`, so pair it with `P(' . $evA . ') = ' . $pa . '`:</p>
   <p style="margin-left:1em;"><b>`P(' . $evA . ' and ' . $evB . ') = P(' . $evA . ') * P(' . $evB . '|' . $evA . ') = (' . $pa . ')(' . $pcond . ') = ' . $pand . '`</b></p>
-  <p>Pairing the conditional with the wrong unconditional rate is the usual slip here. `P(' . $evB . '|' . $evA . ')` already lives inside the group who ' . $ordersA . ', so the rate it must be multiplied by is `P(' . $evA . ')` &mdash; not `P(' . $evB . ')`.</p>
+  <p>Pairing the conditional with the wrong unconditional rate is the usual slip here. `P(' . $evB . '|' . $evA . ')` already lives inside the group who ' . $ordersA . ', so the rate it must be multiplied by is `P(' . $evA . ')`: not `P(' . $evB . ')`.</p>
   <p><b>Check:</b> a joint probability can never exceed either single probability. Here ' . $pand . ' is below both ' . $pa . ' and ' . $pb . ', as it must be.</p>
   <p><b>Answer:</b> `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`.</p>
 </div>'

@@ -1,11 +1,11 @@
 // === NAME - DESCRIPTION: Set Up a Probability from Scratch - Given a compound experiment, define the sample space, identify the event, and find its probability, showing why the denominator is what it is ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
 // The FRQ for 3.1, written 2026-08-10 AFTER its pre-FRQ rather than before. Chapter 3 had no
 // intro-stats FRQ, so pre-frq-grade-a-probability-setup defined the scenario and the checklist and
-// this matches them exactly -- same three categories, same point split, same target sentences. A
+// this matches them exactly: same three categories, same point split, same target sentences. A
 // student who worked the pre-FRQ has already read the prose this rewards.
 //
 // Hand-graded, so there is no answer key. The rubric is the deliverable.
@@ -77,7 +77,7 @@ $rubric = $css . '
 <div class="frq2">
 <div class="rubric-container">
   <details open>
-    <summary>Grading Checklist &mdash; 10 points</summary>
+    <summary>Grading Checklist: 10 points</summary>
     <div class="rubric-content">
       <table class="rubric-table">
         <tbody>
@@ -110,7 +110,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">A full-credit answer.</span></p>
       <span class="ideal">' . $model . '</span>
-      <p><span class="term-label">Define the Sample Space (3).</span> Award only if BOTH the count and the reason appear. "There are ' . $spaceSize . ' outcomes" alone is 1 of 3 &mdash; the reason is what shows the student did not memorise a number.</p>
+      <p><span class="term-label">Define the Sample Space (3).</span> Award only if BOTH the count and the reason appear. "There are ' . $spaceSize . ' outcomes" alone is 1 of 3: the reason is what shows the student did not memorise a number.</p>
       <p><span class="term-label">Identify the Event (4).</span> The outcomes must be named or characterised, not just counted. A bare "' . $fav . ' outcomes" earns 2; listing them earns the rest. Award full credit for a correct characterisation in words if listing would be long.</p>
       <p><span class="term-label">State the Probability (3).</span> A fraction, a decimal or a percentage all earn full marks. Do not deduct for an unreduced fraction.</p>
       <p><span class="term-label">The category most often missing.</span> The sample space. Students count the favourable outcomes and divide by a denominator they never justify, which is exactly the habit the pre-FRQ for this section targets.</p>
@@ -124,7 +124,7 @@ $solutionguide = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <p style="margin:0 0 8px 0;"><b>The experiment.</b> Suppose $experiment.</p>
     <div class="frq2"><div class="setup"><b>The event:</b> $event.</div></div>
-    <p style="margin:8px 0 0 0;">Set up and find the probability of that event. Your answer must define the sample space, identify the event, and give the probability &mdash; in sentences, showing where each number comes from.</p>
+    <p style="margin:8px 0 0 0;">Set up and find the probability of that event. Your answer must define the sample space, identify the event, and give the probability: in sentences, showing where each number comes from.</p>
   </div>
   $rubric
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">

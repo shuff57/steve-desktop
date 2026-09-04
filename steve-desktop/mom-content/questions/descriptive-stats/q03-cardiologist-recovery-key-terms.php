@@ -22,7 +22,7 @@ if ($k == 2) {
   $daylist = "$d1, $d2, and $d3"
 }
 
-// The six terms stay in teaching order — population before sample, parameter before statistic —
+// The six terms stay in teaching order, population before sample, parameter before statistic, 
 // so the list reads as the definition sequence rather than a scramble.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
@@ -69,16 +69,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group.</b> The study is about ' . $whose . ' own heart-attack patients, so all of those patients are the population. The ' . $n . ' whose recovery was actually tracked are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two mean recovery periods.</b> The mean taken over all of the patients is a parameter; the same mean computed from the tracked group is a statistic. The two read almost identically &mdash; only the group they point at differs.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is measured on one patient is the variable; the numbers written down are the data.</p>
+      <p><b>Step 1: Name the group.</b> The study is about ' . $whose . ' own heart-attack patients, so all of those patients are the population. The ' . $n . ' whose recovery was actually tracked are the sample.</p>
+      <p><b>Step 2: Sort the two mean recovery periods.</b> The mean taken over all of the patients is a parameter; the same mean computed from the tracked group is a statistic. The two read almost identically: only the group they point at differs.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is measured on one patient is the variable; the numbers written down are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all of ' . $whose . ' heart-attack patients</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' patients whose recovery was actually tracked</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the mean recovery period for <em>all</em> of ' . $whose . ' heart-attack patients</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the mean recovery period for the ' . $n . ' patients in the sample</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = the recovery period of one heart-attack patient</div>
       <div class="term-row"><span class="term-label">Data:</span> the recorded recovery lengths, such as ' . $daylist . ' days</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>All heart-attack patients in the country</b> is a far wider group than the one ' . $spec . ' is studying. And <b>the number</b> of patients tracked is a count &mdash; the study is about a mean recovery period, not how many people were watched.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>All heart-attack patients in the country</b> is a far wider group than the one ' . $spec . ' is studying. And <b>the number</b> of patients tracked is a count: the study is about a mean recovery period, not how many people were watched.</div>
     </div>
   </details>
 </div>'

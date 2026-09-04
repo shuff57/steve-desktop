@@ -59,11 +59,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the population.</span> Every home recently listed for sale in Butte County. That is the whole collection the question is about.</p>
-      <p><span class="term-label">Part (b) &mdash; the sample.</span> The 35 prices in Table 7.4.1 &mdash; the subset actually examined.</p>
-      <p><span class="term-label">Part (c) &mdash; the parameter.</span> `mu`, the true mean sale price over that entire population of listings. It is a single fixed number.</p>
-      <p><span class="term-label">Part (d) &mdash; the statistic.</span> `bar(x)`, the mean of the 35 prices. It is the estimate that stands in for `mu`.</p>
-      <p>The parameter cannot be looked up because computing it would mean recording the price of every listing in the county on the same day and averaging them &mdash; the census that sampling exists to avoid. The gap between the `bar(x)` you can compute and the `mu` you cannot is exactly the gap the confidence interval is built to measure.</p>
+      <p><span class="term-label">Part (a): the population.</span> Every home recently listed for sale in Butte County. That is the whole collection the question is about.</p>
+      <p><span class="term-label">Part (b): the sample.</span> The 35 prices in Table 7.4.1: the subset actually examined.</p>
+      <p><span class="term-label">Part (c): the parameter.</span> `mu`, the true mean sale price over that entire population of listings. It is a single fixed number.</p>
+      <p><span class="term-label">Part (d): the statistic.</span> `bar(x)`, the mean of the 35 prices. It is the estimate that stands in for `mu`.</p>
+      <p>The parameter cannot be looked up because computing it would mean recording the price of every listing in the county on the same day and averaging them: the census that sampling exists to avoid. The gap between the `bar(x)` you can compute and the `mu` you cannot is exactly the gap the confidence interval is built to measure.</p>
     </div>
   </details>
 </div>'

@@ -1,5 +1,5 @@
 // === NAME - DESCRIPTION: Compare Two Distributions in Context - Students compare two groups using shape, center, spread, and outliers, write a context-anchored verbal comparison ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
 

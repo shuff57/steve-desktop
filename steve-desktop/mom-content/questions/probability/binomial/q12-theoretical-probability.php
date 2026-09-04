@@ -13,9 +13,9 @@ $answer[0] = 0.25
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "`X ~ B(10, 0.25)` — binomial with 10 trials and success probability 0.25",
-  "`X ~ B(10, 0.5)` — binomial with 10 trials and success probability 0.5",
-  "`X ~ U(0, 10)` — uniform over 0 to 10",
+  "`X ~ B(10, 0.25)`: binomial with 10 trials and success probability 0.25",
+  "`X ~ B(10, 0.5)`: binomial with 10 trials and success probability 0.5",
+  "`X ~ U(0, 10)`: uniform over 0 to 10",
   "`X` is not binomial, because the draws are not independent"
 )
 $answer[1] = 0
@@ -39,9 +39,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the theoretical probability.</span> A standard deck has 52 cards in four suits of 13 each, so 13 of the 52 cards are diamonds:</p>
+      <p><span class="term-label">Part (a): the theoretical probability.</span> A standard deck has 52 cards in four suits of 13 each, so 13 of the 52 cards are diamonds:</p>
       <p>`P(diamond) = 13/52 = 1/4 = 0.25`</p>
-      <p><span class="term-label">Part (b) &mdash; the distribution.</span> There are ten draws, fixed in advance. Each draw is a diamond (success) or not (failure). Because the card is replaced and the deck reshuffled, the draws are independent and the success probability stays at 0.25 for every one of them. So `X ~ B(10, 0.25)`.</p>
+      <p><span class="term-label">Part (b): the distribution.</span> There are ten draws, fixed in advance. Each draw is a diamond (success) or not (failure). Because the card is replaced and the deck reshuffled, the draws are independent and the success probability stays at 0.25 for every one of them. So `X ~ B(10, 0.25)`.</p>
       <p>Step 5 of the procedure is the one students skip, and it is the one that makes the arithmetic work: the card goes back before the next draw, so every draw faces the same full 52-card deck. That is sampling with replacement, and it is what lets you treat the ten draws as ten independent trials.</p>
     </div>
   </details>

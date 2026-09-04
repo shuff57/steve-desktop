@@ -5,7 +5,7 @@
 
 // Built for 3.5. The whole question is that (a) and (b) come out the same number: the direct count
 // of every path that has a hit, versus 1 minus the single path that has none. Part (c) names the
-// reason the complement wins -- for three trials the direct count is seven paths, the complement is
+// reason the complement wins: for three trials the direct count is seven paths, the complement is
 // one.
 $anstypes = array("numfunc", "numfunc", "choices")
 
@@ -31,7 +31,7 @@ $r = rand(3, 5)
 $total = 10
 $b = $total - $r
 
-// "At least one $c1" -- the event with no $c1 is all three $c2.
+// "At least one $c1": the event with no $c1 is all three $c2.
 $pAll = ($r / $total) * (($r - 1) / ($total - 1)) * (($r - 2) / ($total - 2))
 $pNone = ($b / $total) * (($b - 1) / ($total - 1)) * (($b - 2) / ($total - 2))
 
@@ -66,13 +66,13 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">The two answers are the same number -- that is the lesson.</span> &ldquo;At least one $c1&rdquo; is the opposite of &ldquo;no $c1&rdquo;, so however you compute it, it must come out identical.</p>
+      <p><span class="term-label">The two answers are the same number: that is the lesson.</span> &ldquo;At least one $c1&rdquo; is the opposite of &ldquo;no $c1&rdquo;, so however you compute it, it must come out identical.</p>
       <ul>
         <li><b>(a) The direct route.</b> &ldquo;At least one $c1&rdquo; is every path except the all-$c2 bottom path. That bottom path has probability `' . $b . '/' . $total . ' xx ' . ($b - 1) . '/' . ($total - 1) . ' xx ' . ($b - 2) . '/' . ($total - 2) . ' = ' . $pNone . '`, so the direct count is `1 - ' . $pNone . ' = ' . $direct . '`.</li>
         <li><b>(b) The complement route.</b> `1 - P(no $c1) = 1 - ' . $pNone . ' = ' . $complement . '`. It is the same number because it is the same event described as a subtraction.</li>
         <li><b>(c) Why the complement is worth learning.</b> Counting the seven paths that contain a $c1 is error-prone; subtracting the one path that contains none is one product. For three trials the direct route has 2&sup3; &minus; 1 = 7 paths to add; the complement has exactly one.</li>
       </ul>
-      <p><span class="term-label">The check the two parts give you.</span> (a) and (b) must agree to the last digit. If they differ, the mismatch is between the paths you think satisfy the event and the single path you think gives none &mdash; the two lists do not cover everyone.</p>
+      <p><span class="term-label">The check the two parts give you.</span> (a) and (b) must agree to the last digit. If they differ, the mismatch is between the paths you think satisfy the event and the single path you think gives none: the two lists do not cover everyone.</p>
     </div>
   </details>
 </div>'

@@ -15,7 +15,7 @@ $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "A different row layout answers different questions, but any cut that falls inside a row becomes invisible &mdash; the data never change, only what the table can show.",
+  "A different row layout answers different questions, but any cut that falls inside a row becomes invisible: the data never change, only what the table can show.",
   "Grouping changes the values themselves, so the grouped answers are approximations of the ungrouped ones.",
   "A finer grouping always loses information, because more rows means less data per row.",
   "Whatever grouping is chosen, the answer to every question must match the ungrouped table."
@@ -43,7 +43,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Another legal grouping.</span> The lab groups 0-1, 2-3, 4-5, 6-7+. The same 60 counts could just as well be grouped as 0 / 1-2 / 3-4 / 5-6 / 7+, or 0-2 / 3-5 / 6-7+, as long as every count lands in exactly one interval and every interval is described.</p>
       <p><span class="term-label">The advantage of a different layout.</span> Each grouping answers the questions whose cuts land on its boundaries. A grouping with a boundary at 2, for example, can show the at-most-2 share that the 2-3 row hides.</p>
-      <p><span class="term-label">The cost.</span> Any cut that falls inside a row becomes invisible: the data never change, only what the table can show. That is the real lesson of the lab &mdash; grouping never changes the data, but it can hide the very question you wanted to ask.</p>
+      <p><span class="term-label">The cost.</span> Any cut that falls inside a row becomes invisible: the data never change, only what the table can show. That is the real lesson of the lab: grouping never changes the data, but it can hide the very question you wanted to ask.</p>
     </div>
   </details>
 </div>'

@@ -62,9 +62,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the percentile.</span> The other direction gives you an area and asks for the total that cuts it off. The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '` and standard deviation `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`:</p>
+      <p><span class="term-label">Part (a): the percentile.</span> The other direction gives you an area and asks for the total that cuts it off. The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '` and standard deviation `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`:</p>
       <p>`k = mu_SigmaX + invnormalcdf(' . $p . ') * sigma_SigmaX = ' . $muSum . ' + (' . round($z, 3) . ')(' . round($sigmaSum, 4) . ') ~= ' . round($k, 1) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the interpretation.</span> The ' . $pPct . 'th percentile of the sums is the total with ' . $pPct . '% of all possible totals of size ' . $n . ' at or below it. The answer carries the original units &mdash; years, minutes, dollars &mdash; and invNorm always wants the area to the LEFT. Getting an answer of 0.83 when the question asked for a number of years is the clearest possible sign you reached for the wrong command.</p>
+      <p><span class="term-label">Part (b): the interpretation.</span> The ' . $pPct . 'th percentile of the sums is the total with ' . $pPct . '% of all possible totals of size ' . $n . ' at or below it. The answer carries the original units, years, minutes, dollars, and invNorm always wants the area to the LEFT. Getting an answer of 0.83 when the question asked for a number of years is the clearest possible sign you reached for the wrong command.</p>
     </div>
   </details>
 </div>'

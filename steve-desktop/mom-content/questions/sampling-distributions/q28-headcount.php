@@ -32,7 +32,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Count each round separately.</span> `30 x 1 = 30`, `30 x 2 = 60`, `30 x 5 = 150`.</p>
       <p><span class="term-label">Add them up.</span> `30 + 60 + 150 = 240` people if nothing is reused.</p>
-      <p>That number is not a detail of the setup, it is the reason the instructions are written the way they are: a class of 30 cannot produce 240 on its own, and even the third round alone needs 150. That is why the lab is written to be run across several sections with the data combined, and why the fallback when working alone is to reuse the same surveyed values for the pairs and the groups &mdash; and say in the write-up that you did.</p>
+      <p>That number is not a detail of the setup, it is the reason the instructions are written the way they are: a class of 30 cannot produce 240 on its own, and even the third round alone needs 150. That is why the lab is written to be run across several sections with the data combined, and why the fallback when working alone is to reuse the same surveyed values for the pairs and the groups: and say in the write-up that you did.</p>
     </div>
   </details>
 </div>'

@@ -19,11 +19,11 @@ $slope     = round(rand(10, 60) / 100, 2)     // 0.10 to 0.60
 $mult = round(2.718281828^$slope, 4)                  // e^slope, multiplicative factor per unit of x
 $pct  = round((2.718281828^$slope - 1) * 100, 1)      // approximate percent increase per unit of x
 
-// Part a — multiplicative factor per unit increase in x
+// Part a: multiplicative factor per unit increase in x
 $answer[0] = $mult
 $reltolerance[0] = 0.01
 
-// Part b — corresponding percent increase
+// Part b: corresponding percent increase
 $answer[1] = $pct
 $reltolerance[1] = 0.01
 

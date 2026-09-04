@@ -194,7 +194,7 @@ $solutionguide = $css_block . '
     </summary>
     <div class="rubric-content">
 
-      <p><b>Equation:</b> ' . $eq_display . ' &nbsp;&mdash;&nbsp; a = ' . $a . ', h = ' . $h_ans . ', k = ' . $d . '</p>
+      <p><b>Equation:</b> ' . $eq_display . ' &nbsp;: &nbsp; a = ' . $a . ', h = ' . $h_ans . ', k = ' . $d . '</p>
       <p>' . $phase_note . '<br>' . $refl_note . '</p>
 
       <p style="margin-top:10px;"><b>Completed anchor table:</b></p>
@@ -315,7 +315,7 @@ $answerbox[3]</p>
 <p style="font-family:Arial; font-size:medium;"><b>(e)</b> What is the <b>midline</b> equation? (y = k)<br>
 Midline: y = $answerbox[4]</p>
 
-<p style="font-family:Arial; font-size:medium;"><b>(f)</b> What is the value of <b>a</b> in this equation? (Include sign &mdash; negative if reflected.)<br>
+<p style="font-family:Arial; font-size:medium;"><b>(f)</b> What is the value of <b>a</b> in this equation? (Include sign: negative if reflected.)<br>
 $answerbox[5]</p>
 
 <p style="font-family:Arial; font-size:medium;"><b>(g)</b> What is the value of <b>k</b>?<br>

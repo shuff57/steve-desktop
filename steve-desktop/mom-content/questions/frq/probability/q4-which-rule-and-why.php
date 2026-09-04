@@ -1,9 +1,9 @@
 // === NAME - DESCRIPTION: Which Rule, and Why That Factor - Choose between the addition and multiplication rules, carry it out, and justify which of two competing rates belongs in the product ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-// The FRQ for 3.3, written 2026-08-10 to match pre-frq-grade-a-joint-probability exactly -- same
+// The FRQ for 3.3, written 2026-08-10 to match pre-frq-grade-a-joint-probability exactly: same
 // three categories, same point split, same target sentences.
 //
 // The survey deliberately supplies THREE rates: P(A), P(B given A), and P(B) overall. Only one of
@@ -71,7 +71,7 @@ $rubric = $css . '
 <div class="frq4">
 <div class="rubric-container">
   <details open>
-    <summary>Grading Checklist &mdash; 10 points</summary>
+    <summary>Grading Checklist: 10 points</summary>
     <div class="rubric-content">
       <table class="rubric-table">
         <tbody>
@@ -118,7 +118,7 @@ $solutionguide = '
       <p><span class="term-label">Choose the Right Rule (3).</span> Needs the rule AND what decided it (the word "both", an AND). Naming the rule alone earns 1.</p>
       <p><span class="term-label">Apply It Correctly (4).</span> Full marks only if the product uses the conditional rate. A correct multiplication of the WRONG two numbers earns 1 for method.</p>
       <p><span class="term-label">Justify the Second Factor (3).</span> Award only if the response says which rate and why the other is wrong. "I used ' . $b . '%" without a reason earns 1. This is the category most often missing, because once two numbers are multiplied the work looks finished.</p>
-      <p><span class="term-label">Marking shortcut.</span> Read the justification first. If it is absent, the arithmetic above it is unverifiable as reasoning even when the number is right &mdash; the student may simply have taken the nearer of the two rates.</p>
+      <p><span class="term-label">Marking shortcut.</span> Read the justification first. If it is absent, the arithmetic above it is unverifiable as reasoning even when the number is right: the student may simply have taken the nearer of the two rates.</p>
     </div>
   </details>
 </div>'

@@ -49,7 +49,7 @@ $abstolerance = 0.0011
 $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Same reading as the first rate, second number.</b></p>
-  <p>"The probability that a customer will ' . $verb . ' ' . $itemB . ' is ' . $pbPct . '%" is also unconditional &mdash; it covers <i>all</i> customers, not just the ones who ' . $ordersA . '.</p>
+  <p>"The probability that a customer will ' . $verb . ' ' . $itemB . ' is ' . $pbPct . '%" is also unconditional: it covers <i>all</i> customers, not just the ones who ' . $ordersA . '.</p>
   <p style="margin-left:1em;"><b>`P(' . $evB . ') = ' . $pb . '`</b></p>
   <p><b>The trap.</b> The setup states two different numbers about ' . $itemB . ': ' . $pbPct . '% and ' . $pcondPct . '%. The second one is restricted to customers who ' . $ordersA . ', so it is `P(' . $evB . '|' . $evA . ')`, not `P(' . $evB . ')`. Only the unrestricted figure answers this question.</p>
   <p><b>Answer:</b> `P(' . $evB . ') = ' . $pb . '`.</p>

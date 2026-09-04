@@ -34,7 +34,7 @@ $inactive = $inactives[$si]
 
 $controlGroupDef = "the volunteers assigned to receive " . $inactive . " instead of " . $active . ", used only as a baseline for comparison"
 
-$placeboDef = $inactive . " itself &mdash; made to look and feel exactly like " . $active . " even though it has no active ingredient"
+$placeboDef = $inactive . " itself: made to look and feel exactly like " . $active . " even though it has no active ingredient"
 
 $blindingDef = "keeping each volunteer from knowing whether they received " . $active . " or " . $inactive
 
@@ -89,8 +89,8 @@ $solutionguide = '
       <div class="term-row"><span class="term-label">Placebo:</span> ' . $placeboDef . '.</div>
       <div class="term-row"><span class="term-label">Blinding:</span> ' . $blindingDef . '.</div>
       <div class="term-row"><span class="term-label">Double-blind experiment:</span> ' . $doubleBlindDef . '.</div>
-      <div class="sol-note"><b>What is given, what is hidden, and who is kept unaware.</b> The placebo is the object handed to the control group &mdash; a thing. Blinding is the act of hiding group membership from one side of the study &mdash; an action. A double-blind experiment is not a stronger placebo; it is blinding extended to <em>both</em> the volunteers <em>and</em> the staff who work with them, so neither side can let their expectations leak into the results.</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>Random assignment</b> describes how volunteers were sorted into the two groups &mdash; by chance &mdash; which is a different safeguard from blinding, which describes who is kept from knowing the result of that sort. And <b>informed consent</b> is a paperwork requirement about explaining risk before the study starts; it says nothing about placebos or who is blinded once the study is underway.</div>
+      <div class="sol-note"><b>What is given, what is hidden, and who is kept unaware.</b> The placebo is the object handed to the control group: a thing. Blinding is the act of hiding group membership from one side of the study: an action. A double-blind experiment is not a stronger placebo; it is blinding extended to <em>both</em> the volunteers <em>and</em> the staff who work with them, so neither side can let their expectations leak into the results.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>Random assignment</b> describes how volunteers were sorted into the two groups, by chance, which is a different safeguard from blinding, which describes who is kept from knowing the result of that sort. And <b>informed consent</b> is a paperwork requirement about explaining risk before the study starts; it says nothing about placebos or who is blinded once the study is underway.</div>
     </div>
   </details>
 </div>'

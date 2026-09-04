@@ -26,18 +26,18 @@ $x_inside = rand($xmin + 3, $xmax - 3)
 $x_outside = $xmax + rand(15, 40)
 
 $questions[0] = array(
-  "Reliable — the prediction is for an `x` value inside the observed data range (interpolation).",
-  "Unreliable — the prediction is extrapolation, because `x = $x_inside` is outside the observed range.",
-  "Unreliable — because linear models can never be trusted for any prediction.",
-  "Reliable — because all linear models work for any `x` value."
+  "Reliable: the prediction is for an `x` value inside the observed data range (interpolation).",
+  "Unreliable: the prediction is extrapolation, because `x = $x_inside` is outside the observed range.",
+  "Unreliable: because linear models can never be trusted for any prediction.",
+  "Reliable: because all linear models work for any `x` value."
 )
 $answer[0] = 0
 
 $questions[1] = array(
-  "Unreliable — the prediction is extrapolation, because `x = $x_outside` is far beyond the observed data range.",
-  "Reliable — extrapolation is always safe when the line was fit with least squares.",
-  "Reliable — because the regression equation is a mathematical formula that works for any `x`.",
-  "Unreliable — but only because `R^2` must be below 0.5."
+  "Unreliable: the prediction is extrapolation, because `x = $x_outside` is far beyond the observed data range.",
+  "Reliable: extrapolation is always safe when the line was fit with least squares.",
+  "Reliable: because the regression equation is a mathematical formula that works for any `x`.",
+  "Unreliable: but only because `R^2` must be below 0.5."
 )
 $answer[1] = 0
 
@@ -60,7 +60,7 @@ $solutionguide = '
     <div class="sol-body">
       <p>The regression model was built using `x` values between `' . $xmin . '` and `' . $xmax . '`. Predictions inside that range (<b>interpolation</b>) are generally reliable; predictions outside that range (<b>extrapolation</b>) are not.</p>
       <p><b>Part a:</b> `x = ' . $x_inside . '` is <b>inside</b> the observed range, so the prediction is reliable interpolation.</p>
-      <p><b>Part b:</b> `x = ' . $x_outside . '` is <b>far outside</b> the observed range. The linear pattern might not continue out there — the relationship could bend, flatten, or even reverse. This is extrapolation.</p>
+      <p><b>Part b:</b> `x = ' . $x_outside . '` is <b>far outside</b> the observed range. The linear pattern might not continue out there: the relationship could bend, flatten, or even reverse. This is extrapolation.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#fff4e5; border-left:4px solid #f59e0b; border-radius:0 8px 8px 0;">
         <b>Caution:</b> Using a regression equation beyond the range of the data can produce nonsensical predictions (e.g., negative financial aid for a million-dollar family income).
       </div>

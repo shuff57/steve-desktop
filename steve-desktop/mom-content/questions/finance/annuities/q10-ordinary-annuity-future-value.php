@@ -75,13 +75,13 @@ $solutionguide = '
       <p><b>Formula (ordinary annuity, end-of-period deposits):</b></p>
       <p>`FV = PMT cdot ((1 + r/n)^{nt} - 1) / (r/n)`</p>
       <p>Given: `PMT = $' . $PMT . '`, `r = ' . $r_pct . '% = ' . $r . '`, `n = 12` (monthly), `t = ' . $t . '` years</p>
-      <p><b>Part (a) -- Future Value</b></p>
+      <p><b>Part (a): Future Value</b></p>
       <p>`r/n = ' . $r . '/12 = ' . $rn_disp . '`</p>
       <p>`nt = 12 times ' . $t . ' = ' . $exp . '`</p>
       <p>`(1 + r/n)^{nt} = (1 + ' . $rn_disp . ')^{' . $exp . '} = ' . $factor_disp . '`</p>
       <p>`FV = ' . $PMT . ' cdot (' . $factor_disp . ' - 1) / ' . $rn_disp . '`</p>
       <div class="sol-ans"><b>Future value `FV = $' . $FV . '`</b></div>
-      <p><b>Part (b) -- Total Contributions</b></p>
+      <p><b>Part (b): Total Contributions</b></p>
       <p>`PMT times n times t = ' . $PMT . ' times 12 times ' . $t . ' = $' . $total_contrib . '`</p>
       <p>The difference `$' . $FV . ' - $' . $total_contrib . ' = $' . round($FV - $total_contrib, 2) . '` is the interest earned.</p>
       <div class="sol-ans"><b>Total contributions = `$' . $total_contrib . '`</b></div>

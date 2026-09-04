@@ -12,19 +12,19 @@ $anstypes = array("choices", "choices")
 $cases = array(
   array("A study tests whether the mean hours of sleep for adults is less than 7 hours per night. The population standard deviation is known.",
         "A population mean `mu`",
-        "The normal distribution row &mdash; sigma is known."),
+        "The normal distribution row: sigma is known."),
   array("A study tests whether the mean hours of sleep for adults is less than 7 hours per night. The population standard deviation is not known.",
         "A population mean `mu`",
-        "The Student's t distribution row &mdash; sigma is unknown."),
+        "The Student's t distribution row: sigma is unknown."),
   array("A survey tests whether the proportion of adults who exercise regularly is greater than 0.40.",
         "A population proportion `p`",
-        "The normal-for-a-proportion row &mdash; the parameter is a proportion."),
+        "The normal-for-a-proportion row: the parameter is a proportion."),
   array("A study tests whether the mean commute time of city residents differs from 28 minutes. The population standard deviation is known.",
         "A population mean `mu`",
-        "The normal distribution row &mdash; sigma is known."),
+        "The normal distribution row: sigma is known."),
   array("A survey tests whether the proportion of students who prefer online classes is less than 0.50.",
         "A population proportion `p`",
-        "The normal-for-a-proportion row &mdash; the parameter is a proportion.")
+        "The normal-for-a-proportion row: the parameter is a proportion.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -66,8 +66,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the parameter.</span> ' . $param . ' An average of a measured quantity is `mu`; a share of a group that has some yes-or-no trait is `p`.</p>
-      <p><span class="term-label">Part (b) &mdash; the row of the table.</span> ' . $row . ' The parameter picks the row of Table 8.3.1, and the sigma question picks the column &mdash; decide both before you touch the calculator.</p>
+      <p><span class="term-label">Part (a): the parameter.</span> ' . $param . ' An average of a measured quantity is `mu`; a share of a group that has some yes-or-no trait is `p`.</p>
+      <p><span class="term-label">Part (b): the row of the table.</span> ' . $row . ' The parameter picks the row of Table 8.3.1, and the sigma question picks the column: decide both before you touch the calculator.</p>
     </div>
   </details>
 </div>'

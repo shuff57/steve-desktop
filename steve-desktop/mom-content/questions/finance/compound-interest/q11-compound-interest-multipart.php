@@ -19,7 +19,7 @@ $ctx_verb    = $scenarios[$si][2]
 
 /* ---------- 2. Randomize inputs via jointrandfrom ----------
    Parallel arrays: P (principal), r_pct (APR %), n (compounding freq), n_label, t (years)
-   Kept to 8 pairs — wide range of outputs, all arithmetically clean.
+   Kept to 8 pairs: wide range of outputs, all arithmetically clean.
 --------------------------------------------------------------*/
 $P_vals   = array(5000,  8000,  10000, 15000, 20000, 25000, 30000, 50000)
 $r_pcts   = array(4,     5,     6,     3,     7,     5,     8,     4    )
@@ -56,25 +56,25 @@ $base     = round(1 + $r / $n, 8)
 /* ---------- 5. Answer setup ---------- */
 $anstypes = array("number", "number", "number", "number")
 
-// (a) periodic rate — decimal to 6 places
+// (a) periodic rate: decimal to 6 places
 $answer[0]       = $rn
 $abstolerance[0] = 0.0001
 $reqdecimals[0]  = "r6"
 $ansprompt[0]    = "r/n = "
 
-// (b) future value — currency
+// (b) future value: currency
 $answer[1]       = $FV
 $abstolerance[1] = 0.01
 $reqdecimals[1]  = "r2"
 $ansprompt[1]    = "FV = $"
 
-// (c) interest earned — currency
+// (c) interest earned: currency
 $answer[2]       = $interest
 $abstolerance[2] = 0.01
 $reqdecimals[2]  = "r2"
 $ansprompt[2]    = "Interest = $"
 
-// (d) EAY as a percent — accept to 2 decimal places
+// (d) EAY as a percent: accept to 2 decimal places
 $answer[3]       = $EAY_pct
 $abstolerance[3] = 0.01
 $reqdecimals[3]  = "r2"

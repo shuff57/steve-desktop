@@ -41,7 +41,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p>In a conditional probability P(A|B), the <b>conditioning event B</b> is the population we restrict attention to &mdash; the "given that" clause that comes <i>after</i> the word <i>of</i>.</p>
+      <p>In a conditional probability P(A|B), the <b>conditioning event B</b> is the population we restrict attention to: the "given that" clause that comes <i>after</i> the word <i>of</i>.</p>
       <p>The statement says "<i>of the people who [B], a percentage [A]</i>." The conditioning event is the clause attached to "of."</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Conditioning event: <b>'.$correct_event.'</b>

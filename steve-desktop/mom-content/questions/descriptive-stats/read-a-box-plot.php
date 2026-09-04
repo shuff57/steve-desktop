@@ -12,7 +12,7 @@ if ($ci == 0) {
   $unitWord = "minutes"
 }
 else {
-  // The largest value can reach 120, so the context must not carry a ceiling of its own -- a
+  // The largest value can reach 120, so the context must not carry a ceiling of its own: a
   // "100-point project" scoring 120 renders perfectly and is nonsense.
   $intro = "A box plot of the weights, in pounds, of the dogs seen at a veterinary clinic in one week."
   $axisName = "Weight in pounds"
@@ -20,7 +20,7 @@ else {
 }
 
 // The four section widths are 2, 4, 6 and 8 in a rotated order, so every one of the five numbers
-// is EVEN and lands exactly on a labeled tick -- a value the student is asked to read off must
+// is EVEN and lands exactly on a labeled tick: a value the student is asked to read off must
 // never sit between gridlines. The rotation also guarantees the four widths are distinct, so
 // "which quarter is widest" has one defensible answer rather than a tie.
 //
@@ -137,9 +137,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">What the five marks are.</span> Reading left to right: the left whisker end is the smallest value (' . $minV . '), the left edge of the box is `Q_1` (' . $q1 . '), the heavy line inside the box is the median (' . $med . '), the right edge is `Q_3` (' . $q3 . ') and the right whisker end is the largest value (' . $maxV . ').</p>
-      <p><span class="term-label">Parts (a) and (c).</span> The median is the line <i>inside</i> the box, <b>' . $med . '</b> ' . $unitWord . ' &mdash; not the middle of the box, which is a different point whenever the two halves are unequal. `Q_1` is the box\'s left edge, <b>' . $q1 . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '. That is the width of the box, and it is the span of the middle half of the data.</p>
-      <p><span class="term-label">Part (d) &mdash; the most spread-out quarter.</span> Each of the four sections holds a quarter of the data, so the widest section is the one whose quarter is most spread out. The widths are ' . $w1 . ', ' . $w2 . ', ' . $w3 . ' and ' . $w4 . ', so the answer is <b>' . $widestName . '</b>. A long whisker does not mean more values out there &mdash; it means the same quarter of the data, stretched over more ground.</p>
+      <p><span class="term-label">Parts (a) and (c).</span> The median is the line <i>inside</i> the box, <b>' . $med . '</b> ' . $unitWord . ': not the middle of the box, which is a different point whenever the two halves are unequal. `Q_1` is the box\'s left edge, <b>' . $q1 . '</b>.</p>
+      <p><span class="term-label">Part (b): the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '. That is the width of the box, and it is the span of the middle half of the data.</p>
+      <p><span class="term-label">Part (d): the most spread-out quarter.</span> Each of the four sections holds a quarter of the data, so the widest section is the one whose quarter is most spread out. The widths are ' . $w1 . ', ' . $w2 . ', ' . $w3 . ' and ' . $w4 . ', so the answer is <b>' . $widestName . '</b>. A long whisker does not mean more values out there: it means the same quarter of the data, stretched over more ground.</p>
       <p><b>Answer:</b> (a) ' . $med . ' &nbsp;&nbsp; (b) ' . $iqr . ' &nbsp;&nbsp; (c) ' . $q1 . '</p>
     </div>
   </details>

@@ -16,7 +16,7 @@ $yname = $picked_ctx[1]
 $bs = array(0.5, 1.5, 2, 2.5, 3, -0.5, -1.5)
 $b  = $bs[rand(0, count($bs) - 1)]
 
-// Part a — what is the original relationship between y and x?
+// Part a: what is the original relationship between y and x?
 $choices[0] = array(
   "A power relationship: `y = a cdot x^b`",
   "An exponential relationship: `y = a cdot b^x`",
@@ -26,7 +26,7 @@ $choices[0] = array(
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — exponent in y = a * x^b
+// Part b: exponent in y = a * x^b
 $answer[1] = $b
 $reltolerance[1] = 0.01
 

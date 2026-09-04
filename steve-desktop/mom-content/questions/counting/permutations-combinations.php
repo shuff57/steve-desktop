@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 7.5 — Permutations and Combinations (two-part problem)
+// Section 7.5: Permutations and Combinations (two-part problem)
 
 // Contexts: each has a permutation scenario and a combination scenario
 $contexts = array(
@@ -144,14 +144,14 @@ $solutionguide = $css_block . '
 
 <p><b>Permutations and Combinations</b></p>
 
-<p><b>Part A — Permutation (order matters)</b></p>
+<p><b>Part A: Permutation (order matters)</b></p>
 <p>$ctx_perm[0]. There are <b>$pn $ctx_perm[1]</b>, and <b>$pr</b> $ctx_perm[3].</p>
 <p>How many different arrangements are possible?</p>
 <p>$ansprompt[0] $answerbox[0]</p>
 
 <hr>
 
-<p><b>Part B — Combination (order does not matter)</b></p>
+<p><b>Part B: Combination (order does not matter)</b></p>
 <p>$ctx_comb[0]. There are <b>$cn $ctx_comb[1]</b>, and <b>$cr</b> $ctx_comb[3].</p>
 <p>How many different selections are possible?</p>
 <p>$ansprompt[1] $answerbox[1]</p>

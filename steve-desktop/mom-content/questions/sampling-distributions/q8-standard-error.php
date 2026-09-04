@@ -58,10 +58,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the z-score of a sample mean.</span> The numerator still measures distance from the center, but the denominator is now the standard error rather than the population standard deviation:</p>
+      <p><span class="term-label">Part (a): the standard error.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the z-score of a sample mean.</span> The numerator still measures distance from the center, but the denominator is now the standard error rather than the population standard deviation:</p>
       <p>`z = (bar(x) - mu)/SE = (' . $xbar . ' - ' . $mu . ')/' . round($se, 4) . ' = ' . round($z, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; quadrupling n.</span> The n sits under a square root in the denominator, so `sqrt(4n) = 2*sqrt(n)` and the SE is cut in half. Dividing by `n` instead of `sqrt(n)` is the single most common slip in this section, and using sigma where the SE belongs makes a very unusual sample mean look ordinary.</p>
+      <p><span class="term-label">Part (c): quadrupling n.</span> The n sits under a square root in the denominator, so `sqrt(4n) = 2*sqrt(n)` and the SE is cut in half. Dividing by `n` instead of `sqrt(n)` is the single most common slip in this section, and using sigma where the SE belongs makes a very unusual sample mean look ordinary.</p>
     </div>
   </details>
 </div>'

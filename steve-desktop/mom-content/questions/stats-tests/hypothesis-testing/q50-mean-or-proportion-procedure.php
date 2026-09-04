@@ -67,8 +67,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Parts (a) and (b) &mdash; the procedure.</span> ' . $proc . ' &mdash; ' . $facts . ' The parameter picks the row of the table, and the sigma question picks the column.</p>
-      <p><span class="term-label">Part (c) &mdash; the first number.</span> ' . ($i == 2 ? "The sample proportion is the point estimate the test is built around: p' = x/n." : "The standard error is the first number of the procedure: " . round($first, 4) . ".") . '</p>
+      <p><span class="term-label">Parts (a) and (b): the procedure.</span> ' . $proc . ': ' . $facts . ' The parameter picks the row of the table, and the sigma question picks the column.</p>
+      <p><span class="term-label">Part (c): the first number.</span> ' . ($i == 2 ? "The sample proportion is the point estimate the test is built around: p' = x/n." : "The standard error is the first number of the procedure: " . round($first, 4) . ".") . '</p>
     </div>
   </details>
 </div>'

@@ -15,7 +15,7 @@ $contexts = array(
   array("a survey of 600 students, 480 of whom are against the new legislation", 480, 600),
   array("a study measuring the heights of 48 male Swedes, with a sample mean of 71 inches", 0, 1)
 )
-// [ctx, x, n] — x=0 marks the mean scenario (n=1 so x/n is defined but unused)
+// [ctx, x, n]: x=0 marks the mean scenario (n=1 so x/n is defined but unused)
 
 $i = rand(0, 2)
 $ctx = $contexts[$i][0]
@@ -58,10 +58,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">How do you know you are dealing with a proportion problem?</span> Two signals. First, the underlying distribution is a binomial distribution &mdash; the data are counts of successes and failures, not measurements. Second, there is no mention of a mean or an average anywhere in the question.</p>
-      <p><span class="term-label">Part (a) &mdash; the proportion signal.</span> ' . ($x > 0 ? "The data are counts of successes and failures, and there is no mention of a mean or an average anywhere in the question." : "The data are measurements with a mean.") . '</p>
-      <p><span class="term-label">Part (b) &mdash; the mean signal.</span> ' . ($x > 0 ? "The data are measurements with a mean." : "The data are counts of successes and failures, and there is no mention of a mean or an average anywhere in the question.") . '</p>
-      <p><span class="term-label">Part (c) &mdash; the sample proportion.</span> ' . ($x > 0 ? "`p\' = x/n = ' . $x . '/' . $n . ' = ' . round($x / $n, 4) . '`" : "This is a mean problem, so there is no sample proportion to compute.") . '</p>
+      <p><span class="term-label">How do you know you are dealing with a proportion problem?</span> Two signals. First, the underlying distribution is a binomial distribution: the data are counts of successes and failures, not measurements. Second, there is no mention of a mean or an average anywhere in the question.</p>
+      <p><span class="term-label">Part (a): the proportion signal.</span> ' . ($x > 0 ? "The data are counts of successes and failures, and there is no mention of a mean or an average anywhere in the question." : "The data are measurements with a mean.") . '</p>
+      <p><span class="term-label">Part (b): the mean signal.</span> ' . ($x > 0 ? "The data are measurements with a mean." : "The data are counts of successes and failures, and there is no mention of a mean or an average anywhere in the question.") . '</p>
+      <p><span class="term-label">Part (c): the sample proportion.</span> ' . ($x > 0 ? "`p\' = x/n = ' . $x . '/' . $n . ' = ' . round($x / $n, 4) . '`" : "This is a mean problem, so there is no sample proportion to compute.") . '</p>
       <p>If X is a binomial random variable, then `X ~ B(n, p)`. To turn that count into a proportion, take X and divide it by n. The random variable `P\'` is that proportion.</p>
     </div>
   </details>
@@ -82,7 +82,7 @@ $solutionguide = '
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> ' . ($x > 0 ? "The sample proportion `p\' = x/n`. (Round to 4 decimal places.)" : "This is a mean problem &mdash; enter 0 for the sample proportion.") . '
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> ' . ($x > 0 ? "The sample proportion `p\' = x/n`. (Round to 4 decimal places.)" : "This is a mean problem: enter 0 for the sample proportion.") . '
     <span style="margin-left:8px;">$answerbox[2]</span>
   </div>
 </div>

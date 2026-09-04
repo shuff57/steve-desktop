@@ -18,7 +18,7 @@
 // Exit 0 = live, safe to push. Exit 1 = not live; a headed browser is waiting for a login.
 // Exit 2 = something is wrong that logging in will not fix.
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
@@ -97,6 +97,60 @@ function openHeaded() {
   cli(['-s=' + SESSION, 'open', '--persistent', '--headed', HOME_URL], { allowFail: true });
 }
 
+/**
+ * Credentials, if they have been stored. NEVER inline them here -- this file is in git.
+ * Env wins, then ~/.mom-creds.json, which lives outside every working tree on purpose.
+ */
+function creds() {
+  if (process.env.MOM_USER && process.env.MOM_PASS) {
+    return { username: process.env.MOM_USER, password: process.env.MOM_PASS };
+  }
+  const home = process.env.USERPROFILE || process.env.HOME;
+  const p = process.env.MOM_CREDS || (home && join(home, '.mom-creds.json'));
+  if (!p || !existsSync(p)) return null;
+  try {
+    const c = JSON.parse(readFileSync(p, 'utf8'));
+    return c.username && c.password ? c : null;
+  } catch { return null; }
+}
+
+/**
+ * Fill and submit the login form. Returns true only when the page comes back signed in --
+ * a failed login re-serves the SAME form with no error banner in the DOM we can rely on, so
+ * the post-condition is "Log Out is present", never "the POST returned 200".
+ */
+function autoLogin(c) {
+  cli(['-s=' + SESSION, 'goto', HOME_URL], { allowFail: true });
+  const staged = probeJson(`JSON.stringify((()=>{`
+    + `const u=document.querySelector('input[name=username]');`
+    + `const p=document.querySelector('input[type=password]');`
+    + `if(!u||!p) return {ok:false,why:'no login form'};`
+    + `const fire=(el)=>{el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));};`
+    + `u.value=${JSON.stringify(c.username)}; fire(u);`
+    + `p.value=${JSON.stringify(c.password)}; fire(p);`
+    + `const f=u.form||p.form; if(!f) return {ok:false,why:'inputs have no form'};`
+    + `const btn=[...f.querySelectorAll('input[type=submit],button')].find(b=>/log ?in|sign ?in|submit/i.test(b.value||b.innerText||''));`
+    + `if(btn) btn.click(); else f.submit();`
+    + `return {ok:true};`
+    + `})())`);
+  if (!staged || !staged.ok) return false;
+  // The submit navigates; give it a few polls rather than one optimistic read.
+  for (let i = 0; i < 6; i++) {
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 1500);
+    const p = probe();
+    if (p && p.loggedIn && !p.loginForm) return true;
+  }
+  return false;
+}
+
+/** probe() without the goto -- used mid-login, where navigating would discard the fill. */
+function probeJson(js) {
+  const out = cli(['-s=' + SESSION, '--raw', 'eval', js], { allowFail: true });
+  const m = /\{[\s\S]*\}/.exec(out.replace(/\\"/g, '"'));
+  if (!m) return null;
+  try { return JSON.parse(m[0]); } catch { return null; }
+}
+
 function check() {
   if (!isOpen()) return { live: false, why: 'no browser open under session "' + SESSION + '"' };
   cli(['-s=' + SESSION, 'goto', HOME_URL], { allowFail: true });
@@ -119,6 +173,24 @@ let r = check();
 if (!r.live) {
   say(`MOM session "${SESSION}" is NOT live -- ${r.why}`);
   if (!isOpen()) { say('opening a headed browser at the login page...'); openHeaded(); }
+
+  // Stored credentials turn the once-per-work-session login into a no-op. Still headed, still
+  // the same browser -- only the typing is automated, so a login that fails falls straight
+  // through to the manual path below rather than leaving the caller stuck.
+  const c = creds();
+  if (c) {
+    say(`trying the stored login for "${c.username}"...`);
+    if (autoLogin(c)) {
+      r = check();
+      if (r.live) {
+        say(`MOM session "${SESSION}" is live -- ${r.url}  (auto-login)`);
+        if (QUIET) console.log(`live ${SESSION} ${r.url}`);
+        process.exit(0);
+      }
+    }
+    say('stored login did not take -- falling back to a manual login.');
+  }
+
   say('');
   say('  >> Log in to MyOpenMath in the browser window that just opened. <<');
   say('     MOM will not remember you: PHPSESSID is a session cookie (expires: -1),');

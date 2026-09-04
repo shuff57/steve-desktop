@@ -8,7 +8,7 @@
 // grading. The three response sentences are the FRQ's own target strings, so a student who studies
 // this one is reading the exact prose the FRQ rewards.
 //
-// The dropped category here is OUTLIER IMPACT -- students jump straight to "use the median because
+// The dropped category here is OUTLIER IMPACT: students jump straight to "use the median because
 // it resists outliers" and never say what the extreme value actually DOES to the mean. That is the
 // diagnosis the recommendation is supposed to rest on, and it reads as redundant once the verdict
 // is given. 2.4's pre-FRQ already drops Practical Interpretation, so this one targets a different
@@ -38,7 +38,7 @@ $mult = $multipliers[$i]
 // Six typical values plus one extreme value. The bands must NOT OVERLAP: the question states the
 // list is "in order" and takes the median as $v4, and both are false the moment two values can swap.
 // The FRQ this mirrors uses overlapping bands (rand(29,32) against rand(31,34)), which on some seeds
-// prints an out-of-order list AND reports a median that is not the median -- e.g. v3=300, v4=280,
+// prints an out-of-order list AND reports a median that is not the median: e.g. v3=300, v4=280,
 // v5=290 makes the true median 290 while $v4 says 280. Keep these disjoint.
 $v1 = rand(24, 25) * 10
 $v2 = rand(26, 27) * 10
@@ -70,7 +70,7 @@ $sImpact = 'The extreme value of &#36;' . prettyint($d_out) . ' pulls the mean u
 $sRecommend = 'The median of &#36;' . prettyint($median_val) . ' is the better measure of center here because it is resistant to outliers: it reflects the middle value in the sorted data and is not dragged toward extreme observations.'
 // Each sentence must be CATEGORY-PURE: it earns its own rubric line and no other. The FRQ's target
 // strings cross-reference each other because they are written to flow as one essay, so this one is
-// trimmed -- it used to end "while only one extreme figure inflates the mean", which is the Outlier
+// trimmed: it used to end "while only one extreme figure inflates the mean", which is the Outlier
 // Impact requirement verbatim and made the response that drops Outlier Impact still earn it.
 $sPractical = 'The ' . $role . ' should therefore report the median of &#36;' . prettyint($median_val) . ' as the typical ' . $val_singular . ', because that is the figure someone dealing with these ' . $value_label . ' would actually encounter.'
 
@@ -194,15 +194,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> says what the extreme value does to the mean, names the median and explains why it resists outliers, and then says what to report and to whom. Each of the other three drops a whole category.</p>
-      <p><span class="term-label">The numbers.</span> Six of the seven ' . $value_label . ' sit between &#36;' . prettyint($d1) . ' and &#36;' . prettyint($d6) . '. The seventh is &#36;' . prettyint($d_out) . '. That one value drags the mean to &#36;' . prettyint($mean_val) . ' while the median stays at &#36;' . prettyint($median_val) . ' &mdash; a gap of &#36;' . prettyint($gap) . ' created by a single observation.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noImpactLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> says what the extreme value does to the mean, names the median and explains why it resists outliers, and then says what to report and to whom. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">The numbers.</span> Six of the seven ' . $value_label . ' sit between &#36;' . prettyint($d1) . ' and &#36;' . prettyint($d6) . '. The seventh is &#36;' . prettyint($d_out) . '. That one value drags the mean to &#36;' . prettyint($mean_val) . ' while the median stays at &#36;' . prettyint($median_val) . ': a gap of &#36;' . prettyint($gap) . ' created by a single observation.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noImpactLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Outlier Impact &mdash; NOT earned.</b> It never says what the extreme value does to the mean. "Resistant to outliers" describes a property of the median; it does not report the damage. This is the only category it misses.</li>
-        <li><b>Recommendation &mdash; earned.</b> It names the median and explains why it resists outliers.</li>
-        <li><b>Practical Interpretation &mdash; earned.</b> It says what the ' . $role . ' should report and what it means for a typical ' . $val_singular . '.</li>
+        <li><b>Outlier Impact: NOT earned.</b> It never says what the extreme value does to the mean. "Resistant to outliers" describes a property of the median; it does not report the damage. This is the only category it misses.</li>
+        <li><b>Recommendation: earned.</b> It names the median and explains why it resists outliers.</li>
+        <li><b>Practical Interpretation: earned.</b> It says what the ' . $role . ' should report and what it means for a typical ' . $val_singular . '.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the impact is separate from the recommendation.</span> "Use the median, it resists outliers" is a rule being applied. The rubric also asks for the diagnosis underneath it: here, that &#36;' . prettyint($d_out) . ' pulls the mean to &#36;' . prettyint($mean_val) . ', roughly &#36;' . prettyint($gap) . ' above the middle of the data. Without that, the recommendation is a memorised reflex &mdash; it would be given identically for a dataset with no outlier at all, where it would be wrong.</p>
+      <p><span class="term-label">Part (c): why the impact is separate from the recommendation.</span> "Use the median, it resists outliers" is a rule being applied. The rubric also asks for the diagnosis underneath it: here, that &#36;' . prettyint($d_out) . ' pulls the mean to &#36;' . prettyint($mean_val) . ', roughly &#36;' . prettyint($gap) . ' above the middle of the data. Without that, the recommendation is a memorised reflex: it would be given identically for a dataset with no outlier at all, where it would be wrong.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Outlier Impact is the category most often missing, because once you have picked the median the diagnosis feels like something you already said.</p>
     </div>
   </details>

@@ -101,9 +101,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; define the variable.</span> A random variable is a quantity whose value is determined by chance, written with a capital letter. The sentence has to name the quantity the scenario is about and the unit that varies: <b>' . $defGood . '</b></p>
-      <p><span class="term-label">Part (b) &mdash; list the values.</span> Every value the variable can take must be listed, including the smallest one &mdash; the description often buries it in the last clause. Here the possible values are <b>' . $good . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; count them.</span> That list has <b>' . $count . '</b> values.</p>
+      <p><span class="term-label">Part (a): define the variable.</span> A random variable is a quantity whose value is determined by chance, written with a capital letter. The sentence has to name the quantity the scenario is about and the unit that varies: <b>' . $defGood . '</b></p>
+      <p><span class="term-label">Part (b): list the values.</span> Every value the variable can take must be listed, including the smallest one: the description often buries it in the last clause. Here the possible values are <b>' . $good . '</b>.</p>
+      <p><span class="term-label">Part (c): count them.</span> That list has <b>' . $count . '</b> values.</p>
       <p>A variable you cannot describe in words is a variable you will misread two steps later; writing the sentence out first keeps the value list honest.</p>
     </div>
   </details>

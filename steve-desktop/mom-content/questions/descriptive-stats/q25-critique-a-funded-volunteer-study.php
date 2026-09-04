@@ -22,7 +22,7 @@ $pctstr = $pct . "%"
 // The five genuine problems.
 $t1 = "The study was paid for by the company that sells the product, so it is a self-funded, self-interest study."
 $t2 = "The participants were volunteers, so the sample is self-selected."
-$t3 = "The volunteers came from the company&rsquo;s own mailing list &mdash; people already interested in the product &mdash; so the sample is a convenience sample rather than a cross-section of users."
+$t3 = "The volunteers came from the company&rsquo;s own mailing list, people already interested in the product, so the sample is a convenience sample rather than a cross-section of users."
 $t4 = "There is no comparison group, so any improvement is confounded with other possible causes."
 $t5 = "Improvement was self-reported by the participants rather than measured independently."
 
@@ -56,15 +56,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Who paid for it.</b> ' . $brand . ' funded a study about its own ' . $product . ', so this is a <b>self-funded / self-interest study</b>. That does not automatically make it wrong &mdash; it means the design and the reporting deserve extra scrutiny before the number is believed.</p>
+      <p><b>Who paid for it.</b> ' . $brand . ' funded a study about its own ' . $product . ', so this is a <b>self-funded / self-interest study</b>. That does not automatically make it wrong: it means the design and the reporting deserve extra scrutiny before the number is believed.</p>
       <p><b>Who is in the sample.</b> The ' . $nstr . ' participants <i>volunteered</i>, so the sample is <b>self-selected</b>; and they were drawn from the mailing list of people already interested in ' . $brand . ', so it is also a <b>convenience sample</b>. Neither group is a cross-section of ' . $product . ' users.</p>
-      <p><b>What ' . $pctstr . ' actually measures.</b> Improvement was a <b>self-reported</b> judgment, and nobody was tracked for comparison. With <b>no control group</b>, the improvement is <b>confounded</b> with everything else that changed over the same weeks &mdash; the season, other products, and plain expectation.</p>
+      <p><b>What ' . $pctstr . ' actually measures.</b> Improvement was a <b>self-reported</b> judgment, and nobody was tracked for comparison. With <b>no control group</b>, the improvement is <b>confounded</b> with everything else that changed over the same weeks: the season, other products, and plain expectation.</p>
       <div class="term-row"><span class="term-label">Problems this study has (check these):</span></div>
       ' . $truelist . '
       <p style="margin-top:1em;"><b>Why the other statements do not belong:</b></p>
-      <div class="term-row">&bull; ' . $f1 . ' &mdash; ' . $nstr . ' is a <i>large</i> sample. Size is the one thing this study is not short of.</div>
-      <div class="term-row">&bull; ' . $f2 . ' &mdash; this is the trap. <b>Sample size fixes sampling error, not sampling bias.</b> A biased recruiting method run on ' . $nstr . ' people gives a more precise estimate of the wrong quantity: a bigger self-selected sample is a worse one, not a better one.</div>
-      <div class="term-row">&bull; ' . $f3 . ' &mdash; too far the other way. A self-funded study is read with extra care and judged on its merits, not thrown out on sight.</div>
+      <div class="term-row">&bull; ' . $f1 . ': ' . $nstr . ' is a <i>large</i> sample. Size is the one thing this study is not short of.</div>
+      <div class="term-row">&bull; ' . $f2 . ': this is the trap. <b>Sample size fixes sampling error, not sampling bias.</b> A biased recruiting method run on ' . $nstr . ' people gives a more precise estimate of the wrong quantity: a bigger self-selected sample is a worse one, not a better one.</div>
+      <div class="term-row">&bull; ' . $f3 . ': too far the other way. A self-funded study is read with extra care and judged on its merits, not thrown out on sight.</div>
       <p style="margin-top:1em;"><b>The one idea to carry forward:</b> a large `n` shrinks random error only. Nothing about how many people answered can repair <i>who</i> was asked.</p>
     </div>
   </details>

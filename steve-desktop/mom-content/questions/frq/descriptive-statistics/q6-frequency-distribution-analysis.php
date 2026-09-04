@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Frequency Distribution Analysis - Students create a frequency distribution with 4 classes from a dataset of quiz scores and write a conclusion describing the shape of the distribution and what it reveals about student performance. ===
+// === NAME - DESCRIPTION: Frequency Distribution Analysis - Students sort a data set of quiz scores into four given classes, then report relative frequency, cumulative relative frequency, and read a percentage off their own table ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -11,18 +11,10 @@ $displayformat[0]='editornopaste'
 /* ---------- 1. Dynamic Context Generation ---------- */
 $i = rand(0, 2)
 
-// Three contexts: statistics quiz (right-skewed), history midterm (symmetric), biology lab exam (left-skewed)
-$contexts = array(
-  "an Introduction to Statistics class",
-  "a World History class",
-  "a Biology lab section"
-)
-$subject = $contexts[$i]
-
+// Three contexts: statistics quiz, history midterm, biology lab exam
 $quiz_names = array("a statistics quiz", "a history midterm", "a biology lab exam")
 $quiz_name = $quiz_names[$i]
 
-// Pre-constructed datasets with distinct shapes
 $datasets = array(
   "35, 38, 41, 43, 45, 47, 48, 50, 52, 53, 55, 57, 58, 60, 62, 68, 74, 82",
   "52, 55, 58, 65, 68, 70, 71, 73, 74, 76, 78, 79, 81, 83, 88, 92, 95",
@@ -33,18 +25,7 @@ $dataset = $datasets[$i]
 $n_values = array(18, 17, 18)
 $n = $n_values[$i]
 
-$min_values = array(35, 52, 55)
-$max_values = array(82, 95, 98)
-$min_val = $min_values[$i]
-$max_val = $max_values[$i]
-
-$range_values = array(47, 43, 43)
-$range_val = $range_values[$i]
-
-$class_widths = array(12, 11, 11)
-$class_width = $class_widths[$i]
-
-// Class boundaries for 4 classes
+// The four classes students are given (they do not choose these: class width is 2.2)
 $c1_labels = array("35 - 46", "52 - 62", "55 - 65")
 $c2_labels = array("47 - 58", "63 - 73", "66 - 76")
 $c3_labels = array("59 - 70", "74 - 84", "77 - 87")
@@ -64,45 +45,50 @@ $f2 = $f2_values[$i]
 $f3 = $f3_values[$i]
 $f4 = $f4_values[$i]
 
-// Shape descriptions
-$shapes = array(
-  "right-skewed (skewed to the right)",
-  "approximately symmetric (roughly bell-shaped)",
-  "left-skewed (skewed to the left)"
-)
-$shape = $shapes[$i]
+// Relative frequency of each class, to three decimal places
+$rf1_values = array("0.278", "0.176", "0.111")
+$rf2_values = array("0.444", "0.294", "0.056")
+$rf3_values = array("0.167", "0.353", "0.389")
+$rf4_values = array("0.111", "0.176", "0.444")
+$rf1 = $rf1_values[$i]
+$rf2 = $rf2_values[$i]
+$rf3 = $rf3_values[$i]
+$rf4 = $rf4_values[$i]
 
-// Pre-built ideal answer target for interpretation
-$target_interps = array(
-  "Most students scored below 59, with only a few scoring above 70. The quiz was quite challenging for the class overall.",
-  "Scores are spread fairly evenly across the middle range. The exam was appropriately challenging, producing a typical distribution of grades.",
-  "The vast majority of students scored 77 or above, with very few in the lower ranges. Students were well-prepared, or the exam was relatively straightforward."
-)
-$target_interp = $target_interps[$i]
+// Cumulative relative frequency THROUGH THE THIRD CLASS
+$crf3_counts = array(16, 14, 10)
+$crf3_decs = array("0.889", "0.824", "0.556")
+$crf3_pcts = array("88.9%", "82.4%", "55.6%")
+$crf3_count = $crf3_counts[$i]
+$crf3_dec = $crf3_decs[$i]
+$crf3_pct = $crf3_pcts[$i]
 
-// Narrative variables for model answer (context-dependent)
-$r_dists = array(
-  "Using a class width of 12, the four classes are 35-46 (frequency 5), 47-58 (frequency 8), 59-70 (frequency 3), and 71-82 (frequency 2).",
-  "Using a class width of 11, the four classes are 52-62 (frequency 3), 63-73 (frequency 5), 74-84 (frequency 6), and 85-95 (frequency 3).",
-  "Using a class width of 11, the four classes are 55-65 (frequency 2), 66-76 (frequency 1), 77-87 (frequency 7), and 88-98 (frequency 8)."
-)
-$r_dist = $r_dists[$i]
+// Reading the table: percent scoring at or below the top of the SECOND class
+$cut_values = array(58, 73, 76)
+$crf2_counts = array(13, 8, 3)
+$crf2_pcts = array("72.2%", "47.1%", "16.7%")
+$cut_val = $cut_values[$i]
+$crf2_count = $crf2_counts[$i]
+$crf2_pct = $crf2_pcts[$i]
 
-$r_shapes = array(
-  "This distribution is <b>right-skewed</b>, meaning the data is concentrated in the lower classes with a tail extending toward the higher scores.",
-  "This distribution is <b>approximately symmetric</b>, meaning the frequencies build toward the middle classes and taper off similarly on both sides.",
-  "This distribution is <b>left-skewed</b>, meaning the data is concentrated in the higher classes with a tail extending toward the lower scores."
-)
-$r_shape_desc = $r_shapes[$i]
+// Narrative pieces for the model answer
+$r_dist = "Counting the scores into the four given classes gives " . $c1 . ": " . $f1 . ", " . $c2 . ": " . $f2 . ", " . $c3 . ": " . $f3 . ", and " . $c4 . ": " . $f4 . ", which adds to " . $n . " scores in all."
 
-$r_interps_full = array(
-  "This tells us that <b>most students scored below 59 on the statistics quiz</b>, and only a few scored above 70. The quiz appears to have been quite challenging for the class, and students may benefit from additional review before moving forward.",
-  "This tells us that <b>student performance on the history midterm was fairly balanced</b>, with the bulk of scores falling in the middle range (63-84). The exam appears to have been appropriately challenging, producing a typical spread of grades.",
-  "This tells us that <b>the vast majority of students scored 77 or above on the biology lab exam</b>, with very few scoring below that. Students appear to have been well-prepared for this material, or the exam may have been relatively straightforward."
+$r_rels = array(
+  "Dividing each frequency by n = 18 gives relative frequencies of 0.278, 0.444, 0.167, and 0.111. Adding the first three gives a cumulative relative frequency of 16 &#247; 18 = 0.889 through the class 59-70.",
+  "Dividing each frequency by n = 17 gives relative frequencies of 0.176, 0.294, 0.353, and 0.176. Adding the first three gives a cumulative relative frequency of 14 &#247; 17 = 0.824 through the class 74-84.",
+  "Dividing each frequency by n = 18 gives relative frequencies of 0.111, 0.056, 0.389, and 0.444. Adding the first three gives a cumulative relative frequency of 10 &#247; 18 = 0.556 through the class 77-87."
 )
-$r_interp_full = $r_interps_full[$i]
+$r_rel = $r_rels[$i]
 
-$sample_narrative = $r_dist . " " . $r_shape_desc . " " . $r_interp_full
+$r_reads = array(
+  "13 of the 18 scores fall in the first two classes, so 72.2% of the students scored 58 or lower.",
+  "8 of the 17 scores fall in the first two classes, so 47.1% of the students scored 73 or lower.",
+  "3 of the 18 scores fall in the first two classes, so 16.7% of the students scored 76 or lower."
+)
+$r_read = $r_reads[$i]
+
+$sample_narrative = $r_dist . " " . $r_rel . " " . $r_read
 
 /* ---------- 2. SHARED CSS & JS ---------- */
 $css_block = '<style>
@@ -167,27 +153,28 @@ $rubricbutton = $css_block . '
             <th class="col-check">Requirement</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Frequency Distribution</b></td>
+            <td style="text-align:center;"><b>Frequency Table<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Show how you determined the class width and class boundaries.</label></li>
-                <li><label><input type="checkbox"> List each class with its corresponding frequency.</label></li>
+                <li><label><input type="checkbox"> List each of the four classes with its frequency.</label></li>
+                <li><label><input type="checkbox"> Check that your four frequencies add up to ' . $n . '.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Shape Identification</b></td>
+            <td style="text-align:center;"><b>Relative &amp; Cumulative<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Identify and describe the overall shape of the distribution.</label></li>
+                <li><label><input type="checkbox"> Give the relative frequency of each class, rounded to three decimal places.</label></li>
+                <li><label><input type="checkbox"> Give the cumulative relative frequency through the third class, and show the sum you used.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Performance Interpretation</b></td>
+            <td class="col-cat-bot" style="text-align:center;"><b>Reading the Table<br>(2 pts)</b></td>
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain what the distribution shape reveals about how students performed.</label></li>
+                <li><label><input type="checkbox"> State what percent of the students scored ' . $cut_val . ' or lower, and name the classes you added to get it.</label></li>
               </ul>
             </td>
           </tr>
@@ -213,31 +200,33 @@ $rubricanswerbutton = $css_block . '
             <th class="col-check">Checklist &amp; Ideal Targets</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Frequency Distribution<br>(4 pts)</b></td>
+            <td style="text-align:center;"><b>Frequency Table<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Show how you determined the class width and class boundaries.
-                    <span class="ideal-ans">Target: "Range = ' . $range_val . ' (' . $max_val . ' - ' . $min_val . '). Class width = ' . $class_width . ' (range &#247; 4, rounded up). Start from the minimum value ' . $min_val . '."</span></li>
-                <li>List each class with its corresponding frequency.
+                <li>List each of the four given classes with its frequency.
                     <span class="ideal-ans">Target: "' . $c1 . ' (freq ' . $f1 . '), ' . $c2 . ' (freq ' . $f2 . '), ' . $c3 . ' (freq ' . $f3 . '), ' . $c4 . ' (freq ' . $f4 . ')."</span></li>
+                <li>The four frequencies account for every value in the data set.
+                    <span class="ideal-ans">Target: "' . $f1 . ' + ' . $f2 . ' + ' . $f3 . ' + ' . $f4 . ' = ' . $n . '."</span></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Shape Identification<br>(3 pts)</b></td>
+            <td style="text-align:center;"><b>Relative &amp; Cumulative<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Identify and describe the overall shape of the distribution.
-                    <span class="ideal-ans">Target: "The distribution is ' . $shape . '."</span></li>
+                <li>Relative frequency of each class (frequency &#247; ' . $n . ').
+                    <span class="ideal-ans">Target: "' . $rf1 . ', ' . $rf2 . ', ' . $rf3 . ', ' . $rf4 . '"</span></li>
+                <li>Cumulative relative frequency through the third class.
+                    <span class="ideal-ans">Target: "' . $crf3_count . ' &#247; ' . $n . ' = ' . $crf3_dec . ', or ' . $crf3_pct . ', through the class ' . $c3 . '."</span></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Performance Interpretation<br>(3 pts)</b></td>
+            <td class="col-cat-bot" style="text-align:center;"><b>Reading the Table<br>(2 pts)</b></td>
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Explain what the distribution shape reveals about how students performed.
-                    <span class="ideal-ans">Target: "' . $target_interp . '"</span></li>
+                <li>Percent scoring ' . $cut_val . ' or lower, with the classes added named.
+                    <span class="ideal-ans">Target: "' . $c1 . ' plus ' . $c2 . ' is ' . $crf2_count . ' of ' . $n . ' scores, so ' . $crf2_pct . '."</span></li>
               </ul>
             </td>
           </tr>
@@ -254,17 +243,21 @@ $rubricanswerbutton = $css_block . '
 /* ---------- 5. Question Text ---------- */
 $questiontext = '
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
-  <p>The following data represents ' . $n . ' scores on ' . $quiz_name . ' given to students in ' . $subject . '. The quiz was scored out of 100 points.</p>
+  <p>The data set below records ' . $n . ' scores on ' . $quiz_name . '. It was scored out of 100 points.</p>
   <p style="text-align:center; font-size:1.05em; background:#f5f5f5; padding:12px; border-radius:6px; font-family:monospace; line-height:1.8;">
   ' . $dataset . '
   </p>
   <p><b>Essay Prompt:</b><br>
-  Create a frequency distribution using 4 classes for this dataset. Then write a conclusion statement describing the shape of the distribution and what it tells you about student performance on this quiz.</p>
+  Use the four classes below to build a frequency table for this data set, then extend it into a relative frequency and cumulative relative frequency table.</p>
+  <p style="text-align:center; font-size:1.05em; background:#eef4fb; padding:12px; border-radius:6px; font-family:monospace; line-height:1.8;">
+  ' . $c1 . ' &nbsp;&nbsp;&nbsp; ' . $c2 . ' &nbsp;&nbsp;&nbsp; ' . $c3 . ' &nbsp;&nbsp;&nbsp; ' . $c4 . '
+  </p>
   <p>In your response, be sure to cover:</p>
   <ul>
-    <li>How you determined the class width and what class boundaries you used.</li>
-    <li>The frequency for each class.</li>
-    <li>The overall shape of the distribution and what it reveals about student performance.</li>
+    <li>The frequency for each of the four classes.</li>
+    <li>The relative frequency of each class, rounded to three decimal places.</li>
+    <li>The cumulative relative frequency through the third class, and the sum you used to get it.</li>
+    <li>What percent of the students scored ' . $cut_val . ' or lower, and which classes you added to find it.</li>
   </ul>
   ' . $rubricbutton . '
 </div>';

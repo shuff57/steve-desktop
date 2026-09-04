@@ -32,7 +32,7 @@ $introAll = array(
 )
 $introText = $introAll[$ci]
 
-// Category labels, four slots per context, indexed flat &mdash; the question text cannot index a
+// Category labels, four slots per context, indexed flat: the question text cannot index a
 // nested array, and a flat lookup keeps every label a plain scalar.
 $allCats = array(
   "work at least part-time", "commute more than 20 minutes to campus", "are parents of at least one child", "",
@@ -98,7 +98,7 @@ $listHtml = $listHtml . '</ul>'
 $excess = $sum - 100
 $gap = 100 - $sum
 
-// (a) is a computation, so it is typed in &mdash; offering totals to choose between would turn
+// (a) is a computation, so it is typed in: offering totals to choose between would turn
 // the addition into elimination.
 $answer[0] = $sum
 $abstolerance[0] = 0.001
@@ -124,15 +124,15 @@ if ($isOver == 0) {
 }
 
 $diagnosisHtml = '<p><span class="term-label">What the total tells you:</span> ' . $sum . '% is <b>more than 100%</b>, and it overruns by ' . $excess . ' percentage points. Percentages of the same group can only total more than 100% if some people were counted more than once, which means the categories <b>overlap</b>. One person can work part-time, commute a long way, and be a parent all at once.</p>
-      <p><span class="term-label">Why that rules out a pie chart:</span> a pie is a whole. Each wedge promises that the individuals in it belong to that wedge and to no other. Overlapping categories break that promise, so there is no honest way to slice the circle. A bar graph makes no such promise &mdash; each bar is just a measurement against the same ruler, so overlapping categories sit side by side without lying about the group.</p>'
+      <p><span class="term-label">Why that rules out a pie chart:</span> a pie is a whole. Each wedge promises that the individuals in it belong to that wedge and to no other. Overlapping categories break that promise, so there is no honest way to slice the circle. A bar graph makes no such promise: each bar is just a measurement against the same ruler, so overlapping categories sit side by side without lying about the group.</p>'
 if ($isOver == 0) {
-  $diagnosisHtml = '<p><span class="term-label">What the total tells you:</span> ' . $sum . '% is <b>less than 100%</b>, and it falls ' . $gap . ' percentage points short. Every member of the group has to land somewhere, so a shortfall of ' . $gap . '% means a category was left out of the report &mdash; here, the <b>' . $missingLabel . '</b> group, which holds real people.</p>
+  $diagnosisHtml = '<p><span class="term-label">What the total tells you:</span> ' . $sum . '% is <b>less than 100%</b>, and it falls ' . $gap . ' percentage points short. Every member of the group has to land somewhere, so a shortfall of ' . $gap . '% means a category was left out of the report: here, the <b>' . $missingLabel . '</b> group, which holds real people.</p>
       <p><span class="term-label">Why that rules out this pie chart:</span> the wedges of a pie must add to 100%. Drawing only the ' . $n . ' reported categories forces the missing ' . $gap . '% to disappear, because whatever is drawn will fill the whole circle. Either add the ' . $missingLabel . ' wedge at ' . $gap . '% so the pie is complete, or use a bar graph, which never claims the categories are exhaustive.</p>'
 }
 
-$trapHtml = '<p><b>The trap:</b> "just rescale so they add to 100%." Rescaling divides each reported percentage by ' . $sum . '% and redraws it, which produces a tidy circle that is simply false &mdash; it reports overlapping categories as if each person had been counted once. The arithmetic works. The picture lies.</p>'
+$trapHtml = '<p><b>The trap:</b> "just rescale so they add to 100%." Rescaling divides each reported percentage by ' . $sum . '% and redraws it, which produces a tidy circle that is simply false: it reports overlapping categories as if each person had been counted once. The arithmetic works. The picture lies.</p>'
 if ($isOver == 0) {
-  $trapHtml = '<p><b>The trap:</b> "just rescale so they add to 100%." Rescaling divides each reported percentage by ' . $sum . '% and redraws it, which produces a tidy circle that is simply false &mdash; the ' . $gap . '% of the group in the ' . $missingLabel . ' category silently vanishes, and the remaining categories are drawn bigger than they really are. The arithmetic works. The picture lies.</p>'
+  $trapHtml = '<p><b>The trap:</b> "just rescale so they add to 100%." Rescaling divides each reported percentage by ' . $sum . '% and redraws it, which produces a tidy circle that is simply false: the ' . $gap . '% of the group in the ' . $missingLabel . ' category silently vanishes, and the remaining categories are drawn bigger than they really are. The arithmetic works. The picture lies.</p>'
 }
 
 $solutionguide = '
@@ -157,7 +157,7 @@ $solutionguide = '
       ' . $diagnosisHtml . '
       <p><span class="term-label">b. The honest call:</span> ' . $correctText . '</p>
       ' . $trapHtml . '
-      <p><b>The rule to carry forward:</b> before drawing a pie chart, add the percentages. A pie chart is only honest when the categories are non-overlapping <i>and</i> exhaustive &mdash; that is, when the reported percentages already total 100%. Any other total means a bar graph, or a pie with the missing category restored.</p>
+      <p><b>The rule to carry forward:</b> before drawing a pie chart, add the percentages. A pie chart is only honest when the categories are non-overlapping <i>and</i> exhaustive: that is, when the reported percentages already total 100%. Any other total means a bar graph, or a pie with the missing category restored.</p>
     </div>
   </details>
 </div>'

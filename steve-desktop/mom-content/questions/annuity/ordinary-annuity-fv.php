@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 6.4 — Ordinary Annuity Future Value (single answer)
+// Section 6.4: Ordinary Annuity Future Value (single answer)
 
 loadlibrary("finance")
 
@@ -149,7 +149,7 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-<p><b>Ordinary Annuity — Future Value</b></p>
+<p><b>Ordinary Annuity: Future Value</b></p>
 <p>Each $n_label, a person $ctx_verb <b>$$m</b> into a $ctx_name earning <b>$rate_pct%</b> per year compounded <b>$n_label</b>. Deposits are made at the <b>end</b> of each period (ordinary annuity).</p>
 <p>What is the <b>future value</b> of this annuity after <b>$t years</b>?</p>
 

@@ -60,8 +60,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the conclusion.</span> ' . $conclusion . '</p>
-      <p><span class="term-label">Part (b) &mdash; what it is NOT entitled to say.</span> ' . $notEntitled . ' The conclusion is the part a reader checks first, and it is the one place where a correct calculation can still earn a wrong answer &mdash; write it about the population the sample represents, in plain sentences about the original claim.</p>
+      <p><span class="term-label">Part (a): the conclusion.</span> ' . $conclusion . '</p>
+      <p><span class="term-label">Part (b): what it is NOT entitled to say.</span> ' . $notEntitled . ' The conclusion is the part a reader checks first, and it is the one place where a correct calculation can still earn a wrong answer: write it about the population the sample represents, in plain sentences about the original claim.</p>
     </div>
   </details>
 </div>'

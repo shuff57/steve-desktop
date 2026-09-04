@@ -70,7 +70,7 @@ $reltolerance[1] = 0.02
 $abstolerance[1] = 0.01
 
 $questions[2] = array(
-  $playerB . " did better relative to his own team, because his z-score is higher -- his average sits more standard deviations above his own team's mean than " . $playerA . "'s does above his.",
+  $playerB . " did better relative to his own team, because his z-score is higher: his average sits more standard deviations above his own team's mean than " . $playerA . "'s does above his.",
   $playerA . " did better relative to his own team, because his raw " . $statWord . " is higher than " . $playerB . "'s.",
   $playerA . " did better relative to his own team, because his z-score is higher.",
   "There is no way to tell without knowing how many games each team has played."
@@ -115,7 +115,7 @@ $solutionguide = '
       <p><span class="term-label">Why a raw number is not enough.</span> ' . $playerA . ' and ' . $playerB . ' play for two different teams, and each team has its own mean and its own spread. A raw ' . $statWord . ' cannot be compared across the two groups directly, because a great number on a weak, inconsistent team means something different than the same number on a strong, tight team. The fix is the z-score, `z = (x - bar x)/s`, which restates each player relative only to his own team.</p>
       <p><span class="term-label">Part (a).</span> For the ' . $teamNameA . ', the mean is `bar x = ' . $teamMeanA . '` and the standard deviation is `s = ' . $teamSdA . '`. ' . $playerA . '&#39;s own average is `x = ' . $rawA . '`, so `z = (' . $rawA . ' - ' . $teamMeanA . ')/' . $teamSdA . ' = ' . $zA . '`.</p>
       <p><span class="term-label">Part (b).</span> For the ' . $teamNameB . ', the mean is `bar x = ' . $teamMeanB . '` and the standard deviation is `s = ' . $teamSdB . '`. ' . $playerB . '&#39;s own average is `x = ' . $rawB . '`, so `z = (' . $rawB . ' - ' . $teamMeanB . ')/' . $teamSdB . ' = ' . $zB . '`.</p>
-      <p><span class="term-label">Part (c).</span> ' . $playerA . '&#39;s raw average (' . $rawA . ') is higher than ' . $playerB . '&#39;s (' . $rawB . '), but the z-scores tell the opposite story: ' . $zA . ' versus ' . $zB . '. ' . $playerB . ' stands more standard deviations above his own team&#39;s mean, so ' . $playerB . ' did better relative to his own team. Picking the higher raw number is the mistake this question is built to catch &mdash; it ignores that the two teams do not share a mean or a spread.</p>
+      <p><span class="term-label">Part (c).</span> ' . $playerA . '&#39;s raw average (' . $rawA . ') is higher than ' . $playerB . '&#39;s (' . $rawB . '), but the z-scores tell the opposite story: ' . $zA . ' versus ' . $zB . '. ' . $playerB . ' stands more standard deviations above his own team&#39;s mean, so ' . $playerB . ' did better relative to his own team. Picking the higher raw number is the mistake this question is built to catch: it ignores that the two teams do not share a mean or a spread.</p>
       <p><span class="term-label">Part (d).</span> Three standard deviations above the ' . $dTeamName . '&#39;s mean is `bar x + 3s = ' . $dMean . ' + 3(' . $dSd . ') = ' . $dValue . '`.</p>
       <p><b>Answer:</b> (a) ' . $zA . ' &nbsp;&nbsp; (b) ' . $zB . ' &nbsp;&nbsp; (c) ' . $playerB . ' &nbsp;&nbsp; (d) ' . $dValue . '</p>
     </div>

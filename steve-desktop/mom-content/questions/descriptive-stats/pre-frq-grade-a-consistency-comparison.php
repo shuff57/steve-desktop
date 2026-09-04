@@ -8,7 +8,7 @@
 // by grading. The three response sentences are the FRQ's own target strings, so a student who
 // studies this one is reading the exact prose the FRQ rewards.
 //
-// The dropped category here is PRACTICAL CONCLUSION -- students narrate both standard deviations
+// The dropped category here is PRACTICAL CONCLUSION: students narrate both standard deviations
 // accurately and never commit to which person they would rely on. Describing the spread feels like
 // the analysis, so the decision the rubric actually asks for goes unmade. Distinct from 2.4
 // (Practical Interpretation of an outlier) and 2.5 (Outlier Impact).
@@ -50,7 +50,7 @@ $sMean = 'Both ' . $person_a . ' and ' . $person_b . ' have the same mean of ' .
 $sSD = $person_a . ' has a standard deviation of only ' . $sd_small . ', meaning their ' . $measured_thing . ' stays tightly clustered around the average, while ' . $person_b . ' has a standard deviation of ' . $sd_large . ', so their numbers vary much more widely from ' . $time_unit . ' to ' . $time_unit . '.'
 // Each sentence must be CATEGORY-PURE: it earns its own rubric line and no other. The FRQ's target
 // strings cross-reference each other because they are written to flow as one essay, so this one is
-// trimmed -- it used to explain what the smaller and larger standard deviations show, which is the
+// trimmed: it used to explain what the smaller and larger standard deviations show, which is the
 // SD & Consistency requirement, and made the response that drops that category still earn it.
 $sConclusion = 'If you need to count on a particular ' . $time_unit . '&#39;s number, ' . $person_a . ' is the one to rely on and ' . $person_b . ' is not, despite the identical average.'
 
@@ -179,15 +179,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> says what the equal means show, contrasts the two standard deviations, and then names who is more reliable and why. Each of the other three drops a whole category.</p>
-      <p><span class="term-label">The numbers.</span> Both average ' . $shared_mean . ' ' . $unit . ', so the means alone separate nobody. ' . $person_a . ' carries a standard deviation of ' . $sd_small . ' against ' . $person_b . '&#39;s ' . $sd_large . ' &mdash; more than double the spread around the same centre. That contrast is the entire story here, and it is invisible if you stop at the mean.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noConclusionLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> says what the equal means show, contrasts the two standard deviations, and then names who is more reliable and why. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">The numbers.</span> Both average ' . $shared_mean . ' ' . $unit . ', so the means alone separate nobody. ' . $person_a . ' carries a standard deviation of ' . $sd_small . ' against ' . $person_b . '&#39;s ' . $sd_large . ': more than double the spread around the same centre. That contrast is the entire story here, and it is invisible if you stop at the mean.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noConclusionLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Interpreting the Mean &mdash; earned.</b> It states that the identical means put both at the same average level.</li>
-        <li><b>Standard Deviation &amp; Consistency &mdash; earned.</b> It reports both standard deviations and says what each one means for spread.</li>
-        <li><b>Practical Conclusion &mdash; NOT earned.</b> It never says which of the two it would rely on. Everything it says is true and nothing is decided. This is the only category it misses.</li>
+        <li><b>Interpreting the Mean: earned.</b> It states that the identical means put both at the same average level.</li>
+        <li><b>Standard Deviation &amp; Consistency: earned.</b> It reports both standard deviations and says what each one means for spread.</li>
+        <li><b>Practical Conclusion: NOT earned.</b> It never says which of the two it would rely on. Everything it says is true and nothing is decided. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the conclusion is separate from the description.</span> Reporting that one spread is ' . $sd_small . ' and the other ' . $sd_large . ' describes the data. The rubric also asks the question someone would actually act on: which performer can be counted on for a result near ' . $shared_mean . ' on a given ' . $time_unit . '. A description that stops short of the verdict leaves the reader to do the statistics themselves, which is the job that was being asked for.</p>
+      <p><span class="term-label">Part (c): why the conclusion is separate from the description.</span> Reporting that one spread is ' . $sd_small . ' and the other ' . $sd_large . ' describes the data. The rubric also asks the question someone would actually act on: which performer can be counted on for a result near ' . $shared_mean . ' on a given ' . $time_unit . '. A description that stops short of the verdict leaves the reader to do the statistics themselves, which is the job that was being asked for.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Practical Conclusion is the category most often missing, because narrating both standard deviations correctly feels like the analysis is finished.</p>
     </div>
   </details>

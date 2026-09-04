@@ -53,7 +53,7 @@ $leafText[$oStem] = $leafText[$oStem] . $oLeaf . "&nbsp;&nbsp;"
 $cnt[$oStem] = $cnt[$oStem] + 1
 $n = $n + 1
 
-// Rows run unbroken from the smallest stem to the largest, gaps included -- that is the point.
+// Rows run unbroken from the smallest stem to the largest, gaps included: that is the point.
 $emptyRows = 0
 $stemRows = ""
 for ($s=$lo..$oStem) {
@@ -100,10 +100,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; find the outlier.</span> Almost every value sits on stems ' . $lo . ' and ' . $mid . ', so the bulk of the data runs from ' . $minVal . ' to ' . $clusterTop . ' ' . $unitWord . '. One lone leaf sits far above the rest of the plot, on stem ' . $oStem . ' with leaf ' . $oLeaf . ' &mdash; the value <b>' . $outlier . '</b>. A stemplot makes an outlier obvious because the isolated leaf has empty rows on either side of it.</p>
-      <p><span class="term-label">Step 2 &mdash; count the blank rows.</span> The stems must run unbroken from ' . $lo . ' to ' . $oStem . '. Of those rows, <b>' . $emptyRows . '</b> carry no leaves at all. Those blank rows are the gap between the everyday values and the record one.</p>
-      <p><span class="term-label">Step 3 &mdash; compute the range.</span> The range is the largest value minus the smallest. Both are still readable off the plot exactly: ' . $outlier . ' &minus; ' . $minVal . ' = <b>' . $range . '</b> ' . $unitWord . '. Note how much one unusual value inflates it &mdash; without the outlier the spread would be only ' . ($clusterTop - $minVal) . '.</p>
-      <p><span class="term-label">Step 4 &mdash; why keep the blank rows.</span> A stemplot puts values on a real number line. Skipping the empty stems would pull the record value down next to the cluster and make it look ordinary, which is exactly the thing the display is supposed to reveal.</p>
+      <p><span class="term-label">Step 1: find the outlier.</span> Almost every value sits on stems ' . $lo . ' and ' . $mid . ', so the bulk of the data runs from ' . $minVal . ' to ' . $clusterTop . ' ' . $unitWord . '. One lone leaf sits far above the rest of the plot, on stem ' . $oStem . ' with leaf ' . $oLeaf . ': the value <b>' . $outlier . '</b>. A stemplot makes an outlier obvious because the isolated leaf has empty rows on either side of it.</p>
+      <p><span class="term-label">Step 2: count the blank rows.</span> The stems must run unbroken from ' . $lo . ' to ' . $oStem . '. Of those rows, <b>' . $emptyRows . '</b> carry no leaves at all. Those blank rows are the gap between the everyday values and the record one.</p>
+      <p><span class="term-label">Step 3: compute the range.</span> The range is the largest value minus the smallest. Both are still readable off the plot exactly: ' . $outlier . ' &minus; ' . $minVal . ' = <b>' . $range . '</b> ' . $unitWord . '. Note how much one unusual value inflates it: without the outlier the spread would be only ' . ($clusterTop - $minVal) . '.</p>
+      <p><span class="term-label">Step 4: why keep the blank rows.</span> A stemplot puts values on a real number line. Skipping the empty stems would pull the record value down next to the cluster and make it look ordinary, which is exactly the thing the display is supposed to reveal.</p>
       <p><b>Answer:</b> (a) ' . $outlier . ' &nbsp;&nbsp; (b) ' . $emptyRows . ' &nbsp;&nbsp; (c) ' . $range . '</p>
     </div>
   </details>

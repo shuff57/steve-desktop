@@ -1,11 +1,11 @@
-// === Key Features of y = sin(x) — amplitude, period, midline, zeros, max, min ===
+// === Key Features of y = sin(x): amplitude, period, midline, zeros, max, min ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
 loadlibrary("stats")
 
-// No randomization needed — these are fixed properties of the parent function
+// No randomization needed: these are fixed properties of the parent function
 
 // Graph of y = sin(x) over one full period [0, 2pi]
 $graph = showplot("sin(x),blue,0,6.2832,,,2", -0.5, 7, -1.5, 1.5, "1:1", "1:1", 400, 250)
@@ -22,7 +22,7 @@ $answerformat[0] = "integer"
 $answer[1] = "2pi"
 $answerformat[1] = "nodecimal"
 
-// Part (c): midline — choices
+// Part (c): midline: choices
 $questions[2] = array("y = 0", "y = 1", "y = -1", "y = x")
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -36,7 +36,7 @@ $answerformat[3] = "nodecimal"
 $answer[4] = "(3pi)/2"
 $answerformat[4] = "nodecimal"
 
-// Part (f): zeros of sin(x) in [0, 2pi] — choices
+// Part (f): zeros of sin(x) in [0, 2pi]: choices
 $questions[5] = array("0 only", "0 and pi", "0, pi, and 2pi", "pi/2 and 3pi/2", "pi only")
 $answer[5] = 2
 $noshuffle[5] = "all"

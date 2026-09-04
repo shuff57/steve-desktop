@@ -11,14 +11,14 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A test of whether the mean hours of sleep for adults is less than 7 at alpha = 0.05. Run 1 gives a p-value of 0.03; run 2 gives a p-value of 0.40.",
-        "Run 1 &mdash; 0.03 is below alpha, so the sample result is rarer than the standard you agreed to be surprised by.",
-        "The decision is the same either way &mdash; the distance from alpha is what changes the confidence, not the decision."),
+        "Run 1: 0.03 is below alpha, so the sample result is rarer than the standard you agreed to be surprised by.",
+        "The decision is the same either way: the distance from alpha is what changes the confidence, not the decision."),
   array("A test of whether the proportion of voters who support a measure differs from 0.30 at alpha = 0.05. Run 1 gives a p-value of 0.001; run 2 gives a p-value of 0.04.",
-        "Both &mdash; both are below alpha, so both reject.",
+        "Both: both are below alpha, so both reject.",
         "A p-value of 0.001 earns more confidence in the decision than 0.04, even though both reject."),
   array("A test of whether the mean daily fiber intake of college students differs from 25 g at alpha = 0.01. Run 1 gives a p-value of 0.02; run 2 gives a p-value of 0.4.",
-        "Neither &mdash; both are above alpha = 0.01, so both fail to reject.",
-        "The decision is the same either way &mdash; the distance from alpha is what changes the confidence, not the decision.")
+        "Neither: both are above alpha = 0.01, so both fail to reject.",
+        "The decision is the same either way: the distance from alpha is what changes the confidence, not the decision.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -28,7 +28,7 @@ $confidence = $cases[$i][2]
 
 $questions[0] = array(
   $which,
-  "Run 2 &mdash; the larger p-value is the one that rejects.",
+  "Run 2: the larger p-value is the one that rejects.",
   "The run with the smaller sample size."
 )
 $answer[0] = 0
@@ -60,8 +60,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; which rejects.</span> ' . $which . '</p>
-      <p><span class="term-label">Part (b) &mdash; confidence.</span> ' . $confidence . ' The two numbers carry more information than the yes-or-no answer they produce: the comparison gives the decision, and the distance between them gives the confidence.</p>
+      <p><span class="term-label">Part (a): which rejects.</span> ' . $which . '</p>
+      <p><span class="term-label">Part (b): confidence.</span> ' . $confidence . ' The two numbers carry more information than the yes-or-no answer they produce: the comparison gives the decision, and the distance between them gives the confidence.</p>
     </div>
   </details>
 </div>'

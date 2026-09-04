@@ -18,8 +18,8 @@ $answer[0] = $pWrong
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "Reject `H_0` &mdash; the wrong-curve p-value 0.031 is below 0.05, which is the OPPOSITE of the correct decision.",
-  "Fail to reject `H_0` &mdash; the wrong-curve p-value 0.031 is above 0.05.",
+  "Reject `H_0`: the wrong-curve p-value 0.031 is below 0.05, which is the OPPOSITE of the correct decision.",
+  "Fail to reject `H_0`: the wrong-curve p-value 0.031 is above 0.05.",
   "The decision is the same either way."
 )
 $answer[1] = 0
@@ -43,9 +43,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the wrong-curve p-value.</span> Using the standard normal for the same test statistic: `P(Z > 1.86) ~~ ' . round($pWrong, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the wrong conclusion.</span> ' . $questions[1][0] . '</p>
-      <p>Reading a t-score against a normal table does not produce an error message &mdash; it produces a smaller p-value than the data supports, a mistake that only ever fails in the direction that manufactures findings. Nothing about the arithmetic would have looked wrong; the only thing separating a published finding from a non-finding here was picking the right curve.</p>
+      <p><span class="term-label">Part (a): the wrong-curve p-value.</span> Using the standard normal for the same test statistic: `P(Z > 1.86) ~~ ' . round($pWrong, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the wrong conclusion.</span> ' . $questions[1][0] . '</p>
+      <p>Reading a t-score against a normal table does not produce an error message: it produces a smaller p-value than the data supports, a mistake that only ever fails in the direction that manufactures findings. Nothing about the arithmetic would have looked wrong; the only thing separating a published finding from a non-finding here was picking the right curve.</p>
     </div>
   </details>
 </div>'
@@ -54,7 +54,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">The <b>Jeans Survey</b> test statistic is t = 1.86 with df = 7, and the correct p-value on the t distribution is 0.053 &mdash; which does not reject at `alpha = 0.05`. Now compute what you would have concluded had you INCORRECTLY used the normal distribution.</p>
+    <p style="margin:0;">The <b>Jeans Survey</b> test statistic is t = 1.86 with df = 7, and the correct p-value on the t distribution is 0.053: which does not reject at `alpha = 0.05`. Now compute what you would have concluded had you INCORRECTLY used the normal distribution.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What p-value would the SAME test statistic 1.86 produce against the (wrong) normal curve?

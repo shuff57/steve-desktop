@@ -45,8 +45,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The endpoints are the whole story.</span> Every number for a uniform distribution comes out of `a = ' . $a . '` and `b = ' . $b . '`, and nothing else.</p>
-      <p><span class="term-label">Part (a) &mdash; the mean.</span> `mu = (a + b)/2 = (' . $a . ' + ' . $b . ')/2 = ` <b>' . $answer[0] . '</b></p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation.</span> `sigma = sqrt((b - a)^2 / 12) = sqrt((' . ($b - $a) . ')^2 / 12) = ` <b>' . $answer[1] . '</b></p>
+      <p><span class="term-label">Part (a): the mean.</span> `mu = (a + b)/2 = (' . $a . ' + ' . $b . ')/2 = ` <b>' . $answer[0] . '</b></p>
+      <p><span class="term-label">Part (b): the standard deviation.</span> `sigma = sqrt((b - a)^2 / 12) = sqrt((' . ($b - $a) . ')^2 / 12) = ` <b>' . $answer[1] . '</b></p>
       <p>Notice `sigma` is a good deal smaller than the half-width of the interval. That is the uniform shape showing up in a number: the values are spread evenly rather than piled at the two ends, so a typical value sits closer to the center than the interval width suggests.</p>
     </div>
   </details>
@@ -56,7 +56,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Suppose `X ~ U($a, $b)` — a continuous uniform distribution over the interval `[$a, $b]`.</p>
+    <p style="margin:0;">Suppose `X ~ U($a, $b)`: a continuous uniform distribution over the interval `[$a, $b]`.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the mean `mu`.

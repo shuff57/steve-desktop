@@ -52,10 +52,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Translate first.</span> "At most ' . $k . '" means `X <= ' . $k . '` &mdash; every value from 0 up to ' . $k . '.</p>
+      <p><span class="term-label">Translate first.</span> "At most ' . $k . '" means `X <= ' . $k . '`: every value from 0 up to ' . $k . '.</p>
       <p><span class="term-label">The running total.</span> Add the individual probabilities `P(X = x)` for `x = 0, 1, ..., ' . $k . '`:</p>
       <p><b>' . $prob . '</b></p>
-      <p>This is what the calculator\'s cumulative binomial command does in one step &mdash; but the total is only as trustworthy as the individual probabilities you added, so the running total is the habit worth keeping.</p>
+      <p>This is what the calculator\'s cumulative binomial command does in one step: but the total is only as trustworthy as the individual probabilities you added, so the running total is the habit worth keeping.</p>
     </div>
   </details>
 </div>'

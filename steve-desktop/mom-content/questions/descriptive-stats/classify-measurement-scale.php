@@ -83,23 +83,23 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><b>How to decide the level of measurement:</b></p>
-      <p><b>Step 1 &mdash; Can the values be ordered?</b> If no, the scale is <b>nominal</b>. If yes, go to Step 2.</p>
-      <p><b>Step 2 &mdash; Are the differences between values measurable?</b> If no, the scale is <b>ordinal</b>. If yes, go to Step 3.</p>
-      <p><b>Step 3 &mdash; Is there a true zero?</b> If no, the scale is <b>interval</b>. If yes, the scale is <b>ratio</b>.</p>
+      <p><b>Step 1: Can the values be ordered?</b> If no, the scale is <b>nominal</b>. If yes, go to Step 2.</p>
+      <p><b>Step 2: Are the differences between values measurable?</b> If no, the scale is <b>ordinal</b>. If yes, go to Step 3.</p>
+      <p><b>Step 3: Is there a true zero?</b> If no, the scale is <b>interval</b>. If yes, the scale is <b>ratio</b>.</p>
       <hr style="border:0; border-top:1px solid #e5e7eb; margin:1em 0;">
       <p><b>Answers:</b></p>
-      <div class="term-row"><span class="term-label">1.</span> ' . $item[0] . '<br><b>Answer:</b> ' . $scale_names[$answer[0]] . ' &mdash; ' . $reason[0] . '</div>
-      <div class="term-row"><span class="term-label">2.</span> ' . $item[1] . '<br><b>Answer:</b> ' . $scale_names[$answer[1]] . ' &mdash; ' . $reason[1] . '</div>
-      <div class="term-row"><span class="term-label">3.</span> ' . $item[2] . '<br><b>Answer:</b> ' . $scale_names[$answer[2]] . ' &mdash; ' . $reason[2] . '</div>
-      <div class="term-row"><span class="term-label">4.</span> ' . $item[3] . '<br><b>Answer:</b> ' . $scale_names[$answer[3]] . ' &mdash; ' . $reason[3] . '</div>
-      <div class="term-row"><span class="term-label">5.</span> ' . $item[4] . '<br><b>Answer:</b> ' . $scale_names[$answer[4]] . ' &mdash; ' . $reason[4] . '</div>
-      <div class="term-row"><span class="term-label">6.</span> ' . $item[5] . '<br><b>Answer:</b> ' . $scale_names[$answer[5]] . ' &mdash; ' . $reason[5] . '</div>
-      <div class="term-row"><span class="term-label">7.</span> ' . $item[6] . '<br><b>Answer:</b> ' . $scale_names[$answer[6]] . ' &mdash; ' . $reason[6] . '</div>
-      <div class="term-row"><span class="term-label">8.</span> ' . $item[7] . '<br><b>Answer:</b> ' . $scale_names[$answer[7]] . ' &mdash; ' . $reason[7] . '</div>
-      <div class="term-row"><span class="term-label">9.</span> ' . $item[8] . '<br><b>Answer:</b> ' . $scale_names[$answer[8]] . ' &mdash; ' . $reason[8] . '</div>
-      <div class="term-row"><span class="term-label">10.</span> ' . $item[9] . '<br><b>Answer:</b> ' . $scale_names[$answer[9]] . ' &mdash; ' . $reason[9] . '</div>
-      <div class="term-row"><span class="term-label">11.</span> ' . $item[10] . '<br><b>Answer:</b> ' . $scale_names[$answer[10]] . ' &mdash; ' . $reason[10] . '</div>
-      <div class="term-row"><span class="term-label">12.</span> ' . $item[11] . '<br><b>Answer:</b> ' . $scale_names[$answer[11]] . ' &mdash; ' . $reason[11] . '</div>
+      <div class="term-row"><span class="term-label">1.</span> ' . $item[0] . '<br><b>Answer:</b> ' . $scale_names[$answer[0]] . ': ' . $reason[0] . '</div>
+      <div class="term-row"><span class="term-label">2.</span> ' . $item[1] . '<br><b>Answer:</b> ' . $scale_names[$answer[1]] . ': ' . $reason[1] . '</div>
+      <div class="term-row"><span class="term-label">3.</span> ' . $item[2] . '<br><b>Answer:</b> ' . $scale_names[$answer[2]] . ': ' . $reason[2] . '</div>
+      <div class="term-row"><span class="term-label">4.</span> ' . $item[3] . '<br><b>Answer:</b> ' . $scale_names[$answer[3]] . ': ' . $reason[3] . '</div>
+      <div class="term-row"><span class="term-label">5.</span> ' . $item[4] . '<br><b>Answer:</b> ' . $scale_names[$answer[4]] . ': ' . $reason[4] . '</div>
+      <div class="term-row"><span class="term-label">6.</span> ' . $item[5] . '<br><b>Answer:</b> ' . $scale_names[$answer[5]] . ': ' . $reason[5] . '</div>
+      <div class="term-row"><span class="term-label">7.</span> ' . $item[6] . '<br><b>Answer:</b> ' . $scale_names[$answer[6]] . ': ' . $reason[6] . '</div>
+      <div class="term-row"><span class="term-label">8.</span> ' . $item[7] . '<br><b>Answer:</b> ' . $scale_names[$answer[7]] . ': ' . $reason[7] . '</div>
+      <div class="term-row"><span class="term-label">9.</span> ' . $item[8] . '<br><b>Answer:</b> ' . $scale_names[$answer[8]] . ': ' . $reason[8] . '</div>
+      <div class="term-row"><span class="term-label">10.</span> ' . $item[9] . '<br><b>Answer:</b> ' . $scale_names[$answer[9]] . ': ' . $reason[9] . '</div>
+      <div class="term-row"><span class="term-label">11.</span> ' . $item[10] . '<br><b>Answer:</b> ' . $scale_names[$answer[10]] . ': ' . $reason[10] . '</div>
+      <div class="term-row"><span class="term-label">12.</span> ' . $item[11] . '<br><b>Answer:</b> ' . $scale_names[$answer[11]] . ': ' . $reason[11] . '</div>
     </div>
   </details>
 </div>'

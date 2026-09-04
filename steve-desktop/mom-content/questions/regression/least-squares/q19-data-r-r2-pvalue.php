@@ -59,7 +59,7 @@ $abstolerance[2] = 0.005
 
 $r2pct = round($r2 * 100, 1)
 
-// Part d: interpret r^2 — 2 correct-style + 2 misdirects
+// Part d: interpret r^2: 2 correct-style + 2 misdirects
 $choices[3] = array(
   "About " . $r2pct . "% of the variation in " . $ylab . " is explained by its linear relationship with " . $xlab . ".",
   "About " . $r2pct . "% of the data points lie exactly on the regression line.",

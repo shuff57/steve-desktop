@@ -1,5 +1,5 @@
 // === NAME - DESCRIPTION: Normal Model in Context - Students apply a normal model to a real-world scenario: compute a probability, interpret it in context, address the bell-shape assumption ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
 

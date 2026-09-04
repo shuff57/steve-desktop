@@ -5,7 +5,7 @@
 
 // The pre-FRQ for 2.4, matching the chapter 1 ones: the SAME scenario and the SAME grading checklist
 // as frq/descriptive-statistics/q8-five-number-summary-and-outliers, with the writing replaced by
-// grading. The dropped category here is the contextual interpretation -- students compute the fence,
+// grading. The dropped category here is the contextual interpretation: students compute the fence,
 // declare the verdict, and stop, because the arithmetic feels like the whole job.
 //
 // The five numbers are generated and the fence is computed from them, so the arithmetic quoted inside
@@ -166,16 +166,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> computes the IQR and the fence, compares the maximum against the fence and states the verdict, and then says what the outlier might mean and whether to look into it. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> computes the IQR and the fence, compares the maximum against the fence and states the verdict, and then says what the outlier might mean and whether to look into it. Each of the other three drops a whole category.</p>
       <p><span class="term-label">The arithmetic.</span> `"IQR" = ' . $q3 . ' - ' . $q1 . ' = ' . $iqr . '`, and the upper fence is `' . $q3 . ' + 1.5(' . $iqr . ') = ' . $q3 . ' + ' . $reach . ' = ' . $upFence . '` ' . $unitWord . '. The maximum of ' . $maxV . ' clears the fence by ' . $over . ', so it IS an outlier by the 1.5 IQR rule.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noInterpLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noInterpLabel . ' line by line.</span></p>
       <ul>
-        <li><b>IQR &amp; Upper Fence &mdash; earned.</b> Both values are computed and both are correct.</li>
-        <li><b>Outlier Classification &mdash; earned.</b> It compares the maximum with the fence and gives the verdict.</li>
-        <li><b>Contextual Interpretation &mdash; NOT earned.</b> It ends with "the calculation is therefore complete", which is a statement about the arithmetic, not about ' . $setting . '. This is the only category it misses.</li>
+        <li><b>IQR &amp; Upper Fence: earned.</b> Both values are computed and both are correct.</li>
+        <li><b>Outlier Classification: earned.</b> It compares the maximum with the fence and gives the verdict.</li>
+        <li><b>Contextual Interpretation: NOT earned.</b> It ends with "the calculation is therefore complete", which is a statement about the arithmetic, not about ' . $setting . '. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the interpretation is separate.</span> "It is an outlier" is a statistical verdict about a number. The rubric also asks what that number might be TELLING you: here, that ' . $meaningText . ', and that ' . $actionText . '. An outlier is not automatically an error to delete &mdash; it can be the most informative value in the set, and deciding which requires looking at the context rather than the fence.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Interpretation is the category most often missing here, because once the fence is computed and the verdict given the work FEELS finished &mdash; and the last three points are the ones still on the table.</p>
+      <p><span class="term-label">Part (c): why the interpretation is separate.</span> "It is an outlier" is a statistical verdict about a number. The rubric also asks what that number might be TELLING you: here, that ' . $meaningText . ', and that ' . $actionText . '. An outlier is not automatically an error to delete: it can be the most informative value in the set, and deciding which requires looking at the context rather than the fence.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Interpretation is the category most often missing here, because once the fence is computed and the verdict given the work FEELS finished: and the last three points are the ones still on the table.</p>
     </div>
   </details>
 </div>'

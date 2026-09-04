@@ -57,9 +57,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The z-score is a position.</span> `z = ' . $z . '` means the value `x = ' . $x . '` sits ' . abs($z) . ' standard deviations ' . (($z > 0) ? "to the right of" : "to the left of") . ' the mean.</p>
-      <p><span class="term-label">Part (a) &mdash; the size.</span> The size of the z-score is the distance in standard deviations: `|z| = ' . abs($z) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the direction.</span> The sign of the z-score is the direction: positive is right of the mean, negative is left. Here `z = ' . $z . '` is ' . (($z > 0) ? "positive, so the value is to the right" : "negative, so the value is to the left") . '.</p>
-      <p><span class="term-label">Part (c) &mdash; the mean.</span> The z-score is measured from the mean, so `mu = ' . $mu . '`.</p>
+      <p><span class="term-label">Part (a): the size.</span> The size of the z-score is the distance in standard deviations: `|z| = ' . abs($z) . '`.</p>
+      <p><span class="term-label">Part (b): the direction.</span> The sign of the z-score is the direction: positive is right of the mean, negative is left. Here `z = ' . $z . '` is ' . (($z > 0) ? "positive, so the value is to the right" : "negative, so the value is to the left") . '.</p>
+      <p><span class="term-label">Part (c): the mean.</span> The z-score is measured from the mean, so `mu = ' . $mu . '`.</p>
     </div>
   </details>
 </div>'

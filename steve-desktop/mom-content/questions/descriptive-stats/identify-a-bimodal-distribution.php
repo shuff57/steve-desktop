@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // Every other shape question in 2.6 draws one hump. This one draws two, because "bimodal" is a word
-// students can define and still not recognize -- and because a bimodal picture is the clearest case
+// students can define and still not recognize: and because a bimodal picture is the clearest case
 // where reporting a single center is actively misleading: the mean lands in the VALLEY, at a value
 // that is close to nothing in the data.
 //
@@ -16,12 +16,12 @@ $ci = rand(0, 1)
 if ($ci == 0) {
   $intro = "A gym recorded how many minutes each member spent on the treadmill in one session."
   $axisName = "Minutes on the treadmill"
-  $cause = "two different kinds of member using the same machine -- people warming up briefly before weights, and people there for a long run"
+  $cause = "two different kinds of member using the same machine: people warming up briefly before weights, and people there for a long run"
 }
 else {
   $intro = "A campus cafe recorded how much each customer spent, in dollars, on one visit."
   $axisName = "Amount spent in dollars"
-  $cause = "two different kinds of customer in the same queue -- people buying only a coffee, and people buying a full lunch"
+  $cause = "two different kinds of customer in the same queue: people buying only a coffee, and people buying a full lunch"
 }
 
 $axisTop = 24
@@ -44,9 +44,9 @@ for ($i=0..7) {
 }
 
 $questions[0] = array(
-  "Bimodal &mdash; there are two separate peaks with a dip between them",
-  "Skewed right &mdash; a long thin tail runs toward the larger values",
-  "Skewed left &mdash; a long thin tail runs toward the smaller values",
+  "Bimodal: there are two separate peaks with a dip between them",
+  "Skewed right: a long thin tail runs toward the larger values",
+  "Skewed left: a long thin tail runs toward the smaller values",
   "Roughly symmetric with a single center peak"
 )
 $answer[0] = 0
@@ -125,11 +125,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; count the peaks before naming the shape.</span> There is a tall bar around ' . $peakA . '&ndash;' . $peakAend . ', the bars drop away in the middle, and then they climb again to a second tall bar around ' . $peakB . '&ndash;' . $peakBend . '. Two peaks with a dip between them is <b>bimodal</b>.</p>
+      <p><span class="term-label">Part (a): count the peaks before naming the shape.</span> There is a tall bar around ' . $peakA . '&ndash;' . $peakAend . ', the bars drop away in the middle, and then they climb again to a second tall bar around ' . $peakB . '&ndash;' . $peakBend . '. Two peaks with a dip between them is <b>bimodal</b>.</p>
       <p>It is not skewed either way. Skew means ONE peak with a thin tail trailing off to one side; here both ends are tall and the middle is short, which is the opposite arrangement.</p>
-      <p><span class="term-label">Part (b) &mdash; why one center is the wrong summary.</span> The mean and the median both land in the DIP, somewhere between the two peaks &mdash; a value that very few observations are anywhere near. Quoting it suggests a typical case that does not exist. A summary that describes nothing in the data is worse than no summary, because it sounds authoritative.</p>
-      <p><span class="term-label">Part (c) &mdash; what two peaks usually mean.</span> Almost always, two groups have been measured together: here, ' . $cause . '. The honest move is to split them and describe each group on its own, rather than to average across a divide the data is telling you about.</p>
-      <p><span class="term-label">Why this matters beyond the picture.</span> Every measure of center you have met assumes there is one center to find. A bimodal histogram is the data warning you that the assumption does not hold &mdash; which is the whole reason to look at the shape before reporting any number.</p>
+      <p><span class="term-label">Part (b): why one center is the wrong summary.</span> The mean and the median both land in the DIP, somewhere between the two peaks: a value that very few observations are anywhere near. Quoting it suggests a typical case that does not exist. A summary that describes nothing in the data is worse than no summary, because it sounds authoritative.</p>
+      <p><span class="term-label">Part (c): what two peaks usually mean.</span> Almost always, two groups have been measured together: here, ' . $cause . '. The honest move is to split them and describe each group on its own, rather than to average across a divide the data is telling you about.</p>
+      <p><span class="term-label">Why this matters beyond the picture.</span> Every measure of center you have met assumes there is one center to find. A bimodal histogram is the data warning you that the assumption does not hold: which is the whole reason to look at the shape before reporting any number.</p>
     </div>
   </details>
 </div>'

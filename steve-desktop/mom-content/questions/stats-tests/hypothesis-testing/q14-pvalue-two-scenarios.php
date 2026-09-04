@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: p-value interpretation — two scenarios, pick the correct statement ===
+// === NAME - DESCRIPTION: p-value interpretation: two scenarios, pick the correct statement ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===

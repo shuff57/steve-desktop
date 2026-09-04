@@ -46,11 +46,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the error bound.</span> An interval is symmetric around its centre, so the error bound is exactly half the width:</p>
+      <p><span class="term-label">Part (a): the error bound.</span> An interval is symmetric around its centre, so the error bound is exactly half the width:</p>
       <p>`EBM = (hi - lo)/2 = (' . $hi . ' - ' . $lo . ')/2 = ' . round($ebm, 4) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the sample mean.</span> The sample mean sits exactly in the middle of the interval:</p>
+      <p><span class="term-label">Part (b): the sample mean.</span> The sample mean sits exactly in the middle of the interval:</p>
       <p>`bar(x) = (lo + hi)/2 = (' . $lo . ' + ' . $hi . ')/2 = ' . round($xbar, 4) . '`</p>
-      <p>Each quantity has two routes &mdash; subtract the sample mean from the upper value, or halve the width; average the endpoints, or subtract the error bound from the upper value. Both routes to each answer agree, which is a useful check that the interval was read correctly.</p>
+      <p>Each quantity has two routes: subtract the sample mean from the upper value, or halve the width; average the endpoints, or subtract the error bound from the upper value. Both routes to each answer agree, which is a useful check that the interval was read correctly.</p>
     </div>
   </details>
 </div>'

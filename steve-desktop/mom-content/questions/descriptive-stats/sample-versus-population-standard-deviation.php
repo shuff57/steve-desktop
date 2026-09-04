@@ -4,8 +4,8 @@
 // === COMMON CONTROL ===
 
 // Students meet two formulas that differ by a single character and learn to pick whichever their
-// calculator offers. This question hands over the squared-deviation total ready-made -- the arithmetic
-// is not the point -- and asks for BOTH answers on the same data, so the difference between them is
+// calculator offers. This question hands over the squared-deviation total ready-made: the arithmetic
+// is not the point: and asks for BOTH answers on the same data, so the difference between them is
 // something measured rather than asserted, and part (c) can ask which is larger and why.
 //
 // The squared total is chosen divisible by both n and n-1, so both answers are exact and the
@@ -77,9 +77,9 @@ $solutionguide = '
       <p><b>Sample:</b> `s = sqrt(' . $ssq . ' -: ' . $nm1 . ') = sqrt(' . $varSamp . ') = ` <b>' . $sdSamp . '</b> ' . $unitWord . '<br>
          <b>Population:</b> `sigma = sqrt(' . $ssq . ' -: ' . $n . ') = sqrt(' . $varPop . ') = ` <b>' . $sdPop . '</b> ' . $unitWord . '</p>
       <p><span class="term-label">Which is larger, and why that is obvious.</span> Dividing by ' . $nm1 . ' rather than ' . $n . ' means dividing by less, so the sample version is always the bigger of the two. It has to be: the correction exists precisely to push the estimate UP.</p>
-      <p><span class="term-label">Why a sample needs the correction.</span> A sample&rsquo;s deviations are measured from `bar x`, the sample&rsquo;s own mean &mdash; and `bar x` sits, by construction, in the middle of exactly those values. Distances measured from your own center are the smallest they could be from any center, so the squared total lands slightly too low as an estimate of the population&rsquo;s spread. Shrinking the divisor from ' . $n . ' to ' . $nm1 . ' pushes the answer back up by about the right amount.</p>
+      <p><span class="term-label">Why a sample needs the correction.</span> A sample&rsquo;s deviations are measured from `bar x`, the sample&rsquo;s own mean: and `bar x` sits, by construction, in the middle of exactly those values. Distances measured from your own center are the smallest they could be from any center, so the squared total lands slightly too low as an estimate of the population&rsquo;s spread. Shrinking the divisor from ' . $n . ' to ' . $nm1 . ' pushes the answer back up by about the right amount.</p>
       <p>Nothing corrects a population calculation, because there is no estimating going on: `mu` really is the center of the whole group.</p>
-      <p><span class="term-label">How to choose in practice.</span> Ask what the numbers ARE, not how many there are. Every member of the group you care about, `sigma` and divide by `n`. A part of it, standing in for the rest, `s` and divide by `n - 1`. On a calculator these are usually offered as `sigma_x` and `s_x`, and taking whichever appears first is the most common way this goes wrong. Note also how small the gap is here &mdash; the two formulas converge as `n` grows, which is why the choice matters most for small samples.</p>
+      <p><span class="term-label">How to choose in practice.</span> Ask what the numbers ARE, not how many there are. Every member of the group you care about, `sigma` and divide by `n`. A part of it, standing in for the rest, `s` and divide by `n - 1`. On a calculator these are usually offered as `sigma_x` and `s_x`, and taking whichever appears first is the most common way this goes wrong. Note also how small the gap is here: the two formulas converge as `n` grows, which is why the choice matters most for small samples.</p>
     </div>
   </details>
 </div>'

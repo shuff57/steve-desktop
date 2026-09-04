@@ -24,7 +24,7 @@ else {
 
 // Small whole-number values 0..4, so every position the box plot needs lands on a value the
 // student can point to in the table. Each frequency is drawn from 5..8, so the total always
-// falls in 25..40 and every one of the five values is guaranteed to appear at least 5 times --
+// falls in 25..40 and every one of the five values is guaranteed to appear at least 5 times:
 // the smallest and largest listed values are always the true min and max, no zero-frequency rows.
 $vals = array(0, 1, 2, 3, 4)
 $f = array(0, 0, 0, 0, 0)
@@ -42,7 +42,7 @@ for ($c=0..4) {
   $cumRows = $cumRows . '<tr><td style="border:1px solid #d1d5db; padding:6px 20px; text-align:center;">' . $vals[$c] . '</td><td style="border:1px solid #d1d5db; padding:6px 20px; text-align:center;">' . $f[$c] . '</td></tr>'
 }
 
-// A frequency table IS an ordered list, just written compactly -- the same i = (k/100)(n+1)
+// A frequency table IS an ordered list, just written compactly: the same i = (k/100)(n+1)
 // method applies, walking the cumulative counts to see which value a position lands in.
 $ks = array(25, 50, 75)
 $res = array(0, 0, 0)
@@ -141,12 +141,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on up to ' . $vals[4] . '. Nothing about the method changes &mdash; `i = (k/100)(n+1)` still gives a position, and the only extra work is counting down the frequency column to see which value that position falls in. Do not treat the five rows as five data values; there are `n = ' . $n . '`.</p>
-      <p><span class="term-label">Part (a) &mdash; the minimum.</span> The smallest value listed with a nonzero frequency is <b>' . $minV . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">Part (b) &mdash; the first quartile, `Q_1`, is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`. Counting down the frequencies to position ' . $posLo[0] . ' gives <b>' . $q1 . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; the median is the 50th percentile.</span> `i = (50/100)(' . $nPlus . ') = ' . $i2 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $med . '</b>.</p>
-      <p><span class="term-label">Part (d) &mdash; the third quartile, `Q_3`, is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i3 . '`, giving <b>' . $q3 . '</b>. Where a position falls between two, round down and up and average the two values &mdash; with repeated values those two are often the same number, and the average is simply that number.</p>
-      <p><span class="term-label">The finished box plot.</span> The five numbers &mdash; the minimum, `Q_1`, the median, `Q_3`, and the stated maximum &mdash; are exactly what a box plot draws: a box from `Q_1` to `Q_3` split by a line at the median, with whiskers reaching out to the minimum and the maximum.</p>
+      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on up to ' . $vals[4] . '. Nothing about the method changes: `i = (k/100)(n+1)` still gives a position, and the only extra work is counting down the frequency column to see which value that position falls in. Do not treat the five rows as five data values; there are `n = ' . $n . '`.</p>
+      <p><span class="term-label">Part (a): the minimum.</span> The smallest value listed with a nonzero frequency is <b>' . $minV . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Part (b): the first quartile, `Q_1`, is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`. Counting down the frequencies to position ' . $posLo[0] . ' gives <b>' . $q1 . '</b>.</p>
+      <p><span class="term-label">Part (c): the median is the 50th percentile.</span> `i = (50/100)(' . $nPlus . ') = ' . $i2 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $med . '</b>.</p>
+      <p><span class="term-label">Part (d): the third quartile, `Q_3`, is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i3 . '`, giving <b>' . $q3 . '</b>. Where a position falls between two, round down and up and average the two values: with repeated values those two are often the same number, and the average is simply that number.</p>
+      <p><span class="term-label">The finished box plot.</span> The five numbers, the minimum, `Q_1`, the median, `Q_3`, and the stated maximum, are exactly what a box plot draws: a box from `Q_1` to `Q_3` split by a line at the median, with whiskers reaching out to the minimum and the maximum.</p>
       ' . $svg . '
       <p><b>Answer:</b> minimum = ' . $minV . ' &nbsp;&nbsp; `Q_1` = ' . $q1 . ' &nbsp;&nbsp; median = ' . $med . ' &nbsp;&nbsp; `Q_3` = ' . $q3 . '</p>
     </div>

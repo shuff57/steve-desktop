@@ -5,7 +5,7 @@
 
 // The pre-FRQ for 2.2, built like the chapter 1 ones: the SAME scenario and the SAME grading checklist
 // as frq/descriptive-statistics/q4-choosing-the-right-display, with the writing replaced by grading.
-// The category students drop here is the RECOMMENDATION -- having described both displays fairly, they
+// The category students drop here is the RECOMMENDATION: having described both displays fairly, they
 // stop without ever answering the question that was asked, which is which one to use.
 //
 // Every response is assembled from fixed sentence-parts, so which categories each earns is structural
@@ -32,9 +32,9 @@ else {
   $blindSpot = "a histogram only shows a short bar out at the end, which is not the same as flagging an outlier"
 }
 
-$sHist = "A histogram groups the data into classes and draws a bar for each, so it shows the SHAPE of the distribution -- where the values pile up, whether there is one peak or several, and which way any tail runs."
+$sHist = "A histogram groups the data into classes and draws a bar for each, so it shows the SHAPE of the distribution: where the values pile up, whether there is one peak or several, and which way any tail runs."
 $sBox = "A box plot draws the five-number summary, so it shows the median, the quartiles and the range at a glance. Its strength over a histogram is that several groups can be placed on one axis and compared directly, and that outliers are flagged by the 1.5 IQR rule rather than left to the eye."
-$sRec = "For this goal the " . $best . " is the better choice, because " . $whyBest . " -- " . $blindSpot . "."
+$sRec = "For this goal the " . $best . " is the better choice, because " . $whyBest . ": " . $blindSpot . "."
 
 $rFull = $sHist . " " . $sBox . " " . $sRec
 $rNoRec = $sHist . " " . $sBox . " Both displays are useful and each has its own advantages."
@@ -149,16 +149,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> describes what a histogram shows, describes what a box plot shows AND names a strength it has over a histogram, and then makes a recommendation with a reason tied to the goal. Each of the other three drops a whole category, and a dropped category scores zero however well the rest reads.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> describes what a histogram shows, describes what a box plot shows AND names a strength it has over a histogram, and then makes a recommendation with a reason tied to the goal. Each of the other three drops a whole category, and a dropped category scores zero however well the rest reads.</p>
       <p><span class="term-label">The right recommendation here.</span> The goal was to ' . $goal . ', so the <b>' . $best . '</b> is the better display: ' . $whyBest . '. The other one falls short because ' . $blindSpot . '.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noRecLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noRecLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Histogram &mdash; earned.</b> It says what a histogram displays and that shape is what it shows best.</li>
-        <li><b>Boxplot &mdash; earned.</b> It says what a box plot displays and names a strength over a histogram.</li>
-        <li><b>Recommendation &mdash; NOT earned.</b> It closes with "both are useful and each has its own advantages". That is a refusal to choose, and choosing was the question. This is the only category it misses.</li>
+        <li><b>Histogram: earned.</b> It says what a histogram displays and that shape is what it shows best.</li>
+        <li><b>Boxplot: earned.</b> It says what a box plot displays and names a strength over a histogram.</li>
+        <li><b>Recommendation: NOT earned.</b> It closes with "both are useful and each has its own advantages". That is a refusal to choose, and choosing was the question. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the recommendation is its own category.</span> Two accurate descriptions do not answer "which should I use". A reader with a decision to make gets nothing from an even-handed summary; the rubric pays for the decision AND the reason, because a choice without a reason is a guess and a reason without a choice is an essay. Note that neither display is better in general &mdash; the answer depends entirely on the goal, which is why the goal is stated in the prompt and why the justification has to refer to it.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The recommendation is the category most often missing, because describing both options feels balanced and thorough &mdash; and balance is exactly what loses the points here.</p>
+      <p><span class="term-label">Part (c): why the recommendation is its own category.</span> Two accurate descriptions do not answer "which should I use". A reader with a decision to make gets nothing from an even-handed summary; the rubric pays for the decision AND the reason, because a choice without a reason is a guess and a reason without a choice is an essay. Note that neither display is better in general: the answer depends entirely on the goal, which is why the goal is stated in the prompt and why the justification has to refer to it.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The recommendation is the category most often missing, because describing both options feels balanced and thorough: and balance is exactly what loses the points here.</p>
     </div>
   </details>
 </div>'

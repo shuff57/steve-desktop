@@ -150,16 +150,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the hypotheses, runs the test, and writes the conclusion. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the hypotheses, runs the test, and writes the conclusion. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sHypotheses . ' ' . $sRun . ' ' . $sConclusion . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noRunLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noRunLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Hypotheses &mdash; earned.</b> The pair is stated in symbols.</li>
-        <li><b>Run the Test &mdash; NOT earned.</b> The response never computes the test statistic or the p-value.</li>
-        <li><b>Write the Conclusion &mdash; earned.</b> The decision and the plain-language conclusion are written about the population actually sampled.</li>
+        <li><b>State the Hypotheses: earned.</b> The pair is stated in symbols.</li>
+        <li><b>Run the Test: NOT earned.</b> The response never computes the test statistic or the p-value.</li>
+        <li><b>Write the Conclusion: earned.</b> The decision and the plain-language conclusion are written about the population actually sampled.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why running the test is its own category.</span> The hypotheses and the conclusion are both possible without ever computing the test statistic &mdash; the arithmetic is the one category the others imply but never demand, and a response that skips it has not answered the question.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet &mdash; the pre-FRQ defines the scenario and rubric a later FRQ should match. Running the test is the category most often skipped, because once the hypotheses are written the computation feels like busywork.</p>
+      <p><span class="term-label">Part (c): why running the test is its own category.</span> The hypotheses and the conclusion are both possible without ever computing the test statistic: the arithmetic is the one category the others imply but never demand, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet: the pre-FRQ defines the scenario and rubric a later FRQ should match. Running the test is the category most often skipped, because once the hypotheses are written the computation feels like busywork.</p>
     </div>
   </details>
 </div>'

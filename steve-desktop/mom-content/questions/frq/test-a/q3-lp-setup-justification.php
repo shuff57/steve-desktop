@@ -203,7 +203,7 @@ $rubricanswerbutton = $css_block . '
                 <li>State the goal in words.
                     <span class="ideal-ans">Target: "The goal is to '.$obj_words.'."</span></li>
                 <li>Write the objective function and explain the coefficients.
-                    <span class="ideal-ans">Target: "'.$obj_func.' -- '.$obj_explain.'."</span></li>
+                    <span class="ideal-ans">Target: "'.$obj_func.': '.$obj_explain.'."</span></li>
               </ul>
             </td>
           </tr>
@@ -214,7 +214,7 @@ $rubricanswerbutton = $css_block . '
                 <li>Identify each constraint and the resource it limits.
                     <span class="ideal-ans">Target: "Constraint 1: '.$constraint1.'. Constraint 2: '.$constraint2.'."</span></li>
                 <li>Explain both sides of each inequality.
-                    <span class="ideal-ans">Target: "The left side totals resource usage across both products; the right side is the maximum available -- so usage cannot exceed supply."</span></li>
+                    <span class="ideal-ans">Target: "The left side totals resource usage across both products; the right side is the maximum available: so usage cannot exceed supply."</span></li>
               </ul>
             </td>
           </tr>

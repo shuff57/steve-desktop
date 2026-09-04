@@ -12,14 +12,14 @@ $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
 $xname = $picked_ctx[0]
 $yname = $picked_ctx[1]
 
-// (df, t*) for 95% CI — pick parallel pairs
+// (df, t*) for 95% CI: pick parallel pairs
 $dfs    = array(20,    30,    50,    100,   200)
 $tstars = array(2.086, 2.042, 2.009, 1.984, 1.972)
 $picked_df = jointrandfrom($dfs, $tstars)
 $df = $picked_df[0]
 $tstar = $picked_df[1]
 
-// Slope estimate and SE — chosen so the CI ALWAYS excludes 0 (significant case).
+// Slope estimate and SE: chosen so the CI ALWAYS excludes 0 (significant case).
 // max ME = 2.086 * 0.30 = 0.626; min lower = 0.80 - 0.626 = 0.174 > 0.
 $b  = round(rand(80, 200) / 100, 2)
 $se = round(rand(15, 30)  / 100, 2)
@@ -37,7 +37,7 @@ $reltolerance[1] = 0.02
 $answer[2] = $upper
 $reltolerance[2] = 0.02
 
-// Part d — significance interpretation. Because lower > 0 by construction, CI excludes 0.
+// Part d: significance interpretation. Because lower > 0 by construction, CI excludes 0.
 $choices[3] = array(
   "The interval excludes 0, so there is evidence the predictor is associated with the response (reject `H_0: beta_1 = 0` at `alpha = 0.05`).",
   "The interval contains 0, so we do not have evidence that the predictor is associated with the response (fail to reject `H_0: beta_1 = 0` at `alpha = 0.05`).",
@@ -69,7 +69,7 @@ $solutionguide = '
       <p><b>(a) Critical value.</b> For `df = ' . $df . '` and a 95% CI, `t^{star} = ' . $tstar . '` (from the t-table or calculator).</p>
       <p><b>(b) Lower bound.</b> `b_1 - t^{star} cdot SE = ' . $b . ' - ' . $tstar . ' cdot ' . $se . ' = ' . $b . ' - ' . $me . ' = ' . $lower . '`.</p>
       <p><b>(c) Upper bound.</b> `b_1 + t^{star} cdot SE = ' . $b . ' + ' . $me . ' = ' . $upper . '`.</p>
-      <p><b>(d) Conclusion.</b> The 95% CI is `(' . $lower . ', ' . $upper . ')`. Because every value in the interval is positive, 0 is not a plausible value for the population slope `beta_1`. We have evidence the predictor is associated with the response &mdash; equivalent to rejecting `H_0: beta_1 = 0` at `alpha = 0.05`.</p>
+      <p><b>(d) Conclusion.</b> The 95% CI is `(' . $lower . ', ' . $upper . ')`. Because every value in the interval is positive, 0 is not a plausible value for the population slope `beta_1`. We have evidence the predictor is associated with the response: equivalent to rejecting `H_0: beta_1 = 0` at `alpha = 0.05`.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Decision rule from a CI: if 0 is NOT in the interval &rarr; reject `H_0: beta_1 = 0`. If 0 IS in the interval &rarr; fail to reject.
       </div>

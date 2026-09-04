@@ -8,10 +8,10 @@
 // (3) = 10.
 //
 // The dropped category is STATISTICAL DECISION. A student can write a conclusion in context and
-// interpret the evidence without ever comparing the p-value to the significance level — the
+// interpret the evidence without ever comparing the p-value to the significance level: the
 // section's own "the three points are the whole story" is exactly the step a plausible answer
 // skips. This is DIFFERENT from §7.1's (dropped: Confidence Level Meaning) and §7.2's (dropped:
-// Assessing the Claim) pre-FRQs — the three pre-FRQs must not teach the same lesson.
+// Assessing the Claim) pre-FRQs: the three pre-FRQs must not teach the same lesson.
 //
 // CATEGORY PURITY: $sDecision states the p-value comparison and nothing else; $sContext states
 // the conclusion in context and nothing else; $sEvidence states the evidence takeaway and
@@ -135,15 +135,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the statistical decision, writes the conclusion in context, and interprets the evidence. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the statistical decision, writes the conclusion in context, and interprets the evidence. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sDecision . ' ' . $sContext . ' ' . $sEvidence . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noDecisionLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noDecisionLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Statistical Decision &mdash; NOT earned.</b> The response never compares the p-value to the significance level, so the decision is missing.</li>
-        <li><b>Conclusion in Context &mdash; earned.</b> The conclusion is written for the specific claim in the real-world context.</li>
-        <li><b>Interpretation of Evidence &mdash; earned.</b> The evidence takeaway for the researcher is present.</li>
+        <li><b>Statistical Decision: NOT earned.</b> The response never compares the p-value to the significance level, so the decision is missing.</li>
+        <li><b>Conclusion in Context: earned.</b> The conclusion is written for the specific claim in the real-world context.</li>
+        <li><b>Interpretation of Evidence: earned.</b> The evidence takeaway for the researcher is present.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the decision is its own category.</span> The whole point of a hypothesis test is the p-value comparison: whether the result is statistically significant is a separate judgement from what the result means. A response that skips the comparison has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the decision is its own category.</span> The whole point of a hypothesis test is the p-value comparison: whether the result is statistically significant is a separate judgement from what the result means. A response that skips the comparison has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The statistical decision is the category most often skipped, because once the conclusion is written the comparison feels like bookkeeping.</p>
     </div>
   </details>

@@ -40,10 +40,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> `sigma/sqrt(n) = 2/sqrt(30) = 2/5.4772 = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the test statistic.</span> `z = (bar(x) - mu_0)/(sigma/sqrt(n)) = (3.2 - 4)/' . round($se, 4) . ' = -0.8/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the p-value.</span> The alternative is `mu < 4`, so this is a left-tailed test and the p-value is the area to the left of z = ' . round($z, 3) . ': `P(Z < ' . round($z, 3) . ') ~~ ' . round($p, 4) . '`.</p>
-      <p>The `sqrt(n)` in the denominator converts "how far below" into "how surprising" &mdash; a class average of 3.6 hours is the same distance below 4 whether it came from 8 students or 80, but it is far more surprising coming from 80.</p>
+      <p><span class="term-label">Part (a): the standard error.</span> `sigma/sqrt(n) = 2/sqrt(30) = 2/5.4772 = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the test statistic.</span> `z = (bar(x) - mu_0)/(sigma/sqrt(n)) = (3.2 - 4)/' . round($se, 4) . ' = -0.8/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
+      <p><span class="term-label">Part (c): the p-value.</span> The alternative is `mu < 4`, so this is a left-tailed test and the p-value is the area to the left of z = ' . round($z, 3) . ': `P(Z < ' . round($z, 3) . ') ~~ ' . round($p, 4) . '`.</p>
+      <p>The `sqrt(n)` in the denominator converts "how far below" into "how surprising": a class average of 3.6 hours is the same distance below 4 whether it came from 8 students or 80, but it is far more surprising coming from 80.</p>
     </div>
   </details>
 </div>'

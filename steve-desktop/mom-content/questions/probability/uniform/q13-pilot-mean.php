@@ -33,7 +33,7 @@ $solutionguide = '
       <p>`0.0412 + 0.1187 + 0.2043 + 0.2765 + 0.3391 + 0.4508 + 0.5624 + 0.6130 + 0.7042 + 0.8219 + 0.8873 + 0.9564 = 5.9758`</p>
       <p><span class="term-label">Divide by the count.</span></p>
       <p>`x-bar = 5.9758/12 ~= 0.4980`</p>
-      <p>The theoretical mean is 0.5000, so this sample landed within 0.002 of it. Do not read that as "twelve values is plenty" — it is one run, and a different twelve values could easily have come out at 0.44 or 0.56. What the mean does reliably is sit near the center; how near depends on how many values you averaged.</p>
+      <p>The theoretical mean is 0.5000, so this sample landed within 0.002 of it. Do not read that as "twelve values is plenty": it is one run, and a different twelve values could easily have come out at 0.44 or 0.56. What the mean does reliably is sit near the center; how near depends on how many values you averaged.</p>
     </div>
   </details>
 </div>'

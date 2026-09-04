@@ -72,7 +72,7 @@ $answerformat[0] = "integer"
 $answer[1] = $spanSum
 $answerformat[1] = "integer"
 
-$c0 = "Some respondents did not name a salary band at all, so they are not counted in any row &mdash; the bands only cover people who gave an answer."
+$c0 = "Some respondents did not name a salary band at all, so they are not counted in any row: the bands only cover people who gave an answer."
 $c1 = "The table has an error: one of the salary bands must be missing from the list."
 $c2 = "Rounding each relative frequency to two decimal places is what makes the column fall short of 1."
 $c3 = "Relative frequencies in a table like this never have to add up to 1."
@@ -97,10 +97,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; add up the six shown relative frequencies.</span> ' . $sumExpr . ' = <b>' . $totalStr . '</b>. That is the share of the FULL sample accounted for by the six salary bands.</p>
-      <p><span class="term-label">Step 2 &mdash; the rest said &ldquo;not sure.&rdquo;</span> Every respondent is somewhere: either in one of the six bands, or in the not-sure group. So 1.00 &minus; ' . $totalStr . ' = <b>' . $notSureStr . '</b>, which is <b>' . $notSure . '%</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; add the ' . $spanCountWord . ' bands in the stated span.</span> ' . $spanExpr . ' = <b>' . $spanSumStr . '</b>, which is <b>' . $spanSum . '%</b> of the full sample.</p>
-      <p><span class="term-label">Step 4 &mdash; why the shortfall is not an error.</span> The bands only cover respondents who actually named an income. Someone who answered &ldquo;not sure&rdquo; gave no figure, so that response is not part of any band &mdash; it is simply outside the table. A relative-frequency column only has to sum to 1 when every observation falls in exactly one of the listed categories, and here one possible response (not sure) is not listed at all.</p>
+      <p><span class="term-label">Step 1: add up the six shown relative frequencies.</span> ' . $sumExpr . ' = <b>' . $totalStr . '</b>. That is the share of the FULL sample accounted for by the six salary bands.</p>
+      <p><span class="term-label">Step 2: the rest said &ldquo;not sure.&rdquo;</span> Every respondent is somewhere: either in one of the six bands, or in the not-sure group. So 1.00 &minus; ' . $totalStr . ' = <b>' . $notSureStr . '</b>, which is <b>' . $notSure . '%</b>.</p>
+      <p><span class="term-label">Step 3: add the ' . $spanCountWord . ' bands in the stated span.</span> ' . $spanExpr . ' = <b>' . $spanSumStr . '</b>, which is <b>' . $spanSum . '%</b> of the full sample.</p>
+      <p><span class="term-label">Step 4: why the shortfall is not an error.</span> The bands only cover respondents who actually named an income. Someone who answered &ldquo;not sure&rdquo; gave no figure, so that response is not part of any band: it is simply outside the table. A relative-frequency column only has to sum to 1 when every observation falls in exactly one of the listed categories, and here one possible response (not sure) is not listed at all.</p>
       <p><b>Answer:</b> (a) ' . $notSure . '% &nbsp;&nbsp; (b) ' . $spanSum . '% &nbsp;&nbsp; (c) Some respondents gave no figure, so they fall in none of the bands.</p>
     </div>
   </details>
@@ -110,7 +110,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;">A national poll asked a random sample of adults to name the annual household income they consider the threshold for &ldquo;middle class.&rdquo; Each respondent either named one of the salary bands below or said they were not sure. For each band, the table shows the relative frequency &mdash; the proportion of the FULL sample who named that band.</p>
+    <p style="margin:0 0 10px 0;">A national poll asked a random sample of adults to name the annual household income they consider the threshold for &ldquo;middle class.&rdquo; Each respondent either named one of the salary bands below or said they were not sure. For each band, the table shows the relative frequency: the proportion of the FULL sample who named that band.</p>
     <table style="border-collapse:collapse; margin:0;">
       <thead>
         <tr style="background:#f0f4ff;">

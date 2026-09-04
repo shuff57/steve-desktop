@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 7.3 — Multiplication Principle (sequential independent choices)
+// Section 7.3: Multiplication Principle (sequential independent choices)
 
 // Each scenario has 3 choice dimensions. Values are preselected to avoid
 // nested array indexing (which IMathAS may not support in all contexts).
@@ -24,7 +24,7 @@ $s1_c0     = 26
 $s1_c1     = 10
 $s1_c2     = 26
 
-// Scenario 2: Clothing store — sizes, colors, styles
+// Scenario 2: Clothing store: sizes, colors, styles
 $s2_desc   = "A clothing store sells shirts. Each shirt is available in the following options:"
 $s2_label0 = "Sizes (S, M, L, XL, XXL)"
 $s2_label1 = "Colors"

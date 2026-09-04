@@ -50,10 +50,10 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The parameters.</span> `n` is the number of trials, `p` is the probability of a success on one trial, and `q = 1 - p` is the probability of a failure.</p>
-      <p><span class="term-label">Part (a) &mdash; n.</span> The scenario gives <b>' . $n . '</b> trials.</p>
-      <p><span class="term-label">Part (b) &mdash; p.</span> The success probability is <b>' . $p . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; q.</span> `q = 1 - p = 1 - ' . $p . ' = ` <b>' . $q . '</b>.</p>
-      <p>So `X ~ B(' . $n . ', ' . $p . ')` &mdash; read "`X` is a random variable with a binomial distribution", which tells a reader everything they need to compute any probability about `X`.</p>
+      <p><span class="term-label">Part (a): n.</span> The scenario gives <b>' . $n . '</b> trials.</p>
+      <p><span class="term-label">Part (b): p.</span> The success probability is <b>' . $p . '</b>.</p>
+      <p><span class="term-label">Part (c): q.</span> `q = 1 - p = 1 - ' . $p . ' = ` <b>' . $q . '</b>.</p>
+      <p>So `X ~ B(' . $n . ', ' . $p . ')`: read "`X` is a random variable with a binomial distribution", which tells a reader everything they need to compute any probability about `X`.</p>
     </div>
   </details>
 </div>'

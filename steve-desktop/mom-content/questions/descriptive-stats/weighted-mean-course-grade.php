@@ -8,7 +8,7 @@
 // total. Entering the column is doing the calculation rather than reciting a formula.
 //
 // The four weights are 10/20/30/40 in a rotated order, so they always sum to 100 and are always
-// distinct -- the weighted mean can never coincide with the plain average by luck of the seed, which
+// distinct: the weighted mean can never coincide with the plain average by luck of the seed, which
 // is the comparison part (f) turns on. Scores are multiples of 5, so weight x score / 100 always
 // lands on a half, and nothing the student types needs rounding.
 $anstypes = array("number", "number", "number", "number", "number", "choices")
@@ -86,7 +86,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; one row at a time.</span> A category worth ' . $w0 . '% of the grade contributes ' . $w0 . '% OF its score, not the whole score. Multiply the score by the weight written as a decimal:</p>
+      <p><span class="term-label">Step 1: one row at a time.</span> A category worth ' . $w0 . '% of the grade contributes ' . $w0 . '% OF its score, not the whole score. Multiply the score by the weight written as a decimal:</p>
       <table style="border-collapse:collapse; margin:8px 0;">
         <tr style="background:#f0f4ff;"><th style="border:1px solid #d1d5db; padding:5px 14px; text-align:left;">Category</th><th style="border:1px solid #d1d5db; padding:5px 14px;">Weight</th><th style="border:1px solid #d1d5db; padding:5px 14px;">Score</th><th style="border:1px solid #d1d5db; padding:5px 14px;">Contribution</th></tr>
         <tr><td style="border:1px solid #d1d5db; padding:5px 14px;">' . $c0 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $w0 . '%</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $s0 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">0.' . $w0 . ' &times; ' . $s0 . ' = <b>' . $p0 . '</b></td></tr>
@@ -94,8 +94,8 @@ $solutionguide = '
         <tr><td style="border:1px solid #d1d5db; padding:5px 14px;">' . $c2 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $w2 . '%</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $s2 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">0.' . $w2 . ' &times; ' . $s2 . ' = <b>' . $p2 . '</b></td></tr>
         <tr><td style="border:1px solid #d1d5db; padding:5px 14px;">' . $c3 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $w3 . '%</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $s3 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">0.' . $w3 . ' &times; ' . $s3 . ' = <b>' . $p3 . '</b></td></tr>
       </table>
-      <p><span class="term-label">Step 2 &mdash; total the column.</span> `' . $p0 . ' + ' . $p1 . ' + ' . $p2 . ' + ' . $p3 . ' = ` <b>' . $wmean . '</b>. Because the weights add to 100%, that total IS the weighted mean &mdash; there is no second division at the end. That is the step most often added by mistake.</p>
-      <p><span class="term-label">Step 3 &mdash; compare with the plain average.</span> Adding the four scores and dividing by 4 gives ' . $plainShown . ', which is a different number. The plain average is the special case where every weight is the same. Here they are not: ' . $c3 . ' is worth ' . $w3 . '% and ' . $c0 . ' only ' . $w0 . '%, so those two scores do not get an equal say.</p>
+      <p><span class="term-label">Step 2: total the column.</span> `' . $p0 . ' + ' . $p1 . ' + ' . $p2 . ' + ' . $p3 . ' = ` <b>' . $wmean . '</b>. Because the weights add to 100%, that total IS the weighted mean: there is no second division at the end. That is the step most often added by mistake.</p>
+      <p><span class="term-label">Step 3: compare with the plain average.</span> Adding the four scores and dividing by 4 gives ' . $plainShown . ', which is a different number. The plain average is the special case where every weight is the same. Here they are not: ' . $c3 . ' is worth ' . $w3 . '% and ' . $c0 . ' only ' . $w0 . '%, so those two scores do not get an equal say.</p>
       <p><span class="term-label">The check worth doing.</span> A weighted mean always lands between the smallest and the largest score. If your answer sits outside that range, a weight was used as a whole number instead of a decimal.</p>
     </div>
   </details>

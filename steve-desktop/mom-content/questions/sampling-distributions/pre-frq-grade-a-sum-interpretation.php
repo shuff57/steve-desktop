@@ -11,7 +11,7 @@
 // Interpret in Context (4) = 12.
 //
 // The dropped category is STATE THE SUM'S PARAMETERS. A student can compute the probability and
-// interpret it without ever writing Sigma X ~ N(n*mu, sqrt(n)*sigma) — the section's own
+// interpret it without ever writing Sigma X ~ N(n*mu, sqrt(n)*sigma): the section's own
 // warning, "feeding in the original pair is the single most common mistake", is exactly the
 // step a plausible answer skips.
 //
@@ -61,7 +61,7 @@ $answer[1] = "1,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The probability can be computed and interpreted without ever writing the sum's own parameters, so they have to be stated on their own — without them the computation has no licence.",
+  "No. The probability can be computed and interpreted without ever writing the sum's own parameters, so they have to be stated on their own: without them the computation has no licence.",
   "Yes. Once the probability is computed, the parameters are implied by the formula, so there is nothing separate to award.",
   "No, but only because the arithmetic is the hard part.",
   "Yes, as long as the answer is a probability, the setup does not matter."
@@ -136,15 +136,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the sum\'s parameters, computes the probability, and interprets it in context. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the sum\'s parameters, computes the probability, and interprets it in context. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sParams . ' ' . $sCompute . ' ' . $sInterpret . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noParamsLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noParamsLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Sum\'s Parameters &mdash; NOT earned.</b> The probability is computed and interpreted, but nowhere does the response state the sum\'s own mean and standard deviation.</li>
-        <li><b>Compute the Probability or Percentile &mdash; earned.</b> The normalcdf computation is present with its value.</li>
-        <li><b>Interpret in Context &mdash; earned.</b> The result is read as a statement about combined ages of a sample of 50.</li>
+        <li><b>State the Sum\'s Parameters: NOT earned.</b> The probability is computed and interpreted, but nowhere does the response state the sum\'s own mean and standard deviation.</li>
+        <li><b>Compute the Probability or Percentile: earned.</b> The normalcdf computation is present with its value.</li>
+        <li><b>Interpret in Context: earned.</b> The result is read as a statement about combined ages of a sample of 50.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the parameters are their own category.</span> The whole trap of this section is feeding the original mu and sigma into the calculator instead of the sum\'s own (n)(mu) and (sqrt(n))(sigma). Stating the two parameters first is what forces the substitution to happen, and a response that skips it has no licence for its computation.</p>
+      <p><span class="term-label">Part (c): why the parameters are their own category.</span> The whole trap of this section is feeding the original mu and sigma into the calculator instead of the sum\'s own (n)(mu) and (sqrt(n))(sigma). Stating the two parameters first is what forces the substitution to happen, and a response that skips it has no licence for its computation.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the sums FRQ this scenario comes with a blank box and this same checklist. The parameters are the category most often skipped, because once the probability works the setup feels like busywork.</p>
     </div>
   </details>

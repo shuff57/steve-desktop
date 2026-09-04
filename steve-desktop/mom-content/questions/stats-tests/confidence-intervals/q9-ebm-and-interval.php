@@ -56,11 +56,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the error bound.</span> `EBM = z_(alpha/2) * sigma/sqrt(n) = ' . $z . ' * ' . $sigma . '/sqrt(' . $n . ') = ' . round($ebm, 4) . '`</p>
-      <p><span class="term-label">Parts (b) and (c) &mdash; the interval.</span> The interval is the point estimate plus or minus the error bound:</p>
+      <p><span class="term-label">Part (a): the error bound.</span> `EBM = z_(alpha/2) * sigma/sqrt(n) = ' . $z . ' * ' . $sigma . '/sqrt(' . $n . ') = ' . round($ebm, 4) . '`</p>
+      <p><span class="term-label">Parts (b) and (c): the interval.</span> The interval is the point estimate plus or minus the error bound:</p>
       <p>`bar(x) - EBM = ' . $xbar . ' - ' . round($ebm, 4) . ' = ' . round($lo, 4) . '`</p>
       <p>`bar(x) + EBM = ' . $xbar . ' + ' . round($ebm, 4) . ' = ' . round($hi, 4) . '`</p>
-      <p>EBM is exactly half the interval\'s total width, and the interval is symmetric around the point estimate. When a poll reports "52%, plus or minus 3 points", that 3 is the error bound &mdash; the news usually calls it the margin of error. Same idea, different name.</p>
+      <p>EBM is exactly half the interval\'s total width, and the interval is symmetric around the point estimate. When a poll reports "52%, plus or minus 3 points", that 3 is the error bound: the news usually calls it the margin of error. Same idea, different name.</p>
     </div>
   </details>
 </div>'

@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: ANOVA — when to apply (conceptual) + interpret conclusion from output ===
+// === NAME - DESCRIPTION: ANOVA: when to apply (conceptual) + interpret conclusion from output ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -9,7 +9,7 @@ $anstypes = array("choices","choices")
 $noshuffle[0] = "all"
 $noshuffle[1] = "all"
 
-// Part a: 4 scenarios — only one is ANOVA (comparing 3+ group means)
+// Part a: 4 scenarios: only one is ANOVA (comparing 3+ group means)
 $ci_a = rand(0, 3)
 $scenarios_a = array(
   "A researcher compares the mean GPA of students in four different majors: Business, Engineering, Arts, and Sciences.",
@@ -28,7 +28,7 @@ if ($order[2] == 0) {$answer[0] = 2}
 if ($order[3] == 0) {$answer[0] = 3}
 $choices[0] = $choices_a
 
-// Part b: interpret ANOVA output — 3 groups, given F and p-value
+// Part b: interpret ANOVA output: 3 groups, given F and p-value
 $ci_b = rand(0, 2)
 $group_sets  = array(
   array("three teaching methods (lecture, flipped, online)", "student final exam scores"),
@@ -47,7 +47,7 @@ $choices[1] = array(
   "Reject H₀. At least one group mean for $resp_b is significantly different from the others.",
   "Fail to reject H₀. There is no evidence of a difference in $resp_b across groups.",
   "Accept H₀. All group means are proven equal.",
-  "Cannot conclude — ANOVA requires equal group sizes."
+  "Cannot conclude: ANOVA requires equal group sizes."
 )
 $answer[1] = 0
 
@@ -66,7 +66,7 @@ $solutionguide = '
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
       <p><b>Part a:</b> ANOVA is used to compare means across <b>three or more independent groups</b>. The scenario comparing GPAs across 4 majors fits this exactly. Paired measurements → paired t-test. Proportions → z-test. Regression → slope test.</p>
-      <p><b>Part b:</b> F = ' . $F_b . ', p-value = ' . $pval_b . ' &lt; &alpha; = ' . $alpha_b . '. <b>Reject H₀.</b> ANOVA\'s H₀ is "all group means are equal." Rejecting means at least one group differs — not that all are different.</p>
+      <p><b>Part b:</b> F = ' . $F_b . ', p-value = ' . $pval_b . ' &lt; &alpha; = ' . $alpha_b . '. <b>Reject H₀.</b> ANOVA\'s H₀ is "all group means are equal." Rejecting means at least one group differs: not that all are different.</p>
     </div>
   </details>
 </div>'

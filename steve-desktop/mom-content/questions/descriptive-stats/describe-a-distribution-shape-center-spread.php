@@ -6,7 +6,7 @@
 // The capstone for 2.6. Shape, center and spread is the checklist every free-response answer about a
 // distribution is graded against, and students lose credit for naming one of the three and stopping.
 // Here all three are asked about the SAME picture, in that order, and the last part makes the choice
-// of center depend on the shape they named in the first -- which is the link the checklist exists to
+// of center depend on the shape they named in the first: which is the link the checklist exists to
 // build.
 //
 // The class holding the median is found by walking the cumulative count, so it is computed from the
@@ -73,10 +73,10 @@ if ($dir == 1) {
 }
 
 $questions[0] = array(
-  "Skewed right &mdash; one peak, with a long thin tail running toward the larger values",
-  "Skewed left &mdash; one peak, with a long thin tail running toward the smaller values",
-  "Roughly symmetric &mdash; the two sides mirror each other",
-  "Bimodal &mdash; two separate peaks with a dip between them"
+  "Skewed right: one peak, with a long thin tail running toward the larger values",
+  "Skewed left: one peak, with a long thin tail running toward the smaller values",
+  "Roughly symmetric: the two sides mirror each other",
+  "Bimodal: two separate peaks with a dip between them"
 )
 $answer[0] = $dir
 
@@ -146,11 +146,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The checklist.</span> A distribution is described by three things, always in this order: <b>shape</b>, <b>center</b>, <b>spread</b>. Naming one and stopping is what loses credit on a written answer, so run all three every time.</p>
-      <p><span class="term-label">Shape.</span> One peak, with the bars thinning into a long low tail toward ' . $tailWord . '. That makes it <b>' . $trueName . '</b> &mdash; named for the tail, never for the side the tall bars are on.</p>
+      <p><span class="term-label">Shape.</span> One peak, with the bars thinning into a long low tail toward ' . $tailWord . '. That makes it <b>' . $trueName . '</b>: named for the tail, never for the side the tall bars are on.</p>
       <p><span class="term-label">How much data there is.</span> Adding the eight bar heights gives <b>' . $n . '</b> observations. You need this before you can locate the center, because the median is defined by counting.</p>
-      <p><span class="term-label">Center.</span> The median is the middle observation, so walk the bars from the left adding counts until you pass ' . $half . '. That happens in the class <b>' . $medLo . ' to ' . $medHi . '</b> dollars, so the median lies somewhere in there. A histogram groups the data, so it fixes the median to a class rather than to a single value &mdash; naming the class is the honest answer, not a rounding-down.</p>
+      <p><span class="term-label">Center.</span> The median is the middle observation, so walk the bars from the left adding counts until you pass ' . $half . '. That happens in the class <b>' . $medLo . ' to ' . $medHi . '</b> dollars, so the median lies somewhere in there. A histogram groups the data, so it fixes the median to a class rather than to a single value: naming the class is the honest answer, not a rounding-down.</p>
       <p><span class="term-label">Spread.</span> The data runs across all eight classes, from 0 to ' . $rangeVal . ' dollars.</p>
-      <p><span class="term-label">Matching the summary to the shape.</span> Because the distribution is skewed, report the <b>median</b> for center and the <b>interquartile range</b> for spread. The mean and the standard deviation both use every value, so both are dragged by the tail; the median and the IQR are positional and are not. On a roughly symmetric picture the mean and standard deviation would be the natural pair instead &mdash; the shape decides, which is why shape comes first on the checklist.</p>
+      <p><span class="term-label">Matching the summary to the shape.</span> Because the distribution is skewed, report the <b>median</b> for center and the <b>interquartile range</b> for spread. The mean and the standard deviation both use every value, so both are dragged by the tail; the median and the IQR are positional and are not. On a roughly symmetric picture the mean and standard deviation would be the natural pair instead: the shape decides, which is why shape comes first on the checklist.</p>
     </div>
   </details>
 </div>'

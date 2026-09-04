@@ -21,7 +21,7 @@ $c3 = $c2 + rand(300, 1500)
 // variable, and only the entity keeps the parser out of it. One scalar for prompt and key alike.
 $costlist = "&#36;$c1, &#36;$c2, and &#36;$c3"
 
-// The six terms stay in teaching order — population before sample, parameter before statistic —
+// The six terms stay in teaching order, population before sample, parameter before statistic, 
 // so the list reads as the definition sequence rather than a scramble.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
@@ -68,16 +68,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group.</b> The ' . $comp . ' cares about its own clients, so all of those clients are the population. The ' . $n . ' clients whose yearly costs were actually recorded are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two mean costs.</b> The mean taken over all clients is a parameter; the same mean computed from the surveyed clients is a statistic. The two read almost identically &mdash; only the group they point at differs.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is measured on one client is the variable; the dollar amounts written down are the data.</p>
+      <p><b>Step 1: Name the group.</b> The ' . $comp . ' cares about its own clients, so all of those clients are the population. The ' . $n . ' clients whose yearly costs were actually recorded are the sample.</p>
+      <p><b>Step 2: Sort the two mean costs.</b> The mean taken over all clients is a parameter; the same mean computed from the surveyed clients is a statistic. The two read almost identically: only the group they point at differs.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is measured on one client is the variable; the dollar amounts written down are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all clients of the ' . $comp . '</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' clients whose yearly health costs were actually recorded</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the mean yearly health cost for <em>all</em> clients of the ' . $comp . '</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the mean yearly health cost for the ' . $n . ' clients in the sample</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = the yearly health cost of one client</div>
       <div class="term-row"><span class="term-label">Data:</span> the recorded dollar amounts, such as ' . $costlist . '</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>Everyone in the country who has health insurance</b> is far wider than the group this ' . $comp . ' is studying &mdash; a population drawn too wide. And <b>the total health costs paid out last year</b> is a total, not a mean; the study asks what one typical client costs, so that it can price a policy.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>Everyone in the country who has health insurance</b> is far wider than the group this ' . $comp . ' is studying: a population drawn too wide. And <b>the total health costs paid out last year</b> is a total, not a mean; the study asks what one typical client costs, so that it can price a policy.</div>
     </div>
   </details>
 </div>'

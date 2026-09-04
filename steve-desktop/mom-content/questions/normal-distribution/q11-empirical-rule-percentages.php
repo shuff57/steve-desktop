@@ -54,9 +54,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Start from the bands.</span> 68% within 1 SD, 95% within 2 SDs, 99.7% within 3 SDs. The curve is symmetric, so each band splits evenly around the mean.</p>
-      <p><span class="term-label">Part (a) &mdash; mean to 1 SD.</span> Half of the 68% band lies between the mean and one standard deviation: `68/2 = 34%`.</p>
-      <p><span class="term-label">Part (b) &mdash; 1st to 2nd SD, both sides.</span> The 95% band minus the 68% band leaves `95 - 68 = 27%` in the two outer strips, so each side carries `27/2 = 13.5%`.</p>
-      <p><span class="term-label">Part (c) &mdash; 2nd to 3rd SD, both sides.</span> The 99.7% band minus the 95% band leaves `99.7 - 95 = 4.7%` in the two outer strips, so each side carries `4.7/2 = 2.35%` &mdash; and the question asks for both sides together: `4.7%`.</p>
+      <p><span class="term-label">Part (a): mean to 1 SD.</span> Half of the 68% band lies between the mean and one standard deviation: `68/2 = 34%`.</p>
+      <p><span class="term-label">Part (b): 1st to 2nd SD, both sides.</span> The 95% band minus the 68% band leaves `95 - 68 = 27%` in the two outer strips, so each side carries `27/2 = 13.5%`.</p>
+      <p><span class="term-label">Part (c): 2nd to 3rd SD, both sides.</span> The 99.7% band minus the 95% band leaves `99.7 - 95 = 4.7%` in the two outer strips, so each side carries `4.7/2 = 2.35%`: and the question asks for both sides together: `4.7%`.</p>
     </div>
   </details>
 </div>'

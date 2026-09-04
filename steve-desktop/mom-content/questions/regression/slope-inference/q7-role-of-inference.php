@@ -12,12 +12,12 @@ $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
 $xname = $picked_ctx[0]
 $yname = $picked_ctx[1]
 
-// CI bounds for part (c) — chosen so the interval is always positive (excludes 0)
+// CI bounds for part (c): chosen so the interval is always positive (excludes 0)
 $lower = round(rand(80, 250) / 100, 2)
 $me    = round(rand(40, 80)  / 100, 2)
 $upper = round($lower + 2 * $me, 2)
 
-// Part a — population vs sample slope symbol
+// Part a: population vs sample slope symbol
 $choices[0] = array(
   "`beta_1`",
   "`b_1`",
@@ -27,7 +27,7 @@ $choices[0] = array(
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — why slope estimates differ across samples
+// Part b: why slope estimates differ across samples
 $choices[1] = array(
   "Different random samples produce different slope estimates due to sampling variability. Inference quantifies how confident we are about the unknown population slope.",
   "One of the researchers must have made a calculation error.",
@@ -37,7 +37,7 @@ $choices[1] = array(
 $noshuffle[1] = "all"
 $answer[1] = 0
 
-// Part c — interpret the CI
+// Part c: interpret the CI
 $choices[2] = array(
   'We are 95% confident the true population slope `beta_1` is between ' . $lower . ' and ' . $upper . '. Because this interval does not contain 0, we have evidence the predictor is associated with the response.',
   'Of all possible samples, 95% will produce a slope estimate between ' . $lower . ' and ' . $upper . '.',
@@ -64,9 +64,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>(a) Sample vs population.</b> The Greek letter `beta_1` denotes the unknown slope of the line in the <b>population</b> &mdash; the parameter we want to estimate. The Latin `b_1` is the slope of the line we fit to our <b>sample</b>, a statistic that approximates `beta_1`. `r` is the correlation; `hat y` is a predicted response.</p>
-      <p><b>(b) Why the estimates differ.</b> Two random samples from the same population almost always give different slope estimates because they contain different observations. This is sampling variability &mdash; the same phenomenon we already see with the sample mean. Inference is the toolkit that lets us reason about the unknown `beta_1` from a single sample.</p>
-      <p><b>(c) CI interpretation.</b> A 95% CI is a range of plausible values for the population slope `beta_1`, not for `b_1`, and it is not a probability statement about a particular sample. Because every value in the interval is positive, 0 is not a plausible value for the population slope &mdash; that is the regression analog of "reject `H_0: beta_1 = 0`".</p>
+      <p><b>(a) Sample vs population.</b> The Greek letter `beta_1` denotes the unknown slope of the line in the <b>population</b>: the parameter we want to estimate. The Latin `b_1` is the slope of the line we fit to our <b>sample</b>, a statistic that approximates `beta_1`. `r` is the correlation; `hat y` is a predicted response.</p>
+      <p><b>(b) Why the estimates differ.</b> Two random samples from the same population almost always give different slope estimates because they contain different observations. This is sampling variability: the same phenomenon we already see with the sample mean. Inference is the toolkit that lets us reason about the unknown `beta_1` from a single sample.</p>
+      <p><b>(c) CI interpretation.</b> A 95% CI is a range of plausible values for the population slope `beta_1`, not for `b_1`, and it is not a probability statement about a particular sample. Because every value in the interval is positive, 0 is not a plausible value for the population slope: that is the regression analog of "reject `H_0: beta_1 = 0`".</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Interpretation rule: if a CI for the slope excludes 0, there is statistical evidence the predictor is associated with the response.
       </div>

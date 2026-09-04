@@ -246,12 +246,12 @@ $questiontext = '
       <th style="border:1px solid #ccc; padding:8px; text-align:center;">n</th>
     </tr>
     <tr>
-      <td style="border:1px solid #ccc; padding:8px;"><b>Group 1</b> &mdash; '.$group1_label.'</td>
+      <td style="border:1px solid #ccc; padding:8px;"><b>Group 1</b>: '.$group1_label.'</td>
       <td style="border:1px solid #ccc; padding:8px; user-select:text;">'.$data1_display.'</td>
       <td style="border:1px solid #ccc; padding:8px; text-align:center;">'.$n1.'</td>
     </tr>
     <tr class="row-colored">
-      <td style="border:1px solid #ccc; padding:8px;"><b>Group 2</b> &mdash; '.$group2_label.'</td>
+      <td style="border:1px solid #ccc; padding:8px;"><b>Group 2</b>: '.$group2_label.'</td>
       <td style="border:1px solid #ccc; padding:8px; user-select:text;">'.$data2_display.'</td>
       <td style="border:1px solid #ccc; padding:8px; text-align:center;">'.$n2.'</td>
     </tr>

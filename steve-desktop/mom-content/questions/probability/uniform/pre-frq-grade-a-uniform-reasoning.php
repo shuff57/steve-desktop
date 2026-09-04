@@ -15,7 +15,7 @@
 // 2.4 Contextual Interpretation, 2.5 Outlier Impact, 2.6 Further Investigation, 2.7 Practical
 // Conclusion, 3.1 Sample Space, 3.2 Distinguish the Two, 3.3 Second Factor, 3.4 State the
 // Direction, 3.5 Draw the Structure, 4.1 State the Values, 4.2 Verify the Sum, 4.3 Name the
-// Parameters -- none is this.
+// Parameters: none is this.
 //
 // CATEGORY PURITY: $sProps states the two properties and nothing else; $sCompute shows only the
 // area arithmetic (base, height, product) and ends at the number; $sInterpret reads the number as
@@ -177,15 +177,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the two properties, shows the base-times-height arithmetic, and interprets the area as the probability of the event with `P(x = c) = 0`. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the two properties, shows the base-times-height arithmetic, and interprets the area as the probability of the event with `P(x = c) = 0`. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> Here `f(x) = 1/(' . $b . ')` on `[0, ' . $b . ']`, and the strip runs from `x = ' . $c . '` to `x = ' . $d . '`. ' . $sC . ' So ' . $sI . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $droppedLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $droppedLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Two Properties &mdash; NOT earned.</b> The response computes and interprets, but nowhere does it check the density is never negative and totals 1, so a broken setup would sail through.</li>
-        <li><b>Compute the Probability &mdash; earned.</b> The base-times-height arithmetic is present and correct.</li>
-        <li><b>Interpret in Context &mdash; earned.</b> The area is read as the probability of the wait falling in the window, and `P(x = c) = 0` is stated.</li>
+        <li><b>State the Two Properties: NOT earned.</b> The response computes and interprets, but nowhere does it check the density is never negative and totals 1, so a broken setup would sail through.</li>
+        <li><b>Compute the Probability: earned.</b> The base-times-height arithmetic is present and correct.</li>
+        <li><b>Interpret in Context: earned.</b> The area is read as the probability of the wait falling in the window, and `P(x = c) = 0` is stated.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the two properties are their own category.</span> The area of a strip is arithmetic on whatever curve you draw, and a curve that dips negative or totals more than 1 is not a density at all. The properties are the definition\'s own check, and nothing in the computation or the interpretation forces them &mdash; they have to be verified on their own.</p>
+      <p><span class="term-label">Part (c): why the two properties are their own category.</span> The area of a strip is arithmetic on whatever curve you draw, and a curve that dips negative or totals more than 1 is not a density at all. The properties are the definition\'s own check, and nothing in the computation or the interpretation forces them: they have to be verified on their own.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the test this scenario comes with a blank box and this same checklist. The two properties are the category most often skipped, because once the numbers are in the formula the setup feels like busywork.</p>
     </div>
   </details>

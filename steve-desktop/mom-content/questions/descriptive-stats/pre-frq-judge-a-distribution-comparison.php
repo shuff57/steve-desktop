@@ -7,7 +7,7 @@
 // free-response item (questions/frq/descriptive-statistics/q11-compare-distributions-essay.php), but
 // every part auto-grades, so it can live in homework where free response is not allowed. The student
 // applies the rubric to somebody else's answer before having to satisfy it from a blank page.
-// Keep the four categories and their point values identical to q11 -- the whole value of this
+// Keep the four categories and their point values identical to q11: the whole value of this
 // question is that the checklist is the one they will actually be marked against.
 $anstypes = array("choices", "multans", "choices")
 
@@ -31,7 +31,7 @@ else {
 $medB = 5 * rand(12, 16)
 $medA = $medB + 5 * rand(1, 3)
 $meanA = $medA + rand(0, 1)
-// Right skew pulls the mean ABOVE the median -- the table then shows the student why the median is
+// Right skew pulls the mean ABOVE the median: the table then shows the student why the median is
 // the fairer center for B, which is the justification the rubric asks for under Center.
 $meanB = $medB + rand(3, 6)
 $sdA = rand(3, 5)
@@ -56,7 +56,7 @@ $questions[0] = array($rFull, $rListed, $rVague, $rOneValue)
 $answer[0] = 0
 
 // Part (b) is graded against the checklist itself: which CATEGORIES did the response fail to earn.
-// The listed response does describe both shapes, so Shape IS earned -- that is what stops the part
+// The listed response does describe both shapes, so Shape IS earned: that is what stops the part
 // being passed by selecting all four.
 $questions[1] = array(
   "Shape (2 pts)",
@@ -106,9 +106,9 @@ $summaryTable = '<table class="summary-table">
 $rubricblock = $css_block . '
 <div class="rubric-container">
   <details open>
-    <summary><span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span> Grading Checklist &mdash; 10 points</summary>
+    <summary><span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span> Grading Checklist: 10 points</summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> &mdash; a full-credit comparison must address:</p>
+      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b>: a full-credit comparison must address:</p>
       <table class="rubric-table">
         <tbody>
           <tr><th>Category</th><th>Requirement</th></tr>
@@ -157,16 +157,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a).</span> Only one response earns all four categories. It names both shapes, picks the median for the center <i>and says why</i> &mdash; ' . $labelB . ' is skewed, so its mean (' . $meanB . ') sits above its median (' . $medB . '), which you can read straight off the table &mdash; compares the standard deviations, and finishes with a sentence about ' . $varName . ' rather than about numbers.</p>
-      <p><span class="term-label">Part (b) &mdash; grade it category by category.</span> The response is not wrong anywhere; every figure in it is correct. Work down the checklist:</p>
+      <p><span class="term-label">Part (a).</span> Only one response earns all four categories. It names both shapes, picks the median for the center <i>and says why</i>: ' . $labelB . ' is skewed, so its mean (' . $meanB . ') sits above its median (' . $medB . '), which you can read straight off the table: compares the standard deviations, and finishes with a sentence about ' . $varName . ' rather than about numbers.</p>
+      <p><span class="term-label">Part (b): grade it category by category.</span> The response is not wrong anywhere; every figure in it is correct. Work down the checklist:</p>
       <ul>
-        <li><b>Shape &mdash; earned.</b> It describes both distributions. This is the one category it does get.</li>
-        <li><b>Center &mdash; not earned.</b> It quotes both medians but never says which group is higher.</li>
-        <li><b>Spread &mdash; not earned.</b> It quotes both standard deviations but never says which group is more variable.</li>
-        <li><b>In-Context Verdict &mdash; not earned.</b> There is no concluding sentence about ' . $varName . ' at all.</li>
+        <li><b>Shape: earned.</b> It describes both distributions. This is the one category it does get.</li>
+        <li><b>Center: not earned.</b> It quotes both medians but never says which group is higher.</li>
+        <li><b>Spread: not earned.</b> It quotes both standard deviations but never says which group is more variable.</li>
+        <li><b>In-Context Verdict: not earned.</b> There is no concluding sentence about ' . $varName . ' at all.</li>
       </ul>
       <p>That is <b>2 out of 10</b> for an answer containing every correct number, which is exactly how this rubric bites.</p>
-      <p><span class="term-label">Part (c) &mdash; the idea the checklist cannot spell out.</span> Writing "' . $labelA . ' has a median of ' . $medA . '. ' . $labelB . ' has a median of ' . $medB . '." puts two facts on the page and stops. A reader can of course see which is bigger, but doing that work is the answer\'s job, not the reader\'s. Center asks for a <i>claim</i>: ' . $labelA . ' is higher. Adding more numbers never repairs it, because what is missing is not a number.</p>
+      <p><span class="term-label">Part (c): the idea the checklist cannot spell out.</span> Writing "' . $labelA . ' has a median of ' . $medA . '. ' . $labelB . ' has a median of ' . $medB . '." puts two facts on the page and stops. A reader can of course see which is bigger, but doing that work is the answer\'s job, not the reader\'s. Center asks for a <i>claim</i>: ' . $labelA . ' is higher. Adding more numbers never repairs it, because what is missing is not a number.</p>
       <p><span class="term-label">Why this exists.</span> On the lab and on the test this same scenario arrives with a blank box and this same checklist. Spotting the missing category in someone else\'s answer is the quickest way to stop leaving it out of your own.</p>
     </div>
   </details>
@@ -189,7 +189,7 @@ $solutionguide = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Now grade this one:
     $respBox
-    Select <b>every category it fails to earn</b>. Not all four are missing &mdash; read it against the checklist before you choose. $answerbox[1]
+    Select <b>every category it fails to earn</b>. Not all four are missing: read it against the checklist before you choose. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> That response quotes the correct median for both groups. Why is that not enough to earn <b>Center</b>? $answerbox[2]

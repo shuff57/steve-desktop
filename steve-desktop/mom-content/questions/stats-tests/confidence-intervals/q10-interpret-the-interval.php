@@ -32,7 +32,7 @@ $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The method, not the result: about " . $clPct . "% of intervals built this way contain the true mean &mdash; the interval either contains it or it does not",
+  "The method, not the result: about " . $clPct . "% of intervals built this way contain the true mean: the interval either contains it or it does not",
   "The particular interval has a " . $clPct . "% chance of containing the true mean",
   "The sample mean has a " . $clPct . "% chance of being the true mean"
 )
@@ -65,9 +65,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the interpretation sentence.</span> The template has four blanks: "We estimate with [CL]% confidence that the true population mean [context] is between [lower] and [upper] [units]." Fill in all four every time &mdash; a bare pair of numbers does not say what they measure, how sure anybody is, or what units they are in.</p>
-      <p><span class="term-label">Part (b) &mdash; what the level promises.</span> The confidence level describes the METHOD, not the result. If a hundred different researchers each drew their own sample and each built a ' . $clPct . '% confidence interval, about ' . $clPct . ' of those hundred intervals would contain the true mu and about ' . (100 - $clPct) . ' would miss it. You do not get to know which kind you have.</p>
-      <p><span class="term-label">Part (c) &mdash; the wrong reading.</span> "There is a ' . $clPct . '% chance the true mean is between the endpoints" is not quite right. Once you have collected your sample and calculated your interval, that interval either contains mu or it does not &mdash; there is no chance left in it. The interval moves, not the truth.</p>
+      <p><span class="term-label">Part (a): the interpretation sentence.</span> The template has four blanks: "We estimate with [CL]% confidence that the true population mean [context] is between [lower] and [upper] [units]." Fill in all four every time: a bare pair of numbers does not say what they measure, how sure anybody is, or what units they are in.</p>
+      <p><span class="term-label">Part (b): what the level promises.</span> The confidence level describes the METHOD, not the result. If a hundred different researchers each drew their own sample and each built a ' . $clPct . '% confidence interval, about ' . $clPct . ' of those hundred intervals would contain the true mu and about ' . (100 - $clPct) . ' would miss it. You do not get to know which kind you have.</p>
+      <p><span class="term-label">Part (c): the wrong reading.</span> "There is a ' . $clPct . '% chance the true mean is between the endpoints" is not quite right. Once you have collected your sample and calculated your interval, that interval either contains mu or it does not: there is no chance left in it. The interval moves, not the truth.</p>
     </div>
   </details>
 </div>'

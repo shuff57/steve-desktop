@@ -76,9 +76,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the at-most-two share.</span> The cumulative entry on the 2 row is ' . $c2d . '.</p>
-      <p><span class="term-label">Step 2 &mdash; take the complement.</span> &quot;More than two&quot; is everything outside that: 1 &minus; ' . $c2d . ' = <b>' . $vald . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; why the ungrouped table is the one.</span> The grouped table cannot give you the 0-2 material at all: 2 and 3 are locked together in one 2-3 row, so the count of 2 cannot be separated from the count of 3. The complement of the ungrouped cumulative is the only route.</p>
+      <p><span class="term-label">Step 1: read the at-most-two share.</span> The cumulative entry on the 2 row is ' . $c2d . '.</p>
+      <p><span class="term-label">Step 2: take the complement.</span> &quot;More than two&quot; is everything outside that: 1 &minus; ' . $c2d . ' = <b>' . $vald . '</b>.</p>
+      <p><span class="term-label">Step 3: why the ungrouped table is the one.</span> The grouped table cannot give you the 0-2 material at all: 2 and 3 are locked together in one 2-3 row, so the count of 2 cannot be separated from the count of 3. The complement of the ungrouped cumulative is the only route.</p>
     </div>
   </details>
 </div>'

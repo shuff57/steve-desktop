@@ -20,10 +20,10 @@ $answer = 0
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Two samples, two ranges, and no basis yet for choosing between them.</b></p>
   <p>Researcher A found most students play ' . $loA . ' to ' . $hiA . ' hours; Researcher B found ' . $loB . ' to ' . $hiB . '. Both surveyed ' . $n . ' students at random from the same population, and neither did anything wrong.</p>
-  <p>The difference is <b>sampling variability</b> &mdash; two draws of ' . $n . ' land on different mixes of heavy and light players. That is expected, and it is not evidence against either researcher.</p>
+  <p>The difference is <b>sampling variability</b>: two draws of ' . $n . ' land on different mixes of heavy and light players. That is expected, and it is not evidence against either researcher.</p>
   <p><b>What it does mean is that neither conclusion is established.</b> The honest reading is that the specific data support each researcher within their own sample, and the disagreement is a signal that more data are needed before anyone claims to know the answer for the whole population.</p>
   <p>Picking the one you prefer, or splitting the difference, both skip the actual finding: the study is not finished.</p>
-  <p><b>Answer:</b> neither is established &mdash; more data need to be collected.</p>
+  <p><b>Answer:</b> neither is established: more data need to be collected.</p>
 </div>'
 
 // === QUESTION TEXT ===

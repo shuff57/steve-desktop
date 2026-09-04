@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the Type I error.</span> Rejecting `H_0` when it is true: ' . $type1 . '</p>
-      <p><span class="term-label">Part (b) &mdash; the Type II error.</span> Failing to reject `H_0` when it is false: ' . $type2 . '</p>
-      <p>The errors are tied to the decisions &mdash; a Type I error can only happen on a run where you rejected, and stating the null first matters because swap `H_0` and `H_a` and you swap the errors along with them.</p>
+      <p><span class="term-label">Part (a): the Type I error.</span> Rejecting `H_0` when it is true: ' . $type1 . '</p>
+      <p><span class="term-label">Part (b): the Type II error.</span> Failing to reject `H_0` when it is false: ' . $type2 . '</p>
+      <p>The errors are tied to the decisions: a Type I error can only happen on a run where you rejected, and stating the null first matters because swap `H_0` and `H_a` and you swap the errors along with them.</p>
     </div>
   </details>
 </div>'

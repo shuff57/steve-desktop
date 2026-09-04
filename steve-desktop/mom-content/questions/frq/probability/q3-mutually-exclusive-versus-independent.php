@@ -1,9 +1,9 @@
 // === NAME - DESCRIPTION: Mutually Exclusive or Independent - Given three probabilities, run both tests, state both verdicts, and explain why they are different questions ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-// The FRQ for 3.2, written 2026-08-10 to match pre-frq-grade-an-independence-check exactly -- same
+// The FRQ for 3.2, written 2026-08-10 to match pre-frq-grade-an-independence-check exactly: same
 // three categories, same point split, same target sentences.
 //
 // The numbers are chosen so the joint IS the product: the events are NOT mutually exclusive and ARE
@@ -32,7 +32,7 @@ $aDec = $aPct / 100
 $bDec = $bPct / 100
 $jointDec = $jointPct / 100
 
-$r_mutex = "They are not mutually exclusive, because P(A and B) is " . $jointDec . " and that is not zero -- the two can happen together."
+$r_mutex = "They are not mutually exclusive, because P(A and B) is " . $jointDec . " and that is not zero: the two can happen together."
 $r_indep = "They are independent, because P(A) x P(B) = " . $aDec . " x " . $bDec . " = " . $jointDec . ", which equals the joint probability given."
 $r_distinguish = "These are two different questions settled by two different comparisons: one against zero, the other against the product of the two probabilities. Answering one leaves the other open."
 
@@ -58,7 +58,7 @@ $rubric = $css . '
 <div class="frq3">
 <div class="rubric-container">
   <details open>
-    <summary>Grading Checklist &mdash; 10 points</summary>
+    <summary>Grading Checklist: 10 points</summary>
     <div class="rubric-content">
       <table class="rubric-table">
         <tbody>
@@ -101,11 +101,11 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">A full-credit answer.</span></p>
       <span class="ideal">' . $model . '</span>
-      <p><span class="term-label">Why these numbers.</span> `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, exactly the joint. So the honest answers are NOT mutually exclusive and IS independent &mdash; opposite directions. A student who thinks the two tests are the same question will give the same verdict twice and lose both the second and third categories.</p>
+      <p><span class="term-label">Why these numbers.</span> `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, exactly the joint. So the honest answers are NOT mutually exclusive and IS independent: opposite directions. A student who thinks the two tests are the same question will give the same verdict twice and lose both the second and third categories.</p>
       <p><span class="term-label">Test for Mutual Exclusivity (3).</span> Needs the comparison against zero, not just the word. "They overlap" with no reference to P(A and B) earns 1.</p>
       <p><span class="term-label">Test for Independence (4).</span> Needs the product computed and compared. A verdict with no arithmetic earns 1. Accept P(A given B) = P(A) as an equivalent route, fully credited.</p>
       <p><span class="term-label">Distinguish the Two (3).</span> Award only for a statement about the two TESTS, not a restatement of the two verdicts. This is the category most often missing, and it is the one the section is about.</p>
-      <p><span class="term-label">Common wrong answer worth recognising.</span> "They are not mutually exclusive, so they must be dependent." That sentence is the exact confusion this question is built to expose &mdash; it earns the first category and nothing after it.</p>
+      <p><span class="term-label">Common wrong answer worth recognising.</span> "They are not mutually exclusive, so they must be dependent." That sentence is the exact confusion this question is built to expose: it earns the first category and nothing after it.</p>
     </div>
   </details>
 </div>'

@@ -8,19 +8,19 @@ $sampR = round($pop / 5 / 50, 0) * 50
 $pct = round($sampR / $pop * 100, 1)
 
 $questions = array(
-  "No &mdash; even though the sample is large enough, a sample of volunteers is self-selected, which is not reliable.",
-  "Yes &mdash; " . $sampR . " out of " . $pop . " is a large enough fraction to be reliable.",
-  "Yes &mdash; volunteers are more motivated, so their answers are more accurate.",
-  "No &mdash; " . $sampR . " is too small a sample for a population of " . $pop . "."
+  "No: even though the sample is large enough, a sample of volunteers is self-selected, which is not reliable.",
+  "Yes: " . $sampR . " out of " . $pop . " is a large enough fraction to be reliable.",
+  "Yes: volunteers are more motivated, so their answers are more accurate.",
+  "No: " . $sampR . " is too small a sample for a population of " . $pop . "."
 )
 $answer = 0
 
 $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>The size is fine. The selection is not.</b> ' . $sampR . ' out of ' . $pop . ' is about ' . $pct . '% &mdash; ample.</p>
-  <p>The problem is the word <b>volunteers</b>. People who step forward differ systematically from people who do not: they care more, have more time, or hold a stronger opinion. That is a <b>self-selected sample</b>, and no amount of extra volunteers fixes it &mdash; recruiting twice as many produces twice as many of the same kind of person.</p>
+  <p><b>The size is fine. The selection is not.</b> ' . $sampR . ' out of ' . $pop . ' is about ' . $pct . '%: ample.</p>
+  <p>The problem is the word <b>volunteers</b>. People who step forward differ systematically from people who do not: they care more, have more time, or hold a stronger opinion. That is a <b>self-selected sample</b>, and no amount of extra volunteers fixes it: recruiting twice as many produces twice as many of the same kind of person.</p>
   <p>Contrast this with the previous problem, where the sample was drawn <i>randomly</i>. Same sort of fraction, opposite verdict, and the only thing that changed was how members got in.</p>
-  <p><b>Answer:</b> no &mdash; a sample of ' . $sampR . ' volunteers is not a reliable measure, because it is self-selected.</p>
+  <p><b>Answer:</b> no: a sample of ' . $sampR . ' volunteers is not a reliable measure, because it is self-selected.</p>
 </div>'
 
 // === QUESTION TEXT ===

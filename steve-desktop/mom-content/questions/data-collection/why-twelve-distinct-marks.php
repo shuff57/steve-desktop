@@ -48,9 +48,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; walk the list.</span> Start at ' . $s . ' and add ' . $step . ' each time, wrapping past ' . $N . ' back to the top: 7, 11, 15, 19, 23, 3, and the next step lands on 7 again.</p>
-      <p><span class="term-label">Step 2 &mdash; count the distinct names.</span> Before the first repeat you have marked only 6 different people, not 12.</p>
-      <p><span class="term-label">Step 3 &mdash; why.</span> ' . $N . ' and ' . $step . ' share the common factor ' . $step . ', so stepping by ' . $step . ' visits only ' . $N . '/' . $step . ' = 6 names before cycling. That is the exact trap the lab warns about: when the list size and the step share a common factor, the same people get sampled over and over, and you do not have 12 independent picks.</p>
+      <p><span class="term-label">Step 1: walk the list.</span> Start at ' . $s . ' and add ' . $step . ' each time, wrapping past ' . $N . ' back to the top: 7, 11, 15, 19, 23, 3, and the next step lands on 7 again.</p>
+      <p><span class="term-label">Step 2: count the distinct names.</span> Before the first repeat you have marked only 6 different people, not 12.</p>
+      <p><span class="term-label">Step 3: why.</span> ' . $N . ' and ' . $step . ' share the common factor ' . $step . ', so stepping by ' . $step . ' visits only ' . $N . '/' . $step . ' = 6 names before cycling. That is the exact trap the lab warns about: when the list size and the step share a common factor, the same people get sampled over and over, and you do not have 12 independent picks.</p>
     </div>
   </details>
 </div>'

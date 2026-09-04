@@ -12,13 +12,13 @@ $anstypes = array("choices", "choices")
 $cases = array(
   array("A test with `H_a: mu < 9`.",
         "Left-tailed",
-        "The `<` in `H_a` puts the whole p-value in the left tail &mdash; the symbol in the alternative is what names the test."),
+        "The `<` in `H_a` puts the whole p-value in the left tail: the symbol in the alternative is what names the test."),
   array("A test with `H_a: mu > 6`.",
         "Right-tailed",
-        "The `>` in `H_a` puts the whole p-value in the right tail &mdash; the symbol in the alternative is what names the test."),
+        "The `>` in `H_a` puts the whole p-value in the right tail: the symbol in the alternative is what names the test."),
   array("A test with `H_a: p != 0.25`.",
         "Two-tailed",
-        "The `!=` in `H_a` picks no direction, so the p-value is split evenly between both tails &mdash; the symbol in the alternative is what names the test.")
+        "The `!=` in `H_a` picks no direction, so the p-value is split evenly between both tails: the symbol in the alternative is what names the test.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -60,8 +60,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the tail.</span> ' . $tail . '</p>
-      <p><span class="term-label">Part (b) &mdash; the reasoning.</span> ' . $reason . ' The `<=`/`>=` in `H_0` is not what decides the tail &mdash; the alternative is.</p>
+      <p><span class="term-label">Part (a): the tail.</span> ' . $tail . '</p>
+      <p><span class="term-label">Part (b): the reasoning.</span> ' . $reason . ' The `<=`/`>=` in `H_0` is not what decides the tail: the alternative is.</p>
     </div>
   </details>
 </div>'

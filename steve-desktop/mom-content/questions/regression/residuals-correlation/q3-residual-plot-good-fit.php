@@ -10,12 +10,12 @@ if ($scenario == 0) {
   // Good fit: random scatter
   $plot_desc = "The residual plot shows points scattered randomly above and below the horizontal line at zero, with no clear pattern. About half the residuals are positive and half are negative."
   $answer = 0
-  $correct_explain = "The residuals show <b>random scatter</b> with no pattern. This is exactly what we want to see — it indicates the linear model is a good fit for the data."
+  $correct_explain = "The residuals show <b>random scatter</b> with no pattern. This is exactly what we want to see: it indicates the linear model is a good fit for the data."
 } elseif ($scenario == 1) {
   // Bad fit: U-shaped curve
   $plot_desc = "The residual plot shows a clear curved (U-shaped) pattern: residuals are positive on the left, negative in the middle, and positive again on the right."
   $answer = 1
-  $correct_explain = "The <b>U-shaped pattern</b> in the residuals indicates the relationship between the variables is <b>nonlinear</b>. A straight line is not the best model — the data follows a curve."
+  $correct_explain = "The <b>U-shaped pattern</b> in the residuals indicates the relationship between the variables is <b>nonlinear</b>. A straight line is not the best model: the data follows a curve."
 } else {
   // Bad fit: fan shape (increasing spread)
   $plot_desc = "The residual plot shows residuals that are tightly clustered near zero on the left side but spread out more and more as you move to the right, forming a fan or cone shape."
@@ -24,9 +24,9 @@ if ($scenario == 0) {
 }
 
 $questions = array(
-  "Yes — the residuals show random scatter with no pattern, so the linear model is appropriate.",
-  "No — the residuals show a curved pattern, suggesting the relationship is nonlinear.",
-  "No — the residuals show a fan shape (increasing spread), suggesting non-constant variability."
+  "Yes: the residuals show random scatter with no pattern, so the linear model is appropriate.",
+  "No: the residuals show a curved pattern, suggesting the relationship is nonlinear.",
+  "No: the residuals show a fan shape (increasing spread), suggesting non-constant variability."
 )
 
 $solutionguide = '

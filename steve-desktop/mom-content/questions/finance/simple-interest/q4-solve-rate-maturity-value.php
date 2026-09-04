@@ -127,13 +127,13 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-  <p><b>Part A &mdash; Solving for the Interest Rate</b></p>
+  <p><b>Part A: Solving for the Interest Rate</b></p>
   <p>A loan of <b>$$P</b> accumulates to <b>$$A</b> after <b>$t</b> year(s) at simple interest. What is the annual interest rate? Give your answer as a percent rounded to 4 decimal places.</p>
   <p>$answerbox[0] %</p>
 
   <hr>
 
-  <p><b>Part B &mdash; Finding the Maturity Value (Banker&#39;s Discount)</b></p>
+  <p><b>Part B: Finding the Maturity Value (Banker&#39;s Discount)</b></p>
   <p>A borrower needs <b>$$proceeds</b> in proceeds today. A bank offers a simple discount note with an annual discount rate of <b>$d_pct%</b> for <b>$days</b> days (360-day year). What must the maturity value <b>M</b> of the note be?</p>
   <p>$answerbox[1]</p>
 

@@ -5,7 +5,7 @@
 
 // The target here is one specific, very common error: averaging two averages. It only shows up when
 // the two groups differ in SIZE, so the sizes are drawn far apart on purpose and the question makes
-// the student produce BOTH numbers -- the correct combined mean and the naive average of the means --
+// the student produce BOTH numbers, the correct combined mean and the naive average of the means,
 // so the gap is something they compute rather than something they are told about.
 //
 // Group totals are forced to come out whole: each mean is an integer and each size is an integer, so
@@ -28,7 +28,7 @@ else {
   $thing = "parcels"
 }
 
-// Sizes deliberately far apart -- with n0 at least three times n1 the combined mean is pulled
+// Sizes deliberately far apart: with n0 at least three times n1 the combined mean is pulled
 // clearly toward the larger group and can never round to the naive average.
 $n0 = 10 * rand(12, 20)
 $n1 = 10 * rand(2, 4)
@@ -79,14 +79,14 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; a mean hides a total.</span> A mean is the total divided by the count, so the total is the mean times the count. That is the move the whole question rests on: you cannot combine averages directly, but you can always combine totals.</p>
+      <p><span class="term-label">Step 1: a mean hides a total.</span> A mean is the total divided by the count, so the total is the mean times the count. That is the move the whole question rests on: you cannot combine averages directly, but you can always combine totals.</p>
       <p>' . $g0 . ': `' . $n0 . ' xx ' . $m0 . ' = ' . $t0 . '` ' . $unitWord . ' in all.<br>
          ' . $g1 . ': `' . $n1 . ' xx ' . $m1 . ' = ' . $t1 . '` ' . $unitWord . ' in all.</p>
-      <p><span class="term-label">Step 2 &mdash; combine, then divide once.</span> Together there are `' . $t0 . ' + ' . $t1 . ' = ' . $tAll . '` ' . $unitWord . ' spread over `' . $n0 . ' + ' . $n1 . ' = ' . $nAll . '` ' . $thing . ':</p>
+      <p><span class="term-label">Step 2: combine, then divide once.</span> Together there are `' . $t0 . ' + ' . $t1 . ' = ' . $tAll . '` ' . $unitWord . ' spread over `' . $n0 . ' + ' . $n1 . ' = ' . $nAll . '` ' . $thing . ':</p>
       <p style="text-align:center;">`bar x = ' . $tAll . ' -: ' . $nAll . ' = ` <b>' . $combined . '</b> ' . $unitWord . '</p>
-      <p><span class="term-label">Step 3 &mdash; the shortcut that fails.</span> Averaging the two means gives `(' . $m0 . ' + ' . $m1 . ')/2 = ' . $naive . '`, which is off by ' . $gap . '. It treats ' . $g1 . ' &#40;' . $n1 . ' ' . $thing . '&#41; as though it carried the same weight as ' . $g0 . ' &#40;' . $n0 . ' ' . $thing . '&#41;.</p>
+      <p><span class="term-label">Step 3: the shortcut that fails.</span> Averaging the two means gives `(' . $m0 . ' + ' . $m1 . ')/2 = ' . $naive . '`, which is off by ' . $gap . '. It treats ' . $g1 . ' &#40;' . $n1 . ' ' . $thing . '&#41; as though it carried the same weight as ' . $g0 . ' &#40;' . $n0 . ' ' . $thing . '&#41;.</p>
       <p><span class="term-label">Where the answer has to land.</span> The combined mean always sits between the two group means, and closer to the one with more ' . $thing . '. Here ' . $g0 . ' is much bigger, so the answer sits near ' . $m0 . ' rather than halfway. If your answer is outside the two means, a total was mis-formed.</p>
-      <p><span class="term-label">When the shortcut happens to work.</span> Only when the two groups are the same size. That is a special case, not the rule &mdash; and it is why the sizes are the first thing to look at.</p>
+      <p><span class="term-label">When the shortcut happens to work.</span> Only when the two groups are the same size. That is a special case, not the rule: and it is why the sizes are the first thing to look at.</p>
     </div>
   </details>
 </div>'

@@ -26,7 +26,7 @@ else {
 }
 
 // Four candidate medians, all multiples of ten. Taking three CONSECUTIVE entries (mod 4) from a
-// rotated start always yields three distinct values, so the three groups' medians can never tie --
+// rotated start always yields three distinct values, so the three groups' medians can never tie:
 // guaranteed by construction, not by luck.
 $medCandidates = array(40, 60, 80, 100)
 $rot = rand(0, 3)
@@ -36,7 +36,7 @@ $med2 = $medCandidates[($rot + 2) % 4]
 
 // Each group's box and whiskers are built from its own median outward in steps of 10 or 20, so
 // every one of the fifteen numbers stays a multiple of ten. With medians in 40..100 and each step
-// capped at 20, the smallest possible value is 40-20-20=0 and the largest is 100+20+20=140 -- both
+// capped at 20, the smallest possible value is 40-20-20=0 and the largest is 100+20+20=140: both
 // exactly inside the fixed 0..140 axis, so the axis never needs to be recomputed per draw.
 $qL0 = 10 * (1 + rand(0, 1))
 $qR0 = 10 * (1 + rand(0, 1))
@@ -175,7 +175,7 @@ $reltolerance[1] = 0.01
 $abstolerance[1] = 0.5
 
 $questions[2] = array(
-  "Which group tends to have higher values overall &mdash; a median alone says nothing about how spread out each group's data is.",
+  "Which group tends to have higher values overall: a median alone says nothing about how spread out each group's data is.",
   "Which group has the most data values, since a wider box always means more data.",
   "Which group is more spread out.",
   "That the group with the higher median must also have the smaller `\"IQR\"`."
@@ -201,9 +201,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The three five-number summaries.</span> ' . $nameA . ': min ' . $min0 . ', `Q_1` ' . $q1_0 . ', median ' . $med0 . ', `Q_3` ' . $q3_0 . ', max ' . $max0 . '. ' . $nameB . ': min ' . $min1 . ', `Q_1` ' . $q1_1 . ', median ' . $med1 . ', `Q_3` ' . $q3_1 . ', max ' . $max1 . '. ' . $nameC . ': min ' . $min2 . ', `Q_1` ' . $q1_2 . ', median ' . $med2 . ', `Q_3` ' . $q3_2 . ', max ' . $max2 . '.</p>
-      <p><span class="term-label">Part (a) &mdash; the largest median.</span> The median is the heavy line inside each box. Comparing the three &mdash; ' . $med0 . ', ' . $med1 . ' and ' . $med2 . ' &mdash; the largest belongs to <b>' . $maxMedName . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; interquartile range.</span> For ' . $askName . ', `"IQR" = Q_3 - Q_1 = ' . $askQ3 . ' - ' . $askQ1 . ' = ` <b>' . $askIQR . '</b> ' . $unitWord . ', the width of that group\'s box.</p>
-      <p><span class="term-label">Part (c) &mdash; what the medians alone tell you.</span> A median ranks the CENTER of a group against the others. It says nothing about how wide or narrow that group\'s box or whiskers are &mdash; two groups can share a median and still have very different spreads, and the group with the higher median is not guaranteed to have the smaller (or larger) `"IQR"`. Box width tracks spread, not how many values were sampled.</p>
+      <p><span class="term-label">Part (a): the largest median.</span> The median is the heavy line inside each box. Comparing the three: ' . $med0 . ', ' . $med1 . ' and ' . $med2 . ': the largest belongs to <b>' . $maxMedName . '</b>.</p>
+      <p><span class="term-label">Part (b): interquartile range.</span> For ' . $askName . ', `"IQR" = Q_3 - Q_1 = ' . $askQ3 . ' - ' . $askQ1 . ' = ` <b>' . $askIQR . '</b> ' . $unitWord . ', the width of that group\'s box.</p>
+      <p><span class="term-label">Part (c): what the medians alone tell you.</span> A median ranks the CENTER of a group against the others. It says nothing about how wide or narrow that group\'s box or whiskers are: two groups can share a median and still have very different spreads, and the group with the higher median is not guaranteed to have the smaller (or larger) `"IQR"`. Box width tracks spread, not how many values were sampled.</p>
       <p><b>Answer:</b> (a) ' . $maxMedName . ' &nbsp;&nbsp; (b) ' . $askIQR . ' &nbsp;&nbsp; (c) comparing medians only</p>
     </div>
   </details>

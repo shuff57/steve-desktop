@@ -32,17 +32,17 @@ $ebm = $t * $s / sqrt($n)
 $ebm4 = $t * $s / sqrt(4 * $n)
 
 $questions[0] = array(
-  "It increases &mdash; raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails",
-  "It decreases &mdash; raising the confidence level means the interval can be tighter",
-  "It stays the same &mdash; the confidence level does not affect the error bound"
+  "It increases: raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails",
+  "It decreases: raising the confidence level means the interval can be tighter",
+  "It stays the same: the confidence level does not affect the error bound"
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "It decreases &mdash; the standard error s/sqrt(n) shrinks as n grows",
-  "It increases &mdash; more data means more variability",
-  "It stays the same &mdash; the sample size does not affect the error bound"
+  "It decreases: the standard error s/sqrt(n) shrinks as n grows",
+  "It increases: more data means more variability",
+  "It stays the same: the sample size does not affect the error bound"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -68,12 +68,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The standard error is the part that does not change.</span> The error bound is `EBM = t_(alpha/2) * s/sqrt(n)`. The standard error `s/sqrt(n)` depends only on the data &mdash; not on the confidence level. Everything the confidence level touches is packed into the single multiplier `t_(alpha/2)`.</p>
-      <p><span class="term-label">Part (a) &mdash; the confidence level.</span> Raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails and makes `t_(alpha/2)` larger. The EBM increases and the interval widens.</p>
-      <p><span class="term-label">Part (b) &mdash; the sample size.</span> The n sits under a square root in the denominator, so more data shrinks the standard error and narrows the interval.</p>
-      <p><span class="term-label">Part (c) &mdash; the EBM at 4n.</span> The original EBM is `' . round($ebm, 4) . '`. Quadrupling the sample size multiplies the denominator by `sqrt(4) = 2`, so the new EBM is half of it:</p>
+      <p><span class="term-label">The standard error is the part that does not change.</span> The error bound is `EBM = t_(alpha/2) * s/sqrt(n)`. The standard error `s/sqrt(n)` depends only on the data: not on the confidence level. Everything the confidence level touches is packed into the single multiplier `t_(alpha/2)`.</p>
+      <p><span class="term-label">Part (a): the confidence level.</span> Raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails and makes `t_(alpha/2)` larger. The EBM increases and the interval widens.</p>
+      <p><span class="term-label">Part (b): the sample size.</span> The n sits under a square root in the denominator, so more data shrinks the standard error and narrows the interval.</p>
+      <p><span class="term-label">Part (c): the EBM at 4n.</span> The original EBM is `' . round($ebm, 4) . '`. Quadrupling the sample size multiplies the denominator by `sqrt(4) = 2`, so the new EBM is half of it:</p>
       <p>`EBM_4n = t * s/sqrt(4n) = ' . round($ebm4, 4) . '`</p>
-      <p>Certainty and precision pull against each other &mdash; the same trade the z-interval section described, with the t-multiplier standing in for the z-multiplier.</p>
+      <p>Certainty and precision pull against each other: the same trade the z-interval section described, with the t-multiplier standing in for the z-multiplier.</p>
     </div>
   </details>
 </div>'

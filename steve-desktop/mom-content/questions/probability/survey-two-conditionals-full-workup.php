@@ -9,8 +9,8 @@ $ci = rand(0, 3)
 
 // The source exercise attaches its figures to a real, named 2015 survey. Randomizing those
 // numbers would invent statistics about a real event, so the context is generic here while
-// the probability structure — two unconditional rates and two conditionals, one of them
-// conditioned on an age band — is kept exactly as the original.
+// the probability structure: two unconditional rates and two conditionals, one of them
+// conditioned on an age band: is kept exactly as the original.
 $measures = array(
   "a proposed transit funding measure",
   "a proposed park and open-space bond",
@@ -108,18 +108,18 @@ $solutionguide = '
   </ul>
   <p><b>a.</b> `P(C) = ' . $pc . '`</p>
   <p><b>b.</b> `P(B) = ' . $pb . '`</p>
-  <p><b>c.</b> `P(C|A) = ' . $ca . '` &mdash; the ' . $caPct . '% figure is already restricted to the ' . $ageLow . '-to-' . $ageHigh . ' group, so it is a conditional, not a plain probability.</p>
-  <p><b>d.</b> `P(B|C) = ' . $bcond . '` &mdash; "of those voters who support the measure" is the phrase that puts `C` on the right of the bar.</p>
+  <p><b>c.</b> `P(C|A) = ' . $ca . '`: the ' . $caPct . '% figure is already restricted to the ' . $ageLow . '-to-' . $ageHigh . ' group, so it is a conditional, not a plain probability.</p>
+  <p><b>d.</b> `P(B|C) = ' . $bcond . '`: "of those voters who support the measure" is the phrase that puts `C` on the right of the bar.</p>
   <p><b>e.</b> `C|A` in words: the event that a registered voter supports ' . $measure . ', <b>given</b> that the voter is ' . $ageLow . ' to ' . $ageHigh . ' years old.</p>
   <p><b>f.</b> `B|C` in words: the event that a voter says ' . $ruling . ' is important to them, <b>given</b> that the voter supports ' . $measure . '.</p>
-  <p><b>g &mdash; multiplication rule, with the conditional from part d.</b></p>
+  <p><b>g: multiplication rule, with the conditional from part d.</b></p>
   <p style="margin-left:1em;"><b>`P(C and B) = P(C)P(B|C) = (' . $pc . ')(' . $bcond . ') = ' . $pand . '`</b></p>
-  <p style="margin-left:1em;">Pair the conditional with the rate it is conditioned on. `P(B|C)` lives inside the group who support the measure, so it multiplies `P(C)` &mdash; not `P(B)`.</p>
+  <p style="margin-left:1em;">Pair the conditional with the rate it is conditioned on. `P(B|C)` lives inside the group who support the measure, so it multiplies `P(C)`: not `P(B)`.</p>
   <p><b>h.</b> `C and B` in words: the event that a voter <i>both</i> supports ' . $measure . ' and says ' . $ruling . ' is important to them.</p>
-  <p><b>i &mdash; addition rule, subtracting the overlap from part g.</b></p>
+  <p><b>i: addition rule, subtracting the overlap from part g.</b></p>
   <p style="margin-left:1em;"><b>`P(C or B) = P(C) + P(B) - P(C and B) = ' . $pc . ' + ' . $pb . ' - ' . $pand . ' = ' . $por . '`</b></p>
   <p style="margin-left:1em;">Adding the two rates alone gives ' . $naiveSum . ', which double-counts every voter who does both.</p>
-  <p><b>j &mdash; check whether the AND is zero.</b> `P(C and B) = ' . $pand . '`, which is not 0, so `C` and `B` are <b>not mutually exclusive</b>. A voter can easily do both &mdash; support the measure and consider the decision important.</p>
+  <p><b>j: check whether the AND is zero.</b> `P(C and B) = ' . $pand . '`, which is not 0, so `C` and `B` are <b>not mutually exclusive</b>. A voter can easily do both: support the measure and consider the decision important.</p>
   <p><b>Answer:</b> a. ' . $pc . '; b. ' . $pb . '; c. ' . $ca . '; d. ' . $bcond . '; e. supports the measure given the voter is ' . $ageLow . '&ndash;' . $ageHigh . '; f. says the decision is important given the voter supports the measure; g. ' . $pand . '; h. supports the measure and says the decision is important; i. ' . $por . '; j. no, since `P(C and B) = ' . $pand . '` is not 0.</p>
 </div>'
 

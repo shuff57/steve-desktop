@@ -51,7 +51,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Addition rule, subtracting the overlap you already computed.</b></p>
   <p style="margin-left:1em;"><b>`P(' . $evA . ' or ' . $evB . ') = P(' . $evA . ') + P(' . $evB . ') - P(' . $evA . ' and ' . $evB . ') = ' . $pa . ' + ' . $pb . ' - ' . $pand . ' = ' . $por . '`</b></p>
-  <p>Adding ' . $pa . ' and ' . $pb . ' alone would give ' . $naiveSum . '. Every customer who does <i>both</i> was counted twice in that sum &mdash; once among the ' . $itemA . ' buyers and again among the ' . $itemB . ' buyers. Subtracting `P(' . $evA . ' and ' . $evB . ')` removes the second copy, leaving each customer counted exactly once.</p>
+  <p>Adding ' . $pa . ' and ' . $pb . ' alone would give ' . $naiveSum . '. Every customer who does <i>both</i> was counted twice in that sum: once among the ' . $itemA . ' buyers and again among the ' . $itemB . ' buyers. Subtracting `P(' . $evA . ' and ' . $evB . ')` removes the second copy, leaving each customer counted exactly once.</p>
   <p><b>Check:</b> a union can never be smaller than either event on its own, and never above 1. Here ' . $por . ' sits above both ' . $pa . ' and ' . $pb . ', and below 1, as it must.</p>
   <p><b>Answer:</b> `P(' . $evA . ' or ' . $evB . ') = ' . $por . '`.</p>
 </div>'

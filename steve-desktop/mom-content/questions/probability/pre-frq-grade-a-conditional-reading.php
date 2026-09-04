@@ -59,7 +59,7 @@ $pDec = $r1c1 / 100
 // One sentence per rubric category. None restates another.
 $sCounts = 'The two numbers the calculation needs are ' . $r1c1 . ' and ' . $rowTotal . '.'
 $sCompute = 'Dividing gives ' . $r1c1 . ' / ' . $rowTotal . ' = ' . $pDec . '.'
-$sDirection = 'That result is P(' . $bS . ' given ' . $aS . '), not P(' . $aS . ' given ' . $bS . ') &mdash; swapping the two puts a different total underneath and produces a different number.'
+$sDirection = 'That result is P(' . $bS . ' given ' . $aS . '), not P(' . $aS . ' given ' . $bS . '): swapping the two puts a different total underneath and produces a different number.'
 
 $rFull = $sCounts . ' ' . $sCompute . ' ' . $sDirection
 $rNoDirection = $sCounts . ' ' . $sCompute
@@ -187,15 +187,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> takes the right two numbers, divides them, and says which conditional the answer is. Each of the other three drops a whole category.</p>
-      <p><span class="term-label">The arithmetic, and the trap next to it.</span> `' . $r1c1 . ' -: ' . $rowTotal . ' = ' . $pDec . '`. The tempting wrong denominator is the column total ' . $c1 . ', or the grand total ' . $grand . ' &mdash; both give a number, neither answers the question asked.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noDirectionLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> takes the right two numbers, divides them, and says which conditional the answer is. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">The arithmetic, and the trap next to it.</span> `' . $r1c1 . ' -: ' . $rowTotal . ' = ' . $pDec . '`. The tempting wrong denominator is the column total ' . $c1 . ', or the grand total ' . $grand . ': both give a number, neither answers the question asked.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noDirectionLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Read the Right Counts &mdash; earned.</b> It uses ' . $r1c1 . ' and ' . $rowTotal . '.</li>
-        <li><b>Compute the Conditional &mdash; earned.</b> The division and the value are right.</li>
-        <li><b>State the Direction &mdash; NOT earned.</b> It never says whether this is P(' . $bS . ' given ' . $aS . ') or the reverse. This is the only category it misses.</li>
+        <li><b>Read the Right Counts: earned.</b> It uses ' . $r1c1 . ' and ' . $rowTotal . '.</li>
+        <li><b>Compute the Conditional: earned.</b> The division and the value are right.</li>
+        <li><b>State the Direction: NOT earned.</b> It never says whether this is P(' . $bS . ' given ' . $aS . ') or the reverse. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the direction is its own category.</span> The same table answers both questions and they are different numbers. A correct division with no direction attached is a number in search of a sentence &mdash; and the sentence a reader supplies is usually the reverse of the one intended, because the reverse is the more interesting claim.</p>
+      <p><span class="term-label">Part (c): why the direction is its own category.</span> The same table answers both questions and they are different numbers. A correct division with no direction attached is a number in search of a sentence: and the sentence a reader supplies is usually the reverse of the one intended, because the reverse is the more interesting claim.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The direction is the category most often missing, because once the division is done the number feels like the answer.</p>
     </div>
   </details>

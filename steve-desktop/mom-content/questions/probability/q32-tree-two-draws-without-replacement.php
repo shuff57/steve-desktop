@@ -8,7 +8,7 @@
 // Part (a) asks for one of those second-stage numbers before any multiplying happens, so a student
 // who assumes the draws are identical is caught immediately.
 //
-// Drawn as inline SVG -- MyOpenMath has no tree primitive.
+// Drawn as inline SVG: MyOpenMath has no tree primitive.
 $anstypes = array("numfunc", "numfunc", "numfunc", "numfunc")
 
 $i = rand(0, 2)
@@ -33,7 +33,7 @@ $total = 10
 $b = $total - $r
 $rem = $total - 1
 
-// Second-stage numerators depend on the first draw -- this is the whole lesson.
+// Second-stage numerators depend on the first draw: this is the whole lesson.
 $rGivenR = $r - 1
 $rGivenB = $r
 
@@ -89,9 +89,9 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">(a) The missing branch is the whole idea.</span> One ' . $c1 . ' has already been taken and not put back, so ' . $rGivenR . ' remain out of ' . $rem . ': `' . $rGivenR . '/' . $rem . '`. Look at the branch below it &mdash; from the ' . $c2 . ' side, ' . $c1 . ' is still `' . $rGivenB . '/' . $rem . '`. Same colour, different probability, because the first draw changed what is left.</p>
+      <p><span class="term-label">(a) The missing branch is the whole idea.</span> One ' . $c1 . ' has already been taken and not put back, so ' . $rGivenR . ' remain out of ' . $rem . ': `' . $rGivenR . '/' . $rem . '`. Look at the branch below it: from the ' . $c2 . ' side, ' . $c1 . ' is still `' . $rGivenB . '/' . $rem . '`. Same colour, different probability, because the first draw changed what is left.</p>
       <p><span class="term-label">(b) Multiply ALONG a path.</span> `' . $r . '/' . $total . ' xx ' . $rGivenR . '/' . $rem . ' = ' . $pRR . '`.</p>
-      <p><span class="term-label">(c) Add ACROSS paths.</span> Exactly one ' . $c1 . ' happens two ways &mdash; ' . $c1 . ' then ' . $c2 . ', or ' . $c2 . ' then ' . $c1 . ': `' . $r . '/' . $total . ' xx ' . $b . '/' . $rem . '` plus `' . $b . '/' . $total . ' xx ' . $rGivenB . '/' . $rem . '` = ' . $pExactlyOne . '. Two different paths, the same outcome described in words.</p>
+      <p><span class="term-label">(c) Add ACROSS paths.</span> Exactly one ' . $c1 . ' happens two ways: ' . $c1 . ' then ' . $c2 . ', or ' . $c2 . ' then ' . $c1 . ': `' . $r . '/' . $total . ' xx ' . $b . '/' . $rem . '` plus `' . $b . '/' . $total . ' xx ' . $rGivenB . '/' . $rem . '` = ' . $pExactlyOne . '. Two different paths, the same outcome described in words.</p>
       <p><span class="term-label">(d) At least one is easier backwards.</span> The only way to get NO ' . $c1 . ' is the bottom path: `' . $b . '/' . $total . ' xx ' . ($b - 1) . '/' . $rem . ' = ' . $pBB . '`. So at least one is `1 - ' . $pBB . ' = ' . $pAtLeastOne . '`. Adding the other three paths gives the same number and takes three times as long.</p>
       <p><span class="term-label">The check the tree gives you.</span> All four leaf probabilities must sum to 1. If yours do not, a second-stage branch still has the first-stage denominator on it.</p>
     </div>
@@ -102,7 +102,7 @@ $sol = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 4px 0;">$context holds <b>$r $c1</b> and <b>$b $c2</b> $item. Two are drawn at random <b>without replacement</b> &mdash; the first is not put back before the second is taken.</p>
+    <p style="margin:0 0 4px 0;">$context holds <b>$r $c1</b> and <b>$b $c2</b> $item. Two are drawn at random <b>without replacement</b>: the first is not put back before the second is taken.</p>
     $svg
     <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">The branch marked <b style="color:#b91c1c;">(a)</b> is missing. Enter answers as fractions or decimals rounded to 4 places.</p>
   </div>

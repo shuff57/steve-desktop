@@ -3,7 +3,7 @@
 
 // === COMMON CONTROL ===
 
-// 2.4 had nine box-plot questions and not one asked the student to PRODUCE a box plot -- every one
+// 2.4 had nine box-plot questions and not one asked the student to PRODUCE a box plot: every one
 // handed them a finished plot to read. This is the build-it version: the five numbers ARE the box
 // plot, so entering them is constructing it. MyOpenMath's draw type has no box-plot format, so
 // fill-in is the only route.
@@ -92,11 +92,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; sort the list.</span> Nothing can be found until the values are in order. Sorted, they are:</p>
+      <p><span class="term-label">Step 1: sort the list.</span> Nothing can be found until the values are in order. Sorted, they are:</p>
       <span class="srt">' . $v[0] . ', ' . $v[1] . ', ' . $v[2] . ', ' . $v[3] . ', ' . $v[4] . ', <b>' . $v[5] . '</b>, ' . $v[6] . ', ' . $v[7] . ', ' . $v[8] . ', ' . $v[9] . ', ' . $v[10] . '</span>
-      <p><span class="term-label">Step 2 &mdash; the median.</span> With 11 values the median is the 6th one, because five sit below it and five above: <b>' . $med . '</b> ' . $unit . '.</p>
-      <p><span class="term-label">Step 3 &mdash; the quartiles.</span> Q1 is the median of the five values BELOW the median, which is the 3rd value, <b>' . $q1 . '</b>. Q3 is the median of the five values above it, the 9th value, <b>' . $q3 . '</b>. The median itself is not counted into either half.</p>
-      <p><span class="term-label">Step 4 &mdash; the ends and the spread.</span> The minimum is <b>' . $minV . '</b> and the maximum is <b>' . $maxV . '</b>. The interquartile range is `Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b>.</p>
+      <p><span class="term-label">Step 2: the median.</span> With 11 values the median is the 6th one, because five sit below it and five above: <b>' . $med . '</b> ' . $unit . '.</p>
+      <p><span class="term-label">Step 3: the quartiles.</span> Q1 is the median of the five values BELOW the median, which is the 3rd value, <b>' . $q1 . '</b>. Q3 is the median of the five values above it, the 9th value, <b>' . $q3 . '</b>. The median itself is not counted into either half.</p>
+      <p><span class="term-label">Step 4: the ends and the spread.</span> The minimum is <b>' . $minV . '</b> and the maximum is <b>' . $maxV . '</b>. The interquartile range is `Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b>.</p>
       <p><span class="term-label">What you have just built.</span> Those five numbers ARE the box plot: the box runs from ' . $q1 . ' to ' . $q3 . ' with a line at ' . $med . ', and the whiskers reach out to ' . $minV . ' and ' . $maxV . '. Nothing else is needed to draw it.</p>
       <p><span class="term-label">The usual slip.</span> Reading the quartiles off the unsorted list, or including the median in both halves when finding Q1 and Q3. Both give a box that is the wrong width.</p>
     </div>

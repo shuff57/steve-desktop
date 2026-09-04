@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // Students can compute a standard deviation and still not be able to say what it IS. This question
-// never asks them to compute one -- it hands the number over and asks what it means: what units it
+// never asks them to compute one: it hands the number over and asks what it means: what units it
 // carries, how far from the mean is far, and which plain-English sentence describes it correctly.
 //
 // The value in part (b) is placed a whole number of deviations out so "how many deviations away" is
@@ -33,7 +33,7 @@ $kAway = rand(2, 3)
 $xFar = $mu + $kAway * $sigma
 
 $questions[0] = array(
-  "In " . $unitOpt0 . " &mdash; the same units as the measurements themselves.",
+  "In " . $unitOpt0 . ": the same units as the measurements themselves.",
   "In " . $unitOpt1 . ", because the deviations were squared along the way.",
   "It has no units, because it is a kind of average.",
   "In percent, because it describes a proportion of the data."
@@ -81,11 +81,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the units.</span> The deviations are squared partway through the calculation, which is why the VARIANCE comes out in square ' . $unitWord . ' and cannot be interpreted directly. Taking the square root at the end undoes that, so the standard deviation lands back in <b>' . $unitOpt0 . '</b> &mdash; the same units as the data. That is the whole reason the last step is there.</p>
-      <p><span class="term-label">Part (b) &mdash; measuring the distance in deviations.</span> The value sits `' . $xFar . ' - ' . $mu . ' = ' . ($xFar - $mu) . '` ' . $unitWord . ' above the mean. Divide by the standard deviation to say how far that is in the units that matter:</p>
+      <p><span class="term-label">Part (a): the units.</span> The deviations are squared partway through the calculation, which is why the VARIANCE comes out in square ' . $unitWord . ' and cannot be interpreted directly. Taking the square root at the end undoes that, so the standard deviation lands back in <b>' . $unitOpt0 . '</b>: the same units as the data. That is the whole reason the last step is there.</p>
+      <p><span class="term-label">Part (b): measuring the distance in deviations.</span> The value sits `' . $xFar . ' - ' . $mu . ' = ' . ($xFar - $mu) . '` ' . $unitWord . ' above the mean. Divide by the standard deviation to say how far that is in the units that matter:</p>
       <p style="text-align:center;">`(' . $xFar . ' - ' . $mu . ') -: ' . $sigma . ' = ` <b>' . $kAway . '</b> standard deviations</p>
-      <p><span class="term-label">Part (c) &mdash; is that unusual?</span> "Far from the mean" is meaningless in raw ' . $unitWord . ', because whether ' . ($xFar - $mu) . ' is a lot depends entirely on how spread out the data is. Counted in standard deviations it becomes answerable: beyond about two is the usual rule of thumb for unusual, so ' . $kAway . ' deviations out qualifies. Here that means anything above ' . $twoSd . ' or below ' . $twoSdLow . ' would draw attention.</p>
-      <p><span class="term-label">Part (d) &mdash; saying it in a sentence.</span> A standard deviation is a TYPICAL distance from the mean &mdash; roughly how far an ordinary observation falls from the center. It is not a distance every value has, and it is not a percentage. The word doing the work is "typical": individual values sit closer or further, and the standard deviation summarizes that in one number.</p>
+      <p><span class="term-label">Part (c): is that unusual?</span> "Far from the mean" is meaningless in raw ' . $unitWord . ', because whether ' . ($xFar - $mu) . ' is a lot depends entirely on how spread out the data is. Counted in standard deviations it becomes answerable: beyond about two is the usual rule of thumb for unusual, so ' . $kAway . ' deviations out qualifies. Here that means anything above ' . $twoSd . ' or below ' . $twoSdLow . ' would draw attention.</p>
+      <p><span class="term-label">Part (d): saying it in a sentence.</span> A standard deviation is a TYPICAL distance from the mean: roughly how far an ordinary observation falls from the center. It is not a distance every value has, and it is not a percentage. The word doing the work is "typical": individual values sit closer or further, and the standard deviation summarizes that in one number.</p>
       <p><span class="term-label">The check that catches most errors.</span> A standard deviation can never be negative, and it should always be small compared with the full spread of the data. An answer bigger than the range means something has gone wrong.</p>
     </div>
   </details>

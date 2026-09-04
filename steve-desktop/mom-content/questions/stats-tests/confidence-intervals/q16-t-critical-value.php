@@ -33,8 +33,8 @@ $answer[0] = $t
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "The area to the LEFT, " . round($leftArea, 3) . " &mdash; invT wants the area below the value, not the tail above it",
-  "The tail area, " . round($half, 3) . " &mdash; the area to the right of the critical value"
+  "The area to the LEFT, " . round($leftArea, 3) . ": invT wants the area below the value, not the tail above it",
+  "The tail area, " . round($half, 3) . ": the area to the right of the critical value"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -57,9 +57,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the t-critical value.</span> With `CL = ' . round($cl, 2) . '`, `alpha = 1 - CL = ' . round($alpha, 2) . '` and `alpha/2 = ' . round($half, 3) . '`. The t-score with that much area to its right, using `df = n - 1 = ' . ($n - 1) . '`, is</p>
+      <p><span class="term-label">Part (a): the t-critical value.</span> With `CL = ' . round($cl, 2) . '`, `alpha = 1 - CL = ' . round($alpha, 2) . '` and `alpha/2 = ' . round($half, 3) . '`. The t-score with that much area to its right, using `df = n - 1 = ' . ($n - 1) . '`, is</p>
       <p>`t_(alpha/2) = t_(' . round($half, 3) . ') = ' . $t . '`</p>
-      <p><span class="term-label">Part (b) &mdash; what you feed invT.</span> `invT` works like invNorm: it wants the area BELOW the value. The area to the left is `1 - alpha/2 = ' . round($leftArea, 3) . '`, so you run `invT(' . round($leftArea, 3) . ', ' . ($n - 1) . ')`.</p>
+      <p><span class="term-label">Part (b): what you feed invT.</span> `invT` works like invNorm: it wants the area BELOW the value. The area to the left is `1 - alpha/2 = ' . round($leftArea, 3) . '`, so you run `invT(' . round($leftArea, 3) . ', ' . ($n - 1) . ')`.</p>
       <p>The only place students reliably lose points is the left-versus-right tail flip: a table indexed by right-tail area wants `alpha/2`, and `invT` wants `1 - alpha/2`. Both give the same t-score; they just ask for it differently.</p>
     </div>
   </details>

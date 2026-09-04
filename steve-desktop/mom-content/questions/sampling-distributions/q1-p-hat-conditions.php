@@ -30,7 +30,7 @@ $ns       = array(200,  50, 100, 300,  80, 400)
 $ps       = array(0.40, 0.15, 0.95, 0.25, 0.08, 0.60)
 $nps      = array(80,   7.5, 95,   75,   6.4, 240)
 $nq       = array(120, 42.5,  5,  225, 73.6, 160)
-// 0 = Yes (>=10), 1 = No (<10) -- mapping into the choices array below
+// 0 = Yes (>=10), 1 = No (<10): mapping into the choices array below
 $ansNp    = array(0,    1,    0,    0,    1,    0)
 $ansNq    = array(0,    0,    1,    0,    0,    0)
 // final conclusion: 0 = Yes (approx normal), 1 = No (NOT approx normal)

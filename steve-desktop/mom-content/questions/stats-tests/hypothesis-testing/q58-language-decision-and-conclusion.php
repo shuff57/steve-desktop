@@ -10,9 +10,9 @@
 $anstypes = array("choices", "choices")
 
 $questions[0] = array(
-  "Do not reject `H_0` &mdash; the two-tailed p-value 0.165 is above alpha = 0.05.",
-  "Reject `H_0` &mdash; the two-tailed p-value 0.165 is below alpha = 0.05.",
-  "Accept `H_0` &mdash; the evidence is strong enough."
+  "Do not reject `H_0`: the two-tailed p-value 0.165 is above alpha = 0.05.",
+  "Reject `H_0`: the two-tailed p-value 0.165 is below alpha = 0.05.",
+  "Accept `H_0`: the evidence is strong enough."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -43,9 +43,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the decision.</span> The two-tailed p-value is `2 * P(Z > 1.39) = 2(0.0823) = 0.165`. Compare to alpha = 0.05: 0.165 is above 0.05, so we do not reject `H_0`.</p>
-      <p><span class="term-label">Part (b) &mdash; the conclusion.</span> At the 5% significance level there is not sufficient evidence to conclude that the proportion of students at this school who speak a language other than English at home differs from 42.3%.</p>
-      <p>Worth noticing: 56% against 42.3% looks like a large gap, and it still is not significant &mdash; 25 students is a small sample, and the two-tailed test spends its evidence on both directions at once. Had the question been one-tailed, the p-value would have been 0.082, which is still above 0.05 but visibly closer.</p>
+      <p><span class="term-label">Part (a): the decision.</span> The two-tailed p-value is `2 * P(Z > 1.39) = 2(0.0823) = 0.165`. Compare to alpha = 0.05: 0.165 is above 0.05, so we do not reject `H_0`.</p>
+      <p><span class="term-label">Part (b): the conclusion.</span> At the 5% significance level there is not sufficient evidence to conclude that the proportion of students at this school who speak a language other than English at home differs from 42.3%.</p>
+      <p>Worth noticing: 56% against 42.3% looks like a large gap, and it still is not significant: 25 students is a small sample, and the two-tailed test spends its evidence on both directions at once. Had the question been one-tailed, the p-value would have been 0.082, which is still above 0.05 but visibly closer.</p>
     </div>
   </details>
 </div>'

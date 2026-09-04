@@ -83,13 +83,13 @@ $solutionguide = '
       <p><b>Sinking fund formula (solve for the deposit `m`):</b></p>
       <p>`A = m cdot ((1 + r/n)^{nt} - 1) / (r/n)` so `m = (A cdot r/n) / ((1 + r/n)^{nt} - 1)`</p>
       <p>Given: `A = $' . $goal . '`, `r = ' . $r_pct . '% = ' . $r . '`, `n = ' . $n . '` (' . $n_label . '), `t = ' . $t . '` years</p>
-      <p><b>Part (a) -- Periodic interest rate</b></p>
+      <p><b>Part (a): Periodic interest rate</b></p>
       <p>`r/n = ' . $r . ' / ' . $n . ' = ' . $rn . '`</p>
       <div class="sol-ans"><b>Periodic rate `r/n = ' . $rn . '`</b></div>
-      <p><b>Part (b) -- Total number of periods</b></p>
+      <p><b>Part (b): Total number of periods</b></p>
       <p>`nt = ' . $n . ' times ' . $t . ' = ' . $nt . '`</p>
       <div class="sol-ans"><b>Total periods `nt = ' . $nt . '`</b></div>
-      <p><b>Part (c) -- Required deposit</b></p>
+      <p><b>Part (c): Required deposit</b></p>
       <p>`(1 + r/n)^{nt} = (1 + ' . $rn . ')^{' . $nt . '} = ' . $factor_disp . '`</p>
       <p>`m = ' . $goal . ' cdot ' . $rn . ' / (' . $factor_disp . ' - 1)`</p>
       <p>`m = ' . round($goal * $rn, 4) . ' / ' . round($factor_disp - 1, 6) . '`</p>

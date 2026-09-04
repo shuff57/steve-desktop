@@ -9,7 +9,7 @@ $answerboxsize = 24
 
 // Each scenario gives a p-value and a significance level alpha. Scenarios are tuned so
 // the p-value is close to alpha (above or below). Part (a) compares p to alpha;
-// (b) is the decision; (c) is the correct CONCLUSION wording — testing for the
+// (b) is the decision; (c) is the correct CONCLUSION wording: testing for the
 // "accept the null" misconception.
 
 // Scenarios (p, alpha, decision: 0=reject, 1=fail to reject):
@@ -37,7 +37,7 @@ $alphas = array(0.05,  0.05,  0.01,  0.01,  0.10,  0.05,  0.05)
 $cmpAns = array(0,     1,     1,     0,     1,     0,     1)
 // 0 = "Reject H_0", 1 = "Fail to reject H_0"
 $decAns = array(0,     1,     1,     0,     1,     0,     1)
-// final conclusion choices (see $questions[2] below) — index of correct option
+// final conclusion choices (see $questions[2] below): index of correct option
 // 0 = "There is statistically significant evidence to support the alternative"
 // 1 = "There is NOT enough evidence to support the alternative; we do not have evidence to conclude the null is true"
 // 2 = "We have proven the alternative is true"
@@ -87,9 +87,9 @@ $solutionguide = '
       </ul>
       <p><b>(a)</b> Compare `p = ' . $p_val . '` to `alpha = ' . $alpha_v . '`.</p>
       <p><b>(b)</b> Apply the rule.</p>
-      <p><b>(c)</b> When we reject `H_0`, the correct conclusion is "there is statistically significant evidence for `H_a`". When we fail to reject `H_0`, the correct conclusion is "we do NOT have enough evidence to support `H_a`" — NOT "we accept `H_0`" and NOT "we have proven the null is true".</p>
+      <p><b>(c)</b> When we reject `H_0`, the correct conclusion is "there is statistically significant evidence for `H_a`". When we fail to reject `H_0`, the correct conclusion is "we do NOT have enough evidence to support `H_a`": NOT "we accept `H_0`" and NOT "we have proven the null is true".</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#fff3e0; border-left:4px solid #ff9800; border-radius:0 8px 8px 0;">
-        <b>Watch out:</b> "fail to reject" only means the evidence is not strong enough to overturn the null. The null might still be false — we just did not detect it in this study. Always speak in terms of evidence, never in terms of "proof".
+        <b>Watch out:</b> "fail to reject" only means the evidence is not strong enough to overturn the null. The null might still be false: we just did not detect it in this study. Always speak in terms of evidence, never in terms of "proof".
       </div>
     </div>
   </details>

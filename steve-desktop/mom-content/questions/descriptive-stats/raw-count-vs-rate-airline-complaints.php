@@ -56,10 +56,10 @@ for ($i=0..5) {
 }
 
 $choices[0] = array(
-  "No &mdash; a complaint count is a raw total with no denominator. Without knowing how many passengers each airline carried in " . $monthYear . ", the higher totals for " . $bigList . " may simply reflect that these are larger airlines, not that they treat passengers worse.",
-  "Yes &mdash; the airlines with the most complaints filed against them are, by definition, the ones passengers are least satisfied with.",
-  "No &mdash; but only because six airlines is too small a group to ever draw a conclusion about which carriers are worst.",
-  "Yes &mdash; since every complaint went to the same regulator, the six counts are already measured on the same footing and can be compared directly."
+  "No: a complaint count is a raw total with no denominator. Without knowing how many passengers each airline carried in " . $monthYear . ", the higher totals for " . $bigList . " may simply reflect that these are larger airlines, not that they treat passengers worse.",
+  "Yes: the airlines with the most complaints filed against them are, by definition, the ones passengers are least satisfied with.",
+  "No: but only because six airlines is too small a group to ever draw a conclusion about which carriers are worst.",
+  "Yes: since every complaint went to the same regulator, the six counts are already measured on the same footing and can be compared directly."
 )
 $answer[0] = 0
 
@@ -90,11 +90,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Read the chart.</span> The chart shows raw complaint counts: ' . $cBigA . ' for ' . $bigA . ', ' . $cBigB . ' for ' . $bigB . ', and ' . $cBigC . ' for ' . $bigC . ', against only ' . $cSmallA . ', ' . $cSmallB . ', and ' . $cSmallC . ' for ' . $smallA . ', ' . $smallB . ', and ' . $smallC . '.</p>
-      <p><span class="term-label">Step 2 &mdash; Ask what the counts are missing.</span> A complaint count is a numerator with no denominator. ' . $bigList . ' carry far more passengers each month than ' . $smallList . '. Even if all six airlines annoyed exactly the same <i>share</i> of their passengers, the larger carriers would still generate more complaints in total, simply because they flew more people.</p>
-      <p><span class="term-label">Step 3 &mdash; Say what would settle the question.</span> The comparable figure is a <b>rate</b>: complaints per, say, 100,000 passengers boarded, over the same period. Only a rate puts all six airlines on the same footing.</p>
-      <p><span class="term-label">Step 4 &mdash; Note a second problem.</span> Complaints are also self-reported, so differences in how easy each airline makes it to file one, and in what its passengers expect, affect the count without saying anything about service quality on their own.</p>
-      <p><b>Answer:</b> (a) No. The chart shows raw counts, not rates, so it mostly measures how many passengers each airline carries. Without complaints per passenger, we cannot conclude that ' . $bigList . ' are the worst carriers. (b) The missing piece is each airline&rsquo;s passenger volume for the same period, so the counts can be converted into a rate &mdash; complaints per passengers carried &mdash; instead of being compared as raw totals.</p>
+      <p><span class="term-label">Step 1: Read the chart.</span> The chart shows raw complaint counts: ' . $cBigA . ' for ' . $bigA . ', ' . $cBigB . ' for ' . $bigB . ', and ' . $cBigC . ' for ' . $bigC . ', against only ' . $cSmallA . ', ' . $cSmallB . ', and ' . $cSmallC . ' for ' . $smallA . ', ' . $smallB . ', and ' . $smallC . '.</p>
+      <p><span class="term-label">Step 2: Ask what the counts are missing.</span> A complaint count is a numerator with no denominator. ' . $bigList . ' carry far more passengers each month than ' . $smallList . '. Even if all six airlines annoyed exactly the same <i>share</i> of their passengers, the larger carriers would still generate more complaints in total, simply because they flew more people.</p>
+      <p><span class="term-label">Step 3: Say what would settle the question.</span> The comparable figure is a <b>rate</b>: complaints per, say, 100,000 passengers boarded, over the same period. Only a rate puts all six airlines on the same footing.</p>
+      <p><span class="term-label">Step 4: Note a second problem.</span> Complaints are also self-reported, so differences in how easy each airline makes it to file one, and in what its passengers expect, affect the count without saying anything about service quality on their own.</p>
+      <p><b>Answer:</b> (a) No. The chart shows raw counts, not rates, so it mostly measures how many passengers each airline carries. Without complaints per passenger, we cannot conclude that ' . $bigList . ' are the worst carriers. (b) The missing piece is each airline&rsquo;s passenger volume for the same period, so the counts can be converted into a rate, complaints per passengers carried, instead of being compared as raw totals.</p>
     </div>
   </details>
 </div>'

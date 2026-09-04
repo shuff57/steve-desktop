@@ -63,8 +63,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the null.</span> The claim on trial goes in `H_0` with its equality: ' . $h0 . '. The parameter is the population proportion `p`, never the sample proportion.</p>
-      <p><span class="term-label">Part (b) &mdash; the alternative.</span> The direction word &mdash; "more than", "fewer than", or "different from" &mdash; goes in `H_a`: ' . $ha . '. The two statements must partition the number line with no overlap.</p>
+      <p><span class="term-label">Part (a): the null.</span> The claim on trial goes in `H_0` with its equality: ' . $h0 . '. The parameter is the population proportion `p`, never the sample proportion.</p>
+      <p><span class="term-label">Part (b): the alternative.</span> The direction word: "more than", "fewer than", or "different from": goes in `H_a`: ' . $ha . '. The two statements must partition the number line with no overlap.</p>
       <p>Same machinery as the mean: the claim on trial goes in the null, the direction word goes in the alternative.</p>
     </div>
   </details>

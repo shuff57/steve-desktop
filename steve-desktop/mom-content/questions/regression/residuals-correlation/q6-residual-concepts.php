@@ -20,14 +20,14 @@ if ($variant == 0) {
     <ul>
       <li>A <i>positive</i> residual means `y > hat{y}`, so the model <i>under</i>predicted (not overpredicted).</li>
       <li>Residuals can be positive or negative. We square them in certain calculations (like finding `s`), but the residuals themselves have a sign.</li>
-      <li>If all residuals are zero, the model fits the data perfectly &mdash; that would be an ideal (but unrealistic) fit!</li>
+      <li>If all residuals are zero, the model fits the data perfectly: that would be an ideal (but unrealistic) fit!</li>
     </ul>'
 } elseif ($variant == 1) {
   $stem = "Which of the following is <b>NOT</b> a use of residuals in regression analysis?"
   $questions = array(
     "Determining the sample size needed for a study.",
     "Assessing how well a linear model fits the data.",
-    "Identifying outliers &mdash; observations with unusually large residuals.",
+    "Identifying outliers: observations with unusually large residuals.",
     "Checking whether a linear model is appropriate by looking for patterns in a residual plot."
   )
   $answer = 0
@@ -47,7 +47,7 @@ if ($variant == 0) {
     "All five points fall exactly on the regression line."
   )
   $answer = 0
-  $explain = '<p>The first residual is <b>&minus;3</b>, meaning `y - hat{y} = -3`, so `y < hat{y}`. The observed value is 3 less than predicted &mdash; the model <b>overpredicted</b> by 3 units.</p>
+  $explain = '<p>The first residual is <b>&minus;3</b>, meaning `y - hat{y} = -3`, so `y < hat{y}`. The observed value is 3 less than predicted: the model <b>overpredicted</b> by 3 units.</p>
     <p><b>Why the others are wrong:</b></p>
     <ul>
       <li>A negative residual means overprediction, not underprediction.</li>

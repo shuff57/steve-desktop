@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Two-Sample Means — CI Interpretation, Decision, and Error Type (new scenarios) ===
+// === NAME - DESCRIPTION: Two-Sample Means: CI Interpretation, Decision, and Error Type (new scenarios) ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -20,7 +20,7 @@ $g2_labels = array("high-school students", "breakfast-eaters", "non-athletes");
 $params = array("mean daily screen time (hours)", "mean daily sugar intake (grams)", "mean nightly sleep (hours)");
 $units = array("hours", "grams", "hours");
 
-/* CI bounds — always negative lower, positive upper → no significant difference */
+/* CI bounds: always negative lower, positive upper → no significant difference */
 $ci_lows  = array("-0.42", "-8.3", "-0.31");
 $ci_highs = array("1.18", "2.1", "0.89");
 $xdiffs   = array("0.38", "-3.1", "0.29");
@@ -53,7 +53,7 @@ $rubric = '
     <ul>
       <li><span class="badge">a</span><b>CI Interpretation (2 pts):</b> We are 95% confident that the true difference in ' . $param . ' (' . $g1 . ' minus ' . $g2 . ') is between ' . $ci_low . ' and ' . $ci_high . ' ' . $unit . '. Must name both groups, direction (Group 1 − Group 2), the parameter, units, and confidence level.</li>
       <li><span class="badge">b</span><b>Decision from CI (1 pt):</b> Since the CI (' . $ci_low . ', ' . $ci_high . ') contains 0, we <em>fail to reject H<sub>0</sub></em>. There is not sufficient evidence of a difference. Must reference "contains 0."</li>
-      <li><span class="badge">c</span><b>Error type (2 pts):</b> Since we failed to reject H<sub>0</sub>, the possible error is a <em>Type II error</em> — failing to detect a real difference that actually exists in the population. Must name Type II and explain what it means in this context (not just the label).</li>
+      <li><span class="badge">c</span><b>Error type (2 pts):</b> Since we failed to reject H<sub>0</sub>, the possible error is a <em>Type II error</em>: failing to detect a real difference that actually exists in the population. Must name Type II and explain what it means in this context (not just the label).</li>
     </ul>
   </div>
 </div>';

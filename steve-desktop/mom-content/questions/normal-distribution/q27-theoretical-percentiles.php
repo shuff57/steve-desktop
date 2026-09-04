@@ -36,11 +36,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Every percentile is the mean plus a fixed number of standard deviations.</span> The z-score with 15% of the area below it is `-1.0364`, and by symmetry the 85th percentile sits at `+1.0364`.</p>
-      <p><span class="term-label">Part (a) &mdash; the 15th percentile.</span></p>
+      <p><span class="term-label">Part (a): the 15th percentile.</span></p>
       <p>`P15 = 129.4167 - 1.0364(2.5207) = 129.4167 - 2.6125 ~= 126.80`</p>
-      <p><span class="term-label">Part (b) &mdash; the 85th percentile.</span></p>
+      <p><span class="term-label">Part (b): the 85th percentile.</span></p>
       <p>`P85 = 129.4167 + 1.0364(2.5207) = 129.4167 + 2.6125 ~= 132.03`</p>
-      <p>The 85th percentile means the model predicts 85% of all the racer\'s laps come in under 132.03 seconds &mdash; a claim about every lap she will ever run, not about the ones you happened to sample.</p>
+      <p>The 85th percentile means the model predicts 85% of all the racer\'s laps come in under 132.03 seconds: a claim about every lap she will ever run, not about the ones you happened to sample.</p>
     </div>
   </details>
 </div>'

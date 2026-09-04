@@ -32,7 +32,7 @@ $solutionguide = '
       <p><span class="term-label">Weight each value by how often it happened.</span></p>
       <p>`x-bar = (0(2) + 1(5) + 2(9) + 3(7) + 4(4) + 5(2) + 6(1)) / 30`</p>
       <p>`= (0 + 5 + 18 + 21 + 16 + 10 + 6) / 30 = 76/30 ~= 2.5333`</p>
-      <p>That mean sits within a rounding error of the theoretical 2.5, which is what pooling 30 repetitions buys you. Any one of those 30 groups, looking only at its own ten draws, saw a whole number — 0, or 4, or 6 — and none of them saw 2.5 at all. The average is not a value the experiment can produce; it is a value the experiment\'s results cluster around.</p>
+      <p>That mean sits within a rounding error of the theoretical 2.5, which is what pooling 30 repetitions buys you. Any one of those 30 groups, looking only at its own ten draws, saw a whole number, 0, or 4, or 6, and none of them saw 2.5 at all. The average is not a value the experiment can produce; it is a value the experiment\'s results cluster around.</p>
     </div>
   </details>
 </div>'

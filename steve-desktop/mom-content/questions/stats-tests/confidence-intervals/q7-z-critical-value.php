@@ -31,8 +31,8 @@ $answer[0] = $z
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "The area to the LEFT, " . round($leftArea, 3) . " &mdash; invNorm wants the area below the value, not the tail above it",
-  "The tail area, " . round($half, 3) . " &mdash; the area to the right of the critical value"
+  "The area to the LEFT, " . round($leftArea, 3) . ": invNorm wants the area below the value, not the tail above it",
+  "The tail area, " . round($half, 3) . ": the area to the right of the critical value"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -55,10 +55,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the critical value.</span> The confidence level is the area in the middle. Since `CL = ' . $cl . '`, the leftover area is `alpha = 1 - CL = ' . round($alpha, 2) . '`, split equally between the two tails, so each tail holds `alpha/2 = ' . round($half, 3) . '`. The critical value `z_(alpha/2)` is the z-score with that much area to its right:</p>
+      <p><span class="term-label">Part (a): the critical value.</span> The confidence level is the area in the middle. Since `CL = ' . $cl . '`, the leftover area is `alpha = 1 - CL = ' . round($alpha, 2) . '`, split equally between the two tails, so each tail holds `alpha/2 = ' . round($half, 3) . '`. The critical value `z_(alpha/2)` is the z-score with that much area to its right:</p>
       <p>`z_(alpha/2) = z_(' . round($half, 3) . ') = ' . $z . '`</p>
-      <p><span class="term-label">Part (b) &mdash; what you feed invNorm.</span> invNorm wants the area BELOW the value, not the tail above it. The area to the left is `1 - alpha/2 = $leftAreaRounded`, so you run invNorm(`$leftAreaRounded`, 0, 1). The last two arguments stay 0 and 1 because this is the standard normal curve.</p>
-      <p>The three confidence levels you will meet most often have critical values worth recognising on sight: `z = 1.645` for 90%, `z = 1.96` for 95%, and `z = 2.326` for 98%. Every one of them comes from the same two moves &mdash; split alpha in half, then ask for the z-score with that much area above it.</p>
+      <p><span class="term-label">Part (b): what you feed invNorm.</span> invNorm wants the area BELOW the value, not the tail above it. The area to the left is `1 - alpha/2 = $leftAreaRounded`, so you run invNorm(`$leftAreaRounded`, 0, 1). The last two arguments stay 0 and 1 because this is the standard normal curve.</p>
+      <p>The three confidence levels you will meet most often have critical values worth recognising on sight: `z = 1.645` for 90%, `z = 1.96` for 95%, and `z = 2.326` for 98%. Every one of them comes from the same two moves: split alpha in half, then ask for the z-score with that much area above it.</p>
     </div>
   </details>
 </div>'

@@ -34,7 +34,7 @@ $answer[1] = $se2
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Four times the data only halves the spread of the sample mean &mdash; the sample mean gets closer to the population mean as more data is collected",
+  "Four times the data only halves the spread of the sample mean: the sample mean gets closer to the population mean as more data is collected",
   "Four times the data quarters the spread of the sample mean",
   "The sample size has no effect on the spread of the sample mean",
   "Bigger samples move the population mean closer to the sample mean"
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the SE for size n.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se1, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the SE for size 4n.</span> `SE = sigma/sqrt(4n) = ' . $sigma . '/sqrt(' . (4 * $n) . ') = ' . round($se2, 4) . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the law of large numbers.</span> The n sits under a square root in the denominator, so as n grows the curve of sample means squeezes in tighter around mu &mdash; the sample mean gets closer to the population mean, and it gets closer as you collect more data. But square roots grow lazily: to cut the spread in half you need four times the data; to cut it to a tenth you need a hundred times the data. That is why survey sample sizes plateau in the low thousands rather than climbing forever.</p>
+      <p><span class="term-label">Part (a): the SE for size n.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se1, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the SE for size 4n.</span> `SE = sigma/sqrt(4n) = ' . $sigma . '/sqrt(' . (4 * $n) . ') = ' . round($se2, 4) . '`.</p>
+      <p><span class="term-label">Part (c): the law of large numbers.</span> The n sits under a square root in the denominator, so as n grows the curve of sample means squeezes in tighter around mu: the sample mean gets closer to the population mean, and it gets closer as you collect more data. But square roots grow lazily: to cut the spread in half you need four times the data; to cut it to a tenth you need a hundred times the data. That is why survey sample sizes plateau in the low thousands rather than climbing forever.</p>
     </div>
   </details>
 </div>'

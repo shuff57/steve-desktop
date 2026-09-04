@@ -26,21 +26,21 @@ $computed_t = round($slope_est / $slope_se, 2)
 
 $alpha = 0.05
 
-// Part a — H0
+// Part a: H0
 $choices[0] = array("`H_0: beta_1 = 0`", "`H_0: beta_1 \\ne 0`", "`H_0: b_1 = beta_1`")
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — Ha
+// Part b: Ha
 $choices[1] = array("`H_a: beta_1 \\ne 0`", "`H_a: beta_1 = 0`", "`H_a: beta_1 > b_1`")
 $noshuffle[1] = "all"
 $answer[1] = 0
 
-// Part c — t statistic
+// Part c: t statistic
 $answer[2] = $computed_t
 $reltolerance[2] = 0.02
 
-// Part d — p-value interpretation
+// Part d: p-value interpretation
 $choices[3] = array(
   "The p-value is below `alpha`, so we reject `H_0` and conclude there is evidence of a linear relationship between `x` and `y` in the population.",
   "The p-value is above `alpha`, so we fail to reject `H_0`; the data do not give convincing evidence of a linear relationship.",

@@ -14,7 +14,7 @@ $answer[0] = 0.585
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "The mean sits ABOVE the median &mdash; the handful of people carrying more than a dollar drag the mean upward while leaving the middle value alone",
+  "The mean sits ABOVE the median: the handful of people carrying more than a dollar drag the mean upward while leaving the middle value alone",
   "The mean sits BELOW the median",
   "The mean and median are equal"
 )
@@ -22,10 +22,10 @@ $answer[1] = 0
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "Right-skewed &mdash; bunched against zero on the left (nobody carries a negative amount of change) and trailing off to the right (no upper limit)",
-  "Approximately normal &mdash; a symmetric bell",
-  "Uniform &mdash; every amount equally likely",
-  "Left-skewed &mdash; trailing off to the left"
+  "Right-skewed: bunched against zero on the left (nobody carries a negative amount of change) and trailing off to the right (no upper limit)",
+  "Approximately normal: a symmetric bell",
+  "Uniform: every amount equally likely",
+  "Left-skewed: trailing off to the left"
 )
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -48,10 +48,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the median.</span> With 30 sorted values the median averages positions 15 and 16, which hold $0.56 and $0.61:</p>
+      <p><span class="term-label">Part (a): the median.</span> With 30 sorted values the median averages positions 15 and 16, which hold $0.56 and $0.61:</p>
       <p>`median = (0.56 + 0.61)/2 = 0.585`</p>
-      <p><span class="term-label">Part (b) &mdash; mean vs median.</span> The mean is 0.70, about twelve cents ABOVE the median 0.585. That is the arithmetic signature of a right skew: the handful of people carrying more than a dollar drag the mean upward while leaving the middle value alone. Eighteen of the 30 people carry less than the mean.</p>
-      <p><span class="term-label">Part (c) &mdash; the shape.</span> The curve is bunched up against zero on the left, because nobody can carry a negative amount of change, and it trails off to the right, because there is no upper limit on how much someone might have. Pocket change is lopsided on purpose &mdash; a population that was already bell-shaped would prove nothing.</p>
+      <p><span class="term-label">Part (b): mean vs median.</span> The mean is 0.70, about twelve cents ABOVE the median 0.585. That is the arithmetic signature of a right skew: the handful of people carrying more than a dollar drag the mean upward while leaving the middle value alone. Eighteen of the 30 people carry less than the mean.</p>
+      <p><span class="term-label">Part (c): the shape.</span> The curve is bunched up against zero on the left, because nobody can carry a negative amount of change, and it trails off to the right, because there is no upper limit on how much someone might have. Pocket change is lopsided on purpose: a population that was already bell-shaped would prove nothing.</p>
     </div>
   </details>
 </div>'

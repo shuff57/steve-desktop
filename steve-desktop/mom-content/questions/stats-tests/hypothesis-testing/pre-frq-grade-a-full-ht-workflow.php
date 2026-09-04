@@ -158,16 +158,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all four.</span> <b>Response ' . $fullLabel . '</b> writes the hypotheses, checks the conditions, shows the arithmetic, and states the decision and conclusion. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all four.</span> <b>Response ' . $fullLabel . '</b> writes the hypotheses, checks the conditions, shows the arithmetic, and states the decision and conclusion. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sHypotheses . ' ' . $sConditions . ' ' . $sTestStat . ' ' . $sDecision . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noTestLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noTestLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Hypotheses &mdash; earned.</b> The pair is stated in symbols with the tail named.</li>
-        <li><b>Conditions &mdash; earned.</b> The random sample, population size, and large-counts conditions are verified.</li>
-        <li><b>Test stat + p-value &mdash; NOT earned.</b> The response never shows the arithmetic &mdash; no sample proportion, no standard error, no test statistic, no p-value.</li>
-        <li><b>Decision + Conclusion &mdash; earned.</b> The p-value is compared to alpha and the conclusion is written in context.</li>
+        <li><b>Hypotheses: earned.</b> The pair is stated in symbols with the tail named.</li>
+        <li><b>Conditions: earned.</b> The random sample, population size, and large-counts conditions are verified.</li>
+        <li><b>Test stat + p-value: NOT earned.</b> The response never shows the arithmetic: no sample proportion, no standard error, no test statistic, no p-value.</li>
+        <li><b>Decision + Conclusion: earned.</b> The p-value is compared to alpha and the conclusion is written in context.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the arithmetic is its own category.</span> The hypotheses and the decision-and-conclusion are both possible without ever showing the computation &mdash; the test statistic and p-value are the one category the others imply but never demand, and a response that skips them has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the arithmetic is its own category.</span> The hypotheses and the decision-and-conclusion are both possible without ever showing the computation: the test statistic and p-value are the one category the others imply but never demand, and a response that skips them has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The arithmetic is the category most often skipped, because once the hypotheses are written the computation feels like busywork.</p>
     </div>
   </details>

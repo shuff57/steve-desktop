@@ -45,11 +45,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the left area.</span> The shaded region to the left of `x = ' . $x . '` is a rectangle with base `' . ($x - $a) . '` and height `1/(' . ($b - $a) . ')`:</p>
+      <p><span class="term-label">Part (a): the left area.</span> The shaded region to the left of `x = ' . $x . '` is a rectangle with base `' . ($x - $a) . '` and height `1/(' . ($b - $a) . ')`:</p>
       <p>`P(X < ' . $x . ') = (' . ($x - $a) . ') * (1/' . ($b - $a) . ') = ` <b>' . $answer[0] . '</b></p>
-      <p><span class="term-label">Part (b) &mdash; the complement.</span> The area to the right is whatever is left over: the two regions together are the entire rectangle, whose area is 1.</p>
+      <p><span class="term-label">Part (b): the complement.</span> The area to the right is whatever is left over: the two regions together are the entire rectangle, whose area is 1.</p>
       <p>`P(X > ' . $x . ') = 1 - P(X < ' . $x . ') = 1 - ' . $answer[0] . ' = ` <b>' . $answer[1] . '</b></p>
-      <p>You never have to measure the right-hand region directly — the complement rule turns "area to the left" into "area to the right" whenever you need it.</p>
+      <p>You never have to measure the right-hand region directly: the complement rule turns "area to the left" into "area to the right" whenever you need it.</p>
     </div>
   </details>
 </div>'

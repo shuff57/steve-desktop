@@ -42,7 +42,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Plot ' . $labels[$pos] . '</b> shows a systematic <b>curved pattern</b> in the residuals. This means the linear model misses something — the true relationship between the variables is nonlinear.</p>
+      <p><b>Plot ' . $labels[$pos] . '</b> shows a systematic <b>curved pattern</b> in the residuals. This means the linear model misses something: the true relationship between the variables is nonlinear.</p>
       <p>The other plots show residuals with <b>random scatter</b> around zero, which is exactly what we expect when a linear model is appropriate.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         <b>Key idea:</b> A curved pattern (U-shape, inverted-U, or systematic sweep) in a residual plot indicates that a straight line does not capture the true relationship. A more flexible model (quadratic, logarithmic, etc.) may be needed.

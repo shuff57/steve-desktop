@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // The bank already computes a z-score from a raw value. This question runs the relationship the OTHER
-// way -- given how many standard deviations from the mean, produce the value -- which is the form the
+// way, given how many standard deviations from the mean, produce the value, which is the form the
 // empirical rule and every later normal-distribution question need.
 //
 // `sigma` is chosen so that a half-deviation is still a whole number, so no part produces a value with
@@ -73,15 +73,15 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The one relationship, both ways.</span> `x = mu + z sigma` going out from the mean, and `z = (x - mu)/sigma` coming back. Everything below is one of those two.</p>
-      <p><span class="term-label">Part (a) &mdash; ' . $kUp . ' deviations ABOVE.</span> Start at the mean and add ' . $kUp . ' whole steps of ' . $sigma . ':</p>
+      <p><span class="term-label">Part (a): ' . $kUp . ' deviations ABOVE.</span> Start at the mean and add ' . $kUp . ' whole steps of ' . $sigma . ':</p>
       <p style="text-align:center;">`x = ' . $mu . ' + ' . $kUp . '(' . $sigma . ') = ` <b>' . $xUp . '</b> ' . $unitWord . '</p>
-      <p><span class="term-label">Part (b) &mdash; 1.5 deviations BELOW.</span> Same move, subtracting, and the step can be a fraction of a deviation:</p>
+      <p><span class="term-label">Part (b): 1.5 deviations BELOW.</span> Same move, subtracting, and the step can be a fraction of a deviation:</p>
       <p style="text-align:center;">`x = ' . $mu . ' - 1.5(' . $sigma . ') = ` <b>' . $xDownHalf . '</b> ' . $unitWord . '</p>
       <p>"Below" is the whole instruction in that part. Adding instead of subtracting is the most common error here, and the answer still looks plausible, so it rarely gets caught by eye.</p>
-      <p><span class="term-label">Part (c) &mdash; backwards.</span> Now the value is known and the z-score is wanted:</p>
+      <p><span class="term-label">Part (c): backwards.</span> Now the value is known and the z-score is wanted:</p>
       <p style="text-align:center;">`z = (' . $xBack . ' - ' . $mu . ')/' . $sigma . ' = ` <b>' . $zBack . '</b></p>
-      <p><span class="term-label">What the sign is for.</span> A z-score carries two pieces of information at once. Its SIZE is how many standard deviations from the mean the value lies; its SIGN is which side. So a ' . $thing . ' with `z = ' . $zBack . '` is ' . $kBack . ' standard deviation&#40;s&#41; BELOW the mean &mdash; it would ' . $lowWord . '. Dropping the minus sign throws away half the answer.</p>
-      <p><span class="term-label">Why bother converting at all.</span> A z-score has no units, so it lets you compare a ' . $thing . ' against a measurement of something else entirely &mdash; which is exactly what the next questions in this section do.</p>
+      <p><span class="term-label">What the sign is for.</span> A z-score carries two pieces of information at once. Its SIZE is how many standard deviations from the mean the value lies; its SIGN is which side. So a ' . $thing . ' with `z = ' . $zBack . '` is ' . $kBack . ' standard deviation&#40;s&#41; BELOW the mean: it would ' . $lowWord . '. Dropping the minus sign throws away half the answer.</p>
+      <p><span class="term-label">Why bother converting at all.</span> A z-score has no units, so it lets you compare a ' . $thing . ' against a measurement of something else entirely: which is exactly what the next questions in this section do.</p>
     </div>
   </details>
 </div>'

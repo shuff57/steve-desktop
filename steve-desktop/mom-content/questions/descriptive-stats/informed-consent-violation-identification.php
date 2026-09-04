@@ -25,7 +25,7 @@ $benefits = array("highly promising", "a major breakthrough", "extremely effecti
 $bi = rand(0, 3)
 $benefit = $benefits[$bi]
 
-$violation_options = array("Coercion of a captive population &mdash; declining is not truly free when a benefit is offered for saying yes", "Inability of a minor to legally give consent on their own behalf", "A material fact about the study was withheld while its benefit was oversold", "A breach of participant privacy &mdash; identifying data collected from subjects was not protected")
+$violation_options = array("Coercion of a captive population: declining is not truly free when a benefit is offered for saying yes", "Inability of a minor to legally give consent on their own behalf", "A material fact about the study was withheld while its benefit was oversold", "A breach of participant privacy: identifying data collected from subjects was not protected")
 
 $choices[0] = $violation_options
 $choices[1] = $violation_options
@@ -51,9 +51,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Part a &mdash; ' . $incentive . ' at ' . $institution . '.</b> Consent has to be freely given, and it is not free when refusing costs the participant something they value. Tying ' . $incentive . ' to study participation makes it feel compulsory. That is ' . $violation_options[0] . ', and incarcerated people are treated as a protected population for exactly this reason.</p>
-      <p><b>Part b &mdash; a trial of ' . $drug . ' in children.</b> Children are not legally able to weigh risks and consent to research on their own. Consent must come from a parent or guardian, with the child also asked for age-appropriate assent. This is ' . $violation_options[1] . '.</p>
-      <p><b>Part c &mdash; told ' . $product . ' is ' . $benefit . ', not told about the other arms.</b> This fails informed consent on both words: it is not informed, because a material fact (that most participants receive a placebo or a traditional treatment) was withheld, and the framing oversells the benefit while the risk of receiving no active treatment goes unmentioned. This is ' . $violation_options[2] . '.</p>
+      <p><b>Part a: ' . $incentive . ' at ' . $institution . '.</b> Consent has to be freely given, and it is not free when refusing costs the participant something they value. Tying ' . $incentive . ' to study participation makes it feel compulsory. That is ' . $violation_options[0] . ', and incarcerated people are treated as a protected population for exactly this reason.</p>
+      <p><b>Part b: a trial of ' . $drug . ' in children.</b> Children are not legally able to weigh risks and consent to research on their own. Consent must come from a parent or guardian, with the child also asked for age-appropriate assent. This is ' . $violation_options[1] . '.</p>
+      <p><b>Part c: told ' . $product . ' is ' . $benefit . ', not told about the other arms.</b> This fails informed consent on both words: it is not informed, because a material fact (that most participants receive a placebo or a traditional treatment) was withheld, and the framing oversells the benefit while the risk of receiving no active treatment goes unmentioned. This is ' . $violation_options[2] . '.</p>
       <p><b>Answer:</b> (a) ' . $violation_options[0] . '; (b) ' . $violation_options[1] . '; (c) ' . $violation_options[2] . '.</p>
     </div>
   </details>
@@ -78,7 +78,7 @@ $solutionguide = '
 
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span>
-    Participants are told that $product being tested is $benefit, but they are not told that only a small portion of participants will receive the new drug &mdash; the rest will receive a placebo or a traditional treatment.
+    Participants are told that $product being tested is $benefit, but they are not told that only a small portion of participants will receive the new drug: the rest will receive a placebo or a traditional treatment.
     <p style="margin:10px 0 4px;">Which informed-consent violation is present? $answerbox[2]</p>
   </div>
 </div>

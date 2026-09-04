@@ -44,11 +44,11 @@ $solutionguide = '
       <p>The set S = {'.$set_display.'} has 2 elements, so it has 2<sup>2</sup> = <b>4</b> subsets in total:</p>
       <ol>
         <li>&empty; (the empty set)</li>
-        <li>{'.$a.'} &mdash; the subset containing only '.$a.'</li>
-        <li>{'.$b.'} &mdash; the subset containing only '.$b.'</li>
-        <li>{'.$a.', '.$b.'} &mdash; S itself, containing both elements</li>
+        <li>{'.$a.'}: the subset containing only '.$a.'</li>
+        <li>{'.$b.'}: the subset containing only '.$b.'</li>
+        <li>{'.$a.', '.$b.'}: S itself, containing both elements</li>
       </ol>
-      <p>Every subset is built by choosing, for each element of S, whether to include it or not. With 2 elements that gives 2 &times; 2 = 4 choices &mdash; one of which is "include nothing" (&empty;) and one of which is "include everything" (S).</p>
+      <p>Every subset is built by choosing, for each element of S, whether to include it or not. With 2 elements that gives 2 &times; 2 = 4 choices: one of which is "include nothing" (&empty;) and one of which is "include everything" (S).</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Total subsets: <b>4</b>. Non-empty subsets: <b>{'.$a.'}</b>, <b>{'.$b.'}</b>, <b>{'.$a.', '.$b.'}</b>.
       </div>

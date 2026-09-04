@@ -55,8 +55,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> `sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the sampling distribution under `H_0`.</span> The distribution in the table is not the distribution of the raw data &mdash; it is the sampling distribution of the point estimate, the pattern you would see if you took sample after sample and plotted the estimate each time. Under `H_0` it is centered at the claimed value `mu_0 = ' . $mu0 . '`.</p>
+      <p><span class="term-label">Part (a): the standard error.</span> `sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the sampling distribution under `H_0`.</span> The distribution in the table is not the distribution of the raw data: it is the sampling distribution of the point estimate, the pattern you would see if you took sample after sample and plotted the estimate each time. Under `H_0` it is centered at the claimed value `mu_0 = ' . $mu0 . '`.</p>
     </div>
   </details>
 </div>'

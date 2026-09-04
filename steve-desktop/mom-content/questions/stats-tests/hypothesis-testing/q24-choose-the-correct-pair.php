@@ -62,9 +62,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; check the symbol in each option.</span> Hypotheses are always statements about a population parameter. Options using `bar(x)` or the sample proportion, the sample statistics, are out immediately.</p>
-      <p><span class="term-label">Step 2 &mdash; check the claimed value.</span> The claimed value comes from the claim, not from the sample. Options built around the sample mean instead of the claim are out.</p>
-      <p><span class="term-label">Step 3 &mdash; check the direction.</span> The direction word picks the alternative. Options pointing the wrong way are out, and so are pairs that overlap (an equal sign in `H_a` means no sample could tell the two claims apart).</p>
+      <p><span class="term-label">Step 1: check the symbol in each option.</span> Hypotheses are always statements about a population parameter. Options using `bar(x)` or the sample proportion, the sample statistics, are out immediately.</p>
+      <p><span class="term-label">Step 2: check the claimed value.</span> The claimed value comes from the claim, not from the sample. Options built around the sample mean instead of the claim are out.</p>
+      <p><span class="term-label">Step 3: check the direction.</span> The direction word picks the alternative. Options pointing the wrong way are out, and so are pairs that overlap (an equal sign in `H_a` means no sample could tell the two claims apart).</p>
       <p><span class="term-label">The correct pair.</span> ' . $correct . '</p>
     </div>
   </details>

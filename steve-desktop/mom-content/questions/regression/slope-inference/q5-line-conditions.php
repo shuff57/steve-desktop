@@ -26,7 +26,7 @@ $desc_picked = $picked[0]
 $correct_idx = $picked[1]
 $why_picked  = $picked[2]
 
-// Part a — which LINE condition is violated?
+// Part a: which LINE condition is violated?
 $choices[0] = array(
   "Linearity",
   "Independence",
@@ -37,7 +37,7 @@ $displayformat[0] = "select"
 $noshuffle[0] = "all"
 $answer[0] = $correct_idx
 
-// Part b — should we use the standard regression inference here?
+// Part b: should we use the standard regression inference here?
 $choices[1] = array(
   "No, because when a LINE condition fails the standard slope `t`-test and CI are unreliable. We should fix the issue (transform a variable, add a term, use a different model) before trusting the inference.",
   "Yes, because regression is robust to any violation, so we can proceed as usual.",

@@ -83,10 +83,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the Law of Large Numbers.</span> As the number of trials in a probability experiment increases, the difference between the theoretical probability of an event and its relative frequency approaches zero. The two get closer and closer together &mdash; that is what the law says, and nothing more.</p>
-      <p><span class="term-label">Part (b) &mdash; the next trial.</span> Probability says nothing about the short term. ' . $runPhrase . ' happened, but ' . $eventPhrase . ' with exactly the same probability as always &mdash; the deck, coin or player does not remember, and there is no tendency to "make up for" the run.</p>
-      <p><span class="term-label">Part (c) &mdash; the expected count.</span> The expected value is the long-run average: `mu = n * p = ' . $n . ' * ' . $pDisp . ' = ` <b>' . $expected . '</b> ' . $countNoun . '.</p>
-      <p>Karl Pearson once tossed a fair coin 24,000 times and recorded 12,012 heads &mdash; a relative frequency of 0.5005, almost dead on the theoretical 0.5. Ten tosses can land anywhere. Twenty-four thousand cannot.</p>
+      <p><span class="term-label">Part (a): the Law of Large Numbers.</span> As the number of trials in a probability experiment increases, the difference between the theoretical probability of an event and its relative frequency approaches zero. The two get closer and closer together: that is what the law says, and nothing more.</p>
+      <p><span class="term-label">Part (b): the next trial.</span> Probability says nothing about the short term. ' . $runPhrase . ' happened, but ' . $eventPhrase . ' with exactly the same probability as always: the deck, coin or player does not remember, and there is no tendency to "make up for" the run.</p>
+      <p><span class="term-label">Part (c): the expected count.</span> The expected value is the long-run average: `mu = n * p = ' . $n . ' * ' . $pDisp . ' = ` <b>' . $expected . '</b> ' . $countNoun . '.</p>
+      <p>Karl Pearson once tossed a fair coin 24,000 times and recorded 12,012 heads: a relative frequency of 0.5005, almost dead on the theoretical 0.5. Ten tosses can land anywhere. Twenty-four thousand cannot.</p>
     </div>
   </details>
 </div>'

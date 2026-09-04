@@ -19,7 +19,7 @@ $contexts = array(
         "int_val"    => "$60",
         "slope_ctx"  => "each additional month costs $40 in membership fees",
         "int_ctx"    => "the $60 one-time sign-up fee is paid before any months begin",
-        "linear_why" => "the monthly rate is constant -- the same $40 is added each month -- so the total grows at a steady rate, which is exactly what a linear model captures"
+        "linear_why" => "the monthly rate is constant, the same $40 is added each month, so the total grows at a steady rate, which is exactly what a linear model captures"
     ),
     array(
         "scenario"   => "taxi fare",
@@ -58,7 +58,7 @@ $int_ctx    = $ctx["int_ctx"];
 $linear_why = $ctx["linear_why"];
 
 /* ---------- Narrative Variables ---------- */
-$r_variables   = 'The independent variable is the '.$indep.' and the dependent variable is the '.$dep.' -- the cost (or volume) depends on how much time or distance has passed';
+$r_variables   = 'The independent variable is the '.$indep.' and the dependent variable is the '.$dep.': the cost (or volume) depends on how much time or distance has passed';
 $r_slope       = 'The slope of '.$slope_val.' means that '.$slope_ctx.', so it represents the constant rate of change in this situation';
 $r_intercept   = 'The y-intercept of '.$int_val.' means '.$int_ctx.', which is the value of the dependent variable when the independent variable equals zero';
 $r_model       = $linear_why . ', so a linear model is a good fit; the main limitation is that it assumes the rate stays constant forever, which may not hold in reality';
@@ -190,7 +190,7 @@ $rubricanswerbutton = $css_block . '
                 <li>Name the independent and dependent variables.
                     <span class="ideal-ans">Target: "Independent variable is '.$indep.'; dependent variable is '.$dep.'."</span></li>
                 <li>Explain the dependency relationship.
-                    <span class="ideal-ans">Target: "The '.$dep.' depends on the '.$indep.' -- as the independent variable changes, the dependent variable responds."</span></li>
+                    <span class="ideal-ans">Target: "The '.$dep.' depends on the '.$indep.': as the independent variable changes, the dependent variable responds."</span></li>
               </ul>
             </td>
           </tr>

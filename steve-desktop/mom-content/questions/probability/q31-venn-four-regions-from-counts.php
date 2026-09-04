@@ -5,7 +5,7 @@
 
 // Built for 3.5. A Venn is worth drawing because the four regions ARE the four cases, and once a
 // student sees that the union is three of them and "neither" is the fourth, the addition rule stops
-// needing to be remembered. The diagram is inline SVG -- MyOpenMath has no Venn primitive.
+// needing to be remembered. The diagram is inline SVG: MyOpenMath has no Venn primitive.
 //
 // The overlap count is deliberately non-zero, so the circles genuinely intersect and the picture
 // matches the arithmetic on every seed.
@@ -72,7 +72,7 @@ $sol = '
     <div class="sol-body">
       <p><span class="term-label">The four regions are the four cases.</span> ' . $aOnly . ' + ' . $both . ' + ' . $bOnly . ' + ' . $neither . ' = ' . $total . ', which is everyone. Every question below is a matter of deciding which regions to add.</p>
       <ul>
-        <li><b>(a) P(' . $aName . ')</b> is the WHOLE left circle, both of its regions: `(' . $aOnly . ' + ' . $both . ') -: ' . $total . ' = ' . ($aTotal / $total) . '`. The overlap belongs to ' . $aName . ' too &mdash; leaving it out is the most common error here.</li>
+        <li><b>(a) P(' . $aName . ')</b> is the WHOLE left circle, both of its regions: `(' . $aOnly . ' + ' . $both . ') -: ' . $total . ' = ' . ($aTotal / $total) . '`. The overlap belongs to ' . $aName . ' too: leaving it out is the most common error here.</li>
         <li><b>(b) P(both)</b> is the lens in the middle alone: `' . $both . ' -: ' . $total . ' = ' . ($both / $total) . '`.</li>
         <li><b>(c) P(' . $aName . ' or ' . $bName . ')</b> is three regions: `(' . $aOnly . ' + ' . $both . ' + ' . $bOnly . ') -: ' . $total . ' = ' . ($union / $total) . '`.</li>
         <li><b>(d) P(neither)</b> is the corner outside both circles: `' . $neither . ' -: ' . $total . ' = ' . ($neither / $total) . '`.</li>

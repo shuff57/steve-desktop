@@ -32,11 +32,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the IQR.</span> `IQR = Q3 - Q1 = 0.75 - 0.25 = 0.50`</p>
-      <p><span class="term-label">Step 2 &mdash; the fences.</span></p>
+      <p><span class="term-label">Step 1: the IQR.</span> `IQR = Q3 - Q1 = 0.75 - 0.25 = 0.50`</p>
+      <p><span class="term-label">Step 2: the fences.</span></p>
       <p>`Q1 - 1.5(IQR) = 0.25 - 1.5(0.50) = 0.25 - 0.75 = -0.50`</p>
       <p>`Q3 + 1.5(IQR) = 0.75 + 1.5(0.50) = 0.75 + 0.75 = 1.50`</p>
-      <p><span class="term-label">Step 3 &mdash; compare to the possible values.</span> The generator only ever produces values between 0 and 1, and both fences sit outside that interval. So no value this generator can produce could ever be flagged as a potential outlier. That is a real property of the uniform distribution, not a quirk of the numbers: with the data spread evenly and no tails, there is nothing far from the middle for the rule to catch.</p>
+      <p><span class="term-label">Step 3: compare to the possible values.</span> The generator only ever produces values between 0 and 1, and both fences sit outside that interval. So no value this generator can produce could ever be flagged as a potential outlier. That is a real property of the uniform distribution, not a quirk of the numbers: with the data spread evenly and no tails, there is nothing far from the middle for the rule to catch.</p>
     </div>
   </details>
 </div>'

@@ -67,7 +67,7 @@ if ($mi == 3) {
 }
 if ($mi == 4) {
   $mechanics = 'The researcher sets up a table ' . $convplace . ' and surveys the first ' . $n . ' ' . $unitp . ' who happen to pass by.'
-  $signature = 'the first ' . $n . ' ' . $unitp . ' <b>who happen to pass by</b> &mdash; no chance mechanism anywhere'
+  $signature = 'the first ' . $n . ' ' . $unitp . ' <b>who happen to pass by</b>: no chance mechanism anywhere'
 }
 
 // All five options appear every time; MyOpenMath shuffles them.
@@ -95,15 +95,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Find the phrase that describes how the sample was actually drawn.</b> Ignore the topic and the numbers; only the mechanics of the draw decide the method.</p>
-      <p><b>Step 2 &mdash; The deciding phrase here:</b> ' . $signature . '.</p>
+      <p><b>Step 1: Find the phrase that describes how the sample was actually drawn.</b> Ignore the topic and the numbers; only the mechanics of the draw decide the method.</p>
+      <p><b>Step 2: The deciding phrase here:</b> ' . $signature . '.</p>
       <div class="term-row"><span class="term-label">Answer:</span> ' . $correct . '</div>
       <p style="margin-top:1em;"><b>The five signatures:</b></p>
-      <div class="term-row"><span class="term-label">Simple random:</span> every individual, and every group of the same size, equally likely &mdash; no grouping used.</div>
+      <div class="term-row"><span class="term-label">Simple random:</span> every individual, and every group of the same size, equally likely: no grouping used.</div>
       <div class="term-row"><span class="term-label">Stratified:</span> split the population into groups, then take <em>some from every group</em>.</div>
       <div class="term-row"><span class="term-label">Cluster:</span> pick whole groups at random, then take <em>everyone in the chosen groups</em>.</div>
       <div class="term-row"><span class="term-label">Systematic:</span> a random start, then every `k`th item down an ordered list.</div>
-      <div class="term-row"><span class="term-label">Convenience:</span> whoever was handy &mdash; no chance mechanism at all.</div>
+      <div class="term-row"><span class="term-label">Convenience:</span> whoever was handy: no chance mechanism at all.</div>
       <div class="sol-warn"><b>Strata slice, clusters scoop.</b> Stratified and cluster both begin by dividing the population into groups, which is why they get swapped. The difference is what happens next: stratifying takes <em>a little from every group</em>, so every group is represented; clustering takes <em>everything from a few groups</em>, so whole groups are left out.</div>
     </div>
   </details>

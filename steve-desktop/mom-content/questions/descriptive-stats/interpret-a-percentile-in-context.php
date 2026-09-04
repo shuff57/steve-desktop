@@ -47,7 +47,7 @@ $answer[1] = 0
 // The stated percentile for part (c), attached to the undesirable measure so the correct sentence
 // has to say "most people did better", not "did well".
 $kc = 10 * rand(7, 9)
-// kc is a multiple of ten, so the ordinal suffix is always "th" -- but it still cannot be written
+// kc is a multiple of ten, so the ordinal suffix is always "th": but it still cannot be written
 // as "$kc th" in the question text, which substitutes with a space before the suffix.
 $kcLabel = $kc . "th"
 $valc = 10 * rand(3, 9)
@@ -79,10 +79,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">A percentile is a position, not a verdict.</span> It only says where a value sits among the others. Whether that position is good news depends entirely on whether you want more of the thing being measured or less of it &mdash; so the first question to ask is never "is the percentile high", it is "is a bigger number better here".</p>
-      <p><span class="term-label">Part (a) &mdash; ' . $goodNoun . '.</span> A bigger ' . $goodNoun . ' is the better outcome, so being above more of the group is good: you want a <b>high</b> percentile.</p>
-      <p><span class="term-label">Part (b) &mdash; ' . $badNoun . '.</span> A smaller ' . $badNoun . ' is the better outcome, so now being above most of the group is bad news: you want a <b>low</b> percentile. Same statistic, opposite reading, and nothing about the arithmetic changed.</p>
-      <p><span class="term-label">Part (c) &mdash; saying it in words.</span> The ' . $kc . 'th percentile means about ' . $kc . '% of the group came in at or below that value. With a ' . $badNoun . ', "below" is the good side &mdash; so sitting at the ' . $kc . 'th percentile says most of the group did <i>better</i>. Note what the sentence does not say: nothing about the average, and nothing about how many people got that exact value.</p>
+      <p><span class="term-label">A percentile is a position, not a verdict.</span> It only says where a value sits among the others. Whether that position is good news depends entirely on whether you want more of the thing being measured or less of it: so the first question to ask is never "is the percentile high", it is "is a bigger number better here".</p>
+      <p><span class="term-label">Part (a): ' . $goodNoun . '.</span> A bigger ' . $goodNoun . ' is the better outcome, so being above more of the group is good: you want a <b>high</b> percentile.</p>
+      <p><span class="term-label">Part (b): ' . $badNoun . '.</span> A smaller ' . $badNoun . ' is the better outcome, so now being above most of the group is bad news: you want a <b>low</b> percentile. Same statistic, opposite reading, and nothing about the arithmetic changed.</p>
+      <p><span class="term-label">Part (c): saying it in words.</span> The ' . $kc . 'th percentile means about ' . $kc . '% of the group came in at or below that value. With a ' . $badNoun . ', "below" is the good side: so sitting at the ' . $kc . 'th percentile says most of the group did <i>better</i>. Note what the sentence does not say: nothing about the average, and nothing about how many people got that exact value.</p>
       <p><b>Answer:</b> (a) high &nbsp;&nbsp; (b) low &nbsp;&nbsp; (c) about ' . $kc . '% were at or below, so most did better</p>
     </div>
   </details>
@@ -92,7 +92,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Each part below describes a different measurement. A percentile tells you where one value sits among all the others &mdash; it does not, on its own, say whether that is good news.</p>
+    <p style="margin:0;">Each part below describes a different measurement. A percentile tells you where one value sits among all the others: it does not, on its own, say whether that is good news.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> A study records $goodContext. Would you rather be at a high or a low percentile? $answerbox[0]

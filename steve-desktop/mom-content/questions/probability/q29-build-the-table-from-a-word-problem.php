@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // Built for 3.4, and deliberately harder than q27. There the table exists and cells are missing;
-// here there is NO table -- the student is given prose and has to construct the whole thing. That
+// here there is NO table: the student is given prose and has to construct the whole thing. That
 // is the step the book's exercises actually ask for, and a student who can only fill gaps in a
 // printed grid cannot do it.
 //
@@ -70,7 +70,7 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">Place the given numbers first, then subtract.</span> The prose gives a grand total, one row total, one joint cell and one column total. That is exactly enough &mdash; everything else follows.</p>
+      <p><span class="term-label">Place the given numbers first, then subtract.</span> The prose gives a grand total, one row total, one joint cell and one column total. That is exactly enough: everything else follows.</p>
       <table class="built">
         <tr><th></th><th>' . $cY . '</th><th>' . $cN . '</th><th>Total</th></tr>
         <tr><th>' . $rY . '</th><td><b>' . $a . '</b> given</td><td>' . $b . '</td><td><b>' . $r1 . '</b> given</td></tr>
@@ -84,7 +84,7 @@ $sol = '
         <li>`' . $grand . ' - ' . $c1 . ' = ' . $c2 . '`, and it must equal `' . $b . ' + ' . $d . '`. It does.</li>
       </ul>
       <p><span class="term-label">Part (e).</span> "Among the ' . $rY . '" restricts to that row, so the denominator is ' . $r1 . ', not ' . $grand . ': `' . $a . ' -: ' . $r1 . ' = ' . $pCond . '`.</p>
-      <p><span class="term-label">Why building it beats being given it.</span> Every count in the prose is a different KIND of number &mdash; a joint, a margin, a total &mdash; and they only sort themselves out once they are in position. Reading a finished table hides that step; this is where it lives.</p>
+      <p><span class="term-label">Why building it beats being given it.</span> Every count in the prose is a different KIND of number, a joint, a margin, a total, and they only sort themselves out once they are in position. Reading a finished table hides that step; this is where it lives.</p>
     </div>
   </details>
 </div>'
@@ -100,7 +100,7 @@ $sol = '
       <li><b>$a</b> were <b>$rY</b> <i>and</i> <b>$cY</b>.</li>
       <li>Altogether <b>$c1</b> were <b>$cY</b>.</li>
     </ul>
-    <p style="margin:10px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;">Build the two-way table. There is no grid printed here on purpose &mdash; sketch one, place the four numbers above, and subtract to fill the rest.</p>
+    <p style="margin:10px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;">Build the two-way table. There is no grid printed here on purpose: sketch one, place the four numbers above, and subtract to fill the rest.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> How many were <b>$rY</b> and <b>$cN</b>? $answerbox[0]

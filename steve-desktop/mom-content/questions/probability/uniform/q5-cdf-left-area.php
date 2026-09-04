@@ -53,7 +53,7 @@ $solutionguide = '
       <p><span class="term-label">The CDF.</span> The cumulative distribution function is the area to the left: `P(X <= x) = (x - a)/(b - a) = (x - ' . $a . ')/(' . ($b - $a) . ')`.</p>
       <p><span class="term-label">Part (a).</span> `P(X <= ' . $x1 . ') = (' . ($x1 - $a) . ')/(' . ($b - $a) . ') = ` <b>' . $answer[0] . '</b></p>
       <p><span class="term-label">Part (b).</span> `P(X <= ' . $x2 . ') = (' . ($x2 - $a) . ')/(' . ($b - $a) . ') = ` <b>' . $answer[1] . '</b></p>
-      <p><span class="term-label">Part (c) &mdash; the strip.</span> Every "between" question is a subtraction on the left areas you already have:</p>
+      <p><span class="term-label">Part (c): the strip.</span> Every "between" question is a subtraction on the left areas you already have:</p>
       <p>`P(' . $x1 . ' < X < ' . $x2 . ') = P(X <= ' . $x2 . ') - P(X <= ' . $x1 . ') = ' . $answer[1] . ' - ' . $answer[0] . ' = ` <b>' . $answer[2] . '</b></p>
       <p>Rather than re-measuring a rectangle each time, tabulate the area to the left of each point once; the between-questions are then subtraction on numbers you already have.</p>
     </div>

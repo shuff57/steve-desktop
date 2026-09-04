@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Role of Inference for the Slope — what H0:beta1=0 tests ===
+// === NAME - DESCRIPTION: Role of Inference for the Slope: what H0:beta1=0 tests ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -54,7 +54,7 @@ $solutionguide = '
       <p><b>Part b:</b> The correct answer is: <em>There is not enough evidence of a linear relationship between ' . $xname . ' and ' . $yname . '.</em></p>
       <p>Failing to reject `H_0` is <b>not</b> the same as proving `beta_1 = 0`. It simply means the data do not provide strong enough evidence to conclude a linear relationship exists. We cannot claim there is "definitely no relationship."</p>
       <div style="margin:10px 0;padding:0.6em 1em;background:#e8f5e9;border-left:4px solid #4CAF50;border-radius:0 8px 8px 0;">
-        <b>Key idea:</b> The slope test is about inference on `beta_1` (population), not on `b_1` (sample). A non-zero sample slope could be noise — the test decides whether it is.
+        <b>Key idea:</b> The slope test is about inference on `beta_1` (population), not on `b_1` (sample). A non-zero sample slope could be noise: the test decides whether it is.
       </div>
     </div>
   </details>

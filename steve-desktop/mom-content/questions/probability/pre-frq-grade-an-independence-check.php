@@ -15,7 +15,7 @@
 // conflating the two tests, because the two verdicts point opposite ways.
 //
 // CATEGORY PURITY: $sDistinguish says the tests differ and names the two comparisons, but states
-// NEITHER verdict and computes nothing -- otherwise the response that drops the independence test
+// NEITHER verdict and computes nothing: otherwise the response that drops the independence test
 // would still earn it.
 $anstypes = array("choices", "multans", "choices")
 
@@ -39,7 +39,7 @@ $who = $who_labels[$i]
 
 // Singular form for every place an article precedes the noun. Using the plural $who after "a"
 // rendered "a students" / "a commuters" / "a households" in the fact table AND in every sample
-// response -- the same defect fixed on 3.3 earlier the same day, reintroduced here.
+// response: the same defect fixed on 3.3 earlier the same day, reintroduced here.
 $who_singular_labels = array("student", "commuter", "household")
 $whoOne = $who_singular_labels[$i]
 
@@ -55,7 +55,7 @@ $jointDec = $jointPct / 100
 // One sentence per rubric category, none restating another.
 $sMutex = 'They are not mutually exclusive: P(A and B) is ' . $jointDec . ', which is not zero, so a ' . $whoOne . ' can be in both groups at once.'
 $sIndep = 'They are independent: P(A) x P(B) = ' . $aDec . ' x ' . $bDec . ' = ' . $jointDec . ', which is exactly the joint probability the survey reports.'
-$sDistinguish = 'These are two different questions settled by two different comparisons &mdash; one against zero, the other against the product of the two probabilities &mdash; so answering one leaves the other completely open.'
+$sDistinguish = 'These are two different questions settled by two different comparisons, one against zero, the other against the product of the two probabilities, so answering one leaves the other completely open.'
 
 $rFull = $sMutex . ' ' . $sIndep . ' ' . $sDistinguish
 $rNoDistinguish = $sMutex . ' ' . $sIndep
@@ -146,8 +146,8 @@ $factBlock = '
 <div class="qscope32">
   <table class="facts">
     <tr><th>What was measured</th><th>Probability</th></tr>
-    <tr><td>A &mdash; a ' . $whoOne . ' ' . $eventA . '</td><td>' . $aDec . '</td></tr>
-    <tr><td>B &mdash; a ' . $whoOne . ' ' . $eventB . '</td><td>' . $bDec . '</td></tr>
+    <tr><td>A: a ' . $whoOne . ' ' . $eventA . '</td><td>' . $aDec . '</td></tr>
+    <tr><td>B: a ' . $whoOne . ' ' . $eventB . '</td><td>' . $bDec . '</td></tr>
     <tr><td>both A and B</td><td>' . $jointDec . '</td></tr>
   </table>
 </div>'
@@ -183,15 +183,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> runs both tests and then says why they are different questions. Each of the other three drops a whole category.</p>
-      <p><span class="term-label">The numbers, and why they were chosen.</span> `P(A) = ' . $aDec . '`, `P(B) = ' . $bDec . '`, and the joint is `' . $jointDec . '`. That is not zero, so the two events are <b>not mutually exclusive</b>. And `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, which is exactly the joint, so they <b>are independent</b>. The two verdicts point opposite ways on purpose &mdash; a student who has quietly merged the two ideas cannot get both right.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noDistinguishLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> runs both tests and then says why they are different questions. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">The numbers, and why they were chosen.</span> `P(A) = ' . $aDec . '`, `P(B) = ' . $bDec . '`, and the joint is `' . $jointDec . '`. That is not zero, so the two events are <b>not mutually exclusive</b>. And `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, which is exactly the joint, so they <b>are independent</b>. The two verdicts point opposite ways on purpose: a student who has quietly merged the two ideas cannot get both right.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noDistinguishLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Test for Mutual Exclusivity &mdash; earned.</b> It compares the joint against zero and gives the verdict.</li>
-        <li><b>Test for Independence &mdash; earned.</b> It computes the product and compares it against the joint.</li>
-        <li><b>Distinguish the Two &mdash; NOT earned.</b> Both verdicts are there and correct, and nothing says they answer different questions. This is the only category it misses.</li>
+        <li><b>Test for Mutual Exclusivity: earned.</b> It compares the joint against zero and gives the verdict.</li>
+        <li><b>Test for Independence: earned.</b> It computes the product and compares it against the joint.</li>
+        <li><b>Distinguish the Two: NOT earned.</b> Both verdicts are there and correct, and nothing says they answer different questions. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why distinguishing them is its own category.</span> Mutually exclusive asks <i>can both happen</i>; independent asks <i>does one change the chance of the other</i>. One is settled against zero, the other against a product, and neither answer constrains the other much: here the events overlap AND are independent. The common wreck is reading "not mutually exclusive" as if it meant "related", which is how a correct pair of calculations still produces a wrong conclusion.</p>
+      <p><span class="term-label">Part (c): why distinguishing them is its own category.</span> Mutually exclusive asks <i>can both happen</i>; independent asks <i>does one change the chance of the other</i>. One is settled against zero, the other against a product, and neither answer constrains the other much: here the events overlap AND are independent. The common wreck is reading "not mutually exclusive" as if it meant "related", which is how a correct pair of calculations still produces a wrong conclusion.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Distinguishing the two is the category most often missing, because once both tests are done the work looks finished.</p>
     </div>
   </details>

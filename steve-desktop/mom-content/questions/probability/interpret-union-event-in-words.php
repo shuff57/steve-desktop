@@ -55,7 +55,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>OR is inclusive in probability.</b></p>
   <p>`' . $evA . ' or ' . $evB . '` is the event that a randomly chosen customer will ' . $verb . ' ' . $itemA . ', or ' . $verb . ' ' . $itemB . ', <b>or both</b>. It fails only for a customer who does neither.</p>
-  <p><b>This is the usual slip.</b> Everyday English often means "one or the other, not both" &mdash; "soup or salad" with lunch. Probability never does. If OR excluded the overlap there would be nothing to subtract, and the addition rule would not need its `- P(' . $evA . ' and ' . $evB . ')` term at all.</p>
+  <p><b>This is the usual slip.</b> Everyday English often means "one or the other, not both": "soup or salad" with lunch. Probability never does. If OR excluded the overlap there would be nothing to subtract, and the addition rule would not need its `- P(' . $evA . ' and ' . $evB . ')` term at all.</p>
   <p>The complement is the clean way to see it: `P(neither) = 1 - ' . $por . '`, and everything else is in the union.</p>
   <p><b>Answer:</b> the event that a randomly chosen customer will ' . $verb . ' ' . $itemA . ' or ' . $itemB . ' or both.</p>
 </div>'

@@ -11,21 +11,21 @@ $anstypes = array("choices", "choices", "choices")
 
 $cases = array(
   array("A t-test for a mean is run on a sample of 8 observations from a population that is not known to be normal.",
-        "The population must be approximately normally distributed &mdash; with only 8 observations there is no central limit theorem to lean on.",
-        "No &mdash; the population is not known to be normal, so the requirement is not met.",
-        "The condition is what makes the distribution legal in the first place &mdash; without it the t curve is the wrong ruler."),
+        "The population must be approximately normally distributed: with only 8 observations there is no central limit theorem to lean on.",
+        "No: the population is not known to be normal, so the requirement is not met.",
+        "The condition is what makes the distribution legal in the first place: without it the t curve is the wrong ruler."),
   array("A t-test for a mean is run on a simple random sample of 30 observations from a population that is approximately normal.",
         "The data must be a simple random sample, and the population approximately normal.",
-        "Yes &mdash; the sample is a simple random sample and the population is approximately normal.",
-        "The condition is what makes the distribution legal in the first place &mdash; without it the t curve is the wrong ruler."),
+        "Yes: the sample is a simple random sample and the population is approximately normal.",
+        "The condition is what makes the distribution legal in the first place: without it the t curve is the wrong ruler."),
   array("A proportion test is run on a sample where n = 200 and the claimed proportion is p0 = 0.02.",
         "Both np0 and n(1 - p0) must exceed 5.",
-        "No &mdash; np0 = 4, which is below 5, so the normal approximation is not legal.",
-        "The condition is what makes the distribution legal in the first place &mdash; the normal curve is only a fair stand-in for the binomial when it has enough mass on both sides."),
+        "No: np0 = 4, which is below 5, so the normal approximation is not legal.",
+        "The condition is what makes the distribution legal in the first place: the normal curve is only a fair stand-in for the binomial when it has enough mass on both sides."),
   array("A proportion test is run on a sample where n = 500 and the claimed proportion is p0 = 0.30.",
         "Both np0 and n(1 - p0) must exceed 5.",
-        "Yes &mdash; np0 = 150 and n(1 - p0) = 350, both well above 5.",
-        "The condition is what makes the distribution legal in the first place &mdash; the normal curve is only a fair stand-in for the binomial when it has enough mass on both sides.")
+        "Yes: np0 = 150 and n(1 - p0) = 350, both well above 5.",
+        "The condition is what makes the distribution legal in the first place: the normal curve is only a fair stand-in for the binomial when it has enough mass on both sides.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -44,8 +44,8 @@ $noshuffle[0] = "all"
 
 $questions[1] = array(
   $met,
-  "Yes &mdash; every requirement is met.",
-  "No &mdash; the requirement is not met."
+  "Yes: every requirement is met.",
+  "No: the requirement is not met."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -76,10 +76,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the requirement at risk.</span> ' . $req . '</p>
-      <p><span class="term-label">Part (b) &mdash; is it met?</span> ' . $met . '</p>
-      <p><span class="term-label">Part (c) &mdash; why the condition exists.</span> ' . $why . '</p>
-      <p>The condition is not a formality &mdash; it is what makes the distribution legal in the first place. If you have 200 people and only two said yes, the test will not have the coverage it claims.</p>
+      <p><span class="term-label">Part (a): the requirement at risk.</span> ' . $req . '</p>
+      <p><span class="term-label">Part (b): is it met?</span> ' . $met . '</p>
+      <p><span class="term-label">Part (c): why the condition exists.</span> ' . $why . '</p>
+      <p>The condition is not a formality: it is what makes the distribution legal in the first place. If you have 200 people and only two said yes, the test will not have the coverage it claims.</p>
     </div>
   </details>
 </div>'

@@ -5,11 +5,11 @@
 
 $anstypes = array("choices", "choices")
 
-// Scenario 0: Home prices in a city — strong right skew, large outliers — median+IQR is better; reason = mean pulled by outliers
-// Scenario 1: SAT scores at a competitive school — roughly symmetric — mean+SD is fine; reason = no outliers, symmetric
-// Scenario 2: Time on a webpage (most users <30s, few stay >1hr) — right skewed — median+IQR
-// Scenario 3: Heights of adult men — symmetric — mean+SD
-// Scenario 4: Income at a town with a few millionaires — strongly right skewed — median+IQR
+// Scenario 0: Home prices in a city, strong right skew, large outliers, median+IQR is better; reason = mean pulled by outliers
+// Scenario 1: SAT scores at a competitive school, roughly symmetric, mean+SD is fine; reason = no outliers, symmetric
+// Scenario 2: Time on a webpage (most users <30s, few stay >1hr), right skewed, median+IQR
+// Scenario 3: Heights of adult men, symmetric, mean+SD
+// Scenario 4: Income at a town with a few millionaires, strongly right skewed, median+IQR
 
 $ctxs = array(
   "home prices in a coastal city, where most homes are between $400K-$700K but a few mansions sell for $5M-$15M",

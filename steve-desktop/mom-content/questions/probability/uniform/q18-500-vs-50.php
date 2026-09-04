@@ -40,9 +40,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; which column changes.</span> The empirical column holds statistics of numbers the generator actually produced; the theoretical column holds values computed from `a = 0` and `b = 1`. The theoretical column never looks at the generator, so producing ten times as many values cannot move a single entry in it. The empirical column changes: with 500 values, every statistic is built from ten times as much information, so each one settles closer to its theoretical partner.</p>
-      <p><span class="term-label">Part (b) &mdash; the new expected count.</span> With eight bars the expected count per bar rises from 6.25 to `500 * 0.125 = 62.5`, so a bar that runs a few values over or under is now a small fraction of its height instead of a large one. The histogram flattens out and starts looking like the rectangle the density function actually is.</p>
-      <p>This is the whole meaning of a continuous distribution\'s parameters, and it is the lab\'s real payoff. The 0.5 was never a promise about your 50 values — it was a promise about what the average of generated values does as you keep generating. Fifty values cannot show you that. Five hundred can start to.</p>
+      <p><span class="term-label">Part (a): which column changes.</span> The empirical column holds statistics of numbers the generator actually produced; the theoretical column holds values computed from `a = 0` and `b = 1`. The theoretical column never looks at the generator, so producing ten times as many values cannot move a single entry in it. The empirical column changes: with 500 values, every statistic is built from ten times as much information, so each one settles closer to its theoretical partner.</p>
+      <p><span class="term-label">Part (b): the new expected count.</span> With eight bars the expected count per bar rises from 6.25 to `500 * 0.125 = 62.5`, so a bar that runs a few values over or under is now a small fraction of its height instead of a large one. The histogram flattens out and starts looking like the rectangle the density function actually is.</p>
+      <p>This is the whole meaning of a continuous distribution\'s parameters, and it is the lab\'s real payoff. The 0.5 was never a promise about your 50 values: it was a promise about what the average of generated values does as you keep generating. Fifty values cannot show you that. Five hundred can start to.</p>
     </div>
   </details>
 </div>'
@@ -54,7 +54,7 @@ $solutionguide = '
     <p style="margin:0;">Suppose the number of values generated was 500, not 50.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which of your two columns — empirical or theoretical — changes?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which of your two columns, empirical or theoretical, changes?
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

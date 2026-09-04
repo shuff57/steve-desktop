@@ -55,8 +55,8 @@ $abstolerance[0] = 0.02
 $abstolerance[1] = 0.005
 
 $choices[2] = array(
-  "Reject `H_0` — there is significant evidence at `alpha = " . $alpha . "`",
-  "Fail to reject `H_0` — there is NOT significant evidence at `alpha = " . $alpha . "`"
+  "Reject `H_0`: there is significant evidence at `alpha = " . $alpha . "`",
+  "Fail to reject `H_0`: there is NOT significant evidence at `alpha = " . $alpha . "`"
 )
 $noshuffle[2] = "all"
 

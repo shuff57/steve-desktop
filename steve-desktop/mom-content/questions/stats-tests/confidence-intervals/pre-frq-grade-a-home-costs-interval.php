@@ -11,10 +11,10 @@
 // = 10.
 //
 // The dropped category is BUILD THE INTERVAL. A student can report the summary statistics and
-// interpret a given interval without ever computing the error bound — the lab's own text says
+// interpret a given interval without ever computing the error bound: the lab's own text says
 // "the arithmetic is easy and the interpretation is where almost everyone slips", so the
 // computation is exactly the step a plausible answer skips. (This drop is distinct from the
-// 4.4/4.6/5.3/6.4 lab pre-FRQs' drops and from §7.1/§7.2/§7.3's — the template forbids repeating
+// 4.4/4.6/5.3/6.4 lab pre-FRQs' drops and from §7.1/§7.2/§7.3's: the template forbids repeating
 // a dropped category.)
 //
 // CATEGORY PURITY: $sSummary states the summary statistics and nothing else; $sBuild states the
@@ -64,7 +64,7 @@ $answer[1] = "0,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The summary statistics can be reported and a given interval interpreted without ever computing the error bound, so the interval has to be built on its own — the arithmetic is where the numbers come from.",
+  "No. The summary statistics can be reported and a given interval interpreted without ever computing the error bound, so the interval has to be built on its own: the arithmetic is where the numbers come from.",
   "Yes. Once the summary statistics are reported, the interval follows automatically, so there is nothing separate to award.",
   "No, but only because the interpretation is the hard part.",
   "Yes, as long as the interval is reported, the setup does not matter."
@@ -139,15 +139,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the summary statistics, builds the interval, and interprets it in context. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the summary statistics, builds the interval, and interprets it in context. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sSummary . ' ' . $sBuild . ' ' . $sInterpret . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noBuildLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noBuildLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Sample Summary &mdash; earned.</b> The summary statistics from the 35 prices are present.</li>
-        <li><b>Build the Interval &mdash; NOT earned.</b> The response never computes the error bound or the interval, so the build is missing.</li>
-        <li><b>Interpret in Context &mdash; earned.</b> The interval is interpreted with the population, the quantity, and the endpoints named.</li>
+        <li><b>State the Sample Summary: earned.</b> The summary statistics from the 35 prices are present.</li>
+        <li><b>Build the Interval: NOT earned.</b> The response never computes the error bound or the interval, so the build is missing.</li>
+        <li><b>Interpret in Context: earned.</b> The interval is interpreted with the population, the quantity, and the endpoints named.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the build is its own category.</span> The lab\'s own text says "the arithmetic is easy and the interpretation is where almost everyone slips" &mdash; but the interval has to come from somewhere. Reporting the summary statistics and interpreting a given interval answers half the question; the error bound is the thing the other categories imply but never demand.</p>
+      <p><span class="term-label">Part (c): why the build is its own category.</span> The lab\'s own text says "the arithmetic is easy and the interpretation is where almost everyone slips": but the interval has to come from somewhere. Reporting the summary statistics and interpreting a given interval answers half the question; the error bound is the thing the other categories imply but never demand.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab this scenario comes with a blank box and this same checklist. The interval build is the category most often skipped, because once the summary statistics are written the computation feels like busywork.</p>
     </div>
   </details>

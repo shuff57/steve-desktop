@@ -7,7 +7,7 @@ $anstypes = array("choices", "choices", "choices")
 
 // The shape is drawn fresh every render: 0 skewed left, 1 skewed right, 2 roughly symmetric.
 // Whichever shape wins the draw controls both the bar heights below AND the correct answer
-// index into parts (a) and (b) -- there is no separate hardcoded answer table.
+// index into parts (a) and (b): there is no separate hardcoded answer table.
 $shapeIdx = rand(0, 2)
 
 $axisTop = 24
@@ -29,7 +29,7 @@ if ($shapeIdx == 0) {
   $barCounts[7] = 2 * rand(5, 10)
 }
 if ($shapeIdx == 1) {
-  // Skewed RIGHT: the mirror image -- bulk on the left, a long thin tail on the right.
+  // Skewed RIGHT: the mirror image: bulk on the left, a long thin tail on the right.
   $barCounts[0] = 2 * rand(5, 10)
   $barCounts[1] = 2 * rand(5, 10)
   $barCounts[2] = 2 * rand(5, 10)
@@ -41,7 +41,7 @@ if ($shapeIdx == 1) {
 }
 if ($shapeIdx == 2) {
   // Roughly symmetric: a mirror image about the center, built from one increasing half so
-  // both sides taper the same amount -- no long tail favors either side.
+  // both sides taper the same amount: no long tail favors either side.
   $v0 = 2 * rand(1, 3)
   $v1 = $v0 + 2 * rand(1, 3)
   $v2 = $v1 + 2 * rand(1, 3)
@@ -64,10 +64,10 @@ for ($i=0..7) {
 // --- Part (a): name the shape. Order 0/1/2 matches $shapeIdx exactly, so the correct choice
 // is computed, not looked up. Index 3 is bimodal, never the drawn shape here.
 $questions[0] = array(
-  "Skewed left &mdash; a long, thin tail stretches out toward the SMALLER values on the left",
-  "Skewed right &mdash; a long, thin tail stretches out toward the LARGER values on the right",
-  "Roughly symmetric &mdash; the two sides mirror each other, with no long tail on either side",
-  "Bimodal &mdash; the distribution has two separate peaks instead of one"
+  "Skewed left: a long, thin tail stretches out toward the SMALLER values on the left",
+  "Skewed right: a long, thin tail stretches out toward the LARGER values on the right",
+  "Roughly symmetric: the two sides mirror each other, with no long tail on either side",
+  "Bimodal: the distribution has two separate peaks instead of one"
 )
 $answer[0] = $shapeIdx
 
@@ -123,7 +123,7 @@ $axes = '<line x1="55" y1="25" x2="55" y2="260" stroke="#374151" stroke-width="2
 
 $hist = $svgOpen . $grid . $bars . $axes . $xlabels . '</svg>'
 
-// Shape-dependent prose for the solution guide -- a function of $shapeIdx, not a lookup keyed
+// Shape-dependent prose for the solution guide: a function of $shapeIdx, not a lookup keyed
 // off the drawn bars, so it stays correct no matter what the random draw produced.
 $shapeName = "roughly symmetric"
 if ($shapeIdx == 0) { $shapeName = "skewed left" }
@@ -138,8 +138,8 @@ if ($shapeIdx == 0) { $meanMedText = "the mean is LESS than the median" }
 if ($shapeIdx == 1) { $meanMedText = "the mean is GREATER than the median" }
 
 $meanMedWhy = "the distribution balances evenly on both sides, so the balancing point &#40;the mean&#41; lands close to the middle value &#40;the median&#41;"
-if ($shapeIdx == 0) { $meanMedWhy = "the tail of small values pulls the mean down toward it, while the median only counts positions and barely moves &mdash; so the mean ends up below the median" }
-if ($shapeIdx == 1) { $meanMedWhy = "the tail of large values pulls the mean up toward it, while the median only counts positions and barely moves &mdash; so the mean ends up above the median" }
+if ($shapeIdx == 0) { $meanMedWhy = "the tail of small values pulls the mean down toward it, while the median only counts positions and barely moves: so the mean ends up below the median" }
+if ($shapeIdx == 1) { $meanMedWhy = "the tail of large values pulls the mean up toward it, while the median only counts positions and barely moves: so the mean ends up above the median" }
 
 $solutionguide = '
 <style>
@@ -159,10 +159,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; find the tail.</span> Skew is named for the TAIL, not for where the peak sits. Looking along the tops of the bars, ' . $tailWhy . '. That makes this distribution <b>' . $shapeName . '</b>.</p>
+      <p><span class="term-label">Step 1: find the tail.</span> Skew is named for the TAIL, not for where the peak sits. Looking along the tops of the bars, ' . $tailWhy . '. That makes this distribution <b>' . $shapeName . '</b>.</p>
       ' . $hist . '
-      <p><span class="term-label">Step 2 &mdash; follow the tail to the mean.</span> The mean is dragged toward the tail because it is an average of every value, including the extreme ones out in the tail; the median only counts how many values are above and below it, so a stretched-out tail barely moves it. Here, ' . $meanMedWhy . ', so ' . $meanMedText . '.</p>
-      <p><span class="term-label">Step 3 &mdash; bimodal is a different question entirely.</span> A distribution with two separate, clearly-separated peaks &mdash; not one peak with a tail &mdash; is called <b>bimodal</b>. It usually means the data actually come from two different groups mixed together.</p>
+      <p><span class="term-label">Step 2: follow the tail to the mean.</span> The mean is dragged toward the tail because it is an average of every value, including the extreme ones out in the tail; the median only counts how many values are above and below it, so a stretched-out tail barely moves it. Here, ' . $meanMedWhy . ', so ' . $meanMedText . '.</p>
+      <p><span class="term-label">Step 3: bimodal is a different question entirely.</span> A distribution with two separate, clearly-separated peaks, not one peak with a tail, is called <b>bimodal</b>. It usually means the data actually come from two different groups mixed together.</p>
       <p><b>Answer:</b> (a) ' . $shapeName . ' &nbsp;&nbsp; (b) ' . $meanMedText . ' &nbsp;&nbsp; (c) bimodal</p>
     </div>
   </details>

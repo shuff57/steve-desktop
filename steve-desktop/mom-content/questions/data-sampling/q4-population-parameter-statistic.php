@@ -5,7 +5,7 @@
 
 $anstypes = array("choices", "choices", "choices")
 
-// Three scenarios — each gives a stated population, a sample of size n, and a numeric value with its origin.
+// Three scenarios: each gives a stated population, a sample of size n, and a numeric value with its origin.
 // Scenario 0: All 12,400 community-college students; sample of 220 surveyed; mean study-hours 14.2 hrs reported FROM THE SAMPLE → statistic
 // Scenario 1: All 5,000 registered voters in a city; sample of 300 polled; 62% support measure → from sample → statistic
 // Scenario 2: All employees at a 1,800-person hospital; HR pulled the full payroll and computed mean salary $58,400 → from POPULATION → parameter
@@ -24,8 +24,8 @@ $ctxs = array(
 $popsamp = array(
   array("All 12,400 community-college students", "The 220 students who were surveyed", 1),
   array("All 5,000 registered voters", "The 300 voters polled", 1),
-  array("All 1,800 hospital employees", "(There is no sample — the entire population was measured)", 0),
-  array("All 240 cars in the staff parking lot", "(There is no sample — every car was inspected)", 0),
+  array("All 1,800 hospital employees", "(There is no sample: the entire population was measured)", 0),
+  array("All 240 cars in the staff parking lot", "(There is no sample: every car was inspected)", 0),
   array("All 2,500 trees in the state forest", "The 80 trees the rangers measured", 1)
 )
 
@@ -35,7 +35,7 @@ $pop_correct = $popsamp[$i][0]
 $samp_correct = $popsamp[$i][1]
 $answer[2] = $popsamp[$i][2]
 
-// To force consistency across scenarios, populations and samples differ — use scenario-specific 2-option choices each time
+// To force consistency across scenarios, populations and samples differ: use scenario-specific 2-option choices each time
 $choices[0] = array($pop_correct, $samp_correct)
 $choices[1] = array($samp_correct, $pop_correct)
 $answer[0] = 0

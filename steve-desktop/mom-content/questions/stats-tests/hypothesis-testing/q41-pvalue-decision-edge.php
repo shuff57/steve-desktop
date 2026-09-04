@@ -12,16 +12,16 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A test of whether the mean hours of sleep for adults is less than 7 produces a p-value of 0.048 at alpha = 0.05.",
-        "Reject `H_0` &mdash; 0.048 is below 0.05, so the sample result is rarer than the standard you agreed to be surprised by.",
+        "Reject `H_0`: 0.048 is below 0.05, so the sample result is rarer than the standard you agreed to be surprised by.",
         "At the 5% significance level there is sufficient evidence to conclude the mean is less than 7 hours."),
   array("A test of whether the mean daily fiber intake of college students differs from 25 g produces a p-value of 0.052 at alpha = 0.05.",
-        "Fail to reject `H_0` &mdash; 0.052 is above 0.05, so the sample result is not rare enough.",
+        "Fail to reject `H_0`: 0.052 is above 0.05, so the sample result is not rare enough.",
         "At the 5% significance level there is not sufficient evidence to conclude the mean differs from 25 g."),
   array("A test of whether the proportion of voters who support a measure is greater than 0.30 produces a p-value of exactly 0.05 at alpha = 0.05.",
-        "Fail to reject `H_0` &mdash; the rule rejects only when alpha is GREATER than the p-value, and equality is not greater than.",
+        "Fail to reject `H_0`: the rule rejects only when alpha is GREATER than the p-value, and equality is not greater than.",
         "At the 5% significance level there is not sufficient evidence to conclude the proportion is greater than 0.30."),
   array("A test of whether the mean commute time of city residents differs from 28 minutes produces a p-value of 0.049 at alpha = 0.05.",
-        "Reject `H_0` &mdash; 0.049 is below 0.05, so the sample result is rarer than the standard you agreed to be surprised by.",
+        "Reject `H_0`: 0.049 is below 0.05, so the sample result is rarer than the standard you agreed to be surprised by.",
         "At the 5% significance level there is sufficient evidence to conclude the mean differs from 28 minutes.")
 )
 
@@ -32,8 +32,8 @@ $conclusion = $cases[$i][2]
 
 $questions[0] = array(
   $decision,
-  "Reject `H_0` &mdash; the p-value is close to alpha, so the evidence is strong enough.",
-  "Fail to reject `H_0` &mdash; the p-value is close to alpha, so the evidence is too weak."
+  "Reject `H_0`: the p-value is close to alpha, so the evidence is strong enough.",
+  "Fail to reject `H_0`: the p-value is close to alpha, so the evidence is too weak."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -64,9 +64,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the rigid rule.</span> The decision rule rejects only when `alpha > p`-value. Equality is not "greater than", so `alpha = p`-value falls under the do-not-reject branch. The p-value being close to alpha does not change the rule &mdash; it only changes how much confidence you have in the decision.</p>
-      <p><span class="term-label">Part (b) &mdash; the conclusion.</span> ' . $conclusion . '</p>
-      <p>Choosing alpha after seeing a p-value of 0.048 is not a decision, it is a rationalization &mdash; and it is the single easiest way to turn a real procedure into a rubber stamp.</p>
+      <p><span class="term-label">Part (a): the rigid rule.</span> The decision rule rejects only when `alpha > p`-value. Equality is not "greater than", so `alpha = p`-value falls under the do-not-reject branch. The p-value being close to alpha does not change the rule: it only changes how much confidence you have in the decision.</p>
+      <p><span class="term-label">Part (b): the conclusion.</span> ' . $conclusion . '</p>
+      <p>Choosing alpha after seeing a p-value of 0.048 is not a decision, it is a rationalization: and it is the single easiest way to turn a real procedure into a rubber stamp.</p>
     </div>
   </details>
 </div>'

@@ -19,13 +19,13 @@ $questions = array(
 $answer = 0
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>The problem is the pairing, not the payment.</b> The reward is a gift card to ' . $store . ' &mdash; and the survey asks about ' . $habit . '.</p>
+  <p><b>The problem is the pairing, not the payment.</b> The reward is a gift card to ' . $store . ': and the survey asks about ' . $habit . '.</p>
   <p><b>Two distinct effects, both biasing.</b></p>
   <ul>
     <li><b>Who responds.</b> A student who cares about ' . $store . ' has more reason to take part than one who does not. The respondents tilt toward the group whose behavior is being measured, which is a selection effect.</li>
     <li><b>What they say.</b> Knowing in advance what the reward is signals what the researchers are interested in, which nudges answers in that direction.</li>
   </ul>
-  <p><b>"Knew about the award before the study" is the operative phrase.</b> The same $' . $amt . ' card handed out afterwards, unannounced, biases neither who responds nor what they say &mdash; nobody could have adjusted to something they did not know was coming.</p>
+  <p><b>"Knew about the award before the study" is the operative phrase.</b> The same $' . $amt . ' card handed out afterwards, unannounced, biases neither who responds nor what they say: nobody could have adjusted to something they did not know was coming.</p>
   <p><b>Answer:</b> yes, it would affect the data.</p>
 </div>'
 

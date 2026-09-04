@@ -4,14 +4,14 @@
 // === COMMON CONTROL ===
 
 // The existing 2.7 question walks a standard deviation from a LIST. Data arrives as a frequency table
-// at least as often, and the extra step -- weighting each squared deviation by how many times that
-// value occurred -- is where students drop the count and average the distinct values instead.
+// at least as often, and the extra step: weighting each squared deviation by how many times that
+// value occurred: is where students drop the count and average the distinct values instead.
 //
 // What the student BUILDS is the two working columns. Once xf and f(x - mean)^2 are on the page the
 // answer is one division and one square root, so the columns are the calculation.
 //
 // The mean is forced onto a whole number by adjusting one frequency, which keeps every deviation an
-// integer and every squared deviation exact -- otherwise the middle column is a wall of decimals and
+// integer and every squared deviation exact: otherwise the middle column is a wall of decimals and
 // the question tests typing rather than method.
 $anstypes = array("number", "number", "number", "number", "choices")
 
@@ -96,10 +96,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the xf column and the mean.</span> Each value has to count once for every ' . $who . ' who had it, so multiply value by frequency and total the column:</p>
+      <p><span class="term-label">Step 1: the xf column and the mean.</span> Each value has to count once for every ' . $who . ' who had it, so multiply value by frequency and total the column:</p>
       <p style="text-align:center;">`sum xf = ' . $sumXF . '` over `n = ' . $n . '` ' . $who . ', so `bar x = ' . $sumXF . ' -: ' . $n . ' = ` <b>' . $mean . '</b> ' . $unitWord . '</p>
       <p>Averaging the five DISTINCT values instead of the ' . $n . ' observations is the first place this goes wrong.</p>
-      <p><span class="term-label">Step 2 &mdash; the squared-deviation column.</span> For each row take `x - bar x`, square it, then multiply by that row&rsquo;s frequency. Squaring removes the signs &mdash; without it the deviations cancel to zero every time, which is why the raw deviations are never totalled.</p>
+      <p><span class="term-label">Step 2: the squared-deviation column.</span> For each row take `x - bar x`, square it, then multiply by that row&rsquo;s frequency. Squaring removes the signs: without it the deviations cancel to zero every time, which is why the raw deviations are never totalled.</p>
       <table style="border-collapse:collapse; margin:8px 0; font-size:15px;">
         <tr style="background:#f0f4ff;"><th style="border:1px solid #d1d5db; padding:5px 12px;">x</th><th style="border:1px solid #d1d5db; padding:5px 12px;">f</th><th style="border:1px solid #d1d5db; padding:5px 12px;">x &minus; x&#772;</th><th style="border:1px solid #d1d5db; padding:5px 12px;">f(x &minus; x&#772;)&sup2;</th></tr>
         <tr><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $x0 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $f0 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $d0 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . ($sq0 * $f0) . '</td></tr>
@@ -109,7 +109,7 @@ $solutionguide = '
         <tr><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $x4 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $f4 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . $d4 . '</td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;">' . ($sq0 * $f4) . '</td></tr>
         <tr style="background:#f8fafc;"><td style="border:1px solid #d1d5db; padding:5px 12px;" colspan="3"><b>Total</b></td><td style="border:1px solid #d1d5db; padding:5px 12px; text-align:center;"><b>' . $ssq . '</b></td></tr>
       </table>
-      <p><span class="term-label">Step 3 &mdash; divide by `n - 1`, then take the root.</span> This is a SAMPLE, so the divisor is ' . $n . ' &minus; 1 = ' . $nm1 . ':</p>
+      <p><span class="term-label">Step 3: divide by `n - 1`, then take the root.</span> This is a SAMPLE, so the divisor is ' . $n . ' &minus; 1 = ' . $nm1 . ':</p>
       <p style="text-align:center;">`s^2 = ' . $ssq . ' -: ' . $nm1 . ' = ' . $varShown . '` &nbsp;&nbsp; `s = sqrt(' . $varShown . ') = ` <b>' . $sd . '</b> ' . $unitWord . '</p>
       <p><span class="term-label">Does the answer look right?</span> A standard deviation is a typical distance from the mean, so it should be comfortably smaller than the full spread of the data &#40;here ' . $x0 . ' to ' . $x4 . '&#41; and never negative. Roughly a quarter to a third of the range is the usual ballpark.</p>
     </div>

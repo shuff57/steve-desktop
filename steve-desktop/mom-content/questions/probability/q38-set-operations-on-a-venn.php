@@ -3,7 +3,7 @@
 
 // === COMMON CONTROL ===
 
-// Built for 3.5. Part (a) -- A and not B -- is the one with NO formula: it has to be read off the
+// Built for 3.5. Part (a), A and not B, is the one with NO formula: it has to be read off the
 // picture as the crescent of A alone. There is no addition rule for it and no shortcut, which is
 // exactly why it is asked first. The other three are there to reinforce that the union is three
 // regions and its complement is the fourth.
@@ -69,13 +69,13 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">(a) A and not B has no formula.</span> There is no addition rule that produces it &mdash; it is the crescent of the ' . $aName . ' circle alone, and the only way to get it is to read it off the picture: the region in ' . $aName . ' but outside the overlap, which is ' . $aOnly . '. So `' . $aOnly . ' -: ' . $total . ' = ' . ($aOnly / $total) . '`. This is the part that cannot be solved by remembering a rule, and that is the point of asking it.</p>
+      <p><span class="term-label">(a) A and not B has no formula.</span> There is no addition rule that produces it: it is the crescent of the ' . $aName . ' circle alone, and the only way to get it is to read it off the picture: the region in ' . $aName . ' but outside the overlap, which is ' . $aOnly . '. So `' . $aOnly . ' -: ' . $total . ' = ' . ($aOnly / $total) . '`. This is the part that cannot be solved by remembering a rule, and that is the point of asking it.</p>
       <ul>
         <li><b>(b) Neither.</b> The corner outside both circles: `' . $neither . ' -: ' . $total . ' = ' . ($neither / $total) . '`.</li>
         <li><b>(c) A or B.</b> All three regions inside the union: `(' . $aOnly . ' + ' . $both . ' + ' . $bOnly . ') -: ' . $total . ' = ' . ($union / $total) . '`.</li>
-        <li><b>(d) The complement of the union.</b> Everyone who is NOT in ' . $aName . ' or ' . $bName . ' &mdash; the fourth region again: `' . $notUnion . ' -: ' . $total . ' = ' . ($notUnion / $total) . '`. (c) and (d) must add to 1, because the union and its complement partition everyone.</li>
+        <li><b>(d) The complement of the union.</b> Everyone who is NOT in ' . $aName . ' or ' . $bName . ': the fourth region again: `' . $notUnion . ' -: ' . $total . ' = ' . ($notUnion / $total) . '`. (c) and (d) must add to 1, because the union and its complement partition everyone.</li>
       </ul>
-      <p><span class="term-label">The check.</span> The four regions must sum to the total: `' . $aOnly . ' + ' . $both . ' + ' . $bOnly . ' + ' . $neither . ' = ' . $total . '`. If they do not, a region was miscounted &mdash; most often by putting the overlap somewhere it does not belong.</p>
+      <p><span class="term-label">The check.</span> The four regions must sum to the total: `' . $aOnly . ' + ' . $both . ' + ' . $bOnly . ' + ' . $neither . ' = ' . $total . '`. If they do not, a region was miscounted: most often by putting the overlap somewhere it does not belong.</p>
     </div>
   </details>
 </div>'

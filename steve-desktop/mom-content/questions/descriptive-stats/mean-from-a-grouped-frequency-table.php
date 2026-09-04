@@ -65,7 +65,7 @@ $abstolerance[1] = 0.05
 $questions[2][0] = "The original values were lost when the data was grouped into classes, and this method assumes every value in a class sits at that class's midpoint."
 $questions[2][1] = "Because the frequencies in the table are rounded."
 $questions[2][2] = "Because the class midpoints are rounded."
-$questions[2][3] = "It is not an estimate &mdash; this method gives the exact mean."
+$questions[2][3] = "It is not an estimate: this method gives the exact mean."
 $answer[2] = 0
 
 $solutionguide = '
@@ -87,10 +87,10 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Grouped data hides the individual values.</span> Once the ' . $n . ' ' . $unitWord . ' are sorted into classes, the table only says how many fall in each class, not what each one actually was. To estimate the mean, assume every value in a class sits at that class\'s midpoint, `"midpoint" = ("lower" + "upper")/2`.</p>
-      <p><span class="term-label">Part (a) &mdash; the midpoint of the ' . $askLo . '&ndash;' . $askHi . ' class.</span> `(' . $askLo . ' + ' . $askHi . ')/2 = ` <b>' . $askMid . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; the estimated mean.</span> Multiply each class\'s midpoint by its frequency, add up the products, and divide by `n = ' . $n . '`:</p>
+      <p><span class="term-label">Part (a): the midpoint of the ' . $askLo . '&ndash;' . $askHi . ' class.</span> `(' . $askLo . ' + ' . $askHi . ')/2 = ` <b>' . $askMid . '</b>.</p>
+      <p><span class="term-label">Part (b): the estimated mean.</span> Multiply each class\'s midpoint by its frequency, add up the products, and divide by `n = ' . $n . '`:</p>
       <p>`bar x ~~ (sum "midpoint" * f)/n = ' . $sumMidF . '/' . $n . ' = ` <b>' . $estMean . '</b> (rounded to two decimal places).</p>
-      <p><span class="term-label">Part (c) &mdash; why this is only an estimate.</span> Grouping the data into classes threw away the individual values, and the midpoint method assumes every value in a class landed exactly at the midpoint. It usually did not &mdash; so the true mean of the original data is close to <b>' . $estMean . '</b> but not necessarily equal to it.</p>
+      <p><span class="term-label">Part (c): why this is only an estimate.</span> Grouping the data into classes threw away the individual values, and the midpoint method assumes every value in a class landed exactly at the midpoint. It usually did not: so the true mean of the original data is close to <b>' . $estMean . '</b> but not necessarily equal to it.</p>
     </div>
   </details>
 </div>'
@@ -99,7 +99,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;">$intro The individual values are no longer available &mdash; only the class each one fell into.</p>
+    <p style="margin:0 0 10px 0;">$intro The individual values are no longer available: only the class each one fell into.</p>
     <table style="border-collapse:collapse; margin:0;">
       <thead>
         <tr style="background:#f0f4ff;">

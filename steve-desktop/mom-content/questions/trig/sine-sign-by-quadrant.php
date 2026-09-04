@@ -6,10 +6,10 @@ $degs = array(30, 45, 60, 120, 135, 150, 210, 225, 240, 300, 315, 330)
 // Quadrant for each angle
 $quads = array(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4)
 
-// Sine values (y-coordinates) — exact form
+// Sine values (y-coordinates): exact form
 $sine_vals = array("1/2", "sqrt(2)/2", "sqrt(3)/2", "sqrt(3)/2", "sqrt(2)/2", "1/2", "-1/2", "-sqrt(2)/2", "-sqrt(3)/2", "-sqrt(3)/2", "-sqrt(2)/2", "-1/2")
 
-// Cosine values (x-coordinates) — exact form
+// Cosine values (x-coordinates): exact form
 $cos_vals = array("sqrt(3)/2", "sqrt(2)/2", "1/2", "-1/2", "-sqrt(2)/2", "-sqrt(3)/2", "-sqrt(3)/2", "-sqrt(2)/2", "-1/2", "1/2", "sqrt(2)/2", "sqrt(3)/2")
 
 // Numeric coordinates for graphing
@@ -50,7 +50,7 @@ if ($ans_idx == 0) {
 } else {
   $prompt = "If sin(&theta;) < 0, which quadrants could &theta; be in?"
   $correct = "3 and 4"
-  $explanation = "If sin(&theta;) < 0, the y-coordinate is negative, which means the angle is below the x-axis — Quadrants III or IV."
+  $explanation = "If sin(&theta;) < 0, the y-coordinate is negative, which means the angle is below the x-axis: Quadrants III or IV."
   $highlight = "negative"
 }
 
@@ -131,7 +131,7 @@ if ($quad <= 2) {
   $sign_rule = "Sine is positive in Quadrants I and II (above the x-axis) and negative in Quadrants III and IV (below the x-axis)."
 }
 
-// Solution guide — dynamically builds based on question variant
+// Solution guide: dynamically builds based on question variant
 $sign_detail = ""
 if ($ans_idx == 0) {
   $sign_detail = "<b>Step 2</b></td><td><b>Determine where y-coordinates are positive.</b><br>Above the x-axis &rarr; Quadrants I and II. Below &rarr; Quadrants III and IV.<br>Therefore sin(&theta;) is positive in <b>Quadrants I and II</b>"

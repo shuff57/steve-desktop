@@ -485,7 +485,7 @@ $questiontext = '
   </div>
   <div style="margin:6px 0 10px 0; padding:0.6em 1em; background:#fce4ec; border-left:4px solid #e91e63; border-radius:0 6px 6px 0; font-size:0.93em;">
     <b>&#x26A0; Phase shift reminder:</b> ' . $phase_note . '
-    The entire set of anchor x-values shifts -- <b>not just the starting point</b>.
+    The entire set of anchor x-values shifts: <b>not just the starting point</b>.
   </div>
 
   <p style="margin-top:10px;"><b>Directions:</b> Select the <b>sine curve tool</b>, then click two anchor points to define your curve. Place your clicks at the ' . $y1_role . ' and any midline crossing for best accuracy. The curve should:</p>

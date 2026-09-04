@@ -7,7 +7,7 @@
 // Categories: Purpose of the Test (3) / Real-World Example (3) / Hypotheses (4) = 10.
 //
 // The dropped category is REAL-WORLD EXAMPLE. A student can state the purpose and write the
-// hypotheses without ever applying them to a concrete scenario — the section's own "get the
+// hypotheses without ever applying them to a concrete scenario: the section's own "get the
 // pair wrong and every calculation after it answers the wrong question" is exactly the step a
 // plausible answer skips.
 //
@@ -153,15 +153,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the purpose, applies the scenario, and writes the hypotheses. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the purpose, applies the scenario, and writes the hypotheses. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sPurpose . ' ' . $sExample . ' ' . $sHypotheses . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noExampleLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noExampleLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Purpose of the Test &mdash; earned.</b> The purpose is stated: the test decides whether sample evidence is strong enough to conclude the true mean differs from the claimed value.</li>
-        <li><b>Real-World Example &mdash; NOT earned.</b> The response never applies the test to the scenario &mdash; no population, no variable, no sample action.</li>
-        <li><b>Hypotheses &mdash; earned.</b> The pair is written in &#956; notation and the null\'s assumption is explained.</li>
+        <li><b>Purpose of the Test: earned.</b> The purpose is stated: the test decides whether sample evidence is strong enough to conclude the true mean differs from the claimed value.</li>
+        <li><b>Real-World Example: NOT earned.</b> The response never applies the test to the scenario: no population, no variable, no sample action.</li>
+        <li><b>Hypotheses: earned.</b> The pair is written in &#956; notation and the null\'s assumption is explained.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the example is its own category.</span> Writing the pair correctly is the section\'s headline skill, and the purpose can be stated in one sentence &mdash; but neither one forces the student to connect the machinery to an actual study. The example is the step that makes the hypotheses mean something, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the example is its own category.</span> Writing the pair correctly is the section\'s headline skill, and the purpose can be stated in one sentence: but neither one forces the student to connect the machinery to an actual study. The example is the step that makes the hypotheses mean something, and a response that skips it has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The real-world example is the category most often skipped, because once the purpose and the pair are written the scenario feels like decoration.</p>
     </div>
   </details>

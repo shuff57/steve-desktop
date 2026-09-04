@@ -19,7 +19,7 @@ $thing = $things[$ci]
 $catStart = 1
 if ($ci == 1) { $catStart = 0 }
 
-// Five categories. One is pushed clear of the rest so the most common value is unique -- a tie
+// Five categories. One is pushed clear of the rest so the most common value is unique: a tie
 // would make part (c) unanswerable, and ties are common if five values are drawn independently.
 $f = array(0, 0, 0, 0, 0)
 $maxOther = 0
@@ -116,10 +116,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read every point, then add.</span> Follow each dot across to the frequency axis: ' . $f[0] . ', ' . $f[1] . ', ' . $f[2] . ', ' . $f[3] . ', ' . $f[4] . '. The sample size is the sum of the frequencies, <b>' . $n . '</b> ' . $thing . '. It is not the number of points, which is only how many different answers were possible.</p>
-      <p><span class="term-label">Step 2 &mdash; relative frequency.</span> The point above ' . $askValue . ' sits at ' . $askFreq . '. Divide by the total: ' . $askFreq . ' / ' . $n . ' &approx; <b>' . $relRounded . '</b>, about ' . $relPercent . '% of those surveyed.</p>
-      <p><span class="term-label">Step 3 &mdash; the most common value.</span> The highest point is above <b>' . $modeValue . '</b>, so that is the answer given most often. Read the value on the horizontal axis, not the height &mdash; the height is how many people, the position is what they said.</p>
-      <p><span class="term-label">Step 4 &mdash; what the segments mean.</span> Nothing, on their own. This variable only takes whole-number values, so there is no data between the points; the lines are drawn to make the pattern easier to follow. Reading a value off the middle of a segment invents data that was never collected.</p>
+      <p><span class="term-label">Step 1: read every point, then add.</span> Follow each dot across to the frequency axis: ' . $f[0] . ', ' . $f[1] . ', ' . $f[2] . ', ' . $f[3] . ', ' . $f[4] . '. The sample size is the sum of the frequencies, <b>' . $n . '</b> ' . $thing . '. It is not the number of points, which is only how many different answers were possible.</p>
+      <p><span class="term-label">Step 2: relative frequency.</span> The point above ' . $askValue . ' sits at ' . $askFreq . '. Divide by the total: ' . $askFreq . ' / ' . $n . ' &approx; <b>' . $relRounded . '</b>, about ' . $relPercent . '% of those surveyed.</p>
+      <p><span class="term-label">Step 3: the most common value.</span> The highest point is above <b>' . $modeValue . '</b>, so that is the answer given most often. Read the value on the horizontal axis, not the height: the height is how many people, the position is what they said.</p>
+      <p><span class="term-label">Step 4: what the segments mean.</span> Nothing, on their own. This variable only takes whole-number values, so there is no data between the points; the lines are drawn to make the pattern easier to follow. Reading a value off the middle of a segment invents data that was never collected.</p>
       <p><b>Answer:</b> (a) ' . $n . ' &nbsp;&nbsp; (b) ' . $relRounded . ' &nbsp;&nbsp; (c) ' . $modeValue . '</p>
     </div>
   </details>

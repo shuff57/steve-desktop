@@ -10,17 +10,17 @@
 $anstypes = array("choices", "choices")
 
 $questions[0] = array(
-  "It increases &mdash; raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails",
-  "It decreases &mdash; raising the confidence level means the interval can be tighter",
-  "It stays the same &mdash; the confidence level does not affect the error bound"
+  "It increases: raising the confidence level means demanding more area under the middle of the t-curve, which forces the boundaries further out into the tails",
+  "It decreases: raising the confidence level means the interval can be tighter",
+  "It stays the same: the confidence level does not affect the error bound"
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "It increases &mdash; the width grows right along with the error bound",
-  "It decreases &mdash; the width shrinks as the error bound grows",
-  "It stays the same &mdash; the width does not depend on the error bound"
+  "It increases: the width grows right along with the error bound",
+  "It decreases: the width shrinks as the error bound grows",
+  "It stays the same: the width does not depend on the error bound"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -43,8 +43,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the EBM.</span> As the confidence level increases, the EBM increases. Higher confidence means insisting that more of the t-curve\'s area sits inside the interval, which pushes the cutoffs further into the tails and makes `t_(alpha/2)` larger; the standard error never moved.</p>
-      <p><span class="term-label">Part (b) &mdash; the width.</span> The width grows right along with the error bound &mdash; the 99% interval is four times as wide as the 50% one.</p>
+      <p><span class="term-label">Part (a): the EBM.</span> As the confidence level increases, the EBM increases. Higher confidence means insisting that more of the t-curve\'s area sits inside the interval, which pushes the cutoffs further into the tails and makes `t_(alpha/2)` larger; the standard error never moved.</p>
+      <p><span class="term-label">Part (b): the width.</span> The width grows right along with the error bound: the 99% interval is four times as wide as the 50% one.</p>
       <p><span class="term-label">The trade.</span> Certainty and precision pull against each other. The 99% interval is very likely to contain `mu` and spans over $100,000, which is almost useless to a buyer; the 50% interval pins the mean to a $26,000 range and is wrong about half the time. Ninety and ninety-five percent are conventions because they sit in the usable middle, not because there is anything mathematically special about them.</p>
     </div>
   </details>

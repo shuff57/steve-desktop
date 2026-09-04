@@ -51,9 +51,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the raw sample size.</span> The error bound formula links precision, confidence, and sample size. Solving it for n:</p>
+      <p><span class="term-label">Part (a): the raw sample size.</span> The error bound formula links precision, confidence, and sample size. Solving it for n:</p>
       <p>`n = z^2 sigma^2 / EBM^2 = (' . $z . ')^2 (' . $sigma . ')^2 / (' . $ebm . ')^2 = ' . round($raw, 2) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; round UP.</span> The rounding rule is not a convention, it is arithmetic. Rounding down would leave the sample slightly too small, which makes the error bound slightly larger than the one the study promised. Rounding up costs one extra observation and keeps the promise:</p>
+      <p><span class="term-label">Part (b): round UP.</span> The rounding rule is not a convention, it is arithmetic. Rounding down would leave the sample slightly too small, which makes the error bound slightly larger than the one the study promised. Rounding up costs one extra observation and keeps the promise:</p>
       <p>`n = ' . $n . '`</p>
       <p>Precision is expensive: the EBM is squared in the denominator, so halving the error bound multiplies the required sample size by four.</p>
     </div>

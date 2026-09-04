@@ -54,10 +54,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Translate first.</span> "More than ' . $k . '" means `X > ' . $k . '` — strictly greater, so the row `x = ' . $k . '` is NOT included.</p>
+      <p><span class="term-label">Translate first.</span> "More than ' . $k . '" means `X > ' . $k . '`: strictly greater, so the row `x = ' . $k . '` is NOT included.</p>
       <p><span class="term-label">The complement.</span> "More than ' . $k . '" is everything except "at most ' . $k . '":</p>
       <p>`P(X > ' . $k . ') = 1 - P(X <= ' . $k . ') = 1 - ' . $cum . ' = ` <b>' . $prob . '</b></p>
-      <p>This is the same complement habit as "at least" — the tail is never added directly; it is whatever is left over after the cumulative total.</p>
+      <p>This is the same complement habit as "at least": the tail is never added directly; it is whatever is left over after the cumulative total.</p>
     </div>
   </details>
 </div>'

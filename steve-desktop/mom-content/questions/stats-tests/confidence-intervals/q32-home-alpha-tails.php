@@ -32,11 +32,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; alpha.</span> Take alpha from the confidence level:</p>
+      <p><span class="term-label">Part (a): alpha.</span> Take alpha from the confidence level:</p>
       <p>`alpha = 1 - CL = 1 - 0.90 = 0.10`</p>
-      <p><span class="term-label">Part (b) &mdash; alpha/2.</span> The t-distribution is symmetric, so the leftover area divides evenly between the two tails:</p>
+      <p><span class="term-label">Part (b): alpha/2.</span> The t-distribution is symmetric, so the leftover area divides evenly between the two tails:</p>
       <p>`alpha/2 = 0.10/2 = 0.05`</p>
-      <p>The three areas have to total 1: `0.05 + 0.90 + 0.05 = 1.00`. That check catches the single most common mistake in this step, which is putting the full alpha in each tail instead of half of it &mdash; a slip that would send you to the t-value for an 80% interval while your paper still says 90%.</p>
+      <p>The three areas have to total 1: `0.05 + 0.90 + 0.05 = 1.00`. That check catches the single most common mistake in this step, which is putting the full alpha in each tail instead of half of it: a slip that would send you to the t-value for an 80% interval while your paper still says 90%.</p>
     </div>
   </details>
 </div>'

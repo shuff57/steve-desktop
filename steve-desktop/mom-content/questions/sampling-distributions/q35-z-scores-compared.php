@@ -17,7 +17,7 @@ $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Which number you divide by says which question you asked &mdash; an individual is measured against sigma, an average against the standard error",
+  "Which number you divide by says which question you asked: an individual is measured against sigma, an average against the standard error",
   "The z-score is the same for both because they come from the same data",
   "The individual is always the one that is more unusual",
   "The average is always the one that is more unusual"
@@ -43,11 +43,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the individual, measured against sigma.</span> The $2.10 is an individual value, so it is measured against `sigma ~= 0.5122`:</p>
+      <p><span class="term-label">Part (a): the individual, measured against sigma.</span> The $2.10 is an individual value, so it is measured against `sigma ~= 0.5122`:</p>
       <p>`(2.10 - 0.70)/0.5122 ~= 2.73`</p>
-      <p><span class="term-label">Part (b) &mdash; the average, measured against the standard error.</span> The $0.824 is an average of five, so it is measured against `sigma_bar(x) ~= 0.2291`:</p>
+      <p><span class="term-label">Part (b): the average, measured against the standard error.</span> The $0.824 is an average of five, so it is measured against `sigma_bar(x) ~= 0.2291`:</p>
       <p>`(0.824 - 0.70)/0.2291 ~= 0.54`</p>
-      <p><span class="term-label">Part (c) &mdash; the point.</span> The same group of people is a genuine outlier when you look at its largest member and thoroughly ordinary when you look at its average. Neither reading is wrong &mdash; they answer different questions, and the number you divide by is what says which question you asked. Using `sigma` where `sigma_bar(x)` belongs is the single most common error in the rest of this course, and it always makes a result look less surprising than it really is.</p>
+      <p><span class="term-label">Part (c): the point.</span> The same group of people is a genuine outlier when you look at its largest member and thoroughly ordinary when you look at its average. Neither reading is wrong: they answer different questions, and the number you divide by is what says which question you asked. Using `sigma` where `sigma_bar(x)` belongs is the single most common error in the rest of this course, and it always makes a result look less surprising than it really is.</p>
     </div>
   </details>
 </div>'

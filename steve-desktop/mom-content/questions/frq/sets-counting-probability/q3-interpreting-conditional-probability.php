@@ -58,7 +58,7 @@ $forward_display = sprintf("%.3f", $forward_prob);
 $reverse_display = sprintf("%.3f", $reverse_prob);
 
 $r_interpretation = "P($col_val | $row_val) means: out of the people who are $row_val, what fraction are also $col_val? We restrict attention to the $row_total people who are $row_val, and among them, $both_count are also $col_val, so the probability is $both_count/$row_total = $forward_display";
-$r_asymmetry = "they are different because each conditional probability uses a different reduced sample space. P($col_val | $row_val) restricts to the $row_total $row_val people as the denominator, while P($row_val | $col_val) restricts to the $col_total $col_val people. Unless the two groups happen to produce the same ratio, the probabilities will not be equal -- and here P($row_val | $col_val) = $both_count/$col_total = $reverse_display, which is different from $forward_display";
+$r_asymmetry = "they are different because each conditional probability uses a different reduced sample space. P($col_val | $row_val) restricts to the $row_total $row_val people as the denominator, while P($row_val | $col_val) restricts to the $col_total $col_val people. Unless the two groups happen to produce the same ratio, the probabilities will not be equal: and here P($row_val | $col_val) = $both_count/$col_total = $reverse_display, which is different from $forward_display";
 $r_clarity = "uses complete sentences, proper notation, and clearly distinguishes the two conditional probabilities";
 
 $sample_narrative = "<b>P($col_val | $row_val)</b> asks: given that a person is <b>$row_val</b>, what is the probability they are also <b>$col_val</b>? $r_interpretation. The reversed conditional is different: $r_asymmetry.";

@@ -5,7 +5,7 @@
 
 $anstypes = array("choices", "choices")
 
-// Scenario randomization — pre/post on the SAME subjects, so the right call is paired t
+// Scenario randomization: pre/post on the SAME subjects, so the right call is paired t
 $ctx_subj   = array("30 college athletes",     "24 algebra students",      "40 hypertension patients",       "28 office workers")
 $ctx_meas   = array("vertical jump (inches)",  "exam score",               "systolic blood pressure (mmHg)", "typing speed (wpm)")
 $ctx_treat  = array("a 6-week strength program", "a 4-week study workshop", "a new medication",              "a new keyboard layout")
@@ -19,7 +19,7 @@ $meas   = $picked_ctx[1]
 $treat  = $picked_ctx[2]
 $window = $picked_ctx[3]
 
-// Part a — which method?
+// Part a: which method?
 $choices[0] = array(
   "Paired t-test on the differences (post `-` pre).",
   "Two-sample t-test comparing the mean pre score to the mean post score as if they came from independent groups.",
@@ -29,7 +29,7 @@ $choices[0] = array(
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — why?
+// Part b: why?
 $choices[1] = array(
   "Each subject contributes a pre value and a post value, so the two measurements are linked. Working with the within-subject differences removes the person-to-person variability.",
   "The pre and post groups are independent samples of the same size.",

@@ -3,7 +3,7 @@
 
 // === COMMON CONTROL ===
 
-// The arithmetic is identical for both means -- that IS the lesson. What separates them is which
+// The arithmetic is identical for both means: that IS the lesson. What separates them is which
 // group the numbers came from, so the question hands over one small population, marks a subset of
 // it as the sample, and asks for both means side by side. Students who think the formula changes
 // discover that only the label does.
@@ -99,9 +99,9 @@ $solutionguide = '
       <p><span class="term-label">Both means, same arithmetic.</span> Add the values, divide by how many there are. Nothing about the calculation changes between a population and a sample.</p>
       <p>All ten: `' . $popSum . ' -: 10 = ` <b>' . $popMean . '</b> ' . $unitWord . '.<br>
          The four measured: `' . $sampSum . ' -: 4 = ` <b>' . $sampMean . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">What the symbols record.</span> `mu` is the mean of a POPULATION &mdash; every member of the group you are asking about. `bar x` is the mean of a SAMPLE &mdash; the part of it you actually measured. Here `mu = ' . $popMean . '` and `bar x = ' . $sampMean . '`. The symbol is not decoration: it tells a reader which group the number describes, which is the only thing separating these two answers.</p>
+      <p><span class="term-label">What the symbols record.</span> `mu` is the mean of a POPULATION: every member of the group you are asking about. `bar x` is the mean of a SAMPLE: the part of it you actually measured. Here `mu = ' . $popMean . '` and `bar x = ' . $sampMean . '`. The symbol is not decoration: it tells a reader which group the number describes, which is the only thing separating these two answers.</p>
       <p><span class="term-label">Parameter or statistic.</span> A number describing a whole population is a <b>parameter</b>; a number describing a sample is a <b>statistic</b>. So ' . $popMean . ' is a parameter and ' . $sampMean . ' is a statistic. The words follow the group, not the arithmetic.</p>
-      <p><span class="term-label">Why the two differ.</span> The four measured items are not a perfect miniature of all ten, so their mean lands near the population mean but not on it. That gap is sampling variability, and almost everything later in the course exists to measure it. Notice that here you could check the gap because the whole population was listed &mdash; in real work you only ever see `bar x`, which is exactly why `mu` has to be estimated rather than looked up.</p>
+      <p><span class="term-label">Why the two differ.</span> The four measured items are not a perfect miniature of all ten, so their mean lands near the population mean but not on it. That gap is sampling variability, and almost everything later in the course exists to measure it. Notice that here you could check the gap because the whole population was listed: in real work you only ever see `bar x`, which is exactly why `mu` has to be estimated rather than looked up.</p>
     </div>
   </details>
 </div>'

@@ -32,7 +32,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">The standard error.</span> The standard error of the mean is `s_x/sqrt(n)`:</p>
       <p>`SE = 113,006/sqrt(35) = 113,006/5.9161 ~= 19,101`</p>
-      <p><span class="term-label">Why compute it once.</span> The standard error measures how much the sample mean varies from sample to sample, and it depends only on the data &mdash; not on the confidence level. Computing it once first will save you arithmetic all the way through the four-level table: everything the confidence level touches is packed into the single multiplier `t_(alpha/2)`, so the last part of the lab can fill an entire table of intervals without ever recomputing `x-bar` or `s_x`.</p>
+      <p><span class="term-label">Why compute it once.</span> The standard error measures how much the sample mean varies from sample to sample, and it depends only on the data: not on the confidence level. Computing it once first will save you arithmetic all the way through the four-level table: everything the confidence level touches is packed into the single multiplier `t_(alpha/2)`, so the last part of the lab can fill an entire table of intervals without ever recomputing `x-bar` or `s_x`.</p>
     </div>
   </details>
 </div>'

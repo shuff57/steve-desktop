@@ -33,7 +33,7 @@ $solutionguide = '
       <p>`s^2 = (sum x^2 - n * x-bar^2) / (n - 1) ~= (4.0176696 - 12(0.49798)^2) / 11 ~= 1.0419/11 ~= 0.0947`</p>
       <p><span class="term-label">Take the square root.</span></p>
       <p>`s = sqrt(0.0947) ~= 0.3078`</p>
-      <p>Hold that beside the theoretical `sigma ~= 0.2887`: the sample came out about 7% more spread out than the model predicts. Divide by `n - 1`, not `n`; these twelve values are a sample, not every value the generator could ever produce. And notice that `s` drifted further from `sigma` than `x-bar` did from `mu` — a standard deviation is built from squared distances, so a single value out near an end moves it more than it moves the mean.</p>
+      <p>Hold that beside the theoretical `sigma ~= 0.2887`: the sample came out about 7% more spread out than the model predicts. Divide by `n - 1`, not `n`; these twelve values are a sample, not every value the generator could ever produce. And notice that `s` drifted further from `sigma` than `x-bar` did from `mu`: a standard deviation is built from squared distances, so a single value out near an end moves it more than it moves the mean.</p>
     </div>
   </details>
 </div>'

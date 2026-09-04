@@ -66,8 +66,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the random variable.</span> The random variable is the sample statistic that varies from sample to sample: ' . $rvLabel . '. Name the units, the group, and the sample size when you describe it.</p>
-      <p><span class="term-label">Part (b) &mdash; average or share.</span> The test is about ' . $kindLabel . '. That distinction decides the parameter &mdash; `mu` for an average, `p` for a share &mdash; and the parameter picks the whole row of the hypothesis-testing table.</p>
+      <p><span class="term-label">Part (a): the random variable.</span> The random variable is the sample statistic that varies from sample to sample: ' . $rvLabel . '. Name the units, the group, and the sample size when you describe it.</p>
+      <p><span class="term-label">Part (b): average or share.</span> The test is about ' . $kindLabel . '. That distinction decides the parameter, `mu` for an average, `p` for a share, and the parameter picks the whole row of the hypothesis-testing table.</p>
     </div>
   </details>
 </div>'

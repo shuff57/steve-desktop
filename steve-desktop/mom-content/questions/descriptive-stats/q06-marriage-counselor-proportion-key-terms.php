@@ -15,7 +15,7 @@ $sizes = array(45, 60, 80, 120, 150, 200)
 $n = $sizes[rand(0, count($sizes)-1)]
 $yrs = rand(2, 6)
 
-// The six terms stay in teaching order — population before sample, parameter before statistic.
+// The six terms stay in teaching order: population before sample, parameter before statistic.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
 // One description per term in the same order, then two distractors chosen to punish the two
@@ -61,17 +61,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group the study is about.</b> The question asks about this ' . $title . '&rsquo;s own ' . $client . ', so every couple they have counseled is the population, and the ' . $n . ' whose outcomes were traced are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> of the counselor&rsquo;s ' . $client . ' is a population number (parameter); the proportion computed from the ' . $n . ' followed-up ' . $client . ' is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at &mdash; that is the whole trick.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is recorded about one couple is the variable; the recorded responses are the data.</p>
+      <p><b>Step 1: Name the group the study is about.</b> The question asks about this ' . $title . '&rsquo;s own ' . $client . ', so every couple they have counseled is the population, and the ' . $n . ' whose outcomes were traced are the sample.</p>
+      <p><b>Step 2: Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> of the counselor&rsquo;s ' . $client . ' is a population number (parameter); the proportion computed from the ' . $n . ' followed-up ' . $client . ' is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at: that is the whole trick.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is recorded about one couple is the variable; the recorded responses are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all ' . $client . ' this ' . $title . ' has counseled</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' ' . $client . ' whose outcomes were actually followed up</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the proportion of <em>all</em> of this ' . $title . '&rsquo;s ' . $client . ' who stay married</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the proportion of the ' . $n . ' <em>followed-up</em> ' . $client . ' who stay married</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = whether one counseled couple stayed married</div>
       <div class="term-row"><span class="term-label">Data:</span> yes, no</div>
-      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> who stayed married is a count, not a proportion &mdash; the statistic here has to be a proportion, because a proportion is what the study set out to estimate. <b>The mean number of years</b> married is the answer to a different study altogether: this one never measures years.</div>
-      <div class="sol-note">This study measures a <b>proportion</b>, not a mean. The variable is <b>categorical</b> &mdash; each couple is a yes or a no after ' . $yrs . ' years &mdash; so averaging the responses would make no sense. Compare it with a study of the mean number of sessions per client, where the variable is numerical and a mean is exactly right.</div>
+      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> who stayed married is a count, not a proportion: the statistic here has to be a proportion, because a proportion is what the study set out to estimate. <b>The mean number of years</b> married is the answer to a different study altogether: this one never measures years.</div>
+      <div class="sol-note">This study measures a <b>proportion</b>, not a mean. The variable is <b>categorical</b>: each couple is a yes or a no after ' . $yrs . ' years: so averaging the responses would make no sense. Compare it with a study of the mean number of sessions per client, where the variable is numerical and a mean is exactly right.</div>
     </div>
   </details>
 </div>'

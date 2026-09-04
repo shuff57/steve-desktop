@@ -6,7 +6,7 @@
 $anstypes = array("number", "choices", "choices")
 
 // Two fully-worked cases. Each case's five-number summary is the ACTUAL five-number summary of
-// 16 real data values that were tallied into the six classes below -- the counts and the summary
+// 16 real data values that were tallied into the six classes below: the counts and the summary
 // describe one data set, not two coincidentally-compatible pictures.
 $ci = rand(0, 1)
 if ($ci == 0) {
@@ -47,8 +47,8 @@ $reltolerance[0] = 0.001
 $abstolerance[0] = 0.1
 
 $questions[1] = array(
-  "The histogram &mdash; a box plot cannot show two humps, because very different-shaped distributions can share the same five-number summary.",
-  "The box plot &mdash; it displays the median directly.",
+  "The histogram: a box plot cannot show two humps, because very different-shaped distributions can share the same five-number summary.",
+  "The box plot: it displays the median directly.",
   "Either display shows this equally well.",
   "Neither display can show this."
 )
@@ -151,9 +151,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only the histogram gives a class count.</span> Find the bar running from ' . $binLo . ' to ' . $binHi . ' and read its height off the frequency axis: <b>' . $binCount . '</b>. The box plot below shows the same data set, but it was built from just five numbers &mdash; the smallest value, the two quartiles, the median and the largest value &mdash; so it has no way to tell you how many observations landed in one narrow class.</p>
-      <p><span class="term-label">Part (b) &mdash; which display would show two humps.</span> The five-number summary behind this box plot is minimum ' . $dataMin . ', `Q_1 = ' . $dataQ1 . '`, median ' . $dataMed . ', `Q_3 = ' . $dataQ3 . '`, maximum ' . $dataMax . ' ' . $unitWord . '. Those five numbers are all a box plot ever draws, and a completely different-shaped data set &mdash; say, one with a pile-up near ' . $dataMin . ' and a second pile-up near ' . $dataMax . ', with almost nothing in between &mdash; can produce that exact same box plot. The histogram cannot hide that split, because it draws every class, not just five summary points. <b>The histogram</b> is the display that would reveal two separate humps.</p>
-      <p><span class="term-label">Part (c) &mdash; which display gives the IQR directly.</span> `"IQR" = Q_3 - Q_1 = ' . $dataQ3 . ' - ' . $dataQ1 . ' = ' . $iqr . '` ' . $unitWord . ', and that is exactly the width of the box &mdash; no arithmetic on the histogram\'s bars gets you there without first working out the quartiles yourself. <b>The box plot</b> gives the IQR directly.</p>
+      <p><span class="term-label">Part (a): only the histogram gives a class count.</span> Find the bar running from ' . $binLo . ' to ' . $binHi . ' and read its height off the frequency axis: <b>' . $binCount . '</b>. The box plot below shows the same data set, but it was built from just five numbers, the smallest value, the two quartiles, the median and the largest value, so it has no way to tell you how many observations landed in one narrow class.</p>
+      <p><span class="term-label">Part (b): which display would show two humps.</span> The five-number summary behind this box plot is minimum ' . $dataMin . ', `Q_1 = ' . $dataQ1 . '`, median ' . $dataMed . ', `Q_3 = ' . $dataQ3 . '`, maximum ' . $dataMax . ' ' . $unitWord . '. Those five numbers are all a box plot ever draws, and a completely different-shaped data set: say, one with a pile-up near ' . $dataMin . ' and a second pile-up near ' . $dataMax . ', with almost nothing in between: can produce that exact same box plot. The histogram cannot hide that split, because it draws every class, not just five summary points. <b>The histogram</b> is the display that would reveal two separate humps.</p>
+      <p><span class="term-label">Part (c): which display gives the IQR directly.</span> `"IQR" = Q_3 - Q_1 = ' . $dataQ3 . ' - ' . $dataQ1 . ' = ' . $iqr . '` ' . $unitWord . ', and that is exactly the width of the box: no arithmetic on the histogram\'s bars gets you there without first working out the quartiles yourself. <b>The box plot</b> gives the IQR directly.</p>
       <p><b>Answer:</b> (a) ' . $binCount . ' &nbsp;&nbsp; (b) the histogram &nbsp;&nbsp; (c) the box plot</p>
     </div>
   </details>
@@ -170,7 +170,7 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Using the <b>histogram</b>, how many observations fall in the class from $binLo to $binHi? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Suppose this data actually had two separate humps &mdash; two ranges where values pile up, with few values between them. Which display would reveal that? $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Suppose this data actually had two separate humps: two ranges where values pile up, with few values between them. Which display would reveal that? $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Which display gives you the interquartile range, `"IQR"`, directly, without further calculation? $answerbox[2]

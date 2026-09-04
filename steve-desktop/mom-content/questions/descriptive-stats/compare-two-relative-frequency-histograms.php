@@ -22,7 +22,7 @@ else {
 }
 
 // Group A sits low and group B sits high, so which group spends more is never in doubt. The two
-// sample sizes are deliberately different -- that is the whole reason relative frequency exists.
+// sample sizes are deliberately different: that is the whole reason relative frequency exists.
 $aBase = array(9, 12, 8, 5, 2)
 $bBase = array(2, 5, 9, 12, 8)
 
@@ -128,10 +128,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; one class as a share.</span> ' . $askCount . ' of the ' . $gA . ' fell in ' . $askLo . '&ndash;' . $askHi . ', out of ' . $nA . ' surveyed: ' . $askCount . ' / ' . $nA . ' &approx; <b>' . $askRel . '</b>, or ' . $askRelPct . '%. That is what the bar height reads as, because the vertical axis here is percent of the group rather than a headcount.</p>
-      <p><span class="term-label">Part (b) &mdash; the group size.</span> <b>' . $nA . '</b> &mdash; and it cannot be read off this graph at all. Relative frequency throws the sample size away: every bar is a share, and shares from a group of 20 look exactly like shares from a group of 2,000. The count had to come from the table.</p>
-      <p><span class="term-label">Part (c) &mdash; why not use counts.</span> ' . $nA . ' and ' . $nB . ' are different, so a taller bar in one graph could simply mean more people were asked. Dividing each class by its own group total removes that difference and leaves only the pattern, which is the only thing worth comparing here.</p>
-      <p><span class="term-label">Reading the comparison.</span> With both graphs on the same vertical scale, the ' . $gA . ' pile up toward the left of the axis and the ' . $gB . ' toward the right &mdash; so the ' . $gB . ' spend more, and the difference is in the center of each distribution rather than in how spread out they are.</p>
+      <p><span class="term-label">Part (a): one class as a share.</span> ' . $askCount . ' of the ' . $gA . ' fell in ' . $askLo . '&ndash;' . $askHi . ', out of ' . $nA . ' surveyed: ' . $askCount . ' / ' . $nA . ' &approx; <b>' . $askRel . '</b>, or ' . $askRelPct . '%. That is what the bar height reads as, because the vertical axis here is percent of the group rather than a headcount.</p>
+      <p><span class="term-label">Part (b): the group size.</span> <b>' . $nA . '</b>: and it cannot be read off this graph at all. Relative frequency throws the sample size away: every bar is a share, and shares from a group of 20 look exactly like shares from a group of 2,000. The count had to come from the table.</p>
+      <p><span class="term-label">Part (c): why not use counts.</span> ' . $nA . ' and ' . $nB . ' are different, so a taller bar in one graph could simply mean more people were asked. Dividing each class by its own group total removes that difference and leaves only the pattern, which is the only thing worth comparing here.</p>
+      <p><span class="term-label">Reading the comparison.</span> With both graphs on the same vertical scale, the ' . $gA . ' pile up toward the left of the axis and the ' . $gB . ' toward the right: so the ' . $gB . ' spend more, and the difference is in the center of each distribution rather than in how spread out they are.</p>
       <p><b>Answer:</b> (a) ' . $askRel . ' &nbsp;&nbsp; (b) ' . $nA . '</p>
     </div>
   </details>

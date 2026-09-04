@@ -68,9 +68,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the missing frequency.</span> The Frequency column must add to the total of 60. The seven known rows add to ' . $knownSum . ', so the ' . $mL . ' row holds 60 &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
-      <p><span class="term-label">Step 2 &mdash; relative frequency of the ' . $mL . ' row.</span> Divide that count by the total: ' . $missing . ' &divide; 60 = <b>' . $relM . '</b>. A relative frequency is always a share of the whole, never of a neighbouring row.</p>
-      <p><span class="term-label">Step 3 &mdash; relative frequency of the ' . $jL . ' row.</span> Same move: ' . $f[$j] . ' &divide; 60 = <b>' . $relJ . '</b>.</p>
+      <p><span class="term-label">Step 1: the missing frequency.</span> The Frequency column must add to the total of 60. The seven known rows add to ' . $knownSum . ', so the ' . $mL . ' row holds 60 &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
+      <p><span class="term-label">Step 2: relative frequency of the ' . $mL . ' row.</span> Divide that count by the total: ' . $missing . ' &divide; 60 = <b>' . $relM . '</b>. A relative frequency is always a share of the whole, never of a neighbouring row.</p>
+      <p><span class="term-label">Step 3: relative frequency of the ' . $jL . ' row.</span> Same move: ' . $f[$j] . ' &divide; 60 = <b>' . $relJ . '</b>.</p>
       <p><b>Check.</b> The frequencies must add back to 60, and the relative frequencies to 1. If either misses, a count was read wrong or a division used the wrong total.</p>
     </div>
   </details>

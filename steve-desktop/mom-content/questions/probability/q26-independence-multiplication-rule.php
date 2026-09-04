@@ -9,7 +9,7 @@ $anstypes = array("numfunc", "numfunc", "numfunc")
 // probabilities. Events are structurally independent (separate machines, separate
 // trials, separate locations) so P(A and B) = P(A)*P(B) applies directly.
 //
-// Scenario 0: Assembly line — two machines each have a defect rate
+// Scenario 0: Assembly line: two machines each have a defect rate
 //   A = Machine 1 produces a defect  P(A)=0.3
 //   B = Machine 2 produces a defect  P(B)=0.2
 //   P(A and B) = 0.06   P(A or B) = 0.44   P(neither) = 0.56
@@ -108,17 +108,17 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>Since A and B are independent, the <b>Multiplication Rule</b> applies: P(A &cap; B) = P(A) &middot; P(B).</p>
-      <p><b>(a) P(A &cap; B) &mdash; both events occur:</b></p>
+      <p><b>(a) P(A &cap; B): both events occur:</b></p>
       <p>P(A &cap; B) = P(A) &middot; P(B) = '.$pA_show.' &times; '.$pB_show.'</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         P(A &cap; B) = <b>'.$pAB_show.'</b>
       </div>
-      <p><b>(b) P(A &cup; B) &mdash; at least one event occurs (Inclusion-Exclusion Rule):</b></p>
+      <p><b>(b) P(A &cup; B): at least one event occurs (Inclusion-Exclusion Rule):</b></p>
       <p>P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B) = '.$pA_show.' + '.$pB_show.' &minus; '.$pAB_show.'</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         P(A &cup; B) = <b>'.$pAorB_show.'</b>
       </div>
-      <p><b>(c) P(neither A nor B) &mdash; complement of the union:</b></p>
+      <p><b>(c) P(neither A nor B): complement of the union:</b></p>
       <p>P(neither) = 1 &minus; P(A &cup; B) = 1 &minus; '.$pAorB_show.'</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         P(neither) = <b>'.$pNei_show.'</b>
@@ -144,15 +144,15 @@ $solutionguide = '
     <p style="margin:10px 0 0 0;">Enter probabilities as decimals rounded to 4 places (or exact fractions).</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find <b>P(A &cap; B)</b> &mdash; the probability that <i>both</i> events occur.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find <b>P(A &cap; B)</b>: the probability that <i>both</i> events occur.
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Find <b>P(A &cup; B)</b> &mdash; the probability that <i>at least one</i> of the events occurs.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Find <b>P(A &cup; B)</b>: the probability that <i>at least one</i> of the events occurs.
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b>P(neither A nor B)</b> &mdash; the probability that <i>neither</i> event occurs.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find <b>P(neither A nor B)</b>: the probability that <i>neither</i> event occurs.
     <span style="margin-left:8px;">$answerbox[2]</span>
   </div>
 </div>

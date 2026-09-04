@@ -30,14 +30,14 @@ $solutionguide = '
     <div class="sol-body">
       <p>Least squares regression relies on four conditions, sometimes remembered as <b>L.I.N.E.</b>:</p>
       <ul>
-        <li><b>Linearity</b> — the scatterplot and residual plot look roughly linear (no curved pattern).</li>
-        <li><b>Independence</b> — observations are independent of one another (no clusters, no time-dependent trends).</li>
-        <li><b>Normality</b> — residuals are approximately normally distributed.</li>
-        <li><b>Equal variance</b> — the spread of residuals is roughly the same across all values of `x` (no fan/funnel shape).</li>
+        <li><b>Linearity</b>: the scatterplot and residual plot look roughly linear (no curved pattern).</li>
+        <li><b>Independence</b>: observations are independent of one another (no clusters, no time-dependent trends).</li>
+        <li><b>Normality</b>: residuals are approximately normally distributed.</li>
+        <li><b>Equal variance</b>: the spread of residuals is roughly the same across all values of `x` (no fan/funnel shape).</li>
       </ul>
       <p>Neither the explanatory variable nor the response variable has to be normally distributed, and no rule requires a specific sample size, correlation strength, or sign of the slope.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        <b>Checking conditions:</b> plot the data, fit the line, and <b>look at the residual plot</b> — linearity, constant variance, and lack of patterns are easiest to judge there.
+        <b>Checking conditions:</b> plot the data, fit the line, and <b>look at the residual plot</b>: linearity, constant variance, and lack of patterns are easiest to judge there.
       </div>
     </div>
   </details>

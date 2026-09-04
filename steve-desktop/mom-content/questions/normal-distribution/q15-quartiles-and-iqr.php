@@ -59,9 +59,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Quartiles are percentiles in disguise.</span> Q1 is the 25th percentile and Q3 is the 75th, so each is an invNorm call.</p>
-      <p><span class="term-label">Part (a) &mdash; Q1.</span> `z ~= ' . round($z1, 3) . '`, so `Q1 = mu + z*sigma = ' . $mu . ' + (' . round($z1, 3) . ')(' . $sigma . ') ~= ' . round($q1, 2) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; Q3.</span> `z ~= ' . round($z3, 3) . '`, so `Q3 = mu + z*sigma = ' . $mu . ' + (' . round($z3, 3) . ')(' . $sigma . ') ~= ' . round($q3, 2) . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the IQR.</span> `IQR = Q3 - Q1 = ' . round($q3, 2) . ' - ' . round($q1, 2) . ' ~= ' . round($iqr, 2) . '`.</p>
+      <p><span class="term-label">Part (a): Q1.</span> `z ~= ' . round($z1, 3) . '`, so `Q1 = mu + z*sigma = ' . $mu . ' + (' . round($z1, 3) . ')(' . $sigma . ') ~= ' . round($q1, 2) . '`.</p>
+      <p><span class="term-label">Part (b): Q3.</span> `z ~= ' . round($z3, 3) . '`, so `Q3 = mu + z*sigma = ' . $mu . ' + (' . round($z3, 3) . ')(' . $sigma . ') ~= ' . round($q3, 2) . '`.</p>
+      <p><span class="term-label">Part (c): the IQR.</span> `IQR = Q3 - Q1 = ' . round($q3, 2) . ' - ' . round($q1, 2) . ' ~= ' . round($iqr, 2) . '`.</p>
       <p>The IQR is a width, not a location: Q1 and Q3 are places on the axis, and the distance between them is a spread.</p>
     </div>
   </details>

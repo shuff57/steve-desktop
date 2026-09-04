@@ -32,11 +32,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the bar width.</span> The interval from 0 to 1 has length 1, split into 8 equal pieces:</p>
+      <p><span class="term-label">Part (a): the bar width.</span> The interval from 0 to 1 has length 1, split into 8 equal pieces:</p>
       <p>`1/8 = 0.125`</p>
-      <p><span class="term-label">Part (b) &mdash; the expected count.</span> Because every value between 0 and 1 is equally likely, the chance of landing in a bar is exactly that bar\'s width, so the expected count is 50 times the width:</p>
+      <p><span class="term-label">Part (b): the expected count.</span> Because every value between 0 and 1 is equally likely, the chance of landing in a bar is exactly that bar\'s width, so the expected count is 50 times the width:</p>
       <p>`50(0.125) = 6.25`</p>
-      <p>The 6.25 is worth staring at — no bar can hold a quarter of a value. An expected count is an average over many reruns of the lab, not a prediction of what any one histogram will show, which is exactly why a bar holding 4 or 9 is not evidence that the generator is broken.</p>
+      <p>The 6.25 is worth staring at: no bar can hold a quarter of a value. An expected count is an average over many reruns of the lab, not a prediction of what any one histogram will show, which is exactly why a bar holding 4 or 9 is not evidence that the generator is broken.</p>
     </div>
   </details>
 </div>'

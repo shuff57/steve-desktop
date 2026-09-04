@@ -38,9 +38,9 @@ if ($caseIdx == 1) { $mean = $med - $gap }
 if ($caseIdx == 2) { $mean = $med + 1 }
 
 $questions[0] = array(
-  "Skewed right &mdash; the mean sits well ABOVE the median, so the tail runs toward the large values",
-  "Skewed left &mdash; the mean sits well BELOW the median, so the tail runs toward the small values",
-  "Roughly symmetric &mdash; the mean and the median are almost the same",
+  "Skewed right: the mean sits well ABOVE the median, so the tail runs toward the large values",
+  "Skewed left: the mean sits well BELOW the median, so the tail runs toward the small values",
+  "Roughly symmetric: the mean and the median are almost the same",
   "The shape cannot be guessed from a mean and a median at all"
 )
 $answer[0] = $caseIdx
@@ -75,8 +75,8 @@ if ($caseIdx == 0) { $shapeName = "skewed right" }
 if ($caseIdx == 1) { $shapeName = "skewed left" }
 
 $tailWhere = "there is no tail worth speaking of on either side"
-if ($caseIdx == 0) { $tailWhere = "a tail runs out toward the LARGE values &mdash; " . $tailStory }
-if ($caseIdx == 1) { $tailWhere = "a tail runs out toward the SMALL values &mdash; " . $lowStory }
+if ($caseIdx == 0) { $tailWhere = "a tail runs out toward the LARGE values: " . $tailStory }
+if ($caseIdx == 1) { $tailWhere = "a tail runs out toward the SMALL values: " . $lowStory }
 
 $relText = "sits almost exactly on"
 if ($caseIdx == 0) { $relText = "sits " . $gap . " " . $unitWord . " ABOVE" }
@@ -104,11 +104,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; compare the two numbers.</span> The mean ' . $relText . ' the median. Whichever side the mean falls on is the side the tail is on, so this distribution is <b>' . $shapeName . '</b>: ' . $tailWhere . '.</p>
-      <p>The rule in one line: <b>the mean chases the tail.</b> It is the same rule you use on a histogram, read in the other direction &mdash; from the numbers to the shape rather than from the shape to the numbers.</p>
-      <p><span class="term-label">Part (b) &mdash; which number to publish.</span> ' . $reportText . '</p>
-      <p><span class="term-label">Part (c) &mdash; why the gap opens at all.</span> The mean adds every observation, so a value far out in a tail contributes its whole distance to the total. The median only asks which value sits in the middle position; moving an extreme value further out does not change which one is in the middle. So the tail moves the mean and leaves the median where it was, and the gap between them is the footprint of the tail.</p>
-      <p><span class="term-label">What this does NOT tell you.</span> The size of the gap says the tail exists, not how many observations are in it &mdash; a long tail can hold very few values. And two quite different shapes can produce the same mean and median, so when a picture is available, look at it.</p>
+      <p><span class="term-label">Part (a): compare the two numbers.</span> The mean ' . $relText . ' the median. Whichever side the mean falls on is the side the tail is on, so this distribution is <b>' . $shapeName . '</b>: ' . $tailWhere . '.</p>
+      <p>The rule in one line: <b>the mean chases the tail.</b> It is the same rule you use on a histogram, read in the other direction: from the numbers to the shape rather than from the shape to the numbers.</p>
+      <p><span class="term-label">Part (b): which number to publish.</span> ' . $reportText . '</p>
+      <p><span class="term-label">Part (c): why the gap opens at all.</span> The mean adds every observation, so a value far out in a tail contributes its whole distance to the total. The median only asks which value sits in the middle position; moving an extreme value further out does not change which one is in the middle. So the tail moves the mean and leaves the median where it was, and the gap between them is the footprint of the tail.</p>
+      <p><span class="term-label">What this does NOT tell you.</span> The size of the gap says the tail exists, not how many observations are in it: a long tail can hold very few values. And two quite different shapes can produce the same mean and median, so when a picture is available, look at it.</p>
     </div>
   </details>
 </div>'

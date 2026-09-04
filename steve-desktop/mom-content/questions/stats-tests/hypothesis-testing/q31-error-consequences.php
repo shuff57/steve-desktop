@@ -63,9 +63,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the Type I error.</span> Rejecting `H_0` when it is true: ' . $type1 . '</p>
-      <p><span class="term-label">Part (b) &mdash; the Type II error.</span> Failing to reject `H_0` when it is false: ' . $type2 . '</p>
-      <p><span class="term-label">The flipped-null lesson.</span> Naming the null first matters so much here &mdash; swap `H_0` and `H_a` and you swap the two errors along with them, including which one you were trying hardest to avoid. The same context with the null swapped must produce swapped errors.</p>
+      <p><span class="term-label">Part (a): the Type I error.</span> Rejecting `H_0` when it is true: ' . $type1 . '</p>
+      <p><span class="term-label">Part (b): the Type II error.</span> Failing to reject `H_0` when it is false: ' . $type2 . '</p>
+      <p><span class="term-label">The flipped-null lesson.</span> Naming the null first matters so much here: swap `H_0` and `H_a` and you swap the two errors along with them, including which one you were trying hardest to avoid. The same context with the null swapped must produce swapped errors.</p>
     </div>
   </details>
 </div>'

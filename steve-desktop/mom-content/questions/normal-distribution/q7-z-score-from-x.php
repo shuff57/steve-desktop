@@ -57,8 +57,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; standardize.</span> `z = (x - mu)/sigma = (' . $x . ' - ' . $mu . ')/' . $sigma . ' = ' . $z . '`</p>
-      <p><span class="term-label">Part (b) &mdash; read the sign and the size.</span> The numerator `x - mu` measures the distance from the center in the original units; dividing by `sigma` re-expresses it as a count of standard deviations. The sign says direction &mdash; positive is to the right of the mean, negative to the left &mdash; and the size says how far.</p>
+      <p><span class="term-label">Part (a): standardize.</span> `z = (x - mu)/sigma = (' . $x . ' - ' . $mu . ')/' . $sigma . ' = ' . $z . '`</p>
+      <p><span class="term-label">Part (b): read the sign and the size.</span> The numerator `x - mu` measures the distance from the center in the original units; dividing by `sigma` re-expresses it as a count of standard deviations. The sign says direction, positive is to the right of the mean, negative to the left, and the size says how far.</p>
     </div>
   </details>
 </div>'

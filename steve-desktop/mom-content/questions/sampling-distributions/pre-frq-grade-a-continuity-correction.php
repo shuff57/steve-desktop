@@ -11,7 +11,7 @@
 // Compute and Interpret (4) = 12.
 //
 // The dropped category is APPLY THE CONTINUITY CORRECTION. A student can set up the binomial
-// and compute a probability without ever moving the boundary — the section's own warning, "an
+// and compute a probability without ever moving the boundary: the section's own warning, "an
 // answer computed without the correction still looks reasonable, still lands in the right
 // decimal place", is exactly the step a plausible answer skips.
 //
@@ -22,7 +22,7 @@ $anstypes = array("choices", "multans", "choices")
 
 $sSetup = "The count of supporters is X ~ B(500, 0.46) with mu = np = 230 and sigma = sqrt(npq) ~= 11.14; since np = 230 > 5 and nq = 270 > 5, the normal approximation is allowed."
 $sCorrection = "At least 250 includes 250, so the boundary moves outward by half a unit: the probability is P(Y >= 249.5)."
-$sCompute = "Standardizing gives z = (249.5 - 230)/11.14 ~= 1.75, so the probability is about 0.0401 — only about a 4% chance that at least half the sample of 500 favors the incumbent."
+$sCompute = "Standardizing gives z = (249.5 - 230)/11.14 ~= 1.75, so the probability is about 0.0401: only about a 4% chance that at least half the sample of 500 favors the incumbent."
 
 $rFull    = $sSetup . ' ' . $sCorrection . ' ' . $sCompute
 $rNoCorrection = $sSetup . ' ' . $sCompute
@@ -62,7 +62,7 @@ $answer[1] = "0,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The binomial can be set up and a probability computed without ever moving the boundary, so the correction has to be applied on its own — without it the computation is wrong by about half a bar's worth of probability every time.",
+  "No. The binomial can be set up and a probability computed without ever moving the boundary, so the correction has to be applied on its own: without it the computation is wrong by about half a bar's worth of probability every time.",
   "Yes. Once the probability is computed, the correction is implied by the formula, so there is nothing separate to award.",
   "No, but only because the arithmetic is the hard part.",
   "Yes, as long as the answer is a probability, the setup does not matter."
@@ -137,15 +137,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the binomial setup, applies the continuity correction, and computes and interprets the probability. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the binomial setup, applies the continuity correction, and computes and interprets the probability. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sSetup . ' ' . $sCorrection . ' ' . $sCompute . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noCorrectionLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noCorrectionLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Binomial Setup &mdash; earned.</b> The binomial is named with its parameters and the conditions are checked.</li>
-        <li><b>Apply the Continuity Correction &mdash; NOT earned.</b> The response never moves the boundary half a unit, so the correction is missing.</li>
-        <li><b>Compute and Interpret &mdash; earned.</b> The standardized probability is evaluated and read in context.</li>
+        <li><b>State the Binomial Setup: earned.</b> The binomial is named with its parameters and the conditions are checked.</li>
+        <li><b>Apply the Continuity Correction: NOT earned.</b> The response never moves the boundary half a unit, so the correction is missing.</li>
+        <li><b>Compute and Interpret: earned.</b> The standardized probability is evaluated and read in context.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the correction is its own category.</span> The approximation is not doing anything clever about which bars belong in your event — you decide that by reading the inequality. What the half-unit repairs is the mismatch between a bar that occupies real width on the number line and a curve that only has area. An answer computed without it still looks reasonable, still lands in the right decimal place, and is simply wrong by about half a bar\'s worth of probability every time.</p>
+      <p><span class="term-label">Part (c): why the correction is its own category.</span> The approximation is not doing anything clever about which bars belong in your event: you decide that by reading the inequality. What the half-unit repairs is the mismatch between a bar that occupies real width on the number line and a curve that only has area. An answer computed without it still looks reasonable, still lands in the right decimal place, and is simply wrong by about half a bar\'s worth of probability every time.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The correction is the category most often skipped, because once the arithmetic works the half-unit feels like a rounding nicety.</p>
     </div>
   </details>

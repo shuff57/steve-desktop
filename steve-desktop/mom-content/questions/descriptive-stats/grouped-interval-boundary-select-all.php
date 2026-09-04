@@ -61,9 +61,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; What a grouped table does.</span> The measurement is continuous, so instead of one row per data value, the values are sorted into intervals such as ' . $intLabels[0] . ' and ' . $intLabels[1] . '.</p>
-      <p><span class="term-label">Step 2 &mdash; Why the boundaries end in a fraction.</span> A boundary like ' . $b0 . ' is not a value the data can actually equal &mdash; the ' . $unit . ' were only ever going to land above or below it. That guarantees every measurement falls inside exactly one interval and that no measurement can ever land exactly on a boundary. Those are the two true statements.</p>
-      <p><span class="term-label">Step 3 &mdash; Why the rest are false.</span> Boundaries do not need to be whole numbers &mdash; using a fraction is what makes them work. Nothing forces the frequencies to match either: this table&#8217;s counts (' . $freqs[0] . ', ' . $freqs[1] . ', ' . $freqs[2] . ', ' . $freqs[3] . ') are not required to be equal from interval to interval. Every interval here still spans exactly ' . $width . ' ' . $unit . ', so the fraction changes where the boundaries fall, not how wide the intervals are. And the fraction is a deliberate design choice, not a rounding artifact &mdash; it is precisely what keeps data off the boundaries.</p>
+      <p><span class="term-label">Step 1: What a grouped table does.</span> The measurement is continuous, so instead of one row per data value, the values are sorted into intervals such as ' . $intLabels[0] . ' and ' . $intLabels[1] . '.</p>
+      <p><span class="term-label">Step 2: Why the boundaries end in a fraction.</span> A boundary like ' . $b0 . ' is not a value the data can actually equal: the ' . $unit . ' were only ever going to land above or below it. That guarantees every measurement falls inside exactly one interval and that no measurement can ever land exactly on a boundary. Those are the two true statements.</p>
+      <p><span class="term-label">Step 3: Why the rest are false.</span> Boundaries do not need to be whole numbers: using a fraction is what makes them work. Nothing forces the frequencies to match either: this table&#8217;s counts (' . $freqs[0] . ', ' . $freqs[1] . ', ' . $freqs[2] . ', ' . $freqs[3] . ') are not required to be equal from interval to interval. Every interval here still spans exactly ' . $width . ' ' . $unit . ', so the fraction changes where the boundaries fall, not how wide the intervals are. And the fraction is a deliberate design choice, not a rounding artifact: it is precisely what keeps data off the boundaries.</p>
       <p><b>Answer:</b> The true statements are &#8220;Every measurement falls inside exactly one interval&#8230;&#8221; and &#8220;No measurement can land exactly on a boundary&#8230;&#8221;</p>
     </div>
   </details>
@@ -87,7 +87,7 @@ $solutionguide = '
     </table>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;">Notice that every boundary &mdash; $b0, $b1, and so on &mdash; ends in a fraction rather than falling on a whole number of $unit.</p>
+    <p style="margin:0 0 10px 0;">Notice that every boundary, $b0, $b1, and so on, ends in a fraction rather than falling on a whole number of $unit.</p>
     <p style="margin:0 0 10px 0;"><strong>Select all statements below that correctly explain why the table's boundaries are constructed this way.</strong></p>
     $answerbox
   </div>

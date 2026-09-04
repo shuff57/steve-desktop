@@ -76,9 +76,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the at-most-three share.</span> The cumulative entry on the 3 row is ' . $c3d . '.</p>
-      <p><span class="term-label">Step 2 &mdash; take the complement.</span> &quot;More than three&quot; is everything outside that: 1 &minus; ' . $c3d . ' = <b>' . $vald . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; the boundary.</span> The cut at 3 lands exactly on the boundary between the 2-3 and 4-5 groups, so the grouped route works too: 1 minus the grouped cumulative on the 2-3 row is also <b>' . $vald . '</b>. Either table answers it.</p>
+      <p><span class="term-label">Step 1: read the at-most-three share.</span> The cumulative entry on the 3 row is ' . $c3d . '.</p>
+      <p><span class="term-label">Step 2: take the complement.</span> &quot;More than three&quot; is everything outside that: 1 &minus; ' . $c3d . ' = <b>' . $vald . '</b>.</p>
+      <p><span class="term-label">Step 3: the boundary.</span> The cut at 3 lands exactly on the boundary between the 2-3 and 4-5 groups, so the grouped route works too: 1 minus the grouped cumulative on the 2-3 row is also <b>' . $vald . '</b>. Either table answers it.</p>
     </div>
   </details>
 </div>'

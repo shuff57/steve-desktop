@@ -17,10 +17,10 @@ $questions = array(
 $answer = 0
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>Yes &mdash; and this is the normal case, not a failure case.</b></p>
+  <p><b>Yes: and this is the normal case, not a failure case.</b></p>
   <p>Two random samples of ' . $n . ' contain <i>different people</i>. ' . $topic . ' varies from person to person, so two draws from the same population land on different mixes of high and low values. The results differ even though neither researcher did anything wrong.</p>
   <p>That difference has a name: <b>sampling variability</b>. It is a property of sampling itself, not a mistake. It shrinks as the sample grows, but it never reaches zero short of a census.</p>
-  <p><b>The trap</b> is treating any disagreement as proof that someone erred &mdash; concluding one study must be wrong before checking whether the gap is even bigger than ordinary sampling variability would produce.</p>
+  <p><b>The trap</b> is treating any disagreement as proof that someone erred: concluding one study must be wrong before checking whether the gap is even bigger than ordinary sampling variability would produce.</p>
   <p><b>Answer:</b> yes, it is possible.</p>
 </div>'
 

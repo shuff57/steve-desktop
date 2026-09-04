@@ -63,12 +63,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample mean.</span> The ' . $n . ' values sum to ' . round($sum, 4) . ', so `bar(x) = ' . round($sum, 4) . '/' . $n . ' = ' . round($xbar, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the sample standard deviation.</span> Divide by `n - 1 = ' . ($n - 1) . '` (this is a sample, not a population): `s = ' . round($s, 4) . '`. Be careful which standard deviation you copy down &mdash; a calculator that reports both will show S_x (dividing by n - 1) and sigma_x (dividing by n). This section always wants S_x.</p>
-      <p><span class="term-label">Part (c) &mdash; the upper endpoint.</span> With `df = ' . ($n - 1) . '` and `t_(alpha/2) = ' . $t . '`:</p>
+      <p><span class="term-label">Part (a): the sample mean.</span> The ' . $n . ' values sum to ' . round($sum, 4) . ', so `bar(x) = ' . round($sum, 4) . '/' . $n . ' = ' . round($xbar, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the sample standard deviation.</span> Divide by `n - 1 = ' . ($n - 1) . '` (this is a sample, not a population): `s = ' . round($s, 4) . '`. Be careful which standard deviation you copy down: a calculator that reports both will show S_x (dividing by n - 1) and sigma_x (dividing by n). This section always wants S_x.</p>
+      <p><span class="term-label">Part (c): the upper endpoint.</span> With `df = ' . ($n - 1) . '` and `t_(alpha/2) = ' . $t . '`:</p>
       <p>`SE = s/sqrt(n) = ' . round($se, 4) . '`, `EBM = ' . $t . ' * ' . round($se, 4) . ' = ' . round($ebm, 4) . '`</p>
       <p>`bar(x) + EBM = ' . round($xbar, 4) . ' + ' . round($ebm, 4) . ' = ' . round($hi, 4) . '`</p>
-      <p>Before any of the interval machinery runs, you have to reduce the list to bar(x), s, and n yourself &mdash; the same one-variable-statistics routine you used back in the descriptive-statistics chapter.</p>
+      <p>Before any of the interval machinery runs, you have to reduce the list to bar(x), s, and n yourself: the same one-variable-statistics routine you used back in the descriptive-statistics chapter.</p>
     </div>
   </details>
 </div>'

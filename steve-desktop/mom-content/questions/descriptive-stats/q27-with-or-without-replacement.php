@@ -85,12 +85,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Ask one question: after a member is chosen, can it be chosen again?</b> That single fact settles it. The size of the sample and the topic of the study have nothing to do with it.</p>
-      <div class="term-row"><span class="term-label">Sampling with replacement:</span> a chosen member is returned to the population, so it may be picked again &mdash; the same ' . $unit . ' could appear twice in the sample.</div>
+      <p><b>Step 1: Ask one question: after a member is chosen, can it be chosen again?</b> That single fact settles it. The size of the sample and the topic of the study have nothing to do with it.</p>
+      <div class="term-row"><span class="term-label">Sampling with replacement:</span> a chosen member is returned to the population, so it may be picked again: the same ' . $unit . ' could appear twice in the sample.</div>
       <div class="term-row"><span class="term-label">Sampling without replacement:</span> a member of the population may be chosen only once.</div>
-      <p><b>Step 2 &mdash; The deciding detail here:</b> ' . $signature . '.</p>
+      <p><b>Step 2: The deciding detail here:</b> ' . $signature . '.</p>
       <div class="term-row"><span class="term-label">Answer:</span> ' . $correct . '</div>
-      <div class="sol-warn"><b>How much does it matter?</b> Here ' . $n . ' ' . $unitp . ' are drawn from ' . $N . ', so the chance of drawing the same ' . $unit . ' twice is small either way and the two methods give nearly the same results. In practice most surveys are run without replacement. The distinction becomes a real mathematical issue only when the population is small &mdash; drawing 5 names from 12 is a very different thing depending on whether the names go back in.</div>
+      <div class="sol-warn"><b>How much does it matter?</b> Here ' . $n . ' ' . $unitp . ' are drawn from ' . $N . ', so the chance of drawing the same ' . $unit . ' twice is small either way and the two methods give nearly the same results. In practice most surveys are run without replacement. The distinction becomes a real mathematical issue only when the population is small: drawing 5 names from 12 is a very different thing depending on whether the names go back in.</div>
     </div>
   </details>
 </div>'

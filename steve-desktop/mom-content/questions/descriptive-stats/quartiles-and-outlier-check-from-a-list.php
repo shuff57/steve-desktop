@@ -6,7 +6,7 @@
 $anstypes = array("number", "number", "number", "choices")
 
 // n = 23 on purpose. n + 1 = 24, so Q1 sits at position (25/100)(24) = 6 and Q3 at position
-// (75/100)(24) = 18 -- both whole numbers, so neither quartile ever needs averaging two values.
+// (75/100)(24) = 18: both whole numbers, so neither quartile ever needs averaging two values.
 // Software does not all use the same quartile convention, and a position that falls between two
 // values can give a calculator one answer and the (n+1) formula another. At n = 23 they agree
 // exactly, so the method taught here cannot be second-guessed by whatever tool a student checks it
@@ -31,7 +31,7 @@ else {
   $stepHi = 7
 }
 
-// Already sorted, ascending, by construction -- each new value is the last plus a bounded random
+// Already sorted, ascending, by construction: each new value is the last plus a bounded random
 // step, so the list can never need re-ordering and can never overflow past a reasonable range.
 $sorted = array()
 $v = $v0
@@ -57,7 +57,7 @@ $iqr = $q3 - $q1
 $lf = $q1 - 1.5 * $iqr
 $uf = $q3 + 1.5 * $iqr
 
-// The extra observation sits at least half an IQR past whichever boundary applies -- always
+// The extra observation sits at least half an IQR past whichever boundary applies: always
 // comfortably more than the 3-unit minimum clearance, so no seed can land it ambiguously close to
 // a fence. Twelve steps separate Q1 and Q3, so the IQR itself is never small enough to make that a
 // close call.
@@ -86,10 +86,10 @@ $reltolerance[2] = 0.01
 $abstolerance[2] = 0.05
 
 $questions[3] = array(
-  "Yes &mdash; it is above the upper fence of " . $uf,
-  "No &mdash; it lies between the fences (lower fence " . $lf . ", upper fence " . $uf . ")",
-  "Yes &mdash; because it is more than 1.5 times the median away from the mean",
-  "No &mdash; because it is within one standard deviation of the mean"
+  "Yes: it is above the upper fence of " . $uf,
+  "No: it lies between the fences (lower fence " . $lf . ", upper fence " . $uf . ")",
+  "Yes: because it is more than 1.5 times the median away from the mean",
+  "No: because it is within one standard deviation of the mean"
 )
 $answer[3] = 1
 if ($oc == 0) { $answer[3] = 0 }
@@ -112,11 +112,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The list is already sorted.</span> With `n = ' . $n . '` values in order, `i = (k/100)(n+1)` gives the position of each quartile directly &mdash; no sorting step to do first, only counting to a position.</p>
-      <p><span class="term-label">Part (a) &mdash; `Q_1` is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`, a whole number, so `Q_1` is simply the ' . $i1 . 'th value in the list: <b>' . $q1 . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; `Q_3` is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i2 . '`, also whole, so `Q_3` is the ' . $i2 . 'th value: <b>' . $q3 . '</b>. (Had a position landed between two values instead, the rule is to round down and up and average those two &mdash; not needed here.)</p>
-      <p><span class="term-label">Part (c) &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">Part (d) &mdash; the `1.5 xx "IQR"` fences.</span> Lower fence `= Q_1 - 1.5 xx "IQR" = ' . $q1 . ' - ' . (1.5 * $iqr) . ' = ' . $lf . '`. Upper fence `= Q_3 + 1.5 xx "IQR" = ' . $q3 . ' + ' . (1.5 * $iqr) . ' = ' . $uf . '`. The new value of ' . $extra . ' ' . $unitWord . ' ' . $dExplain . '</p>
+      <p><span class="term-label">The list is already sorted.</span> With `n = ' . $n . '` values in order, `i = (k/100)(n+1)` gives the position of each quartile directly: no sorting step to do first, only counting to a position.</p>
+      <p><span class="term-label">Part (a): `Q_1` is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`, a whole number, so `Q_1` is simply the ' . $i1 . 'th value in the list: <b>' . $q1 . '</b>.</p>
+      <p><span class="term-label">Part (b): `Q_3` is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i2 . '`, also whole, so `Q_3` is the ' . $i2 . 'th value: <b>' . $q3 . '</b>. (Had a position landed between two values instead, the rule is to round down and up and average those two: not needed here.)</p>
+      <p><span class="term-label">Part (c): the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Part (d): the `1.5 xx "IQR"` fences.</span> Lower fence `= Q_1 - 1.5 xx "IQR" = ' . $q1 . ' - ' . (1.5 * $iqr) . ' = ' . $lf . '`. Upper fence `= Q_3 + 1.5 xx "IQR" = ' . $q3 . ' + ' . (1.5 * $iqr) . ' = ' . $uf . '`. The new value of ' . $extra . ' ' . $unitWord . ' ' . $dExplain . '</p>
       <p><b>Answer:</b> `Q_1` = ' . $q1 . ' &nbsp;&nbsp; `Q_3` = ' . $q3 . ' &nbsp;&nbsp; `"IQR"` = ' . $iqr . ' &nbsp;&nbsp; the new value ' . $dVerdict . '</p>
     </div>
   </details>

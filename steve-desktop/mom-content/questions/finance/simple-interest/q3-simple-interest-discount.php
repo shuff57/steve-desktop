@@ -55,7 +55,7 @@ $t2 = rand(1,5)
 $denom2 = 1 + $r2 * $t2
 $P2 = round($A2 / $denom2, 2)
 
-// Part C: Simple Discount -- D = Mdt, proceeds = M - D (360-day year)
+// Part C: Simple Discount: D = Mdt, proceeds = M - D (360-day year)
 $M_choices = array(1000,2000,5000,10000,20000)
 $M = $M_choices[rand(0,4)]
 $disc_pcts = array(4,5,6,8,10)
@@ -172,20 +172,20 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-  <p><b>Part A &mdash; Simple Interest</b></p>
+  <p><b>Part A: Simple Interest</b></p>
   <p>A person $ctx_verb <b>$$P</b> for $ctx_goal using a $ctx_type at a simple interest rate of <b>$rate_pct%</b> per year for <b>$t_disp</b>.</p>
   <p>Find the interest.</p>
   <p>$answerbox[0]</p>
 
   <hr>
 
-  <p><b>Part B &mdash; Finding Present Value</b></p>
+  <p><b>Part B: Finding Present Value</b></p>
   <p>How much money must be deposited today at a simple interest rate of <b>$rate2_pct%</b> per year to accumulate <b>$$A2</b> in <b>$t2</b> years?</p>
   <p>$answerbox[1]</p>
 
   <hr>
 
-  <p><b>Part C &mdash; Simple Discount</b></p>
+  <p><b>Part C: Simple Discount</b></p>
   <p>A $days-day promissory note has a maturity value of <b>$$M</b> and a discount rate of <b>$disc_pct%</b> per year. Using a 360-day year, what are the proceeds (the amount the borrower actually receives)?</p>
   <p>$answerbox[2]</p>
 

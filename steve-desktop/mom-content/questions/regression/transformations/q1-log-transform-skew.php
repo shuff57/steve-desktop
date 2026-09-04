@@ -5,14 +5,14 @@
 
 $anstypes = array("choices", "choices")
 
-// Scenario randomization — `y` is a positive quantity that often shows right-skew
+// Scenario randomization: `y` is a positive quantity that often shows right-skew
 $ctx_y = array("annual household income (dollars)", "home sale price (dollars)", "city population", "company revenue (millions of dollars)", "lifetime earnings (thousands)")
 $ctx_x = array("years of education",                "square footage",            "median age",      "annual ad spend (thousands)",          "years of work experience")
 $picked = jointrandfrom($ctx_y, $ctx_x)
 $yname = $picked[0]
 $xname = $picked[1]
 
-// Part a — which transform best addresses right-skew on y?
+// Part a: which transform best addresses right-skew on y?
 $choices[0] = array(
   "Replace `y` with `ln(y)` (natural log of `y`).",
   "Leave `y` alone; right-skewed residuals are not a problem.",
@@ -22,7 +22,7 @@ $choices[0] = array(
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — after the log transform the new residuals look patternless and roughly Normal. Useful?
+// Part b: after the log transform the new residuals look patternless and roughly Normal. Useful?
 $choices[1] = array(
   "Yes. The original residuals had a right-skewed pattern, but the log-transformed residuals look random and roughly Normal, so the LINE conditions are much closer to being met.",
   "No. Transformations always make a model harder to interpret, so we should keep the original.",

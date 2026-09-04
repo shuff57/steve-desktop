@@ -5,7 +5,7 @@
 
 $anstypes = array("choices", "choices", "number", "number", "choices")
 
-// New contexts — no overlap with q6-full-regression-workflow.php
+// New contexts: no overlap with q6-full-regression-workflow.php
 $ctx_x = array("hours of sleep per night",    "distance from campus (miles)", "class size (students)",     "years of education",      "daily high temperature (&deg;F)")
 $ctx_y = array("GPA",                         "monthly rent (dollars)",       "average test score",         "annual income (thousands)", "number of park visitors")
 $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
@@ -45,7 +45,7 @@ $me    = round($tstar * $se_b1, 4)
 $lower = round($b1 - $me, 4)
 $upper = round($b1 + $me, 4)
 
-// Part a — LINE conditions
+// Part a: LINE conditions
 $line_choices = array(
   "All four LINE conditions appear reasonably met: the scatterplot is linear, observations are independent, residuals are roughly normal, and the residual plot shows constant spread.",
   "The Linearity condition is violated: the scatterplot shows a clear curve.",
@@ -56,7 +56,7 @@ $choices[0] = $line_choices
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — Hypotheses
+// Part b: Hypotheses
 if ($dir == 0) {
   $h0_text = "`H_0: beta_1 = 0`"
   $ha_text = "`H_a: beta_1 \\ne 0`"
@@ -83,15 +83,15 @@ if ($dir == 0) {
 $choices[1] = $hyp_choices
 $noshuffle[1] = "all"
 
-// Part c — t-statistic
+// Part c: t-statistic
 $answer[2] = $test_t
 $reltolerance[2] = 0.02
 
-// Part d — 95% CI lower bound
+// Part d: 95% CI lower bound
 $answer[3] = $lower
 $reltolerance[3] = 0.02
 
-// Part e — Decision and conclusion
+// Part e: Decision and conclusion
 $contains_zero = ($lower < 0 && $upper > 0)
 
 if ($p_val < $alpha) {

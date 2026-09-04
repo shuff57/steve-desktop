@@ -12,19 +12,19 @@ $anstypes = array("choices", "choices")
 $cases = array(
   array("A medical test screens for a disease. The null hypothesis is `H_0`: the patient does NOT have the disease; the alternative is `H_a`: the patient HAS the disease.",
         "Conclude the patient is healthy when in fact the patient has the disease.",
-        "Do not reject `H_0` &mdash; a Type II error can only happen on a run where you did not reject."),
+        "Do not reject `H_0`: a Type II error can only happen on a run where you did not reject."),
   array("A quality-control team tests whether bolts coming off a production line have the target mean diameter. The null hypothesis is `H_0: mu = 10` mm; the alternative is `H_a: mu != 10` mm.",
         "Conclude the mean diameter is 10 mm when in fact it differs from 10 mm.",
-        "Do not reject `H_0` &mdash; a Type II error can only happen on a run where you did not reject."),
+        "Do not reject `H_0`: a Type II error can only happen on a run where you did not reject."),
   array("A smoke-detection system makes a decision each minute. The null hypothesis is `H_0`: there is NO fire; the alternative is `H_a`: there IS a fire.",
         "Stay silent when there is a fire.",
-        "Do not reject `H_0` &mdash; a Type II error can only happen on a run where you did not reject."),
+        "Do not reject `H_0`: a Type II error can only happen on a run where you did not reject."),
   array("A drug trial tests whether a new medication reduces blood pressure. The null hypothesis is `H_0`: the drug has no effect; the alternative is `H_a`: the drug lowers blood pressure.",
         "Conclude the drug has no effect when in fact it works.",
-        "Do not reject `H_0` &mdash; a Type II error can only happen on a run where you did not reject."),
+        "Do not reject `H_0`: a Type II error can only happen on a run where you did not reject."),
   array("An environmental study tests whether a river is contaminated. The null hypothesis is `H_0`: the water is safe; the alternative is `H_a`: the water is contaminated.",
         "Conclude the water is safe when in fact it is contaminated.",
-        "Do not reject `H_0` &mdash; a Type II error can only happen on a run where you did not reject.")
+        "Do not reject `H_0`: a Type II error can only happen on a run where you did not reject.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -42,8 +42,8 @@ $noshuffle[0] = "all"
 
 $questions[1] = array(
   $tied,
-  "Reject `H_0` &mdash; a Type II error can only happen on a run where you rejected.",
-  "Either decision &mdash; the error is not tied to the decision."
+  "Reject `H_0`: a Type II error can only happen on a run where you rejected.",
+  "Either decision: the error is not tied to the decision."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -66,8 +66,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the error in context.</span> The trick that never fails: write down what `H_0` says, then say out loud "I did not reject it, and it was false." Here that is: ' . $type2 . '</p>
-      <p><span class="term-label">Part (b) &mdash; the decision it is tied to.</span> ' . $tied . ' A Type II error is a real effect the test walked past, and beta is how often you miss it.</p>
+      <p><span class="term-label">Part (a): the error in context.</span> The trick that never fails: write down what `H_0` says, then say out loud "I did not reject it, and it was false." Here that is: ' . $type2 . '</p>
+      <p><span class="term-label">Part (b): the decision it is tied to.</span> ' . $tied . ' A Type II error is a real effect the test walked past, and beta is how often you miss it.</p>
     </div>
   </details>
 </div>'

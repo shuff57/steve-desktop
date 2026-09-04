@@ -7,8 +7,8 @@
 // student place all THREE measures relative to one another, which is the form the rule is actually
 // tested in: mode at the peak, median next, mean furthest into the tail.
 //
-// The drawn shape decides the correct ordering -- the answer index is computed from $shapeIdx, never
-// looked up -- so the picture and the key cannot disagree no matter what the seed produced. The
+// The drawn shape decides the correct ordering: the answer index is computed from $shapeIdx, never
+// looked up: so the picture and the key cannot disagree no matter what the seed produced. The
 // symmetric case is deliberately included so "the mean is always bigger" is not a winning guess.
 $anstypes = array("choices", "choices", "choices")
 
@@ -61,7 +61,7 @@ for ($i=0..7) {
   $n = $n + $barCounts[$i]
 }
 
-// Part (a) -- the ordering. Options are written so index 0/1/2 lines up with $shapeIdx.
+// Part (a): the ordering. Options are written so index 0/1/2 lines up with $shapeIdx.
 $questions[0] = array(
   "mean &lt; median &lt; mode",
   "mode &lt; median &lt; mean",
@@ -70,7 +70,7 @@ $questions[0] = array(
 )
 $answer[0] = $shapeIdx
 
-// Part (b) -- which measure the tail moves most. Same for both skewed shapes; the symmetric case
+// Part (b): which measure the tail moves most. Same for both skewed shapes; the symmetric case
 // has no tail to do any moving, so it gets its own correct option.
 $questions[1] = array(
   "The mean. It is computed from every value, so the far-out values in the tail pull it toward them.",
@@ -89,7 +89,7 @@ if ($shapeIdx == 2) {
   $answer[1] = 0
 }
 
-// Part (c) -- where the mode is read off, independent of the drawn shape.
+// Part (c): where the mode is read off, independent of the drawn shape.
 $questions[2] = array(
   "At the tallest bar, because the mode is the most frequently occurring value.",
   "At the middle of the horizontal axis, because the mode is a kind of center.",
@@ -167,9 +167,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; find the tail, not the bulk.</span> This distribution is <b>' . $shapeName . '</b>: the thin end trails off toward ' . $tailSide . '. Skew is named for where the TAIL points, never for where the tall bars are. That single sentence decides both of the first two answers.</p>
-      <p><span class="term-label">Step 2 &mdash; place the three measures.</span> ' . $whyOrder . ' So the order along the axis is <b>' . $orderText . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; why the mean is the one that moves.</span> The mean adds up every observation, so a value far out in the tail contributes its full distance. The median only cares which value sits in the middle position, and the mode only cares which bar is tallest &mdash; neither notices HOW far away the extreme values are. That is exactly why the mean is the measure a long tail distorts.</p>
+      <p><span class="term-label">Step 1: find the tail, not the bulk.</span> This distribution is <b>' . $shapeName . '</b>: the thin end trails off toward ' . $tailSide . '. Skew is named for where the TAIL points, never for where the tall bars are. That single sentence decides both of the first two answers.</p>
+      <p><span class="term-label">Step 2: place the three measures.</span> ' . $whyOrder . ' So the order along the axis is <b>' . $orderText . '</b>.</p>
+      <p><span class="term-label">Step 3: why the mean is the one that moves.</span> The mean adds up every observation, so a value far out in the tail contributes its full distance. The median only cares which value sits in the middle position, and the mode only cares which bar is tallest: neither notices HOW far away the extreme values are. That is exactly why the mean is the measure a long tail distorts.</p>
       <p><span class="term-label">Reading the mode off the picture.</span> The mode is the most common value, which on a histogram is the tallest bar. It needs no arithmetic at all.</p>
       <p><span class="term-label">Sanity check you can always run.</span> Imagine the picture balancing on a pencil. The balance point IS the mean, and a long thin tail on one side tips it that way even though few observations live there.</p>
     </div>

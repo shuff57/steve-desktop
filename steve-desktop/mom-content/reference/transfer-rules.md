@@ -46,6 +46,15 @@ Safe to edit or delete by hand — a wrong rule here makes every later push wors
   literal string `OK`. `item` is the COURSE-ITEM id from `moveDialog('<block>','<item>')`, not the
   assessment's `aid` — 1.1 is item `45020296` and aid `23108651`. Omit the token and it answers
   HTTP 200 with a "submission has been blocked" page instead.
+
+  **"driven by the page's `moveitem()`" means CALL IT, not replay its fields.** On `moveitem.php`
+  there is no `csrfp-token` input to read and no `csrfp_token` cookie to copy -- the page carries
+  `window.CSRFP` and `csrfprotector_init`, and the token is attached by CSRFP's own jQuery/XHR hook
+  at send time. So a hand-rolled POST, sync XHR or `fetch` alike, arrives unsigned and gets the
+  blocked page. Set `#blockselect` (and `#itemselect`) and call `moveitem()`; the hook signs it.
+  Measured 2026-09-02 moving `Chapter 0 Group Test`: hand-rolled POST returned `hasToken:false` and
+  the blocked page; the page's own function moved it first try. The `CSRFP.setToken("...")` route
+  in the rule further down should also work and was not needed.
 - `assmpassword` is `<input type="password">`, which a browser never repopulates on load. So EVERY
   later save of an assessment's settings form submits it empty and silently clears the stored code —
   set at creation, then wiped by a subsequent dates edit, with nothing reporting it. Set the passcode
@@ -1180,3 +1189,197 @@ Two also land on the **minimum day** 10/27/2026 (4.1 DUE and 4.2 START, both `10
 Five of the 33 are already in the past as of 2026-09-01 and were left alone pending Steve's call;
 28 are upcoming. **Not fixed in this run** — the audit was the ask, and rewriting a closed
 assignment's due date is a decision about student work, not a repair.
+
+## Two ch1-practice defects, and the rule that made both cheap (2026-09-01)
+
+Steve reported Q14 "broken" and Q15 "out of scope" on `Chapter 1 Practice Test`, with students
+already in the assignment, and expected a per-instance hand-edit in all three sections. **Neither
+fix needed one.** Both live in the shared library question, and master + P3 + P4 + P7 attach the
+same `qsetid`, so one `moddataset.php` save reached all four courses.
+
+**The dividing line is what an attachment actually stores.** Per-instance means `instanceid`,
+`points`, order, and *which* `qsetid` is attached. Everything else -- `qtype`, `control`, `qtext`,
+`solution`, `description` -- is the library record, shared by every course pointing at it. So:
+
+| change | where | per-instance work |
+|---|---|---|
+| fix a question's body, rubric, prompt, `qtype` | library | **none** |
+| change points, order, add/remove/swap a question | attachment | every course, and `beentaken` forces the slow path |
+
+That is also why the cheap fix for an out-of-scope question is to **rewrite it in place** rather
+than swap it: a swap is 4 detach/attach passes plus 45 `modquestion2.php` point saves, and it
+orphans whatever the students already typed.
+
+### A `SET QUESTION TYPE TO: essay` marker on a multipart-shaped source ships a question with NO answer box
+
+`q10-sampling-design-critique.php` was filed with `qtype = essay` while its source is written the
+way every other FRQ in `questions/frq/**` is written -- `$anstypes = array("essay")`,
+`$displayformat[0]='editornopaste'`, `$answerbox[0]`. A native IMathAS `essay` question uses bare
+`$answerbox` and ignores `$anstypes`, so `$answerbox[0]` produced nothing: the rendered question had
+the prompt, the rubric checkboxes and a Submit button, and **no textarea and no editor iframe**.
+Nine points no student could earn.
+
+Nothing catches this from the source side. `regress.ts` renders it clean (the sandbox renders the
+*source*, and the source is valid multipart), `question-lint` is silent, and the live page throws no
+`Eeek!` -- an absent answer box is not an error, it is a question with zero parts. The check that
+does catch it is the one already written down for `qtype` mismatches: compare `[name=qtype]` on
+`moddataset.php` against the file's marker. Here the marker and the field **agreed**; both said
+`essay`, and both were wrong for the code underneath.
+
+So the marker is not self-validating. The stronger check is structural: **if the control sets
+`$anstypes` or references `$answerbox[<n>]`, the qtype must be `multipart`.** One grep over the bank
+finds every instance. Swept 2026-09-01: **five sources carry the same defect and none is filed yet**,
+so they are landmines for a future push rather than live damage --
+`frq/descriptive-statistics/q11-compare-distributions-essay.php`,
+`frq/normal-distribution/q15-normal-model-in-context.php`,
+`frq/probability/q2-sample-space-and-event-setup.php`,
+`frq/probability/q3-mutually-exclusive-versus-independent.php`,
+`frq/probability/q4-which-rule-and-why.php`. Fix each marker before it goes near a course. Both ch1
+tests were re-read afterwards and hold zero `essay`-typed items.
+
+```bash
+for f in $(grep -rl 'SET QUESTION TYPE TO: essay' questions/); do
+  grep -q 'anstypes|answerbox[' "$f" && echo "$f"
+done
+```
+
+Fix applied: qtype `essay` -> `multipart` in the library, marker corrected in the source,
+`question-library.json` and the derived index re-synced. Verified in Teacher Preview in the master
+and in P7: `TEXTAREA#qn14000` plus the editor iframe now present.
+
+### "Out of scope" is a chapter boundary, and it hides inside a legitimate task
+
+`q6-frequency-distribution-analysis.php` asked students to build a 4-class frequency distribution
+(1.3, fine) **and then name the shape of the distribution** -- skewed right / left / approximately
+symmetric -- which is 2.6, two chapters away. The out-of-scope half was welded to an in-scope half,
+which is why it survived assembly review: the slot label read "FRQ 1.3 frequency distribution" and
+the first third of the question honestly was.
+
+Rewritten in place to finish inside 1.3: relative frequency per class, cumulative relative frequency
+through the third class, and reading a percent off the student's own table. Same `qsetid`, same 9
+points, so all four courses updated by one save and nobody lost an attempt.
+
+### Both FRQ rubrics printed 4 + 3 + 3 = 10 on a 9-point slot
+
+An assembled test rebalances points to hit 100; the rubric HTML inside each question does not move
+with it. Both ch1-practice FRQs told students the response was worth 10 while MOM awarded 9. Now
+4 + 3 + 2 = 9. **Whenever a slot's points change during assembly, grep that question's control for
+`(N pts)` and make the printed rubric sum to the slot.**
+
+### Steve's wording call: the bins keep the word "class", the context loses it
+
+The question said "scores on a statistics quiz given to students in an Introduction to Statistics
+class" while also asking for "class width" and "class boundaries" -- the same word for the room and
+for the bin. Steve's call: keep the statistical vocabulary, change the stem. It now reads "The data
+set below records 18 scores on a statistics quiz." `$contexts` / `$subject` were removed as orphans.
+
+## From the Chapter 0 Group Test push, 2026-09-02 (course 334437, aid 24015116)
+
+An unusual push: 41 shared-library qsetids, nothing filed, no local `.php` anywhere. That removed
+every CodeMirror/qtype trap and exposed a different set.
+
+- **`playwright-cli`'s `eval` does NOT await a promise.** An async IIFE comes back as
+  `JSON.stringify(Promise)` === **`"{}"`** -- an empty object that parses cleanly and reads as a
+  successful call that simply returned nothing. A batch of attaches and a `moveitem` POST both
+  "succeeded" this way while doing nothing at all. **Use synchronous `XMLHttpRequest`
+  (`x.open(m,u,false)`), never `fetch`, inside `eval`.** This is the worst failure shape available:
+  no error, no timeout, valid JSON, zero work done. Distinct from the CDP read-timeout rule further
+  up, which is the opposite problem -- there the work lands and the *read* fails.
+
+- **A new assessment lands at the COURSE ROOT even when you enter through `additem`'s URL.** The
+  documented entry `addassessment.php?block=<blk>&tb=b&cid=<cid>` redirects to `addassessment2.php`
+  whose form action reads `block=` **empty**, `folder=0`, `btf=<blk>`. It POSTs fine -- no HTTP 500 --
+  but `btf` is not honoured on create, so the assessment appears at the root. This is exactly how
+  `IM1 1.2 Representing a Growing Pattern` got stranded (see `MAP-IM1-GLOBAL.md`), and it is not a
+  mistake anyone made: it is what the form does. **Always read the destination block back after
+  creating, and expect to `moveitem.php` it.** Placement is not part of creation.
+
+- **`submitChanges()` can report failure on a save that LANDED.** After 15 `groupSelected()` calls it
+  set both `#submitnotice` and `#statusmsg` to the literal **`error: not saved`**. A fresh navigation
+  showed all 15 groups persisted and the gate passing 41/15/16. **Never retry on that message alone
+  -- read the server state back first.** A retry here would have double-grouped the assessment, which
+  is far harder to unpick than the non-problem it was answering.
+
+- **`itemarray[i][4]` of `9999` means "use the assessment default", not 9999 points.** The default is
+  `$("#defpts").val()`. A push that reads `9999` and "corrects" it is fighting the intent: where the
+  default is already the per-question value you want, the points pass is unnecessary. Chapter 0's
+  41 questions all read `9999` with `defpts=1`, so nothing was written and the total came out at the
+  intended 16.
+
+- **Re-confirmed, expensively: do not count `moddataset` links to check an attach.** A hand-rolled
+  extractor reported `attached: 3` when exactly **one** question was attached, because the library
+  search table on the same page carries its own `moddataset` links. `reference/extract-assessment-questions.js`
+  reported `1`, correctly. The existing rule says this; it was still worth the ten minutes to learn
+  that the wrong number is *plausible* rather than obviously broken.
+
+- **A group-select is worth rendering for its own sake.** 15 groups over 41 questions must present
+  exactly **16** questions in Teacher Preview. That count is a cheap, structural check that the
+  grouping is real and not just 41 rows with decorative headers -- and it is independent of the
+  `itemarray` read that produced the gate.
+
+
+## Scope is set by the section's own homework, not by the section title (2026-09-02)
+
+Ch1 practice Q15 was trimmed on 2026-09-01 from 2.6 (shape/skewness) back to "1.3", and it was
+still out of scope. It asked students to compute a class width -- range div 4, round up -- and
+choose boundaries. The section is titled *Frequency, Frequency Tables, and Levels of Measurement*,
+so "build a frequency distribution" reads as in-scope on the title alone. It is not. Read the
+section's own homework manifest and check what the questions actually hand the student:
+
+- **1.3, all 16 questions**: the table or the classes are GIVEN. Complete it, back-solve a missing
+  frequency, audit it for errors, read a percent off it. Nothing asks a student to choose classes.
+- **2.2**: "Bin Width Changes the Picture", "group a data set into classes of a *stated* width",
+  "sort raw measurements into five *given* classes". Even here the width is handed over.
+
+So the fix was to print the four classes in the stem. The task the FRQ actually grades -- tally,
+relative frequency, cumulative relative frequency, percent off the table -- was already 1.3 work;
+only the setup step was borrowed from the next chapter.
+
+Two things this generalises to:
+
+- **`books/<book>/hw/<section>.json` is the scope oracle.** One `python -c` over its `questions[]`
+  titles answers "has this been taught yet" in seconds, and answers it with the course Steve
+  actually assigned rather than with what the topic name suggests. Do this BEFORE authoring or
+  trimming an FRQ, not after a student reports it.
+- **A trim can leave a second out-of-scope ask standing.** The 2026-09-01 pass correctly removed
+  the skewness question and never re-examined the setup sentence it left in place, because that
+  sentence had been there since the question was written and read as part of the furniture.
+  When cutting scope, re-read every remaining step against the section, not just the part you cut.
+
+**Coupled artifact, still stale:** `questions/descriptive-stats/pre-frq-grade-a-frequency-distribution.php`
+(qsetid 1874243, HW 1.3 slot 16) is the pre-FRQ that rehearses this exact FRQ, and it still asks
+students to grade responses on "class width and boundaries" and on "names the shape and says why".
+Both asks are now gone from the FRQ it mirrors. A pre-FRQ is a copy of another question's rubric,
+so it does not show up in any search for the question you changed -- **grep the pre-FRQ folder for
+the rubric wording whenever an FRQ rubric changes.**
+
+- **On `addquestions2.php` a checkbox's `qc<n>` id is NOT its `itemarray` index once anything is
+  grouped.** The ids run `qc0..qc<questions-1>` over every QUESTION; the address `groupSelected()`
+  actually reads is the **`value` prefix** (`el.value.split(":")[0]`), which is the itemarray
+  address and may be `"13-0"`, `"13-1"`, `"14"`. Measured 2026-09-02 on a 15-item / 39-question
+  assessment: `qc36` carried `14:354907167:14`, so ticking `qc14` addressed a question buried inside
+  group 5. The failure is silent and reads as success -- `groupSelected()` returned with
+  `itemarray.length` unchanged at 17, and the run reported `ok`. **Select by value prefix, and
+  assert the item count actually DROPS before saving.**
+
+  This is why a first grouping pass works and a later one does not: with nothing grouped yet the ids
+  and the indices coincide exactly, so an id-based tick is right once and wrong forever after. The
+  original 15 groups on this assessment were built id-first and were all correct.
+
+- **An attach appends at the END, and that is worth designing around rather than fighting.** Swapping
+  one bundle for another is remove + attach + regroup, and the replacement lands last no matter where
+  the old one sat. Reordering means driving the per-row `moveitem2` selects; often the cheaper answer
+  is to choose a replacement whose section already sits at the tail, so the appended item stays in
+  the right section and only the numbering shifts.
+
+- **Removing a question from an assessment does not touch the library.** `removegrp('<i>')` /
+  `removeitem('<i-j>')` drop the INSTANCE; the qsetid stays in MOM's shared library and stays
+  attached to every other assessment using it. Say so when reporting a removal -- "removed" reads as
+  "deleted" otherwise, and on shared-library questions that would be alarming and wrong.
+
+- **`addquestions2.php` carries a per-group control set that beats checkbox-driving**, discovered by
+  dumping the page's onclick handlers: `removegrp('<i>')` (Remove Group and Questions),
+  `fullungroup(<i>)`, `ungroupitem('<i-j>')`, `removeitem('<i-j>')`, `selallgroup(<i>)`. For anything
+  that targets one whole group, these are unambiguous and cannot half-apply. Prefer them over
+  `removeSelected()` with hand-ticked boxes -- which is where the id-vs-index trap above bites.
+

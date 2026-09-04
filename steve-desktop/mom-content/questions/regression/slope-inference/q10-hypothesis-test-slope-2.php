@@ -5,7 +5,7 @@
 
 $anstypes = array("choices", "choices", "choices")
 
-// New randomized contexts — no overlap with q2-hypothesis-test-slope.php
+// New randomized contexts: no overlap with q2-hypothesis-test-slope.php
 $ctx_x = array("hours of sleep per night",     "distance from campus (miles)",    "number of employees",      "pages in the textbook",  "commute distance (miles)")
 $ctx_y = array("GPA",                          "monthly rent (dollars)",          "annual revenue (millions)", "price (dollars)",        "weekly gas cost (dollars)")
 $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
@@ -24,17 +24,17 @@ $slope_se  = round($slope_est / $target_t, 3)
 
 $alpha = 0.05
 
-// Part a — H0
+// Part a: H0
 $choices[0] = array("`H_0: beta_1 = 0`", "`H_0: beta_1 \\ne 0`", "`H_0: b_1 = beta_1`")
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — Ha
+// Part b: Ha
 $choices[1] = array("`H_a: beta_1 \\ne 0`", "`H_a: beta_1 = 0`", "`H_a: beta_1 > b_1`")
 $noshuffle[1] = "all"
 $answer[1] = 0
 
-// Part c — p-value interpretation
+// Part c: p-value interpretation
 $choices[2] = array(
   "The p-value is below `alpha`, so we reject `H_0` and conclude there is evidence of a linear relationship between `x` and `y` in the population.",
   "The p-value is above `alpha`, so we fail to reject `H_0`; the data do not give convincing evidence of a linear relationship.",

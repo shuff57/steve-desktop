@@ -61,9 +61,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the t-critical value.</span> For a ' . round($cl * 100) . '% confidence interval with `df = ' . ($n - 1) . '`, the t-score with `alpha/2` area to its right is `t_(alpha/2) = ' . $t . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the matching z.</span> The matching z-score for the same confidence level is `z_(alpha/2) = ' . $z . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; why the t is larger.</span> The t-distribution has more probability out in its tails than the standard normal does, because the denominator is an estimate rather than a known constant. To capture the middle 95% of a t-curve with ' . ($n - 1) . ' degrees of freedom you have to go out ' . $t . ' standard errors from the center instead of ' . $z . ' &mdash; further, because the curve has pushed more of its probability into the tails and you need a wider net to fence in the same 95%. That is the price of not knowing sigma, and the price falls as the sample grows: at 30 degrees of freedom the number is 2.04, at 100 it is 1.98, and it keeps creeping toward 1.96 without ever quite getting there.</p>
+      <p><span class="term-label">Part (a): the t-critical value.</span> For a ' . round($cl * 100) . '% confidence interval with `df = ' . ($n - 1) . '`, the t-score with `alpha/2` area to its right is `t_(alpha/2) = ' . $t . '`.</p>
+      <p><span class="term-label">Part (b): the matching z.</span> The matching z-score for the same confidence level is `z_(alpha/2) = ' . $z . '`.</p>
+      <p><span class="term-label">Part (c): why the t is larger.</span> The t-distribution has more probability out in its tails than the standard normal does, because the denominator is an estimate rather than a known constant. To capture the middle 95% of a t-curve with ' . ($n - 1) . ' degrees of freedom you have to go out ' . $t . ' standard errors from the center instead of ' . $z . ': further, because the curve has pushed more of its probability into the tails and you need a wider net to fence in the same 95%. That is the price of not knowing sigma, and the price falls as the sample grows: at 30 degrees of freedom the number is 2.04, at 100 it is 1.98, and it keeps creeping toward 1.96 without ever quite getting there.</p>
     </div>
   </details>
 </div>'

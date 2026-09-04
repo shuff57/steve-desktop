@@ -22,7 +22,7 @@ $ctx = $contexts[$i]
 $n = $ns[$i]
 
 $questions[0] = array(
-  "The distribution of the individual values (here: the population distribution itself &mdash; do NOT use the central limit theorem)",
+  "The distribution of the individual values (here: the population distribution itself: do NOT use the central limit theorem)",
   "The central limit theorem sampling distribution of `bar(x)`",
   "The central limit theorem distribution of `Sigma x`"
 )
@@ -64,9 +64,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The word before the number tells you which tool.</span> Scan the sentence for "average", "mean", "total", "sum", or "one randomly selected". Those five words decide the whole problem. Everything after that is typing.</p>
-      <p><span class="term-label">Part (a) &mdash; one individual.</span> A question about one person, one part, one value is about `X`, the population distribution itself &mdash; the central limit theorem has nothing to say about it. That third case is where most of the lost points in this section live.</p>
-      <p><span class="term-label">Part (b) &mdash; a sample mean.</span> A question about the average of a sample is about `bar(x)`, and the central limit theorem applies: `bar(X) ~ N(mu, sigma/sqrt(n))`.</p>
-      <p><span class="term-label">Part (c) &mdash; a sample sum.</span> A question about a total or a sum is about `Sigma x`, and the central limit theorem for sums applies: `Sigma X ~ N(n*mu, sqrt(n)*sigma)`.</p>
+      <p><span class="term-label">Part (a): one individual.</span> A question about one person, one part, one value is about `X`, the population distribution itself: the central limit theorem has nothing to say about it. That third case is where most of the lost points in this section live.</p>
+      <p><span class="term-label">Part (b): a sample mean.</span> A question about the average of a sample is about `bar(x)`, and the central limit theorem applies: `bar(X) ~ N(mu, sigma/sqrt(n))`.</p>
+      <p><span class="term-label">Part (c): a sample sum.</span> A question about a total or a sum is about `Sigma x`, and the central limit theorem for sums applies: `Sigma X ~ N(n*mu, sqrt(n)*sigma)`.</p>
       <p>The two numbers are not close to each other and they are not supposed to be. Averaging pulls values toward the center, which is exactly why a mean is far less likely to land out in a tail than any individual value is.</p>
     </div>
   </details>

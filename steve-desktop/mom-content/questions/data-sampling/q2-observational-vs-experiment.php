@@ -23,25 +23,25 @@ $treat_known = array(0, 1, 1, 0, 1) // 0 = treatment imposed (Yes), 1 = no treat
 $causal = array(0, 1, 1, 0, 1) // 0 causal supported (random assignment), 1 not causal
 
 $why_type = array(
-  "The researchers actively assigned treatments (drug vs placebo) — this is an <b>experiment</b>.",
-  "The researchers only observed and recorded existing behavior — this is an <b>observational study</b>.",
-  "Subjects self-selected into the program — no random assignment of treatment, so it is an <b>observational study</b>.",
-  "The researchers randomly assigned study conditions (music vs silence) — this is an <b>experiment</b>.",
-  "The researchers only observed diets that subjects had already chosen — this is an <b>observational study</b>."
+  "The researchers actively assigned treatments (drug vs placebo): this is an <b>experiment</b>.",
+  "The researchers only observed and recorded existing behavior: this is an <b>observational study</b>.",
+  "Subjects self-selected into the program: no random assignment of treatment, so it is an <b>observational study</b>.",
+  "The researchers randomly assigned study conditions (music vs silence): this is an <b>experiment</b>.",
+  "The researchers only observed diets that subjects had already chosen: this is an <b>observational study</b>."
 )
 $why_treat = array(
   "The new drug is the <b>treatment</b>; the placebo group is the control.",
-  "There is no imposed treatment — only measurement.",
+  "There is no imposed treatment: only measurement.",
   "There is no random treatment assignment; sign-up vs non-sign-up is a self-selected grouping, not a treatment.",
   "Background music is the <b>treatment</b>; silence is the control.",
-  "There is no imposed treatment — diet was already chosen by the subjects."
+  "There is no imposed treatment: diet was already chosen by the subjects."
 )
 $why_causal = array(
   "Random assignment balances confounders, so cause-and-effect conclusions are supported.",
   "Without random assignment, lurking variables could explain any association; only an association can be claimed.",
-  "Self-selection means the groups may differ in motivation, prior grades, etc. — these confounders block a causal claim.",
+  "Self-selection means the groups may differ in motivation, prior grades, etc.: these confounders block a causal claim.",
   "Random assignment balances confounders, so cause-and-effect conclusions are supported.",
-  "Self-selected vegans may differ in many ways (exercise, income, age) — confounders block a causal claim."
+  "Self-selected vegans may differ in many ways (exercise, income, age): confounders block a causal claim."
 )
 
 $picked = jointrandfrom($ctxs, $study_type, $treat_known, $causal, $why_type, $why_treat, $why_causal)
@@ -54,8 +54,8 @@ $wtr       = $picked[5]
 $wc        = $picked[6]
 
 $choices[0] = array("Observational study", "Experiment")
-$choices[1] = array("Yes — the researcher imposed a treatment", "No — the researcher only observed existing behavior")
-$choices[2] = array("Yes — causal conclusions are supported", "No — only an association can be claimed")
+$choices[1] = array("Yes: the researcher imposed a treatment", "No: the researcher only observed existing behavior")
+$choices[2] = array("Yes: causal conclusions are supported", "No: only an association can be claimed")
 $noshuffle[0] = "all"
 $noshuffle[1] = "all"
 $noshuffle[2] = "all"

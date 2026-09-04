@@ -5,14 +5,14 @@
 
 $anstypes = array("choices")
 
-// Scenario 0: SRS — names drawn from a hat
-// Scenario 1: Stratified — divide students by grade level then random sample from each
-// Scenario 2: Cluster — randomly pick 4 entire classrooms; survey everyone in those rooms
-// Scenario 3: Systematic — every 10th customer who walks in
-// Scenario 4: Convenience — first 50 friends contacted
-// Scenario 5: Stratified — split adults by region then random sample within each region
-// Scenario 6: Cluster — random pick of 6 voting precincts; survey every voter in those precincts
-// Scenario 7: Systematic — every 25th name on the alphabetized list
+// Scenario 0: SRS: names drawn from a hat
+// Scenario 1: Stratified: divide students by grade level then random sample from each
+// Scenario 2: Cluster: randomly pick 4 entire classrooms; survey everyone in those rooms
+// Scenario 3: Systematic: every 10th customer who walks in
+// Scenario 4: Convenience: first 50 friends contacted
+// Scenario 5: Stratified: split adults by region then random sample within each region
+// Scenario 6: Cluster: random pick of 6 voting precincts; survey every voter in those precincts
+// Scenario 7: Systematic: every 25th name on the alphabetized list
 
 $ctxs = array(
   "A school office puts every student's name in a bowl and randomly draws 75 names. The 75 students drawn are the sample.",
@@ -27,11 +27,11 @@ $ctxs = array(
 $correct = array(0, 1, 2, 3, 4, 1, 2, 3) // index into choices
 
 $why = array(
-  "Every member of the population has the same chance of being chosen and the selection is purely random — this is a <b>simple random sample</b>.",
-  "The population is split into <b>strata</b> (groups that share a characteristic, like grade level or region) and a random sample is drawn from each — this is <b>stratified sampling</b>.",
-  "Whole, pre-existing groups (clusters) are randomly selected, and every member of the chosen clusters is surveyed — this is <b>cluster sampling</b>.",
-  "A random start is chosen and then every k-th element is selected at a fixed interval — this is <b>systematic sampling</b>.",
-  "Subjects are chosen because they are easy to reach (friends, walk-by, sign-ups) — this is <b>convenience sampling</b>."
+  "Every member of the population has the same chance of being chosen and the selection is purely random: this is a <b>simple random sample</b>.",
+  "The population is split into <b>strata</b> (groups that share a characteristic, like grade level or region) and a random sample is drawn from each: this is <b>stratified sampling</b>.",
+  "Whole, pre-existing groups (clusters) are randomly selected, and every member of the chosen clusters is surveyed: this is <b>cluster sampling</b>.",
+  "A random start is chosen and then every k-th element is selected at a fixed interval: this is <b>systematic sampling</b>.",
+  "Subjects are chosen because they are easy to reach (friends, walk-by, sign-ups): this is <b>convenience sampling</b>."
 )
 
 $picked = jointrandfrom($ctxs, $correct)

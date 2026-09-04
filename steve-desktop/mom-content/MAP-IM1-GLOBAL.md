@@ -163,6 +163,28 @@ every one render-checked in Teacher Preview with zero `Eeek!` and zero PHP error
 Names were **renumbered onto the book** (Steve, 2026-09-01), so "Equal Values Method" is
 `5.3`, not `6.2.1`. Each manifest keeps its CPM name under `source.name`.
 
+**Chapter 1 was the exception, and was renamed 2026-09-01.** It still carried the legacy
+`HW <Title>` names after the build. The six homework assignments are now
+`1.1 Solving Math Puzzles`, `1.3 Function Machines`, `1.3 Functions`, `1.4 Domain and Range`,
+`1.5 Rewriting Expressions with Exponents`, `1.5 Zero and Negative Exponents`; `1.2 Representing
+a Growing Pattern` was already correct and the four tests keep `Chapter 1 <Kind>`, matching
+chapters 2, 3 and 5.
+
+The section number did NOT have to be inferred from the title -- **every manifest already carried a
+`book_url` naming its book section**, and all seven agreed with the CPM->book mapping
+(`1.1_working_problems_as_a_team`, `1.3_inputs_outputs_and_what_makes_a_function` twice,
+`1.5_working_with_exponents` twice, and so on). Read `book_url` before reasoning about a title;
+it is the cheapest authoritative answer in the repo, and this map has already been wrong once
+from arguing about topic names.
+
+Renaming writes ONE field. `addassessment2.php?id=<aid>&cid=<cid>` -- `?id=`, never `?aid=`, which
+is a create form that saves a duplicate -- poll `[name=name]` to populate, guard on the expected
+old name so a re-run is a no-op, set through the native setter plus `input`/`change` because the
+form is Vue, re-send `assmpassword` (a save clears it), then click the single `Save Changes`
+submit. Verify from a fresh navigation that `sdate`/`stime`/`edate`/`etime`, the passcode and
+`extreflinks[]` are unchanged, and that the block still holds the same number of items -- a
+duplicate is the failure this last check catches.
+
 ### Question groups
 
 A group ("Select 1 from a group of 4") CANNOT be attached by URL: `modquestion2.php`

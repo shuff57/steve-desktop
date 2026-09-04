@@ -73,7 +73,7 @@ $sol = '
         <li><b>(b) Joint.</b> `' . $a . ' -: ' . $grand . ' = ' . $pJoint . '`. How much of the whole group is BOTH.</li>
         <li><b>(c) Conditional.</b> `' . $a . ' -: ' . $r1 . ' = ' . $pCond . '`. Of the ' . $rowY . ' group only, how much is ' . $colY . '.</li>
       </ul>
-      <p><span class="term-label">Part (d).</span> The conditional divides by the ' . $rowY . ' row total, ' . $r1 . '. The word "of" in "of those who ' . $rowY . '" is the instruction to throw away the other row &mdash; the grand total ' . $grand . ' answers a question nobody asked.</p>
+      <p><span class="term-label">Part (d).</span> The conditional divides by the ' . $rowY . ' row total, ' . $r1 . '. The word "of" in "of those who ' . $rowY . '" is the instruction to throw away the other row: the grand total ' . $grand . ' answers a question nobody asked.</p>
       <p><span class="term-label">The check worth carrying.</span> A conditional is always at least as large as the joint with the same numerator, because its denominator is smaller. Here `' . $pCond . ' >= ' . $pJoint . '`. If your conditional comes out below your joint, you divided by the wrong thing.</p>
     </div>
   </details>

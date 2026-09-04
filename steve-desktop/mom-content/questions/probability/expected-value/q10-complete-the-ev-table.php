@@ -53,7 +53,7 @@ $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "The expected value — the long-run average of X",
+  "The expected value: the long-run average of X",
   "The probability that X takes its largest value",
   "1, because the probabilities sum to 1",
   "The largest value X can take"
@@ -85,9 +85,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The one move.</span> Each row of the `x * P(x)` column is the value times its probability. Multiply, then add the column.</p>
-      <p><span class="term-label">Part (a) &mdash; row ' . $askOne . '.</span> Row ' . $askOne . ' holds `x = ' . $xs[$ask] . '` and `P(X = x) = ' . $ps[$ask] . '`, so the product is `(' . $xs[$ask] . ')(' . $ps[$ask] . ') = ` <b>' . $rowProd . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; the column sum.</span> Adding all four products gives `mu = E(X) = ` <b>' . $mu . '</b>. That is the long-term average: if the process were repeated many times, this is what the average would settle down to.</p>
-      <p><span class="term-label">Part (c) &mdash; what the column sums to.</span> The `x * P(x)` column sums to the expected value — the balance point of the distribution. It is not a probability, and it is not a value the variable actually takes (a family can have an expected 2.3 children, and no family has 2.3 children).</p>
+      <p><span class="term-label">Part (a): row ' . $askOne . '.</span> Row ' . $askOne . ' holds `x = ' . $xs[$ask] . '` and `P(X = x) = ' . $ps[$ask] . '`, so the product is `(' . $xs[$ask] . ')(' . $ps[$ask] . ') = ` <b>' . $rowProd . '</b>.</p>
+      <p><span class="term-label">Part (b): the column sum.</span> Adding all four products gives `mu = E(X) = ` <b>' . $mu . '</b>. That is the long-term average: if the process were repeated many times, this is what the average would settle down to.</p>
+      <p><span class="term-label">Part (c): what the column sums to.</span> The `x * P(x)` column sums to the expected value: the balance point of the distribution. It is not a probability, and it is not a value the variable actually takes (a family can have an expected 2.3 children, and no family has 2.3 children).</p>
     </div>
   </details>
 </div>'

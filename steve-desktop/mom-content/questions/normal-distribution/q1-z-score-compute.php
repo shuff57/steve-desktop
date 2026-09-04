@@ -9,7 +9,7 @@ $anstypes = array("numfunc", "numfunc", "choices")
 // Pre-computed so we control numerics.
 
 $cases = array(
-  array("test scores", 75, 8, 86, 64, 1.375, -1.375, 2),    // |z| equal — equally unusual
+  array("test scores", 75, 8, 86, 64, 1.375, -1.375, 2),    // |z| equal: equally unusual
   array("heights of adult men (in)", 70, 3, 76, 67, 2.0, -1.0, 0), // |z_A|=2 > |z_B|=1 → A more unusual
   array("daily steps", 8000, 1500, 11000, 6500, 2.0, -1.0, 0),
   array("baby weights (lb)", 7.5, 1.0, 6.0, 9.7, -1.5, 2.2, 1), // B more unusual

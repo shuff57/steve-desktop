@@ -151,16 +151,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the distribution, states the deciding facts, and checks the conditions. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the distribution, states the deciding facts, and checks the conditions. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sName . ' ' . $sFacts . ' ' . $sCheck . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noCheckLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noCheckLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Name the Distribution &mdash; earned.</b> The curve is named.</li>
-        <li><b>State the Deciding Facts &mdash; earned.</b> What in the problem statement chose the curve is stated.</li>
-        <li><b>Check the Conditions &mdash; NOT earned.</b> The response never verifies the assumptions the test needs.</li>
+        <li><b>Name the Distribution: earned.</b> The curve is named.</li>
+        <li><b>State the Deciding Facts: earned.</b> What in the problem statement chose the curve is stated.</li>
+        <li><b>Check the Conditions: NOT earned.</b> The response never verifies the assumptions the test needs.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the conditions are their own category.</span> Naming the distribution and the deciding facts are both possible without ever verifying the assumptions &mdash; the condition check is what makes the distribution legal in the first place, and a response that skips it has not answered the question.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet &mdash; the pre-FRQ defines the scenario and rubric a later FRQ should match. The conditions are the category most often skipped, because once the curve is named the assumptions feel like fine print.</p>
+      <p><span class="term-label">Part (c): why the conditions are their own category.</span> Naming the distribution and the deciding facts are both possible without ever verifying the assumptions: the condition check is what makes the distribution legal in the first place, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet: the pre-FRQ defines the scenario and rubric a later FRQ should match. The conditions are the category most often skipped, because once the curve is named the assumptions feel like fine print.</p>
     </div>
   </details>
 </div>'

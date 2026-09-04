@@ -141,7 +141,7 @@ $solutionguide = '
       <div class="matrix-row">AB = ' . $Pdisp . '</div>
 
       <p class="step">Part (b). Compute Cv, where C is 2&times;3 and v is 3&times;1.</p>
-      <p>C is 2&times;3 and v is 3&times;1. The inner dimensions match (3 = 3), so the product exists. The outer dimensions tell us Cv is 2&times;1 -- a column vector with two entries.</p>
+      <p>C is 2&times;3 and v is 3&times;1. The inner dimensions match (3 = 3), so the product exists. The outer dimensions tell us Cv is 2&times;1: a column vector with two entries.</p>
       <div class="matrix-row">C = ' . $Cdisp . ' &nbsp; v = ' . $vdisp . '</div>
       <p>Each entry of Cv is the dot product of a row of C with the column vector v. Because v has 3 entries, each dot product has 3 terms:</p>
       <ul style="margin:0.4em 0 0.4em 1.5em;">

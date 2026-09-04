@@ -134,20 +134,20 @@ $anstypes = array("choices", "choices", "choices")
 
 // Part a: which panel is correct
 $questions[0] = array(
-  "Graph A &mdash; " . $panel_A,
-  "Graph B &mdash; " . $panel_B,
-  "Graph C &mdash; " . $panel_C,
-  "Graph D &mdash; " . $panel_D
+  "Graph A: " . $panel_A,
+  "Graph B: " . $panel_B,
+  "Graph C: " . $panel_C,
+  "Graph D: " . $panel_D
 )
 $answer[0]    = 0
 $noshuffle[0] = "all"
 
 // Part b: which graph has wrong reflection
 $questions[1] = array(
-  "Graph B &mdash; it uses the wrong sign for a, flipping the curve in the wrong direction.",
-  "Graph A &mdash; it has the correct reflection but the wrong amplitude.",
-  "Graph C &mdash; the horizontal shift reversal also causes a reflected appearance.",
-  "Graph D &mdash; a wrong vertical shift can look like a reflection if the midline is crossed."
+  "Graph B: it uses the wrong sign for a, flipping the curve in the wrong direction.",
+  "Graph A: it has the correct reflection but the wrong amplitude.",
+  "Graph C: the horizontal shift reversal also causes a reflected appearance.",
+  "Graph D: a wrong vertical shift can look like a reflection if the midline is crossed."
 )
 $answer[1]    = 0
 $noshuffle[1] = "all"
@@ -211,7 +211,7 @@ $solutionguide = $css_block . '
       Solution &amp; Error Analysis
     </summary>
     <div class="rubric-content">
-      <p><b>Correct equation:</b> ' . $eq_display . ' &mdash; a = ' . $a . ', h = ' . $h_ans . ', k = ' . $d . '</p>
+      <p><b>Correct equation:</b> ' . $eq_display . ': a = ' . $a . ', h = ' . $h_ans . ', k = ' . $d . '</p>
 
       <p><b>(a) Correct graph: A.</b><br>
       Graph A shows a = ' . $a . ' (correct reflection), midline at y = ' . $d . ' (correct vertical shift), and cycle starting at x = h = ' . $h_ans . ' (correct phase shift).</p>
@@ -224,9 +224,9 @@ $solutionguide = $css_block . '
 
       <div class="highlight-box">
         <b>Checklist when matching equation to graph:</b><br>
-        1. Find the midline &mdash; it must be at y = k.<br>
-        2. Check where the cycle crosses the midline going up or down &mdash; this reveals h and the sign of a.<br>
-        3. Measure the amplitude from midline to peak &mdash; must equal |a|.<br>
+        1. Find the midline: it must be at y = k.<br>
+        2. Check where the cycle crosses the midline going up or down: this reveals h and the sign of a.<br>
+        3. Measure the amplitude from midline to peak: must equal |a|.<br>
         4. Verify the direction: positive a = up first; negative a = down first.
       </div>
     </div>

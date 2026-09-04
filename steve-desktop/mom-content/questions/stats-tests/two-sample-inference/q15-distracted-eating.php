@@ -54,7 +54,7 @@ $answer[1] = $lower
 // Part 2: upper bound
 $answer[2] = $upper
 
-// Part 3: direction — treatment group always has higher mean by construction
+// Part 3: direction: treatment group always has higher mean by construction
 $choices[3] = array("less", "more")
 $answer[3] = 1
 $noshuffle[3] = "all"

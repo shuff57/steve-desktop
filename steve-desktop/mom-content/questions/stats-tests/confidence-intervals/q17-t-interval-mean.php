@@ -56,9 +56,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> `SE = s/sqrt(n) = ' . $s . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the error bound.</span> `EBM = t_(alpha/2) * s/sqrt(n) = ' . $t . ' * ' . round($se, 4) . ' = ' . round($ebm, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; the upper endpoint.</span> `bar(x) + EBM = ' . $xbar . ' + ' . round($ebm, 4) . ' = ' . round($hi, 4) . '`</p>
+      <p><span class="term-label">Part (a): the standard error.</span> `SE = s/sqrt(n) = ' . $s . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
+      <p><span class="term-label">Part (b): the error bound.</span> `EBM = t_(alpha/2) * s/sqrt(n) = ' . $t . ' * ' . round($se, 4) . ' = ' . round($ebm, 4) . '`</p>
+      <p><span class="term-label">Part (c): the upper endpoint.</span> `bar(x) + EBM = ' . $xbar . ' + ' . round($ebm, 4) . ' = ' . round($hi, 4) . '`</p>
       <p>This is the same formula you already used, with one substitution: swap the known `sigma` for the sample\'s `s`, swap `z` for `t`, and nothing else changes. The t-distribution builds the extra uncertainty of estimating sigma into its fatter tails, so it demands a bigger multiplier to still deliver the same coverage.</p>
     </div>
   </details>

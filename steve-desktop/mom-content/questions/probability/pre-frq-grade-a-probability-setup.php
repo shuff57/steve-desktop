@@ -39,10 +39,10 @@ $dec = $decimals[$i]
 $fracs = array("1/9", "5/36", "1/9", "1/12")
 $frac = $fracs[$i]
 
-// One sentence per rubric category. None restates another -- in particular $sProb names no
+// One sentence per rubric category. None restates another: in particular $sProb names no
 // denominator, so the response that drops the sample space never leaks it.
 $sSpace = 'Rolling two dice gives 36 equally likely ordered outcomes, because each of the six faces on the first die can pair with each of the six faces on the second, and (2,3) is a different outcome from (3,2).'
-$sEvent = 'The outcomes with a sum of ' . $k . ' are ' . $pairs . ' &mdash; ' . $cnt . ' of them.'
+$sEvent = 'The outcomes with a sum of ' . $k . ' are ' . $pairs . ': ' . $cnt . ' of them.'
 $sProb = 'The probability of that event is therefore about ' . $dec . '.'
 
 $rFull = $sSpace . ' ' . $sEvent . ' ' . $sProb
@@ -165,15 +165,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> establishes the 36 outcomes, lists the ones in the event, and gives the probability. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> establishes the 36 outcomes, lists the ones in the event, and gives the probability. Each of the other three drops a whole category.</p>
       <p><span class="term-label">The numbers.</span> `6 xx 6 = 36` ordered outcomes. The pairs summing to ' . $k . ' are ' . $pairs . ', so the event holds ' . $cnt . ' of them and the probability is `' . $frac . ' ~~ ' . $dec . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noSpaceLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noSpaceLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Define the Sample Space &mdash; NOT earned.</b> It never says there are 36 equally likely outcomes or why. This is the only category it misses.</li>
-        <li><b>Identify the Event &mdash; earned.</b> It lists the pairs and counts them.</li>
-        <li><b>State the Probability &mdash; earned.</b> It gives the number.</li>
+        <li><b>Define the Sample Space: NOT earned.</b> It never says there are 36 equally likely outcomes or why. This is the only category it misses.</li>
+        <li><b>Identify the Event: earned.</b> It lists the pairs and counts them.</li>
+        <li><b>State the Probability: earned.</b> It gives the number.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the sample space is its own category.</span> Every probability is a share of something. ' . $cnt . ' outcomes is not a probability until you say ' . $cnt . ' out of what &mdash; and the answer is not obvious, because the natural wrong answer is 21 unordered pairs rather than 36 ordered ones. A response that skips it can be right by memory and cannot show it is right.</p>
+      <p><span class="term-label">Part (c): why the sample space is its own category.</span> Every probability is a share of something. ' . $cnt . ' outcomes is not a probability until you say ' . $cnt . ' out of what: and the answer is not obvious, because the natural wrong answer is 21 unordered pairs rather than 36 ordered ones. A response that skips it can be right by memory and cannot show it is right.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The sample space is the category most often missing, because counting the favourable outcomes feels like where the real work is.</p>
     </div>
   </details>

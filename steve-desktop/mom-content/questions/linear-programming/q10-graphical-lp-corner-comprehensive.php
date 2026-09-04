@@ -118,7 +118,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 — LP Formulation:</b></p>
+      <p><b>Step 1: LP Formulation:</b></p>
       <p>Let x = chairs/week, y = tables/week.</p>
       <p>Maximize &nbsp;Z = ' . $px . 'x + ' . $py . 'y</p>
       <p>Subject to:<br>
@@ -126,7 +126,7 @@ $solutionguide = '
         &nbsp;&nbsp;' . $f_x . 'x + ' . $f_y . 'y &le; ' . $F . ' &nbsp;(finishing, hrs/week)<br>
         &nbsp;&nbsp;x, y &ge; 0
       </p>
-      <p><b>Step 2 — Identify all corner points of the feasible region:</b></p>
+      <p><b>Step 2: Identify all corner points of the feasible region:</b></p>
       <table class="corner-table">
         <tr>
           <th>Corner</th>
@@ -135,23 +135,23 @@ $solutionguide = '
           <th>Z = ' . $px . 'x + ' . $py . 'y</th>
         </tr>
         <tr>
-          <td>O &mdash; origin</td>
+          <td>O: origin</td>
           <td>0</td><td>0</td><td>0</td>
         </tr>
         <tr>
-          <td>A &mdash; x-axis intercept (y = 0)</td>
+          <td>A: x-axis intercept (y = 0)</td>
           <td>' . $A_x . '</td><td>0</td><td>' . $Z_A . '</td>
         </tr>
         <tr class="corner-opt">
-          <td>B &mdash; both constraints active &#9733;</td>
+          <td>B: both constraints active &#9733;</td>
           <td>' . $xopt . '</td><td>' . $yopt . '</td><td>' . $Zopt . '</td>
         </tr>
         <tr>
-          <td>C &mdash; y-axis intercept (x = 0)</td>
+          <td>C: y-axis intercept (x = 0)</td>
           <td>0</td><td>' . $C_y . '</td><td>' . $Z_C . '</td>
         </tr>
       </table>
-      <p><b>Step 3 — Solve for corner B (both constraints binding):</b></p>
+      <p><b>Step 3: Solve for corner B (both constraints binding):</b></p>
       <p>
         Set ' . $w_x . 'x + ' . $w_y . 'y = ' . $W . ' and ' . $f_x . 'x + ' . $f_y . 'y = ' . $F . '.<br>
         From the finishing constraint: x = ' . $F . ' &minus; ' . $f_y . 'y.<br>

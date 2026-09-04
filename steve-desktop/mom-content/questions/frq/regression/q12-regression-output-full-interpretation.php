@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Regression Output — Interpret slope, r-squared, and slope test p-value (new scenarios) ===
+// === NAME - DESCRIPTION: Regression Output: Interpret slope, r-squared, and slope test p-value (new scenarios) ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -54,7 +54,7 @@ $rubric = '
     <ul>
       <li><span class="badge">a</span><b>Slope interpretation (2 pts):</b> For each additional one ' . $unit_x . ' of ' . $xshort . ', the predicted ' . $yshort . ' ' . $slope_dir . '. Must include direction, magnitude (' . $slope . '), units for both variables, and the word "predicted" (or "on average"). Must NOT say "causes."</li>
       <li><span class="badge">b</span><b>r² interpretation (2 pts):</b> ' . $r2pct . '% of the variation in ' . $yshort . ' is explained by the linear relationship with ' . $xshort . '. Must name the response variable, the explanatory variable, and the percentage. Must NOT confuse r² with r or with the slope.</li>
-      <li><span class="badge">c</span><b>Slope test p-value (2 pts):</b> The p-value (' . $pval . ') provides strong evidence against H<sub>0</sub>: &beta;<sub>1</sub> = 0. We conclude there is a statistically significant linear relationship between ' . $xshort . ' and ' . $yshort . ' in the population. Must reference &beta;<sub>1</sub> = 0, the population (not just sample), and frame it as a conclusion about evidence — not a claim of causation.</li>
+      <li><span class="badge">c</span><b>Slope test p-value (2 pts):</b> The p-value (' . $pval . ') provides strong evidence against H<sub>0</sub>: &beta;<sub>1</sub> = 0. We conclude there is a statistically significant linear relationship between ' . $xshort . ' and ' . $yshort . ' in the population. Must reference &beta;<sub>1</sub> = 0, the population (not just sample), and frame it as a conclusion about evidence: not a claim of causation.</li>
     </ul>
   </div>
 </div>';

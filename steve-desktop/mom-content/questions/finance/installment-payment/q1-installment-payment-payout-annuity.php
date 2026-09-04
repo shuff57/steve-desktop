@@ -59,7 +59,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Part A &mdash; Installment Payment</b></p>
+      <p><b>Part A: Installment Payment</b></p>
       <p>Use the formula: `P(1 + r/n)^{nt} = m cdot [(1 + r/n)^{nt} - 1] / (r/n)`</p>
       <p>`P = ' . $P . '`, `r = ' . $r_a . '`, `n = 12`, `t = ' . $t_a . '`</p>
       <p>`r/n = ' . $r_a . '/12 = ' . round($rn_a, 8) . '`</p>
@@ -69,7 +69,7 @@ $solutionguide = '
         <b>Monthly payment `m = $' . $m_a . '`</b>
       </div>
       <hr>
-      <p><b>Part B &mdash; Present Value of an Annuity</b></p>
+      <p><b>Part B: Present Value of an Annuity</b></p>
       <p>Same formula, solve for `m`.</p>
       <p>`P = ' . $P_b . '`, `r = ' . $r_b . '`, `n = 12`, `t = ' . $t_b . '`</p>
       <p>`(1 + r/n)^{nt} = ' . round($factor_b, 6) . '`</p>
@@ -85,13 +85,13 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.4; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:8px 12px; margin:0 0 4px 0; box-shadow:0 2px 4px rgba(0,0,0,0.06); width:100%; box-sizing:border-box;">
-    <p style="margin:0 0 6px 0;"><b>Part A &mdash; Installment Payment on a Loan</b></p>
+    <p style="margin:0 0 6px 0;"><b>Part A: Installment Payment on a Loan</b></p>
     <p style="margin:0 0 6px 0;">You take out a loan of <b>$$P</b> at <b>$rate_pct_a%</b> interest compounded monthly, to be repaid over <b>$t_a years</b>.</p>
     <p style="margin:0 0 6px 0;">What is the monthly payment?</p>
     <p>$answerbox[0]</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:8px 12px; margin:0; box-shadow:0 2px 4px rgba(0,0,0,0.06); width:100%; box-sizing:border-box;">
-    <p style="margin:0 0 6px 0;"><b>Part B &mdash; Present Value of an Annuity</b></p>
+    <p style="margin:0 0 6px 0;"><b>Part B: Present Value of an Annuity</b></p>
     <p style="margin:0 0 6px 0;">You have <b>$$P_b</b> saved for retirement in an account that earns <b>$rate_pct_b%</b> interest compounded monthly. You want to make equal monthly withdrawals for <b>$t_b years</b>.</p>
     <p style="margin:0 0 6px 0;">How much can you withdraw each month?</p>
     <p>$answerbox[1]</p>

@@ -79,9 +79,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; from the grouped table.</span> &quot;More than three&quot; is everything above the 2-3 row. The grouped table&rsquo;s cumulative on the 2-3 row is ' . $gc1d . ', so the answer is 1 &minus; ' . $gc1d . ' = <b>' . $vald . '</b>.</p>
-      <p><span class="term-label">Step 2 &mdash; from the ungrouped table.</span> The cumulative on the 3 row is ' . $c3d . ', so the answer is 1 &minus; ' . $c3d . ' = <b>' . $vald . '</b>. The two tables agree.</p>
-      <p><span class="term-label">Step 3 &mdash; the settlement.</span> They agree because the cut point, &quot;more than three&quot;, happens to fall exactly on the boundary between the 2-3 and 4-5 groups. But ask instead for &quot;more than two&quot; and the grouped table cannot answer it: 2 and 3 are locked together in one row, so you cannot separate them without going back to the raw data. Grouping never changes the data, but it can hide the very question you wanted to ask.</p>
+      <p><span class="term-label">Step 1: from the grouped table.</span> &quot;More than three&quot; is everything above the 2-3 row. The grouped table&rsquo;s cumulative on the 2-3 row is ' . $gc1d . ', so the answer is 1 &minus; ' . $gc1d . ' = <b>' . $vald . '</b>.</p>
+      <p><span class="term-label">Step 2: from the ungrouped table.</span> The cumulative on the 3 row is ' . $c3d . ', so the answer is 1 &minus; ' . $c3d . ' = <b>' . $vald . '</b>. The two tables agree.</p>
+      <p><span class="term-label">Step 3: the settlement.</span> They agree because the cut point, &quot;more than three&quot;, happens to fall exactly on the boundary between the 2-3 and 4-5 groups. But ask instead for &quot;more than two&quot; and the grouped table cannot answer it: 2 and 3 are locked together in one row, so you cannot separate them without going back to the raw data. Grouping never changes the data, but it can hide the very question you wanted to ask.</p>
     </div>
   </details>
 </div>'

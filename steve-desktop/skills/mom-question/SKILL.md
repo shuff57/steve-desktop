@@ -288,6 +288,53 @@ Two traps when building these:
   version and shows no canvas, so neither the drawing tool nor the grading is exercised. A `draw`
   question is unverified until it has been pushed to a real course and drawn.
 
+## How the written prose has to read (Steve, 2026-09-02)
+
+Everything a person reads has to sound like Steve wrote it. That covers `$solutionguide`, the model
+narrative and rubric targets on an FRQ, the `NAME - DESCRIPTION` line, and every sentence of question
+text. Two rules, both absolute.
+
+**No dashes as punctuation.** Not the em dash, not `&mdash;`, and not a spaced double hyphen
+standing in for one. (An EN dash between two numbers is a range, `5&ndash;9`, and is correct: the
+lint does not flag it. Only the em-dash family is punctuation misuse.) They are the single loudest tell, and the bank is full of them
+because they were never banned. Recast the sentence instead:
+
+| Instead of | Write |
+|---|---|
+| `A &mdash; B &mdash; C` (an aside) | `A, B, C` with commas, or move the aside into brackets |
+| `X &mdash; Y` where Y explains X | `X. Y` as two sentences, or `X: Y` |
+| `X &mdash; not Y` (a correction) | `X. It is not Y.` |
+
+A colon and a full stop between them cover nearly every case. If neither reads well, the sentence
+was doing too much and wants splitting anyway.
+
+**No AI tells.** The list below is what actually turns up in this bank, in frequency order. It is
+not a style preference; a solution guide that reads like a chatbot undermines the explanation.
+
+- `X, not just Y` / `it is not just X, it is Y` -- the false-contrast construction. Say the thing.
+- Sentence openers: `Ultimately,` `Crucially,` `Notably,` `Importantly,` `Essentially,`
+  `Fundamentally,` `Indeed,` `Moreover,` `Furthermore,`
+- `delve` `leverage` `robust` `seamless` `holistic` `nuanced` `multifaceted` `tapestry` `underscore`
+- `It is worth noting that` / `It is important to remember that` -- delete the frame, keep the fact
+- `serves as a` / `plays a key role in` / `is a testament to`
+- Rule-of-three lists where two items would do, especially three adjectives
+- Stacked hedges: `may potentially`, `could possibly`, `generally tends to`
+- Closing summaries that restate what the paragraph just said
+
+What good prose looks like here is already in the bank: short declarative sentences, the number
+worked out in front of the student, and the classic mistake named plainly.
+
+**Run the check before filing.** It is part of the lint, so there is no separate command:
+
+```bash
+node mom-content/reference/question-lint.mjs mom-content/questions/<the file or folder you touched>
+```
+
+Tells are reported under `AI TELL` and, like the article check, do not fail the run -- roughly 2,700
+of them predate the rule and a hard failure would make the lint unusable. **A file you wrote must
+come back with zero.** Scope the run to your own path so a pre-existing backlog elsewhere cannot
+hide a tell you just added.
+
 ## Filing it into an assignment
 
 Only file a question that renders clean — a broken question must never enter a book. Append to the

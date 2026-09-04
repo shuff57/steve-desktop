@@ -32,7 +32,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Average the five values.</span></p>
       <p>`(0.05 + 0.28 + 0.63 + 1.06 + 2.10)/5 = 4.12/5 = 0.824`</p>
-      <p><span class="term-label">The extreme is still in there.</span> The $2.10 pocket sat far out on the right of the population picture. Averaged with four typical pockets it produced $0.824, right in the middle of the distribution of averages &mdash; nothing was thrown away and nothing was corrected; the extreme value is just sharing its slot with four partners.</p>
+      <p><span class="term-label">The extreme is still in there.</span> The $2.10 pocket sat far out on the right of the population picture. Averaged with four typical pockets it produced $0.824, right in the middle of the distribution of averages: nothing was thrown away and nothing was corrected; the extreme value is just sharing its slot with four partners.</p>
     </div>
   </details>
 </div>'

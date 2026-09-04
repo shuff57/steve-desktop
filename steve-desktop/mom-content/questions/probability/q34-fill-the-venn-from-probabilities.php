@@ -5,7 +5,7 @@
 
 // Built for 3.5, and the mirror of q31: there the regions are given and the probabilities are read;
 // here the totals are given and the REGIONS have to be recovered. That direction is the one students
-// find hard, because P(A) is not a region -- it is two regions added together, and the overlap has
+// find hard, because P(A) is not a region: it is two regions added together, and the overlap has
 // to be taken back out to get the piece that is A alone.
 //
 // The diagram is drawn with the four regions blank, so it is a worksheet rather than a readout.
@@ -79,7 +79,7 @@ $sol = '
         <li><b>(c) Neither.</b> The union is `' . ($aOnlyPct / 100) . ' + ' . $jointDec . ' + ' . ($bOnlyPct / 100) . ' = ' . ($unionPct / 100) . '`, so what is left outside both circles is `1 - ' . ($unionPct / 100) . ' = ' . ($neitherPct / 100) . '`.</li>
         <li><b>(d) The union again</b>, this time from the formula: `' . $aDec . ' + ' . $bDec . ' - ' . $jointDec . ' = ' . ($unionPct / 100) . '`. Same number as the three regions added.</li>
       </ul>
-      <p><span class="term-label">The check.</span> All four regions must total 1: `' . ($aOnlyPct / 100) . ' + ' . $jointDec . ' + ' . ($bOnlyPct / 100) . ' + ' . ($neitherPct / 100) . ' = 1`. If yours do not, the usual cause is treating P(A) as the crescent instead of the whole circle &mdash; which double-counts or drops the overlap.</p>
+      <p><span class="term-label">The check.</span> All four regions must total 1: `' . ($aOnlyPct / 100) . ' + ' . $jointDec . ' + ' . ($bOnlyPct / 100) . ' + ' . ($neitherPct / 100) . ' = 1`. If yours do not, the usual cause is treating P(A) as the crescent instead of the whole circle: which double-counts or drops the overlap.</p>
       <p><span class="term-label">Why this direction is the hard one.</span> A probability like P(A) is not a place on the diagram. It is two regions added, and the diagram only becomes usable once it is split back apart.</p>
     </div>
   </details>

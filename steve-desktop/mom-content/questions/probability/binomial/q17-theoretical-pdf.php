@@ -32,9 +32,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; P(X = 2).</span> Two diamonds among ten draws can happen in `C(10, 2) = 45` different orders. Take the probability of any one such order and multiply:</p>
+      <p><span class="term-label">Part (a): P(X = 2).</span> Two diamonds among ten draws can happen in `C(10, 2) = 45` different orders. Take the probability of any one such order and multiply:</p>
       <p>`P(X = 2) = 45 (0.25)^2 (0.75)^8 = 45 (0.0625)(0.1001) ~= 0.2816`</p>
-      <p><span class="term-label">Part (b) &mdash; P(X = 0).</span> There is exactly one way to get no diamonds at all, and `(0.25)^0 = 1`, so the whole expression collapses to the probability that all ten draws miss:</p>
+      <p><span class="term-label">Part (b): P(X = 0).</span> There is exactly one way to get no diamonds at all, and `(0.25)^0 = 1`, so the whole expression collapses to the probability that all ten draws miss:</p>
       <p>`P(X = 0) = C(10, 0)(0.25)^0 (0.75)^10 = (0.75)^10 ~= 0.0563`</p>
       <p>The eleven entries of the `P(x)` column must add to exactly 1. Use it as your check: if they total 0.87 you have dropped or mis-entered a row, and the histogram you build next will be wrong in a way that is hard to see by eye.</p>
     </div>

@@ -56,11 +56,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard deviation of the sums.</span> `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the strip.</span> The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '`. Standardize both edges:</p>
+      <p><span class="term-label">Part (a): the standard deviation of the sums.</span> `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the strip.</span> The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '`. Standardize both edges:</p>
       <p>`z_lo = (' . $lo . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($zlo, 3) . '` and `z_hi = (' . $hi . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($zhi, 3) . '`</p>
       <p>`P(' . $lo . ' < Sigma x < ' . $hi . ') = P(Z < ' . round($zhi, 3) . ') - P(Z < ' . round($zlo, 3) . ') ~= ' . round($prob, 4) . '`</p>
-      <p>A between-question is the easiest of the three shapes &mdash; the thinking happens before you type, deciding which number is the lower edge of the strip and which is the upper, because a swapped pair returns a negative area with no warning.</p>
+      <p>A between-question is the easiest of the three shapes: the thinking happens before you type, deciding which number is the lower edge of the strip and which is the upper, because a swapped pair returns a negative area with no warning.</p>
     </div>
   </details>
 </div>'

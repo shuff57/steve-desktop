@@ -145,11 +145,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>One order can hold all three data types at once. Ask of each set of values: was it <b>counted</b>, was it <b>measured</b>, or does it <b>name a category</b>?</p>
-      <div class="term-row"><span class="term-label">a. Quantitative discrete:</span> the number of types purchased in each category &mdash; ' . $countsAll . '. These come from counting how many kinds were bought, and a count lands only on whole values. ' . $buyer . ' cannot buy 2.5 types of ' . $catA . '.</div>
-      <div class="term-row"><span class="term-label">b. Quantitative continuous:</span> the measured amounts &mdash; ' . $amountsAll . '. Each came off a scale or a measuring container, and that scale can always be read more finely, so fractions and decimals are possible.</div>
-      <div class="term-row"><span class="term-label">c. Qualitative (categorical):</span> the product names &mdash; ' . $namesAll . '. These name a category rather than a quantity; there is no average product name.</div>
+      <div class="term-row"><span class="term-label">a. Quantitative discrete:</span> the number of types purchased in each category: ' . $countsAll . '. These come from counting how many kinds were bought, and a count lands only on whole values. ' . $buyer . ' cannot buy 2.5 types of ' . $catA . '.</div>
+      <div class="term-row"><span class="term-label">b. Quantitative continuous:</span> the measured amounts: ' . $amountsAll . '. Each came off a scale or a measuring container, and that scale can always be read more finely, so fractions and decimals are possible.</div>
+      <div class="term-row"><span class="term-label">c. Qualitative (categorical):</span> the product names: ' . $namesAll . '. These name a category rather than a quantity; there is no average product name.</div>
       <p style="margin-top:1em;"><b>Why the supplier is not the answer to any part:</b> ' . $store . ' is one label attached to the whole order, the same on every line, so it is not one of the data sets recorded here. Being made of words does not by itself make something the qualitative data set in this order.</p>
-      <p><b>The trap to avoid:</b> the counts and the weights are both numbers, so "it is a number" does not settle it. Counting gives whole things &mdash; "how many?" is discrete. Measuring gives a reading on a scale &mdash; "how much?" is continuous.</p>
+      <p><b>The trap to avoid:</b> the counts and the weights are both numbers, so "it is a number" does not settle it. Counting gives whole things: "how many?" is discrete. Measuring gives a reading on a scale: "how much?" is continuous.</p>
     </div>
   </details>
 </div>'

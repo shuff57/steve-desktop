@@ -7,7 +7,7 @@
 // Categories: Formula Application (4) / Threshold Interpretation (3) / Population Count (3) = 10.
 //
 // The dropped category is THRESHOLD INTERPRETATION. A student can apply the formula and report
-// the expected count without ever saying what the cutoff means in context — the section's own
+// the expected count without ever saying what the cutoff means in context: the section's own
 // Insight Note ("a percentile is a rank, not a score") is exactly the step a plausible answer
 // skips.
 //
@@ -152,15 +152,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> applies the formula, interprets the cutoff, and reports the expected count. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> applies the formula, interprets the cutoff, and reports the expected count. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sFormula . ' ' . $sInterp . ' ' . $sCount . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noInterpLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noInterpLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Formula Application &mdash; earned.</b> The formula is identified, the values are substituted, and the calculation is shown.</li>
-        <li><b>Threshold Interpretation &mdash; NOT earned.</b> The response never says what the cutoff means in context, so the interpretation is missing.</li>
-        <li><b>Population Count &mdash; earned.</b> The expected number of ' . $group_name . ' at or above the threshold is reported.</li>
+        <li><b>Formula Application: earned.</b> The formula is identified, the values are substituted, and the calculation is shown.</li>
+        <li><b>Threshold Interpretation: NOT earned.</b> The response never says what the cutoff means in context, so the interpretation is missing.</li>
+        <li><b>Population Count: earned.</b> The expected number of ' . $group_name . ' at or above the threshold is reported.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the interpretation is its own category.</span> A percentile is a rank, not a score: reporting "the 90th percentile is 1280" tells a reader almost nothing on its own. The sentence "90% of ' . $group_name . ' are 1280 or less" is the entire reason anyone computes a percentile in the first place, and it is a separate judgement from the arithmetic.</p>
+      <p><span class="term-label">Part (c): why the interpretation is its own category.</span> A percentile is a rank, not a score: reporting "the 90th percentile is 1280" tells a reader almost nothing on its own. The sentence "90% of ' . $group_name . ' are 1280 or less" is the entire reason anyone computes a percentile in the first place, and it is a separate judgement from the arithmetic.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The interpretation sentence is the category most often skipped, because once the number is computed the meaning feels obvious.</p>
     </div>
   </details>

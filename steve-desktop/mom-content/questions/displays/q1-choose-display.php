@@ -5,12 +5,12 @@
 
 $anstypes = array("choices")
 
-// Scenario 0: A single quantitative variable, want to see shape and outliers — histogram (or boxplot, but histogram is best for shape)
-// Scenario 1: Counts of preferred ice-cream flavor among 200 kids — bar chart
-// Scenario 2: Daily closing price of a stock over 6 months — time series
-// Scenario 3: Compare 5-number summary across 3 schools' SAT scores — side-by-side boxplots
-// Scenario 4: Relationship between hours studied and exam score — scatterplot
-// Scenario 5: Percent of city budget by category (one whole, parts of 100%) — pie chart
+// Scenario 0: A single quantitative variable, want to see shape and outliers: histogram (or boxplot, but histogram is best for shape)
+// Scenario 1: Counts of preferred ice-cream flavor among 200 kids: bar chart
+// Scenario 2: Daily closing price of a stock over 6 months: time series
+// Scenario 3: Compare 5-number summary across 3 schools' SAT scores: side-by-side boxplots
+// Scenario 4: Relationship between hours studied and exam score: scatterplot
+// Scenario 5: Percent of city budget by category (one whole, parts of 100%): pie chart
 
 $ctxs = array(
   "A researcher has measured the <b>resting heart rates of 250 adults</b> (a single quantitative variable) and wants a display that shows the <b>shape, center, spread, and any unusual values</b>.",

@@ -32,11 +32,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the mean.</span> The binomial shortcut:</p>
+      <p><span class="term-label">Part (a): the mean.</span> The binomial shortcut:</p>
       <p>`mu = np = 10(0.25) = 2.5`</p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation.</span></p>
+      <p><span class="term-label">Part (b): the standard deviation.</span></p>
       <p>`sigma = sqrt(npq) = sqrt(10(0.25)(0.75)) = sqrt(1.875) ~= 1.3693`</p>
-      <p>Compare that `mu` to the `x-bar` your class computed and that `sigma` to your `s`. They are answering the same question — where is the center, how spread out is it — from two completely different directions, one from the formula and one from the cards.</p>
+      <p>Compare that `mu` to the `x-bar` your class computed and that `sigma` to your `s`. They are answering the same question, where is the center, how spread out is it, from two completely different directions, one from the formula and one from the cards.</p>
     </div>
   </details>
 </div>'

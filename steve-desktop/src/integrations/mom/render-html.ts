@@ -124,7 +124,7 @@ const DARK_CSS = `<style data-dark-css>
 
   /* blues — part labels and prompts */
   [style*="#e8f0fe"],[style*="#f0f4ff"],[style*="#e3f2fd"],[style*="#eef2ff"],[style*="#d1ecf1"],
-  [style*="#eef4ff"]
+  [style*="#eef4ff"],[style*="#eef4fb"]
     {background:rgba(59,130,246,.22)!important;color:#dbe6ff!important}
 
   /* greens — answers and confirmations */

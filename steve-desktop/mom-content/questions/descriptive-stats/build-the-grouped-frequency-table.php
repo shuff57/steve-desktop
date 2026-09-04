@@ -3,13 +3,13 @@
 
 // === COMMON CONTROL ===
 
-// 2.2 had no question where the student produces a histogram -- all five read a finished one.
+// 2.2 had no question where the student produces a histogram: all five read a finished one.
 // MyOpenMath has no bar or histogram drawing primitive, so the construction work IS the grouped
 // frequency table: tally the raw values into classes and the histogram is fully determined.
 //
 // Every generated value sits STRICTLY inside a class, never on a boundary. The boundary convention
 // is still stated in the prompt, because students must know it, but no answer depends on which way
-// a borderline value is pushed -- that is the difference between testing the skill and testing
+// a borderline value is pushed: that is the difference between testing the skill and testing
 // whether the student guessed the same convention the key used.
 $anstypes = array("number", "number", "number", "number", "number", "number", "choices")
 
@@ -127,15 +127,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; work down the list once, tallying.</span> Take each value in turn and put a mark against the class it falls in. Going class by class instead means reading the whole list five times and losing your place; one pass with five tally marks is the method.</p>
-      <p><span class="term-label">Step 2 &mdash; the finished table.</span></p>
+      <p><span class="term-label">Step 1: work down the list once, tallying.</span> Take each value in turn and put a mark against the class it falls in. Going class by class instead means reading the whole list five times and losing your place; one pass with five tally marks is the method.</p>
+      <p><span class="term-label">Step 2: the finished table.</span></p>
       <table style="border-collapse:collapse; margin:8px 0;">
         <tr style="background:#f0f4ff;"><th style="border:1px solid #d1d5db; padding:5px 16px;">Class</th><th style="border:1px solid #d1d5db; padding:5px 16px;">Frequency</th></tr>
         ' . $rows . '
       </table>
-      <p><span class="term-label">Step 3 &mdash; check the total.</span> The frequencies add to <b>' . $total . '</b>, and there were ' . $total . ' measurements. If your column does not add to that, a value has been counted twice or missed &mdash; and the check is the whole reason to add the column up at all.</p>
+      <p><span class="term-label">Step 3: check the total.</span> The frequencies add to <b>' . $total . '</b>, and there were ' . $total . ' measurements. If your column does not add to that, a value has been counted twice or missed: and the check is the whole reason to add the column up at all.</p>
       <p><span class="term-label">You have now built the histogram.</span> Each class is a bar and its frequency is the height. Nothing else is needed: the table fixes the picture completely.</p>
-      <p><span class="term-label">Why the bars touch.</span> On a histogram the horizontal axis is a NUMBER LINE, and ' . $b1 . ' is where one class ends and the next begins &mdash; there is no space between them to leave. On a bar graph the axis holds separate categories with nothing in between, so the bars are drawn apart. That gap, or the lack of it, is how a reader tells the two displays apart.</p>
+      <p><span class="term-label">Why the bars touch.</span> On a histogram the horizontal axis is a NUMBER LINE, and ' . $b1 . ' is where one class ends and the next begins: there is no space between them to leave. On a bar graph the axis holds separate categories with nothing in between, so the bars are drawn apart. That gap, or the lack of it, is how a reader tells the two displays apart.</p>
     </div>
   </details>
 </div>'

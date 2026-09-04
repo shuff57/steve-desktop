@@ -83,8 +83,8 @@ $answer[1] = $hold2
 $answer[2] = $is_solution
 
 // Solution narrative pieces
-if ($hold1 == 1) { $hold1_word = "TRUE -- the point satisfies inequality 1" } else { $hold1_word = "FALSE -- the point does NOT satisfy inequality 1" }
-if ($hold2 == 1) { $hold2_word = "TRUE -- the point satisfies inequality 2" } else { $hold2_word = "FALSE -- the point does NOT satisfy inequality 2" }
+if ($hold1 == 1) { $hold1_word = "TRUE: the point satisfies inequality 1" } else { $hold1_word = "FALSE: the point does NOT satisfy inequality 1" }
+if ($hold2 == 1) { $hold2_word = "TRUE: the point satisfies inequality 2" } else { $hold2_word = "FALSE: the point does NOT satisfy inequality 2" }
 if ($is_solution == 1) { $final_word = "is a solution" } else { $final_word = "is NOT a solution" }
 
 $solutionguide = '

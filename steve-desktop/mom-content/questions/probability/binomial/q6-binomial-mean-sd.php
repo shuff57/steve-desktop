@@ -57,9 +57,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The shortcuts.</span> For a binomial `X ~ B(n, p)`, the whole `x * P(x)` column collapses into one product for the mean, and the variance is `npq`:</p>
-      <p><span class="term-label">Part (a) &mdash; mu.</span> `mu = np = ' . $n . ' * ' . $p . ' = ` <b>' . $mu . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; sigma.</span> `sigma = sqrt(npq) = sqrt(' . $n . ' * ' . $p . ' * ' . $q . ') = ` <b>' . $sigma . '</b>.</p>
-      <p>The mean can be a fraction and that is fine &mdash; it is the long-run average over many samples, and averages land between whole numbers all the time.</p>
+      <p><span class="term-label">Part (a): mu.</span> `mu = np = ' . $n . ' * ' . $p . ' = ` <b>' . $mu . '</b>.</p>
+      <p><span class="term-label">Part (b): sigma.</span> `sigma = sqrt(npq) = sqrt(' . $n . ' * ' . $p . ' * ' . $q . ') = ` <b>' . $sigma . '</b>.</p>
+      <p>The mean can be a fraction and that is fine: it is the long-run average over many samples, and averages land between whole numbers all the time.</p>
     </div>
   </details>
 </div>'

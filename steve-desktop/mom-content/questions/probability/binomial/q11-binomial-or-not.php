@@ -67,9 +67,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The three conditions.</span> Fixed number of trials; two outcomes per trial with constant success probability; independent trials. All three must hold.</p>
-      <p><span class="term-label">Part (a).</span> ' . $ctxA . ' &mdash; fixed trials, two outcomes, independent: <b>binomial</b>.</p>
-      <p><span class="term-label">Part (b).</span> ' . $ctxB . ' &mdash; the draws are WITHOUT replacement, so the pool shrinks and the success probability changes from trial to trial. The trials are dependent: <b>NOT binomial</b>.</p>
-      <p><span class="term-label">Part (c).</span> ' . $ctxC . ' &mdash; fixed trials, two outcomes, independent: <b>binomial</b>.</p>
+      <p><span class="term-label">Part (a).</span> ' . $ctxA . ': fixed trials, two outcomes, independent: <b>binomial</b>.</p>
+      <p><span class="term-label">Part (b).</span> ' . $ctxB . ': the draws are WITHOUT replacement, so the pool shrinks and the success probability changes from trial to trial. The trials are dependent: <b>NOT binomial</b>.</p>
+      <p><span class="term-label">Part (c).</span> ' . $ctxC . ': fixed trials, two outcomes, independent: <b>binomial</b>.</p>
       <p>Replacement is the tell: if the thing you draw goes back before the next draw, `p` holds steady and the experiment stays binomial. If it does not go back, `p` moves, and the binomial formula no longer applies.</p>
     </div>
   </details>

@@ -66,9 +66,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the distribution.</span> ' . $dist . '</p>
-      <p><span class="term-label">Part (b) &mdash; the deciding fact.</span> ' . $fact . '</p>
-      <p>Two questions get you from the problem to the curve: is the claim about an average or a percentage, and if it is a mean, do you know the population standard deviation? Pick the wrong curve and every number after it &mdash; the test statistic, the p-value, the decision &mdash; is measured against the wrong ruler.</p>
+      <p><span class="term-label">Part (a): the distribution.</span> ' . $dist . '</p>
+      <p><span class="term-label">Part (b): the deciding fact.</span> ' . $fact . '</p>
+      <p>Two questions get you from the problem to the curve: is the claim about an average or a percentage, and if it is a mean, do you know the population standard deviation? Pick the wrong curve and every number after it, the test statistic, the p-value, the decision, is measured against the wrong ruler.</p>
     </div>
   </details>
 </div>'

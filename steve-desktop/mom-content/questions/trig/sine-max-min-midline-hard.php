@@ -3,7 +3,7 @@
 
 // === COMMON CONTROL ===
 
-/* ---------- 1. Hard (a, b, k active; one of {b, h} dropped — drop h to keep distractor focus on b) ---------- */
+/* ---------- 1. Hard (a, b, k active; one of {b, h} dropped: drop h to keep distractor focus on b) ---------- */
 $a_on = 1
 $b_on = 1
 $h_on = 0

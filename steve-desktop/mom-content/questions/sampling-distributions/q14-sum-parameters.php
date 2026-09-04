@@ -49,8 +49,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The central limit theorem for sums.</span> `Sigma X ~ N((n)(mu_X), (sqrt(n))(sigma_X))`.</p>
-      <p><span class="term-label">Part (a) &mdash; the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation of the sums.</span> `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') = ' . round($sigmaSum, 4) . '`.</p>
+      <p><span class="term-label">Part (a): the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
+      <p><span class="term-label">Part (b): the standard deviation of the sums.</span> `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') = ' . round($sigmaSum, 4) . '`.</p>
       <p>The sum is just another normal variable, so it gets a z-score exactly like every other normal variable in this book. Nothing new has to be learned; only the two parameters change.</p>
     </div>
   </details>

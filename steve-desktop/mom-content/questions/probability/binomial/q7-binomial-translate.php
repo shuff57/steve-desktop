@@ -70,10 +70,10 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The phrase tells you the inequality.</span> "At least k" means `X >= k`; "at most k" means `X <= k`; "more than k" means `X > k`; "less than k" means `X < k`.</p>
-      <p><span class="term-label">Part (a).</span> ' . $phrases[0] . ' &mdash; "at least" is `>=`, so `X >= k`.</p>
-      <p><span class="term-label">Part (b).</span> ' . $phrases[1] . ' &mdash; "more than" is strictly greater, so `X > k`.</p>
-      <p><span class="term-label">Part (c).</span> ' . $phrases[2] . ' &mdash; "at most" is `<=`, so `X <= k`.</p>
-      <p>Mistranslating one of these is the single most common way a correct formula produces a wrong answer &mdash; the arithmetic is the same either way, only the rows you add change.</p>
+      <p><span class="term-label">Part (a).</span> ' . $phrases[0] . ': "at least" is `>=`, so `X >= k`.</p>
+      <p><span class="term-label">Part (b).</span> ' . $phrases[1] . ': "more than" is strictly greater, so `X > k`.</p>
+      <p><span class="term-label">Part (c).</span> ' . $phrases[2] . ': "at most" is `<=`, so `X <= k`.</p>
+      <p>Mistranslating one of these is the single most common way a correct formula produces a wrong answer: the arithmetic is the same either way, only the rows you add change.</p>
     </div>
   </details>
 </div>'

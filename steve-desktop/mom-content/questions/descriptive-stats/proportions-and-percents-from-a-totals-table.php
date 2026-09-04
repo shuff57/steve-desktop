@@ -74,13 +74,13 @@ for ($i = 0..12) {
 $tableHtml = $tableHtml . '<tr style="background:#f6f8fc;"><td style="border:1px solid #d9dee8; padding:6px 14px;"><b>Total</b></td><td style="border:1px solid #d9dee8; padding:6px 14px; text-align:right;"><b>' . $total . '</b></td></tr></table>'
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>Every part is the same move: add the rows the question names, then divide by the total of ' . $total . '.</b> Only the wording of the answer changes &mdash; a proportion, a percent, or a fraction are the same number dressed differently.</p>
-  <p><b>a &mdash; Year ' . $ya . ' through Year 13.</b> Those rows add to ' . $sumA . ', so the proportion is ' . $sumA . ' &divide; ' . $total . ' &approx; <b>' . $propA . '</b>.</p>
-  <p><b>b &mdash; before Year ' . $yb . '.</b> "Before" excludes Year ' . $yb . ' itself. Those rows add to ' . $sumB . ', so the percent is ' . $sumB . ' &divide; ' . $total . ' &times; 100 &approx; <b>' . $pctB . '%</b>.</p>
-  <p><b>c &mdash; Year ' . $yc . ' or after Year ' . $yd . '.</b> Two disjoint pieces, so add them: ' . $sumC . ' in total, giving ' . $pctC . '%. They cannot overlap, so nothing is double counted and no subtraction is needed.</p>
-  <p><b>d &mdash; before Year 13.</b> Everything except the last row: ' . $sumD . ' &divide; ' . $total . ' &approx; <b>' . $fracD . '</b>.</p>
-  <p><b>e &mdash; the number of deaths</b> is a <b>count</b>. You cannot record half a death, so it is quantitative <i>discrete</i>.</p>
-  <p><b>f &mdash; earthquake magnitude</b> is <b>measured</b> on a continuous scale &mdash; 7.1, 7.14, 7.142 &mdash; so it is quantitative <i>continuous</i>. The contrast with part e is the whole point: both are numbers, and counting versus measuring is what separates them.</p>
+  <p><b>Every part is the same move: add the rows the question names, then divide by the total of ' . $total . '.</b> Only the wording of the answer changes: a proportion, a percent, or a fraction are the same number dressed differently.</p>
+  <p><b>a: Year ' . $ya . ' through Year 13.</b> Those rows add to ' . $sumA . ', so the proportion is ' . $sumA . ' &divide; ' . $total . ' &approx; <b>' . $propA . '</b>.</p>
+  <p><b>b: before Year ' . $yb . '.</b> "Before" excludes Year ' . $yb . ' itself. Those rows add to ' . $sumB . ', so the percent is ' . $sumB . ' &divide; ' . $total . ' &times; 100 &approx; <b>' . $pctB . '%</b>.</p>
+  <p><b>c: Year ' . $yc . ' or after Year ' . $yd . '.</b> Two disjoint pieces, so add them: ' . $sumC . ' in total, giving ' . $pctC . '%. They cannot overlap, so nothing is double counted and no subtraction is needed.</p>
+  <p><b>d: before Year 13.</b> Everything except the last row: ' . $sumD . ' &divide; ' . $total . ' &approx; <b>' . $fracD . '</b>.</p>
+  <p><b>e: the number of deaths</b> is a <b>count</b>. You cannot record half a death, so it is quantitative <i>discrete</i>.</p>
+  <p><b>f, earthquake magnitude</b> is <b>measured</b> on a continuous scale, 7.1, 7.14, 7.142: so it is quantitative <i>continuous</i>. The contrast with part e is the whole point: both are numbers, and counting versus measuring is what separates them.</p>
 </div>'
 
 // === QUESTION TEXT ===

@@ -91,7 +91,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">a. Percent who ' . $itemANotInline . '.</span> ' . $pctA . '% of the ' . $N . ' respondents ' . $itemAInline . ', so the rest must be everyone left over: 100% &minus; ' . $pctA . '% = <b>' . $pctANot . '%</b>.</p>
       <p><span class="term-label">b. About how many ' . $itemBVerbInline . '.</span> ' . $pctB . '% of the ' . $N . ' respondents ' . $itemBVerbInline . ': ' . $pctB . '/100 &times; ' . $N . ' = ' . $countBDisp . ' &approx; <b>' . $countB . ' students</b>.</p>
-      <p><span class="term-label">c. Would the percentages be the same at ' . $collegeB . '?</span> Probably not. These percentages describe only the ' . $N . ' ' . $collegeA . ' students who happened to answer this particular survey. ' . $collegeB . ' ' . $reason . ', so there is good reason to expect the same survey questions to produce different answers there. A survey result is a property of the population that was actually sampled, not a universal constant of the questions themselves &mdash; a different institution needs its own survey, not someone else&rsquo;s percentages.</p>
+      <p><span class="term-label">c. Would the percentages be the same at ' . $collegeB . '?</span> Probably not. These percentages describe only the ' . $N . ' ' . $collegeA . ' students who happened to answer this particular survey. ' . $collegeB . ' ' . $reason . ', so there is good reason to expect the same survey questions to produce different answers there. A survey result is a property of the population that was actually sampled, not a universal constant of the questions themselves: a different institution needs its own survey, not someone else&rsquo;s percentages.</p>
     </div>
   </details>
 </div>'

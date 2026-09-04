@@ -10,7 +10,7 @@ $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
 $xname = $picked_ctx[0]
 $yname = $picked_ctx[1]
 
-// Five scenarios — description + correct index into $questions
+// Five scenarios: description + correct index into $questions
 $descriptions = array(
   "the points are tightly bunched along a line that slopes upward from the lower-left to the upper-right",
   "the points are tightly bunched along a line that slopes downward from the upper-left to the lower-right",
@@ -64,8 +64,8 @@ $solutionguide = '
     <div class="sol-body">
       <p><b>Two things to read off a scatterplot:</b></p>
       <ul>
-        <li><b>Direction</b> — sloping up means positive `r`, sloping down means negative `r`, no slope means `r approx 0`.</li>
-        <li><b>Strength</b> — tight points around a line means `|r|` near `1`, loose cloud means `|r|` near `0`.</li>
+        <li><b>Direction</b>: sloping up means positive `r`, sloping down means negative `r`, no slope means `r approx 0`.</li>
+        <li><b>Strength</b>: tight points around a line means `|r|` near `1`, loose cloud means `|r|` near `0`.</li>
       </ul>
       <p>' . $why_text . '</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">

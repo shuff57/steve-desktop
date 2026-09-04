@@ -55,11 +55,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the left tail.</span> "Less than ' . $c . '" shades the area below ' . $c . '. The standard deviation of the sums is `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`. Standardize:</p>
+      <p><span class="term-label">Part (a): the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
+      <p><span class="term-label">Part (b): the left tail.</span> "Less than ' . $c . '" shades the area below ' . $c . '. The standard deviation of the sums is `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`. Standardize:</p>
       <p>`z = (' . $c . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($z, 3) . '`</p>
       <p>`P(Sigma x < ' . $c . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`</p>
-      <p>The left tail is a direct normalcdf &mdash; no complement needed. Before you type anything, sketch the curve and shade what the sentence is asking for; the sketch is what stops you from swapping the bounds, and a swapped pair returns a negative area with no error message.</p>
+      <p>The left tail is a direct normalcdf: no complement needed. Before you type anything, sketch the curve and shade what the sentence is asking for; the sketch is what stops you from swapping the bounds, and a swapped pair returns a negative area with no error message.</p>
     </div>
   </details>
 </div>'

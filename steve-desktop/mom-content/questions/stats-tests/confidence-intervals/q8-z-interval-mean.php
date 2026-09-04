@@ -55,12 +55,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> The standard deviation has to be the one that applies to the thing being estimated. We are estimating a MEAN, so we need the standard deviation of sample means, which the central limit theorem tells us is `sigma/sqrt(n)`:</p>
+      <p><span class="term-label">Part (a): the standard error.</span> The standard deviation has to be the one that applies to the thing being estimated. We are estimating a MEAN, so we need the standard deviation of sample means, which the central limit theorem tells us is `sigma/sqrt(n)`:</p>
       <p>`SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the error bound.</span> `EBM = z_(alpha/2) * sigma/sqrt(n) = ' . $z . ' * ' . round($se, 4) . ' = ' . round($ebm, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; the upper endpoint.</span> The interval is the point estimate plus or minus the error bound:</p>
+      <p><span class="term-label">Part (b): the error bound.</span> `EBM = z_(alpha/2) * sigma/sqrt(n) = ' . $z . ' * ' . round($se, 4) . ' = ' . round($ebm, 4) . '`</p>
+      <p><span class="term-label">Part (c): the upper endpoint.</span> The interval is the point estimate plus or minus the error bound:</p>
       <p>`bar(x) + EBM = ' . $xbar . ' + ' . round($ebm, 4) . ' = ' . round($hi, 4) . '`</p>
-      <p>Getting the standard deviation wrong &mdash; using `sigma` by itself instead of `sigma/sqrt(n)` &mdash; is the most common way to wreck this calculation.</p>
+      <p>Getting the standard deviation wrong, using `sigma` by itself instead of `sigma/sqrt(n)`, is the most common way to wreck this calculation.</p>
     </div>
   </details>
 </div>'

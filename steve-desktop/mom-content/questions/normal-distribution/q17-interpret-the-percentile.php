@@ -71,9 +71,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the value.</span> A percentile is an invNorm question: `z ~= ' . round($z, 3) . '`, so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the interpretation sentence.</span> The ' . $pPct . 'th percentile is ' . round($k, 2) . ' ' . $unit . ': ' . $pPct . '% of ' . $pop . ' are ' . round($k, 2) . ' ' . $unit . ' or less.</p>
-      <p><span class="term-label">Part (c) &mdash; the other side of the same cut.</span> The same value read the other way describes the rest: the remaining ' . $restPct . '% of ' . $pop . ' are more than ' . round($k, 2) . ' ' . $unit . '. Both sentences are true and describe the same computation.</p>
+      <p><span class="term-label">Part (a): the value.</span> A percentile is an invNorm question: `z ~= ' . round($z, 3) . '`, so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
+      <p><span class="term-label">Part (b): the interpretation sentence.</span> The ' . $pPct . 'th percentile is ' . round($k, 2) . ' ' . $unit . ': ' . $pPct . '% of ' . $pop . ' are ' . round($k, 2) . ' ' . $unit . ' or less.</p>
+      <p><span class="term-label">Part (c): the other side of the same cut.</span> The same value read the other way describes the rest: the remaining ' . $restPct . '% of ' . $pop . ' are more than ' . round($k, 2) . ' ' . $unit . '. Both sentences are true and describe the same computation.</p>
       <p>A percentile is a rank, not a score: being at the ' . $pPct . 'th percentile does not mean you got ' . $pPct . '% of something right. It means ' . $pPct . '% of the group is at or below you.</p>
     </div>
   </details>

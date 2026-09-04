@@ -35,7 +35,7 @@ for ($c=0..4) {
 }
 
 // A frequency table IS an ordered list, just written compactly: the first f[0] positions all hold
-// the smallest value, and so on. So the same i = (k/100)(n+1) applies -- the only new work is
+// the smallest value, and so on. So the same i = (k/100)(n+1) applies: the only new work is
 // walking the cumulative counts to see which value a position lands in.
 $ks = array(25, 50, 75)
 $res = array(0, 0, 0)
@@ -105,11 +105,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on. Nothing about the method changes &mdash; `i = (k/100)(n+1)` still gives a position, and the only extra work is counting down the frequency column to see which value that position falls in. Do not treat the five rows as five data values; there are `n = ' . $n . '`.</p>
-      <p><span class="term-label">Part (a) &mdash; the first quartile, `Q_1`, is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`. Counting down the frequencies to position ' . $posLo[0] . ' gives <b>' . $q1 . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; the median is the 50th percentile.</span> `i = (50/100)(' . $nPlus . ') = ' . $i2 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $med . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; the third quartile, `Q_3`, is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i3 . '`, giving <b>' . $q3 . '</b>. Where a position falls between two, round down and up and average the two values &mdash; with repeated values those two are often the same number, and the average is simply that number.</p>
-      <p><span class="term-label">Part (d) &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b>. It is the width of the middle half of the data, and unlike the full range it ignores the extremes entirely, which is what makes it the spread to quote when a data set has outliers.</p>
+      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on. Nothing about the method changes: `i = (k/100)(n+1)` still gives a position, and the only extra work is counting down the frequency column to see which value that position falls in. Do not treat the five rows as five data values; there are `n = ' . $n . '`.</p>
+      <p><span class="term-label">Part (a): the first quartile, `Q_1`, is the 25th percentile.</span> `i = (25/100)(' . $nPlus . ') = ' . $i1 . '`. Counting down the frequencies to position ' . $posLo[0] . ' gives <b>' . $q1 . '</b>.</p>
+      <p><span class="term-label">Part (b): the median is the 50th percentile.</span> `i = (50/100)(' . $nPlus . ') = ' . $i2 . '`, landing at position ' . $posLo[1] . ', which gives <b>' . $med . '</b>.</p>
+      <p><span class="term-label">Part (c): the third quartile, `Q_3`, is the 75th percentile.</span> `i = (75/100)(' . $nPlus . ') = ' . $i3 . '`, giving <b>' . $q3 . '</b>. Where a position falls between two, round down and up and average the two values: with repeated values those two are often the same number, and the average is simply that number.</p>
+      <p><span class="term-label">Part (d): the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b>. It is the width of the middle half of the data, and unlike the full range it ignores the extremes entirely, which is what makes it the spread to quote when a data set has outliers.</p>
       <p><b>Answer:</b> `Q_1` = ' . $q1 . ' &nbsp;&nbsp; median = ' . $med . ' &nbsp;&nbsp; `Q_3` = ' . $q3 . ' &nbsp;&nbsp; `"IQR"` = ' . $iqr . '</p>
     </div>
   </details>

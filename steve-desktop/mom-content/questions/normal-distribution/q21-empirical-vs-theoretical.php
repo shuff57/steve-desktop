@@ -24,10 +24,10 @@ $reltolerance[1] = 0.02
 $abstolerance[1] = 0.003
 
 $questions[2] = array(
-  "0.4167 is empirical (counted from the 12 sampled times) and 0.4085 is theoretical (from the normal model) &mdash; they differ because the empirical one is a fact about the sample while the theoretical one is a claim about every lap the model describes",
-  "0.4085 is empirical (counted from the 12 sampled times) and 0.4167 is theoretical (from the normal model) &mdash; they differ because the model is approximate",
-  "Both are empirical &mdash; they differ because the sample was too small",
-  "Both are theoretical &mdash; they differ because the model was fitted to different data"
+  "0.4167 is empirical (counted from the 12 sampled times) and 0.4085 is theoretical (from the normal model): they differ because the empirical one is a fact about the sample while the theoretical one is a claim about every lap the model describes",
+  "0.4085 is empirical (counted from the 12 sampled times) and 0.4167 is theoretical (from the normal model): they differ because the model is approximate",
+  "Both are empirical: they differ because the sample was too small",
+  "Both are theoretical: they differ because the model was fitted to different data"
 )
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -50,9 +50,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the empirical probability.</span> Five of the twelve pilot times are above 130 seconds: 130.2, 130.8, 131.5, 132.6, and 134.1. So `P(X > 130) = 5/12 = 0.4167`. That number is a fact about the 12 values on the worksheet.</p>
-      <p><span class="term-label">Part (b) &mdash; the theoretical probability.</span> The pilot model is `N(129.42, 2.52)`. Standardize: `z = (130 - 129.4167)/2.5207 ~= 0.2314`, so `P(X > 130) = 1 - P(Z < 0.2314) ~= 0.4085`. No lap time was consulted to produce it.</p>
-      <p><span class="term-label">Part (c) &mdash; why they differ.</span> They are answers to different questions. The empirical number describes one sample of 12; draw a different 12 and it will move. The theoretical number describes every lap the model claims the racer will ever run, and it will not move unless you change mu or sigma. They land within a hundredth of each other, which is good news for the normal model.</p>
+      <p><span class="term-label">Part (a): the empirical probability.</span> Five of the twelve pilot times are above 130 seconds: 130.2, 130.8, 131.5, 132.6, and 134.1. So `P(X > 130) = 5/12 = 0.4167`. That number is a fact about the 12 values on the worksheet.</p>
+      <p><span class="term-label">Part (b): the theoretical probability.</span> The pilot model is `N(129.42, 2.52)`. Standardize: `z = (130 - 129.4167)/2.5207 ~= 0.2314`, so `P(X > 130) = 1 - P(Z < 0.2314) ~= 0.4085`. No lap time was consulted to produce it.</p>
+      <p><span class="term-label">Part (c): why they differ.</span> They are answers to different questions. The empirical number describes one sample of 12; draw a different 12 and it will move. The theoretical number describes every lap the model claims the racer will ever run, and it will not move unless you change mu or sigma. They land within a hundredth of each other, which is good news for the normal model.</p>
     </div>
   </details>
 </div>'

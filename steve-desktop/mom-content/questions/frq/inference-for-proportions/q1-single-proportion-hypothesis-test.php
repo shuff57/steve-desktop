@@ -33,7 +33,7 @@ $sample_action = $sample_actions[$i];
 $r_purpose = "whether the true population proportion differs from a specific claimed value, based on evidence from a sample";
 $r_example = "we could $sample_action and test whether the true proportion of $characteristic is really $claimed_percent";
 $r_null_statement = "H&#8320;: p = $claimed_value";
-$r_null_meaning = "the null hypothesis assumes the claim is correct -- that the proportion of $population who have $characteristic is exactly $claimed_value. We collect sample data and ask whether there is strong enough evidence to reject that assumption";
+$r_null_meaning = "the null hypothesis assumes the claim is correct: that the proportion of $population who have $characteristic is exactly $claimed_value. We collect sample data and ask whether there is strong enough evidence to reject that assumption";
 
 $sample_narrative = "A hypothesis test for a single proportion asks <b>$r_purpose</b>. For example, suppose $topic. To check this, <b>$r_example</b>. The null hypothesis would be <b>$r_null_statement</b>, meaning <b>$r_null_meaning</b>.";
 
@@ -171,7 +171,7 @@ $rubricanswerbutton = $css_block . '
                 <li>State the null hypothesis.
                     <span class="ideal-ans">Target: "H&#8320;: p = '.$claimed_value.'"</span></li>
                 <li>Explain what the null hypothesis assumes.
-                    <span class="ideal-ans">Target: "The null hypothesis assumes the claim is correct -- that the proportion of '.$population.' who have '.$characteristic.' is exactly '.$claimed_value.'. We then look at the sample data to see if there is strong enough evidence to reject that assumption."</span></li>
+                    <span class="ideal-ans">Target: "The null hypothesis assumes the claim is correct: that the proportion of '.$population.' who have '.$characteristic.' is exactly '.$claimed_value.'. We then look at the sample data to see if there is strong enough evidence to reject that assumption."</span></li>
               </ul>
             </td>
           </tr>

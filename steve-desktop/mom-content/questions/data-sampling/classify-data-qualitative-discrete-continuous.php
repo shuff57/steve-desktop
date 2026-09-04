@@ -36,7 +36,7 @@ $cont = array(
 )
 
 // Draw the INDEX, then step the second one forward. Offsetting a known index is what keeps the
-// two draws from a pool distinct — re-rolling could collide again, and there is no loop here.
+// two draws from a pool distinct: re-rolling could collide again, and there is no loop here.
 $iq = rand(0, count($qual)-1)
 $id = rand(0, count($disc)-1)
 $ic = rand(0, count($cont)-1)
@@ -78,7 +78,7 @@ $answer[3] = $keys[3]
 $answer[4] = $keys[4]
 $answer[5] = $keys[5]
 
-// A fixed taxonomy reads better in a stable order — shuffling three type names every part
+// A fixed taxonomy reads better in a stable order: shuffling three type names every part
 // just makes the student re-read the same list six times.
 $displayformat[0] = "select"
 $displayformat[1] = "select"
@@ -114,14 +114,14 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>Ask two questions in order.</p>
-      <p><b>1. Is it a number at all?</b> If the answer is a word or a label, it is <b>qualitative (categorical)</b> &mdash; no arithmetic on it means anything.</p>
+      <p><b>1. Is it a number at all?</b> If the answer is a word or a label, it is <b>qualitative (categorical)</b>: no arithmetic on it means anything.</p>
       <p><b>2. If it is a number, did it come from counting or from measuring?</b> Counting gives <b>quantitative discrete</b> data: whole things, with nothing in between. Measuring gives <b>quantitative continuous</b> data, where fractions and decimals are meaningful.</p>
       <div class="term-row"><span class="term-label">a. ' . $item_a . ':</span> qualitative (categorical)</div>
-      <div class="term-row"><span class="term-label">b. ' . $item_b . ':</span> quantitative discrete &mdash; it is a count</div>
-      <div class="term-row"><span class="term-label">c. ' . $item_c . ':</span> quantitative continuous &mdash; it is a measurement</div>
+      <div class="term-row"><span class="term-label">b. ' . $item_b . ':</span> quantitative discrete: it is a count</div>
+      <div class="term-row"><span class="term-label">c. ' . $item_c . ':</span> quantitative continuous: it is a measurement</div>
       <div class="term-row"><span class="term-label">d. ' . $item_d . ':</span> qualitative (categorical)</div>
-      <div class="term-row"><span class="term-label">e. ' . $item_e . ':</span> quantitative discrete &mdash; it is a count</div>
-      <div class="term-row"><span class="term-label">f. ' . $item_f . ':</span> quantitative continuous &mdash; it is a measurement</div>
+      <div class="term-row"><span class="term-label">e. ' . $item_e . ':</span> quantitative discrete: it is a count</div>
+      <div class="term-row"><span class="term-label">f. ' . $item_f . ':</span> quantitative continuous: it is a measurement</div>
       <p style="margin-top:1em;"><b>The trap:</b> "number of" almost always signals counting, so it is discrete even though the word "number" sounds measured. Time, distance, weight and percent are measured on a scale that can always be divided further, so they are continuous.</p>
     </div>
   </details>

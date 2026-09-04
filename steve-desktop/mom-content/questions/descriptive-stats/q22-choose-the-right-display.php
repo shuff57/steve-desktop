@@ -71,7 +71,7 @@ $purposeText = ""
 
 if ($pi == 0) {
   $dataText = "The registrar at " . $collegeA . " has this term's enrollment counts: " . $n1 . " students are " . $labA . " and " . $n2 . " students are " . $labB . ". Every enrolled student falls into exactly one of these two categories."
-  $purposeText = "The registrar wants one display showing how the student body <b>splits between the two categories &mdash; " . $labA . " and " . $labB . " &mdash; as shares of the whole</b>."
+  $purposeText = "The registrar wants one display showing how the student body <b>splits between the two categories: " . $labA . " and " . $labB . ": as shares of the whole</b>."
 }
 if ($pi == 1) {
   $dataText = "A state office has this term's enrollment counts for two colleges. At " . $collegeA . ", " . $n1 . " students are " . $labA . " and " . $n2 . " are " . $labB . ". At " . $collegeB . ", " . $m1 . " students are " . $labA . " and " . $m2 . " are " . $labB . "."
@@ -96,7 +96,7 @@ $correctName = $displayNames[$pi]
 
 $whyHtml = ""
 if ($pi == 0) {
-  $whyHtml = '<p><span class="term-label">Why a pie chart:</span> the purpose is <b>shares of the whole</b>, and a pie chart is the only one of the four that makes that promise &mdash; each wedge is proportional to its category\'s percent of the circle, the wedges add to 100%, and each individual sits in exactly one wedge. Here every student is either ' . $labA . ' or ' . $labB . ' and nobody is both, so the promise holds and the pie is honest.</p>
+  $whyHtml = '<p><span class="term-label">Why a pie chart:</span> the purpose is <b>shares of the whole</b>, and a pie chart is the only one of the four that makes that promise: each wedge is proportional to its category\'s percent of the circle, the wedges add to 100%, and each individual sits in exactly one wedge. Here every student is either ' . $labA . ' or ' . $labB . ' and nobody is both, so the promise holds and the pie is honest.</p>
       <p><span class="term-label">Why not a bar graph:</span> two bars would show the two counts perfectly well, but a bar graph makes <b>no</b> claim that the categories together account for everyone. When the point is what fraction of the whole each piece is, that missing promise is the whole point.</p>'
 }
 if ($pi == 1) {
@@ -104,12 +104,12 @@ if ($pi == 1) {
       <p><span class="term-label">Why not a pie chart:</span> a pie shows <b>one</b> whole. Two colleges means two separate pies, and each pie rescales its own college to 100%, so the wedges report shares, not counts. ' . $collegeA . ' and ' . $collegeB . ' have different totals, so equal-looking wedges would stand for different numbers of students.</p>'
 }
 if ($pi == 2) {
-  $whyHtml = '<p><span class="term-label">Why a Pareto chart:</span> a Pareto chart <b>is</b> a bar graph &mdash; one whose bars have been sorted from largest to smallest. Sorting is the entire difference, and sorting is exactly what was asked for.</p>
+  $whyHtml = '<p><span class="term-label">Why a Pareto chart:</span> a Pareto chart <b>is</b> a bar graph: one whose bars have been sorted from largest to smallest. Sorting is the entire difference, and sorting is exactly what was asked for.</p>
       <p><span class="term-label">Why not a plain bar graph:</span> an unsorted bar graph of seven categories, listed alphabetically, holds the same information but is hard to read: the eye has to hunt across the chart to find the biggest category. Sorting puts the biggest contributors first, so they can be read straight off.</p>'
 }
 if ($pi == 3) {
   $whyHtml = '<p><span class="term-label">Why a histogram:</span> ' . $histVar[$vi] . ' is a <b>number</b> recorded on each individual, so this is quantitative data, not categories. A histogram is the display for quantitative data grouped into intervals, and the intervals are what make the shape of the distribution visible.</p>
-      <p><span class="term-label">Why none of the other three:</span> pie charts, bar graphs, and Pareto charts are all displays of <b>qualitative</b> (categorical) data &mdash; one wedge or one bar per category name. There are no category names here, only numbers.</p>'
+      <p><span class="term-label">Why none of the other three:</span> pie charts, bar graphs, and Pareto charts are all displays of <b>qualitative</b> (categorical) data: one wedge or one bar per category name. There are no category names here, only numbers.</p>'
 }
 
 $solutionguide = '
@@ -136,7 +136,7 @@ $solutionguide = '
       ' . $whyHtml . '
       <p style="margin-top:1em;"><b>The rule that decides it:</b></p>
       <div class="term-row"><span class="term-label">Pie chart:</span> wedges of one circle, proportional to each category\'s percent. It <b>promises</b> that the wedges partition the whole and that each individual sits in exactly one wedge. Use it for shares of a single whole.</div>
-      <div class="term-row"><span class="term-label">Bar graph:</span> one bar per category, length proportional to the number or percent. It makes <b>no</b> such promise &mdash; categories may overlap, and some may be missing. Use it to compare sizes, including across groups.</div>
+      <div class="term-row"><span class="term-label">Bar graph:</span> one bar per category, length proportional to the number or percent. It makes <b>no</b> such promise: categories may overlap, and some may be missing. Use it to compare sizes, including across groups.</div>
       <div class="term-row"><span class="term-label">Pareto chart:</span> a bar graph with the bars sorted from largest to smallest. Use it when the ranking is the message and there are enough categories that an unsorted chart is hard to read.</div>
       <div class="term-row"><span class="term-label">Histogram:</span> for <b>quantitative</b> data grouped into intervals, not for categories. If what was recorded on each individual is a number, none of the other three apply.</div>
     </div>

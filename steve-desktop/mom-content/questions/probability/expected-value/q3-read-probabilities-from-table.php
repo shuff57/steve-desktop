@@ -74,9 +74,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The one move.</span> Every probability question about a table reduces to choosing which rows to add. Read the inequality, then point at the rows.</p>
-      <p><span class="term-label">Part (a) &mdash; `P(X = ' . $k1 . ')`.</span> The row labelled `x = ' . $k1 . '` carries the probability directly: <b>' . $answer[0] . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; `P(X > ' . $k2 . ')`.</span> Strictly greater means the rows `x = ' . ($k2 + 1) . '` through `x = 5`, added together: <b>' . $answer[1] . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; `P(X &ge; ' . $k3 . ')`.</span> Greater or equal means part (b) plus the row `x = ' . $k3 . '` itself: <b>' . $answer[2] . '</b>. Since `P(X = ' . $k3 . ')` is positive, the inclusive probability is strictly larger than the strict one.</p>
+      <p><span class="term-label">Part (a): `P(X = ' . $k1 . ')`.</span> The row labelled `x = ' . $k1 . '` carries the probability directly: <b>' . $answer[0] . '</b>.</p>
+      <p><span class="term-label">Part (b): `P(X > ' . $k2 . ')`.</span> Strictly greater means the rows `x = ' . ($k2 + 1) . '` through `x = 5`, added together: <b>' . $answer[1] . '</b>.</p>
+      <p><span class="term-label">Part (c): `P(X &ge; ' . $k3 . ')`.</span> Greater or equal means part (b) plus the row `x = ' . $k3 . '` itself: <b>' . $answer[2] . '</b>. Since `P(X = ' . $k3 . ')` is positive, the inclusive probability is strictly larger than the strict one.</p>
       <p>There is no formula to memorize here; it is addition applied to the rows you selected.</p>
     </div>
   </details>

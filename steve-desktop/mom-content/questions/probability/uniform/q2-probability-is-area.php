@@ -28,7 +28,7 @@ $answer[0] = $prob
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "It is a density — a rate of probability per unit of x, which becomes a probability only once multiplied by a width",
+  "It is a density: a rate of probability per unit of x, which becomes a probability only once multiplied by a width",
   "It is the probability of landing exactly on that value of x",
   "It is the probability of landing anywhere under the curve",
   "It is the total area, which is 1"
@@ -58,7 +58,7 @@ $solutionguide = '
       <p><span class="term-label">The height.</span> `f(x) = 1/(' . $b . ' - ' . $a . ') = 1/' . ($b - $a) . '`.</p>
       <p><span class="term-label">The base.</span> The strip runs from `x = ' . $c . '` to `x = ' . $d . '`, so the base is `' . $d . ' - ' . $c . ' = ' . ($d - $c) . '`.</p>
       <p><span class="term-label">The probability.</span> `P(' . $c . ' < x < ' . $d . ') = (base)(height) = ' . ($d - $c) . ' * (1/' . ($b - $a) . ') = ` <b>' . $prob . '</b></p>
-      <p>The height of the curve at a point is not the probability of that point — it only becomes a probability once you multiply it by a width. That distinction is the most common place students get stuck in this chapter.</p>
+      <p>The height of the curve at a point is not the probability of that point: it only becomes a probability once you multiply it by a width. That distinction is the most common place students get stuck in this chapter.</p>
     </div>
   </details>
 </div>'

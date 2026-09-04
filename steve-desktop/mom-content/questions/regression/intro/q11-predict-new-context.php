@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Predict from Equation — randomized context, above/below line ===
+// === NAME - DESCRIPTION: Predict from Equation: randomized context, above/below line ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===

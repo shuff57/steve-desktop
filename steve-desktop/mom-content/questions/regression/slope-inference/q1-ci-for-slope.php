@@ -12,7 +12,7 @@ $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
 $xname = $picked_ctx[0]
 $yname = $picked_ctx[1]
 
-// (df, t*) for a 95% CI — pick parallel pairs so they line up
+// (df, t*) for a 95% CI: pick parallel pairs so they line up
 $dfs    = array(20,    30,    50,    100,   200)
 $tstars = array(2.086, 2.042, 2.009, 1.984, 1.972)
 $picked_df = jointrandfrom($dfs, $tstars)

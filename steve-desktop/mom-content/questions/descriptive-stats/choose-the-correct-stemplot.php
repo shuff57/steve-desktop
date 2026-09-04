@@ -106,7 +106,7 @@ $plotB = $tblOpen . $bodyB . $tblClose
 $plotC = $tblOpen . $bodyC . $tblClose
 $plotD = $tblOpen . $bodyD . $tblClose
 
-// Rotation, not shuffle() -- shuffle() is rejected by the parser and kills the whole block.
+// Rotation, not shuffle(): shuffle() is rejected by the parser and kills the whole block.
 $plots = array($plotA, $plotB, $plotC, $plotD)
 $off = rand(0, 3)
 $i1 = $off
@@ -154,10 +154,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; check the leaves are single digits.</span> The stem carries everything except the last digit, so a leaf is always one digit. One of the four plots writes whole values such as ' . $exampleValue . ' in the leaf column; that plot is really just the sorted list with extra lines round it, and a reader cannot tell where one value ends and the next begins.</p>
-      <p><span class="term-label">Step 2 &mdash; check the leaves are in order.</span> Leaves run smallest to largest across each row. That ordering is what lets a reader find the median or the largest value in a row by looking rather than searching, so a row out of order is wrong even though it holds the right digits.</p>
-      <p><span class="term-label">Step 3 &mdash; count the leaves against the data.</span> There are <b>' . $n . '</b> measurements, so a correct plot has ' . $n . ' leaves. The value ' . $dupValue . ' occurs twice in the list and must be written twice &mdash; one plot writes it once and so shows only ' . ($n - 1) . ' leaves. This is the error that is easiest to miss, because the plot looks perfectly tidy.</p>
-      <p><span class="term-label">Step 4 &mdash; the one that survives.</span> <b>Plot ' . ($correctSlot + 1) . '</b> passes all three checks: single-digit leaves, ascending within each row, and ' . $n . ' leaves in total.</p>
+      <p><span class="term-label">Step 1: check the leaves are single digits.</span> The stem carries everything except the last digit, so a leaf is always one digit. One of the four plots writes whole values such as ' . $exampleValue . ' in the leaf column; that plot is really just the sorted list with extra lines round it, and a reader cannot tell where one value ends and the next begins.</p>
+      <p><span class="term-label">Step 2: check the leaves are in order.</span> Leaves run smallest to largest across each row. That ordering is what lets a reader find the median or the largest value in a row by looking rather than searching, so a row out of order is wrong even though it holds the right digits.</p>
+      <p><span class="term-label">Step 3: count the leaves against the data.</span> There are <b>' . $n . '</b> measurements, so a correct plot has ' . $n . ' leaves. The value ' . $dupValue . ' occurs twice in the list and must be written twice: one plot writes it once and so shows only ' . ($n - 1) . ' leaves. This is the error that is easiest to miss, because the plot looks perfectly tidy.</p>
+      <p><span class="term-label">Step 4: the one that survives.</span> <b>Plot ' . ($correctSlot + 1) . '</b> passes all three checks: single-digit leaves, ascending within each row, and ' . $n . ' leaves in total.</p>
       <p><b>Answer:</b> (a) Plot ' . ($correctSlot + 1) . ' &nbsp;&nbsp; (b) Plot ' . $dupPlotNum . ' writes a repeated value only once</p>
     </div>
   </details>

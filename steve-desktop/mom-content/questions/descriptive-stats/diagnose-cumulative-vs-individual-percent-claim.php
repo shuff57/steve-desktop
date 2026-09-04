@@ -60,7 +60,7 @@ $abstolerance[1] = 0.051
 $showanswer[1] = $truePctRounded
 
 $choices[0] = array(
-  "The " . $statedPct . "% figure is the table's <b>cumulative</b> relative frequency through the row for " . $rowLabelTarget . " " . $unitText . " &mdash; it already includes every row at or below it, not just that one row's share.",
+  "The " . $statedPct . "% figure is the table's <b>cumulative</b> relative frequency through the row for " . $rowLabelTarget . " " . $unitText . ": it already includes every row at or below it, not just that one row's share.",
   "The " . $statedPct . "% figure is really a raw <b>count</b> from the table, mistakenly reported as if it were already a percent.",
   "The claim is correct as stated."
 )
@@ -102,10 +102,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Find where the cumulative column comes from.</span> The cumulative relative frequency through the row for ' . $rowLabelTarget . ' ' . $unitText . ' adds up every frequency at or below that row: ' . $sumBeforeStr . ' = ' . $cumCountThrough . ' out of ' . $n . '. That gives ' . $cumCountThrough . ' &divide; ' . $n . ' &approx; ' . $cumTargetRounded . ', or <b>' . $statedPct . '%</b> &mdash; exactly the number the claim used.</p>
-      <p><span class="term-label">Step 2 &mdash; Find that row\'s own share.</span> The row for ' . $rowLabelTarget . ' ' . $unitText . ' has a frequency of ' . $freqTarget . ' by itself, out of ' . $n . ' total: ' . $freqTarget . ' &divide; ' . $n . ' &approx; ' . $relTargetRounded . ', or <b>' . $truePctRounded . '%</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; Diagnose the claim.</span> The claim reported ' . $statedPct . '%, but that is the <b>cumulative</b> relative frequency through the row, which counts every row at or below it &mdash; not the individual relative frequency for that row alone. The correct diagnosis is that the stated figure is cumulative, not individual.</p>
-      <p><span class="term-label">Step 4 &mdash; The true percent.</span> Only ' . $truePctRounded . '% of ' . $who . ' reported a value of exactly ' . $rowLabelTarget . ' ' . $unitText . '.</p>
+      <p><span class="term-label">Step 1: Find where the cumulative column comes from.</span> The cumulative relative frequency through the row for ' . $rowLabelTarget . ' ' . $unitText . ' adds up every frequency at or below that row: ' . $sumBeforeStr . ' = ' . $cumCountThrough . ' out of ' . $n . '. That gives ' . $cumCountThrough . ' &divide; ' . $n . ' &approx; ' . $cumTargetRounded . ', or <b>' . $statedPct . '%</b>: exactly the number the claim used.</p>
+      <p><span class="term-label">Step 2: Find that row\'s own share.</span> The row for ' . $rowLabelTarget . ' ' . $unitText . ' has a frequency of ' . $freqTarget . ' by itself, out of ' . $n . ' total: ' . $freqTarget . ' &divide; ' . $n . ' &approx; ' . $relTargetRounded . ', or <b>' . $truePctRounded . '%</b>.</p>
+      <p><span class="term-label">Step 3: Diagnose the claim.</span> The claim reported ' . $statedPct . '%, but that is the <b>cumulative</b> relative frequency through the row, which counts every row at or below it: not the individual relative frequency for that row alone. The correct diagnosis is that the stated figure is cumulative, not individual.</p>
+      <p><span class="term-label">Step 4: The true percent.</span> Only ' . $truePctRounded . '% of ' . $who . ' reported a value of exactly ' . $rowLabelTarget . ' ' . $unitText . '.</p>
       <p><b>Answers:</b> a) the stated figure is the cumulative relative frequency, not the individual relative frequency; b) ' . $truePctRounded . '%.</p>
     </div>
   </details>

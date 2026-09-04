@@ -90,7 +90,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">a. Level of measurement:</span> the ratings are ordered &mdash; a 5 reflects more satisfaction than a 4 &mdash; so this is at least ordinal. But the gap from a 3 to a 4 is not a measured quantity, and there is no reason to think it equals the gap from a 4 to a 5; a rating scale like this has no true zero either. Differences cannot be calculated and ratios are not meaningful, so before this list can be treated as raw frequency-table data it has to be classified as <b>Ordinal</b>, not Interval or Ratio.</p>
+      <p><span class="term-label">a. Level of measurement:</span> the ratings are ordered, a 5 reflects more satisfaction than a 4, so this is at least ordinal. But the gap from a 3 to a 4 is not a measured quantity, and there is no reason to think it equals the gap from a 4 to a 5; a rating scale like this has no true zero either. Differences cannot be calculated and ratios are not meaningful, so before this list can be treated as raw frequency-table data it has to be classified as <b>Ordinal</b>, not Interval or Ratio.</p>
       <p><span class="term-label">b. Frequency of a rating of ' . $tv . ':</span> count how many of the ' . $n . ' responses equal ' . $tv . ' in the raw list. That count is <b>' . $freq . '</b>.</p>
       <p><span class="term-label">c. Relative frequency of a rating of ' . $tv . ':</span> divide that frequency by the total number of responses: ' . $freq . ' &divide; ' . $n . ' &approx; <b>' . $relRounded . '</b>.</p>
       <p><span class="term-label">d. Cumulative relative frequency through a rating of ' . $tv . ':</span> add the frequencies of every rating at or below ' . $tv . ', then divide by ' . $n . '. That gives ' . $cumCount . ' &divide; ' . $n . ' &approx; <b>' . $cumRounded . '</b>, the proportion of ' . $who . ' who rated ' . $tv . ' or lower.</p>
@@ -99,7 +99,7 @@ $solutionguide = '
         <tr style="background:#eef2f7;"><th style="border:1px solid #ccc; padding:6px 12px;">Rating</th><th style="border:1px solid #ccc; padding:6px 12px;">Frequency</th><th style="border:1px solid #ccc; padding:6px 12px;">Relative Frequency</th><th style="border:1px solid #ccc; padding:6px 12px;">Cumulative Relative Frequency</th></tr>
         ' . $tallyRows . '
       </table>
-      <p><b>The usual trap:</b> because the responses are written as numbers, it is tempting to average them or call the scale interval or ratio. The number is a stand-in for a ranked label, not a quantity with equal-sized steps &mdash; that is what makes it ordinal, and it is exactly what has to be decided before the frequency, relative frequency, and cumulative relative frequency columns mean anything.</p>
+      <p><b>The usual trap:</b> because the responses are written as numbers, it is tempting to average them or call the scale interval or ratio. The number is a stand-in for a ranked label, not a quantity with equal-sized steps: that is what makes it ordinal, and it is exactly what has to be decided before the frequency, relative frequency, and cumulative relative frequency columns mean anything.</p>
     </div>
   </details>
 </div>'
@@ -115,13 +115,13 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What is the <b>level of measurement</b> of this satisfaction rating? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> From the raw list, find the <b>frequency</b> of a rating of $tv &mdash; how many of the $n $who gave that rating. Enter a whole number. $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> From the raw list, find the <b>frequency</b> of a rating of $tv: how many of the $n $who gave that rating. Enter a whole number. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Find the <b>relative frequency</b> of a rating of $tv. Enter a decimal rounded to <b>three decimal places</b>. $answerbox[2]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> Find the <b>cumulative relative frequency</b> through a rating of $tv &mdash; the proportion of $who whose rating was $tv or lower. Enter a decimal rounded to <b>three decimal places</b>. $answerbox[3]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> Find the <b>cumulative relative frequency</b> through a rating of $tv: the proportion of $who whose rating was $tv or lower. Enter a decimal rounded to <b>three decimal places</b>. $answerbox[3]
   </div>
 </div>
 

@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // The bank already applies the empirical rule to get PERCENTAGES. Turning a percentage back into a
-// count is the step that gets skipped, and it is the one a real question asks for -- "how many
+// count is the step that gets skipped, and it is the one a real question asks for: "how many
 // students", not "what percent". The last part guards the rule itself: 68-95-99.7 is a statement
 // about a BELL-SHAPED distribution and says nothing about a skewed one.
 //
@@ -70,15 +70,15 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The rule, in one line.</span> For a roughly bell-shaped distribution, about <b>68%</b> of the values lie within one standard deviation of the mean, about <b>95%</b> within two, and about <b>99.7%</b> within three.</p>
-      <p><span class="term-label">Parts (a) and (b) &mdash; the one-deviation interval.</span> Step one deviation out on each side of the mean:</p>
+      <p><span class="term-label">Parts (a) and (b): the one-deviation interval.</span> Step one deviation out on each side of the mean:</p>
       <p style="text-align:center;">`' . $mu . ' - ' . $sigma . ' = ` <b>' . $loOne . '</b> &nbsp;&nbsp; to &nbsp;&nbsp; `' . $mu . ' + ' . $sigma . ' = ` <b>' . $hiOne . '</b> ' . $unitWord . '</p>
-      <p>Note that the interval is symmetric about the mean &mdash; the rule always describes a band centered on `mu`, never a one-sided range.</p>
-      <p><span class="term-label">Part (c) &mdash; percentage to head count.</span> 68% of the ' . $n . ' ' . $who . ':</p>
+      <p>Note that the interval is symmetric about the mean: the rule always describes a band centered on `mu`, never a one-sided range.</p>
+      <p><span class="term-label">Part (c): percentage to head count.</span> 68% of the ' . $n . ' ' . $who . ':</p>
       <p style="text-align:center;">`0.68 xx ' . $n . ' = ` <b>' . $cnt68 . '</b> ' . $who . '</p>
       <p>This is the step usually left out. The rule gives a proportion; the question asks for people, so it has to be multiplied by the group size.</p>
-      <p><span class="term-label">Part (d) &mdash; two deviations.</span> The band now runs from ' . ($mu - 2 * $sigma) . ' to ' . $hiTwo . ' ' . $unitWord . ', and holds about 95%:</p>
+      <p><span class="term-label">Part (d): two deviations.</span> The band now runs from ' . ($mu - 2 * $sigma) . ' to ' . $hiTwo . ' ' . $unitWord . ', and holds about 95%:</p>
       <p style="text-align:center;">`0.95 xx ' . $n . ' = ` <b>' . $cnt95 . '</b> ' . $who . '</p>
-      <p><span class="term-label">Part (e) &mdash; when the rule does not apply.</span> 68-95-99.7 is a fact about the BELL SHAPE, not about means and standard deviations in general. On a strongly skewed distribution the percentages are simply wrong, and no adjustment rescues them &mdash; you would need the actual distribution. This is why the shape is checked before the rule is used, and why every question that invokes it says "roughly bell shaped" somewhere in the setup. If that phrase is missing, the rule is not available.</p>
+      <p><span class="term-label">Part (e): when the rule does not apply.</span> 68-95-99.7 is a fact about the BELL SHAPE, not about means and standard deviations in general. On a strongly skewed distribution the percentages are simply wrong, and no adjustment rescues them: you would need the actual distribution. This is why the shape is checked before the rule is used, and why every question that invokes it says "roughly bell shaped" somewhere in the setup. If that phrase is missing, the rule is not available.</p>
       <p><span class="term-label">A quick sanity check.</span> The bands are nested, so the two-deviation count must always exceed the one-deviation count, and neither can exceed the group size.</p>
     </div>
   </details>

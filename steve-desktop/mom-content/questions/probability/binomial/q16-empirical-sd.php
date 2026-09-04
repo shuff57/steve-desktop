@@ -29,11 +29,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the sum of the squared values, weighted by frequency.</span></p>
+      <p><span class="term-label">Step 1: the sum of the squared values, weighted by frequency.</span></p>
       <p>`sum x^2 f = 0^2(2) + 1^2(5) + 2^2(9) + 3^2(7) + 4^2(4) + 5^2(2) + 6^2(1) = 0 + 5 + 36 + 63 + 64 + 50 + 36 = 254`</p>
-      <p><span class="term-label">Step 2 &mdash; subtract the part explained by the mean.</span> With `n = 30` and `x-bar ~= 2.5333`:</p>
+      <p><span class="term-label">Step 2: subtract the part explained by the mean.</span> With `n = 30` and `x-bar ~= 2.5333`:</p>
       <p>`s^2 = (sum x^2 f - n * x-bar^2) / (n - 1) = (254 - 30(2.5333)^2) / 29 ~= 61.4667 / 29 ~= 2.1195`</p>
-      <p><span class="term-label">Step 3 &mdash; take the square root.</span></p>
+      <p><span class="term-label">Step 3: take the square root.</span></p>
       <p>`s = sqrt(2.1195) ~= 1.4559`</p>
       <p>Hold that beside the theoretical `sigma ~= 1.3693` you compute from the formula: the sample came out slightly more spread out than the model predicts, which is the ordinary behavior of 30 repetitions. Divide by `n - 1`, not `n`; this is a sample, not the whole population of every ten-draw run that could ever happen.</p>
     </div>

@@ -56,7 +56,7 @@ $solutionguide = '
     <div class="sol-body">
       <p>The residual is `"residual" = y - hat{y} = ' . $residual . '`.</p>
       <p><b>Part a:</b> Since the residual is ' . ($sign == 0 ? 'positive' : 'negative') . ', the observed value `y` is ' . ($sign == 0 ? 'greater' : 'less') . ' than the predicted value `hat{y}`. This means the data point is <b>' . $direction . '</b> the regression line.</p>
-      <p><b>Part b:</b> ' . ($sign == 0 ? 'A positive residual means `y > hat{y}`, so the model <b>underpredicted</b> — it guessed too low.' : 'A negative residual means `y < hat{y}`, so the model <b>overpredicted</b> — it guessed too high.') . '</p>
+      <p><b>Part b:</b> ' . ($sign == 0 ? 'A positive residual means `y > hat{y}`, so the model <b>underpredicted</b>: it guessed too low.' : 'A negative residual means `y < hat{y}`, so the model <b>overpredicted</b>: it guessed too high.') . '</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         <b>Remember:</b> residual = observed &minus; predicted. Positive &rarr; above the line (underpredicted). Negative &rarr; below the line (overpredicted).
       </div>

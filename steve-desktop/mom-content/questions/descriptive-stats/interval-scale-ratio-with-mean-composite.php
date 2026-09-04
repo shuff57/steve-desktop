@@ -89,11 +89,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">a. Mean temperature:</span></p>
-      <p><b>Step 1 &mdash; Add the six readings.</b> ' . $listStr . ' sum to ' . $sum . ' ' . $scaleAbbrev . '.</p>
-      <p><b>Step 2 &mdash; Divide by how many readings there are:</b> `' . $sum . ' / 6 = ' . round($sum/6, 4) . '`</p>
-      <p><b>Step 3 &mdash; Round.</b> Each reading was recorded to ' . $precisionText . ', so the final answer carries one more decimal place than the data &mdash; ' . $placeText . '.</p>
+      <p><b>Step 1: Add the six readings.</b> ' . $listStr . ' sum to ' . $sum . ' ' . $scaleAbbrev . '.</p>
+      <p><b>Step 2: Divide by how many readings there are:</b> `' . $sum . ' / 6 = ' . round($sum/6, 4) . '`</p>
+      <p><b>Step 3: Round.</b> Each reading was recorded to ' . $precisionText . ', so the final answer carries one more decimal place than the data: ' . $placeText . '.</p>
       <p><b>Answer:</b> ' . $mean . ' ' . $scaleAbbrev . '.</p>
-      <p><span class="term-label">b. Why the ratio claim fails:</span> ' . $scaleName . ' is an interval scale, not a ratio scale. Its 0' . $scaleAbbrev . ' is a human convention &mdash; the freezing point of water, for Celsius, and an arbitrary brine mixture, for Fahrenheit &mdash; not the total absence of temperature. Because there is no true zero, dividing one reading by another does not produce a meaningful ratio, so a claim like "80' . $scaleAbbrev . ' is twice as hot as 40' . $scaleAbbrev . '" is not a valid statement even though the arithmetic 80/40 = 2 is correct.</p>
+      <p><span class="term-label">b. Why the ratio claim fails:</span> ' . $scaleName . ' is an interval scale, not a ratio scale. Its 0' . $scaleAbbrev . ' is a human convention, the freezing point of water, for Celsius, and an arbitrary brine mixture, for Fahrenheit, not the total absence of temperature. Because there is no true zero, dividing one reading by another does not produce a meaningful ratio, so a claim like "80' . $scaleAbbrev . ' is twice as hot as 40' . $scaleAbbrev . '" is not a valid statement even though the arithmetic 80/40 = 2 is correct.</p>
     </div>
   </details>
 </div>'

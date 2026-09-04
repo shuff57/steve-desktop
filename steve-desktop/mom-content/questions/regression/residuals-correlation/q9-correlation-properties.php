@@ -5,7 +5,7 @@
 
 $anstypes = array("choices", "choices", "choices")
 
-// Scenario randomization — variable pair plus a unit conversion for x
+// Scenario randomization: variable pair plus a unit conversion for x
 $ctx_x      = array("height",      "study time", "tree diameter", "engine displacement", "rainfall")
 $ctx_y      = array("arm span",    "exam score", "tree height",   "fuel economy",        "crop yield")
 $ctx_xold   = array("inches",      "hours",      "centimeters",   "liters",              "inches")
@@ -16,19 +16,19 @@ $yvar = $picked[1]
 $xunit_old = $picked[2]
 $xunit_new = $picked[3]
 
-// Part a — does r change after a linear unit conversion of x? No.
+// Part a: does r change after a linear unit conversion of x? No.
 $choices[0] = array("Yes, `r` would change", "No, `r` would stay the same")
 $displayformat[0] = "select"
 $noshuffle[0] = "all"
 $answer[0] = 1
 
-// Part b — does r change if we swap x and y? No.
+// Part b: does r change if we swap x and y? No.
 $choices[1] = array("Yes, `r` would change", "No, `r` would stay the same")
 $displayformat[1] = "select"
 $noshuffle[1] = "all"
 $answer[1] = 1
 
-// Part c — what kind of association does r measure? Linear only.
+// Part c: what kind of association does r measure? Linear only.
 $choices[2] = array("Linear association only", "Any association, including curved patterns")
 $displayformat[2] = "select"
 $noshuffle[2] = "all"

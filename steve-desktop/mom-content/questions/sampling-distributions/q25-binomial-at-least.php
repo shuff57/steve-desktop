@@ -58,9 +58,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The setup.</span> `X ~ B(' . $n . ', ' . $p . ')` with `mu = np = ' . $mu . '` and `sigma = sqrt(npq) = ' . round($sigma, 4) . '`. Both `np` and `nq` are greater than 5, so the normal approximation is allowed.</p>
-      <p><span class="term-label">Part (a) &mdash; the continuity correction.</span> "At least ' . $a . '" includes ' . $a . ', so the bar over ' . $a . ' has to be inside the shaded region and the boundary moves outward by 0.5:</p>
+      <p><span class="term-label">Part (a): the continuity correction.</span> "At least ' . $a . '" includes ' . $a . ', so the bar over ' . $a . ' has to be inside the shaded region and the boundary moves outward by 0.5:</p>
       <p>`P(X >= ' . $a . ')` becomes `P(Y >= ' . $boundary . ')`.</p>
-      <p><span class="term-label">Part (b) &mdash; the probability.</span> Standardize: `z = (' . $boundary . ' - ' . $mu . ')/' . round($sigma, 4) . ' ~= ' . round($z, 3) . '`, so</p>
+      <p><span class="term-label">Part (b): the probability.</span> Standardize: `z = (' . $boundary . ' - ' . $mu . ')/' . round($sigma, 4) . ' ~= ' . round($z, 3) . '`, so</p>
       <p>`P(X >= ' . $a . ') = 1 - P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`.</p>
       <p>The half-unit is what repairs the mismatch between a bar that occupies real width on the number line and a curve that only has area. Begin the shading at ' . $a . ' instead of ' . $boundary . ' and you have quietly discarded half of that bar.</p>
     </div>

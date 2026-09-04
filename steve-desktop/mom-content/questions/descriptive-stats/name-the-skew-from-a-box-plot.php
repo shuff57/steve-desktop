@@ -8,8 +8,8 @@
 // plot is compact. The cues are different from a histogram's: there are no bars to look at, only how
 // far the median sits from each edge of the box and how long each whisker is.
 //
-// Both cues are made to agree by construction -- the long whisker is always on the same side as the
-// wide half of the box -- so the picture can never send two contradictory signals. All five values
+// Both cues are made to agree by construction: the long whisker is always on the same side as the
+// wide half of the box: so the picture can never send two contradictory signals. All five values
 // are even and the axis carries a tick every 2, so everything a student reads lands on a label.
 $anstypes = array("choices", "choices", "number")
 
@@ -48,10 +48,10 @@ if ($dir == 1) {
 }
 
 $questions[0] = array(
-  "Skewed right &mdash; the box and the whisker are both stretched toward the larger values",
-  "Skewed left &mdash; the box and the whisker are both stretched toward the smaller values",
-  "Roughly symmetric &mdash; the median sits in the middle of the box and the whiskers match",
-  "Bimodal &mdash; a box plot shows two peaks"
+  "Skewed right: the box and the whisker are both stretched toward the larger values",
+  "Skewed left: the box and the whisker are both stretched toward the smaller values",
+  "Roughly symmetric: the median sits in the middle of the box and the whiskers match",
+  "Bimodal: a box plot shows two peaks"
 )
 $answer[0] = $dir
 
@@ -125,12 +125,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the five numbers.</span> Minimum ' . $minV . ', `Q_1 = ' . $q1 . '`, median ' . $med . ', `Q_3 = ' . $q3 . '`, maximum ' . $maxV . '.</p>
-      <p><span class="term-label">Step 2 &mdash; compare the two halves of the box.</span> From `Q_1` up to the median is ' . $lowHalf . ' minutes; from the median up to `Q_3` is ' . $highHalf . '. Both halves hold the same 25% of the data, so the wider one covers the same count over more ground &mdash; that side is more spread out.</p>
-      <p><span class="term-label">Step 3 &mdash; compare the whiskers.</span> The lower whisker is ' . $lowWhisk . ' long and the upper is ' . $highWhisk . '. The longer whisker points the same way as the wider half of the box, and that direction is the tail: ' . $tailWord . '.</p>
+      <p><span class="term-label">Step 1: read the five numbers.</span> Minimum ' . $minV . ', `Q_1 = ' . $q1 . '`, median ' . $med . ', `Q_3 = ' . $q3 . '`, maximum ' . $maxV . '.</p>
+      <p><span class="term-label">Step 2: compare the two halves of the box.</span> From `Q_1` up to the median is ' . $lowHalf . ' minutes; from the median up to `Q_3` is ' . $highHalf . '. Both halves hold the same 25% of the data, so the wider one covers the same count over more ground: that side is more spread out.</p>
+      <p><span class="term-label">Step 3: compare the whiskers.</span> The lower whisker is ' . $lowWhisk . ' long and the upper is ' . $highWhisk . '. The longer whisker points the same way as the wider half of the box, and that direction is the tail: ' . $tailWord . '.</p>
       <p>Both cues agree, so this distribution is <b>' . $trueName . '</b>.</p>
-      <p><span class="term-label">Step 4 &mdash; where the mean must sit.</span> The mean chases the tail, so it is <b>' . $meanWord . '</b> the median. Notice that a box plot never MARKS the mean &mdash; you are predicting its position from the shape, not reading it off.</p>
-      <p><span class="term-label">Step 5 &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> minutes.</p>
+      <p><span class="term-label">Step 4: where the mean must sit.</span> The mean chases the tail, so it is <b>' . $meanWord . '</b> the median. Notice that a box plot never MARKS the mean: you are predicting its position from the shape, not reading it off.</p>
+      <p><span class="term-label">Step 5: the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> minutes.</p>
       <p><span class="term-label">The trap.</span> Judging skew from which whisker looks longer ALONE. Read both cues; when a real data set makes them disagree, that is a sign the shape is closer to symmetric than either cue suggests on its own.</p>
     </div>
   </details>

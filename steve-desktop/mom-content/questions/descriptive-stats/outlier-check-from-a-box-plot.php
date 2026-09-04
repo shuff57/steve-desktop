@@ -26,7 +26,7 @@ else {
 // Ticks are every TEN here, not every two. This question is the one exception to that rule: the
 // axis has to carry the box, both 1.5 x IQR fences and an outlier beyond them, and at a step of two
 // that is thirty-nine labels on a 520px axis. Ten is the finest step that stays readable, and every
-// value the student reads off is a multiple of ten, so all of them still land ON a label -- which is
+// value the student reads off is a multiple of ten, so all of them still land ON a label: which is
 // what the step rule is actually for. It was previously every TWENTY, which left half the quartiles
 // sitting between gridlines.
 $wid = array(10, 20, 30, 40)
@@ -60,8 +60,8 @@ if ($caseId == 2) { $newVal = $q3 + 5 }
 $isOutlier = 1
 if ($caseId == 2) { $isOutlier = 0 }
 
-$verdictText = "Yes &mdash; it lies outside the fences, so the 1.5 rule flags it as an outlier."
-if ($isOutlier == 0) { $verdictText = "No &mdash; it lies between the fences, so the 1.5 rule does not flag it." }
+$verdictText = "Yes: it lies outside the fences, so the 1.5 rule flags it as an outlier."
+if ($isOutlier == 0) { $verdictText = "No: it lies between the fences, so the 1.5 rule does not flag it." }
 
 $axisMax = $maxV + 10
 if ($newVal > $axisMax) { $axisMax = $newVal + 10 }
@@ -108,8 +108,8 @@ $reltolerance[1] = 0.01
 $abstolerance[1] = 0.5
 
 $questions[2] = array(
-  "Yes &mdash; it lies outside the fences, so the 1.5 rule flags it as an outlier.",
-  "No &mdash; it lies between the fences, so the 1.5 rule does not flag it."
+  "Yes: it lies outside the fences, so the 1.5 rule flags it as an outlier.",
+  "No: it lies between the fences, so the 1.5 rule does not flag it."
 )
 $answer[2] = 1
 if ($isOutlier == 1) { $answer[2] = 0 }
@@ -141,10 +141,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the quartiles off the box.</span> The box runs from `Q_1` = ' . $q1 . ' to `Q_3` = ' . $q3 . ', so `"IQR" = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '. Only the two box edges matter here; the whiskers and the median play no part in the fences.</p>
-      <p><span class="term-label">Step 2 &mdash; build the fences.</span> Reach out `1.5 xx "IQR" = 1.5 xx ' . $iqr . ' = ' . $reach . '` from each edge. Upper fence `= Q_3 + ' . $reach . ' = ' . $q3 . ' + ' . $reach . ' = ` <b>' . $upFence . '</b>; lower fence `= Q_1 - ' . $reach . ' = ' . $lowFence . '`. The fences are not drawn on the plot &mdash; they are computed from it, which is why this cannot be answered by looking alone.</p>
-      <p><span class="term-label">Step 3 &mdash; test the new value.</span> The new reading is ' . $newVal . ' ' . $unitWord . '. ' . $verdictText . '</p>
-      <p><span class="term-label">Step 4 &mdash; a long whisker is not an outlier.</span> A whisker stops at the most extreme value that is still <i>inside</i> the fences. So a long whisker says that quarter of the data is spread thinly over a wide range; it says nothing unusual about any single value. Outliers, when a plot marks them, are drawn as separate points beyond the whisker.</p>
+      <p><span class="term-label">Step 1: read the quartiles off the box.</span> The box runs from `Q_1` = ' . $q1 . ' to `Q_3` = ' . $q3 . ', so `"IQR" = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '. Only the two box edges matter here; the whiskers and the median play no part in the fences.</p>
+      <p><span class="term-label">Step 2: build the fences.</span> Reach out `1.5 xx "IQR" = 1.5 xx ' . $iqr . ' = ' . $reach . '` from each edge. Upper fence `= Q_3 + ' . $reach . ' = ' . $q3 . ' + ' . $reach . ' = ` <b>' . $upFence . '</b>; lower fence `= Q_1 - ' . $reach . ' = ' . $lowFence . '`. The fences are not drawn on the plot: they are computed from it, which is why this cannot be answered by looking alone.</p>
+      <p><span class="term-label">Step 3: test the new value.</span> The new reading is ' . $newVal . ' ' . $unitWord . '. ' . $verdictText . '</p>
+      <p><span class="term-label">Step 4: a long whisker is not an outlier.</span> A whisker stops at the most extreme value that is still <i>inside</i> the fences. So a long whisker says that quarter of the data is spread thinly over a wide range; it says nothing unusual about any single value. Outliers, when a plot marks them, are drawn as separate points beyond the whisker.</p>
       <p><b>Answer:</b> (a) ' . $iqr . ' &nbsp;&nbsp; (b) ' . $upFence . '</p>
     </div>
   </details>

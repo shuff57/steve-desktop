@@ -57,8 +57,8 @@ $solutionguide = '
       <p>' . $instructor . ' wants the mean number of days absent for the ' . $subject . ' students at ' . $college . '. That whole group is the population.</p>
       <div class="term-row"><span class="term-label">Population:</span> ' . $correcttext . '</div>
       <p style="margin-top:1em;"><b>Why the others are wrong:</b></p>
-      <div class="term-row"><span class="term-label">' . $broadtext . ':</span> too broad &mdash; the study is about ' . $subject . ' students, not every student on campus.</div>
-      <div class="term-row"><span class="term-label">' . $wrongsubjtext . ':</span> wrong subject &mdash; these students are not the group under study.</div>
+      <div class="term-row"><span class="term-label">' . $broadtext . ':</span> too broad: the study is about ' . $subject . ' students, not every student on campus.</div>
+      <div class="term-row"><span class="term-label">' . $wrongsubjtext . ':</span> wrong subject: these students are not the group under study.</div>
       <div class="term-row"><span class="term-label">' . $ownclasses . ':</span> this is a <b>sample</b>, not the population. A sample is a subset selected so that studying it gives information about the whole population.</div>
     </div>
   </details>

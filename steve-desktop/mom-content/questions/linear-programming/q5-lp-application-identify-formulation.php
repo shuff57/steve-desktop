@@ -52,10 +52,10 @@ $p2 = randfrom(array(6, 8, 10))
 $Zopt = $p1*$x1opt + $p2*$x2opt
 
 // === Answer setup ===
-// Part (a): objective function -- choices, correct is Z = p1*x1 + p2*x2
-// Part (b): labor constraint -- choices, correct is L1*x1 + L2*x2 <= H
-// Part (c): material constraint -- choices, correct is M1*x1 + M2*x2 <= F
-// Part (d): non-negativity -- choices
+// Part (a): objective function: choices, correct is Z = p1*x1 + p2*x2
+// Part (b): labor constraint: choices, correct is L1*x1 + L2*x2 <= H
+// Part (c): material constraint: choices, correct is M1*x1 + M2*x2 <= F
+// Part (d): non-negativity: choices
 // Part (e): Z at optimal corner (number)
 
 $anstypes = array("choices", "choices", "choices", "choices", "number")

@@ -11,14 +11,14 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("The FDA reviews a new drug. The null hypothesis is `H_0`: the drug is unsafe; the alternative is `H_a`: the drug is safe. Approving a drug that is actually unsafe is a Type I error; rejecting a drug that is actually safe is a Type II error.",
-        "The Type I error &mdash; approving an unsafe drug puts patients at risk.",
-        "The Type I error &mdash; approving an unsafe drug puts patients at risk."),
+        "The Type I error: approving an unsafe drug puts patients at risk.",
+        "The Type I error: approving an unsafe drug puts patients at risk."),
   array("Doctors must decide whether to operate. The null hypothesis is `H_0`: the procedure will go well; the alternative is `H_a`: the procedure will not go well. Declining an operation that would have gone well is a Type I error; performing an operation that goes badly is a Type II error.",
-        "The Type II error &mdash; the patient gets a procedure that goes badly.",
-        "The Type II error &mdash; the patient gets a procedure that goes badly."),
+        "The Type II error: the patient gets a procedure that goes badly.",
+        "The Type II error: the patient gets a procedure that goes badly."),
   array("A smoke-detection system makes a decision each minute. The null hypothesis is `H_0`: there is NO fire; the alternative is `H_a`: there IS a fire. Sounding the alarm with no fire is a Type I error; staying silent during a real fire is a Type II error.",
-        "The Type II error &mdash; the alarm staying silent during a real fire.",
-        "The Type II error &mdash; the alarm staying silent during a real fire.")
+        "The Type II error: the alarm staying silent during a real fire.",
+        "The Type II error: the alarm staying silent during a real fire.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -28,8 +28,8 @@ $reason = $cases[$i][2]
 
 $questions[0] = array(
   $heavier,
-  "The other error &mdash; it is the one that costs more in this scenario.",
-  "Neither &mdash; both errors are equally bad in every scenario."
+  "The other error: it is the one that costs more in this scenario.",
+  "Neither: both errors are equally bad in every scenario."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the heavier consequence.</span> ' . $heavier . '</p>
-      <p><span class="term-label">Part (b) &mdash; the reason.</span> ' . $reason . '</p>
-      <p>The judgment behind every significance level is which mistake you can least afford. A Type I error is the alarm going off while you make toast; a Type II error is the alarm staying silent during a real fire &mdash; and they are not equally bad.</p>
+      <p><span class="term-label">Part (a): the heavier consequence.</span> ' . $heavier . '</p>
+      <p><span class="term-label">Part (b): the reason.</span> ' . $reason . '</p>
+      <p>The judgment behind every significance level is which mistake you can least afford. A Type I error is the alarm going off while you make toast; a Type II error is the alarm staying silent during a real fire: and they are not equally bad.</p>
     </div>
   </details>
 </div>'

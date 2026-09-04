@@ -13,7 +13,7 @@ $area = $areas[rand(0, count($areas)-1)]
 $sizes = array(150, 250, 300, 450, 600, 750)
 $n = $sizes[rand(0, count($sizes)-1)]
 
-// The six terms stay in teaching order — population before sample, parameter before statistic.
+// The six terms stay in teaching order: population before sample, parameter before statistic.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
 // One description per term in the same order, then two distractors aimed at the two mistakes this
@@ -59,17 +59,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group the study is about.</b> The firm wants to know about the people it could sell the ' . $product . ' to, so everyone in the targeted ' . $area . ' is the population. The ' . $n . ' of them who were actually surveyed are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> people in the ' . $area . ' is a population number (parameter); the proportion computed from the ' . $n . ' surveyed people is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at &mdash; that is the whole trick.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What gets recorded about one person is the variable; the recorded responses are the data.</p>
+      <p><b>Step 1: Name the group the study is about.</b> The firm wants to know about the people it could sell the ' . $product . ' to, so everyone in the targeted ' . $area . ' is the population. The ' . $n . ' of them who were actually surveyed are the sample.</p>
+      <p><b>Step 2: Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> people in the ' . $area . ' is a population number (parameter); the proportion computed from the ' . $n . ' surveyed people is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at: that is the whole trick.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What gets recorded about one person is the variable; the recorded responses are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all people in the targeted ' . $area . ' (the potential buyers of the new ' . $product . ')</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' people in the ' . $area . ' who were actually surveyed</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the proportion of <em>all</em> people in the ' . $area . ' who will buy the new ' . $product . '</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the proportion of the ' . $n . ' <em>surveyed</em> people who will buy the new ' . $product . '</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = whether one person buys the new ' . $product . '</div>
       <div class="term-row"><span class="term-label">Data:</span> buy, not buy</div>
-      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> of surveyed people who said they would buy is a count, not a proportion &mdash; the study set out to estimate a proportion, so the statistic has to be one. <b>The mean amount of money one shopper spends per visit</b> is an average of dollars, a measurement this survey never took; it belongs to a different study altogether.</div>
-      <div class="sol-note">Notice the variable is <b>categorical</b> &mdash; each person either buys or does not &mdash; so averaging the responses would make no sense. That is why this study reports a proportion rather than a mean.</div>
+      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> of surveyed people who said they would buy is a count, not a proportion: the study set out to estimate a proportion, so the statistic has to be one. <b>The mean amount of money one shopper spends per visit</b> is an average of dollars, a measurement this survey never took; it belongs to a different study altogether.</div>
+      <div class="sol-note">Notice the variable is <b>categorical</b>, each person either buys or does not, so averaging the responses would make no sense. That is why this study reports a proportion rather than a mean.</div>
     </div>
   </details>
 </div>'

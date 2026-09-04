@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // The pre-FRQ for 2.3. There is no FRQ in questions/frq/ covering measures of location, so the
-// scenario and checklist here are ORIGINAL rather than mirrored -- they define the shape a later
+// scenario and checklist here are ORIGINAL rather than mirrored: they define the shape a later
 // 2.3 FRQ should match. See reference/pre-frq-template.md.
 //
 // The dropped category is STATE WHAT THE PERCENTILE MEANS. Students find the value at the percentile
@@ -14,7 +14,7 @@
 //
 // Every sentence below is CATEGORY-PURE: it earns its own rubric line and no other. In particular
 // the direction sentence talks about which END of the scale is desirable, never about how much of
-// the data sits below -- that would leak the meaning category back in.
+// the data sits below: that would leak the meaning category back in.
 $anstypes = array("choices", "multans", "choices")
 
 $i = rand(0, 2)
@@ -33,7 +33,7 @@ $role_labels = array("charge nurse", "shift manager", "support supervisor")
 $role = $role_labels[$i]
 
 // Twenty ordered values built from a strictly increasing base, so the k-th smallest is unambiguous
-// and the percentile position is never a judgement call. Disjoint steps, deliberately -- an
+// and the percentile position is never a judgement call. Disjoint steps, deliberately: an
 // overlapping generator can print an out-of-order list and misreport the value at the percentile.
 $base = rand(8, 12)
 $step = rand(2, 3)
@@ -54,7 +54,7 @@ $sLocate = 'With 20 values in order, the ' . $p . 'th percentile falls at the ' 
 // No article before an interpolated noun: "a order" and "a caller" cannot both be right, and the
 // sentence does not need one. Rendered as "a order" before this was reworded.
 $sMeaning = 'Being at the ' . $p . 'th percentile means ' . $below . '% of the twenty values are at or below ' . $valAtP . ' minutes, and the other ' . $above . '% are longer.'
-$sDirection = 'On this scale a longer time is worse, so scoring high here is bad news &mdash; the same percentile on an exam score would be good news, and the number alone does not tell you which.'
+$sDirection = 'On this scale a longer time is worse, so scoring high here is bad news: the same percentile on an exam score would be good news, and the number alone does not tell you which.'
 
 $rFull = $sLocate . ' ' . $sMeaning . ' ' . $sDirection
 $rNoMeaning = $sLocate . ' ' . $sDirection
@@ -175,15 +175,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> finds the value, says what the percentile means, and says which direction is the good one on this scale. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> finds the value, says what the percentile means, and says which direction is the good one on this scale. Each of the other three drops a whole category.</p>
       <p><span class="term-label">The position.</span> Twenty values in order, so the ' . $p . 'th percentile sits at the ' . $rank . 'th of them: <b>' . $valAtP . ' minutes</b>. Sixteen of the twenty are at or below it and four are above.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noMeaningLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noMeaningLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Locate the Value &mdash; earned.</b> It counts to the ' . $rank . 'th value and reports ' . $valAtP . ' minutes.</li>
-        <li><b>State What the Percentile Means &mdash; NOT earned.</b> It never says that ' . $below . '% of the values are at or below ' . $valAtP . '. This is the only category it misses.</li>
-        <li><b>Direction in Context &mdash; earned.</b> It says a longer time is the worse end of this scale.</li>
+        <li><b>Locate the Value: earned.</b> It counts to the ' . $rank . 'th value and reports ' . $valAtP . ' minutes.</li>
+        <li><b>State What the Percentile Means: NOT earned.</b> It never says that ' . $below . '% of the values are at or below ' . $valAtP . '. This is the only category it misses.</li>
+        <li><b>Direction in Context: earned.</b> It says a longer time is the worse end of this scale.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the meaning is its own category.</span> A percentile is not a score and it is not a rank out of a hundred. It is a statement about <i>share</i>: ' . $below . '% of these ' . $who . 's came in at or under ' . $valAtP . ' minutes. Without that sentence the reader has a number and a verdict and no idea what the number counts &mdash; which is exactly how "' . $p . 'th percentile" gets read as "' . $p . '% correct".</p>
+      <p><span class="term-label">Part (c): why the meaning is its own category.</span> A percentile is not a score and it is not a rank out of a hundred. It is a statement about <i>share</i>: ' . $below . '% of these ' . $who . 's came in at or under ' . $valAtP . ' minutes. Without that sentence the reader has a number and a verdict and no idea what the number counts: which is exactly how "' . $p . 'th percentile" gets read as "' . $p . '% correct".</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The meaning is the category most often missing, because the definition feels too obvious to write down once you have found the number.</p>
     </div>
   </details>

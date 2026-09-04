@@ -17,7 +17,7 @@
 // drops the sum-to-1 check. Not reused from an earlier assignment: 2.3 Percentile, 2.4 Contextual
 // Interpretation, 2.5 Outlier Impact, 2.6 Further Investigation, 2.7 Practical Conclusion, 3.1
 // Sample Space, 3.2 Distinguish the Two, 3.3 Second Factor, 3.4 State the Direction, 3.5 Draw the
-// Structure, 4.1 State the Values -- none is this.
+// Structure, 4.1 State the Values: none is this.
 //
 // CATEGORY PURITY: $sCheck states the probabilities and their sum and nothing else; $sCompute
 // shows the arithmetic (products, not a pairing or a sum check) and nothing else; $sDecision
@@ -94,7 +94,7 @@ $answer[1] = "1,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The arithmetic and the decision can both be right while the probabilities were never checked, so nothing catches a table whose probabilities do not sum to 1 — the sum check has to be judged on its own.",
+  "No. The arithmetic and the decision can both be right while the probabilities were never checked, so nothing catches a table whose probabilities do not sum to 1: the sum check has to be judged on its own.",
   "Yes. Once `E(X)` is computed correctly, the probabilities are implied by the arithmetic, so there is nothing separate to award.",
   "No, but only because the calculation is the hard part.",
   "Yes, as long as the decision matches the sign of `E(X)`, the setup does not matter."
@@ -169,15 +169,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> checks that the probabilities sum to 1, shows the `E(X)` arithmetic, and gives the decision with the long-run reading. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> checks that the probabilities sum to 1, shows the `E(X)` arithmetic, and gives the decision with the long-run reading. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sC . ' ' . $sM . ' So ' . $sD . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noCheckLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noCheckLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Verify the Probabilities Sum to 1 &mdash; NOT earned.</b> The arithmetic uses the probabilities, but nowhere does the response check that they add to exactly 1, so nothing shows the table is legitimate.</li>
-        <li><b>Compute Expected Value &mdash; earned.</b> The step-by-step calculation is present and correct.</li>
-        <li><b>Decision and Interpretation &mdash; earned.</b> The verdict follows from the sign of `E(X)` and reads it as a long-run average.</li>
+        <li><b>Verify the Probabilities Sum to 1: NOT earned.</b> The arithmetic uses the probabilities, but nowhere does the response check that they add to exactly 1, so nothing shows the table is legitimate.</li>
+        <li><b>Compute Expected Value: earned.</b> The step-by-step calculation is present and correct.</li>
+        <li><b>Decision and Interpretation: earned.</b> The verdict follows from the sign of `E(X)` and reads it as a long-run average.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the sum check is its own category.</span> A table whose probabilities do not sum to 1 is not a distribution at all, and a student can compute `E(X)` from it without ever noticing. Stating the sum is what makes the table auditable &mdash; the section\'s habit: "always check that the P(x) column sums to 1; if it does not, either a probability is missing or one is wrong."</p>
+      <p><span class="term-label">Part (c): why the sum check is its own category.</span> A table whose probabilities do not sum to 1 is not a distribution at all, and a student can compute `E(X)` from it without ever noticing. Stating the sum is what makes the table auditable: the section\'s habit: "always check that the P(x) column sums to 1; if it does not, either a probability is missing or one is wrong."</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The sum check is the category most often skipped, because once the numbers are in the formula the setup feels like busywork.</p>
     </div>
   </details>

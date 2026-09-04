@@ -10,7 +10,7 @@ $anstypes = array("numfunc", "numfunc", "numfunc", "choices")
 // Build so marginal P(Train) and conditional P(Train|OnTime) differ noticeably, confirming dependence.
 $total = 200
 
-// Cell (Train, On Time) — favorable cell for joint and conditional.
+// Cell (Train, On Time): favorable cell for joint and conditional.
 $a = rand(55, 75)    // Train AND On Time
 $b = rand(15, 30)    // Train AND Late
 $c = rand(40, 60)    // Other AND On Time
@@ -22,7 +22,7 @@ $ontime  = $a + $c           // On Time column total
 $late    = $b + $d           // Late column total
 
 // Probabilities
-$pTrain        = $train  / $total          // P(Train) — marginal
+$pTrain        = $train  / $total          // P(Train): marginal
 $pJoint        = $a      / $total          // P(Train AND On Time)
 $pCondOnTime   = $a      / $ontime         // P(Train | On Time)
 

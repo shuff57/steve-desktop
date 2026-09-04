@@ -28,7 +28,7 @@ $outcome = $outcomes[$i];
 // Narrative variables for the model answer
 $r_single = "a single proportion test checks whether one group's proportion matches a specific known or claimed value";
 $r_two = "a two-proportion test compares the proportions of two separate groups to each other to see if they differ";
-$r_example = "comparing the $outcome between $group1 and $group2 requires a two-proportion test because there are two independent groups, and we want to know if there is a difference between them -- not whether either one matches some fixed number";
+$r_example = "comparing the $outcome between $group1 and $group2 requires a two-proportion test because there are two independent groups, and we want to know if there is a difference between them: not whether either one matches some fixed number";
 
 $sample_narrative = "The main difference is that <b>$r_single</b>, while <b>$r_two</b>. For example, suppose $topic. This would involve <b>$r_example</b>. There is no single claimed value here. The whole point is to compare two groups head to head.";
 
@@ -150,7 +150,7 @@ $rubricanswerbutton = $css_block . '
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Provide a real-world example that involves two distinct groups.
-                    <span class="ideal-ans">Target: "Comparing the '.$outcome.' between '.$group1.' and '.$group2.' -- two independent groups whose proportions we want to compare."</span></li>
+                    <span class="ideal-ans">Target: "Comparing the '.$outcome.' between '.$group1.' and '.$group2.': two independent groups whose proportions we want to compare."</span></li>
                 <li>Explain why the example requires comparing two groups rather than testing just one.
                     <span class="ideal-ans">Target: "There is no single claimed value to test against. The research question is about whether the two groups differ from each other, which is fundamentally a two-group comparison."</span></li>
               </ul>

@@ -31,7 +31,7 @@ else {
 $labels = array($b0, $b1, $b2, $b3, $b4)
 
 // Counts are even so every bar top lands on a gridline and the value read off is exact. They are
-// drawn from five non-overlapping bands so no two categories can tie -- five independent draws
+// drawn from five non-overlapping bands so no two categories can tie: five independent draws
 // tie often, and a tie makes "how many more than" have the answer 0, which is not a question.
 // A rotation then scatters the bands across the categories so the bars are not left in order.
 $band = array(0, 0, 0, 0, 0)
@@ -133,10 +133,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read one bar.</span> Follow the top of the <b>' . $askLabel . '</b> bar straight across to the axis. It sits on <b>' . $askCount . '</b>. Every bar top here lands on a gridline, so nothing has to be estimated.</p>
-      <p><span class="term-label">Step 2 &mdash; compare two bars by subtracting.</span> ' . $hiLabel . ' has ' . $cts[$hi] . ' and ' . $loLabel . ' has ' . $cts[$lo] . ', so ' . $hiLabel . ' has ' . $cts[$hi] . ' &minus; ' . $cts[$lo] . ' = <b>' . $diff . '</b> more. Subtract the counts; do not compare the heights by eye, and do not divide unless you were asked how many <i>times</i> as many.</p>
-      <p><span class="term-label">Step 3 &mdash; total the graph.</span> ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' + ' . $cts[4] . ' = <b>' . $n . '</b> ' . $unitWord . '. This only works because each ' . $unitOne . ' was counted in exactly one category &mdash; if people could appear in two, the bars would overlap and the total would double-count.</p>
-      <p><span class="term-label">Step 4 &mdash; why the gaps.</span> The categories are names, not numbers. Nothing lies "between" two of them, so the axis is not a number line and the bars are kept apart to say so. A histogram, whose axis <i>is</i> a number line, has its bars touching for exactly the same reason in reverse.</p>
+      <p><span class="term-label">Step 1: read one bar.</span> Follow the top of the <b>' . $askLabel . '</b> bar straight across to the axis. It sits on <b>' . $askCount . '</b>. Every bar top here lands on a gridline, so nothing has to be estimated.</p>
+      <p><span class="term-label">Step 2: compare two bars by subtracting.</span> ' . $hiLabel . ' has ' . $cts[$hi] . ' and ' . $loLabel . ' has ' . $cts[$lo] . ', so ' . $hiLabel . ' has ' . $cts[$hi] . ' &minus; ' . $cts[$lo] . ' = <b>' . $diff . '</b> more. Subtract the counts; do not compare the heights by eye, and do not divide unless you were asked how many <i>times</i> as many.</p>
+      <p><span class="term-label">Step 3: total the graph.</span> ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' + ' . $cts[4] . ' = <b>' . $n . '</b> ' . $unitWord . '. This only works because each ' . $unitOne . ' was counted in exactly one category: if people could appear in two, the bars would overlap and the total would double-count.</p>
+      <p><span class="term-label">Step 4: why the gaps.</span> The categories are names, not numbers. Nothing lies "between" two of them, so the axis is not a number line and the bars are kept apart to say so. A histogram, whose axis <i>is</i> a number line, has its bars touching for exactly the same reason in reverse.</p>
       <p><b>Answer:</b> (a) ' . $askCount . ' &nbsp;&nbsp; (b) ' . $diff . ' &nbsp;&nbsp; (c) ' . $n . '</p>
     </div>
   </details>

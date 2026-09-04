@@ -36,7 +36,7 @@ $solutionguide = '
       <p><span class="term-label">The dataset.</span> 30 groups each ran the experiment once: 2 groups got 0 diamonds, 5 got 1, 9 got 2, 7 got 3, 4 got 4, 2 got 5, 1 got 6. The counts sum to 30.</p>
       <p><span class="term-label">Part (a).</span> `RF(x = 2) = 9/30 = 0.3000`</p>
       <p><span class="term-label">Part (b).</span> `RF(x = 3) = 7/30 ~= 0.2333`</p>
-      <p>Relative frequency is an empirical quantity — it is measured, not derived, and it changes every time you rerun the experiment. The RF column must sum to 1.0000; if it does not, you have either lost a repetition or divided by the wrong total.</p>
+      <p>Relative frequency is an empirical quantity: it is measured, not derived, and it changes every time you rerun the experiment. The RF column must sum to 1.0000; if it does not, you have either lost a repetition or divided by the wrong total.</p>
     </div>
   </details>
 </div>'

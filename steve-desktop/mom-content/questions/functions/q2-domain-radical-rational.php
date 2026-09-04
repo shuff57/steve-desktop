@@ -29,9 +29,9 @@ $pb = randfrom($pb_opts)
 $pc = randfrom($pc_opts)
 
 /* ---------- 2. Answer types ---------- */
-// Part (a): choices select -- "all real numbers" is option index 0
-// Part (b): number -- the excluded value k_rat
-// Part (c): number -- the lower bound k_rad
+// Part (a): choices select: "all real numbers" is option index 0
+// Part (b): number: the excluded value k_rat
+// Part (c): number: the lower bound k_rad
 
 // choices for part (a): index 0 = correct
 $choices[0] = array("all real numbers", "x >= 0", "x > 0", "x != 0")

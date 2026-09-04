@@ -35,9 +35,9 @@ $answer[0] = $pOne
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "Yes &mdash; `H_a` carries `!=`, so the p-value collects area in both tails and is twice the one-tailed area.",
-  "No &mdash; `H_a` points one way, so the p-value is the single tail beyond the test statistic.",
-  "No &mdash; the p-value is always the area to the left of the test statistic."
+  "Yes: `H_a` carries `!=`, so the p-value collects area in both tails and is twice the one-tailed area.",
+  "No: `H_a` points one way, so the p-value is the single tail beyond the test statistic.",
+  "No: the p-value is always the area to the left of the test statistic."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -61,8 +61,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the p-value.</span> ' . ($tail == "left" ? "The alternative is `mu < 7`, so this is a left-tailed test and the p-value is the area to the left of z = " . $z . ": P(Z < " . $z . ") = " . round($pOne, 4) . "." : ($tail == "right" ? "The alternative is `mu > 3`, so this is a right-tailed test and the p-value is the area to the right of z = " . $z . ": P(Z > " . $z . ") = " . round($pOne, 4) . "." : "The alternative is `p != 0.423`, so this is a two-tailed test and the p-value is twice the area in the upper tail: 2 * P(Z > " . $z . ") = " . round($pOne, 4) . ".")) . '</p>
-      <p><span class="term-label">Part (b) &mdash; doubled or not.</span> ' . ($tail == "two" ? "Yes &mdash; `!=` picks no direction, so the p-value collects area in both tails and is twice the one-tailed area. That is why the same data is harder to call significant when the question is posed that way." : "No &mdash; the alternative points one way, so the p-value is the single tail beyond the test statistic.") . '</p>
+      <p><span class="term-label">Part (a): the p-value.</span> ' . ($tail == "left" ? "The alternative is `mu < 7`, so this is a left-tailed test and the p-value is the area to the left of z = " . $z . ": P(Z < " . $z . ") = " . round($pOne, 4) . "." : ($tail == "right" ? "The alternative is `mu > 3`, so this is a right-tailed test and the p-value is the area to the right of z = " . $z . ": P(Z > " . $z . ") = " . round($pOne, 4) . "." : "The alternative is `p != 0.423`, so this is a two-tailed test and the p-value is twice the area in the upper tail: 2 * P(Z > " . $z . ") = " . round($pOne, 4) . ".")) . '</p>
+      <p><span class="term-label">Part (b): doubled or not.</span> ' . ($tail == "two" ? "Yes: `!=` picks no direction, so the p-value collects area in both tails and is twice the one-tailed area. That is why the same data is harder to call significant when the question is posed that way." : "No: the alternative points one way, so the p-value is the single tail beyond the test statistic.") . '</p>
     </div>
   </details>
 </div>'

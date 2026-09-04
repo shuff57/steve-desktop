@@ -52,10 +52,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; Television Survey.</span> The claim on trial is the national average of 4 hours; the question asks whether students are lower. `H_0: mu = 4` and `H_a: mu < 4`.</p>
-      <p><span class="term-label">Part (b) &mdash; Language Survey.</span> "Different from" is two-sided: `H_0: p = 0.423` and `H_a: p != 0.423`.</p>
-      <p><span class="term-label">Part (c) &mdash; Jeans Survey.</span> "Higher than three" is one-sided to the right: `H_0: mu = 3` and `H_a: mu > 3`.</p>
-      <p>The null hypothesis is the claim on trial, not the one you want &mdash; your guess goes in `H_a`, the null gets the benefit of the doubt, and your data has to be surprising enough under that assumption to overturn it.</p>
+      <p><span class="term-label">Part (a): Television Survey.</span> The claim on trial is the national average of 4 hours; the question asks whether students are lower. `H_0: mu = 4` and `H_a: mu < 4`.</p>
+      <p><span class="term-label">Part (b): Language Survey.</span> "Different from" is two-sided: `H_0: p = 0.423` and `H_a: p != 0.423`.</p>
+      <p><span class="term-label">Part (c): Jeans Survey.</span> "Higher than three" is one-sided to the right: `H_0: mu = 3` and `H_a: mu > 3`.</p>
+      <p>The null hypothesis is the claim on trial, not the one you want: your guess goes in `H_a`, the null gets the benefit of the doubt, and your data has to be surprising enough under that assumption to overturn it.</p>
     </div>
   </details>
 </div>'

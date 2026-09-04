@@ -37,10 +37,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the median.</span> A normal curve is symmetric about its mean, so the median is the mean: `129.42` seconds.</p>
-      <p><span class="term-label">Part (b) &mdash; Q1.</span> The 25th percentile sits at `z = -0.6745`:</p>
+      <p><span class="term-label">Part (a): the median.</span> A normal curve is symmetric about its mean, so the median is the mean: `129.42` seconds.</p>
+      <p><span class="term-label">Part (b): Q1.</span> The 25th percentile sits at `z = -0.6745`:</p>
       <p>`Q1 = 129.4167 - 0.6745(2.5207) = 129.4167 - 1.7002 ~= 127.72`</p>
-      <p><span class="term-label">Part (c) &mdash; Q3.</span> The 75th percentile sits at `z = +0.6745`:</p>
+      <p><span class="term-label">Part (c): Q3.</span> The 75th percentile sits at `z = +0.6745`:</p>
       <p>`Q3 = 129.4167 + 0.6745(2.5207) = 129.4167 + 1.7002 ~= 131.12`</p>
       <p>Every answer comes out of `N(mu, sigma)` and a z-score, which means you could answer them for a lap the racer has not run yet.</p>
     </div>

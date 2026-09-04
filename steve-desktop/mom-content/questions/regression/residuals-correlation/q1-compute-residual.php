@@ -32,9 +32,9 @@ if ($residual > 0) {
   $answer[1] = 2
 }
 $questions[1] = array(
-  "The model underpredicted — the actual value was higher than predicted.",
-  "The model overpredicted — the actual value was lower than predicted.",
-  "The model predicted exactly — there is no error."
+  "The model underpredicted: the actual value was higher than predicted.",
+  "The model overpredicted: the actual value was lower than predicted.",
+  "The model predicted exactly: there is no error."
 )
 
 $solutionguide = '
@@ -59,7 +59,7 @@ $solutionguide = '
       <p><b>Step 2:</b> Compute the residual:</p>
       <p>`"residual" = y - hat{y} = ' . $yobs . ' - ' . $yhat . ' = ' . $residual . '`</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        <b>Interpretation:</b> ' . ($residual > 0 ? 'The residual is positive, so the model <b>underpredicted</b> — the actual value was ' . abs($residual) . ' ' . explode(" (", $yunit)[0] . ' higher than predicted.' : ($residual < 0 ? 'The residual is negative, so the model <b>overpredicted</b> — the actual value was ' . abs($residual) . ' ' . explode(" (", $yunit)[0] . ' lower than predicted.' : 'The residual is zero — a perfect prediction!')) . '
+        <b>Interpretation:</b> ' . ($residual > 0 ? 'The residual is positive, so the model <b>underpredicted</b>: the actual value was ' . abs($residual) . ' ' . explode(" (", $yunit)[0] . ' higher than predicted.' : ($residual < 0 ? 'The residual is negative, so the model <b>overpredicted</b>: the actual value was ' . abs($residual) . ' ' . explode(" (", $yunit)[0] . ' lower than predicted.' : 'The residual is zero: a perfect prediction!')) . '
       </div>
     </div>
   </details>

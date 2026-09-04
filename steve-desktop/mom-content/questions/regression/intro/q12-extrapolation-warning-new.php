@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Extrapolation Warning — new context, predict outside range ===
+// === NAME - DESCRIPTION: Extrapolation Warning: new context, predict outside range ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -28,7 +28,7 @@ $answer[0] = $ypred
 $reltolerance[0] = 0.01
 
 $answer[1] = 1
-$choices[1] = array("Yes — the regression model will give an accurate prediction.", "No — this prediction is not reliable.")
+$choices[1] = array("Yes: the regression model will give an accurate prediction.", "No: this prediction is not reliable.")
 $noshuffle[1] = "all"
 
 $answer[2] = 0
@@ -56,8 +56,8 @@ $solutionguide = '
     <div class="sol-body">
       <p><b>Part a:</b> Substituting `x = ' . $xpred . '`:</p>
       <p>`hat{y} = ' . $b0 . ' ' . $b1disp . '(' . $xpred . ') = ' . $ypred . '`</p>
-      <p><b>Part b:</b> <b>No</b> — this prediction is not reliable.</p>
-      <p><b>Part c:</b> The data used to fit the model ranged from ' . $xmin . ' to ' . $xmax . ' ' . $xname . '. Predicting at ' . $xpred . ' is <b>extrapolation</b> — applying the model well beyond the range of observed data. The relationship may not remain linear outside that range.</p>
+      <p><b>Part b:</b> <b>No</b>: this prediction is not reliable.</p>
+      <p><b>Part c:</b> The data used to fit the model ranged from ' . $xmin . ' to ' . $xmax . ' ' . $xname . '. Predicting at ' . $xpred . ' is <b>extrapolation</b>: applying the model well beyond the range of observed data. The relationship may not remain linear outside that range.</p>
       <div style="margin:10px 0;padding:0.6em 1em;background:#fff3cd;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;">
         <b>Key idea:</b> A regression model is only trustworthy within (or close to) the range of x values used to build it. Extrapolation can produce nonsensical predictions.
       </div>

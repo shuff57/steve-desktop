@@ -41,7 +41,7 @@ $solutionguide = '
       <p>Here `X` is the number of days <em>one</em> ' . $subject . ' student at ' . $college . ' is absent during the ' . $period . '. That is a measurement made on each member of the group, so `X` is a variable.</p>
       <div class="term-row"><span class="term-label">Answer:</span> A variable</div>
       <p style="margin-top:1em;"><b>Why the others are wrong:</b></p>
-      <div class="term-row"><span class="term-label">A population:</span> the population is the <em>group</em> itself &mdash; all ' . $subject . ' students at ' . $college . ' &mdash; not the measurement taken on them.</div>
+      <div class="term-row"><span class="term-label">A population:</span> the population is the <em>group</em> itself: all ' . $subject . ' students at ' . $college . ': not the measurement taken on them.</div>
       <div class="term-row"><span class="term-label">A statistic:</span> a statistic is a single summary number computed from a sample, such as the mean number of days absent for the students surveyed. `X` is not a summary number.</div>
       <div class="term-row"><span class="term-label">Data:</span> the data are the recorded <em>values</em> of `X`, such as 0, 3, and 7 days. The variable is the characteristic; the data are what it turns out to be.</div>
     </div>

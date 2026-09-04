@@ -6,7 +6,7 @@
 $anstypes = array("number", "number", "number", "number", "number", "number", "number")
 
 // The wheel is fixed, so randomization rotates WHICH bet lands in which part. Every student
-// answers all seven bets, but part (a) is a different bet — and a different number — each time.
+// answers all seven bets, but part (a) is a different bet, and a different number, each time.
 // Rotation by a random offset rather than a shuffle: shuffle() is rejected by the parser.
 $bi = rand(0, 6)
 
@@ -70,7 +70,7 @@ $a6 = $answer[6]
 
 $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>Every bet is the same computation: count the pockets it covers, then divide by 38.</b> The pockets are equally likely, so a bet covering `k` of them wins with probability `k/38`. Nothing here needs the multiplication or addition rule &mdash; the whole exercise is careful counting.</p>
+  <p><b>Every bet is the same computation: count the pockets it covers, then divide by 38.</b> The pockets are equally likely, so a bet covering `k` of them wins with probability `k/38`. Nothing here needs the multiplication or addition rule: the whole exercise is careful counting.</p>
   <table style="border-collapse:collapse; margin:12px 0; font-size:15px;">
     <tr style="background:#e8f0fe;">
       <th style="border:1px solid #c8d4ea; padding:7px 12px; text-align:left;">Bet</th>
@@ -85,8 +85,8 @@ $solutionguide = '
     <tr><td style="border:1px solid #d9dee8; padding:7px 12px;">f. ' . $n5 . '</td><td style="border:1px solid #d9dee8; padding:7px 12px; text-align:center;">' . $k5 . '</td><td style="border:1px solid #d9dee8; padding:7px 12px; text-align:center;">' . $k5 . '/38 &approx; <b>' . $a5 . '</b></td></tr>
     <tr><td style="border:1px solid #d9dee8; padding:7px 12px;">g. ' . $n6 . '</td><td style="border:1px solid #d9dee8; padding:7px 12px; text-align:center;">' . $k6 . '</td><td style="border:1px solid #d9dee8; padding:7px 12px; text-align:center;">' . $k6 . '/38 &approx; <b>' . $a6 . '</b></td></tr>
   </table>
-  <p><b>Two counting traps.</b> The top line covers <i>five</i> pockets, not four &mdash; 0 and 00 are two separate pockets. And a three-number bet containing a green pocket is still a three-pocket bet: green pockets count exactly like numbered ones, because every pocket is equally likely.</p>
-  <p><b>Notice the pattern.</b> The probability rises in exact proportion to how many pockets you cover, which is why the casino adjusts the <i>payout</i> rather than the odds to keep its edge. A single-number bet wins about 1 spin in 38 and pays 35 to 1 &mdash; the gap between 37 and 35 is the house.</p>
+  <p><b>Two counting traps.</b> The top line covers <i>five</i> pockets, not four: 0 and 00 are two separate pockets. And a three-number bet containing a green pocket is still a three-pocket bet: green pockets count exactly like numbered ones, because every pocket is equally likely.</p>
+  <p><b>Notice the pattern.</b> The probability rises in exact proportion to how many pockets you cover, which is why the casino adjusts the <i>payout</i> rather than the odds to keep its edge. A single-number bet wins about 1 spin in 38 and pays 35 to 1: the gap between 37 and 35 is the house.</p>
 </div>'
 
 // === QUESTION TEXT ===

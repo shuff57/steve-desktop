@@ -22,17 +22,17 @@ $clu3 = "Some groups contribute nobody to the sample."
 $str1 = "A proportionate number is taken at random from each group."
 $str2 = "Every group is represented in the sample."
 
-// Neighbouring methods &mdash; false for both target methods.
+// Neighbouring methods: false for both target methods.
 $nb = array("A random starting point is chosen and then every `k`th item on the list is taken.", "Members are chosen because they were the easiest to reach.", "Every group of the same size is equally likely to be selected.")
-$nbwhy = array("that is a <b>systematic</b> sample &mdash; one random start, then a fixed step down an ordered list", "that is a <b>convenience</b> sample &mdash; no chance process at all, just whoever was readily available", "that is what makes a sample a <b>simple random</b> sample &mdash; every possible group of the same size equally likely")
+$nbwhy = array("that is a <b>systematic</b> sample: one random start, then a fixed step down an ordered list", "that is a <b>convenience</b> sample: no chance process at all, just whoever was readily available", "that is what makes a sample a <b>simple random</b> sample: every possible group of the same size equally likely")
 
 // Two distinct neighbouring distractors, so the wrong options are not the same set twice.
 $n0 = rand(0, 2)
 $n1 = ($n0 + rand(1, 2)) % 3
 $nbA = $nb[$n0]
 $nbB = $nb[$n1]
-$wrongN1 = $nbA . ' &mdash; ' . $nbwhy[$n0] . '.'
-$wrongN2 = $nbB . ' &mdash; ' . $nbwhy[$n1] . '.'
+$wrongN1 = $nbA . ': ' . $nbwhy[$n0] . '.'
+$wrongN2 = $nbB . ': ' . $nbwhy[$n1] . '.'
 
 // Correct options first so the answer key is fixed; MOM shuffles the display order for the student.
 $method = "cluster" if ($t==0)
@@ -42,15 +42,15 @@ $answers = "0,1,2,3" if ($t==0)
 $questions = array($both1, $str1, $str2, $clu1, $clu2, $clu3, $nbA, $nbB) if ($t==1)
 $answers = "0,1,2" if ($t==1)
 
-// Precompute the solution pieces as scalars &mdash; the guide cannot index arrays.
+// Precompute the solution pieces as scalars: the guide cannot index arrays.
 $mdef = "divide the population into clusters (groups), randomly select some of the clusters, and take <i>all</i> the members of the selected clusters" if ($t==0)
 $mdef = "divide the population into groups called strata, then take a proportionate number at random from <i>every</i> stratum" if ($t==1)
 
 $truelist = '<div class="term-row">&bull; ' . $both1 . '</div><div class="term-row">&bull; ' . $clu1 . '</div><div class="term-row">&bull; ' . $clu2 . '</div><div class="term-row">&bull; ' . $clu3 . '</div>' if ($t==0)
 $truelist = '<div class="term-row">&bull; ' . $both1 . '</div><div class="term-row">&bull; ' . $str1 . '</div><div class="term-row">&bull; ' . $str2 . '</div>' if ($t==1)
 
-$otherlist = '<div class="term-row">&bull; ' . $str1 . ' &mdash; that is <b>stratifying</b>, which takes a share from every group instead of whole groups.</div><div class="term-row">&bull; ' . $str2 . ' &mdash; clustering leaves entire groups out, so not every group is represented.</div>' if ($t==0)
-$otherlist = '<div class="term-row">&bull; ' . $clu1 . ' &mdash; in a stratified sample no group is dropped, so the groups are not the thing being randomized.</div><div class="term-row">&bull; ' . $clu2 . ' &mdash; that is <b>clustering</b>, which scoops up whole groups.</div><div class="term-row">&bull; ' . $clu3 . ' &mdash; stratifying draws from every stratum, so no group is left out.</div>' if ($t==1)
+$otherlist = '<div class="term-row">&bull; ' . $str1 . ': that is <b>stratifying</b>, which takes a share from every group instead of whole groups.</div><div class="term-row">&bull; ' . $str2 . ': clustering leaves entire groups out, so not every group is represented.</div>' if ($t==0)
+$otherlist = '<div class="term-row">&bull; ' . $clu1 . ': in a stratified sample no group is dropped, so the groups are not the thing being randomized.</div><div class="term-row">&bull; ' . $clu2 . ': that is <b>clustering</b>, which scoops up whole groups.</div><div class="term-row">&bull; ' . $clu3 . ': stratifying draws from every stratum, so no group is left out.</div>' if ($t==1)
 
 $solutionguide = '
 <style>
@@ -72,7 +72,7 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><b>The definition:</b> to choose a <b>' . $method . '</b> sample, ' . $mdef . '.</p>
-      <p><b>Strata slice, clusters scoop.</b> Stratifying takes a little from every group, so every group is represented. Clustering takes everything from a few groups, so entire groups are left out. Both are random &mdash; they just randomize different things.</p>
+      <p><b>Strata slice, clusters scoop.</b> Stratifying takes a little from every group, so every group is represented. Clustering takes everything from a few groups, so entire groups are left out. Both are random: they just randomize different things.</p>
       <div class="term-row"><span class="term-label">True of a ' . $method . ' sample (check these):</span></div>
       ' . $truelist . '
       <p style="margin-top:1em;"><b>Why the other statements do not belong:</b></p>

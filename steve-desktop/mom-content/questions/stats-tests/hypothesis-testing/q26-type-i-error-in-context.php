@@ -12,19 +12,19 @@ $anstypes = array("choices", "choices")
 $cases = array(
   array("A medical test screens for a disease. The null hypothesis is `H_0`: the patient does NOT have the disease; the alternative is `H_a`: the patient HAS the disease.",
         "Conclude the patient has the disease when in fact the patient is healthy.",
-        "Reject `H_0` &mdash; a Type I error can only happen on a run where you rejected."),
+        "Reject `H_0`: a Type I error can only happen on a run where you rejected."),
   array("A quality-control team tests whether bolts coming off a production line have the target mean diameter. The null hypothesis is `H_0: mu = 10` mm; the alternative is `H_a: mu != 10` mm.",
         "Conclude the mean diameter differs from 10 mm when in fact it is 10 mm.",
-        "Reject `H_0` &mdash; a Type I error can only happen on a run where you rejected."),
+        "Reject `H_0`: a Type I error can only happen on a run where you rejected."),
   array("A smoke-detection system makes a decision each minute. The null hypothesis is `H_0`: there is NO fire; the alternative is `H_a`: there IS a fire.",
         "Sound the alarm when there is no fire.",
-        "Reject `H_0` &mdash; a Type I error can only happen on a run where you rejected."),
+        "Reject `H_0`: a Type I error can only happen on a run where you rejected."),
   array("A drug trial tests whether a new medication reduces blood pressure. The null hypothesis is `H_0`: the drug has no effect; the alternative is `H_a`: the drug lowers blood pressure.",
         "Conclude the drug works when in fact it has no effect.",
-        "Reject `H_0` &mdash; a Type I error can only happen on a run where you rejected."),
+        "Reject `H_0`: a Type I error can only happen on a run where you rejected."),
   array("An environmental study tests whether a river is contaminated. The null hypothesis is `H_0`: the water is safe; the alternative is `H_a`: the water is contaminated.",
         "Conclude the water is contaminated when in fact it is safe.",
-        "Reject `H_0` &mdash; a Type I error can only happen on a run where you rejected.")
+        "Reject `H_0`: a Type I error can only happen on a run where you rejected.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -42,8 +42,8 @@ $noshuffle[0] = "all"
 
 $questions[1] = array(
   $tied,
-  "Do not reject `H_0` &mdash; a Type I error can only happen on a run where you did not reject.",
-  "Either decision &mdash; the error is not tied to the decision."
+  "Do not reject `H_0`: a Type I error can only happen on a run where you did not reject.",
+  "Either decision: the error is not tied to the decision."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -66,8 +66,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the error in context.</span> The trick that never fails: write down what `H_0` says, then say out loud "I rejected it, and it was true." Here that is: ' . $type1 . '</p>
-      <p><span class="term-label">Part (b) &mdash; the decision it is tied to.</span> ' . $tied . ' A Type I error is a true null that got rejected anyway, and alpha is how often you allow it.</p>
+      <p><span class="term-label">Part (a): the error in context.</span> The trick that never fails: write down what `H_0` says, then say out loud "I rejected it, and it was true." Here that is: ' . $type1 . '</p>
+      <p><span class="term-label">Part (b): the decision it is tied to.</span> ' . $tied . ' A Type I error is a true null that got rejected anyway, and alpha is how often you allow it.</p>
     </div>
   </details>
 </div>'

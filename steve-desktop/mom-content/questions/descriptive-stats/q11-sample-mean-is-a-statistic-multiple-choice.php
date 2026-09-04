@@ -43,13 +43,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Ask where the number came from.</b> The value ' . $mean . ' days was computed from ' . $instructor . '\'s <em>sample</em> of ' . $n . ' students, not from every ' . $subject . ' student at ' . $college . '.</p>
-      <p><b>Step 2 &mdash; Match that to the vocabulary.</b> A number that represents a property of the sample is a <b>statistic</b>.</p>
+      <p><b>Step 1: Ask where the number came from.</b> The value ' . $mean . ' days was computed from ' . $instructor . '\'s <em>sample</em> of ' . $n . ' students, not from every ' . $subject . ' student at ' . $college . '.</p>
+      <p><b>Step 2: Match that to the vocabulary.</b> A number that represents a property of the sample is a <b>statistic</b>.</p>
       <div class="term-row"><span class="term-label">Answer:</span> A statistic</div>
       <p style="margin-top:1em;"><b>Why the others are wrong:</b></p>
       <div class="term-row"><span class="term-label">A parameter:</span> a parameter describes the whole population. If the same mean number of days absent had been computed over <em>all</em> ' . $subject . ' students at ' . $college . ', that number would be a parameter. The statistic ' . $mean . ' is an estimate of it.</div>
-      <div class="term-row"><span class="term-label">Data:</span> the data are the recorded absence counts themselves, such as 0, 3, and 7 days. One student\'s absence count is a datum &mdash; ' . $mean . ' is a summary of ' . $n . ' such values, not one of them.</div>
-      <div class="term-row"><span class="term-label">A variable:</span> the variable is the measurement itself &mdash; `X` = the number of days one student is absent &mdash; not the summary number computed from it.</div>
+      <div class="term-row"><span class="term-label">Data:</span> the data are the recorded absence counts themselves, such as 0, 3, and 7 days. One student\'s absence count is a datum: ' . $mean . ' is a summary of ' . $n . ' such values, not one of them.</div>
+      <div class="term-row"><span class="term-label">A variable:</span> the variable is the measurement itself, `X` = the number of days one student is absent, not the summary number computed from it.</div>
     </div>
   </details>
 </div>'

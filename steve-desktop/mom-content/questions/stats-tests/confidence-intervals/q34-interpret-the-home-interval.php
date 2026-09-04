@@ -27,8 +27,8 @@ $answer[1] = 0
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "It treats mu as a random quantity that might fall in a fixed range &mdash; mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false",
-  "It is too vague &mdash; it names no population and no quantity",
+  "It treats mu as a random quantity that might fall in a fixed range: mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false",
+  "It is too vague: it names no population and no quantity",
   "It is wrong because the interval is too wide"
 )
 $answer[2] = 0
@@ -52,9 +52,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the specific sentence.</span> A good specific sentence names all three: who was studied, what was averaged, and which two numbers came out. "We are 90% confident that the true mean sale price of all homes recently listed in Butte County lies between $377,702 and $442,298."</p>
-      <p><span class="term-label">Part (b) &mdash; the general sentence.</span> The general sentence goes wrong when it attaches the probability to the interval instead of to the procedure. Say instead that the METHOD captures the true mean 90% of the time: if every group in your class collects 35 prices and builds an interval the same way, about nine out of every ten of those intervals will contain the true mean, and none of you will know which ones.</p>
-      <p><span class="term-label">Part (c) &mdash; the bad sentence.</span> "There is a 90% chance the mean home price is between $377,702 and $442,298" treats mu as a random quantity that might fall in a fixed range. mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false &mdash; there is no 90% about it. The randomness was in the sampling, not in the population mean.</p>
+      <p><span class="term-label">Part (a): the specific sentence.</span> A good specific sentence names all three: who was studied, what was averaged, and which two numbers came out. "We are 90% confident that the true mean sale price of all homes recently listed in Butte County lies between $377,702 and $442,298."</p>
+      <p><span class="term-label">Part (b): the general sentence.</span> The general sentence goes wrong when it attaches the probability to the interval instead of to the procedure. Say instead that the METHOD captures the true mean 90% of the time: if every group in your class collects 35 prices and builds an interval the same way, about nine out of every ten of those intervals will contain the true mean, and none of you will know which ones.</p>
+      <p><span class="term-label">Part (c): the bad sentence.</span> "There is a 90% chance the mean home price is between $377,702 and $442,298" treats mu as a random quantity that might fall in a fixed range. mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false: there is no 90% about it. The randomness was in the sampling, not in the population mean.</p>
     </div>
   </details>
 </div>'

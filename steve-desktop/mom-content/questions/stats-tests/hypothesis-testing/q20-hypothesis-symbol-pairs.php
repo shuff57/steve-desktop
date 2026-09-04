@@ -74,8 +74,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The direction word.</span> The claim says the value is "' . $dirWord . '", which points the alternative ' . ($tail == "two-tailed" ? "in no single direction" : "to the " . ($tail == "left-tailed" ? "left" : "right")) . '.</p>
-      <p><span class="term-label">Parts (a) and (b) &mdash; the symbols.</span> Read the table across, not down: each row is a matched pair, and the two entries always cover every possible value of the parameter between them with no overlap. The equal sign always lives in `H_0` &mdash; `H_a` never has a symbol with an equal in it.</p>
-      <p><span class="term-label">Part (c) &mdash; the tail.</span> The symbol in `H_a` is what names the test: ' . ($tail == "two-tailed" ? "`&ne;` picks no direction, so the test is two-tailed" : ($tail == "left-tailed" ? "`&lt;` puts the whole test in the left tail" : "`&gt;` puts the whole test in the right tail")) . '.</p>
+      <p><span class="term-label">Parts (a) and (b): the symbols.</span> Read the table across, not down: each row is a matched pair, and the two entries always cover every possible value of the parameter between them with no overlap. The equal sign always lives in `H_0`: `H_a` never has a symbol with an equal in it.</p>
+      <p><span class="term-label">Part (c): the tail.</span> The symbol in `H_a` is what names the test: ' . ($tail == "two-tailed" ? "`&ne;` picks no direction, so the test is two-tailed" : ($tail == "left-tailed" ? "`&lt;` puts the whole test in the left tail" : "`&gt;` puts the whole test in the right tail")) . '.</p>
     </div>
   </details>
 </div>'

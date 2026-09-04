@@ -62,9 +62,9 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Mutually exclusive means the AND is impossible. So check whether it is zero.</b></p>
   <p><b>a.</b> `P(' . $evA . ' and ' . $evB . ') = P(' . $evA . ')P(' . $evB . '|' . $evA . ') = (' . $pa . ')(' . $pcond . ') = ' . $pand . '`</p>
-  <p><b>b.</b> ' . $pand . ' is not 0 &mdash; about ' . $pctBoth . '% of all customers do both &mdash; so the two events plainly co-occur. They are <b>not mutually exclusive</b>.</p>
-  <p><b>This is a different question from the independence test.</b> Independence asks whether one event changes the <i>odds</i> of the other. Mutual exclusivity asks whether they can happen <i>together at all</i>. Here the answer is "no" to both, for different reasons &mdash; and option 3 above is the independence reason attached to the mutually-exclusive question, which is the confusion worth catching.</p>
-  <p><b>Answer:</b> no &mdash; not mutually exclusive, because `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`, which is not 0.</p>
+  <p><b>b.</b> ' . $pand . ' is not 0: about ' . $pctBoth . '% of all customers do both: so the two events plainly co-occur. They are <b>not mutually exclusive</b>.</p>
+  <p><b>This is a different question from the independence test.</b> Independence asks whether one event changes the <i>odds</i> of the other. Mutual exclusivity asks whether they can happen <i>together at all</i>. Here the answer is "no" to both, for different reasons: and option 3 above is the independence reason attached to the mutually-exclusive question, which is the confusion worth catching.</p>
+  <p><b>Answer:</b> no: not mutually exclusive, because `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`, which is not 0.</p>
 </div>'
 
 // === QUESTION TEXT ===

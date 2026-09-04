@@ -75,7 +75,7 @@ if ($firstIsBig == 1) {
 $aPct = 100 * $aCat / $aTotal
 $bPct = 100 * $bCat / $bTotal
 
-// (a) and (b) are computations, so they are typed in &mdash; offering percents to choose between
+// (a) and (b) are computations, so they are typed in: offering percents to choose between
 // would turn the arithmetic into elimination.
 $answer[0] = $aPct
 $abstolerance[0] = 0.051
@@ -95,7 +95,7 @@ $choices[2] = array(
 )
 $answer[2] = 1
 
-// Scalars for the question text and the solution guide &mdash; neither can index an array.
+// Scalars for the question text and the solution guide: neither can index an array.
 $bigPct = 100 * $bigCat / $bigTotal
 $smallPct = 100 * $smallCat / $smallTotal
 $bigPctR = round($bigPct, 1)
@@ -131,13 +131,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>The rule for (a) and (b):</b> a percent is the part divided by that school&rsquo;s own whole, times 100. The denominator is the total enrollment of the school you are describing &mdash; never the combined enrollment of both schools.</p>
+      <p><b>The rule for (a) and (b):</b> a percent is the part divided by that school&rsquo;s own whole, times 100. The denominator is the total enrollment of the school you are describing: never the combined enrollment of both schools.</p>
       <p><span class="term-label">a. ' . $aName . ':</span> ' . $aCat . ' &divide; ' . $aTotal . ' &times; 100 &approx; <b>' . $aPctR . '%</b>.</p>
       <p><span class="term-label">b. ' . $bName . ':</span> ' . $bCat . ' &divide; ' . $bTotal . ' &times; 100 &approx; <b>' . $bPctR . '%</b>.</p>
-      <p><span class="term-label">c. Which comparison supports the claim:</span> the <b>percentages</b>. ' . $catWord . ' students are ' . $smallPctR . '% of ' . $smallName . ' but only ' . $bigPctR . '% of ' . $bigName . ' &mdash; a gap of ' . $pctGap . ' percentage points, and ' . $smallPctR . '% is more than half, which is what &ldquo;mostly ' . $catWord . '&rdquo; means.</p>
-      <p><b>Why the counts point the other way:</b> ' . $bigName . ' has ' . $bigCat . ' ' . $catWord . ' students to ' . $smallName . '&rsquo;s ' . $smallCat . ' &mdash; ' . $countGap . ' more. That happens because ' . $bigName . ' enrolls ' . $totalGap . ' more students overall, not because its student body is more ' . $catWord . '. Counts are pulled around by the size of the school; percentages divide that size out and describe the make-up of each student body.</p>
+      <p><span class="term-label">c. Which comparison supports the claim:</span> the <b>percentages</b>. ' . $catWord . ' students are ' . $smallPctR . '% of ' . $smallName . ' but only ' . $bigPctR . '% of ' . $bigName . ': a gap of ' . $pctGap . ' percentage points, and ' . $smallPctR . '% is more than half, which is what &ldquo;mostly ' . $catWord . '&rdquo; means.</p>
+      <p><b>Why the counts point the other way:</b> ' . $bigName . ' has ' . $bigCat . ' ' . $catWord . ' students to ' . $smallName . '&rsquo;s ' . $smallCat . ': ' . $countGap . ' more. That happens because ' . $bigName . ' enrolls ' . $totalGap . ' more students overall, not because its student body is more ' . $catWord . '. Counts are pulled around by the size of the school; percentages divide that size out and describe the make-up of each student body.</p>
       <p><b>Why the totals say nothing:</b> ' . $smallTotal . ' against ' . $bigTotal . ' tells you which school is bigger and nothing at all about how either one is split. A small school can be almost entirely ' . $otherLabel . ' students, and a large school can be almost entirely ' . $catLabel . '.</p>
-      <p><b>The rule to carry forward:</b> when two groups have different totals, compare percentages, not counts. Counts answer &ldquo;how many?&rdquo;; percentages answer &ldquo;what share?&rdquo; &mdash; and a claim about what a student body is <i>mostly</i> made of is a claim about share.</p>
+      <p><b>The rule to carry forward:</b> when two groups have different totals, compare percentages, not counts. Counts answer &ldquo;how many?&rdquo;; percentages answer &ldquo;what share?&rdquo;: and a claim about what a student body is <i>mostly</i> made of is a claim about share.</p>
     </div>
   </details>
 </div>'

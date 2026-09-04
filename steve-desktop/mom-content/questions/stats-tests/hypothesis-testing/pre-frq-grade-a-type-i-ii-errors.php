@@ -20,11 +20,11 @@ $contexts = array(
   array("A medical test screens for a disease. The null hypothesis is `H_0`: the patient does NOT have the disease; the alternative is `H_a`: the patient HAS the disease.",
         "Conclude the patient has the disease when in fact the patient is healthy.",
         "Conclude the patient is healthy when in fact the patient has the disease.",
-        "The Type I error is the false alarm &mdash; telling a healthy patient they are sick &mdash; and the Type II error is the missed diagnosis &mdash; telling a sick patient they are healthy. The Type II error costs more here, because a missed diagnosis means the patient does not get the treatment they need."),
+        "The Type I error is the false alarm, telling a healthy patient they are sick, and the Type II error is the missed diagnosis: telling a sick patient they are healthy. The Type II error costs more here, because a missed diagnosis means the patient does not get the treatment they need."),
   array("A smoke-detection system makes a decision each minute. The null hypothesis is `H_0`: there is NO fire; the alternative is `H_a`: there IS a fire.",
         "Sound the alarm when there is no fire.",
         "Stay silent when there is a fire.",
-        "The Type I error is the false alarm &mdash; the alarm going off while you make toast &mdash; and the Type II error is the missed fire &mdash; the alarm staying silent during a real fire. The Type II error costs more here, because a silent alarm means the building burns."),
+        "The Type I error is the false alarm, the alarm going off while you make toast, and the Type II error is the missed fire: the alarm staying silent during a real fire. The Type II error costs more here, because a silent alarm means the building burns."),
   array("The FDA reviews a new drug. The null hypothesis is `H_0`: the drug is unsafe; the alternative is `H_a`: the drug is safe.",
         "Approve the drug when in fact it is unsafe.",
         "Reject the drug when in fact it is safe.",
@@ -153,16 +153,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states both errors in context, names the probabilities, and judges which error costs more. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states both errors in context, names the probabilities, and judges which error costs more. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sErrors . ' ' . $sProbs . ' ' . $sJudge . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noProbsLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noProbsLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State Both Errors in Context &mdash; earned.</b> Both errors are stated in the wording of the problem, each tied to its decision.</li>
-        <li><b>Name the Probabilities &mdash; NOT earned.</b> The response never attaches the lettered probabilities to the errors.</li>
-        <li><b>Judge Which Error Costs More &mdash; earned.</b> The heavier consequence is named with a one-sentence reason.</li>
+        <li><b>State Both Errors in Context: earned.</b> Both errors are stated in the wording of the problem, each tied to its decision.</li>
+        <li><b>Name the Probabilities: NOT earned.</b> The response never attaches the lettered probabilities to the errors.</li>
+        <li><b>Judge Which Error Costs More: earned.</b> The heavier consequence is named with a one-sentence reason.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the probabilities are their own category.</span> Stating the errors in context and judging their consequences are both possible without ever naming alpha and beta &mdash; the letters are the vocabulary that lets you talk about how often each error happens, and a response that skips them has not answered the question.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet &mdash; the pre-FRQ defines the scenario and rubric a later FRQ should match. The probabilities are the category most often skipped, because once the errors are stated the letters feel like decoration.</p>
+      <p><span class="term-label">Part (c): why the probabilities are their own category.</span> Stating the errors in context and judging their consequences are both possible without ever naming alpha and beta: the letters are the vocabulary that lets you talk about how often each error happens, and a response that skips them has not answered the question.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> This scenario has no FRQ yet: the pre-FRQ defines the scenario and rubric a later FRQ should match. The probabilities are the category most often skipped, because once the errors are stated the letters feel like decoration.</p>
     </div>
   </details>
 </div>'

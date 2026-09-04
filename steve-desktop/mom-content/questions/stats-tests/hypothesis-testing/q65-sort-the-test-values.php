@@ -12,13 +12,13 @@ $anstypes = array("choices", "choices")
 $cases = array(
   array("A study of 26 first-time convicted burglars finds a mean time spent in jail of 3 years with a sample standard deviation of 1.8 years. It is somehow known that the population standard deviation is 1.5 years. The claim on trial is that the mean jail time is 2.5 years.",
         "The claimed value 2.5, the sample mean 3, the sample size 26, and the population standard deviation 1.5",
-        "The sample standard deviation 1.8 &mdash; it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known"),
+        "The sample standard deviation 1.8: it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known"),
   array("A study of 30 students finds a mean study time of 13.2 hours per week with a sample standard deviation of 4.1 hours. The population standard deviation is known to be 3.8 hours. The claim on trial is that the mean study time is 15 hours.",
         "The claimed value 15, the sample mean 13.2, the sample size 30, and the population standard deviation 3.8",
-        "The sample standard deviation 4.1 &mdash; it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known"),
+        "The sample standard deviation 4.1: it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known"),
   array("A survey of 40 adults finds a mean daily screen time of 5.6 hours with a sample standard deviation of 1.9 hours. The population standard deviation is known to be 2.0 hours. The claim on trial is that the mean screen time is 5 hours.",
         "The claimed value 5, the sample mean 5.6, the sample size 40, and the population standard deviation 2.0",
-        "The sample standard deviation 1.9 &mdash; it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known")
+        "The sample standard deviation 1.9: it describes the sample\'s spread, not the population\'s, and does not go in when sigma is known")
 )
 
 $i = rand(0, count($cases)-1)
@@ -36,8 +36,8 @@ $noshuffle[0] = "all"
 
 $questions[1] = array(
   $distractor,
-  "The sample size &mdash; it is too small to matter",
-  "The claimed value &mdash; it is never used in the arithmetic"
+  "The sample size: it is too small to matter",
+  "The claimed value: it is never used in the arithmetic"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -60,8 +60,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; sort the numbers you need from the ones you do not.</span> The claimed value, the sample mean, the sample size, and the population standard deviation all belong to the calculation. The test statistic is built from the standard error `sigma/sqrt(n)`, which needs the population spread, not the sample\'s.</p>
-      <p><span class="term-label">Part (b) &mdash; the distractor.</span> ' . $distractor . '</p>
+      <p><span class="term-label">Part (a): sort the numbers you need from the ones you do not.</span> The claimed value, the sample mean, the sample size, and the population standard deviation all belong to the calculation. The test statistic is built from the standard error `sigma/sqrt(n)`, which needs the population spread, not the sample\'s.</p>
+      <p><span class="term-label">Part (b): the distractor.</span> ' . $distractor . '</p>
       <p>Pull each value out of the problem statement and sort them before you compute: the survey mean is the sample mean, the "somehow known" value is the population standard deviation, and the survey\'s own spread is a different quantity that does not belong in the test statistic.</p>
     </div>
   </details>

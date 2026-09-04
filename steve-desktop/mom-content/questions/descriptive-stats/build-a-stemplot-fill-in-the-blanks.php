@@ -7,7 +7,7 @@
 //
 // The row counts (3, 5, 4, 4) are FIXED rather than randomized, and that is forced by the engine,
 // not a preference: $answerbox tokens only expand when they are written literally in the question
-// text, so the number of boxes cannot vary with the seed. Verified by probe -- an $answerbox built
+// text, so the number of boxes cannot vary with the seed. Verified by probe: an $answerbox built
 // into a string in the control block prints as literal text and no input appears. The stems, the
 // digits and the order of the raw list are all still randomized, so no two seeds share a plot.
 $anstypes = array("number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "number", "choices")
@@ -131,9 +131,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; split every value into a stem and a leaf.</span> With two-digit data the tens digit is the stem and the ones digit is the leaf, so ' . $keyVal . ' goes on the ' . $keyStem . ' row with a leaf of ' . $keyLeaf . '. Work through the list once, dropping each value onto its row as you meet it. Do not try to read the rows straight off the list &mdash; the list is not in order.</p>
-      <p><span class="term-label">Step 2 &mdash; put each row in order.</span> Once every value is on a row, write the leaves smallest to largest across that row. Ordering is not decoration: it is what lets a reader see the shape and find the median by counting along.</p>
-      <p><span class="term-label">Step 3 &mdash; the finished plot.</span></p>
+      <p><span class="term-label">Step 1: split every value into a stem and a leaf.</span> With two-digit data the tens digit is the stem and the ones digit is the leaf, so ' . $keyVal . ' goes on the ' . $keyStem . ' row with a leaf of ' . $keyLeaf . '. Work through the list once, dropping each value onto its row as you meet it. Do not try to read the rows straight off the list: the list is not in order.</p>
+      <p><span class="term-label">Step 2: put each row in order.</span> Once every value is on a row, write the leaves smallest to largest across that row. Ordering is not decoration: it is what lets a reader see the shape and find the median by counting along.</p>
+      <p><span class="term-label">Step 3: the finished plot.</span></p>
       <table class="plot-tbl" style="border-collapse:collapse; margin:8px 0; font-family:ui-monospace,Menlo,Consolas,monospace;">
         <tr style="background:#f0f4ff;"><td><b>Stem</b></td><td><b>Leaf</b></td></tr>
         <tr><td style="text-align:center;"><b>' . $stem0 . '</b></td><td>' . $rowStr0 . '</td></tr>
@@ -141,7 +141,7 @@ $solutionguide = '
         <tr><td style="text-align:center;"><b>' . $stem2 . '</b></td><td>' . $rowStr2 . '</td></tr>
         <tr><td style="text-align:center;"><b>' . $stem3 . '</b></td><td>' . $rowStr3 . '</td></tr>
       </table>
-      <p><span class="term-label">Step 4 &mdash; check the count.</span> Count the leaves: there must be ' . $n . ', one per measurement. If your plot holds fewer, you have almost certainly written a repeated value only once.</p>
+      <p><span class="term-label">Step 4: check the count.</span> Count the leaves: there must be ' . $n . ', one per measurement. If your plot holds fewer, you have almost certainly written a repeated value only once.</p>
       <p><span class="term-label">Repeated measurements.</span> A stemplot keeps every value, so a measurement recorded twice is written twice and the same leaf appears two times on that row. Writing it once loses a data value and the plot stops adding up to the sample size. It is the most common mistake in building one.</p>
     </div>
   </details>

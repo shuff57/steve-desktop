@@ -26,7 +26,7 @@ $answer[0] = $alpha
 $abstolerance[0] = 0.005
 
 $questions[1] = array(
-  "The probability of rejecting `H_0` when it is in fact true &mdash; chosen BEFORE the data are collected.",
+  "The probability of rejecting `H_0` when it is in fact true: chosen BEFORE the data are collected.",
   "The probability that `H_0` is true.",
   "The probability of a Type II error."
 )
@@ -51,8 +51,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; alpha as a decimal.</span> "The level of significance is 1%" means `alpha = ' . $alpha . '`. If no level is given at all, the common standard is `alpha = 0.05`.</p>
-      <p><span class="term-label">Part (b) &mdash; what it commits you to.</span> `alpha` is the probability of rejecting `H_0` when it is in fact true, and it is preset &mdash; chosen before the sample data are collected. Choosing alpha after seeing the p-value would let you pick whichever threshold gives the answer you were hoping for, which is not a test of anything.</p>
+      <p><span class="term-label">Part (a): alpha as a decimal.</span> "The level of significance is 1%" means `alpha = ' . $alpha . '`. If no level is given at all, the common standard is `alpha = 0.05`.</p>
+      <p><span class="term-label">Part (b): what it commits you to.</span> `alpha` is the probability of rejecting `H_0` when it is in fact true, and it is preset: chosen before the sample data are collected. Choosing alpha after seeing the p-value would let you pick whichever threshold gives the answer you were hoping for, which is not a test of anything.</p>
     </div>
   </details>
 </div>'

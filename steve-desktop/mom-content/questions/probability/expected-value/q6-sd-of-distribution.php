@@ -81,11 +81,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the expected value.</span> `E(X) = sum x cdot P(X = x)`, one row at a time:</p>
+      <p><span class="term-label">Part (a): the expected value.</span> `E(X) = sum x cdot P(X = x)`, one row at a time:</p>
       <p>`mu = ` ' . $muCalc . ' = <b>' . $mu . '</b></p>
-      <p><span class="term-label">Part (b) &mdash; the variance.</span> Square each deviation from `mu`, weight it by its probability, and add:</p>
+      <p><span class="term-label">Part (b): the variance.</span> Square each deviation from `mu`, weight it by its probability, and add:</p>
       <p>`Var(X) = sum (x - mu)^2 cdot P(X = x) = ` <b>' . $var . '</b></p>
-      <p><span class="term-label">Part (c) &mdash; the standard deviation.</span> Take the square root of the variance:</p>
+      <p><span class="term-label">Part (c): the standard deviation.</span> Take the square root of the variance:</p>
       <p>`sigma = sqrt(' . $var . ') = ` <b>' . $sigma . '</b></p>
       <p>Values above the mean give positive deviations and values below give negative ones, and if you just added them they would cancel to zero every time. Squaring makes every deviation count as distance, regardless of direction; the square root at the end puts the answer back into the original units.</p>
     </div>

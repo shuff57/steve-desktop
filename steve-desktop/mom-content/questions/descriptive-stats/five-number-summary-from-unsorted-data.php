@@ -17,7 +17,7 @@ else {
   $thing = "appointments"
 }
 
-// n = 19 on purpose. Then n + 1 = 20, so the quartile positions are i = 5, 10 and 15 -- all whole
+// n = 19 on purpose. Then n + 1 = 20, so the quartile positions are i = 5, 10 and 15: all whole
 // numbers, so no two values ever need averaging. That matters here more than anywhere else:
 // software does not all use the same quartile convention, and a data set where the position lands
 // between two values can give a calculator one answer and the textbook formula another. At n = 19 the
@@ -82,9 +82,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Sort first.</span> Put the ' . $n . ' values in order and the five-number summary reads straight off: minimum <b>' . $minV . '</b>, `Q_1` <b>' . $q1 . '</b>, median <b>' . $med . '</b>, `Q_3` <b>' . $q3 . '</b>, maximum <b>' . $maxV . '</b>. Sorting is the slow part and the part where mistakes happen, so it is worth letting a calculator do it and spending your attention on the positions.</p>
-      <p><span class="term-label">Checking it by hand.</span> With `n = ' . $n . '`, `n + 1 = 20`, so `Q_1` is at position `(25/100)(20) = 5`, the median at position 10, and `Q_3` at position 15. All three are whole numbers, so each quartile is simply the value sitting at that position in the sorted list &mdash; nothing needs averaging. Worth knowing why that is convenient: statistics packages do not all use the same quartile convention, and on a data set where a position falls between two values they can legitimately disagree with each other. Here they cannot.</p>
+      <p><span class="term-label">Checking it by hand.</span> With `n = ' . $n . '`, `n + 1 = 20`, so `Q_1` is at position `(25/100)(20) = 5`, the median at position 10, and `Q_3` at position 15. All three are whole numbers, so each quartile is simply the value sitting at that position in the sorted list: nothing needs averaging. Worth knowing why that is convenient: statistics packages do not all use the same quartile convention, and on a data set where a position falls between two values they can legitimately disagree with each other. Here they cannot.</p>
       <p><span class="term-label">The interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">What it tells you.</span> A quarter of the ' . $thing . ' came in below ' . $q1 . ', a quarter above ' . $q3 . ', and the middle half sits between them &mdash; a span of ' . $iqr . ' ' . $unitWord . '. Because it ignores the top and bottom quarters entirely, one unusually large value cannot stretch it, which is what makes the `"IQR"` the spread to quote when a data set has outliers.</p>
+      <p><span class="term-label">What it tells you.</span> A quarter of the ' . $thing . ' came in below ' . $q1 . ', a quarter above ' . $q3 . ', and the middle half sits between them: a span of ' . $iqr . ' ' . $unitWord . '. Because it ignores the top and bottom quarters entirely, one unusually large value cannot stretch it, which is what makes the `"IQR"` the spread to quote when a data set has outliers.</p>
       <p><b>Answer:</b> `Q_1` = ' . $q1 . ' &nbsp;&nbsp; median = ' . $med . ' &nbsp;&nbsp; `Q_3` = ' . $q3 . ' &nbsp;&nbsp; `"IQR"` = ' . $iqr . '</p>
     </div>
   </details>

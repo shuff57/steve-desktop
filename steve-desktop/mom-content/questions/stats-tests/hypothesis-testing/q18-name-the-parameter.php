@@ -64,8 +64,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the parameter.</span> The claim is about ' . ($kind == "mean" ? "an average of a measured quantity, so the parameter is a population mean `mu`" : "a share of a group that has some yes-or-no trait, so the parameter is a population proportion `p`") . '. A statement about an average uses `mu`; a statement about a percentage or a chance uses `p`.</p>
-      <p><span class="term-label">Part (b) &mdash; the claimed value.</span> The claim being tested is ' . $claimStmt . ' &mdash; the claimed value goes with the parameter, never with the sample size or the sample spread.</p>
+      <p><span class="term-label">Part (a): the parameter.</span> The claim is about ' . ($kind == "mean" ? "an average of a measured quantity, so the parameter is a population mean `mu`" : "a share of a group that has some yes-or-no trait, so the parameter is a population proportion `p`") . '. A statement about an average uses `mu`; a statement about a percentage or a chance uses `p`.</p>
+      <p><span class="term-label">Part (b): the claimed value.</span> The claim being tested is ' . $claimStmt . ': the claimed value goes with the parameter, never with the sample size or the sample spread.</p>
       <p>Decide the parameter before touching the symbols: it picks the whole row of the hypothesis-testing table, and getting it wrong makes every calculation after it answer the wrong question.</p>
     </div>
   </details>

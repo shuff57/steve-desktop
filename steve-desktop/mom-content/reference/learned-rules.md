@@ -394,3 +394,81 @@ it is specific to this host.
 Until it is unblocked, verify in the real course instead: file into the global class, attach to a
 scratch assessment, and answer it in Teacher Preview. That is a stronger check than the sandbox
 anyway — it exercises grading, which the sandbox never does.
+
+## Authoring Chapter 0's individual test, 2026-09-02
+
+- **The render sandbox is unreachable from the school network, and the failure looks like the
+  sandbox being down.** `mom.huffpalmer.fyi` resolves and pings (Cloudflare, ~11ms), but TLS is
+  intercepted: the leaf is issued by `CN=205.155.196.228` and that root is in no trust store on the
+  machine. node reports `SELF_SIGNED_CERT_IN_CHAIN`; Chrome reports a bare navigation error; curl's
+  schannel reports `SEC_E_UNTRUSTED_ROOT`. **Exporting the Windows root store into
+  `NODE_EXTRA_CA_CERTS` does not fix it** -- the interception root is not in the Windows store
+  either, which is why Chrome fails too. Do not spend time on the CA; the write-render-repair loop
+  simply is not available here. File into the live course and verify there instead, which is the
+  stronger check anyway.
+
+- **`button.keybtn` ("View Key") does not reveal an EXPRESSION answer.** It toggles a
+  `<span id="ans<qIdx>-<part>">` holding the key, and that span stays empty for every
+  `numfunc`/`calculated` part -- only numeric and `choices` parts fill it. So a verification run
+  driven purely off View Key silently leaves every expression part unanswered and reports the
+  question as *partial* rather than as unverified. Work expression answers out from the rendered
+  prompt by hand. That is not a workaround, it is the better check: a key read out of MOM cannot
+  disagree with MOM.
+
+- **A wrong SOLUTION GUIDE passes byte-exactness, the qtype audit and a clean render.** Chapter 0's
+  fraction question claimed all three of its answers land in lowest terms; the seed constraints only
+  guaranteed that for the multiply and the power. Live seed `7/6` and `5/8` gave a divide of `56/30`
+  = `28/15`. Nothing structural could have caught it -- the filed code matched the source exactly and
+  the source was wrong. **Read the rendered arithmetic, not just the rendered layout.**
+
+  The generalisable form: when a question guarantees a property of its ANSWER through seed
+  constraints, check the constraint against every operation the question performs. `(a*d)/(b*c)` in
+  lowest terms needs `gcd(b,d)=1` and `gcd(a,c)=1`, which is a different set from what `(a*c)/(b*d)`
+  needs -- constraining for one operation and assuming it covers the other is the actual bug.
+
+- **Answer inputs are named `qn<questionNumber><part padded to 3>`** -- `qn1000`, `qn1001`, `qn1002`
+  for question 1's three parts; a single-part question is plain `qn<n>`. A MathQuill part drives a
+  HIDDEN input of that name through `<span id="mqinput-<name>">`, so `box.value = x` does nothing
+  visible and nothing gradeable: write it with
+  `MathQuill.getInterface(2).MathField(span).latex(value)`. Pair keys to boxes POSITIONALLY inside
+  each `[id^=questionwrap]`; the name arithmetic breaks on single-part questions.
+
+- **`moddataset.php` shows THREE visible Save buttons on a new question and FOUR on an existing
+  one.** Both counts are fine -- pick a visible `<button>` whose text is exactly `Save` and click
+  ONE. A guard written to expect a fixed count refuses on whichever case it was not written for.
+
+- **Fix a question by UPDATING its qsetid, never by filing a second copy.** `moddataset.php?id=<qsetid>`
+  re-opens the existing library question; the same CodeMirror and Save rules apply. Filing a
+  replacement leaves the old qsetid attached wherever it already is, and the two drift apart -- the
+  exact failure `question-library.json` exists to prevent.
+
+
+- **`description` is truncated to 254 characters server-side, with no `maxlength` on the input.**
+  The form accepts a longer string, the save reports success, and only a byte-exact read-back shows
+  the loss. Measured 2026-09-02 filing an FRQ with a 280-character description: 280 in, 254 back.
+  Keep the `NAME - DESCRIPTION:` line under 254 characters or the file and MOM permanently disagree.
+
+- **A question that asserts a property of its own scenario must have that assertion hold on EVERY
+  seed.** Measured 2026-09-02 on `q13-what-the-sample-can-and-cannot-tell-you.php`: the prompt says
+  "every member of the population had an equal chance of being selected", and seed 1 drew its sample
+  from a voter registration roll -- then named that same frame as the flaw the student is asked to
+  find. The question argued with itself, and a student answering "the sampling was not done well"
+  would have been right about the question and wrong about the rubric.
+
+  This is the same shape as the Chapter 0 fraction defect above and generalises the same way: the
+  lint, the byte-exact read-back, the qtype audit and a clean render ALL passed it. A framing
+  sentence shared across randomised scenarios is a claim about every branch, so check it against
+  each branch's content -- not just the one that happens to render.
+
+- **An empty assessment shell is not the same as a missing one.** Six assessments in the Intro to
+  Stats block (`23444242`, `23444244`, `23444245`, `23444246`, `23444252`, `23444253`, `23444254`)
+  were created 2026-08-31 with correct names, correct block placement and correct per-kind settings,
+  and zero questions attached. A course survey that counts assessments reports them as present; only
+  `addquestions2.php` shows "No Questions currently in assessment". **Count questions, not
+  assessments, before reporting a chapter complete.**
+
+- **Read the settings back BEFORE running the settings step, and skip it when nothing needs writing.**
+  The Chapter 1 individual-test shell already carried the full Individual Test column of
+  `intro-stats-assessment-settings.md`. Running a settings save anyway is pure downside: it can clear
+  a field that was already right, and the passcode rule (last write wins) means an unnecessary save
+  is an unnecessary risk.

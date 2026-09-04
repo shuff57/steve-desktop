@@ -84,13 +84,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the mean backwards.</span> `bar x = "total" -: n`, so `"total" = n xx bar x`. With ' . $n . ' ' . $itemPlural . ' averaging ' . $mean . ' ' . $unitWord . ':</p>
+      <p><span class="term-label">Step 1: read the mean backwards.</span> `bar x = "total" -: n`, so `"total" = n xx bar x`. With ' . $n . ' ' . $itemPlural . ' averaging ' . $mean . ' ' . $unitWord . ':</p>
       <p style="text-align:center;">`"total" = ' . $n . ' xx ' . $mean . ' = ` <b>' . $total . '</b> ' . $unitWord . '</p>
       <p>This is the whole idea of a mean: it is the number every value WOULD be if the total were shared out equally. Knowing it and knowing `n` is the same as knowing the total.</p>
-      <p><span class="term-label">Step 2 &mdash; subtract what you can see.</span> The five ' . $itemPlural . ' you were given add to `' . $v0 . ' + ' . $v1 . ' + ' . $v2 . ' + ' . $v3 . ' + ' . $v4 . ' = ' . $knownSum . '`. Whatever is left over must be the missing one:</p>
+      <p><span class="term-label">Step 2: subtract what you can see.</span> The five ' . $itemPlural . ' you were given add to `' . $v0 . ' + ' . $v1 . ' + ' . $v2 . ' + ' . $v3 . ' + ' . $v4 . ' = ' . $knownSum . '`. Whatever is left over must be the missing one:</p>
       <p style="text-align:center;">`' . $total . ' - ' . $knownSum . ' = ` <b>' . $missing . '</b> ' . $unitWord . '</p>
-      <p><span class="term-label">Step 3 &mdash; check it.</span> Put ' . $missing . ' back in and recompute: the six values total ' . $total . ', and `' . $total . ' -: ' . $n . ' = ' . $mean . '`. That is the mean you were given, so the answer holds.</p>
-      <p><span class="term-label">Part (c) &mdash; one value moves, the mean moves less.</span> Raising that ' . $itemWord . ' by ' . $bump . ' raises the TOTAL by ' . $bump . ', but the total is still divided among ' . $n . ' values. So the mean rises by `' . $bump . ' -: ' . $n . ' = ' . $rise . '`, giving <b>' . $newMean . '</b>. Expecting the mean to jump by the full ' . $bump . ' is the usual slip &mdash; a single value never moves the mean by its own change unless there is only one value.</p>
+      <p><span class="term-label">Step 3: check it.</span> Put ' . $missing . ' back in and recompute: the six values total ' . $total . ', and `' . $total . ' -: ' . $n . ' = ' . $mean . '`. That is the mean you were given, so the answer holds.</p>
+      <p><span class="term-label">Part (c): one value moves, the mean moves less.</span> Raising that ' . $itemWord . ' by ' . $bump . ' raises the TOTAL by ' . $bump . ', but the total is still divided among ' . $n . ' values. So the mean rises by `' . $bump . ' -: ' . $n . ' = ' . $rise . '`, giving <b>' . $newMean . '</b>. Expecting the mean to jump by the full ' . $bump . ' is the usual slip: a single value never moves the mean by its own change unless there is only one value.</p>
     </div>
   </details>
 </div>'

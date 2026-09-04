@@ -35,11 +35,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The index rule.</span> A percentile is found by the index rule `i = (k/100)(n + 1)` from Section 2.3, then averaging the two bracketing values when `i` is not a whole number.</p>
-      <p><span class="term-label">Part (a) &mdash; the 15th percentile.</span> `i = (15/100)(12 + 1) = 1.95`, so average the 1st and 2nd values:</p>
+      <p><span class="term-label">Part (a): the 15th percentile.</span> `i = (15/100)(12 + 1) = 1.95`, so average the 1st and 2nd values:</p>
       <p>`P15 = (125.9 + 126.4)/2 = 252.3/2 = 126.15`</p>
-      <p><span class="term-label">Part (b) &mdash; the 85th percentile.</span> `i = (85/100)(13) = 11.05`, so average the 11th and 12th values:</p>
+      <p><span class="term-label">Part (b): the 85th percentile.</span> `i = (85/100)(13) = 11.05`, so average the 11th and 12th values:</p>
       <p>`P85 = (132.6 + 134.1)/2 = 266.7/2 = 133.35`</p>
-      <p>The 85th percentile says that 85% of these lap times were faster than 133.35 seconds and 15% were slower &mdash; a lap over 133.35 seconds was one of the worst.</p>
+      <p>The 85th percentile says that 85% of these lap times were faster than 133.35 seconds and 15% were slower: a lap over 133.35 seconds was one of the worst.</p>
     </div>
   </details>
 </div>'

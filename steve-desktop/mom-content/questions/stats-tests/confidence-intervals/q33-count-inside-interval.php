@@ -32,11 +32,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the count.</span> Reading Table 7.4.1 from $377,702 upward and stopping at $442,298:</p>
+      <p><span class="term-label">Part (a): the count.</span> Reading Table 7.4.1 from $377,702 upward and stopping at $442,298:</p>
       <p>`379,000, 385,000, 392,000, 399,000, 405,000, 412,000, 420,000, 429,000, 438,000`</p>
       <p>That is 9 values out of 35.</p>
-      <p><span class="term-label">Part (b) &mdash; the percent.</span> `9/35 ~= 0.257 = 25.7%`</p>
-      <p><span class="term-label">Why it should not be close to 90%.</span> The interval was built around `bar(X)`, whose spread is the standard error `s_x/sqrt(n) ~= $19,101`. Individual prices spread out by `s_x ~= $113,006`, nearly six times as much. The interval is a statement about where the population mean plausibly sits, not about where individual homes sell &mdash; and making it wide enough to hold 90% of the homes would tell you almost nothing about `mu`.</p>
+      <p><span class="term-label">Part (b): the percent.</span> `9/35 ~= 0.257 = 25.7%`</p>
+      <p><span class="term-label">Why it should not be close to 90%.</span> The interval was built around `bar(X)`, whose spread is the standard error `s_x/sqrt(n) ~= $19,101`. Individual prices spread out by `s_x ~= $113,006`, nearly six times as much. The interval is a statement about where the population mean plausibly sits, not about where individual homes sell: and making it wide enough to hold 90% of the homes would tell you almost nothing about `mu`.</p>
     </div>
   </details>
 </div>'

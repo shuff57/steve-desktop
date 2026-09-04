@@ -104,11 +104,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">';
 
-$sg = '<p><span class="term-label">Part (b) &mdash; the P(x) column sum.</span> Adding the printed probabilities gives <b>' . $sumP . '</b>.</p>'
+$sg = '<p><span class="term-label">Part (b): the P(x) column sum.</span> Adding the printed probabilities gives <b>' . $sumP . '</b>.</p>'
 if ($shape == 0) {
   $sg = $sg . '<p><span class="term-label">The mistake is in the P(X = x) column.</span> A valid distribution must sum to exactly 1, and this one sums to ' . $sumP . '. The wrong cell is row ' . $wrongRowOne . ' (x = ' . $xs[$wRow] . '), which prints ' . $ps[$wRow] . ' but should be <b>' . $correctVal . '</b>. With that correction the column sums to 1.00.</p>'
 } else {
-  $sg = $sg . '<p><span class="term-label">The mistake is in the x*P(x) column.</span> The P(X = x) column sums to exactly 1.00, so the probabilities are fine &mdash; but row ' . $wrongRowOne . ' (x = ' . $xs[$wRow] . ') prints ' . $prs[$wRow] . ' for the product, and ' . $xs[$wRow] . ' * ' . $ps[$wRow] . ' is <b>' . $correctVal . '</b>, not ' . $prs[$wRow] . '.</p>'
+  $sg = $sg . '<p><span class="term-label">The mistake is in the x*P(x) column.</span> The P(X = x) column sums to exactly 1.00, so the probabilities are fine: but row ' . $wrongRowOne . ' (x = ' . $xs[$wRow] . ') prints ' . $prs[$wRow] . ' for the product, and ' . $xs[$wRow] . ' * ' . $ps[$wRow] . ' is <b>' . $correctVal . '</b>, not ' . $prs[$wRow] . '.</p>'
 }
 $sg = $sg . '<p><span class="term-label">The two habits.</span> First, always check that the P(x) column sums to 1; if it does not, either a probability is missing or one is wrong. Second, keep the arithmetic honest: each product is x * P(x), and a single misfilled product flips the whole expected value.</p>'
 

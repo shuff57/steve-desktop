@@ -5,7 +5,7 @@
 
 $anstypes = array("numfunc", "choices")
 
-// Five classes. Counts are all EVEN so every bar top lands exactly on a gridline -- the student
+// Five classes. Counts are all EVEN so every bar top lands exactly on a gridline: the student
 // has to read the graph, but the value read off it is exact, so part (a) can be graded exactly.
 // Format: [counts, class asked about, shape code]. Shape codes: 0 left-skewed, 1 right-skewed, 2 symmetric.
 $cases = array(
@@ -71,7 +71,7 @@ for ($k=0..4) {
   $bx = $plotL + $k * $barW
   $bh = round($counts[$k] * $unitPx, 2)
   $by = round($plotB - $bh, 2)
-  // Bars sit edge to edge with no gap between them -- that is what makes this a histogram
+  // Bars sit edge to edge with no gap between them: that is what makes this a histogram
   // rather than a bar graph, and it is why the horizontal axis is a number line.
   $barsQ = $barsQ . '<rect x="' . $bx . '" y="' . $by . '" width="' . $barW . '" height="' . $bh . '" fill="#93c5fd" stroke="#1e40af" stroke-width="1.5"/>'
   $fill = "#93c5fd"
@@ -117,11 +117,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read the count off the graph.</span> Find the bar running from ' . $binLo . ' to ' . $binHi . ' on the horizontal axis, then follow its top across to the frequency axis. It lands on <b>' . $binCount . '</b>.</p>
+      <p><span class="term-label">Step 1: read the count off the graph.</span> Find the bar running from ' . $binLo . ' to ' . $binHi . ' on the horizontal axis, then follow its top across to the frequency axis. It lands on <b>' . $binCount . '</b>.</p>
       ' . $histSol . '
-      <p><span class="term-label">Step 2 &mdash; find the total.</span> Add the heights of all five bars: ' . $counts[0] . ' + ' . $counts[1] . ' + ' . $counts[2] . ' + ' . $counts[3] . ' + ' . $counts[4] . ' = <b>' . $n . '</b> observations.</p>
-      <p><span class="term-label">Step 3 &mdash; divide.</span> Relative frequency is the class count over the total, not over the number of classes: ' . $binCount . ' / ' . $n . ' &approx; <b>' . $relRounded . '</b>, or about ' . $relPercent . '% of the data.</p>
-      <p><span class="term-label">Step 4 &mdash; read the shape.</span> Shape is about which way the tail points, so look along the tops of the bars: ' . $why . '. The distribution is <b>' . $shapeName . '</b>. Skew is named for the tail, not for where the peak sits &mdash; that is the reversal students most often get caught by.</p>
+      <p><span class="term-label">Step 2: find the total.</span> Add the heights of all five bars: ' . $counts[0] . ' + ' . $counts[1] . ' + ' . $counts[2] . ' + ' . $counts[3] . ' + ' . $counts[4] . ' = <b>' . $n . '</b> observations.</p>
+      <p><span class="term-label">Step 3: divide.</span> Relative frequency is the class count over the total, not over the number of classes: ' . $binCount . ' / ' . $n . ' &approx; <b>' . $relRounded . '</b>, or about ' . $relPercent . '% of the data.</p>
+      <p><span class="term-label">Step 4: read the shape.</span> Shape is about which way the tail points, so look along the tops of the bars: ' . $why . '. The distribution is <b>' . $shapeName . '</b>. Skew is named for the tail, not for where the peak sits: that is the reversal students most often get caught by.</p>
       <p><b>Answer:</b> (a) ' . $relRounded . ' &nbsp;&nbsp; (b) ' . $shapeName . '</p>
     </div>
   </details>

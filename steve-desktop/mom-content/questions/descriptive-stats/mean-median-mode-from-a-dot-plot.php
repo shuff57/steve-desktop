@@ -4,7 +4,7 @@
 // === COMMON CONTROL ===
 
 // Every other center question in 2.5 hands over a list or a table. This one hands over a PICTURE and
-// makes the student pull the counts out of it first -- the step that separates reading a display from
+// makes the student pull the counts out of it first: the step that separates reading a display from
 // reading a spreadsheet. A dot plot is used rather than a histogram because each dot is one
 // observation, so the median can be located by counting dots rather than by interpolating.
 //
@@ -142,17 +142,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; turn the picture into counts.</span> Each dot is one of the ' . $who . '. Counting up each stack:</p>
+      <p><span class="term-label">Step 1: turn the picture into counts.</span> Each dot is one of the ' . $who . '. Counting up each stack:</p>
       <table style="border-collapse:collapse; margin:8px 0;">
         <tr style="background:#f0f4ff;"><th style="border:1px solid #d1d5db; padding:5px 14px;">' . $axisName . '</th><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">1</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">2</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">3</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">4</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">5</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">6</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">7</td></tr>
         <tr><th style="border:1px solid #d1d5db; padding:5px 14px; background:#f0f4ff;">How many ' . $who . '</th><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c1 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c2 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c3 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c4 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c5 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c6 . '</td><td style="border:1px solid #d1d5db; padding:5px 14px; text-align:center;">' . $c7 . '</td></tr>
       </table>
       <p>That is ' . $n . ' ' . $who . ' altogether.</p>
-      <p><span class="term-label">Step 2 &mdash; the mean.</span> A stack of 3 dots over the value 5 means 5 happened three times, so multiply each value by its count rather than adding the seven labels. The values total ' . $tot . ' ' . $unitWord . ', so</p>
+      <p><span class="term-label">Step 2: the mean.</span> A stack of 3 dots over the value 5 means 5 happened three times, so multiply each value by its count rather than adding the seven labels. The values total ' . $tot . ' ' . $unitWord . ', so</p>
       <p style="text-align:center;">`bar x = ' . $tot . ' -: ' . $n . ' = ` <b>' . $mean . '</b> ' . $unitWord . '</p>
-      <p><span class="term-label">Step 3 &mdash; the median.</span> With ' . $n . ' values the median is the ' . $half . 'th dot counting from the left. Walk the stacks left to right, adding counts until you reach it: the ' . $half . 'th dot sits over <b>' . $median . '</b>.</p>
-      <p><span class="term-label">Step 4 &mdash; the mode.</span> The tallest stack is over <b>' . $mode . '</b>, so that is the value that occurred most often. On a dot plot the mode is the one measure you can read without any arithmetic at all.</p>
-      <p><span class="term-label">The usual slip.</span> Averaging the seven axis labels &#40;1 through 7&#41; instead of the data. That answers "what is the middle of the scale", not "what is the middle of the data" &mdash; the counts are what carry the information.</p>
+      <p><span class="term-label">Step 3: the median.</span> With ' . $n . ' values the median is the ' . $half . 'th dot counting from the left. Walk the stacks left to right, adding counts until you reach it: the ' . $half . 'th dot sits over <b>' . $median . '</b>.</p>
+      <p><span class="term-label">Step 4: the mode.</span> The tallest stack is over <b>' . $mode . '</b>, so that is the value that occurred most often. On a dot plot the mode is the one measure you can read without any arithmetic at all.</p>
+      <p><span class="term-label">The usual slip.</span> Averaging the seven axis labels &#40;1 through 7&#41; instead of the data. That answers "what is the middle of the scale", not "what is the middle of the data": the counts are what carry the information.</p>
     </div>
   </details>
 </div>'

@@ -15,7 +15,7 @@
 // whether the calculation matches the scenario. Not reused from an earlier assignment: 2.3 dropped
 // Percentile, 2.4 Contextual Interpretation, 2.5 Outlier Impact, 2.6 Further Investigation, 2.7
 // Practical Conclusion, 3.1 Sample Space, 3.2 Distinguish the Two, 3.3 Second Factor, 3.4 State the
-// Direction, 3.5 Draw the Structure -- none is this.
+// Direction, 3.5 Draw the Structure: none is this.
 //
 // CATEGORY PURITY: $sValues states the pairing and nothing else; $sCompute shows the arithmetic
 // (products, not a pairing statement) and nothing else; $sDecision states the verdict and the
@@ -92,7 +92,7 @@ $answer[1] = "1,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The arithmetic and the decision can both be right while the pairing of `X` with its probabilities was never stated, so nothing shows whether the calculation matches the scenario — the pairing has to be judged on its own.",
+  "No. The arithmetic and the decision can both be right while the pairing of `X` with its probabilities was never stated, so nothing shows whether the calculation matches the scenario: the pairing has to be judged on its own.",
   "Yes. Once `E(X)` is computed correctly, the values are implied by the arithmetic, so there is nothing separate to award.",
   "No, but only because the calculation is the hard part.",
   "Yes, as long as the decision matches the sign of `E(X)`, the setup does not matter."
@@ -167,15 +167,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> pairs each value of `X` with its probability, shows the `E(X)` arithmetic, and gives the decision with the long-run reading. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> pairs each value of `X` with its probability, shows the `E(X)` arithmetic, and gives the decision with the long-run reading. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sV . ' ' . $sC . ' So ' . $sD . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noValuesLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noValuesLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Values and Probabilities &mdash; NOT earned.</b> The arithmetic uses the numbers, but nowhere does the response pair each value of `X` with its probability, so nothing shows the calculation matches the scenario.</li>
-        <li><b>Compute Expected Value &mdash; earned.</b> The step-by-step calculation is present and correct.</li>
-        <li><b>Decision and Interpretation &mdash; earned.</b> The verdict follows from the sign of `E(X)` and reads it as a long-run average.</li>
+        <li><b>State the Values and Probabilities: NOT earned.</b> The arithmetic uses the numbers, but nowhere does the response pair each value of `X` with its probability, so nothing shows the calculation matches the scenario.</li>
+        <li><b>Compute Expected Value: earned.</b> The step-by-step calculation is present and correct.</li>
+        <li><b>Decision and Interpretation: earned.</b> The verdict follows from the sign of `E(X)` and reads it as a long-run average.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the pairing is its own category.</span> The arithmetic can be right while the values were never stated, and then a grader cannot tell whether the calculation belongs to this scenario at all. Stating the pairing is what makes the arithmetic auditable.</p>
+      <p><span class="term-label">Part (c): why the pairing is its own category.</span> The arithmetic can be right while the values were never stated, and then a grader cannot tell whether the calculation belongs to this scenario at all. Stating the pairing is what makes the arithmetic auditable.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The pairing is the category most often skipped, because once the numbers are in the formula the setup feels like busywork.</p>
     </div>
   </details>

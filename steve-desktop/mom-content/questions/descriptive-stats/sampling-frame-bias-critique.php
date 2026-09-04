@@ -23,10 +23,10 @@ $timelist = array("three weeks after the semester began", "midway through the te
 $timing = $timelist[rand(0, count($timelist)-1)]
 
 // The four genuine problems.
-$t1 = "$reporter selected the best-selling, most widely adopted textbook in each subject &mdash; exactly the titles a retailer is most likely to keep in stock &mdash; so the study is biased toward the easiest cases and will overstate how available college textbooks are in general."
+$t1 = "$reporter selected the best-selling, most widely adopted textbook in each subject, exactly the titles a retailer is most likely to keep in stock, so the study is biased toward the easiest cases and will overstate how available college textbooks are in general."
 $t2 = "The $nsub subjects investigated ($subjectstr) are a narrow, mostly STEM-heavy slice of a college catalog. Humanities, arts, nursing, and many other programs are not represented at all, so the sample is not representative of college textbooks as a whole."
 $t3 = "$nsub textbooks is far too small a sample to support a conclusion about the tens of thousands of titles used across all college courses, no matter how carefully those $nsub titles were chosen."
-$t4 = "$reporter checked stock $timing, but the concern raised in the article is whether students can get their books at the very start of the term &mdash; checking availability at a different point in the term does not answer that question."
+$t4 = "$reporter checked stock $timing, but the concern raised in the article is whether students can get their books at the very start of the term: checking availability at a different point in the term does not answer that question."
 
 // The three statements that are NOT problems with this study.
 $f1 = "The study is invalid because the sample of $nretail retailers was chosen at random."
@@ -58,17 +58,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Is the sample of textbooks representative?</b> No. The claim is about <i>all college textbooks</i>, but the ' . $nsub . ' titles were chosen to be the best-selling, most widely adopted book in each subject. Popular books in high-enrollment courses are exactly the books a retailer is most likely to stock, so the sampling frame &mdash; the list a title could even be drawn from &mdash; already excludes every hard-to-stock case.</p>
-      <p><b>Step 2 &mdash; Name the sources of bias.</b></p>
+      <p><b>Step 1: Is the sample of textbooks representative?</b> No. The claim is about <i>all college textbooks</i>, but the ' . $nsub . ' titles were chosen to be the best-selling, most widely adopted book in each subject. Popular books in high-enrollment courses are exactly the books a retailer is most likely to stock, so the sampling frame, the list a title could even be drawn from, already excludes every hard-to-stock case.</p>
+      <p><b>Step 2: Name the sources of bias.</b></p>
       <div class="term-row"><span class="term-label">Problems this study has (check these):</span></div>
       ' . $truelist . '
-      <p><b>Step 3 &mdash; How the bias moves the result.</b> Every one of these pushes the same direction: toward overstating how available college textbooks are online. The ' . $nretail . '-retailer sample being random does not rescue this &mdash; it fixes how the retailers were chosen, not how the ' . $nsub . ' textbooks were chosen.</p>
+      <p><b>Step 3: How the bias moves the result.</b> Every one of these pushes the same direction: toward overstating how available college textbooks are online. The ' . $nretail . '-retailer sample being random does not rescue this: it fixes how the retailers were chosen, not how the ' . $nsub . ' textbooks were chosen.</p>
       <p style="margin-top:1em;"><b>Why the other statements do not belong:</b></p>
-      <div class="term-row">&bull; ' . $f1 . ' &mdash; this is the trap. A random sample of retailers is the one part of this design that <i>is</i> sound. The flaw is entirely in which textbooks were selected, not in which retailers were asked.</div>
-      <div class="term-row">&bull; ' . $f2 . ' &mdash; backwards. Choosing only bestsellers is exactly what biases the estimate toward the optimistic side; it guarantees the opposite of an unbiased result.</div>
-      <div class="term-row">&bull; ' . $f3 . ' &mdash; a bigger retailer sample shrinks random sampling error in the retailer count, but it cannot touch a bias baked into which ' . $nsub . ' textbooks were chosen before a single retailer was ever visited.</div>
-      <p><b>Step 4 &mdash; Suggest improvements.</b> Build a sampling frame from the textbooks actually assigned at a set of colleges that term &mdash; a set of campus bookstore adoption lists is exactly this &mdash; and take a random sample from that frame instead of the bestseller list. Cover every division of the catalog, not just ' . $nsub . ' subjects. Use far more titles, and check availability at the start of the term, when it actually matters to students.</p>
-      <p style="margin-top:1em;"><b>Answer:</b> the sample of textbooks is not representative &mdash; bestsellers in ' . $nsub . ' large subjects are the titles most likely to be in stock, the subject coverage is narrow, ' . $nsub . ' titles is too small a base for a catalog-wide claim, and the timing of the check does not match when students actually need their books. The ' . $nretail . '-retailer sample being random is the one part of the design that is fine.</p>
+      <div class="term-row">&bull; ' . $f1 . ': this is the trap. A random sample of retailers is the one part of this design that <i>is</i> sound. The flaw is entirely in which textbooks were selected, not in which retailers were asked.</div>
+      <div class="term-row">&bull; ' . $f2 . ': backwards. Choosing only bestsellers is exactly what biases the estimate toward the optimistic side; it guarantees the opposite of an unbiased result.</div>
+      <div class="term-row">&bull; ' . $f3 . ': a bigger retailer sample shrinks random sampling error in the retailer count, but it cannot touch a bias baked into which ' . $nsub . ' textbooks were chosen before a single retailer was ever visited.</div>
+      <p><b>Step 4: Suggest improvements.</b> Build a sampling frame from the textbooks actually assigned at a set of colleges that term, a set of campus bookstore adoption lists is exactly this, and take a random sample from that frame instead of the bestseller list. Cover every division of the catalog, not just ' . $nsub . ' subjects. Use far more titles, and check availability at the start of the term, when it actually matters to students.</p>
+      <p style="margin-top:1em;"><b>Answer:</b> the sample of textbooks is not representative: bestsellers in ' . $nsub . ' large subjects are the titles most likely to be in stock, the subject coverage is narrow, ' . $nsub . ' titles is too small a base for a catalog-wide claim, and the timing of the check does not match when students actually need their books. The ' . $nretail . '-retailer sample being random is the one part of the design that is fine.</p>
     </div>
   </details>
 </div>'

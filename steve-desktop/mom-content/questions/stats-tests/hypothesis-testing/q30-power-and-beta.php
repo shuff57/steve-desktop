@@ -51,8 +51,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; beta from power.</span> The power of the test is `1 - beta`, so `beta = 1 - power = 1 - ' . $power . ' = ' . $beta . '`. Power and beta are complements that have to sum to 1.</p>
-      <p><span class="term-label">Part (b) &mdash; what the power means.</span> ' . $meaning . ' At power 0.40, twelve of twenty real effects are missed.</p>
+      <p><span class="term-label">Part (a): beta from power.</span> The power of the test is `1 - beta`, so `beta = 1 - power = 1 - ' . $power . ' = ' . $beta . '`. Power and beta are complements that have to sum to 1.</p>
+      <p><span class="term-label">Part (b): what the power means.</span> ' . $meaning . ' At power 0.40, twelve of twenty real effects are missed.</p>
     </div>
   </details>
 </div>'

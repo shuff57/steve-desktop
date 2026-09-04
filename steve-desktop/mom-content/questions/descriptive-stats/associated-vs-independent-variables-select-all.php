@@ -14,11 +14,11 @@ $assocPairText = array(
 )
 
 $assocWhy = array(
-  "both rise and fall with the season &mdash; hot weather sends more people to buy ice cream, and more people into the water to swim, which is where drownings happen",
-  "both rise and fall with the size of the fire &mdash; a bigger fire gets more firefighters dispatched to it and does more damage, whether or not the firefighters do anything wrong",
-  "both rise and fall with the child&#8217;s age &mdash; older children have bigger feet and have also had more time to develop reading skills",
-  "both rise and fall with how rural a country is &mdash; rural areas have more nesting habitat for storks and, separately, tend to have higher birth rates",
-  "both rise and fall with national wealth &mdash; wealthier countries can afford more chocolate imports and also fund more research, producing more laureates"
+  "both rise and fall with the season: hot weather sends more people to buy ice cream, and more people into the water to swim, which is where drownings happen",
+  "both rise and fall with the size of the fire: a bigger fire gets more firefighters dispatched to it and does more damage, whether or not the firefighters do anything wrong",
+  "both rise and fall with the child&#8217;s age: older children have bigger feet and have also had more time to develop reading skills",
+  "both rise and fall with how rural a country is: rural areas have more nesting habitat for storks and, separately, tend to have higher birth rates",
+  "both rise and fall with national wealth: wealthier countries can afford more chocolate imports and also fund more research, producing more laureates"
 )
 
 $indepPairText = array(
@@ -69,8 +69,8 @@ if ($bSlot == 2) {
 }
 
 $questions[1] = array(
-  "No &mdash; an association alone does not prove causation. A lurking variable, or plain coincidence, could produce this pattern without either variable causing the other.",
-  "Yes &mdash; whenever two variables are clearly associated, the one that changes first must be causing the change in the other.",
+  "No: an association alone does not prove causation. A lurking variable, or plain coincidence, could produce this pattern without either variable causing the other.",
+  "Yes: whenever two variables are clearly associated, the one that changes first must be causing the change in the other.",
   "Yes, because the association is strong and consistent, so a cause-and-effect explanation is the only one that fits.",
   "No, because the two variables are not actually associated in the first place."
 )
@@ -96,16 +96,16 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; What association means.</span> Two variables are associated if knowing the value of one tells you anything &mdash; even something weak or coincidental &mdash; about the other. They are independent only if knowing one tells you nothing at all about the other.</p>
-      <p><span class="term-label">Step 2 &mdash; Check each pair.</span></p>
+      <p><span class="term-label">Step 1: What association means.</span> Two variables are associated if knowing the value of one tells you anything, even something weak or coincidental, about the other. They are independent only if knowing one tells you nothing at all about the other.</p>
+      <p><span class="term-label">Step 2: Check each pair.</span></p>
       <p>&#8226; ' . $q0 . ' are <b>associated</b>: ' . $why0 . '.</p>
       <p>&#8226; ' . $q1 . ' are <b>associated</b>: ' . $why1 . '.</p>
       <p>&#8226; ' . $q2 . ' are <b>associated</b>: ' . $why2 . '.</p>
       <p>&#8226; ' . $q3 . ' are <b>independent</b>: ' . $whyI0 . '.</p>
       <p>&#8226; ' . $q4 . ' are <b>independent</b>: ' . $whyI1 . '.</p>
-      <p><span class="term-label">Step 3 &mdash; Part (a).</span> The three confounded pairs above are the associated ones; the remaining two pairs are independent.</p>
-      <p><span class="term-label">Step 4 &mdash; Part (b): does it prove causation?</span> ' . $bPair . ' are associated, but that does not prove the first variable causes the second. Here, ' . $bWhy . '. That lurking variable, not a direct cause-and-effect link, can fully explain the pattern &mdash; which is exactly why "linked to" is not "causes."</p>
-      <p><b>Answers:</b> (a) the three confounded pairs are associated, the other two are independent; (b) No &mdash; a lurking variable or coincidence may explain the association instead of causation.</p>
+      <p><span class="term-label">Step 3: Part (a).</span> The three confounded pairs above are the associated ones; the remaining two pairs are independent.</p>
+      <p><span class="term-label">Step 4: Part (b): does it prove causation?</span> ' . $bPair . ' are associated, but that does not prove the first variable causes the second. Here, ' . $bWhy . '. That lurking variable, not a direct cause-and-effect link, can fully explain the pattern: which is exactly why "linked to" is not "causes."</p>
+      <p><b>Answers:</b> (a) the three confounded pairs are associated, the other two are independent; (b) No: a lurking variable or coincidence may explain the association instead of causation.</p>
     </div>
   </details>
 </div>'

@@ -64,8 +64,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The template.</span> Use the same template for every part: each statement is the null hypothesis. The Type I error says the claim was true and we rejected it; the Type II error says the claim was false and we did not.</p>
-      <p><span class="term-label">Part (a) &mdash; Type I.</span> ' . $type1 . '</p>
-      <p><span class="term-label">Part (b) &mdash; Type II.</span> ' . $type2 . '</p>
+      <p><span class="term-label">Part (a): Type I.</span> ' . $type1 . '</p>
+      <p><span class="term-label">Part (b): Type II.</span> ' . $type2 . '</p>
       <p>The trick that never fails: write down what `H_0` says, then say out loud "I rejected it, and it was true" for the Type I error and "I did not reject it, and it was false" for the Type II.</p>
     </div>
   </details>

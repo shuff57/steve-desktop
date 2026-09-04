@@ -51,9 +51,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample proportion.</span> `p\' = x/n = ' . $x . '/' . $n . ' = ' . round($p, 4) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the proportion of failures.</span> `q\' = 1 - p\' = 1 - ' . round($p, 4) . ' = ' . round($q, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; the number of failures.</span> `nq\' = n - x = ' . $n . ' - ' . $x . ' = ' . $failures . '`</p>
+      <p><span class="term-label">Part (a): the sample proportion.</span> `p\' = x/n = ' . $x . '/' . $n . ' = ' . round($p, 4) . '`</p>
+      <p><span class="term-label">Part (b): the proportion of failures.</span> `q\' = 1 - p\' = 1 - ' . round($p, 4) . ' = ' . round($q, 4) . '`</p>
+      <p><span class="term-label">Part (c): the number of failures.</span> `nq\' = n - x = ' . $n . ' - ' . $x . ' = ' . $failures . '`</p>
       <p>The sample proportion is the point estimate for the population proportion. Working an interval by hand takes four numbers and they always come in the same order: `p\'`, then `q\'`, then `z_(alpha/2)` from the confidence level, then EBP from the three of them together.</p>
     </div>
   </details>

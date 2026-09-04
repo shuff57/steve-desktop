@@ -78,12 +78,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; name the variable.</span> ' . $var . '</p>
-      <p><span class="term-label">Step 2 &mdash; list the values.</span> The description covers every case from `x = 0` up to `x = ' . $maxX . '`, including the smallest one in the last clause. A value you forget to list is probability you will fail to account for.</p>
-      <p><span class="term-label">Step 3 &mdash; attach the probabilities.</span> Convert each percentage to a decimal. The known probabilities are ' . $known . '; the one buried in the last clause is found by the check in part (a).</p>
-      <p><span class="term-label">Part (a) &mdash; the buried probability.</span> The column must sum to 1, so the missing entry is <b>1 &minus; (' . $known . ') = 1 &minus; ' . $knownSum . ' = ' . $answer[0] . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; E(X).</span> With the completed table, `E(X) = sum x cdot P(X = x) = ` <b>' . $answer[1] . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; the column sum.</span> It must sum to exactly 1. If your built table does not, you dropped a value in step 2.</p>
+      <p><span class="term-label">Step 1: name the variable.</span> ' . $var . '</p>
+      <p><span class="term-label">Step 2: list the values.</span> The description covers every case from `x = 0` up to `x = ' . $maxX . '`, including the smallest one in the last clause. A value you forget to list is probability you will fail to account for.</p>
+      <p><span class="term-label">Step 3: attach the probabilities.</span> Convert each percentage to a decimal. The known probabilities are ' . $known . '; the one buried in the last clause is found by the check in part (a).</p>
+      <p><span class="term-label">Part (a): the buried probability.</span> The column must sum to 1, so the missing entry is <b>1 &minus; (' . $known . ') = 1 &minus; ' . $knownSum . ' = ' . $answer[0] . '</b>.</p>
+      <p><span class="term-label">Part (b): E(X).</span> With the completed table, `E(X) = sum x cdot P(X = x) = ` <b>' . $answer[1] . '</b>.</p>
+      <p><span class="term-label">Part (c): the column sum.</span> It must sum to exactly 1. If your built table does not, you dropped a value in step 2.</p>
     </div>
   </details>
 </div>'

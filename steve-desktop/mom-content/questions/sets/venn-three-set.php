@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 7.1 — 3-Set Venn Diagram Inclusion-Exclusion (3 number answers)
+// Section 7.1: 3-Set Venn Diagram Inclusion-Exclusion (3 number answers)
 
 // Survey contexts: (topic, Set A, Set B, Set C, population noun)
 $contexts = array(
@@ -41,8 +41,8 @@ $n_union = $n_a + $n_b + $n_c - $n_ab - $n_ac - $n_bc + $n_abc
 
 // Answers
 // Part A: n(A ∪ B ∪ C)
-// Part B: n(A ∩ B ∩ C)  — in all three
-// Part C: n(A ∩ B′ ∩ C′) — in A only
+// Part B: n(A ∩ B ∩ C): in all three
+// Part C: n(A ∩ B′ ∩ C′): in A only
 $answer[0] = $n_union
 $answer[1] = $abc
 $answer[2] = $only_a
@@ -137,7 +137,7 @@ $solutionguide = $css_block . '
           <tr class="row-colored">
             <td style="text-align:center;"><b>Part B<br>n(A&cap;B&cap;C)</b></td>
             <td>
-              This is the center region of the Venn diagram — those in all three sets.
+              This is the center region of the Venn diagram: those in all three sets.
               <div style="margin-top:8px;padding:0.6em 1em;background:#e8f5e9;border-left:4px solid #4CAF50;border-radius:0 6px 6px 0;">
                 <b>n(A&cap;B&cap;C) = ' . $abc . '</b>
               </div>

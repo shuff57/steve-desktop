@@ -5,7 +5,7 @@
 
 $anstypes = array("number", "number", "number", "number", "numfunc")
 
-// Randomize disjoint regions first — guarantees all derived counts are positive.
+// Randomize disjoint regions first: guarantees all derived counts are positive.
 $only_a  = rand(30, 58)
 $only_b  = rand(22, 48)
 $both    = rand(10, 28)
@@ -21,7 +21,7 @@ $answer[0] = $union
 $answer[1] = $only_a
 $answer[2] = $only_b
 $answer[3] = $neither
-// Part (e): P(A) = sizeA / total — numfunc with tolerance 0.005
+// Part (e): P(A) = sizeA / total: numfunc with tolerance 0.005
 $answer[4] = $sizeA / $total
 $answerformat[4] = "0.005"
 
@@ -43,7 +43,7 @@ $labelB = $labels_b[$ci]
 $unit   = $units[$ci]
 $scene  = $scenes[$ci]
 
-// P(A) display for solution — precompute a rounded string to avoid function calls in solution text
+// P(A) display for solution: precompute a rounded string to avoid function calls in solution text
 $prob_num = $sizeA
 $prob_den = $total
 

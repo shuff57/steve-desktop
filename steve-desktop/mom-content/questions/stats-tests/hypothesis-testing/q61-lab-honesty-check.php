@@ -11,7 +11,7 @@
 $anstypes = array("choices", "choices", "choices")
 
 $questions[0] = array(
-  "The class is a convenience sample, so the conclusion describes the population actually sampled from &mdash; not the whole school.",
+  "The class is a convenience sample, so the conclusion describes the population actually sampled from: not the whole school.",
   "The sample is too small to be useful.",
   "The arithmetic is wrong for a class sample."
 )
@@ -27,9 +27,9 @@ $answer[1] = 0
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "No &mdash; the arithmetic is identical and the practice is real; it limits what the conclusion is a conclusion about.",
-  "Yes &mdash; a convenience sample makes the test meaningless.",
-  "Yes &mdash; self-reported data can never be tested."
+  "No: the arithmetic is identical and the practice is real; it limits what the conclusion is a conclusion about.",
+  "Yes: a convenience sample makes the test meaningless.",
+  "Yes: self-reported data can never be tested."
 )
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -52,9 +52,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the convenience-sample limit.</span> Your class is not a random sample of your school, and the students in a statistics class are not interchangeable with the students who are not in one. When you write the final sentence of each test, write it about the population you actually sampled from, and say plainly that the sample was one of convenience.</p>
-      <p><span class="term-label">Part (b) &mdash; the self-reported caveat.</span> Every value is self-reported: nobody is watching you watch television, counting the languages spoken in your home, or opening your closet to audit the jeans. People round, people estimate, and people shade their answers toward what sounds normal.</p>
-      <p><span class="term-label">Part (c) &mdash; does it invalidate the arithmetic?</span> No &mdash; the arithmetic is identical, and the practice is real. A test run on a convenience sample can be executed perfectly and still not support the sweeping claim it looks like it supports. Record the number you were given and note where you suspect the reporting is soft.</p>
+      <p><span class="term-label">Part (a): the convenience-sample limit.</span> Your class is not a random sample of your school, and the students in a statistics class are not interchangeable with the students who are not in one. When you write the final sentence of each test, write it about the population you actually sampled from, and say plainly that the sample was one of convenience.</p>
+      <p><span class="term-label">Part (b): the self-reported caveat.</span> Every value is self-reported: nobody is watching you watch television, counting the languages spoken in your home, or opening your closet to audit the jeans. People round, people estimate, and people shade their answers toward what sounds normal.</p>
+      <p><span class="term-label">Part (c): does it invalidate the arithmetic?</span> No: the arithmetic is identical, and the practice is real. A test run on a convenience sample can be executed perfectly and still not support the sweeping claim it looks like it supports. Record the number you were given and note where you suspect the reporting is soft.</p>
     </div>
   </details>
 </div>'

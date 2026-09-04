@@ -36,7 +36,7 @@ $n = $n_samples[rand(0, count($n_samples) - 1)]
 
 $alpha = 0.05
 
-// (df, t*) for 95% CI — parallel pairs
+// (df, t*) for 95% CI: parallel pairs
 $dfs_ci   = array(20,    30,    40,    50,    60)
 $tstars_ci = array(2.086, 2.042, 2.021, 2.009, 1.999)
 $picked_df = jointrandfrom($dfs_ci, $tstars_ci)
@@ -51,7 +51,7 @@ $me    = round($tstar * $se_b1, 4)
 $lower = round($b1 - $me, 4)
 $upper = round($b1 + $me, 4)
 
-// Part a — LINE conditions
+// Part a: LINE conditions
 $line_choices = array(
   "All four LINE conditions appear reasonably met: the scatterplot is linear, observations are independent, residuals are roughly normal, and the residual plot shows constant spread.",
   "The Linearity condition is violated: the scatterplot shows a clear curve.",
@@ -62,9 +62,9 @@ $choices[0] = $line_choices
 $noshuffle[0] = "all"
 $answer[0] = 0
 
-// Part b — Hypotheses
+// Part b: Hypotheses
 if ($dir == 0) {
-  // positive slope — two-sided test
+  // positive slope: two-sided test
   $h0_text = "`H_0: beta_1 = 0`"
   $ha_text = "`H_a: beta_1 \\ne 0`"
   $hyp_choices = array(
@@ -76,7 +76,7 @@ if ($dir == 0) {
   $answer[1] = 0
   $ha_label = "`H_a: beta_1 \\ne 0`"
 } else {
-  // negative slope — one-sided test
+  // negative slope: one-sided test
   $h0_text = "`H_0: beta_1 = 0`"
   $ha_text = "`H_a: beta_1 < 0`"
   $hyp_choices = array(
@@ -91,15 +91,15 @@ if ($dir == 0) {
 $choices[1] = $hyp_choices
 $noshuffle[1] = "all"
 
-// Part c — t-statistic
+// Part c: t-statistic
 $answer[2] = $test_t
 $reltolerance[2] = 0.02
 
-// Part d — 95% CI lower bound
+// Part d: 95% CI lower bound
 $answer[3] = $lower
 $reltolerance[3] = 0.02
 
-// Part e — Decision and conclusion
+// Part e: Decision and conclusion
 $contains_zero = ($lower < 0 && $upper > 0)
 
 if ($p_val < $alpha) {
@@ -125,7 +125,7 @@ $conclusion_choices = array(
   "Since `r` is large, the relationship is definitely causal."
 )
 // Fix: for p < alpha, the first option is correct (index 0)
-// For p >= alpha, the second option is correct (index 1) — already set above
+// For p >= alpha, the second option is correct (index 1): already set above
 $choices[4] = $conclusion_choices
 $noshuffle[4] = "all"
 

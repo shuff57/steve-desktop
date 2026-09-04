@@ -48,9 +48,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Reading the notation.</span> `X ~ N(mu, sigma)` names the center first and the spread second. The first number is the mean `mu`, the second is the standard deviation `sigma`.</p>
-      <p><span class="term-label">Part (a) &mdash; the mean.</span> `mu = ' . $mu . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation.</span> `sigma = ' . $sigma . '`</p>
-      <p><span class="term-label">Part (c) &mdash; the median.</span> A normal curve is symmetric about its mean, so half the area sits on each side and the median IS the mean: `median = mu = ' . $mu . '`.</p>
+      <p><span class="term-label">Part (a): the mean.</span> `mu = ' . $mu . '`</p>
+      <p><span class="term-label">Part (b): the standard deviation.</span> `sigma = ' . $sigma . '`</p>
+      <p><span class="term-label">Part (c): the median.</span> A normal curve is symmetric about its mean, so half the area sits on each side and the median IS the mean: `median = mu = ' . $mu . '`.</p>
     </div>
   </details>
 </div>'

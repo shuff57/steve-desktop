@@ -61,8 +61,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Split the leftover area between the tails.</span> Outside the middle ' . $cPct . '% there is `1 - ' . $c . ' = ' . (1 - $c) . '` of the area, and the normal distribution is symmetric, so each tail carries `' . $tail . '` (' . $tailPct . '%).</p>
-      <p><span class="term-label">Part (a) &mdash; the lower endpoint.</span> The lower boundary is the ' . $tailPct . 'th percentile: `z ~= ' . round($zlo, 3) . '`, so `k1 = mu + z*sigma = ' . $mu . ' + (' . round($zlo, 3) . ')(' . $sigma . ') ~= ' . round($k1, 2) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the upper endpoint.</span> The upper boundary is the ' . (100 - $tailPct) . 'th percentile: `z ~= ' . round($zhi, 3) . '`, so `k2 = mu + z*sigma = ' . $mu . ' + (' . round($zhi, 3) . ')(' . $sigma . ') ~= ' . round($k2, 2) . '`.</p>
+      <p><span class="term-label">Part (a): the lower endpoint.</span> The lower boundary is the ' . $tailPct . 'th percentile: `z ~= ' . round($zlo, 3) . '`, so `k1 = mu + z*sigma = ' . $mu . ' + (' . round($zlo, 3) . ')(' . $sigma . ') ~= ' . round($k1, 2) . '`.</p>
+      <p><span class="term-label">Part (b): the upper endpoint.</span> The upper boundary is the ' . (100 - $tailPct) . 'th percentile: `z ~= ' . round($zhi, 3) . '`, so `k2 = mu + z*sigma = ' . $mu . ' + (' . round($zhi, 3) . ')(' . $sigma . ') ~= ' . round($k2, 2) . '`.</p>
       <p>Do this on paper the first few times rather than memorizing a formula: the same reasoning handles the middle 50%, the middle 90%, and the confidence intervals waiting in a later chapter.</p>
     </div>
   </details>

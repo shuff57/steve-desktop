@@ -56,9 +56,9 @@ for ($i = 0..5) {
 $tableHtml = $tableHtml . '<tr style="background:#f6f8fc;"><td style="border:1px solid #d9dee8; padding:6px 14px;"><b>Total</b></td><td style="border:1px solid #d9dee8; padding:6px 14px; text-align:center;"><b>' . $n . '</b></td></tr></table>'
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>a &mdash; the missing frequency.</b> The Frequency column must add to the total of ' . $n . ' patients. The five known intervals add to ' . $knownSum . ', so the ' . $missLo . '&ndash;' . $missHi . ' interval holds ' . $n . ' &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
-  <p><b>b &mdash; relative frequency of ' . $tLo . '&ndash;' . $tHi . '.</b> Divide that interval&rsquo;s frequency by the total: ' . $tFreq . ' &divide; ' . $n . ' = <b>' . $relT . '</b>. A relative frequency is always a proportion of the whole, never of a neighbouring interval.</p>
-  <p><b>c &mdash; cumulative relative frequency through ' . $tLo . '&ndash;' . $tHi . '.</b> Add every frequency up to and <i>including</i> that interval &mdash; ' . $cum . ' patients &mdash; then divide by ' . $n . ': <b>' . $cumT . '</b>.</p>
+  <p><b>a: the missing frequency.</b> The Frequency column must add to the total of ' . $n . ' patients. The five known intervals add to ' . $knownSum . ', so the ' . $missLo . '&ndash;' . $missHi . ' interval holds ' . $n . ' &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
+  <p><b>b: relative frequency of ' . $tLo . '&ndash;' . $tHi . '.</b> Divide that interval&rsquo;s frequency by the total: ' . $tFreq . ' &divide; ' . $n . ' = <b>' . $relT . '</b>. A relative frequency is always a proportion of the whole, never of a neighbouring interval.</p>
+  <p><b>c: cumulative relative frequency through ' . $tLo . '&ndash;' . $tHi . '.</b> Add every frequency up to and <i>including</i> that interval: ' . $cum . ' patients: then divide by ' . $n . ': <b>' . $cumT . '</b>.</p>
   <p><b>Two checks worth running.</b> The cumulative column must finish at exactly 1.000 on the last interval, and the frequencies must add back to ' . $n . '. If either misses, an interval was miscounted or a division used the wrong total.</p>
   <p><b>Why the boundaries end in .5:</b> survival length is recorded in whole days, so a cut at 6.5 cannot land on an actual value. No patient can sit on a boundary, and no reader has to guess which interval a 6 belongs to.</p>
 </div>'

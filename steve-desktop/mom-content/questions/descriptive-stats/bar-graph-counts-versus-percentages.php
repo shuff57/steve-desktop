@@ -65,7 +65,7 @@ $questions[2] = array(
 $answer[2] = 0
 
 // Both graphs are built in one loop: 0 counts, 1 percentages. Bars are drawn with a gap between
-// them because the horizontal axis holds categories, not numbers -- that gap is the visible
+// them because the horizontal axis holds categories, not numbers: that gap is the visible
 // difference between a bar graph and a histogram.
 $topC = $maxC + 2
 if ($topC % 2 == 1) { $topC = $topC + 1 }
@@ -132,10 +132,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the group size.</span> Add the four bars on the count graph: ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' = <b>' . $n . '</b> ' . $unitWord . '. Every percentage in this question is a percentage of that number.</p>
-      <p><span class="term-label">Step 2 &mdash; one percentage.</span> ' . $askLabel . ' has ' . $askCount . ' of the ' . $n . '. A percentage is the part over the whole, times 100: 100 &times; ' . $askCount . ' / ' . $n . ' &approx; <b>' . $askPct . '%</b>. Dividing by the number of categories instead of the number of ' . $unitWord . ' is the usual slip.</p>
-      <p><span class="term-label">Step 3 &mdash; why the two graphs look the same.</span> Every count was divided by the same total, ' . $n . ', and multiplied by the same 100. That is a change of units, like measuring in inches instead of feet: each bar shrinks by the same factor, so the tallest bar stays tallest and every ratio between bars survives. Only the numbers up the side change.</p>
-      <p><span class="term-label">So which graph should you use?</span> Counts when the size of the group matters, percentages when you want to compare this group against another of a different size. Neither is more honest &mdash; but a percentage with no group size attached hides how few ' . $unitWord . ' it might stand for.</p>
+      <p><span class="term-label">Step 1: the group size.</span> Add the four bars on the count graph: ' . $cts[0] . ' + ' . $cts[1] . ' + ' . $cts[2] . ' + ' . $cts[3] . ' = <b>' . $n . '</b> ' . $unitWord . '. Every percentage in this question is a percentage of that number.</p>
+      <p><span class="term-label">Step 2: one percentage.</span> ' . $askLabel . ' has ' . $askCount . ' of the ' . $n . '. A percentage is the part over the whole, times 100: 100 &times; ' . $askCount . ' / ' . $n . ' &approx; <b>' . $askPct . '%</b>. Dividing by the number of categories instead of the number of ' . $unitWord . ' is the usual slip.</p>
+      <p><span class="term-label">Step 3: why the two graphs look the same.</span> Every count was divided by the same total, ' . $n . ', and multiplied by the same 100. That is a change of units, like measuring in inches instead of feet: each bar shrinks by the same factor, so the tallest bar stays tallest and every ratio between bars survives. Only the numbers up the side change.</p>
+      <p><span class="term-label">So which graph should you use?</span> Counts when the size of the group matters, percentages when you want to compare this group against another of a different size. Neither is more honest: but a percentage with no group size attached hides how few ' . $unitWord . ' it might stand for.</p>
       <p><b>Answer:</b> (a) ' . $n . ' &nbsp;&nbsp; (b) ' . $askPct . '%</p>
     </div>
   </details>
@@ -157,15 +157,15 @@ $solutionguide = '
         $tableRows
       </tbody>
     </table>
-    <p style="margin:14px 0 0 0;">The same data is drawn twice below &mdash; once as counts, once as percentages.</p>
+    <p style="margin:14px 0 0 0;">The same data is drawn twice below: once as counts, once as percentages.</p>
   </div>
   <div style="display:flex; flex-wrap:wrap; gap:14px; margin:10px 0;">
     <div style="flex:1 1 300px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px;">
-      <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Graph A &mdash; counts</p>
+      <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Graph A: counts</p>
       $countGraph
     </div>
     <div style="flex:1 1 300px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:12px;">
-      <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Graph B &mdash; percentages</p>
+      <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Graph B: percentages</p>
       $pctGraph
     </div>
   </div>

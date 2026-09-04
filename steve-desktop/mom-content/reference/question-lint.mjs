@@ -81,8 +81,38 @@ function check(file) {
     findings.push({ kind: 'box-without-key', file: rel, n: 0, detail: `answerbox ${missing.join(', ')} has no $answer[]` });
   }
 
+  // 6. AI tells and dashes-as-punctuation (Steve, 2026-09-02). Prose a student or a colleague reads
+  // has to sound like Steve wrote it; a dash is the loudest tell and the bank was full of them
+  // because nothing banned them. ADVISORY, like the article check: ~2,700 hits predate the rule and
+  // a hard failure would make the lint unusable. A file you WROTE must come back with zero, so
+  // scope the run to your own path rather than reading the bank-wide total.
+  //
+  // EN DASHES ARE NOT FLAGGED. The first cut of this rule flagged them and produced 57 hits, every
+  // single one a numeric range: `$b4 &ndash; $e4` and `' . $lo[$i] . '&ndash;' . $hi[$i]` are the
+  // class intervals of a grouped frequency table, where an en dash is the CORRECT character. A rule
+  // that fires on 57 correct uses is a rule people learn to ignore, which would take the em-dash
+  // check down with it. Only the em-dash family is punctuation misuse.
+  const TELLS = [
+    [/&mdash;/, 'html em dash entity'],
+    [/—/, 'em dash'],
+    [/(?<=[A-Za-z0-9)"'])\s--\s/, 'double hyphen used as a dash'],
+    [/\bnot (just|only|merely)\b/i, '"not just/only" false contrast'],
+    [/(^|[.!?]\s+|>)(Ultimately|Crucially|Notably|Importantly|Essentially|Fundamentally|Indeed|Moreover|Furthermore),/, 'chatbot sentence opener'],
+    [/\b(delve|leverage|robust|seamless|holistic|nuanced|multifaceted|tapestry|underscore)\w*\b/i, 'chatbot vocabulary'],
+    [/\bit(?:'|’)?s? (?:is )?(?:worth noting|important to (?:note|remember))\b/i, 'empty framing phrase'],
+    [/\bserves as an?\b|\bplays an? (?:key|vital|crucial|significant) role\b|\bis a testament to\b/i, 'stock filler phrase'],
+    [/\b(may potentially|could possibly|generally tends to)\b/i, 'stacked hedge'],
+  ];
+
   lines.forEach((line, i) => {
     const n = i + 1;
+
+    for (const [rx, why] of TELLS) {
+      if (rx.test(line)) {
+        const hit = rx.exec(line);
+        findings.push({ kind: 'ai-tell', file: rel, n, detail: `${why}: ...${line.trim().slice(Math.max(0, hit.index - 30), hit.index + 45).trim()}...` });
+      }
+    }
 
     const art = /(?:^|[^A-Za-z])(an?) ' \. \$([A-Za-z_]+)/.exec(line);
     if (art) findings.push({ kind: 'article', file: rel, n, detail: `${art[1]} ' . $${art[2]}` });
@@ -103,6 +133,7 @@ const groups = {
   'answers-plural': 'ANSWER KEY MISSING — $answers[ is a typo for $answer[',
   'key-after-qtext': 'ANSWER KEY IN THE WRONG SECTION — must sit in COMMON CONTROL',
   article: 'ARTICLE BEFORE AN INTERPOLATED NOUN — check it is singular and consonant-initial',
+  'ai-tell': 'AI TELL / DASH AS PUNCTUATION — recast the sentence (see skills/mom-question)',
 };
 
 let hard = 0;
@@ -111,7 +142,7 @@ for (const [kind, title] of Object.entries(groups)) {
   if (!hits.length) continue;
   console.log(`\n${title}`);
   for (const h of hits) console.log(`  ${h.file}:${h.n}  ${h.detail}`);
-  if (kind !== 'article') hard += hits.length;
+  if (kind !== 'article' && kind !== 'ai-tell') hard += hits.length;
 }
 
 console.log(`\n${findings.length} finding(s); ${hard} are defects, the rest need a human glance.`);

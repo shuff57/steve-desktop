@@ -15,10 +15,10 @@ $answer[0] = $r2
 $reltolerance[0] = 0.01
 
 $questions[1] = array(
-  "Yes — for simple linear regression, `R^2 = r^2`, so the sign of `r` is lost when squaring.",
-  "No — `R^2` must always equal `r`, so two different models would give different `R^2`.",
-  "No — a negative correlation always gives a negative `R^2`.",
-  "Yes — but only if both datasets have exactly the same sample size."
+  "Yes: for simple linear regression, `R^2 = r^2`, so the sign of `r` is lost when squaring.",
+  "No: `R^2` must always equal `r`, so two different models would give different `R^2`.",
+  "No: a negative correlation always gives a negative `R^2`.",
+  "Yes: but only if both datasets have exactly the same sample size."
 )
 $answer[1] = 0
 
@@ -42,9 +42,9 @@ $solutionguide = '
       <p><b>Part a:</b> For simple linear regression, the coefficient of determination is just the correlation squared:</p>
       <p style="text-align:center;">`R^2 = r^2 = (' . $r . ')^2 = ' . $r2 . '`</p>
       <p>As a percentage, that is about <b>' . $pct . '%</b> of the variability in `y` explained by `x`.</p>
-      <p><b>Part b:</b> Two datasets can easily have correlations like `r = 0.7` and `r = -0.7` that give the <b>same</b> `R^2 = 0.49`. Squaring removes the sign, so direction information is lost in `R^2` — only the <b>strength</b> of the fit is preserved.</p>
+      <p><b>Part b:</b> Two datasets can easily have correlations like `r = 0.7` and `r = -0.7` that give the <b>same</b> `R^2 = 0.49`. Squaring removes the sign, so direction information is lost in `R^2`: only the <b>strength</b> of the fit is preserved.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        <b>Key idea:</b> `R^2` is always between 0 and 1 and tells you how tight the fit is — never the direction.
+        <b>Key idea:</b> `R^2` is always between 0 and 1 and tells you how tight the fit is: never the direction.
       </div>
     </div>
   </details>

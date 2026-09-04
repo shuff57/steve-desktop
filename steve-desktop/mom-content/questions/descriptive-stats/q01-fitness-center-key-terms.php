@@ -10,7 +10,7 @@ $units = array("weekly", "daily", "monthly")
 $business = $businesses[rand(0, count($businesses)-1)]
 $unit = $units[rand(0, count($units)-1)]
 
-// The six terms stay in teaching order — population before sample, parameter before statistic —
+// The six terms stay in teaching order, population before sample, parameter before statistic, 
 // so the list reads as the definition sequence rather than a scramble.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
@@ -64,7 +64,7 @@ $solutionguide = '
       <div class="term-row"><span class="term-label">Statistic:</span> the mean ' . $unit . ' exercise time for the clients in the sample</div>
       <div class="term-row"><span class="term-label">Variable:</span> the amount of time one client exercises ' . $unit . '</div>
       <div class="term-row"><span class="term-label">Data:</span> the recorded time values, such as 2 hours, 5 hours, 0 hours</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of clients who exercised is a count, not a mean &mdash; the parameter and the statistic here both have to be mean times. And <b>everyone living nearby</b> is a wider group than the clients this study is about.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of clients who exercised is a count, not a mean: the parameter and the statistic here both have to be mean times. And <b>everyone living nearby</b> is a wider group than the clients this study is about.</div>
     </div>
   </details>
 </div>'

@@ -12,7 +12,7 @@ $picked_ctx = jointrandfrom($ctx_x, $ctx_y)
 $xname = $picked_ctx[0]
 $yname = $picked_ctx[1]
 
-// CI cases — parallel arrays so the (case, low, high) triple stays consistent.
+// CI cases: parallel arrays so the (case, low, high) triple stays consistent.
 // "pos"  = entirely above 0, "neg" = entirely below 0, "zero" = brackets 0.
 $cases = array("pos",  "neg",  "zero", "pos",  "zero", "neg")
 $lows  = array(0.12,  -2.30, -0.18,   0.40,  -0.85,  -1.40)
@@ -22,7 +22,7 @@ $case = $picked_ci[0]
 $low  = $picked_ci[1]
 $high = $picked_ci[2]
 
-// Part a — does the CI contain 0?
+// Part a: does the CI contain 0?
 $choices[0] = array("Yes, the interval contains 0", "No, the interval does not contain 0")
 $displayformat[0] = "select"
 $noshuffle[0] = "all"
@@ -34,7 +34,7 @@ if ($case == "zero") {
   $contains_text = "does not contain 0"
 }
 
-// Part b — what does that mean about the relationship?
+// Part b: what does that mean about the relationship?
 $choices[1] = array(
   "There is convincing evidence of a positive linear relationship between `x` and `y` in the population.",
   "There is convincing evidence of a negative linear relationship between `x` and `y` in the population.",
@@ -54,7 +54,7 @@ if ($case == "pos") {
   $relate_text = "0 is a plausible value for the slope, so we do not have convincing evidence of a linear relationship"
 }
 
-// Part c — at alpha = 0.05, reject H_0?
+// Part c: at alpha = 0.05, reject H_0?
 $choices[2] = array("Reject `H_0`", "Fail to reject `H_0`")
 $displayformat[2] = "select"
 $noshuffle[2] = "all"

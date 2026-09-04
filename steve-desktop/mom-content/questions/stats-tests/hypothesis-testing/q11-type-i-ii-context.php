@@ -11,11 +11,11 @@ $answerboxsize = 28
 // (a) what a Type I error means in this context (reject H0 when H0 is true)
 // (b) what a Type II error means in this context (fail to reject H0 when H0 is false)
 
-// Scenario 0: medical test — H0: patient is healthy; Ha: patient has disease
-// Scenario 1: factory — H0: bolt diameter = 10mm; Ha: bolt diameter ≠ 10mm
-// Scenario 2: fire alarm — H0: no fire; Ha: there is a fire
-// Scenario 3: drug trial — H0: drug has no effect; Ha: drug has an effect
-// Scenario 4: pollution — H0: water is safe; Ha: water is contaminated
+// Scenario 0: medical test: H0: patient is healthy; Ha: patient has disease
+// Scenario 1: factory: H0: bolt diameter = 10mm; Ha: bolt diameter ≠ 10mm
+// Scenario 2: fire alarm: H0: no fire; Ha: there is a fire
+// Scenario 3: drug trial: H0: drug has no effect; Ha: drug has an effect
+// Scenario 4: pollution: H0: water is safe; Ha: water is contaminated
 
 $ctxs = array(
   "A medical test screens for a disease. The null hypothesis is <b>`H_0`: the patient does NOT have the disease</b>; the alternative is <b>`H_a`: the patient HAS the disease</b>.",

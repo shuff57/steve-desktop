@@ -17,7 +17,7 @@
 // Not reused from an earlier assignment: 2.3 Percentile, 2.4 Contextual Interpretation, 2.5
 // Outlier Impact, 2.6 Further Investigation, 2.7 Practical Conclusion, 3.1 Sample Space, 3.2
 // Distinguish the Two, 3.3 Second Factor, 3.4 State the Direction, 3.5 Draw the Structure, 4.1
-// State the Values, 4.2 Verify the Sum -- none is this.
+// State the Values, 4.2 Verify the Sum: none is this.
 //
 // CATEGORY PURITY: $sParams states n and p and nothing else; $sQuestion states the probability
 // question symbolically and nothing else; $sCompute evaluates and reads the result in context
@@ -93,7 +93,7 @@ $answer[1] = "1,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The probability question and its computation can both be right while nobody ever stated n and p, so nothing shows the model matches the scenario — the parameters have to be named on their own.",
+  "No. The probability question and its computation can both be right while nobody ever stated n and p, so nothing shows the model matches the scenario: the parameters have to be named on their own.",
   "Yes. Once the probability is computed correctly, the parameters are implied by the arithmetic, so there is nothing separate to award.",
   "No, but only because the computation is the hard part.",
   "Yes, as long as the answer is a number between 0 and 1, the setup does not matter."
@@ -168,15 +168,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the parameters, states the probability question symbolically, and computes and interprets it. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the parameters, states the probability question symbolically, and computes and interprets it. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sP . ' ' . $sQ . ' ' . $sC . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noParamsLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noParamsLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Name the Parameters &mdash; NOT earned.</b> The probability question and the computation use n and p, but nowhere does the response state them, so nothing shows the model matches the scenario.</li>
-        <li><b>State the Probability Question &mdash; earned.</b> The English is translated into a symbolic statement.</li>
-        <li><b>Compute and Interpret &mdash; earned.</b> The probability is evaluated and read in context.</li>
+        <li><b>Name the Parameters: NOT earned.</b> The probability question and the computation use n and p, but nowhere does the response state them, so nothing shows the model matches the scenario.</li>
+        <li><b>State the Probability Question: earned.</b> The English is translated into a symbolic statement.</li>
+        <li><b>Compute and Interpret: earned.</b> The probability is evaluated and read in context.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the parameters are their own category.</span> Most of the work in a binomial problem happens before any arithmetic: decide what one trial is, what counts as a success, how many trials there are, and which inequality the English is asking for. A computation without the parameters is an answer looking for a question.</p>
+      <p><span class="term-label">Part (c): why the parameters are their own category.</span> Most of the work in a binomial problem happens before any arithmetic: decide what one trial is, what counts as a success, how many trials there are, and which inequality the English is asking for. A computation without the parameters is an answer looking for a question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The parameters are the category most often skipped, because once the arithmetic is down the setup feels like busywork.</p>
     </div>
   </details>

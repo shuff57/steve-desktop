@@ -6,7 +6,7 @@
 // Chapter 1's second pre-FRQ, for 1.4, built exactly like the 1.2 sampling one: the SAME scenario and
 // the SAME grading checklist as the free-response question this section is assessed by
 // (frq/descriptive-statistics/q12-reading-a-study-frq), with the writing replaced by grading. The
-// point is the category students silently omit -- here, saying what may and may not be concluded.
+// point is the category students silently omit: here, saying what may and may not be concluded.
 //
 // Every response is built AGAINST the rubric rather than written and then judged, so which categories
 // each one earns is fixed by construction and cannot drift with the seed.
@@ -15,7 +15,7 @@ $anstypes = array("choices", "multans", "choices")
 $si = rand(0, 2)
 if ($si == 0) {
   $study = "A health blog reports that people who drink green tea every day tend to weigh less than people who do not. The data came from an online survey in which readers reported their own tea habits and weight."
-  $typeText = "an observational study, because nobody was assigned to drink green tea -- the researchers only recorded habits people already had"
+  $typeText = "an observational study, because nobody was assigned to drink green tea: the researchers only recorded habits people already had"
   $biasName = "confounding"
   $biasText = "green-tea drinkers may also exercise more or eat better, and readers who chose to respond are not like everyone else"
   $conclText = "green tea is ASSOCIATED with lower weight in this group, but nothing here shows it CAUSES weight loss"
@@ -23,7 +23,7 @@ if ($si == 0) {
 }
 elseif ($si == 1) {
   $study = "A school tries a new math app with one class and compares its test scores with another class that used the old materials. Students were not randomly assigned, and the class using the app happened to be the honors section."
-  $typeText = "an observational study in effect, because there was no random assignment -- the two classes were compared as they already stood"
+  $typeText = "an observational study in effect, because there was no random assignment: the two classes were compared as they already stood"
   $biasName = "a confounding variable"
   $biasText = "the app class was the honors section, so the two groups differed in ability before the app was ever used"
   $conclText = "the app is associated with higher scores here, but the honors students might well have scored higher anyway"
@@ -34,7 +34,7 @@ else {
   $typeText = "an observational study, because it is built from records already collected and no treatment was assigned to anyone"
   $biasName = "a lurking variable"
   $biasText = "town population size drives both the number of ice cream shops and the amount of crime"
-  $conclText = "the two rise together, but ice cream does not cause crime -- the relationship is explained by something else"
+  $conclText = "the two rise together, but ice cream does not cause crime: the relationship is explained by something else"
   $treatment = "opening ice cream shops"
 }
 
@@ -55,7 +55,7 @@ $rA = $rFull
 $rB = $rNoConcl
 $rC = $rNoBias
 $rD = $rTypeOnly
-// One statement per line -- the dialect allows no separator, and two assignments sharing a line
+// One statement per line: the dialect allows no separator, and two assignments sharing a line
 // happen to parse today but are exactly the shape the rules warn about.
 if ($pos == 1) {
   $rA = $rNoConcl
@@ -74,7 +74,7 @@ $questions[0] = array("Response A", "Response B", "Response C", "Response D")
 $answer[0] = $pos
 
 // Part (b) grades the NO-CONCLUSION response, which is always the one sitting where $rNoConcl ended
-// up. It earns Study Type and Bias or Confounding and fails only Justified Conclusion -- one category,
+// up. It earns Study Type and Bias or Confounding and fails only Justified Conclusion: one category,
 // so ticking everything is wrong and ticking nothing is wrong.
 $noConclLabel = "B"
 if ($pos == 1) { $noConclLabel = "A" }
@@ -124,7 +124,7 @@ $rubric = $css . '
           <tr><td style="text-align:center;"><b>Bias or Confounding<br>(4 pts)</b></td>
             <td>Name one specific, plausible source of bias or a confounding variable, and explain briefly why it is a problem here.</td></tr>
           <tr class="row-colored"><td style="text-align:center;"><b>Justified Conclusion<br>(3 pts)</b></td>
-            <td>State what can and cannot be concluded &mdash; association versus causation, or the limits on generalizing.</td></tr>
+            <td>State what can and cannot be concluded: association versus causation, or the limits on generalizing.</td></tr>
         </tbody>
       </table>
     </div>
@@ -163,15 +163,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> classifies the study AND says why, names a specific problem AND says why it matters, and then states what may and may not be concluded. Each of the other three drops at least one whole category, and a dropped category scores zero however well the rest is written.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noConclLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> classifies the study AND says why, names a specific problem AND says why it matters, and then states what may and may not be concluded. Each of the other three drops at least one whole category, and a dropped category scores zero however well the rest is written.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noConclLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Study Type &mdash; earned.</b> It classifies the study and ties the classification to the absence of random assignment.</li>
-        <li><b>Bias or Confounding &mdash; earned.</b> It names ' . $biasName . ' and explains why it matters here.</li>
-        <li><b>Justified Conclusion &mdash; NOT earned.</b> It ends by saying the study has a weakness. That is a comment on the design, not a statement of what the data does and does not support. This is the only category it misses.</li>
+        <li><b>Study Type: earned.</b> It classifies the study and ties the classification to the absence of random assignment.</li>
+        <li><b>Bias or Confounding: earned.</b> It names ' . $biasName . ' and explains why it matters here.</li>
+        <li><b>Justified Conclusion: NOT earned.</b> It ends by saying the study has a weakness. That is a comment on the design, not a statement of what the data does and does not support. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the conclusion is its own category.</span> Naming a flaw tells a reader the study is imperfect. It does not tell them what they may still take away, and that is what a decision actually rests on. The honest conclusion here is that ' . $conclText . ' &mdash; a specific, checkable claim, and a different piece of thinking from spotting the flaw. Because no one was assigned to ' . $treatment . ', causation was never available to be claimed.</p>
-      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Finding the missing category in someone else&rsquo;s answer is the quickest way to stop leaving it out of your own &mdash; and the conclusion is the one most often left out, because it feels like it has already been said.</p>
+      <p><span class="term-label">Part (c): why the conclusion is its own category.</span> Naming a flaw tells a reader the study is imperfect. It does not tell them what they may still take away, and that is what a decision actually rests on. The honest conclusion here is that ' . $conclText . ': a specific, checkable claim, and a different piece of thinking from spotting the flaw. Because no one was assigned to ' . $treatment . ', causation was never available to be claimed.</p>
+      <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Finding the missing category in someone else&rsquo;s answer is the quickest way to stop leaving it out of your own: and the conclusion is the one most often left out, because it feels like it has already been said.</p>
     </div>
   </details>
 </div>'

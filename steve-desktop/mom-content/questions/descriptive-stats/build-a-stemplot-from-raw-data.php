@@ -16,7 +16,7 @@ $context = $contexts[$ci]
 $unit = $units[$ci]
 
 // Stems are walked digit by digit so no row can be empty and no value can appear more than
-// twice -- the worst case is bounded by construction rather than merely unlikely.
+// twice: the worst case is bounded by construction rather than merely unlikely.
 $nStems = rand(3, 4)
 $lo = rand(2, 5)
 $hi = $lo + $nStems - 1
@@ -96,10 +96,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; split each value into a stem and a leaf.</span> For two-digit data the stem is the tens digit and the leaf is the ones digit. The value ' . $exampleValue . ' splits into stem ' . $lo . ' and leaf ' . $exampleLeaf . '.</p>
-      <p><span class="term-label">Step 2 &mdash; count the rows.</span> The data run from the ' . $lo . '0s up to the ' . $hi . '0s, so the stems are ' . $lo . ' through ' . $hi . ' &mdash; <b>' . $nStems . '</b> rows. Every stem in that span gets a row even if a stem had no values; leaving one out would hide a gap in the data.</p>
-      <p><span class="term-label">Step 3 &mdash; count the leaves on one row.</span> Every value from ' . $askLow . ' to ' . $askHigh . ' ' . $unit . ' lands on stem ' . $askStem . '. Reading those out of the list gives <b>' . $countInStem . '</b> values. Count leaves, not rows: one row holds many values.</p>
-      <p><span class="term-label">Step 4 &mdash; count above a cutoff.</span> Values of ' . $cutoff . ' ' . $unit . ' or more sit on stems ' . $cutStem . ' through ' . $hi . '. Adding the leaves on those rows gives <b>' . $atOrAbove . '</b>. This is what a stemplot is for &mdash; the original values survive, so a count like this can still be read off exactly.</p>
+      <p><span class="term-label">Step 1: split each value into a stem and a leaf.</span> For two-digit data the stem is the tens digit and the leaf is the ones digit. The value ' . $exampleValue . ' splits into stem ' . $lo . ' and leaf ' . $exampleLeaf . '.</p>
+      <p><span class="term-label">Step 2: count the rows.</span> The data run from the ' . $lo . '0s up to the ' . $hi . '0s, so the stems are ' . $lo . ' through ' . $hi . ': <b>' . $nStems . '</b> rows. Every stem in that span gets a row even if a stem had no values; leaving one out would hide a gap in the data.</p>
+      <p><span class="term-label">Step 3: count the leaves on one row.</span> Every value from ' . $askLow . ' to ' . $askHigh . ' ' . $unit . ' lands on stem ' . $askStem . '. Reading those out of the list gives <b>' . $countInStem . '</b> values. Count leaves, not rows: one row holds many values.</p>
+      <p><span class="term-label">Step 4: count above a cutoff.</span> Values of ' . $cutoff . ' ' . $unit . ' or more sit on stems ' . $cutStem . ' through ' . $hi . '. Adding the leaves on those rows gives <b>' . $atOrAbove . '</b>. This is what a stemplot is for: the original values survive, so a count like this can still be read off exactly.</p>
       <p><b>Answer:</b> (a) ' . $nStems . ' &nbsp;&nbsp; (b) ' . $countInStem . ' &nbsp;&nbsp; (c) ' . $atOrAbove . ' &nbsp;&nbsp; (d) the last digit of one data value</p>
     </div>
   </details>

@@ -40,7 +40,7 @@ $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The probability that the null hypothesis is true &mdash; the p-value is computed assuming the null is true, so it cannot measure the null's probability.",
+  "The probability that the null hypothesis is true: the p-value is computed assuming the null is true, so it cannot measure the null's probability.",
   "The probability of a sample result this extreme or more so, IF the null hypothesis were true.",
   "The probability that the sample mean equals the claimed value."
 )
@@ -73,9 +73,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; what the p-value measures.</span> The p-value is the probability of a sample result this extreme or more so, IF the null hypothesis were true. A p-value of ' . $pval . ' means that if the true value really were the claimed one, a sample result this far out would turn up about ' . round($pval * 100, 1) . '% of the time.</p>
-      <p><span class="term-label">Part (b) &mdash; what it is NOT.</span> The p-value is not the probability that the null is true &mdash; it is computed assuming the null is true, so it measures the surprise, not the truth.</p>
-      <p><span class="term-label">Part (c) &mdash; the region.</span> The p-value stands for the tail(s) of the sampling distribution beyond the observed test statistic &mdash; the picture is the p-value made visible.</p>
+      <p><span class="term-label">Part (a): what the p-value measures.</span> The p-value is the probability of a sample result this extreme or more so, IF the null hypothesis were true. A p-value of ' . $pval . ' means that if the true value really were the claimed one, a sample result this far out would turn up about ' . round($pval * 100, 1) . '% of the time.</p>
+      <p><span class="term-label">Part (b): what it is NOT.</span> The p-value is not the probability that the null is true: it is computed assuming the null is true, so it measures the surprise, not the truth.</p>
+      <p><span class="term-label">Part (c): the region.</span> The p-value stands for the tail(s) of the sampling distribution beyond the observed test statistic: the picture is the p-value made visible.</p>
     </div>
   </details>
 </div>'

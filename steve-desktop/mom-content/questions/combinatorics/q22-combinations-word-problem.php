@@ -83,7 +83,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 6px 0;">A <b>$sport team</b> has <b>$nval players</b> on its roster, including a player named <b>Jordan</b>. The coach needs to select a <b>$role</b> from the roster. (Order does not matter — only which players are chosen.)</p>
+    <p style="margin:0 0 6px 0;">A <b>$sport team</b> has <b>$nval players</b> on its roster, including a player named <b>Jordan</b>. The coach needs to select a <b>$role</b> from the roster. (Order does not matter: only which players are chosen.)</p>
     <p style="margin:0;">Answer each part below. You may express the probability in part (d) as a fraction.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: CI for one proportion — compute lower and upper bounds, then select correct interpretation ===
+// === NAME - DESCRIPTION: CI for one proportion: compute lower and upper bounds, then select correct interpretation ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -58,12 +58,12 @@ $solutionguide = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><b>Parts a &amp; b — Compute the CI:</b></p>
+      <p><b>Parts a &amp; b: Compute the CI:</b></p>
       <p>`hat{p} = ' . $x . '/' . $n . ' = ' . $phat . '`</p>
       <p>Critical value `z^* = ' . $zr . '` for ' . $conf . '% confidence.</p>
       <p>ME `= z^* sqrt(hat{p}(1-hat{p})/n) = ' . $zr . ' cdot ' . round($se,4) . ' = ' . $mer . '`</p>
       <p>CI: `(' . $low . ', ' . $high . ')`</p>
-      <p><b>Part c — Interpretation:</b> The correct template is: "We are [confidence]% confident the TRUE PROPORTION is between [lower] and [upper]." The CI is about the parameter, not the sample statistic.</p>
+      <p><b>Part c: Interpretation:</b> The correct template is: "We are [confidence]% confident the TRUE PROPORTION is between [lower] and [upper]." The CI is about the parameter, not the sample statistic.</p>
     </div>
   </details>
 </div>'

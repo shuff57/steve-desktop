@@ -16,7 +16,7 @@ $a2 = rand(8, 12)
 // Precompute the scalars the prompt and the answer key both need.
 $agelist = "$a1 and $a2"
 
-// The six terms stay in teaching order — population before sample, parameter before statistic —
+// The six terms stay in teaching order, population before sample, parameter before statistic, 
 // so the list reads as the definition sequence rather than a scramble.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
@@ -63,9 +63,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group.</b> The study is about children who take a first ' . $activity . ' lesson, so that whole group is the population. The ' . $n . ' children whose ages actually get written down are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two mean ages.</b> A mean over the whole population is a parameter; the same mean computed from the recorded group is a statistic.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is measured on one child is the variable; the numbers written down are the data.</p>
+      <p><b>Step 1: Name the group.</b> The study is about children who take a first ' . $activity . ' lesson, so that whole group is the population. The ' . $n . ' children whose ages actually get written down are the sample.</p>
+      <p><b>Step 2: Sort the two mean ages.</b> A mean over the whole population is a parameter; the same mean computed from the recorded group is a statistic.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is measured on one child is the variable; the numbers written down are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all children who take ' . $activity . ' lessons</div>
       <div class="term-row"><span class="term-label">Sample:</span> the group of ' . $n . ' children whose ages are recorded</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the mean age at a first lesson for <em>all</em> such children</div>

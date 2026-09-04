@@ -5,14 +5,14 @@
 
 $anstypes = array("choices")
 
-// Scenario 0: Eye color — qualitative
-// Scenario 1: T-shirt size (S/M/L/XL) — qualitative
-// Scenario 2: Temperature in F — quantitative
-// Scenario 3: Weight in lb — quantitative
-// Scenario 4: Letter grade (A,B,C,D,F) — qualitative
-// Scenario 5: Number of siblings — quantitative
-// Scenario 6: Movie ratings 1-5 stars — qualitative
-// Scenario 7: Time of day in hours since midnight — quantitative
+// Scenario 0: Eye color: qualitative
+// Scenario 1: T-shirt size (S/M/L/XL): qualitative
+// Scenario 2: Temperature in F: quantitative
+// Scenario 3: Weight in lb: quantitative
+// Scenario 4: Letter grade (A,B,C,D,F): qualitative
+// Scenario 5: Number of siblings: quantitative
+// Scenario 6: Movie ratings 1-5 stars: qualitative
+// Scenario 7: Time of day in hours since midnight: quantitative
 
 $ctxs = array(
   "A pet shelter records the <b>eye color</b> of each cat (e.g., green, blue, yellow).",

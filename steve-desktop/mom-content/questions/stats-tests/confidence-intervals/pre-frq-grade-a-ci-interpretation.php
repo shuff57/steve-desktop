@@ -8,7 +8,7 @@
 //
 // The dropped category is CONFIDENCE LEVEL MEANING. A student can interpret the interval and
 // assess the claim without ever explaining what the confidence level means in repeated sampling
-// — the section's own "the interval moves, not the truth" is exactly the step a plausible
+//: the section's own "the interval moves, not the truth" is exactly the step a plausible
 // answer skips.
 //
 // CATEGORY PURITY: $sInterp states the interval interpretation and nothing else; $sLevel states
@@ -132,15 +132,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> interprets the interval, explains the confidence level, and assesses the claim. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> interprets the interval, explains the confidence level, and assesses the claim. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sInterp . ' ' . $sLevel . ' ' . $sClaim . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noLevelLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noLevelLabel . ' line by line.</span></p>
       <ul>
-        <li><b>CI Interpretation &mdash; earned.</b> The interval is interpreted in context with the population and the bounds named.</li>
-        <li><b>Confidence Level Meaning &mdash; NOT earned.</b> The response never explains what the confidence level means in repeated sampling, so the level is missing.</li>
-        <li><b>Assessing the Claim &mdash; earned.</b> The claimed value is checked against the interval and judged not plausible.</li>
+        <li><b>CI Interpretation: earned.</b> The interval is interpreted in context with the population and the bounds named.</li>
+        <li><b>Confidence Level Meaning: NOT earned.</b> The response never explains what the confidence level means in repeated sampling, so the level is missing.</li>
+        <li><b>Assessing the Claim: earned.</b> The claimed value is checked against the interval and judged not plausible.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the level is its own category.</span> The interval moves, not the truth: the population mean is one fixed number that never budges, and it is the interval that jumps around from sample to sample. Explaining what the confidence level means &mdash; the method captures the true mean 95% of the time &mdash; is a separate judgement from reading the interval, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the level is its own category.</span> The interval moves, not the truth: the population mean is one fixed number that never budges, and it is the interval that jumps around from sample to sample. Explaining what the confidence level means, the method captures the true mean 95% of the time, is a separate judgement from reading the interval, and a response that skips it has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The confidence level meaning is the category most often skipped, because once the interval is written the level feels like commentary.</p>
     </div>
   </details>

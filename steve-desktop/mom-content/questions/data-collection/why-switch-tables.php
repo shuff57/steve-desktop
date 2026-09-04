@@ -41,7 +41,7 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">When the switch is forced.</span> The at-most-2 and more-than-2 questions cut through the middle of the 2-3 row, where the grouped table cannot separate 2 from 3. Their answers need the ungrouped table &mdash; so the student who started on the grouped table has to switch.</p>
+      <p><span class="term-label">When the switch is forced.</span> The at-most-2 and more-than-2 questions cut through the middle of the 2-3 row, where the grouped table cannot separate 2 from 3. Their answers need the ungrouped table: so the student who started on the grouped table has to switch.</p>
       <p><span class="term-label">When staying is fine.</span> The cut at 3 lands exactly on the boundary between the 2-3 and 4-5 groups, so the at-most-3 and more-than-3 questions give the same answer from either table. No switch needed.</p>
       <p><span class="term-label">The lesson.</span> Which table answers a question is decided by where the question&rsquo;s cut lands, not by the data.</p>
     </div>

@@ -37,7 +37,7 @@ $solutionguide = '
       <p><span class="term-label">The CDF.</span> For `X ~ U(0, 1)`, `P(X <= x) = (x - 0)/(1 - 0) = x`. The probability of landing at or below a value IS that value.</p>
       <p><span class="term-label">The quartiles.</span> The first quartile is the value with 0.25 of the distribution below it, so solve `x = 0.25`. The median has 0.50 below it, so `x = 0.50`. The third quartile has 0.75 below it, so `x = 0.75`.</p>
       <p><b>Q1 = 0.25, median = 0.5, Q3 = 0.75.</b></p>
-      <p>On a uniform distribution the percentile and the value are the same number, which is a coincidence of `U(0, 1)` and not a general rule. The median equals the mean here because the uniform distribution is symmetric — a fact that will stop being true the moment you meet a skewed distribution.</p>
+      <p>On a uniform distribution the percentile and the value are the same number, which is a coincidence of `U(0, 1)` and not a general rule. The median equals the mean here because the uniform distribution is symmetric: a fact that will stop being true the moment you meet a skewed distribution.</p>
     </div>
   </details>
 </div>'

@@ -63,11 +63,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Decide which direction the question runs.</span> If the problem ends with "what is the probability" or "what percent", the answer is a number between 0 and 1 and you want normalcdf &mdash; value in, probability out. If the problem ends with a unit &mdash; points, hours, years &mdash; the answer is a value on the x-axis and you want invNorm &mdash; probability in, value out.</p>
-      <p><span class="term-label">Part (a) &mdash; the probability question.</span> "What is the probability that a randomly selected value is less than ' . $cut . '?" ends in a probability, so it is a normalcdf question.</p>
-      <p><span class="term-label">Part (b) &mdash; the value question.</span> "What value has 80% of the values below it?" ends in a value, so it is an invNorm question.</p>
-      <p><span class="term-label">Part (c) &mdash; the probability.</span> Standardize: `z = (' . $cut . ' - ' . $mu . ')/' . $sigma . ' ~= ' . round(($cut - $mu) / $sigma, 3) . '`, so `P(X < ' . $cut . ') ~= ' . round($prob, 4) . '`.</p>
-      <p>Most errors in this section are not arithmetic errors at all &mdash; they are answering the wrong one of the two questions. Sketch the curve first: shade what the problem describes, then look at whether the thing you do not know is the shaded amount or the boundary of the shading.</p>
+      <p><span class="term-label">Decide which direction the question runs.</span> If the problem ends with "what is the probability" or "what percent", the answer is a number between 0 and 1 and you want normalcdf: value in, probability out. If the problem ends with a unit, points, hours, years, the answer is a value on the x-axis and you want invNorm: probability in, value out.</p>
+      <p><span class="term-label">Part (a): the probability question.</span> "What is the probability that a randomly selected value is less than ' . $cut . '?" ends in a probability, so it is a normalcdf question.</p>
+      <p><span class="term-label">Part (b): the value question.</span> "What value has 80% of the values below it?" ends in a value, so it is an invNorm question.</p>
+      <p><span class="term-label">Part (c): the probability.</span> Standardize: `z = (' . $cut . ' - ' . $mu . ')/' . $sigma . ' ~= ' . round(($cut - $mu) / $sigma, 3) . '`, so `P(X < ' . $cut . ') ~= ' . round($prob, 4) . '`.</p>
+      <p>Most errors in this section are not arithmetic errors at all: they are answering the wrong one of the two questions. Sketch the curve first: shade what the problem describes, then look at whether the thing you do not know is the shaded amount or the boundary of the shading.</p>
     </div>
   </details>
 </div>'

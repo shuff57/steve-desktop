@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 8.4 — Conditional Probability P(A|B) from a two-way table (2 number answers)
+// Section 8.4: Conditional Probability P(A|B) from a two-way table (2 number answers)
 
 // Two-way table contexts
 $contexts = array(
@@ -165,7 +165,7 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-<p><b>Conditional Probability — Two-Way Table</b></p>
+<p><b>Conditional Probability: Two-Way Table</b></p>
 <p>The table below classifies <b>$grand $ctx_noun</b> by <em>$ctx_cat</em> and by whether they <em>$ctx_col1</em>.</p>
 
 <table style="border-collapse:collapse; margin:10px 0; font-size:medium; width:100%;">

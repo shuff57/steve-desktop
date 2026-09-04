@@ -32,9 +32,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; with replacement.</span> The card goes back, so the second draw faces the same 52-card deck as the first and the two draws are independent:</p>
+      <p><span class="term-label">Part (a): with replacement.</span> The card goes back, so the second draw faces the same 52-card deck as the first and the two draws are independent:</p>
       <p>`P(both diamonds) = (13/52)(13/52) = (0.25)(0.25) = 0.0625`</p>
-      <p><span class="term-label">Part (b) &mdash; without replacement.</span> The first diamond is gone, so the second draw faces 51 cards of which only 12 are diamonds:</p>
+      <p><span class="term-label">Part (b): without replacement.</span> The first diamond is gone, so the second draw faces 51 cards of which only 12 are diamonds:</p>
       <p>`P(both diamonds) = (13/52)(12/51) = (0.25)(0.2353) ~= 0.0588`</p>
       <p><span class="term-label">Which one the binomial assumes.</span> The binomial formula assumes the first one. The gap looks small, and on two draws it is. It is not small in principle: without replacement, the second draw\'s probability depends on the first draw\'s outcome, and dependence is the one thing the binomial model is not allowed to have. Replacing the card is not a fussy detail of lab procedure; it is the step that makes `B(10, 0.25)` the correct model rather than an approximation to one.</p>
     </div>

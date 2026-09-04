@@ -16,7 +16,7 @@ $context = $contexts[$ci]
 $unit = $units[$ci]
 
 // Build the plot stem by stem and digit by digit, in ascending order. An earlier version walked
-// a running sum with a small random step; that sorts itself for free but lets repeats pile up --
+// a running sum with a small random step; that sorts itself for free but lets repeats pile up:
 // one seed produced six identical values in a row. Iterating digits 0..9 caps any value at two
 // occurrences by construction, so no student can draw an absurd-looking plot.
 $loStem = rand(2, 5)
@@ -98,10 +98,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">How a stemplot stores a value.</span> The stem is everything except the last digit and the leaf is the last digit, so stem ' . $askStem . ' with leaf 4 means the value ' . ($askStem * 10 + 4) . '. Nothing is rounded away &mdash; every original value is still readable.</p>
-      <p><span class="term-label">Part (a) &mdash; count the leaves in one row.</span> Values between ' . $askStemLow . ' and ' . $askStemHigh . ' ' . $unit . ' all sit on stem ' . $askStem . '. Counting the leaves in that one row gives <b>' . $countInStem . '</b>. Count leaves, not stems: one row can hold many values.</p>
-      <p><span class="term-label">Part (b) &mdash; largest value in a row.</span> Leaves are written in ascending order, so the largest value on stem ' . $askStem2 . ' is the <i>last</i> leaf in that row. That leaf is ' . ($maxInStem2 - 10 * $askStem2) . ', giving <b>' . $maxInStem2 . '</b> ' . $unit . '.</p>
-      <p><span class="term-label">Part (c) &mdash; the sample size.</span> Every leaf is one observation, so the sample size is the total number of leaves in the whole plot: <b>' . $n . '</b>. This is the check students most often get wrong by counting rows instead.</p>
+      <p><span class="term-label">How a stemplot stores a value.</span> The stem is everything except the last digit and the leaf is the last digit, so stem ' . $askStem . ' with leaf 4 means the value ' . ($askStem * 10 + 4) . '. Nothing is rounded away: every original value is still readable.</p>
+      <p><span class="term-label">Part (a): count the leaves in one row.</span> Values between ' . $askStemLow . ' and ' . $askStemHigh . ' ' . $unit . ' all sit on stem ' . $askStem . '. Counting the leaves in that one row gives <b>' . $countInStem . '</b>. Count leaves, not stems: one row can hold many values.</p>
+      <p><span class="term-label">Part (b): largest value in a row.</span> Leaves are written in ascending order, so the largest value on stem ' . $askStem2 . ' is the <i>last</i> leaf in that row. That leaf is ' . ($maxInStem2 - 10 * $askStem2) . ', giving <b>' . $maxInStem2 . '</b> ' . $unit . '.</p>
+      <p><span class="term-label">Part (c): the sample size.</span> Every leaf is one observation, so the sample size is the total number of leaves in the whole plot: <b>' . $n . '</b>. This is the check students most often get wrong by counting rows instead.</p>
       <p><b>Answer:</b> (a) ' . $countInStem . ' &nbsp;&nbsp; (b) ' . $maxInStem2 . ' &nbsp;&nbsp; (c) ' . $n . '</p>
     </div>
   </details>

@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Paired t-test — compute test statistic from summary data, decide, conclude ===
+// === NAME - DESCRIPTION: Paired t-test: compute test statistic from summary data, decide, conclude ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -38,7 +38,7 @@ $reltolerance[0] = 0.02
 $answer[1] = $decision_idx
 $answer[2] = $decision_idx
 
-$choices[1] = array("Reject H₀ — the data provide sufficient evidence.", "Fail to reject H₀ — the data do not provide sufficient evidence.")
+$choices[1] = array("Reject H₀: the data provide sufficient evidence.", "Fail to reject H₀: the data do not provide sufficient evidence.")
 $choices[2] = array($concl_yes, $concl_no)
 
 $solutionguide = '
@@ -55,9 +55,9 @@ $solutionguide = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><b>Part a — Test statistic:</b> `t = bar{d}/(s_d/sqrt(n)) = ' . $dbar . '/(' . $sd . '/sqrt(' . $n . ')) = ' . $t_stat . '`, df = ' . $df . '</p>
-      <p><b>Part b — Decision:</b> p-value &asymp; ' . $pval_approx . ' ' . ($pval_approx < 0.05 ? '&lt;' : '&ge;') . ' &alpha; = ' . $alpha . '. <b>' . $decision_text . '</b>.</p>
-      <p><b>Part c — Conclusion:</b> ' . $concl_text . '</p>
+      <p><b>Part a: Test statistic:</b> `t = bar{d}/(s_d/sqrt(n)) = ' . $dbar . '/(' . $sd . '/sqrt(' . $n . ')) = ' . $t_stat . '`, df = ' . $df . '</p>
+      <p><b>Part b: Decision:</b> p-value &asymp; ' . $pval_approx . ' ' . ($pval_approx < 0.05 ? '&lt;' : '&ge;') . ' &alpha; = ' . $alpha . '. <b>' . $decision_text . '</b>.</p>
+      <p><b>Part c: Conclusion:</b> ' . $concl_text . '</p>
     </div>
   </details>
 </div>'

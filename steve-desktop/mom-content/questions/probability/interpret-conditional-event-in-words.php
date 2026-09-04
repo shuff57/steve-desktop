@@ -49,7 +49,7 @@ $solutionguide = '
   <p><b>Translate the bar back into a sentence.</b></p>
   <p>`' . $evB . '|' . $evA . '` means the event `' . $evB . '` evaluated inside the shrunken world where `' . $evA . '` has already happened. The event on the <i>right</i> of the bar is the one assumed to have occurred; the event on the <i>left</i> is the one whose chance you are asking about.</p>
   <p>In words: `' . $evB . '|' . $evA . '` is the event that a customer will ' . $verb . ' ' . $itemB . ', <b>given</b> that the customer has already ' . $past . ' ' . $itemA . '. Its probability, `P(' . $evB . '|' . $evA . ') = ' . $pcond . '`, is the proportion of the customers who ' . $ordersA . ' that ' . $alsoB . '.</p>
-  <p><b>Why the others are wrong.</b> Reversing the bar asks a different question about a different group. Both "and" and "or" drop the condition entirely &mdash; they are about all customers, not just the ones who ' . $ordersA . '.</p>
+  <p><b>Why the others are wrong.</b> Reversing the bar asks a different question about a different group. Both "and" and "or" drop the condition entirely: they are about all customers, not just the ones who ' . $ordersA . '.</p>
   <p><b>Answer:</b> the event that a customer will ' . $verb . ' ' . $itemB . ' given that the customer has already ' . $past . ' ' . $itemA . '.</p>
 </div>'
 

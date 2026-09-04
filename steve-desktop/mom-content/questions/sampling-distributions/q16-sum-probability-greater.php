@@ -55,8 +55,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the right tail.</span> "More than ' . $c . '" shades the area above ' . $c . '. The standard deviation of the sums is `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`. Standardize:</p>
+      <p><span class="term-label">Part (a): the mean of the sums.</span> `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
+      <p><span class="term-label">Part (b): the right tail.</span> "More than ' . $c . '" shades the area above ' . $c . '. The standard deviation of the sums is `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '`. Standardize:</p>
       <p>`z = (' . $c . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($z, 3) . '`</p>
       <p>`P(Sigma x > ' . $c . ') = 1 - P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`</p>
       <p>The only thing you have to get right is which two parameters you feed the calculator: not the original `mu` and `sigma`, but the sum\'s own `(n)(mu)` and `(sqrt(n))(sigma)`. Feeding in the original pair is the single most common mistake in this section, and nothing on the screen will warn you.</p>

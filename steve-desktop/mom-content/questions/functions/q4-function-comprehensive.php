@@ -106,13 +106,13 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p style="margin:0 0 6px 0;"><b>Function: R(x) = '.$func_rule.'</b></p>
-      <p style="margin:0 0 4px 0;"><b>Part (a) &mdash; Evaluate R('.$xeval.'):</b><br>
+      <p style="margin:0 0 4px 0;"><b>Part (a): Evaluate R('.$xeval.'):</b><br>
       Substitute x = '.$xeval.' into the function rule.<br>
       R('.$xeval.') = <b>'.$feval.'</b></p>
-      <p style="margin:8px 0 4px 0;"><b>Part (b) &mdash; Domain:</b><br>
+      <p style="margin:8px 0 4px 0;"><b>Part (b): Domain:</b><br>
       '.$domain_explanation.'<br>
       Answer: <b>'.$dom_ans.'</b></p>
-      <p style="margin:8px 0 4px 0;"><b>Part (c) &mdash; Average Rate of Change on ['.$x1.', '.$x2.']:</b><br>
+      <p style="margin:8px 0 4px 0;"><b>Part (c): Average Rate of Change on ['.$x1.', '.$x2.']:</b><br>
       AROC = (R(x<sub>2</sub>) &minus; R(x<sub>1</sub>)) / (x<sub>2</sub> &minus; x<sub>1</sub>)<br>
       R('.$x1.') = '.$fx1.' &nbsp;&nbsp; R('.$x2.') = '.$fx2.'<br>
       AROC = ('.$fx2.' &minus; '.$fx1.') / ('.$x2.' &minus; '.$x1.')

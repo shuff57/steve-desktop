@@ -14,7 +14,7 @@ $svar = array("the number of text messages the student sent yesterday", "the tim
 $sgroup = array("texting habits at a large high school", "checkout lines at a busy grocery store", "phone ownership among adults", "where an online retailer ships its orders", "a youth soccer league", "patients at a walk-in clinic", "course loads at a community college", "participants in a memory study", "dogs at an animal shelter", "pet ownership in one neighborhood", "donors at a blood drive", "households in an apartment building", "grocery access in a rural county", "calculator use in a statistics class")
 $sindiv = array("student", "customer", "person", "shopper", "player", "patient", "student", "participant", "dog", "household", "donor", "resident", "home", "student")
 $stype = array(1, 2, 0, 0, 0, 2, 1, 2, 2, 1, 0, 1, 2, 0)
-$sreason = array("Text messages are counted, and a count lands only on whole values &mdash; nobody sends 12.4 messages.", "A waiting time is measured on a clock, and that scale can always be read more finely, so a wait of 4.7 minutes makes sense.", "A brand names a category rather than a quantity, so the values are words rather than numbers.", "A zip code is written with digits, but it labels an area rather than measuring or counting anything &mdash; an average zip code would be meaningless.", "A jersey number is a label written with digits, not a quantity &mdash; adding two jersey numbers gives nothing meaningful.", "Age is measured rather than counted; reporting it rounded to whole years does not change the fact that age runs continuously.", "Credit hours are counted in whole units, so the values are the result of counting.", "An IQ score comes from a standardized test scored on a continuous scale, so it is a measurement rather than a count.", "A weight comes from a scale, and a scale can always be read more finely, so values such as 12.4 kilograms are possible.", "Pets are counted, and a count lands only on whole values &mdash; a household cannot own 2.5 pets.", "A blood type such as AB+ or O&minus; names a category, described by letters rather than numbers.", "Pairs of shoes are counted, so the values are whole numbers with gaps in between.", "A distance is measured, and a measurement may include fractions or decimals.", "A make of calculator names a category, so the values are words rather than numbers.")
+$sreason = array("Text messages are counted, and a count lands only on whole values: nobody sends 12.4 messages.", "A waiting time is measured on a clock, and that scale can always be read more finely, so a wait of 4.7 minutes makes sense.", "A brand names a category rather than a quantity, so the values are words rather than numbers.", "A zip code is written with digits, but it labels an area rather than measuring or counting anything: an average zip code would be meaningless.", "A jersey number is a label written with digits, not a quantity: adding two jersey numbers gives nothing meaningful.", "Age is measured rather than counted; reporting it rounded to whole years does not change the fact that age runs continuously.", "Credit hours are counted in whole units, so the values are the result of counting.", "An IQ score comes from a standardized test scored on a continuous scale, so it is a measurement rather than a count.", "A weight comes from a scale, and a scale can always be read more finely, so values such as 12.4 kilograms are possible.", "Pets are counted, and a count lands only on whole values: a household cannot own 2.5 pets.", "A blood type such as AB+ or O&minus; names a category, described by letters rather than numbers.", "Pairs of shoes are counted, so the values are whole numbers with gaps in between.", "A distance is measured, and a measurement may include fractions or decimals.", "A make of calculator names a category, so the values are words rather than numbers.")
 
 $vi = rand(0, count($svar)-1)
 $var = $svar[$vi]
@@ -25,7 +25,7 @@ $indiv = $sindiv[$vi]
 $questions = array("Qualitative (categorical)", "Quantitative discrete", "Quantitative continuous")
 $answer = $stype[$vi]
 
-// Precompute scalars &mdash; question text and solution cannot index arrays.
+// Precompute scalars: question text and solution cannot index arrays.
 $reason = $sreason[$vi]
 $anslabel = $questions[$answer]
 $w1 = ($answer + 1) % 3
@@ -55,9 +55,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Is it a number or a category?</b> Qualitative (categorical) data name or describe an attribute. Quantitative data are numbers that come from counting or measuring. Watch out: a value written with digits is only quantitative if the number measures or counts something.</p>
-      <p><b>Step 2 &mdash; If it is a number, was it counted or measured?</b> Counting gives whole things, so it is discrete. Measuring gives a reading on a scale that can always be read more finely, so it is continuous. "How many?" is discrete; "how much?" is continuous.</p>
-      <p><b>Step 3 &mdash; Apply it here.</b> The variable recorded on each ' . $indiv . ' is ' . $var . '. ' . $reason . '</p>
+      <p><b>Step 1: Is it a number or a category?</b> Qualitative (categorical) data name or describe an attribute. Quantitative data are numbers that come from counting or measuring. Watch out: a value written with digits is only quantitative if the number measures or counts something.</p>
+      <p><b>Step 2: If it is a number, was it counted or measured?</b> Counting gives whole things, so it is discrete. Measuring gives a reading on a scale that can always be read more finely, so it is continuous. "How many?" is discrete; "how much?" is continuous.</p>
+      <p><b>Step 3: Apply it here.</b> The variable recorded on each ' . $indiv . ' is ' . $var . '. ' . $reason . '</p>
       <div class="term-row"><span class="term-label">Answer:</span> ' . $anslabel . '</div>
       <p style="margin-top:1em;"><b>Why the others are wrong:</b></p>
       <div class="term-row"><span class="term-label">' . $w1label . ':</span> for that, ' . $w1why . '.</div>

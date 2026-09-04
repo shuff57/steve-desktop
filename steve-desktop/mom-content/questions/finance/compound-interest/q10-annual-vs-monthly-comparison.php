@@ -81,15 +81,15 @@ $solutionguide = '
     <div class="sol-body">
       <p><b>Formula: `A = P(1 + r/n)^{nt}`</b></p>
       <p>Given: `P = $' . $P . '`, `r = ' . $r_pct . '% = ' . $r . '`, `t = ' . $t . '` years</p>
-      <p><b>Part (a) -- Annual compounding (`n = 1`)</b></p>
+      <p><b>Part (a): Annual compounding (`n = 1`)</b></p>
       <p>`A = ' . $P . '(1 + ' . $r . '/1)^{1 cdot ' . $t . '}`</p>
       <p>`A = ' . $P . '(' . $base_ann . ')^{' . $exp_ann . '}`</p>
       <div class="sol-ans"><b>Annual future value `A = $' . $A_ann . '`</b></div>
-      <p><b>Part (b) -- Monthly compounding (`n = 12`)</b></p>
+      <p><b>Part (b): Monthly compounding (`n = 12`)</b></p>
       <p>`A = ' . $P . '(1 + ' . $r . '/12)^{12 cdot ' . $t . '}`</p>
       <p>`A = ' . $P . '(' . $base_mon . ')^{' . $exp_mon . '}`</p>
       <div class="sol-ans"><b>Monthly future value `A = $' . $A_mon . '`</b></div>
-      <p><b>Part (c) -- Comparison</b></p>
+      <p><b>Part (c): Comparison</b></p>
       <p>Monthly compounding applies interest more frequently, so your money grows slightly faster. Monthly compounding gives more: `$' . $A_mon . ' > $' . $A_ann . '`.</p>
       <div class="sol-ans"><b>Monthly compounding gives more.</b></div>
     </div>

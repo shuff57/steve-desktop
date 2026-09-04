@@ -1,5 +1,5 @@
 {
-  "name": "HW Zero and Negative Exponents",
+  "name": "1.5 Zero and Negative Exponents",
   "book": "integrated-math-1",
   "kind": "hw",
   "slug": "hw-zero-and-negative-exponents",
@@ -94,5 +94,5 @@
   },
   "global_block": "0-3-3-2",
   "book_url": "https://oerbookshelf.app/integrated-math-1/chapter-1-functions/1.5_working_with_exponents.html",
-  "_pushed": "Pushed into the Global Question Class 334437 on 2026-08-31, block 0-3-3-2 \"Chapter 1: Functions\", created in BOOK order (1.1, 1.2, 1.3 x2, 1.4, 1.5 x2) rather than the live course order. Names are still the legacy CPM ones; renaming them to the book section numbers is a separate decision. Undated, HW category, hw template 23258795. Questions attached by qsetid; per-instance points were replayed from this manifest through itemarray[i][4] + submitChanges() where the library default of 1 was wrong."
+  "_pushed": "Pushed into the Global Question Class 334437 on 2026-08-31, block 0-3-3-2 \"Chapter 1: Functions\", created in BOOK order (1.1, 1.2, 1.3 x2, 1.4, 1.5 x2) rather than the live course order.  Undated, HW category, hw template 23258795. Questions attached by qsetid; per-instance points were replayed from this manifest through itemarray[i][4] + submitChanges() where the library default of 1 was wrong. Renamed onto the book x.y schema 2026-09-01 (Steve): each CPM name lost its \"HW \" prefix and gained the section number its own book_url already pointed at, so the mapping was read off the manifests rather than inferred from titles. Two assignments share 1.3 and two share 1.5, which is how chapters 2, 3 and 5 were renumbered. Only [name=name] on addassessment2.php?id= was written; dates, passcode and the Book link were read back unchanged, and the block still holds 11 items (no duplicate from the ?aid= create-form trap)."
 }

@@ -149,19 +149,19 @@ $solutionguide = $css_block . '
 
   <hr>
 
-  <p><b>Part A &mdash; Bank A</b></p>
+  <p><b>Part A: Bank A</b></p>
   <p>Bank A offers <b>$r1_pct%</b> compounded <b>$n1_label</b>. What is the future value of your deposit?</p>
   <p>$answerbox[0]</p>
 
   <hr>
 
-  <p><b>Part B &mdash; Bank B</b></p>
+  <p><b>Part B: Bank B</b></p>
   <p>Bank B offers <b>$r2_pct%</b> compounded <b>$n2_label</b>. What is the future value of your deposit?</p>
   <p>$answerbox[1]</p>
 
   <hr>
 
-  <p><b>Part C &mdash; Which Bank is Better?</b></p>
+  <p><b>Part C: Which Bank is Better?</b></p>
   <p>Based on your calculations, which bank gives you more money after $t years?</p>
   <p>$answerbox[2]</p>
 

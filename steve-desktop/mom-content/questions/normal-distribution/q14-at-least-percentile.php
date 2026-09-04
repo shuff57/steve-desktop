@@ -37,8 +37,8 @@ $reltolerance[0] = 0.02
 $abstolerance[0] = 0.5
 
 $questions[1] = array(
-  "The complement, " . $leftPct . "% &mdash; invNorm only accepts an area to the left",
-  "The given " . $pPct . "% &mdash; the area to the right is what invNorm takes"
+  "The complement, " . $leftPct . "%: invNorm only accepts an area to the left",
+  "The given " . $pPct . "%: the area to the right is what invNorm takes"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -62,8 +62,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Translate the words.</span> "At least" means `x >= k`, which is the area to the RIGHT of `k`. The problem hands you a right-hand area of ' . $pPct . '%, but invNorm only accepts an area to the left.</p>
-      <p><span class="term-label">Part (b) &mdash; subtract first.</span> The area to the left is `1 - ' . $p . ' = ' . $leftArea . '` (' . $leftPct . '%). That is the number you type.</p>
-      <p><span class="term-label">Part (a) &mdash; the value.</span> z = invnormalcdf(' . $leftArea . ') ~= ' . round($z, 3) . ', so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
+      <p><span class="term-label">Part (b): subtract first.</span> The area to the left is `1 - ' . $p . ' = ' . $leftArea . '` (' . $leftPct . '%). That is the number you type.</p>
+      <p><span class="term-label">Part (a): the value.</span> z = invnormalcdf(' . $leftArea . ') ~= ' . round($z, 3) . ', so `k = mu + z*sigma = ' . $mu . ' + (' . round($z, 3) . ')(' . $sigma . ') ~= ' . round($k, 2) . '`.</p>
       <p>Skipping the subtraction is the single most common error in this subsection, and it fails quietly: you still get a plausible-looking value back, just the wrong one. A sanity check: an area to the left below 0.5 has to return a value below the mean, and above 0.5 a value above it.</p>
     </div>
   </details>

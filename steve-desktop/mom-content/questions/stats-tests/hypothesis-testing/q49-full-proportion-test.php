@@ -52,8 +52,8 @@ $abstolerance[0] = 0.02
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Reject `H_0` &mdash; the p-value is below alpha.",
-  "Fail to reject `H_0` &mdash; the p-value is not below alpha."
+  "Reject `H_0`: the p-value is below alpha.",
+  "Fail to reject `H_0`: the p-value is not below alpha."
 )
 $answer[2] = $reject
 $noshuffle[2] = "all"
@@ -84,11 +84,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the test statistic.</span> `p\' = x/n = ' . $x . '/' . $n . ' = ' . round($phat, 4) . '`, and `z = (p\' - p_0)/sqrt(p_0(1-p_0)/n) = (' . round($phat, 4) . ' - ' . $p0 . ')/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the p-value.</span> ' . ($tail == "left" ? "Left-tailed: P(Z < " . round($z, 3) . ") = " . round($p, 4) : ($tail == "right" ? "Right-tailed: P(Z > " . round($z, 3) . ") = " . round($p, 4) : "Two-tailed: 2 * P(Z > |" . round($z, 3) . "|) = " . round($p, 4))) . '</p>
-      <p><span class="term-label">Part (c) &mdash; the decision.</span> ' . ($reject == 1 ? "The p-value " . round($p, 4) . " is below alpha = " . $alpha . ", so we reject `H_0`." : "The p-value " . round($p, 4) . " is not below alpha = " . $alpha . ", so we fail to reject `H_0`.") . '</p>
-      <p><span class="term-label">Part (d) &mdash; the conclusion.</span> ' . $conclusion . '</p>
-      <p>The standard error uses the null proportion `p_0`, not the sample `p\'` &mdash; the curve is standing in for the binomial distribution the null claims, so the null\'s spread is the one that matters.</p>
+      <p><span class="term-label">Part (a): the test statistic.</span> `p\' = x/n = ' . $x . '/' . $n . ' = ' . round($phat, 4) . '`, and `z = (p\' - p_0)/sqrt(p_0(1-p_0)/n) = (' . round($phat, 4) . ' - ' . $p0 . ')/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
+      <p><span class="term-label">Part (b): the p-value.</span> ' . ($tail == "left" ? "Left-tailed: P(Z < " . round($z, 3) . ") = " . round($p, 4) : ($tail == "right" ? "Right-tailed: P(Z > " . round($z, 3) . ") = " . round($p, 4) : "Two-tailed: 2 * P(Z > |" . round($z, 3) . "|) = " . round($p, 4))) . '</p>
+      <p><span class="term-label">Part (c): the decision.</span> ' . ($reject == 1 ? "The p-value " . round($p, 4) . " is below alpha = " . $alpha . ", so we reject `H_0`." : "The p-value " . round($p, 4) . " is not below alpha = " . $alpha . ", so we fail to reject `H_0`.") . '</p>
+      <p><span class="term-label">Part (d): the conclusion.</span> ' . $conclusion . '</p>
+      <p>The standard error uses the null proportion `p_0`, not the sample `p\'`: the curve is standing in for the binomial distribution the null claims, so the null\'s spread is the one that matters.</p>
     </div>
   </details>
 </div>'

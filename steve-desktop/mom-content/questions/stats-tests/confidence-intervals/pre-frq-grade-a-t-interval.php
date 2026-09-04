@@ -7,9 +7,9 @@
 // Categories: CI Interpretation (4) / Confidence Level Meaning (3) / Assessing the Claim (3) = 10.
 //
 // The dropped category is ASSESSING THE CLAIM. A student can interpret the interval and explain
-// the confidence level without ever checking whether a claimed value falls inside it — the
+// the confidence level without ever checking whether a claimed value falls inside it: the
 // section's own "the interval either contains mu or it does not" is exactly the step a plausible
-// answer skips. This is DIFFERENT from §7.1's pre-FRQ (dropped: Confidence Level Meaning) — the
+// answer skips. This is DIFFERENT from §7.1's pre-FRQ (dropped: Confidence Level Meaning): the
 // two pre-FRQs must not teach the same lesson.
 //
 // CATEGORY PURITY: $sInterp states the interval interpretation and nothing else; $sLevel states
@@ -133,15 +133,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> interprets the interval, explains the confidence level, and assesses the claim. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> interprets the interval, explains the confidence level, and assesses the claim. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sInterp . ' ' . $sLevel . ' ' . $sClaim . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noClaimLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noClaimLabel . ' line by line.</span></p>
       <ul>
-        <li><b>CI Interpretation &mdash; earned.</b> The interval is interpreted in context with the population and the bounds named.</li>
-        <li><b>Confidence Level Meaning &mdash; earned.</b> The confidence level is explained in repeated-sampling language.</li>
-        <li><b>Assessing the Claim &mdash; NOT earned.</b> The response never checks whether the claimed value falls inside the interval, so the claim is missing.</li>
+        <li><b>CI Interpretation: earned.</b> The interval is interpreted in context with the population and the bounds named.</li>
+        <li><b>Confidence Level Meaning: earned.</b> The confidence level is explained in repeated-sampling language.</li>
+        <li><b>Assessing the Claim: NOT earned.</b> The response never checks whether the claimed value falls inside the interval, so the claim is missing.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the claim is its own category.</span> The interval either contains mu or it does not — there is no chance left in it once the numbers are on the page. Deciding whether a claimed value is plausible is a separate judgement from reading the interval, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the claim is its own category.</span> The interval either contains mu or it does not: there is no chance left in it once the numbers are on the page. Deciding whether a claimed value is plausible is a separate judgement from reading the interval, and a response that skips it has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The claim assessment is the category most often skipped, because once the interval is written the check feels like an afterthought.</p>
     </div>
   </details>

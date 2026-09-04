@@ -67,10 +67,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the missing frequency.</span> The Frequency column must add to the total of 60. The three known rows add to ' . $knownSum . ', so the ' . $mL . ' movies row holds 60 &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
-      <p><span class="term-label">Step 2 &mdash; relative frequency of the ' . $mL . ' row.</span> Divide that count by the total: ' . $missing . ' &divide; 60 = <b>' . $relM . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; relative frequency of the ' . $jL . ' row.</span> Same move: ' . $g[$j] . ' &divide; 60 = <b>' . $relJ . '</b>.</p>
-      <p><b>Check.</b> The four group counts must add back to 60, and the relative frequencies to 1. The grouping does not lose or add any values &mdash; it only re-buckets the same 60 counts.</p>
+      <p><span class="term-label">Step 1: the missing frequency.</span> The Frequency column must add to the total of 60. The three known rows add to ' . $knownSum . ', so the ' . $mL . ' movies row holds 60 &minus; ' . $knownSum . ' = <b>' . $missing . '</b>.</p>
+      <p><span class="term-label">Step 2: relative frequency of the ' . $mL . ' row.</span> Divide that count by the total: ' . $missing . ' &divide; 60 = <b>' . $relM . '</b>.</p>
+      <p><span class="term-label">Step 3: relative frequency of the ' . $jL . ' row.</span> Same move: ' . $g[$j] . ' &divide; 60 = <b>' . $relJ . '</b>.</p>
+      <p><b>Check.</b> The four group counts must add back to 60, and the relative frequencies to 1. The grouping does not lose or add any values: it only re-buckets the same 60 counts.</p>
     </div>
   </details>
 </div>'

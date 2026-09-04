@@ -11,25 +11,25 @@
 $anstypes = array("choices", "choices", "choices")
 
 $questions[0] = array(
-  "The normal distribution &mdash; the problem hands you `sigma = 2`, so the sample mean follows a normal curve.",
-  "Student's t distribution &mdash; sigma is unknown.",
-  "The binomial distribution &mdash; the data are counts."
+  "The normal distribution: the problem hands you `sigma = 2`, so the sample mean follows a normal curve.",
+  "Student's t distribution: sigma is unknown.",
+  "The binomial distribution: the data are counts."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The normal distribution for a proportion &mdash; the parameter is p, and the claim is about a percentage rather than an average.",
-  "Student's t distribution &mdash; the sample is small.",
-  "The chi-square distribution &mdash; the data are categorical."
+  "The normal distribution for a proportion: the parameter is p, and the claim is about a percentage rather than an average.",
+  "Student's t distribution: the sample is small.",
+  "The chi-square distribution: the data are categorical."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "Student's t distribution with df = 7 &mdash; sigma is withheld and n = 8 is small.",
-  "The normal distribution &mdash; sigma is known.",
-  "The binomial distribution &mdash; the data are counts."
+  "Student's t distribution with df = 7: sigma is withheld and n = 8 is small.",
+  "The normal distribution: sigma is known.",
+  "The binomial distribution: the data are counts."
 )
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -52,9 +52,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; Television Survey.</span> The problem says "Assume that `sigma = 2`." You are handed the population standard deviation, so the test uses the normal distribution.</p>
-      <p><span class="term-label">Part (b) &mdash; Language Survey.</span> The claim is about a percentage of people, not an average: 42.3% of Californians speak a language other than English at home. The parameter is a population proportion, so the test uses the normal distribution built from a proportion.</p>
-      <p><span class="term-label">Part (c) &mdash; Jeans Survey.</span> You are told the population is normal, you are told to survey eight people, and you are told nothing at all about `sigma`. With `sigma` unknown you estimate it with the sample standard deviation, and that substitution is exactly what the Student t distribution exists to account for. Degrees of freedom are `n - 1 = 7`.</p>
+      <p><span class="term-label">Part (a): Television Survey.</span> The problem says "Assume that `sigma = 2`." You are handed the population standard deviation, so the test uses the normal distribution.</p>
+      <p><span class="term-label">Part (b): Language Survey.</span> The claim is about a percentage of people, not an average: 42.3% of Californians speak a language other than English at home. The parameter is a population proportion, so the test uses the normal distribution built from a proportion.</p>
+      <p><span class="term-label">Part (c): Jeans Survey.</span> You are told the population is normal, you are told to survey eight people, and you are told nothing at all about `sigma`. With `sigma` unknown you estimate it with the sample standard deviation, and that substitution is exactly what the Student t distribution exists to account for. Degrees of freedom are `n - 1 = 7`.</p>
       <p>The deciding facts, in order: `sigma` was given; the parameter is a proportion; `sigma` was withheld and `n` is small.</p>
     </div>
   </details>

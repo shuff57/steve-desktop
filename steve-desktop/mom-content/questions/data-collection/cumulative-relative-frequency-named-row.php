@@ -56,9 +56,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; translate the question.</span> &quot;At most ' . $tL . '&quot; means every row from 0 up to and including the ' . $tL . ' row. The cumulative column was built exactly for this: it adds the relative frequencies from the top row down.</p>
-      <p><span class="term-label">Step 2 &mdash; read the column, do not add.</span> The cumulative entry on the ' . $tL . ' row already holds the running total, so the answer is <b>' . $cumT . '</b>.</p>
-      <p><b>Check.</b> The bottom cumulative entry must be exactly 1. If it is not, a value was miscounted or dropped somewhere &mdash; go back and find it.</p>
+      <p><span class="term-label">Step 1: translate the question.</span> &quot;At most ' . $tL . '&quot; means every row from 0 up to and including the ' . $tL . ' row. The cumulative column was built exactly for this: it adds the relative frequencies from the top row down.</p>
+      <p><span class="term-label">Step 2: read the column, do not add.</span> The cumulative entry on the ' . $tL . ' row already holds the running total, so the answer is <b>' . $cumT . '</b>.</p>
+      <p><b>Check.</b> The bottom cumulative entry must be exactly 1. If it is not, a value was miscounted or dropped somewhere: go back and find it.</p>
     </div>
   </details>
 </div>'

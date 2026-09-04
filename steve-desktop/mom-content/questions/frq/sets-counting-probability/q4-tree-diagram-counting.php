@@ -210,7 +210,7 @@ $rubricanswerbutton = $css_block . '
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Favorable outcomes.
-                    <span class="ideal-ans">Target: "'.$favorable.' &mdash; '.$fav_count.' outcome(s)."</span></li>
+                    <span class="ideal-ans">Target: "'.$favorable.': '.$fav_count.' outcome(s)."</span></li>
                 <li>Probability.
                     <span class="ideal-ans">Target: "P(event) = '.$fav_count.'/'.$ss_size.' = '.$p_event.'"</span></li>
               </ul>

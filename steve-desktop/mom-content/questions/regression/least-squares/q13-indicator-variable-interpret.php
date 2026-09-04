@@ -62,12 +62,12 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>When the predictor `x` is an indicator variable (0 or 1), the regression line connects the two group means.</p>
-      <p><b>Part a — Intercept:</b> plug `x = 0` into `hat{y} = ' . $b0 . ' + ' . $b1 . 'x`:</p>
+      <p><b>Part a: Intercept:</b> plug `x = 0` into `hat{y} = ' . $b0 . ' + ' . $b1 . 'x`:</p>
       <p>`hat{y}(0) = ' . $b0 . '`</p>
       <p>So the intercept is the mean $yname for $grp0_plural (the `x = 0` group).</p>
-      <p><b>Part b — Slope:</b> the slope is the change in predicted `y` for a one-unit increase in `x`. Going from `x = 0` to `x = 1` means switching from $grp0_plural to $grp1_plural, so:</p>
+      <p><b>Part b: Slope:</b> the slope is the change in predicted `y` for a one-unit increase in `x`. Going from `x = 0` to `x = 1` means switching from $grp0_plural to $grp1_plural, so:</p>
       <p>`b_1 = "mean for group 1" - "mean for group 0" = ' . $b1 . '`</p>
-      <p><b>Part c — Predicted value at `x = 1`:</b></p>
+      <p><b>Part c: Predicted value at `x = 1`:</b></p>
       <p>`hat{y}(1) = ' . $b0 . ' + ' . $b1 . '(1) = ' . $mean1 . '`</p>
       <p>This equals the mean $yname for $grp1_plural.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">

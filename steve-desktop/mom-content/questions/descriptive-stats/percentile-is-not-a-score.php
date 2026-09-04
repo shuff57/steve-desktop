@@ -24,12 +24,12 @@ if ($oi == $ni) {
 }
 $otherName = $nameArr[$oi]
 
-// Class size, a multiple of 20, paired with a percentile that is a multiple of 5 -- together this
+// Class size, a multiple of 20, paired with a percentile that is a multiple of 5: together this
 // guarantees percentile/100 * n lands on a whole number of students in part (b), for every draw.
 $n = 20 * rand(2, 6)
 
 // Randomize which way the score and percentile pull, so a student can't just learn "high score,
-// low percentile" as the pattern and coast -- the misconception has to be caught both ways round.
+// low percentile" as the pattern and coast: the misconception has to be caught both ways round.
 $dir = rand(0, 1)
 if ($dir == 0) {
   $pctScore = rand(85, 98)
@@ -40,7 +40,7 @@ else {
   $p = 5 * rand(14, 18)
 }
 
-// p is always a multiple of 5, so its last digit is always 0 or 5 -- the ordinal suffix is always
+// p is always a multiple of 5, so its last digit is always 0 or 5: the ordinal suffix is always
 // "th" (5th, 15th, ... 90th), so no st/nd/rd branch is needed here.
 $pLabel = $p . "th"
 
@@ -63,10 +63,10 @@ $answer[1] = $count
 $answerformat[1] = "integer"
 
 $questions[2] = array(
-  "No -- a percentile only fixes where " . $otherName . " ranks in the class. Depending on how everyone else did, almost any percent score could sit at that same percentile.",
-  "Yes -- the percentile IS the percent score, so " . $otherName . " scored about " . $otherP . "% on the test.",
-  "Yes -- subtract the percentile from 100 to get the percent score of " . $otherName . ".",
-  "No -- nothing at all can be known about how " . $otherName . " performed from a percentile."
+  "No: a percentile only fixes where " . $otherName . " ranks in the class. Depending on how everyone else did, almost any percent score could sit at that same percentile.",
+  "Yes: the percentile IS the percent score, so " . $otherName . " scored about " . $otherP . "% on the test.",
+  "Yes: subtract the percentile from 100 to get the percent score of " . $otherName . ".",
+  "No: nothing at all can be known about how " . $otherName . " performed from a percentile."
 )
 $answer[2] = 0
 
@@ -89,7 +89,7 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Two different numbers.</span> A percent score is how much of the test ' . $name . ' got right. A percentile is where ' . $name . ' stands compared to everyone else who took the ' . $testDesc . '. Nothing forces those two numbers to be close, or even to move the same direction, because they answer different questions.</p>
-      <p><span class="term-label">Part (a).</span> The ' . $pLabel . ' percentile means about ' . $p . '% of the class scored at or below ' . $name . '. It says nothing about how many questions ' . $name . ' got right -- that is the score, a separate number reported above. Reading the percentile as "' . $name . ' got ' . $p . '% of the questions right" mixes up the two.</p>
+      <p><span class="term-label">Part (a).</span> The ' . $pLabel . ' percentile means about ' . $p . '% of the class scored at or below ' . $name . '. It says nothing about how many questions ' . $name . ' got right: that is the score, a separate number reported above. Reading the percentile as "' . $name . ' got ' . $p . '% of the questions right" mixes up the two.</p>
       <p><span class="term-label">Part (b).</span> With ' . $n . ' students in the class, about ' . $p . '% of them scored at or below ' . $name . ': ' . $p . '/100 &times; ' . $n . ' = <b>' . $count . '</b> students.</p>
       <p><span class="term-label">Part (c).</span> Knowing ' . $otherName . ' is at the ' . $otherPLabel . ' percentile only fixes a position in the class, not a score. If the ' . $testDesc . ' was easy, the whole class scored high and even the ' . $otherPLabel . ' percentile could be a strong percent score. If it was hard, the whole class scored low and that same ' . $otherPLabel . ' percentile could be a weak one. The percentile alone cannot tell them apart.</p>
       <p><b>Answer:</b> (a) about ' . $p . '% at or below &nbsp;&nbsp; (b) ' . $count . ' students &nbsp;&nbsp; (c) no, a percentile alone does not determine a percent score</p>

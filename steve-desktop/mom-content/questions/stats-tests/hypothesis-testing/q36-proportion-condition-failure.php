@@ -11,16 +11,16 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A survey tests whether the proportion of people who own cats is greater than 0.20. A sample of n = 30 people is taken, so np0 = 6 and n(1 - p0) = 24.",
-        "The condition passes &mdash; both are above 5, so the normal approximation is legitimate.",
+        "The condition passes: both are above 5, so the normal approximation is legitimate.",
         "The normal approximation is legitimate."),
   array("A survey tests whether the proportion of students who prefer online classes is less than 0.10. A sample of n = 40 students is taken, so np0 = 4 and n(1 - p0) = 36.",
-        "The condition fails &mdash; np0 = 4 is below 5, so the binomial is too lopsided for a normal curve to trace.",
-        "The test has to run on the binomial distribution &mdash; the normal shortcut is simply not available."),
+        "The condition fails: np0 = 4 is below 5, so the binomial is too lopsided for a normal curve to trace.",
+        "The test has to run on the binomial distribution: the normal shortcut is simply not available."),
   array("A survey tests whether the proportion of defective parts is less than 0.05. A sample of n = 60 parts is taken, so np0 = 3 and n(1 - p0) = 57.",
-        "The condition fails &mdash; np0 = 3 is below 5, so the binomial is too lopsided for a normal curve to trace.",
-        "The test has to run on the binomial distribution &mdash; the normal shortcut is simply not available."),
+        "The condition fails: np0 = 3 is below 5, so the binomial is too lopsided for a normal curve to trace.",
+        "The test has to run on the binomial distribution: the normal shortcut is simply not available."),
   array("A survey tests whether the proportion of adults who exercise regularly is greater than 0.40. A sample of n = 150 adults is taken, so np0 = 60 and n(1 - p0) = 90.",
-        "The condition passes &mdash; both are above 5, so the normal approximation is legitimate.",
+        "The condition passes: both are above 5, so the normal approximation is legitimate.",
         "The normal approximation is legitimate.")
 )
 
@@ -39,7 +39,7 @@ $noshuffle[0] = "all"
 
 $questions[1] = array(
   $approach,
-  "The test has to run on the binomial distribution &mdash; the normal shortcut is simply not available.",
+  "The test has to run on the binomial distribution: the normal shortcut is simply not available.",
   "The test cannot be run at all."
 )
 $answer[1] = 0
@@ -63,9 +63,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; why the approximation fails.</span> ' . $why . '</p>
-      <p><span class="term-label">Part (b) &mdash; the correct approach.</span> ' . $approach . '</p>
-      <p>`np < 5` means you expect fewer than five successes, so the binomial distribution is too skewed for the normal curve to be a fair stand-in &mdash; the test will not have the coverage it claims. Whenever a p-value based on a normal approximation is close to the level of significance, the exact p-value based on binomial probabilities should be calculated whenever possible.</p>
+      <p><span class="term-label">Part (a): why the approximation fails.</span> ' . $why . '</p>
+      <p><span class="term-label">Part (b): the correct approach.</span> ' . $approach . '</p>
+      <p>`np < 5` means you expect fewer than five successes, so the binomial distribution is too skewed for the normal curve to be a fair stand-in: the test will not have the coverage it claims. Whenever a p-value based on a normal approximation is close to the level of significance, the exact p-value based on binomial probabilities should be calculated whenever possible.</p>
     </div>
   </details>
 </div>'

@@ -62,8 +62,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Convert to one unit first.</span> The cutoff of ten hours is ' . $cut . ' minutes. The sum has mean `mu_SigmaX = (' . $n . ')(' . $mu . ') = ' . $muSum . '` minutes and standard deviation `sigma_SigmaX = (sqrt(' . $n . '))(' . $sigma . ') ~= ' . round($sigmaSum, 4) . '` minutes.</p>
-      <p><span class="term-label">Part (a) &mdash; the probability.</span> Standardize: `z = (' . $cut . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($z, 3) . '`, so `P(Sigma x < ' . $cut . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; why the conversion matters.</span> A problem hands you a mean in minutes and then asks about "ten hours". The arithmetic is trivial but forgetting it is not: convert everything to one unit before you touch the calculator, and state which unit your answer is in when you write it down.</p>
+      <p><span class="term-label">Part (a): the probability.</span> Standardize: `z = (' . $cut . ' - ' . $muSum . ')/' . round($sigmaSum, 4) . ' ~= ' . round($z, 3) . '`, so `P(Sigma x < ' . $cut . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`.</p>
+      <p><span class="term-label">Part (b): why the conversion matters.</span> A problem hands you a mean in minutes and then asks about "ten hours". The arithmetic is trivial but forgetting it is not: convert everything to one unit before you touch the calculator, and state which unit your answer is in when you write it down.</p>
     </div>
   </details>
 </div>'

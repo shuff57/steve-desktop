@@ -63,8 +63,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the null.</span> The status quo goes in `H_0` with its equality: ' . $h0 . '. Writing `H_0: mu = 3` is also accepted, since the test statistic is computed at the boundary value either way &mdash; what matters is consistency inside the problem.</p>
-      <p><span class="term-label">Part (b) &mdash; the alternative.</span> The researcher\'s claim goes in `H_a`: ' . $ha . '. The two statements have to partition the number line, so that whatever the truth is, exactly one of your two sentences contains it.</p>
+      <p><span class="term-label">Part (a): the null.</span> The status quo goes in `H_0` with its equality: ' . $h0 . '. Writing `H_0: mu = 3` is also accepted, since the test statistic is computed at the boundary value either way: what matters is consistency inside the problem.</p>
+      <p><span class="term-label">Part (b): the alternative.</span> The researcher\'s claim goes in `H_a`: ' . $ha . '. The two statements have to partition the number line, so that whatever the truth is, exactly one of your two sentences contains it.</p>
       <p>Get the pair wrong and every calculation after it answers the wrong question, no matter how clean the arithmetic is.</p>
     </div>
   </details>

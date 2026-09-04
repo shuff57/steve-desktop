@@ -11,13 +11,13 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A test with `H_a: mu < 9`.",
-        "The left tail &mdash; the `<` in `H_a` puts the whole p-value in the left tail.",
+        "The left tail: the `<` in `H_a` puts the whole p-value in the left tail.",
         "A single shaded region in the left tail beyond the test statistic."),
   array("A test with `H_a: mu > 6`.",
-        "The right tail &mdash; the `>` in `H_a` puts the whole p-value in the right tail.",
+        "The right tail: the `>` in `H_a` puts the whole p-value in the right tail.",
         "A single shaded region in the right tail beyond the test statistic."),
   array("A test with `H_a: p != 0.25`.",
-        "Both tails &mdash; the `!=` in `H_a` splits the p-value evenly between both tails.",
+        "Both tails: the `!=` in `H_a` splits the p-value evenly between both tails.",
         "Two shaded regions, one in each tail, together representing the two-tailed p-value.")
 )
 
@@ -28,8 +28,8 @@ $shape = $cases[$i][2]
 
 $questions[0] = array(
   $tail,
-  "The left tail &mdash; the `<=` in `H_0` decides the tail.",
-  "The right tail &mdash; the `>=` in `H_0` decides the tail."
+  "The left tail: the `<=` in `H_0` decides the tail.",
+  "The right tail: the `>=` in `H_0` decides the tail."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -60,8 +60,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the tail.</span> ' . $tail . ' The symbol in the alternative names the test &mdash; the `<=`/`>=` in `H_0` is never what decides the tail.</p>
-      <p><span class="term-label">Part (b) &mdash; the picture.</span> ' . $shape . ' Draw one bell-shaped curve over a horizontal axis, centered at the value the null claims, then mark the observed sample statistic and shade the tail beyond it &mdash; the picture is the p-value made visible.</p>
+      <p><span class="term-label">Part (a): the tail.</span> ' . $tail . ' The symbol in the alternative names the test: the `<=`/`>=` in `H_0` is never what decides the tail.</p>
+      <p><span class="term-label">Part (b): the picture.</span> ' . $shape . ' Draw one bell-shaped curve over a horizontal axis, centered at the value the null claims, then mark the observed sample statistic and shade the tail beyond it: the picture is the p-value made visible.</p>
     </div>
   </details>
 </div>'

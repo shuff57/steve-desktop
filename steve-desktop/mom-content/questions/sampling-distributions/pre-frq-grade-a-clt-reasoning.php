@@ -8,7 +8,7 @@
 //
 // The dropped category is CONDITIONS FOR CLT. A student can name the parameter and statistic and
 // compute the standard error without ever verifying that the sampling distribution is
-// approximately normal — the section's own "word before the number" rule is exactly the step a
+// approximately normal: the section's own "word before the number" rule is exactly the step a
 // plausible answer skips.
 //
 // CATEGORY PURITY: $sParam names the parameter and statistic and nothing else; $sConditions
@@ -133,15 +133,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the parameter and statistic, verifies the conditions, and computes and interprets the standard error. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the parameter and statistic, verifies the conditions, and computes and interprets the standard error. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sParam . ' ' . $sConditions . ' ' . $sSE . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noCondLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noCondLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Parameter vs Statistic &mdash; earned.</b> The population parameter and the sample statistic are named, and the statistic is explained as varying from sample to sample.</li>
-        <li><b>Conditions for CLT &mdash; NOT earned.</b> The response never verifies that the sampling distribution is approximately normal, so the conditions are missing.</li>
-        <li><b>Standard Error &mdash; earned.</b> The standard error is computed and interpreted as the typical distance of the sample mean from the population mean.</li>
+        <li><b>Parameter vs Statistic: earned.</b> The population parameter and the sample statistic are named, and the statistic is explained as varying from sample to sample.</li>
+        <li><b>Conditions for CLT: NOT earned.</b> The response never verifies that the sampling distribution is approximately normal, so the conditions are missing.</li>
+        <li><b>Standard Error: earned.</b> The standard error is computed and interpreted as the typical distance of the sample mean from the population mean.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the conditions are their own category.</span> Computing the standard error assumes the sampling distribution is approximately normal in the first place. Without the conditions check, the computation has no licence &mdash; the CLT only applies when the sample is random, independent, and large enough (or the population is normal).</p>
+      <p><span class="term-label">Part (c): why the conditions are their own category.</span> Computing the standard error assumes the sampling distribution is approximately normal in the first place. Without the conditions check, the computation has no licence: the CLT only applies when the sample is random, independent, and large enough (or the population is normal).</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The conditions are the category most often skipped, because once the arithmetic works the verification feels like busywork.</p>
     </div>
   </details>

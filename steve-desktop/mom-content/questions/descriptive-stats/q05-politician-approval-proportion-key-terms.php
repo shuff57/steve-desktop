@@ -14,7 +14,7 @@ $region = $regions[$ci]
 $sizes = array(400, 500, 600, 750, 800, 1000)
 $n = $sizes[rand(0, count($sizes)-1)]
 
-// The six terms stay in teaching order — population before sample, parameter before statistic —
+// The six terms stay in teaching order, population before sample, parameter before statistic, 
 // so the list reads as the definition sequence rather than a scramble.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
@@ -61,17 +61,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group the study is about.</b> The ' . $office . ' cares about the voters in the ' . $region . ', so that whole group is the population and the polled voters are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> voters is a population number (parameter); the proportion computed from the ' . $n . ' polled voters is a sample number (statistic). Notice the two phrases are identical except for which group they point at.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is recorded from one voter is the variable; the recorded responses are the data.</p>
+      <p><b>Step 1: Name the group the study is about.</b> The ' . $office . ' cares about the voters in the ' . $region . ', so that whole group is the population and the polled voters are the sample.</p>
+      <p><b>Step 2: Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> voters is a population number (parameter); the proportion computed from the ' . $n . ' polled voters is a sample number (statistic). Notice the two phrases are identical except for which group they point at.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is recorded from one voter is the variable; the recorded responses are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all voters in the ' . $region . '</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' voters who were polled</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the proportion of <em>all</em> ' . $region . ' voters who think the ' . $office . ' is doing a good job</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the proportion of the ' . $n . ' <em>polled</em> voters who think the ' . $office . ' is doing a good job</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = whether one voter thinks the ' . $office . ' is doing a good job</div>
       <div class="term-row"><span class="term-label">Data:</span> yes, no</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of voters who approve is a count, not a proportion &mdash; a statistic has to be the proportion to answer this question. And <b>everyone old enough to vote</b> is a wider group than the voters this poll is about.</div>
-      <div class="sol-note">This study measures a <b>proportion</b>, not a mean. The variable is <b>categorical</b> &mdash; each voter answers yes or no &mdash; so averaging the responses would make no sense. Compare this with a study of the mean amount of time clients exercise, where the variable is numerical.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>The number</b> of voters who approve is a count, not a proportion: a statistic has to be the proportion to answer this question. And <b>everyone old enough to vote</b> is a wider group than the voters this poll is about.</div>
+      <div class="sol-note">This study measures a <b>proportion</b>, not a mean. The variable is <b>categorical</b>, each voter answers yes or no, so averaging the responses would make no sense. Compare this with a study of the mean amount of time clients exercise, where the variable is numerical.</div>
     </div>
   </details>
 </div>'

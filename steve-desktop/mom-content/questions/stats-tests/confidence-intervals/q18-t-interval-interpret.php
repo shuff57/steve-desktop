@@ -64,9 +64,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the interpretation sentence.</span> The interval is a statement about the population mean, not about individual values. The template: "We estimate with [CL]% confidence that the true population mean [context] is between [lower] and [upper] [units]."</p>
-      <p><span class="term-label">Part (b) &mdash; what the level means.</span> The confidence level describes the method: if you repeated the whole study many times, each sample producing its own interval, about ' . $clPct . '% of those intervals would contain the true population value. Any single interval either contains it or misses it, and you never find out which.</p>
-      <p><span class="term-label">Part (c) &mdash; the wrong reading.</span> "There is a ' . $clPct . '% chance the true mean is between the endpoints" treats mu as a random quantity that might fall in a fixed range. mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false &mdash; there is no ' . $clPct . '% about it.</p>
+      <p><span class="term-label">Part (a): the interpretation sentence.</span> The interval is a statement about the population mean, not about individual values. The template: "We estimate with [CL]% confidence that the true population mean [context] is between [lower] and [upper] [units]."</p>
+      <p><span class="term-label">Part (b): what the level means.</span> The confidence level describes the method: if you repeated the whole study many times, each sample producing its own interval, about ' . $clPct . '% of those intervals would contain the true population value. Any single interval either contains it or misses it, and you never find out which.</p>
+      <p><span class="term-label">Part (c): the wrong reading.</span> "There is a ' . $clPct . '% chance the true mean is between the endpoints" treats mu as a random quantity that might fall in a fixed range. mu is a constant, and once the endpoints are computed they are constants too, so the statement is either entirely true or entirely false: there is no ' . $clPct . '% about it.</p>
     </div>
   </details>
 </div>'

@@ -62,7 +62,7 @@ $solutionguide = '
   <p><b>c. Compare them.</b> `' . $prod . '` and `' . $pand . '` are not equal, so the events are <b>not independent</b>.</p>
   <p>The other form of the same test: `P(' . $evB . '|' . $evA . ') = ' . $pcond . '` while `P(' . $evB . ') = ' . $pb . '`. Knowing a customer will ' . $verb . ' ' . $itemA . ' changes the chance of ' . $itemB . ', so the two events carry information about each other.</p>
   <p><b>Do not confuse this with mutually exclusive.</b> Independence asks whether one event changes the odds of the other. Mutual exclusivity asks whether they can happen together at all. They are different questions, and a nonzero `P(' . $evA . ' and ' . $evB . ')` answers only the second one.</p>
-  <p><b>Answer:</b> no &mdash; not independent, because `P(' . $evA . ')P(' . $evB . ') = ' . $prod . '` but `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`.</p>
+  <p><b>Answer:</b> no: not independent, because `P(' . $evA . ')P(' . $evB . ') = ' . $prod . '` but `P(' . $evA . ' and ' . $evB . ') = ' . $pand . '`.</p>
 </div>'
 
 // === QUESTION TEXT ===

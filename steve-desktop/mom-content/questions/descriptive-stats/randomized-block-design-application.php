@@ -86,9 +86,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Name the blocking variable.</span> The researcher already knows ' . $context . '. That known, measurable variable &ndash; ' . $lurkingVar . ' &ndash; is exactly what should be used to form the blocks, before any treatment is assigned.</p>
-      <p><span class="term-label">Step 2 &mdash; Place the random assignment correctly.</span> Sort the ' . $unit . ' into the ' . $groupHigh . ' block and the ' . $groupLow . ' block first. Then, separately within each block, randomly assign about half to ' . $techA . ' and half to ' . $techB . '. Both treatment groups now hold the same mix of ' . $lurkingVar . ' by construction, instead of by luck.</p>
-      <p><span class="term-label">Step 3 &mdash; Say why blocking plus random assignment together cover everything.</span> ' . $whyAnswer . '.</p>
+      <p><span class="term-label">Step 1: Name the blocking variable.</span> The researcher already knows ' . $context . '. That known, measurable variable &ndash; ' . $lurkingVar . ' &ndash; is exactly what should be used to form the blocks, before any treatment is assigned.</p>
+      <p><span class="term-label">Step 2: Place the random assignment correctly.</span> Sort the ' . $unit . ' into the ' . $groupHigh . ' block and the ' . $groupLow . ' block first. Then, separately within each block, randomly assign about half to ' . $techA . ' and half to ' . $techB . '. Both treatment groups now hold the same mix of ' . $lurkingVar . ' by construction, instead of by luck.</p>
+      <p><span class="term-label">Step 3: Say why blocking plus random assignment together cover everything.</span> ' . $whyAnswer . '.</p>
       <p><b>Answer:</b> (a) block on ' . $lurkingVar . '. (b) randomly assign treatments separately within each block. (c) ' . $whyAnswer . '.</p>
     </div>
   </details>

@@ -9,7 +9,7 @@ $refs = array(30, 45, 60, 60, 45, 30, 30, 45, 60, 60, 45, 30)
 // Quadrant for each
 $quads = array(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4)
 
-// Reference angle sine values (always positive — these are for the acute reference angle)
+// Reference angle sine values (always positive: these are for the acute reference angle)
 $ref_sine_vals = array("1/2", "sqrt(2)/2", "sqrt(3)/2", "sqrt(3)/2", "sqrt(2)/2", "1/2", "1/2", "sqrt(2)/2", "sqrt(3)/2", "sqrt(3)/2", "sqrt(2)/2", "1/2")
 
 // Actual sine values (with sign)

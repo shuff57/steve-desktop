@@ -22,7 +22,7 @@ $width = $b - $a
 $answer[0] = 0
 
 $questions[1] = array(
-  "A single point has no width, so the rectangle under it has base 0 and area 0 — for ANY continuous random variable, P(x = c) = 0",
+  "A single point has no width, so the rectangle under it has base 0 and area 0: for ANY continuous random variable, P(x = c) = 0",
   "The value c falls outside the range of the distribution",
   "The curve is not defined at exactly x = c",
   "The height of the curve at c is 0"
@@ -48,9 +48,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The geometry.</span> On an x-y graph, `x = ' . $c . '` is a vertical line. A vertical line has no width — its base is zero. So</p>
+      <p><span class="term-label">The geometry.</span> On an x-y graph, `x = ' . $c . '` is a vertical line. A vertical line has no width: its base is zero. So</p>
       <p>`P(x = ' . $c . ') = (base)(height) = (0)(1/(' . ($b - $a) . ')) = 0`</p>
-      <p><span class="term-label">The general fact.</span> For ANY continuous random variable the probability of landing on one exact value is zero, because a single point has no width to give it area. That is exactly why `P(x < ' . $c . ')` and `P(x <= ' . $c . ')` are the same number here — the endpoint contributes nothing.</p>
+      <p><span class="term-label">The general fact.</span> For ANY continuous random variable the probability of landing on one exact value is zero, because a single point has no width to give it area. That is exactly why `P(x < ' . $c . ')` and `P(x <= ' . $c . ')` are the same number here: the endpoint contributes nothing.</p>
     </div>
   </details>
 </div>'

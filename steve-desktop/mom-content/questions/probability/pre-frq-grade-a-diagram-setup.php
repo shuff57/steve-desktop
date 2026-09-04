@@ -9,7 +9,7 @@
 // The dropped category is DRAW THE STRUCTURE. Students produce a plausible-looking product without
 // ever committing to a tree or a Venn, so nothing catches a mis-stated second-stage probability.
 // Not reused from an earlier assignment: 3.1 dropped Define the Sample Space, 3.3 dropped Justify
-// the Second Factor -- neither is this.
+// the Second Factor: neither is this.
 //
 // CATEGORY PURITY: $sFill gives the two stage probabilities WITHOUT naming a tree or Venn (no word
 // "branch", no "diagram"), so a response that drops the structure earns Fill but cannot earn
@@ -161,15 +161,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> draws the tree, puts the stage probabilities on it, and gives P(at least one ' . $c1 . '). Each of the other three misses a whole category.</p>
-      <p><span class="term-label">The setup, and the answer.</span> P(first draw ' . $c1 . ') = ' . $r . '/' . $total . '. The only way to fail the event is both ' . $c2 . ', so P(at least one ' . $c1 . ') = 1 &minus; (' . $b . '/' . $total . ' &times; (' . ($b - 1) . '/' . $n1 . ')) = ' . $ans . '. Without the tree, nothing would stop a student from reusing the first-stage ' . $r . '/' . $total . ' on the second stage &mdash; which is exactly what committing to the structure prevents.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noStructureLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> draws the tree, puts the stage probabilities on it, and gives P(at least one ' . $c1 . '). Each of the other three misses a whole category.</p>
+      <p><span class="term-label">The setup, and the answer.</span> P(first draw ' . $c1 . ') = ' . $r . '/' . $total . '. The only way to fail the event is both ' . $c2 . ', so P(at least one ' . $c1 . ') = 1 &minus; (' . $b . '/' . $total . ' &times; (' . ($b - 1) . '/' . $n1 . ')) = ' . $ans . '. Without the tree, nothing would stop a student from reusing the first-stage ' . $r . '/' . $total . ' on the second stage: which is exactly what committing to the structure prevents.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noStructureLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Draw the Structure &mdash; NOT earned.</b> The probabilities appear as bare calculations with no tree and no Venn, so there is no picture in which a mis-stated second-stage probability could be caught.</li>
-        <li><b>Fill the Branches or Regions &mdash; earned.</b> Both stage probabilities are present and correct: ' . $r . '/' . $total . ' for the first stage, and ' . $b . '/' . $total . ' &times; (' . ($b - 1) . '/' . $n1 . ') for both ' . $c2 . '.</li>
-        <li><b>Answer the Question Asked &mdash; earned.</b> It gives P(at least one ' . $c1 . ') = ' . $ans . '.</li>
+        <li><b>Draw the Structure: NOT earned.</b> The probabilities appear as bare calculations with no tree and no Venn, so there is no picture in which a mis-stated second-stage probability could be caught.</li>
+        <li><b>Fill the Branches or Regions: earned.</b> Both stage probabilities are present and correct: ' . $r . '/' . $total . ' for the first stage, and ' . $b . '/' . $total . ' &times; (' . ($b - 1) . '/' . $n1 . ') for both ' . $c2 . '.</li>
+        <li><b>Answer the Question Asked: earned.</b> It gives P(at least one ' . $c1 . ') = ' . $ans . '.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the structure is its own category.</span> The numbers can be right while the picture was never committed to. The structure is the only place a wrong second-stage probability is visible, so a response that skips it produces a plausible-looking answer that a grader cannot audit.</p>
+      <p><span class="term-label">Part (c): why the structure is its own category.</span> The numbers can be right while the picture was never committed to. The structure is the only place a wrong second-stage probability is visible, so a response that skips it produces a plausible-looking answer that a grader cannot audit.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The structure is the category most often missing, because once the numbers are down the drawing feels like busywork.</p>
     </div>
   </details>

@@ -10,10 +10,10 @@
 // Compare and Explain the Gap (4) = 10.
 //
 // The dropped category is STATE THE EMPIRICAL VALUE. A student can report the theoretical value
-// and compare it without ever doing the counting — the section's own text says the theoretical
+// and compare it without ever doing the counting: the section's own text says the theoretical
 // model "genuinely outperforms counting", so the empirical step is the one a plausible answer
 // skips; the comparison then has no evidence behind it. This is DIFFERENT from the 4.4/4.6 lab
-// pre-FRQs' dropped category (State the Theoretical Value) — the 4.4/4.6 pair shares a drop
+// pre-FRQs' dropped category (State the Theoretical Value): the 4.4/4.6 pair shares a drop
 // deliberately, but a third repeat would teach the same lesson again.
 //
 // CATEGORY PURITY: $sEmp states the counted value and nothing else; $sTheory states the model's
@@ -23,7 +23,7 @@ $anstypes = array("choices", "multans", "choices")
 
 $sEmp = "The pilot's empirical median is 129.15 seconds."
 $sTheory = "The theoretical model N(129.42, 2.52) predicts a median of 129.42 seconds."
-$sCompare = "The two medians are 0.27 seconds apart, which is agreement — a sample of twelve lands near the model, not on it."
+$sCompare = "The two medians are 0.27 seconds apart, which is agreement: a sample of twelve lands near the model, not on it."
 
 $rFull    = $sEmp . ' ' . $sTheory . ' ' . $sCompare
 $rNoEmp   = $sTheory . ' ' . $sCompare
@@ -63,7 +63,7 @@ $answer[1] = "1,2"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The theoretical value can be reported and compared without ever doing the counting, so the empirical value has to be stated on its own — the comparison then has evidence behind it.",
+  "No. The theoretical value can be reported and compared without ever doing the counting, so the empirical value has to be stated on its own: the comparison then has evidence behind it.",
   "Yes. Once the theoretical value is reported, the empirical one is implied by the data, so there is nothing separate to award.",
   "No, but only because the arithmetic is the hard part.",
   "Yes, as long as the two numbers are close, the setup does not matter."
@@ -138,15 +138,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the empirical value, the theoretical value, and the gap with its explanation. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the empirical value, the theoretical value, and the gap with its explanation. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sEmp . ' ' . $sTheory . ' ' . $sCompare . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noEmpLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noEmpLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Empirical Value &mdash; NOT earned.</b> The theoretical value is reported and compared, but nowhere does the response state what the sampled data actually produced, so the comparison has no evidence behind it.</li>
-        <li><b>State the Theoretical Value &mdash; earned.</b> The value the model predicts is present.</li>
-        <li><b>Compare and Explain the Gap &mdash; earned.</b> The gap is measured and explained as the ordinary wobble of a sample.</li>
+        <li><b>State the Empirical Value: NOT earned.</b> The theoretical value is reported and compared, but nowhere does the response state what the sampled data actually produced, so the comparison has no evidence behind it.</li>
+        <li><b>State the Theoretical Value: earned.</b> The value the model predicts is present.</li>
+        <li><b>Compare and Explain the Gap: earned.</b> The gap is measured and explained as the ordinary wobble of a sample.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the empirical value is its own category.</span> The whole point of the lab is holding a measurement up against the thing it is measuring. Without the empirical column, "close" and "far" have no evidence behind them — the theoretical value is just a number with nothing to compare it to.</p>
+      <p><span class="term-label">Part (c): why the empirical value is its own category.</span> The whole point of the lab is holding a measurement up against the thing it is measuring. Without the empirical column, "close" and "far" have no evidence behind them: the theoretical value is just a number with nothing to compare it to.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab this comparison comes with a blank box and this same checklist. The empirical value is the category most often skipped, because once the model is fitted the counting feels like busywork.</p>
     </div>
   </details>

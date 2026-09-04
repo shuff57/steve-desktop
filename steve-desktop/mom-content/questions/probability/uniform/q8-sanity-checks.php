@@ -56,7 +56,7 @@ $abstolerance[1] = 0.005
 $questions[2] = array(
   "The value is bigger than 1",
   "The value is negative",
-  "Neither — the checks only catch setup mistakes, and the setup here is fine"
+  "Neither: the checks only catch setup mistakes, and the setup here is fine"
 )
 $answer[2] = $bigger[$i]
 $noshuffle[2] = "all"
@@ -99,7 +99,7 @@ $solutionguide = '
     <p style="margin:0;">Consider `f(x) = 1/$width` for `$a <= x <= $b`, and `0` everywhere else. Three students each computed `P($c < x < $d)` and got the values below.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which computed value is impossible &mdash; it cannot be a probability at all?
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which computed value is impossible: it cannot be a probability at all?
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">

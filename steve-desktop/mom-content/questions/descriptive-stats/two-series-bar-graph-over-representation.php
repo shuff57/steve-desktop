@@ -37,7 +37,7 @@ else {
 $names = array($s0, $s1, $s2, $s3, $s4)
 
 // The population shares are built to total exactly 100. The competition shares are then made by
-// moving a few points out of every other group into one -- so both series still total 100, and
+// moving a few points out of every other group into one: so both series still total 100, and
 // exactly one group comes out ahead of its own population share. Generating the two series
 // independently would leave ties for "most over-represented", which has no single answer.
 $pop = array(0, 0, 0, 0, 0)
@@ -139,10 +139,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; compare each pair, not the graph as a whole.</span> The question is never "which bar is tallest". It is, for each ' . $groupWord . ', does the dark bar stand above its own pale bar? Everywhere except one, the dark bar is the shorter of the pair.</p>
-      <p><span class="term-label">Step 2 &mdash; the one that stands out.</span> <b>' . $starName . '</b> supplied ' . $starComp . '% of the first column while holding only ' . $starPop . '% of the second. It is over-represented; every other ' . $groupWord . ' contributed a smaller share than its size would suggest.</p>
-      <p><span class="term-label">Step 3 &mdash; measure the gap in percentage points.</span> Subtract: ' . $starComp . '% &minus; ' . $starPop . '% = <b>' . $gain . ' percentage points</b>. Percentage points, not percent &mdash; going from ' . $starPop . '% to ' . $starComp . '% is a rise of ' . $gain . ' points, which is a much larger relative jump, and the two numbers are not interchangeable.</p>
-      <p><span class="term-label">Step 4 &mdash; what this cannot tell you.</span> Both columns are percentages of different totals: one of everyone taking part, the other of all ' . $people . ' in ' . $wholeName . '. So the graph shows who is over- and under-represented, and nothing at all about headcounts. A small ' . $groupWord . ' with a handful of keen ' . $people . ' can top this graph while contributing the fewest people of anyone.</p>
+      <p><span class="term-label">Step 1: compare each pair, not the graph as a whole.</span> The question is never "which bar is tallest". It is, for each ' . $groupWord . ', does the dark bar stand above its own pale bar? Everywhere except one, the dark bar is the shorter of the pair.</p>
+      <p><span class="term-label">Step 2: the one that stands out.</span> <b>' . $starName . '</b> supplied ' . $starComp . '% of the first column while holding only ' . $starPop . '% of the second. It is over-represented; every other ' . $groupWord . ' contributed a smaller share than its size would suggest.</p>
+      <p><span class="term-label">Step 3: measure the gap in percentage points.</span> Subtract: ' . $starComp . '% &minus; ' . $starPop . '% = <b>' . $gain . ' percentage points</b>. Percentage points, not percent: going from ' . $starPop . '% to ' . $starComp . '% is a rise of ' . $gain . ' points, which is a much larger relative jump, and the two numbers are not interchangeable.</p>
+      <p><span class="term-label">Step 4: what this cannot tell you.</span> Both columns are percentages of different totals: one of everyone taking part, the other of all ' . $people . ' in ' . $wholeName . '. So the graph shows who is over- and under-represented, and nothing at all about headcounts. A small ' . $groupWord . ' with a handful of keen ' . $people . ' can top this graph while contributing the fewest people of anyone.</p>
       <p><b>Answer:</b> (a) ' . $starName . ' &nbsp;&nbsp; (b) ' . $gain . ' percentage points</p>
     </div>
   </details>

@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Sections 8.1–8.2 — Sample space, P(event), complement (3 number answers)
+// Sections 8.1–8.2: Sample space, P(event), complement (3 number answers)
 
 // Concrete contexts: bag of colored marbles
 $contexts = array(
@@ -21,13 +21,13 @@ $n3 = rand(2, 7)
 $n4 = rand(3, 9)
 $total = $n1 + $n2 + $n3 + $n4
 
-// Part A: P(col1) — single color
+// Part A: P(col1): single color
 $ans_a = round($n1 / $total, 4)
 
-// Part B: P(col2 or col3) — union of two mutually exclusive events
+// Part B: P(col2 or col3): union of two mutually exclusive events
 $ans_b = round(($n2 + $n3) / $total, 4)
 
-// Part C: P(not col1) — complement
+// Part C: P(not col1): complement
 $ans_c = round(1 - $n1 / $total, 4)
 
 $anstypes = array("number", "number", "number")
@@ -146,7 +146,7 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-<p><b>Basic Probability — Marble Bag</b></p>
+<p><b>Basic Probability: Marble Bag</b></p>
 <p>A bag contains marbles of four colors:</p>
 
 <table style="border-collapse:collapse; margin:10px 0; font-size:medium;">

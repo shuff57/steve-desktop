@@ -76,9 +76,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; translate the question.</span> &quot;At most two&quot; means 0, 1, or 2 movies &mdash; the 0, 1, and 2 rows of the ungrouped table.</p>
-      <p><span class="term-label">Step 2 &mdash; read the cumulative column.</span> The cumulative entry on the 2 row is <b>' . $vald . '</b> &mdash; the cumulative column has already done the adding for you. That is exactly why the lab asks you to build it.</p>
-      <p><span class="term-label">Step 3 &mdash; why the ungrouped table is the one.</span> In the grouped table, 2 and 3 are locked together in one 2-3 row, so the count of 2 cannot be separated from the count of 3. Only the ungrouped table can answer the question.</p>
+      <p><span class="term-label">Step 1: translate the question.</span> &quot;At most two&quot; means 0, 1, or 2 movies: the 0, 1, and 2 rows of the ungrouped table.</p>
+      <p><span class="term-label">Step 2: read the cumulative column.</span> The cumulative entry on the 2 row is <b>' . $vald . '</b>: the cumulative column has already done the adding for you. That is exactly why the lab asks you to build it.</p>
+      <p><span class="term-label">Step 3: why the ungrouped table is the one.</span> In the grouped table, 2 and 3 are locked together in one 2-3 row, so the count of 2 cannot be separated from the count of 3. Only the ungrouped table can answer the question.</p>
     </div>
   </details>
 </div>'

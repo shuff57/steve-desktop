@@ -59,9 +59,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The four numbers, in order.</span> `p\' = ' . $x . '/' . $n . ' = ' . round($p, 4) . '`, `q\' = ' . round($q, 4) . '`, `z_(alpha/2) = ' . $z . '` for ' . round($cl * 100) . '% confidence.</p>
-      <p><span class="term-label">Part (a) &mdash; the error bound.</span> `EBP = z_(alpha/2) * sqrt(p\'q\'/n) = ' . $z . ' * sqrt((' . round($p, 4) . ')(' . round($q, 4) . ')/' . $n . ') = ' . round($ebp, 4) . '`</p>
-      <p><span class="term-label">Parts (b) and (c) &mdash; the interval.</span> `(p\' - EBP, p\' + EBP) = (' . round($lo, 4) . ', ' . round($hi, 4) . ')`</p>
-      <p>There is one honest problem with the formula: it wants `p` and `q`, the population proportions &mdash; the very numbers we are trying to estimate. So we substitute the sample proportions, and the plus-four method later in this section exists precisely because that substitution introduces error.</p>
+      <p><span class="term-label">Part (a): the error bound.</span> `EBP = z_(alpha/2) * sqrt(p\'q\'/n) = ' . $z . ' * sqrt((' . round($p, 4) . ')(' . round($q, 4) . ')/' . $n . ') = ' . round($ebp, 4) . '`</p>
+      <p><span class="term-label">Parts (b) and (c): the interval.</span> `(p\' - EBP, p\' + EBP) = (' . round($lo, 4) . ', ' . round($hi, 4) . ')`</p>
+      <p>There is one honest problem with the formula: it wants `p` and `q`, the population proportions: the very numbers we are trying to estimate. So we substitute the sample proportions, and the plus-four method later in this section exists precisely because that substitution introduces error.</p>
     </div>
   </details>
 </div>'

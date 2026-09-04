@@ -33,8 +33,8 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The endpoints are the whole story.</span> Every number for `X ~ U(0, 1)` comes out of `a = 0` and `b = 1`, and nothing else. The generator never gets consulted.</p>
-      <p><span class="term-label">Part (a) &mdash; the mean.</span> `mu = (a + b)/2 = (0 + 1)/2 = 0.5`</p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation.</span> `sigma = sqrt((b - a)^2 / 12) = sqrt(1/12) ~= 0.2887`</p>
+      <p><span class="term-label">Part (a): the mean.</span> `mu = (a + b)/2 = (0 + 1)/2 = 0.5`</p>
+      <p><span class="term-label">Part (b): the standard deviation.</span> `sigma = sqrt((b - a)^2 / 12) = sqrt(1/12) ~= 0.2887`</p>
       <p>Notice `sigma` is a good deal smaller than the 0.5 half-width of the interval. That is the uniform distribution\'s shape showing up in a number: the values are spread evenly rather than piled at the two ends, so a typical value sits about 0.29 away from the center rather than the 0.5 you would get if every value were at 0 or 1.</p>
     </div>
   </details>

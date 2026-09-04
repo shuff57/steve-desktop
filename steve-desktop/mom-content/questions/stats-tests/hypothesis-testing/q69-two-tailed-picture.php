@@ -19,7 +19,7 @@ $i = rand(0, count($contexts)-1)
 $ctx = $contexts[$i]
 
 $questions[0] = array(
-  "Because `H_a` carries `!=`, the test is in both tails &mdash; the p-value collects area on both sides of the curve.",
+  "Because `H_a` carries `!=`, the test is in both tails: the p-value collects area on both sides of the curve.",
   "Because the sample size is small, the shading has to be split.",
   "Because the null hypothesis is two-sided."
 )
@@ -27,7 +27,7 @@ $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The two-tailed p-value &mdash; twice the one-tailed area, which is why the same data is harder to call significant when the question is posed that way.",
+  "The two-tailed p-value: twice the one-tailed area, which is why the same data is harder to call significant when the question is posed that way.",
   "The probability that the null hypothesis is true.",
   "The area between the two cutoffs."
 )
@@ -52,8 +52,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; why the shading is split.</span> Because `H_a` carries `!=`, the test is in both tails &mdash; `!=` picks no direction, so the p-value collects area on both sides of the curve.</p>
-      <p><span class="term-label">Part (b) &mdash; what the two regions represent.</span> The two shaded regions together are the two-tailed p-value &mdash; twice the one-tailed area. Mark both cutoffs: the test statistic and its mirror on the other side.</p>
+      <p><span class="term-label">Part (a): why the shading is split.</span> Because `H_a` carries `!=`, the test is in both tails: `!=` picks no direction, so the p-value collects area on both sides of the curve.</p>
+      <p><span class="term-label">Part (b): what the two regions represent.</span> The two shaded regions together are the two-tailed p-value: twice the one-tailed area. Mark both cutoffs: the test statistic and its mirror on the other side.</p>
     </div>
   </details>
 </div>'

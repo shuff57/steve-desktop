@@ -31,9 +31,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; turn a probability into an expected count.</span> Multiply the probability of the outcome by the number of repetitions:</p>
+      <p><span class="term-label">Part (a): turn a probability into an expected count.</span> Multiply the probability of the outcome by the number of repetitions:</p>
       <p>`30 * 0.2816 = 8.448`</p>
-      <p><span class="term-label">Part (b) &mdash; the observed count.</span> The class observed 9 groups at `x = 2`, against an expected 8.448.</p>
+      <p><span class="term-label">Part (b): the observed count.</span> The class observed 9 groups at `x = 2`, against an expected 8.448.</p>
       <p>Two things are worth noticing. The expected count is not a whole number even though the observed count has to be, which is the same "you cannot draw 2.5 diamonds" point from a different angle. And this is the arithmetic that turns "the graphs look similar" into something you can defend: instead of comparing two pictures by eye, compare each bar\'s observed count against `30 * P(x)` and say which bars are off and by how much.</p>
     </div>
   </details>

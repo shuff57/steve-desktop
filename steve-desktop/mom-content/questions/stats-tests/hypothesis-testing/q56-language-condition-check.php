@@ -35,9 +35,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; np0.</span> Under `H_0`, `p_0 = 0.423`: `np_0 = 25(0.423) = ' . $np . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; n(1-p0).</span> `n(1 - p_0) = 25(0.577) = ' . $nq . '`.</p>
-      <p>Both clear 5, so the normal approximation is legitimate. The condition is computed under the null &mdash; np0 and nq0, not the sample proportions &mdash; because the normal curve is standing in for the binomial distribution the null claims.</p>
+      <p><span class="term-label">Part (a): np0.</span> Under `H_0`, `p_0 = 0.423`: `np_0 = 25(0.423) = ' . $np . '`.</p>
+      <p><span class="term-label">Part (b): n(1-p0).</span> `n(1 - p_0) = 25(0.577) = ' . $nq . '`.</p>
+      <p>Both clear 5, so the normal approximation is legitimate. The condition is computed under the null, np0 and nq0, not the sample proportions, because the normal curve is standing in for the binomial distribution the null claims.</p>
     </div>
   </details>
 </div>'

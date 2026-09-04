@@ -43,12 +43,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p>A strong correlation and a well-fitting regression line only tell us there is an <b>association</b> between two variables — they do <b>not</b> establish that changing one variable will cause the other to change.</p>
+      <p>A strong correlation and a well-fitting regression line only tell us there is an <b>association</b> between two variables: they do <b>not</b> establish that changing one variable will cause the other to change.</p>
       <p>Observational data can be explained by:</p>
       <ul>
-        <li><b>Reverse causation</b> — maybe `y` drives `x`.</li>
-        <li><b>Confounding / lurking variables</b> — a third variable affects both.</li>
-        <li><b>Chance</b> — especially in small samples.</li>
+        <li><b>Reverse causation</b>: maybe `y` drives `x`.</li>
+        <li><b>Confounding / lurking variables</b>: a third variable affects both.</li>
+        <li><b>Chance</b>: especially in small samples.</li>
       </ul>
       <p>In this example, ' . $reason . '.</p>
       <p>Causal conclusions generally require a <b>randomized experiment</b>, not an observational regression.</p>

@@ -95,7 +95,7 @@ $belongF = $belongs[$i5]
 $NF = rand(15, 40) * 10
 $descF = $whoF . ' contacts <b>every one</b> of the ' . $NF . ' ' . $unitpF . ' ' . $belongF . ' <b>' . $orgF . '</b> and records an answer from all ' . $NF . '.'
 
-// --- Distractor 2: two-stage — whole groups dropped, then sampled inside the survivors ---
+// --- Distractor 2: two-stage: whole groups dropped, then sampled inside the survivors ---
 $whoG = $names[mod($w0 + 6, 8)]
 $orgG = $prefixes[mod($p0 + 6, 8)] . " Community College"
 $pickG = rand(2, 3)
@@ -104,7 +104,7 @@ $nG = $nGlist[rand(0, count($nGlist)-1)]
 $leftG = 4 - $pickG
 $descG = $whoG . ' randomly picks <b>' . $pickG . ' of the four class years</b> at <b>' . $orgG . '</b>, and then randomly samples <b>' . $nG . ' students inside each</b> of the ' . $pickG . ' chosen years.'
 
-// The five method names stay in teaching order — the random methods first, in the order the
+// The five method names stay in teaching order: the random methods first, in the order the
 // section defines them, with the one non-random method last.
 $questions = array("Simple random sample", "Stratified sample", "Cluster sample", "Systematic sample", "Convenience sample")
 
@@ -142,14 +142,14 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>Ignore the topic, the institution, and the size of the sample. Only the <b>mechanics of the draw</b> decide the method.</p>
-      <div class="term-row"><span class="term-label">Simple random sample:</span> ' . $whoA . ' &mdash; numbers everyone and draws ' . $nA . ' numbers at random. No groups are formed, so every individual and every set of ' . $nA . ' ' . $unitpA . ' is equally likely.</div>
-      <div class="term-row"><span class="term-label">Stratified sample:</span> ' . $whoB . ' &mdash; splits the population into ' . $GB . ' ' . $grpB . ' and takes ' . $mB . ' from <em>each one</em>. Some from every group is the signature of stratifying.</div>
-      <div class="term-row"><span class="term-label">Cluster sample:</span> ' . $whoC . ' &mdash; picks ' . $cC . ' whole ' . $grpC . ' at random and takes <em>everyone</em> inside them. Entire groups (' . $remC . ' of them) are left out.</div>
-      <div class="term-row"><span class="term-label">Systematic sample:</span> ' . $whoD . ' &mdash; one random start, then every ' . $kD . 'th name down an ordered list. A fixed step through a list is the signature.</div>
-      <div class="term-row"><span class="term-label">Convenience sample:</span> ' . $whoE . ' &mdash; whoever happens to walk past. No chance mechanism anywhere, which is what makes it the non-random method.</div>
+      <div class="term-row"><span class="term-label">Simple random sample:</span> ' . $whoA . ': numbers everyone and draws ' . $nA . ' numbers at random. No groups are formed, so every individual and every set of ' . $nA . ' ' . $unitpA . ' is equally likely.</div>
+      <div class="term-row"><span class="term-label">Stratified sample:</span> ' . $whoB . ': splits the population into ' . $GB . ' ' . $grpB . ' and takes ' . $mB . ' from <em>each one</em>. Some from every group is the signature of stratifying.</div>
+      <div class="term-row"><span class="term-label">Cluster sample:</span> ' . $whoC . ': picks ' . $cC . ' whole ' . $grpC . ' at random and takes <em>everyone</em> inside them. Entire groups (' . $remC . ' of them) are left out.</div>
+      <div class="term-row"><span class="term-label">Systematic sample:</span> ' . $whoD . ': one random start, then every ' . $kD . 'th name down an ordered list. A fixed step through a list is the signature.</div>
+      <div class="term-row"><span class="term-label">Convenience sample:</span> ' . $whoE . ': whoever happens to walk past. No chance mechanism anywhere, which is what makes it the non-random method.</div>
       <div class="sol-warn"><b>Strata slice, clusters scoop.</b> Stratified and cluster both start by dividing the population into groups, which is why they get swapped. The difference is what happens next: stratifying takes <em>a little from every group</em>, so every group is represented; clustering takes <em>everything from a few groups</em>, so whole groups are missing.</div>
       <div class="sol-note"><b>Two studies match nothing.</b><br>
-      &bull; ' . $whoF . ' surveys <b>every</b> member of the population. That is a <b>census</b>, not a sample &mdash; there is no sampling method to name because no sampling happened.<br>
+      &bull; ' . $whoF . ' surveys <b>every</b> member of the population. That is a <b>census</b>, not a sample: there is no sampling method to name because no sampling happened.<br>
       &bull; ' . $whoG . ' picks ' . $pickG . ' of the four class years and then samples <b>' . $nG . ' students inside each</b>. That is a <b>two-stage design</b>. It is not stratified, because ' . $leftG . ' class years contribute nobody; and it is not a cluster sample either, because a cluster sample takes <em>all</em> the members of the selected groups, not a sample from within them.</div>
     </div>
   </details>
@@ -160,7 +160,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">Seven researchers each collect data a different way. Match each <b>sampling method</b> to the study that used it.</p>
-    <p style="margin:12px 0 0 0;"><b>Two of the studies are not used</b> &mdash; they do not illustrate any of the five methods.</p>
+    <p style="margin:12px 0 0 0;"><b>Two of the studies are not used</b>: they do not illustrate any of the five methods.</p>
   </div>
   $answerbox
 </div>

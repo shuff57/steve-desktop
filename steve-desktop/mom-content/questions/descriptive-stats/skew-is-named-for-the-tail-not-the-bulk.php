@@ -5,7 +5,7 @@
 
 // This is the single most reliable error in the section: students name the skew for the side the DATA
 // piles up on, which is always the opposite of the right answer. Rather than warn about it, the
-// question shows a worked wrong answer and asks the student to find the flaw -- the same pre-FRQ move
+// question shows a worked wrong answer and asks the student to find the flaw: the same pre-FRQ move
 // that works elsewhere, at question scale.
 //
 // The drawn shape is always skewed one way or the other, never symmetric, because a symmetric picture
@@ -142,10 +142,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the right name.</span> The tall bars sit on the ' . $bulkSide . ', and the bars thin out into a long low tail on the ' . $tailSide . '. Skew is named for the tail, so this is <b>' . $trueName . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; what the classmate did.</span> They looked at where the data PILES UP and named that side. That reading is always exactly backwards, because the bulk and the tail are on opposite sides by definition. Saying "' . $wrongName . '" is not a small slip; it reverses the conclusion, and with it the prediction about whether the mean sits above or below the median.</p>
-      <p><span class="term-label">The rule that fixes it for good.</span> Point at the thin end &mdash; the side where the bars run out low and long &mdash; and read the direction off your finger. Bulk-on-the-' . $bulkSide . ' and tail-to-the-' . $tailSide . ' are the same picture; only the tail names it.</p>
-      <p><span class="term-label">Part (c) &mdash; how little is actually in the tail.</span> The four classes making up the tail, from ' . $tailRange . ' minutes, hold <b>' . $tailCount . '</b> of the ' . $n . ' observations between them. A tail can be long and still be nearly empty &mdash; which is exactly why it is easy to overlook, and why the mean it drags can end up describing almost nobody.</p>
+      <p><span class="term-label">Part (a): the right name.</span> The tall bars sit on the ' . $bulkSide . ', and the bars thin out into a long low tail on the ' . $tailSide . '. Skew is named for the tail, so this is <b>' . $trueName . '</b>.</p>
+      <p><span class="term-label">Part (b): what the classmate did.</span> They looked at where the data PILES UP and named that side. That reading is always exactly backwards, because the bulk and the tail are on opposite sides by definition. Saying "' . $wrongName . '" is not a small slip; it reverses the conclusion, and with it the prediction about whether the mean sits above or below the median.</p>
+      <p><span class="term-label">The rule that fixes it for good.</span> Point at the thin end, the side where the bars run out low and long, and read the direction off your finger. Bulk-on-the-' . $bulkSide . ' and tail-to-the-' . $tailSide . ' are the same picture; only the tail names it.</p>
+      <p><span class="term-label">Part (c): how little is actually in the tail.</span> The four classes making up the tail, from ' . $tailRange . ' minutes, hold <b>' . $tailCount . '</b> of the ' . $n . ' observations between them. A tail can be long and still be nearly empty: which is exactly why it is easy to overlook, and why the mean it drags can end up describing almost nobody.</p>
     </div>
   </details>
 </div>'

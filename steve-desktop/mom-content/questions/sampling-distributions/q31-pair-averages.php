@@ -33,9 +33,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the first pair.</span> `(0.13 + 1.52)/2 = 1.65/2 = 0.825`.</p>
-      <p><span class="term-label">Part (b) &mdash; the second pair.</span> `(0.45 + 0.72)/2 = 1.17/2 = 0.585`.</p>
-      <p><span class="term-label">Watch what happened to the $1.52.</span> On its own it sat well out in the right tail; paired with a thirteen-cent pocket it produced an average of $0.825, barely above the middle of the picture. Nothing was thrown away and nothing was corrected &mdash; the extreme value is still in there, it is just sharing its slot with a partner. That dilution is the whole mechanism of the lab.</p>
+      <p><span class="term-label">Part (a): the first pair.</span> `(0.13 + 1.52)/2 = 1.65/2 = 0.825`.</p>
+      <p><span class="term-label">Part (b): the second pair.</span> `(0.45 + 0.72)/2 = 1.17/2 = 0.585`.</p>
+      <p><span class="term-label">Watch what happened to the $1.52.</span> On its own it sat well out in the right tail; paired with a thirteen-cent pocket it produced an average of $0.825, barely above the middle of the picture. Nothing was thrown away and nothing was corrected: the extreme value is still in there, it is just sharing its slot with a partner. That dilution is the whole mechanism of the lab.</p>
     </div>
   </details>
 </div>'

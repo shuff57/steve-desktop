@@ -40,10 +40,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample proportion.</span> `p\' = x/n = 14/25 = ' . round($phat, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the standard error.</span> `sqrt((p_0)(1-p_0)/n) = sqrt((0.423)(0.577)/25) = sqrt(0.009763) = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the test statistic.</span> `z = (p\' - p_0)/SE = (' . round($phat, 4) . ' - 0.423)/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
-      <p>The standard error uses the null proportion, and "different from" is two-sided &mdash; the p-value will collect area in both tails, which is why the same data is harder to call significant when the question is posed that way.</p>
+      <p><span class="term-label">Part (a): the sample proportion.</span> `p\' = x/n = 14/25 = ' . round($phat, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the standard error.</span> `sqrt((p_0)(1-p_0)/n) = sqrt((0.423)(0.577)/25) = sqrt(0.009763) = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (c): the test statistic.</span> `z = (p\' - p_0)/SE = (' . round($phat, 4) . ' - 0.423)/' . round($se, 4) . ' = ' . round($z, 3) . '`.</p>
+      <p>The standard error uses the null proportion, and "different from" is two-sided: the p-value will collect area in both tails, which is why the same data is harder to call significant when the question is posed that way.</p>
     </div>
   </details>
 </div>'

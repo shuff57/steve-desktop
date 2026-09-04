@@ -7,7 +7,7 @@
 // two numbers side by side is what makes "independent" mean something concrete: with replacement the
 // second draw forgets the first, without replacement it does not.
 //
-// Part (d) is the one that matters -- a student can produce both numbers and still not know which
+// Part (d) is the one that matters: a student can produce both numbers and still not know which
 // scenario the multiplication rule for INDEPENDENT events applies to.
 $anstypes = array("numfunc", "numfunc", "numfunc", "choices")
 
@@ -65,9 +65,9 @@ $sol = '
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
       <p><span class="term-label">(a) With replacement.</span> The ' . $c1 . ' goes back, so the ' . $container . ' is identical for the second draw: `' . $r . '/' . $total . ' xx ' . $r . '/' . $total . ' = ' . $pWith . '`. Same fraction twice.</p>
-      <p><span class="term-label">(b) Without replacement.</span> One ' . $c1 . ' is gone and so is one ' . $item . ' overall: `' . $r . '/' . $total . ' xx ' . ($r - 1) . '/' . $rem . ' = ' . $pWithout . '`. BOTH numbers change &mdash; dropping only the numerator is the usual slip.</p>
+      <p><span class="term-label">(b) Without replacement.</span> One ' . $c1 . ' is gone and so is one ' . $item . ' overall: `' . $r . '/' . $total . ' xx ' . ($r - 1) . '/' . $rem . ' = ' . $pWithout . '`. BOTH numbers change: dropping only the numerator is the usual slip.</p>
       <p><span class="term-label">(c) The gap.</span> `' . $pWith . ' - ' . $pWithout . ' = ' . $diff . '`. Without replacement is always the smaller of the two here, because removing one ' . $c1 . ' leaves proportionally fewer behind.</p>
-      <p><span class="term-label">(d) Which one is independent.</span> With replacement. Independence means the second draw does not care what the first was, and putting the ' . $c1 . ' back is literally what makes that true. Without replacement the second probability depends on the first branch &mdash; which is why q32 needed a tree and this half does not.</p>
+      <p><span class="term-label">(d) Which one is independent.</span> With replacement. Independence means the second draw does not care what the first was, and putting the ' . $c1 . ' back is literally what makes that true. Without replacement the second probability depends on the first branch: which is why q32 needed a tree and this half does not.</p>
       <p><span class="term-label">Worth carrying.</span> "Independent" is not a property of the objects; it is a property of the PROCEDURE. Same ' . $container . ', same colours, one word changed, and the answer changes with it.</p>
     </div>
   </details>

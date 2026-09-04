@@ -33,7 +33,7 @@ for ($code = 0..($den - 1)) {
   $outcome = ""
   $head_count = 0
   for ($pos = 0..($n - 1)) {
-    // Bit at position (n-1-pos) — most significant bit first so output reads left-to-right.
+    // Bit at position (n-1-pos): most significant bit first so output reads left-to-right.
     $shift = $n - 1 - $pos
     $bit_val = floor($code / (2^$shift)) % 2
     if ($bit_val == 1) {
@@ -76,7 +76,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><b>Sample space:</b> '.$n.' coins give n(S) = 2<sup>'.$n.'</sup> = '.$den.' equally likely outcomes:</p>
       '.$enum_html.'
-      <p><b>Event:</b> "exactly one head" &mdash; the highlighted outcomes above. There are '.$num.' of them (one for each position of the single H).</p>
+      <p><b>Event:</b> "exactly one head": the highlighted outcomes above. There are '.$num.' of them (one for each position of the single H).</p>
       <p>P(exactly one head) = '.$num.'/'.$den.' = <b>'.$frac.' &approx; '.$decimal_show.'</b></p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         P(exactly one head) = '.$frac.' &approx; '.$decimal_show.'

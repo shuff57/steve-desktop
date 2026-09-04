@@ -41,8 +41,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The random part.</span> The randomness lives entirely in the one starting name you pick. After that the rule is mechanical, so nobody&rsquo;s preferences can sneak in &mdash; not yours, and not your classmates&rsquo;.</p>
-      <p><span class="term-label">Why it is not a simple random sample.</span> In a simple random sample, every possible group of 12 classmates is equally likely to be chosen. Once you have committed to a starting point and a step of 4, eleven of your twelve names are already decided &mdash; there is exactly one genuinely random decision in the entire procedure.</p>
+      <p><span class="term-label">The random part.</span> The randomness lives entirely in the one starting name you pick. After that the rule is mechanical, so nobody&rsquo;s preferences can sneak in: not yours, and not your classmates&rsquo;.</p>
+      <p><span class="term-label">Why it is not a simple random sample.</span> In a simple random sample, every possible group of 12 classmates is equally likely to be chosen. Once you have committed to a starting point and a step of 4, eleven of your twelve names are already decided: there is exactly one genuinely random decision in the entire procedure.</p>
       <p><span class="term-label">Why the rule is still worth having.</span> It is far easier to carry out in a classroom than drawing twelve names from a hat, and it spreads your picks evenly across the whole list. The one thing to watch for is a list with a repeating pattern built into it: if the step lines up with that pattern, you sample from one slice of the list over and over.</p>
     </div>
   </details>

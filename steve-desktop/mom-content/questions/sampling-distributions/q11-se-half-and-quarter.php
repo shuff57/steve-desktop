@@ -49,8 +49,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the SE for size n.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se1, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the SE for size 4n.</span> `SE = sigma/sqrt(4n) = ' . $sigma . '/sqrt(' . (4 * $n) . ') = ' . round($se2, 4) . '`.</p>
+      <p><span class="term-label">Part (a): the SE for size n.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se1, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the SE for size 4n.</span> `SE = sigma/sqrt(4n) = ' . $sigma . '/sqrt(' . (4 * $n) . ') = ' . round($se2, 4) . '`.</p>
       <p><span class="term-label">The pattern.</span> Each time the sample size is multiplied by 4, the standard deviation of the sample mean is cut in half. The curve of sample means keeps tightening around `mu`, which is the law of large numbers in action. Square roots grow lazily: to cut the spread in half you need four times the data; to cut it to a tenth you need a hundred times the data.</p>
     </div>
   </details>

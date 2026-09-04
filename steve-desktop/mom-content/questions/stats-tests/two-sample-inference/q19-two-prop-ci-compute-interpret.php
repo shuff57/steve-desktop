@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Two-proportion CI — compute bounds, does it contain 0, and conclusion ===
+// === NAME - DESCRIPTION: Two-proportion CI: compute bounds, does it contain 0, and conclusion ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -39,7 +39,7 @@ $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
 
 $contains_zero = ($low <= 0 && $high >= 0) ? 1 : 0
-$choices[2] = array("Yes — 0 is inside the interval", "No — 0 is outside the interval")
+$choices[2] = array("Yes: 0 is inside the interval", "No: 0 is outside the interval")
 $answer[2] = $contains_zero ? 0 : 1
 
 if ($contains_zero) {

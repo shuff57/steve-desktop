@@ -96,11 +96,11 @@ $solutionguide = '
       <p><b>Sample space:</b> 2<sup>3</sup> = 8 equally likely birth-order outcomes.</p>
       <p><b>(a)</b> Outcomes with <b>exactly 2 '.$gender.'</b>:</p>
       '.$enum_exactly2.'
-      <p>3 outcomes &mdash; choose which 2 of the 3 slots are '.$gender.' (C(3,2) = 3).</p>
+      <p>3 outcomes: choose which 2 of the 3 slots are '.$gender.' (C(3,2) = 3).</p>
       <p>P(exactly 2 '.$gender.') = <b>3/8 = 0.375</b></p>
       <p><b>(b)</b> Outcomes with <b>at least one '.$gender_singular.'</b>:</p>
       '.$enum_atleast1.'
-      <p>7 outcomes &mdash; all 8 except the all-other-gender outcome.</p>
+      <p>7 outcomes: all 8 except the all-other-gender outcome.</p>
       <p>P(at least one '.$gender_singular.') = <b>7/8 = 0.875</b></p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         (a) 3/8 = 0.375 &nbsp;&bull;&nbsp; (b) 7/8 = 0.875

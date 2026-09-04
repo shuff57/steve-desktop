@@ -38,11 +38,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The four rows share everything except one number.</span> Your `x-bar`, your `s_x`, and your `n` are fixed by the sample, so the standard error `s_x/sqrt(n) ~= $19,101` is the same in every row &mdash; compute it once, write it in the margin, and reuse it. All that changes down the column is `t_(alpha/2)`.</p>
-      <p><span class="term-label">Part (a) &mdash; 50%.</span> `EBM = 0.6818 x 19,101 ~= 13,023`</p>
-      <p><span class="term-label">Part (b) &mdash; 80%.</span> `EBM = 1.3070 x 19,101 ~= 24,965`</p>
-      <p><span class="term-label">Part (c) &mdash; 95%.</span> `EBM = 2.0322 x 19,101 ~= 38,817`</p>
-      <p><span class="term-label">Part (d) &mdash; 99%.</span> `EBM = 2.7284 x 19,101 ~= 52,115`</p>
+      <p><span class="term-label">The four rows share everything except one number.</span> Your `x-bar`, your `s_x`, and your `n` are fixed by the sample, so the standard error `s_x/sqrt(n) ~= $19,101` is the same in every row: compute it once, write it in the margin, and reuse it. All that changes down the column is `t_(alpha/2)`.</p>
+      <p><span class="term-label">Part (a): 50%.</span> `EBM = 0.6818 x 19,101 ~= 13,023`</p>
+      <p><span class="term-label">Part (b): 80%.</span> `EBM = 1.3070 x 19,101 ~= 24,965`</p>
+      <p><span class="term-label">Part (c): 95%.</span> `EBM = 2.0322 x 19,101 ~= 38,817`</p>
+      <p><span class="term-label">Part (d): 99%.</span> `EBM = 2.7284 x 19,101 ~= 52,115`</p>
       <p>Filling this table is really just multiplying one fixed number by four different multipliers, and seeing that plainly is the point of the exercise.</p>
     </div>
   </details>

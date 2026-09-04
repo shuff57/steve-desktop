@@ -35,12 +35,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample mean.</span> The 35 prices sum to $14,350,000, so</p>
+      <p><span class="term-label">Part (a): the sample mean.</span> The 35 prices sum to $14,350,000, so</p>
       <p>`x-bar = 14,350,000/35 = 410,000`</p>
-      <p><span class="term-label">Part (b) &mdash; the sample standard deviation.</span> The sum of squares is 6,317,692 x 10^6, so the total squared deviation is `(6,317,692 - 5,883,500) x 10^6 = 434,192 x 10^6`, and</p>
+      <p><span class="term-label">Part (b): the sample standard deviation.</span> The sum of squares is 6,317,692 x 10^6, so the total squared deviation is `(6,317,692 - 5,883,500) x 10^6 = 434,192 x 10^6`, and</p>
       <p>`s^2 = 434,192 x 10^6 / 34 ~= 1.2770 x 10^10`, so `s ~= 113,006`</p>
-      <p><span class="term-label">Part (c) &mdash; the count.</span> Five rows of seven prices each gives `n = 35`.</p>
-      <p>Look at the size of that standard deviation before moving on &mdash; it is more than a quarter of the mean, which tells you the county\'s listings are spread across a very wide range of prices. That spread is what will make the interval as wide as it turns out to be, and it is a fact about the housing market, not a flaw in the sample.</p>
+      <p><span class="term-label">Part (c): the count.</span> Five rows of seven prices each gives `n = 35`.</p>
+      <p>Look at the size of that standard deviation before moving on: it is more than a quarter of the mean, which tells you the county\'s listings are spread across a very wide range of prices. That spread is what will make the interval as wide as it turns out to be, and it is a fact about the housing market, not a flaw in the sample.</p>
     </div>
   </details>
 </div>'

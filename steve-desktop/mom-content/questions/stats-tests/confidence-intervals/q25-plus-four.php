@@ -63,11 +63,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the adjusted proportion.</span> We pretend that we have four additional observations &mdash; two successes and two failures. The new sample size is `n + 4 = ' . $np . '` and the new count of successes is `x + 2 = ' . $xp . '`:</p>
+      <p><span class="term-label">Part (a): the adjusted proportion.</span> We pretend that we have four additional observations: two successes and two failures. The new sample size is `n + 4 = ' . $np . '` and the new count of successes is `x + 2 = ' . $xp . '`:</p>
       <p>`p\' = (x + 2)/(n + 4) = ' . $xp . '/' . $np . ' = ' . round($p, 4) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the adjusted error bound.</span> Proceed exactly as before, with the adjusted values inside the square root:</p>
+      <p><span class="term-label">Part (b): the adjusted error bound.</span> Proceed exactly as before, with the adjusted values inside the square root:</p>
       <p>`EBP = z_(alpha/2) * sqrt(p\'q\'/(n + 4)) = ' . $z . ' * sqrt((' . round($p, 4) . ')(' . round($q, 4) . ')/' . $np . ') = ' . round($ebp, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; why it works.</span> Adding two fake yeses and two fake noes drags any extreme sample proportion back toward 0.5, where the normal approximation behaves best. It is a nudge, not a fix, and it fades as n grows.</p>
+      <p><span class="term-label">Part (c): why it works.</span> Adding two fake yeses and two fake noes drags any extreme sample proportion back toward 0.5, where the normal approximation behaves best. It is a nudge, not a fix, and it fades as n grows.</p>
       <p>The plus-four adjustment is easy to half-apply: students will change x to x + 2, compute a new p\', and then use the original n inside the square root, which produces an interval that is neither the standard one nor the corrected one. Both substitutions or neither.</p>
     </div>
   </details>

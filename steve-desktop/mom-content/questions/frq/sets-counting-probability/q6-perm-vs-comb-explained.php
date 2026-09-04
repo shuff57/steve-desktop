@@ -165,9 +165,9 @@ $rubricanswerbutton = $css_block . '
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Scenario A label.
-                    <span class="ideal-ans">Target: "Permutation &mdash; the chosen '.$r.' are placed in distinguishable roles, so order matters."</span></li>
+                    <span class="ideal-ans">Target: "Permutation: the chosen '.$r.' are placed in distinguishable roles, so order matters."</span></li>
                 <li>Scenario B label.
-                    <span class="ideal-ans">Target: "Combination &mdash; the chosen '.$r.' form an unordered group, so order does not matter."</span></li>
+                    <span class="ideal-ans">Target: "Combination: the chosen '.$r.' form an unordered group, so order does not matter."</span></li>
               </ul>
             </td>
           </tr>
@@ -216,7 +216,7 @@ $questiontext = '
 <li>Identify whether it is a <b>permutation</b> or a <b>combination</b>, and justify with one sentence about whether order matters.</li>
 <li>Compute the count.</li>
 </ol>
-<p>Then, in plain English, <b>explain WHY</b> one count is bigger than the other &mdash; what does it mean that "order matters" in one but not the other, and how does that translate into a numerical factor?</p>
+<p>Then, in plain English, <b>explain WHY</b> one count is bigger than the other: what does it mean that "order matters" in one but not the other, and how does that translate into a numerical factor?</p>
 '.$rubricbutton.'
 </div>';
 

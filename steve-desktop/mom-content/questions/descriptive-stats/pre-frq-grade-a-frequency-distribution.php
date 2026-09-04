@@ -5,7 +5,7 @@
 
 // Chapter 1's pre-FRQ for 1.3, matching the 1.2 and 1.4 ones: the SAME scenario and the SAME grading
 // checklist as frq/descriptive-statistics/q6-frequency-distribution-analysis, with the writing
-// replaced by grading. The dropped category here is interpretation -- students build the table, name
+// replaced by grading. The dropped category here is interpretation: students build the table, name
 // the shape, and stop, because the table LOOKS like the answer.
 //
 // The table itself is generated, and the shape is computed from the same counts that fill it, so the
@@ -188,15 +188,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> shows the class width and boundaries with every frequency, names the shape and says why, and then says what that means for the group. Each of the other three drops a whole category, and a dropped category scores zero however good the rest is.</p>
-      <p><span class="term-label">The shape, and how you can tell.</span> The counts run ' . $c0 . ', ' . $c1 . ', ' . $c2 . ', ' . $c3 . ', ' . $c4 . ' across the five classes, so the distribution is <b>' . $shapeName . '</b> &mdash; ' . $doingWell . '. Skew is named for the thin tail, never for the side the tall bars are on.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noInterpLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> shows the class width and boundaries with every frequency, names the shape and says why, and then says what that means for the group. Each of the other three drops a whole category, and a dropped category scores zero however good the rest is.</p>
+      <p><span class="term-label">The shape, and how you can tell.</span> The counts run ' . $c0 . ', ' . $c1 . ', ' . $c2 . ', ' . $c3 . ', ' . $c4 . ' across the five classes, so the distribution is <b>' . $shapeName . '</b>: ' . $doingWell . '. Skew is named for the thin tail, never for the side the tall bars are on.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noInterpLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Frequency Distribution &mdash; earned.</b> The width, the boundaries and all five frequencies are there, and they total ' . $nTot . '.</li>
-        <li><b>Shape Identification &mdash; earned.</b> It names the shape and ties it to where the data piles up.</li>
-        <li><b>Performance Interpretation &mdash; NOT earned.</b> It ends by saying the table and shape describe the data completely. That is a claim about the ANSWER, not a statement about the group. This is the only category it misses.</li>
+        <li><b>Frequency Distribution: earned.</b> The width, the boundaries and all five frequencies are there, and they total ' . $nTot . '.</li>
+        <li><b>Shape Identification: earned.</b> It names the shape and ties it to where the data piles up.</li>
+        <li><b>Performance Interpretation: NOT earned.</b> It ends by saying the table and shape describe the data completely. That is a claim about the ANSWER, not a statement about the group. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why interpretation is its own category.</span> Naming a shape describes the picture. Interpreting it says what the picture means for the people behind the numbers: here, that ' . $meaning . '. Anyone who has to act on the report needs the second sentence, not the first &mdash; and it is the one most often missing, because once the table is built the work FEELS finished.</p>
+      <p><span class="term-label">Part (c): why interpretation is its own category.</span> Naming a shape describes the picture. Interpreting it says what the picture means for the people behind the numbers: here, that ' . $meaning . '. Anyone who has to act on the report needs the second sentence, not the first: and it is the one most often missing, because once the table is built the work FEELS finished.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. Finding the missing category in someone else&rsquo;s answer is the quickest way to stop leaving it out of your own.</p>
     </div>
   </details>

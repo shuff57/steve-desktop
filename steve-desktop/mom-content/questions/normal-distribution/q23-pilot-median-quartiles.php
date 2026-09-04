@@ -37,13 +37,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the median.</span> There are twelve values, so the median sits between the 6th and 7th:</p>
+      <p><span class="term-label">Step 1: the median.</span> There are twelve values, so the median sits between the 6th and 7th:</p>
       <p>`median = (128.9 + 129.4)/2 = 258.3/2 = 129.15`</p>
-      <p><span class="term-label">Step 2 &mdash; the first quartile.</span> The lowest six values are 125.9 through 128.9, and their median is the average of the 3rd and 4th:</p>
+      <p><span class="term-label">Step 2: the first quartile.</span> The lowest six values are 125.9 through 128.9, and their median is the average of the 3rd and 4th:</p>
       <p>`Q1 = (127.1 + 127.8)/2 = 254.9/2 = 127.45`</p>
-      <p><span class="term-label">Step 3 &mdash; the third quartile.</span> The highest six values are 129.4 through 134.1, and their median is the average of the 9th and 10th values overall:</p>
+      <p><span class="term-label">Step 3: the third quartile.</span> The highest six values are 129.4 through 134.1, and their median is the average of the 9th and 10th values overall:</p>
       <p>`Q3 = (130.8 + 131.5)/2 = 262.3/2 = 131.15`</p>
-      <p>A quartile is a location in the data, not a formula applied to it &mdash; every one of these comes from positions in the ordered list.</p>
+      <p>A quartile is a location in the data, not a formula applied to it: every one of these comes from positions in the ordered list.</p>
     </div>
   </details>
 </div>'

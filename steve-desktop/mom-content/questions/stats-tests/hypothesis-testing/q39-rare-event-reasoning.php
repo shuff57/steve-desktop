@@ -27,7 +27,7 @@ $answer[0] = $prob
 $abstolerance[0] = 0.0005
 
 $questions[1] = array(
-  "A reason to doubt the assumption &mdash; NOT proof that it is wrong.",
+  "A reason to doubt the assumption: NOT proof that it is wrong.",
   "Proof that the assumption is false.",
   "Proof that the assumption is true."
 )
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the probability.</span> The probability of the observed event under the stated assumption is ' . $prob . ' &mdash; five chances in a thousand (or fewer).</p>
-      <p><span class="term-label">Part (b) &mdash; what it gives you.</span> A reason to doubt the assumption &mdash; not proof that it is wrong. Rare things do happen; that is what makes them rare rather than impossible.</p>
-      <p><span class="term-label">Part (c) &mdash; why.</span> Because a rare event almost never happens by chance alone, observing one gives us reason to doubt the assumption that made it rare. The surprise is the evidence: nothing in a hypothesis test measures whether a claim is true &mdash; it measures how surprised you should be by your data if the claim were true.</p>
+      <p><span class="term-label">Part (a): the probability.</span> The probability of the observed event under the stated assumption is ' . $prob . ': five chances in a thousand (or fewer).</p>
+      <p><span class="term-label">Part (b): what it gives you.</span> A reason to doubt the assumption: not proof that it is wrong. Rare things do happen; that is what makes them rare rather than impossible.</p>
+      <p><span class="term-label">Part (c): why.</span> Because a rare event almost never happens by chance alone, observing one gives us reason to doubt the assumption that made it rare. The surprise is the evidence: nothing in a hypothesis test measures whether a claim is true: it measures how surprised you should be by your data if the claim were true.</p>
     </div>
   </details>
 </div>'

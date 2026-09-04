@@ -9,7 +9,7 @@ $ci = rand(0, 3)
 
 $offices = array("mayor", "city council president", "county sheriff", "school board president")
 $cities = array("a large city", "a mid-sized city", "a large county", "a suburban school district")
-// Bare noun for the possessive — "that a large city's mayor" is what happens without it.
+// Bare noun for the possessive: "that a large city's mayor" is what happens without it.
 $cityNouns = array("city", "city", "county", "district")
 $office = $offices[$ci]
 $city = $cities[$ci]
@@ -50,23 +50,23 @@ $abstolerance[4] = 0.0011
 
 $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
-  <p><b>a &mdash; the sample size is the number of people polled.</b></p>
+  <p><b>a: the sample size is the number of people polled.</b></p>
   <p style="margin-left:1em;">`n = ' . $n . '`. It is stated in the setup; nothing needs computing. The three yearly rates are all measured on this same group.</p>
 
-  <p><b>b &mdash; disapproval is the complement of approval.</b></p>
+  <p><b>b: disapproval is the complement of approval.</b></p>
   <p style="margin-left:1em;">Everyone polled expressed either approval or disapproval, so the two rates must add to 1. In Year 3 the approval rate was ' . $yr3Pct . '%, so</p>
   <p style="margin-left:1em;"><b>`P(disapprove) = 1 - ' . $yr3 . ' = ' . $disapprove3 . '`</b></p>
   <p style="margin-left:1em;">The complement only works here <i>because</i> the poll allowed no third answer. If "undecided" had been an option, the two rates would not add to 1 and this subtraction would be wrong.</p>
 
-  <p><b>c &mdash; turn a proportion back into a headcount.</b></p>
+  <p><b>c: turn a proportion back into a headcount.</b></p>
   <p style="margin-left:1em;">Multiply the Year 3 approval rate by the sample size:</p>
   <p style="margin-left:1em;"><b>`(' . $yr3 . ')(' . $n . ') = ' . $approveCountShown . ' ~~ ' . $approveCount . '` people</b></p>
   <p style="margin-left:1em;">You cannot poll a fraction of a person, so round to the nearest whole respondent.</p>
 
-  <p><b>d &mdash; Year 2 approval, read as a probability.</b></p>
-  <p style="margin-left:1em;">A respondent drawn at random from the Year 2 poll approved with probability <b>`' . $yr2 . '`</b>. A percentage of a group <i>is</i> the probability for a randomly chosen member of it &mdash; that is the whole move being practised here.</p>
+  <p><b>d: Year 2 approval, read as a probability.</b></p>
+  <p style="margin-left:1em;">A respondent drawn at random from the Year 2 poll approved with probability <b>`' . $yr2 . '`</b>. A percentage of a group <i>is</i> the probability for a randomly chosen member of it: that is the whole move being practised here.</p>
 
-  <p><b>e &mdash; Year 1 approval.</b></p>
+  <p><b>e: Year 1 approval.</b></p>
   <p style="margin-left:1em;"><b>`P(approve in Year 1) = ' . $yr1 . '`</b></p>
 
   <p><b>Answer:</b> a. ' . $n . '; b. ' . $disapprove3 . '; c. about ' . $approveCount . ' people; d. ' . $yr2 . '; e. ' . $yr1 . '.</p>

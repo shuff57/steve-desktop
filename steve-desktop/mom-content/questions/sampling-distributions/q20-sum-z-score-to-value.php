@@ -53,9 +53,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; run the z-score backwards.</span> The z-score equation, solved for the sum, turns a location back into a total:</p>
+      <p><span class="term-label">Part (a): run the z-score backwards.</span> The z-score equation, solved for the sum, turns a location back into a total:</p>
       <p>`Sigma x = (n)(mu_X) + (z)(sqrt(n))(sigma_X) = (' . $n . ')(' . $mu . ') + (' . $z . ')(sqrt(' . $n . '))(' . $sigma . ') = ' . $s . '`</p>
-      <p><span class="term-label">Part (b) &mdash; read the sign and the size.</span> A positive z-score puts the sum above the mean of the sums, a negative one below, and the size says how many standard deviations of the sums away. Both forms of the equation come up in the same problem often enough that it is worth writing them side by side once.</p>
+      <p><span class="term-label">Part (b): read the sign and the size.</span> A positive z-score puts the sum above the mean of the sums, a negative one below, and the size says how many standard deviations of the sums away. Both forms of the equation come up in the same problem often enough that it is worth writing them side by side once.</p>
     </div>
   </details>
 </div>'

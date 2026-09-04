@@ -35,8 +35,8 @@ $answer[0] = $inInterval
 $answer[1] = $dec
 
 $choices[0] = array(
-  "Yes — `mu_0 = " . $mu0 . "` is inside the interval.",
-  "No — `mu_0 = " . $mu0 . "` is outside the interval."
+  "Yes: `mu_0 = " . $mu0 . "` is inside the interval.",
+  "No: `mu_0 = " . $mu0 . "` is outside the interval."
 )
 $choices[1] = array(
   "Fail to reject `H_0` (a two-sided test at `alpha = " . $alphaStr . "` would NOT reject).",

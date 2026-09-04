@@ -57,9 +57,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the trip back.</span> Rearrange `z = (x - mu)/sigma` to `x = mu + z*sigma` and substitute:</p>
+      <p><span class="term-label">Part (a): the trip back.</span> Rearrange `z = (x - mu)/sigma` to `x = mu + z*sigma` and substitute:</p>
       <p>`x = ' . $mu . ' + (' . $z . ')(' . $sigma . ') = ' . $x . '`</p>
-      <p><span class="term-label">Part (b) &mdash; read the sign and the size.</span> A negative z-score puts the value to the left of the mean, a positive one to the right, and the size says how many standard deviations away.</p>
+      <p><span class="term-label">Part (b): read the sign and the size.</span> A negative z-score puts the value to the left of the mean, a positive one to the right, and the size says how many standard deviations away.</p>
     </div>
   </details>
 </div>'

@@ -99,3 +99,4 @@ at runtime (a typo in the formula is a wrong answer on some seeds).
 |---|---|---|---|
 | (example) 9.1.1 Solving Linear, One-Variable Inequalities | `questions/inequalities/` | sign flip on division by a negative | authored 2026-08-20, not yet pushed |
 | IM1 1.2 Representing a Growing Pattern | `questions/im1/` | counting a SHARED piece once per part (double-counted overlap) | authored 2026-08-31, filed as qsetid 1893405, graded correct in Teacher Preview |
+| IM1 Chapter 0 Individual Test | `questions/im1/` | dividing a sum by a number and carrying the division to the FIRST TERM ONLY | authored 2026-09-02, filed as qsetid 1894930, graded 2.04/2 in Teacher Preview |

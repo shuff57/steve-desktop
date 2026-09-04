@@ -38,8 +38,8 @@ $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Yes &mdash; both are above 5, so the normal approximation is legitimate.",
-  "No &mdash; at least one is at or below 5, so the normal approximation is not legal."
+  "Yes: both are above 5, so the normal approximation is legitimate.",
+  "No: at least one is at or below 5, so the normal approximation is not legal."
 )
 $answer[2] = $ok
 $noshuffle[2] = "all"
@@ -62,8 +62,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Parts (a) and (b) &mdash; the check.</span> The condition is computed under the null: `np_0 = ' . $n . ' * ' . $p0 . ' = ' . $np . '` and `n(1 - p_0) = ' . $n . ' * ' . round(1 - $p0, 2) . ' = ' . $nq . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the verdict.</span> ' . ($ok == 1 ? "Both clear 5, so the normal approximation is legitimate." : "At least one is at or below 5, so the normal approximation is not legal &mdash; the binomial is too lopsided for a normal curve to trace.") . '</p>
+      <p><span class="term-label">Parts (a) and (b): the check.</span> The condition is computed under the null: `np_0 = ' . $n . ' * ' . $p0 . ' = ' . $np . '` and `n(1 - p_0) = ' . $n . ' * ' . round(1 - $p0, 2) . ' = ' . $nq . '`.</p>
+      <p><span class="term-label">Part (c): the verdict.</span> ' . ($ok == 1 ? "Both clear 5, so the normal approximation is legitimate." : "At least one is at or below 5, so the normal approximation is not legal: the binomial is too lopsided for a normal curve to trace.") . '</p>
       <p>The condition uses the null proportion `p_0`, not the sample proportion, because the normal curve is standing in for the binomial distribution the null hypothesis claims.</p>
     </div>
   </details>

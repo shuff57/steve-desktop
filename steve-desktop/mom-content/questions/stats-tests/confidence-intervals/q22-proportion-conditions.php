@@ -5,7 +5,7 @@
 
 // A survey with x successes out of n. Parts: (a) numfunc - np' (b) numfunc - nq'
 // (c) choices - may the normal approximation be used (both > 5)?
-// Invariant: (a) = x, (b) = n - x exactly, (c) matches the actual check on every seed —
+// Invariant: (a) = x, (b) = n - x exactly, (c) matches the actual check on every seed:
 // include scenarios that FAIL the condition so the answer varies by scenario.
 
 $anstypes = array("numfunc", "numfunc", "choices")
@@ -58,9 +58,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; np'.</span> `np\' = x = ' . $x . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; nq'.</span> `nq\' = n - x = ' . $nq . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the conditions.</span> The interval can be used only if the number of successes `np\'` and the number of failures `nq\'` are both greater than five. That condition is not a formality &mdash; it is what makes the normal approximation legal in the first place. If you have 200 people and only two of them said yes, the binomial distribution is badly lopsided, a symmetric normal curve is a poor model of it, and the interval you compute will not have the coverage it claims. Check both counts before you compute anything.</p>
+      <p><span class="term-label">Part (a): np'.</span> `np\' = x = ' . $x . '`.</p>
+      <p><span class="term-label">Part (b): nq'.</span> `nq\' = n - x = ' . $nq . '`.</p>
+      <p><span class="term-label">Part (c): the conditions.</span> The interval can be used only if the number of successes `np\'` and the number of failures `nq\'` are both greater than five. That condition is not a formality: it is what makes the normal approximation legal in the first place. If you have 200 people and only two of them said yes, the binomial distribution is badly lopsided, a symmetric normal curve is a poor model of it, and the interval you compute will not have the coverage it claims. Check both counts before you compute anything.</p>
     </div>
   </details>
 </div>'

@@ -19,7 +19,7 @@ $i = rand(0, count($contexts)-1)
 $ctx = $contexts[$i]
 
 $questions[0] = array(
-  "The sample did not settle the question &mdash; the evidence was not strong enough to overturn the claim.",
+  "The sample did not settle the question: the evidence was not strong enough to overturn the claim.",
   "The claim has been proven true.",
   "The sample was too small to be useful."
 )
@@ -27,7 +27,7 @@ $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The procedure is built to protect the null, so the only thing a test can do is find the evidence against it strong or find it weak &mdash; weak evidence tells you the sample did not settle the question, not that the claim is true.",
+  "The procedure is built to protect the null, so the only thing a test can do is find the evidence against it strong or find it weak: weak evidence tells you the sample did not settle the question, not that the claim is true.",
   "Because the null hypothesis is always true.",
   "Because the alternative hypothesis is always false."
 )
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; do not reject.</span> Failing to find enough evidence against a claim is not the same as showing the claim is true. A jury that acquits has not declared the defendant innocent, only that the prosecution did not meet its burden.</p>
-      <p><span class="term-label">Part (b) &mdash; never accept.</span> The whole procedure is built to protect the null, so the only thing a test can ever do is find the evidence against it strong or find it weak. Weak evidence tells you the sample did not settle the question, which is a very different sentence from "the claim is true."</p>
-      <p><span class="term-label">Part (c) &mdash; reject.</span> You reject `H_0` if the sample information favors the alternative hypothesis. That is the verdict that the evidence was strong enough.</p>
+      <p><span class="term-label">Part (a): do not reject.</span> Failing to find enough evidence against a claim is not the same as showing the claim is true. A jury that acquits has not declared the defendant innocent, only that the prosecution did not meet its burden.</p>
+      <p><span class="term-label">Part (b): never accept.</span> The whole procedure is built to protect the null, so the only thing a test can ever do is find the evidence against it strong or find it weak. Weak evidence tells you the sample did not settle the question, which is a very different sentence from "the claim is true."</p>
+      <p><span class="term-label">Part (c): reject.</span> You reject `H_0` if the sample information favors the alternative hypothesis. That is the verdict that the evidence was strong enough.</p>
       <p>Keeping this wording straight is worth more than it looks: the phrase you write in your conclusion is the part a reader checks first, and it is the one place where a correct calculation can still earn a wrong answer.</p>
     </div>
   </details>

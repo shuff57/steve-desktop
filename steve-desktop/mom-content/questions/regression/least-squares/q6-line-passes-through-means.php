@@ -4,8 +4,8 @@
 // === COMMON CONTROL ===
 
 $questions = array(
-  "The point `(bar{x}, bar{y})` — the point of averages.",
-  "The point `(0, 0)` — the origin.",
+  "The point `(bar{x}, bar{y})`: the point of averages.",
+  "The point `(0, 0)`: the origin.",
   "The point with the largest x-value in the dataset.",
   "The point with the largest y-value in the dataset."
 )
@@ -32,10 +32,10 @@ $solutionguide = '
       <p style="text-align:center;">`b_0 = bar{y} - b_1 bar{x}`</p>
       <p>Plug `x = bar{x}` into the regression equation:</p>
       <p>`hat{y} = b_0 + b_1 bar{x} = (bar{y} - b_1 bar{x}) + b_1 bar{x} = bar{y}`</p>
-      <p>So when `x = bar{x}`, the predicted `hat{y}` equals `bar{y}` — the line goes through `(bar{x}, bar{y})`.</p>
+      <p>So when `x = bar{x}`, the predicted `hat{y}` equals `bar{y}`: the line goes through `(bar{x}, bar{y})`.</p>
       <p>It does <b>not</b> have to pass through the origin, nor through any specific raw data point.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        <b>Key idea:</b> The least squares line always passes through `(bar{x}, bar{y})` — the center of the data cloud.
+        <b>Key idea:</b> The least squares line always passes through `(bar{x}, bar{y})`: the center of the data cloud.
       </div>
     </div>
   </details>

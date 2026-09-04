@@ -58,9 +58,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the mean of the sums.</span> The mean multiplies by `n`: `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the standard deviation of the sums.</span> The standard deviation multiplies by `sqrt(n)`, NOT by `n`: `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') = ' . round($sigmaSum, 4) . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; why the two scale differently.</span> Adding more values pushes the total up in a straight line, but it spreads the total out much more slowly than that, because high draws and low draws partly cancel each other on the way to the total. Ten shopping trips cost about ten times one trip, but the ups and downs do not all line up &mdash; a cheap week offsets an expensive one &mdash; so the spread only grows by `sqrt(10) ~= 3.16`.</p>
+      <p><span class="term-label">Part (a): the mean of the sums.</span> The mean multiplies by `n`: `mu_SigmaX = (n)(mu_X) = (' . $n . ')(' . $mu . ') = ' . $muSum . '`.</p>
+      <p><span class="term-label">Part (b): the standard deviation of the sums.</span> The standard deviation multiplies by `sqrt(n)`, NOT by `n`: `sigma_SigmaX = (sqrt(n))(sigma_X) = (sqrt(' . $n . '))(' . $sigma . ') = ' . round($sigmaSum, 4) . '`.</p>
+      <p><span class="term-label">Part (c): why the two scale differently.</span> Adding more values pushes the total up in a straight line, but it spreads the total out much more slowly than that, because high draws and low draws partly cancel each other on the way to the total. Ten shopping trips cost about ten times one trip, but the ups and downs do not all line up, a cheap week offsets an expensive one, so the spread only grows by `sqrt(10) ~= 3.16`.</p>
     </div>
   </details>
 </div>'

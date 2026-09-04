@@ -65,9 +65,9 @@ $sol = '
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
       <p><span class="term-label">(a) The union is three cells.</span> Everything except the corner where NEITHER happens: `' . $a . ' + ' . $b . ' + ' . $c . ' = ' . $union . '`, so `' . $union . ' -: ' . $grand . ' = ' . $pUnion . '`.</p>
-      <p><span class="term-label">(b) Neither is the fourth cell.</span> `' . $d . ' -: ' . $grand . ' = ' . $pNeither . '`. Notice (a) and (b) add to 1 &mdash; they are complements, because every entry is in exactly one of the four cells.</p>
-      <p><span class="term-label">(c) The formula, and why it subtracts.</span> `P(A) + P(B) = ' . $pRow . ' + ' . $pCol . '`. That counts the ' . $a . ' in the overlap TWICE &mdash; once in the row and once in the column &mdash; so one copy comes back off: `- ' . $pJoint . '`. The result is ' . $pUnion . ', the same number you counted in (a).</p>
-      <p><span class="term-label">This is the point of the section.</span> The addition rule is not a formula to memorise; it is bookkeeping for a double count you can point at in the grid. If (a) and (c) disagree, one of them used the wrong cells &mdash; and the table will show you which.</p>
+      <p><span class="term-label">(b) Neither is the fourth cell.</span> `' . $d . ' -: ' . $grand . ' = ' . $pNeither . '`. Notice (a) and (b) add to 1: they are complements, because every entry is in exactly one of the four cells.</p>
+      <p><span class="term-label">(c) The formula, and why it subtracts.</span> `P(A) + P(B) = ' . $pRow . ' + ' . $pCol . '`. That counts the ' . $a . ' in the overlap TWICE, once in the row and once in the column, so one copy comes back off: `- ' . $pJoint . '`. The result is ' . $pUnion . ', the same number you counted in (a).</p>
+      <p><span class="term-label">This is the point of the section.</span> The addition rule is not a formula to memorise; it is bookkeeping for a double count you can point at in the grid. If (a) and (c) disagree, one of them used the wrong cells: and the table will show you which.</p>
     </div>
   </details>
 </div>'
@@ -89,7 +89,7 @@ $sol = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> <b>P($rY or $cY)</b>, counted straight off the table. $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> <b>P(neither)</b> &mdash; not $rY and not $cY. $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> <b>P(neither)</b>: not $rY and not $cY. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Now get part (a) a second way, from <b>P(A) + P(B) &minus; P(A and B)</b>. It must match. $answerbox[2]

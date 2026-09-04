@@ -46,7 +46,7 @@ $A0s  = array(500, 300, 800)
 $A1s  = array(380, 120, 560)
 $mos  = array(  4,   6,   8)
 $mxs  = array(  6,  10,  12)
-// m: (380-500)/4=-30  (120-300)/6=-30  (560-800)/8=-30   all -30 -- vary
+// m: (380-500)/4=-30  (120-300)/6=-30  (560-800)/8=-30   all -30: vary
 // Let me redo for variety:
 // row 0: A0=500,A1=380,mo=4  m=(380-500)/4=-120/4=-30  f(6)=500+(-30)*6=500-180=320
 // row 1: A0=600,A1=450,mo=5  m=(450-600)/5=-150/5=-30  f(8)=600-240=360  -- still -30
@@ -123,7 +123,7 @@ $answer[1] = $m_ans
 $answer[2] = $fx_ans
 
 /* ---------- 2. Solution guide ---------- */
-// Slope calculation display -- use if blocks (no ternary operators)
+// Slope calculation display: use if blocks (no ternary operators)
 $y2_sol = 0
 $x2_sol = 0
 $eval_x = 0

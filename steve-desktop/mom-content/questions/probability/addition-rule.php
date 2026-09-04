@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Sections 8.2–8.4 — Addition Rule P(A or B) with overlapping events (2 number answers)
+// Sections 8.2–8.4: Addition Rule P(A or B) with overlapping events (2 number answers)
 
 // Context: classroom with two attributes, students can have both
 $contexts = array(
@@ -174,7 +174,7 @@ $solutionguide = $css_block . '
 
 <p>One person is selected at random. Give all answers as decimals rounded to 4 decimal places.</p>
 
-<p><b>Part A.</b> Using the <b>Addition Rule</b>, find P(A or B) — the probability the selected person <em>$ctx_a or $ctx_b</em> (or both).</p>
+<p><b>Part A.</b> Using the <b>Addition Rule</b>, find P(A or B): the probability the selected person <em>$ctx_a or $ctx_b</em> (or both).</p>
 <p>$ansprompt[0] $answerbox[0]</p>
 
 <p><b>Part B.</b> Find the probability that the selected person is in <b>neither</b> set A nor set B.</p>

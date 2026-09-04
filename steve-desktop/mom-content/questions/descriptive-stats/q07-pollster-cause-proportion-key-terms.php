@@ -13,7 +13,7 @@ $juris = $jurisdictions[rand(0, count($jurisdictions)-1)]
 $sizes = array(400, 500, 650, 800, 1000, 1200)
 $n = $sizes[rand(0, count($sizes)-1)]
 
-// The six terms stay in teaching order — population before sample, parameter before statistic.
+// The six terms stay in teaching order: population before sample, parameter before statistic.
 $questions = array("Population", "Sample", "Parameter", "Statistic", "Variable", "Data")
 
 // One description per term in the same order, then two distractors aimed at the two mistakes a
@@ -59,17 +59,17 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 &mdash; Name the group the poll is about.</b> Only people who can actually vote on the ' . $cause . ' in this ' . $juris . ' matter here, so they are the population. The ' . $n . ' of them the pollsters reached are the sample.</p>
-      <p><b>Step 2 &mdash; Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> eligible voters is a population number (parameter); the proportion computed from the ' . $n . ' contacted voters is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at &mdash; that is the whole trick.</p>
-      <p><b>Step 3 &mdash; Name the measurement and its values.</b> What is recorded about one voter is the variable; the recorded responses are the data.</p>
+      <p><b>Step 1: Name the group the poll is about.</b> Only people who can actually vote on the ' . $cause . ' in this ' . $juris . ' matter here, so they are the population. The ' . $n . ' of them the pollsters reached are the sample.</p>
+      <p><b>Step 2: Sort the two &ldquo;proportion&rdquo; numbers.</b> The proportion for <em>all</em> eligible voters is a population number (parameter); the proportion computed from the ' . $n . ' contacted voters is a sample number (statistic). The two phrases are word-for-word the same except for which group they point at: that is the whole trick.</p>
+      <p><b>Step 3: Name the measurement and its values.</b> What is recorded about one voter is the variable; the recorded responses are the data.</p>
       <div class="term-row"><span class="term-label">Population:</span> all people eligible to vote on the ' . $cause . ' in this ' . $juris . '</div>
       <div class="term-row"><span class="term-label">Sample:</span> the ' . $n . ' eligible voters the pollsters actually contacted</div>
       <div class="term-row"><span class="term-label">Parameter:</span> the proportion of <em>all</em> eligible voters in this ' . $juris . ' who will vote for the ' . $cause . '</div>
       <div class="term-row"><span class="term-label">Statistic:</span> the proportion of the ' . $n . ' <em>contacted</em> voters who will vote for the ' . $cause . '</div>
       <div class="term-row"><span class="term-label">Variable:</span> <em>X</em> = whether one eligible voter will vote for the ' . $cause . '</div>
       <div class="term-row"><span class="term-label">Data:</span> yes, no</div>
-      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> of contacted voters who said yes is a count, not a proportion &mdash; a count of yeses cannot be the statistic here, because a proportion is what the poll set out to estimate. <b>Everyone living in the country</b> is a population drawn far too wide: this is a local ' . $juris . ' measure, and people who cannot vote on it are not under study.</div>
-      <div class="sol-note">Notice the variable is <b>categorical</b> &mdash; each voter is a yes or a no &mdash; so averaging the responses would make no sense. That is why this study reports a proportion rather than a mean.</div>
+      <div class="sol-note">Two descriptions go unused, and each is a real mistake. <b>The number</b> of contacted voters who said yes is a count, not a proportion: a count of yeses cannot be the statistic here, because a proportion is what the poll set out to estimate. <b>Everyone living in the country</b> is a population drawn far too wide: this is a local ' . $juris . ' measure, and people who cannot vote on it are not under study.</div>
+      <div class="sol-note">Notice the variable is <b>categorical</b>, each voter is a yes or a no, so averaging the responses would make no sense. That is why this study reports a proportion rather than a mean.</div>
     </div>
   </details>
 </div>'

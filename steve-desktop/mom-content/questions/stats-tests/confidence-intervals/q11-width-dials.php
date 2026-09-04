@@ -33,17 +33,17 @@ $ebm = $z * $sigma / sqrt($n)
 $ebm4 = $z * $sigma / sqrt(4 * $n)
 
 $questions[0] = array(
-  "It widens &mdash; being surer means reaching further out into the tails",
-  "It narrows &mdash; being surer means the interval can be tighter",
-  "It stays the same &mdash; the confidence level does not affect the width"
+  "It widens: being surer means reaching further out into the tails",
+  "It narrows: being surer means the interval can be tighter",
+  "It stays the same: the confidence level does not affect the width"
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "It narrows &mdash; more data means a tighter sampling distribution",
-  "It widens &mdash; more data means more variability",
-  "It stays the same &mdash; the sample size does not affect the width"
+  "It narrows: more data means a tighter sampling distribution",
+  "It widens: more data means more variability",
+  "It stays the same: the sample size does not affect the width"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -70,11 +70,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Two dials control the width.</span> Raising the confidence level widens the interval, because being surer means reaching further out. Raising the sample size narrows it, because more data means a tighter sampling distribution. Each one pulls in a predictable direction.</p>
-      <p><span class="term-label">Part (a) &mdash; the confidence level.</span> Capturing an area of 0.95 takes more room than capturing an area of 0.90, so to be more confident that the interval really does contain mu, the interval has to be wider.</p>
-      <p><span class="term-label">Part (b) &mdash; the sample size.</span> The n sits under a square root in the denominator, so more data tightens the sampling distribution and narrows the interval.</p>
-      <p><span class="term-label">Part (c) &mdash; the EBM at 4n.</span> The original EBM is `' . round($ebm, 4) . '`. Quadrupling the sample size multiplies the denominator by `sqrt(4) = 2`, so the new EBM is half of it:</p>
+      <p><span class="term-label">Part (a): the confidence level.</span> Capturing an area of 0.95 takes more room than capturing an area of 0.90, so to be more confident that the interval really does contain mu, the interval has to be wider.</p>
+      <p><span class="term-label">Part (b): the sample size.</span> The n sits under a square root in the denominator, so more data tightens the sampling distribution and narrows the interval.</p>
+      <p><span class="term-label">Part (c): the EBM at 4n.</span> The original EBM is `' . round($ebm, 4) . '`. Quadrupling the sample size multiplies the denominator by `sqrt(4) = 2`, so the new EBM is half of it:</p>
       <p>`EBM_4n = z * sigma/sqrt(4n) = ' . round($ebm4, 4) . '`</p>
-      <p>Note that nearly tripling the sample size from 36 to 100 only cut the error bound by about 40% &mdash; the `sqrt(n)` makes precision expensive.</p>
+      <p>Note that nearly tripling the sample size from 36 to 100 only cut the error bound by about 40%: the `sqrt(n)` makes precision expensive.</p>
     </div>
   </details>
 </div>'

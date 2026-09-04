@@ -31,7 +31,7 @@ $activity = $activityList[$ctxIdx]
 //   part (b) add the rows above  -> the student adds the DISPLAYED 0.119 + 0.102 = 0.221 -> 22.1
 //
 // and 22.1 fell outside abstolerance 0.05, so a student who did exactly what part (b) instructs
-// was marked wrong -- on the very part that promises "It should match part (a) exactly". Live in
+// was marked wrong: on the very part that promises "It should match part (a) exactly". Live in
 // MyOpenMath, 2026-08-09. With 1/N exact to three decimals the displayed column is the true
 // column, and adding it up cannot drift.
 $Nchoices = array(40, 50, 100)
@@ -149,10 +149,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Find the row at the cutoff.</span> &#8220;More than ' . $cutoffVal . ' ' . $itemWordForCutoff . '&#8221; means everything above the row for ' . $cutoffVal . ' ' . $itemPlural . '. That row already has every value at or below it (' . $atOrBelowListStr . ') baked into its cumulative relative frequency, so it is the row to start from.</p>
-      <p><span class="term-label">Step 2 &mdash; Read the cumulative relative frequency for that row.</span> It is <b>' . $cumCutoffDisp . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; Subtract from 1 (the complement).</span> The whole table sums to 1, so whatever is not accounted for at or below the cutoff must be the part above it: 1 &minus; ' . $cumCutoffDisp . ' = ' . $moreThanFracDisp . ', which is <b>' . $moreThanPct . '%</b>.</p>
-      <p><span class="term-label">Step 4 &mdash; Confirm by adding the rows above the cutoff directly.</span> The rows for ' . $aboveListStr . ' ' . $itemPlural . ' have frequencies that add to ' . $sumAbove . ' out of ' . $N . ': ' . $sumAbove . ' &divide; ' . $N . ' &approx; ' . $fracAboveDisp . ' = <b>' . $pctAbove . '%</b>. Nothing is left over between the two methods &mdash; the complement is just a shortcut for the same sum, not a different number.</p>
+      <p><span class="term-label">Step 1: Find the row at the cutoff.</span> &#8220;More than ' . $cutoffVal . ' ' . $itemWordForCutoff . '&#8221; means everything above the row for ' . $cutoffVal . ' ' . $itemPlural . '. That row already has every value at or below it (' . $atOrBelowListStr . ') baked into its cumulative relative frequency, so it is the row to start from.</p>
+      <p><span class="term-label">Step 2: Read the cumulative relative frequency for that row.</span> It is <b>' . $cumCutoffDisp . '</b>.</p>
+      <p><span class="term-label">Step 3: Subtract from 1 (the complement).</span> The whole table sums to 1, so whatever is not accounted for at or below the cutoff must be the part above it: 1 &minus; ' . $cumCutoffDisp . ' = ' . $moreThanFracDisp . ', which is <b>' . $moreThanPct . '%</b>.</p>
+      <p><span class="term-label">Step 4: Confirm by adding the rows above the cutoff directly.</span> The rows for ' . $aboveListStr . ' ' . $itemPlural . ' have frequencies that add to ' . $sumAbove . ' out of ' . $N . ': ' . $sumAbove . ' &divide; ' . $N . ' &approx; ' . $fracAboveDisp . ' = <b>' . $pctAbove . '%</b>. Nothing is left over between the two methods: the complement is just a shortcut for the same sum, not a different number.</p>
       <p><b>Answers:</b> a) ' . $moreThanPct . '%, b) ' . $pctAbove . '% (the two methods agree).</p>
     </div>
   </details>
@@ -166,7 +166,7 @@ $solutionguide = '
     $tableHtml
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What percent of $subj $moreThanPhrase? Use the <b>complement trick</b>: read the cumulative relative frequency through the row at or below the cutoff, then subtract it from 1 &mdash; do not add up every row above the cutoff by hand. Enter your answer as a percent, rounded to one decimal place (for example, if your answer were 12.34%, enter 12.3). $answerbox[0]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What percent of $subj $moreThanPhrase? Use the <b>complement trick</b>: read the cumulative relative frequency through the row at or below the cutoff, then subtract it from 1: do not add up every row above the cutoff by hand. Enter your answer as a percent, rounded to one decimal place (for example, if your answer were 12.34%, enter 12.3). $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Now confirm part (a) a different way: add the <b>relative frequencies</b> of just the rows above the cutoff directly, without using the complement. What percent do you get left over? It should match part (a) exactly. Enter your answer as a percent, rounded to one decimal place. $answerbox[1]

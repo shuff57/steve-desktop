@@ -52,9 +52,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; standardize against the sum\'s own parameters.</span> The z-score of a sum uses the sum\'s mean and standard deviation:</p>
+      <p><span class="term-label">Part (a): standardize against the sum\'s own parameters.</span> The z-score of a sum uses the sum\'s mean and standard deviation:</p>
       <p>`z = (Sigma x - (n)(mu_X))/((sqrt(n))(sigma_X)) = (' . $s . ' - (' . $n . ')(' . $mu . '))/((sqrt(' . $n . '))(' . $sigma . ')) = ' . $z . '`</p>
-      <p><span class="term-label">Part (b) &mdash; read the sign and the size.</span> The sign gives direction &mdash; positive is above the mean of the sums, negative below &mdash; and the size says how many standard deviations of the sums away. Nothing new has to be learned; only the two parameters change.</p>
+      <p><span class="term-label">Part (b): read the sign and the size.</span> The sign gives direction, positive is above the mean of the sums, negative below, and the size says how many standard deviations of the sums away. Nothing new has to be learned; only the two parameters change.</p>
     </div>
   </details>
 </div>'

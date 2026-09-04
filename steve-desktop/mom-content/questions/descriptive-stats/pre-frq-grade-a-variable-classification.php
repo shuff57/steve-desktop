@@ -5,8 +5,8 @@
 
 // Chapter 1's pre-FRQ for 1.1, built like the 1.2 and 1.4 ones: the SAME scenario and the SAME grading
 // checklist as frq/descriptive-statistics/q2-classification-and-justification, with the writing
-// replaced by grading. The category students drop here is the last one -- why the classification
-// matters -- because once three variables have been sorted the answer feels finished.
+// replaced by grading. The category students drop here is the last one: why the classification
+// matters: because once three variables have been sorted the answer feels finished.
 //
 // Every response is assembled from fixed sentence-parts, so which categories each earns is a
 // structural fact rather than a judgement that could shift with the seed.
@@ -114,7 +114,7 @@ $rubric = $css . '
           <tr class="row-colored"><td style="text-align:center;"><b>Variable Classification<br>(4 pts)</b></td>
             <td>Classify each of the three variables as categorical or quantitative, and for the quantitative ones say whether each is discrete or continuous.</td></tr>
           <tr><td style="text-align:center;"><b>Justification<br>(3 pts)</b></td>
-            <td>Explain the reasoning behind each classification &mdash; not just the label, but why it applies.</td></tr>
+            <td>Explain the reasoning behind each classification: not just the label, but why it applies.</td></tr>
           <tr class="row-colored"><td style="text-align:center;"><b>Why Classification Matters<br>(3 pts)</b></td>
             <td>Explain why classifying correctly matters when choosing a statistical method, with at least one example of how the method differs.</td></tr>
         </tbody>
@@ -155,15 +155,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> classifies all three variables including the discrete-versus-continuous split, explains the reasoning behind each, and then says what the classification is for. Each of the other three drops a whole category, and a dropped category scores zero however well the rest is written.</p>
-      <p><span class="term-label">The correct classification.</span> The ' . $v1 . ' is <b>categorical</b> &mdash; a label, not an amount. The ' . $v2 . ' is <b>quantitative and discrete</b>, because it is a count and can only be a whole number. The ' . $v3 . ' is <b>quantitative and continuous</b>, because ' . $why3 . '.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noWhyLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> classifies all three variables including the discrete-versus-continuous split, explains the reasoning behind each, and then says what the classification is for. Each of the other three drops a whole category, and a dropped category scores zero however well the rest is written.</p>
+      <p><span class="term-label">The correct classification.</span> The ' . $v1 . ' is <b>categorical</b>: a label, not an amount. The ' . $v2 . ' is <b>quantitative and discrete</b>, because it is a count and can only be a whole number. The ' . $v3 . ' is <b>quantitative and continuous</b>, because ' . $why3 . '.</p>
+      <p><span class="term-label">Part (b): grading Response ' . $noWhyLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Variable Classification &mdash; earned.</b> All three are sorted, and the discrete and continuous distinction is made.</li>
-        <li><b>Justification &mdash; earned.</b> It gives a reason for each, not just the label.</li>
-        <li><b>Why Classification Matters &mdash; NOT earned.</b> It closes by saying the sorting was straightforward. That is a remark about the task, not an explanation of why the classification changes what you may do next. This is the only category it misses.</li>
+        <li><b>Variable Classification: earned.</b> All three are sorted, and the discrete and continuous distinction is made.</li>
+        <li><b>Justification: earned.</b> It gives a reason for each, not just the label.</li>
+        <li><b>Why Classification Matters: NOT earned.</b> It closes by saying the sorting was straightforward. That is a remark about the task, not an explanation of why the classification changes what you may do next. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why that last category is separate.</span> Classifying correctly proves you can apply a definition. The rubric also asks what the definition is FOR: a categorical variable is summarized with counts, proportions and a bar graph, while a quantitative one supports a mean, a standard deviation and a histogram. Average the ' . $v1 . ' and you get a number that means nothing at all &mdash; the classification is what stops you doing it.</p>
+      <p><span class="term-label">Part (c): why that last category is separate.</span> Classifying correctly proves you can apply a definition. The rubric also asks what the definition is FOR: a categorical variable is summarized with counts, proportions and a bar graph, while a quantitative one supports a mean, a standard deviation and a histogram. Average the ' . $v1 . ' and you get a number that means nothing at all: the classification is what stops you doing it.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The last category is the one most often skipped, because once three variables are sorted the answer feels complete. Spotting the gap in someone else&rsquo;s work is the fastest way to stop leaving it in your own.</p>
     </div>
   </details>

@@ -52,9 +52,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the raw sample size.</span> The formula needs `p\'`, but `p\'` comes from a sample we have not collected yet. The standard move is to use `p\' = q\' = 0.5`, because `p\'q\' = 0.25` is the largest the product can ever be:</p>
+      <p><span class="term-label">Part (a): the raw sample size.</span> The formula needs `p\'`, but `p\'` comes from a sample we have not collected yet. The standard move is to use `p\' = q\' = 0.5`, because `p\'q\' = 0.25` is the largest the product can ever be:</p>
       <p>`n = z^2 p\'q\' / EBP^2 = (' . $z . ')^2 (0.25) / (' . $ebp . ')^2 = ' . round($raw, 2) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; round UP.</span> Always round the answer up to the next whole number &mdash; rounding down would leave you short of the precision you asked for:</p>
+      <p><span class="term-label">Part (b): round UP.</span> Always round the answer up to the next whole number: rounding down would leave you short of the precision you asked for:</p>
       <p>`n = ' . $n . '`</p>
       <p>Choosing `p\' = 0.5` is not a guess about the population. It is a decision to buy enough sample to hit your margin of error even if the population is as awkward as it could possibly be. And EBP is squared in the denominator: halving your target margin of error multiplies the required sample size by four.</p>
     </div>

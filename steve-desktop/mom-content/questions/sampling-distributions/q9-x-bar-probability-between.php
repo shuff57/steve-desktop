@@ -57,8 +57,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the probability.</span> Sketch the curve and shade the strip between ' . $lo . ' and ' . $hi . '. Standardize both boundaries against the sampling distribution:</p>
+      <p><span class="term-label">Part (a): the standard error.</span> `SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the probability.</span> Sketch the curve and shade the strip between ' . $lo . ' and ' . $hi . '. Standardize both boundaries against the sampling distribution:</p>
       <p>`z_lo = (' . $lo . ' - ' . $mu . ')/' . round($se, 4) . ' ~= ' . round($zlo, 3) . '` and `z_hi = (' . $hi . ' - ' . $mu . ')/' . round($se, 4) . ' ~= ' . round($zhi, 3) . '`</p>
       <p>`P(' . $lo . ' < bar(x) < ' . $hi . ') = P(Z < ' . round($zhi, 3) . ') - P(Z < ' . round($zlo, 3) . ') ~= ' . round($prob, 4) . '`</p>
       <p>The one substitution that matters: the mean and standard deviation you feed the calculator are the ones from the ORIGINAL distribution, with the sample size converting the second into a standard error. Forgetting to divide by `sqrt(n)` answers a question about one value rather than an average.</p>

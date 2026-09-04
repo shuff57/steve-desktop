@@ -131,13 +131,13 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-  <p><b>Part A &mdash; Compound Interest (Future Value)</b></p>
+  <p><b>Part A: Compound Interest (Future Value)</b></p>
   <p>An amount of <b>$$P</b> is invested at <b>$rate_pct%</b> per year, compounded <b>$n_label</b>. Find the future value after <b>$t</b> years.</p>
   <p>$answerbox[0]</p>
 
   <hr>
 
-  <p><b>Part B &mdash; Compound Interest (Present Value)</b></p>
+  <p><b>Part B: Compound Interest (Present Value)</b></p>
   <p>How much must be invested today at <b>$rate2_pct%</b> per year, compounded <b>$n2_label</b>, so that the investment grows to <b>$$A2</b> in <b>$t2</b> years?</p>
   <p>$answerbox[1]</p>
 

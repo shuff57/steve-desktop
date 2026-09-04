@@ -5,7 +5,7 @@
 
 // A binomial scenario. Parts: (a) numfunc - np (b) numfunc - nq (c) choices - can the normal
 // approximation be used (both > 5)?
-// Invariant: (a) = n*p, (b) = n*(1-p) exactly, and (c) matches the actual check on every seed —
+// Invariant: (a) = n*p, (b) = n*(1-p) exactly, and (c) matches the actual check on every seed: 
 // include scenarios that FAIL the condition so the answer varies by scenario.
 
 $anstypes = array("numfunc", "numfunc", "choices")
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; np.</span> `np = ' . $n . '(' . $p . ') = ' . $np . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; nq.</span> `q = 1 - p = ' . (1 - $p) . '`, so `nq = ' . $n . '(' . (1 - $p) . ') = ' . $nq . '`.</p>
-      <p><span class="term-label">Part (c) &mdash; the conditions.</span> The shape of the binomial distribution needs to be similar to the shape of the normal distribution. To ensure this, the quantities `np` and `nq` must both be greater than five (`np > 5` and `nq > 5`; the approximation is better if they are both greater than or equal to 10). Here ' . ($canUse == 0 ? "both are greater than 5, so the normal approximation is allowed." : "at least one is not greater than 5, so the normal approximation is NOT allowed.") . '</p>
+      <p><span class="term-label">Part (a): np.</span> `np = ' . $n . '(' . $p . ') = ' . $np . '`.</p>
+      <p><span class="term-label">Part (b): nq.</span> `q = 1 - p = ' . (1 - $p) . '`, so `nq = ' . $n . '(' . (1 - $p) . ') = ' . $nq . '`.</p>
+      <p><span class="term-label">Part (c): the conditions.</span> The shape of the binomial distribution needs to be similar to the shape of the normal distribution. To ensure this, the quantities `np` and `nq` must both be greater than five (`np > 5` and `nq > 5`; the approximation is better if they are both greater than or equal to 10). Here ' . ($canUse == 0 ? "both are greater than 5, so the normal approximation is allowed." : "at least one is not greater than 5, so the normal approximation is NOT allowed.") . '</p>
     </div>
   </details>
 </div>'

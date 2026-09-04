@@ -107,7 +107,7 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><b>Sample space:</b> a 52-card deck has n(S) = 52 equally likely outcomes.</p>
-      <p><b>Event:</b> drawing '.$label.' &mdash; the highlighted cards below are the favorable outcomes.</p>
+      <p><b>Event:</b> drawing '.$label.': the highlighted cards below are the favorable outcomes.</p>
       '.$svg_sol.'
       <p>n(E) = <b>'.$num.'</b></p>
       <p>P('.$label.') = n(E) / n(S) = <b>'.$num.'/'.$den.' = '.$frac.' &approx; '.$decimal_show.'</b></p>

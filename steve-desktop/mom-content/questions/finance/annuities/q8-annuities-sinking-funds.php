@@ -132,13 +132,13 @@ $solutionguide = $css_block . '
 
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
 
-  <p><b>Part A &mdash; Ordinary Annuity (Future Value)</b></p>
+  <p><b>Part A: Ordinary Annuity (Future Value)</b></p>
   <p>You deposit <b>$$m</b> per period into an account earning <b>$rate_pct%</b> per year, compounded <b>$n_label</b>. Deposits are made at the end of each period (ordinary annuity). What is the future value of this annuity after <b>$t</b> years?</p>
   <p>$answerbox[0]</p>
 
   <hr>
 
-  <p><b>Part B &mdash; Sinking Fund (Required Payment)</b></p>
+  <p><b>Part B: Sinking Fund (Required Payment)</b></p>
   <p>You want to accumulate <b>$$goal</b> in <b>$t2</b> years by making equal deposits at the end of each period into an account earning <b>$rate2_pct%</b> per year, compounded <b>$n2_label</b>. How much must each deposit be?</p>
   <p>$answerbox[1]</p>
 

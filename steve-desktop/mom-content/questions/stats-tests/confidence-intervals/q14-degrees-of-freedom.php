@@ -51,9 +51,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the degrees of freedom.</span> The degrees of freedom is always one less than the sample size:</p>
+      <p><span class="term-label">Part (a): the degrees of freedom.</span> The degrees of freedom is always one less than the sample size:</p>
       <p>`df = n - 1 = ' . $n . ' - 1 = ' . $df . '`</p>
-      <p><span class="term-label">Part (b) &mdash; why.</span> The degrees of freedom come from the calculation of the sample standard deviation s, which requires the n deviations `x - bar(x)`. Because those deviations must sum to zero, the last one is determined once the other n - 1 are known. Only n - 1 of them can vary freely, and that count is the degrees of freedom.</p>
+      <p><span class="term-label">Part (b): why.</span> The degrees of freedom come from the calculation of the sample standard deviation s, which requires the n deviations `x - bar(x)`. Because those deviations must sum to zero, the last one is determined once the other n - 1 are known. Only n - 1 of them can vary freely, and that count is the degrees of freedom.</p>
       <p>The subscript is doing real work: it names which member of the t-family you are using, so writing `t_' . $df . '` instead of just `t` is the difference between a specific curve and a vague gesture at a family of them.</p>
     </div>
   </details>

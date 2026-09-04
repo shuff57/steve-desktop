@@ -37,7 +37,7 @@ $reltolerance[0] = 0.02
 $abstolerance[0] = 0.5
 
 $questions[1] = array(
-  $pPct . "% of samples of size " . $n . " have a sample mean below " . round($k, 2) . " &mdash; a statement about averages, not individuals",
+  $pPct . "% of samples of size " . $n . " have a sample mean below " . round($k, 2) . ": a statement about averages, not individuals",
   $pPct . "% of individual values are below " . round($k, 2),
   "The sample mean is " . round($k, 2) . " with probability " . $pPct . "%"
 )
@@ -62,10 +62,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the percentile.</span> A percentile question runs the other way from a probability question: you are handed an area and asked for the value on the axis that cuts it off. The command is invNorm, and the only adjustment for sample means is that the standard deviation you type is the standard error:</p>
+      <p><span class="term-label">Part (a): the percentile.</span> A percentile question runs the other way from a probability question: you are handed an area and asked for the value on the axis that cuts it off. The command is invNorm, and the only adjustment for sample means is that the standard deviation you type is the standard error:</p>
       <p>`SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
       <p>`k = mu + invnormalcdf(' . $p . ') * SE = ' . $mu . ' + (' . round($z, 3) . ')(' . round($se, 4) . ') ~= ' . round($k, 2) . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the interpretation.</span> A percentile of the SAMPLING distribution is a statement about averages, not about individuals. When you find that the ' . $pPct . 'th percentile of the sample mean is ' . round($k, 2) . ', you have not said that ' . $pPct . '% of users are younger than that. You have said that ' . $pPct . '% of SAMPLES of size ' . $n . ' would produce an average below ' . round($k, 2) . ' &mdash; a much narrower claim, because averages hug the center far more tightly than individuals do. That one word &mdash; "average" &mdash; is usually the difference between a correct interpretation and a plausible-sounding wrong one.</p>
+      <p><span class="term-label">Part (b): the interpretation.</span> A percentile of the SAMPLING distribution is a statement about averages, not about individuals. When you find that the ' . $pPct . 'th percentile of the sample mean is ' . round($k, 2) . ', you have not said that ' . $pPct . '% of users are younger than that. You have said that ' . $pPct . '% of SAMPLES of size ' . $n . ' would produce an average below ' . round($k, 2) . ': a much narrower claim, because averages hug the center far more tightly than individuals do. That one word: "average": is usually the difference between a correct interpretation and a plausible-sounding wrong one.</p>
     </div>
   </details>
 </div>'

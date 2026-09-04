@@ -66,9 +66,9 @@ $solutionguide = '
 
 $sg = '<p><span class="term-label">The three conditions.</span> (1) a fixed number of trials `n`; (2) exactly two outcomes per trial with the same success probability `p`; (3) the trials are independent and repeated under identical conditions. All three must hold.</p>'
 if ($i == 2) {
-  $sg = $sg . '<p><span class="term-label">This one is NOT binomial.</span> The first two conditions hold &mdash; there are ten draws and each is a diamond or not &mdash; but the card is NOT replaced, so the pool shrinks and the probability of a diamond changes from draw to draw. The draws are dependent, so condition 3 fails.</p>'
+  $sg = $sg . '<p><span class="term-label">This one is NOT binomial.</span> The first two conditions hold, there are ten draws and each is a diamond or not, but the card is NOT replaced, so the pool shrinks and the probability of a diamond changes from draw to draw. The draws are dependent, so condition 3 fails.</p>'
 } else {
-  $sg = $sg . '<p><span class="term-label">All three conditions hold.</span> There is a fixed number of trials, each trial has two outcomes with the same success probability, and the trials are independent &mdash; so this is a binomial experiment.</p>'
+  $sg = $sg . '<p><span class="term-label">All three conditions hold.</span> There is a fixed number of trials, each trial has two outcomes with the same success probability, and the trials are independent: so this is a binomial experiment.</p>'
 }
 $sg = $sg . '<p>The word "success" does not mean the good outcome; it means the outcome you decided to count. Pick the label first, keep it fixed, and `p` is the probability of the thing you labelled.</p>'
 

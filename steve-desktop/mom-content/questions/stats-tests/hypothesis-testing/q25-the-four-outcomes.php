@@ -20,36 +20,36 @@ $i = rand(0, count($contexts)-1)
 $ctx = $contexts[$i]
 
 $questions[0] = array(
-  "Correct outcome &mdash; the decision matches the truth.",
-  "Type I error &mdash; a true null got rejected anyway.",
-  "Type II error &mdash; a real effect was missed.",
+  "Correct outcome: the decision matches the truth.",
+  "Type I error: a true null got rejected anyway.",
+  "Type II error: a real effect was missed.",
   "The power of the test."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "Correct outcome &mdash; the decision matches the truth.",
-  "Type I error &mdash; a true null got rejected anyway.",
-  "Type II error &mdash; a real effect was missed.",
+  "Correct outcome: the decision matches the truth.",
+  "Type I error: a true null got rejected anyway.",
+  "Type II error: a real effect was missed.",
   "The power of the test."
 )
 $answer[1] = 1
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "Correct outcome &mdash; the decision matches the truth.",
-  "Type I error &mdash; a true null got rejected anyway.",
-  "Type II error &mdash; a real effect was missed.",
+  "Correct outcome: the decision matches the truth.",
+  "Type I error: a true null got rejected anyway.",
+  "Type II error: a real effect was missed.",
   "The power of the test."
 )
 $answer[2] = 2
 $noshuffle[2] = "all"
 
 $questions[3] = array(
-  "Correct outcome &mdash; the decision matches the truth.",
-  "Type I error &mdash; a true null got rejected anyway.",
-  "Type II error &mdash; a real effect was missed.",
+  "Correct outcome: the decision matches the truth.",
+  "Type I error: a true null got rejected anyway.",
+  "Type II error: a real effect was missed.",
   "The power of the test."
 )
 $answer[3] = 3

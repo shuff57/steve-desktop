@@ -40,10 +40,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the standard error.</span> With `sigma` unknown you estimate it from the sample: `s/sqrt(n) = 0.76/sqrt(8) = 0.76/2.8284 = ' . round($se, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the test statistic.</span> `t = (bar(x) - mu_0)/(s/sqrt(n)) = (3.5 - 3)/' . round($se, 4) . ' = 0.5/' . round($se, 4) . ' = ' . round($t, 3) . '` on the t distribution with `df = 7`.</p>
-      <p><span class="term-label">Part (c) &mdash; the p-value.</span> Right-tailed: `P(T_7 > ' . round($t, 3) . ') ~~ ' . round($p, 4) . '`.</p>
-      <p>With `sigma` unknown you estimate it from the same eight numbers you used to estimate the center &mdash; that substitution is the entire reason the distribution changes, and the t distribution accounts for it with fatter tails. At `df = 7` the t curve needs 1.895 to clear the 5% mark where the normal is satisfied by 1.645.</p>
+      <p><span class="term-label">Part (a): the standard error.</span> With `sigma` unknown you estimate it from the sample: `s/sqrt(n) = 0.76/sqrt(8) = 0.76/2.8284 = ' . round($se, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the test statistic.</span> `t = (bar(x) - mu_0)/(s/sqrt(n)) = (3.5 - 3)/' . round($se, 4) . ' = 0.5/' . round($se, 4) . ' = ' . round($t, 3) . '` on the t distribution with `df = 7`.</p>
+      <p><span class="term-label">Part (c): the p-value.</span> Right-tailed: `P(T_7 > ' . round($t, 3) . ') ~~ ' . round($p, 4) . '`.</p>
+      <p>With `sigma` unknown you estimate it from the same eight numbers you used to estimate the center: that substitution is the entire reason the distribution changes, and the t distribution accounts for it with fatter tails. At `df = 7` the t curve needs 1.895 to clear the 5% mark where the normal is satisfied by 1.645.</p>
     </div>
   </details>
 </div>'

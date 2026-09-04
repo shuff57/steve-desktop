@@ -36,9 +36,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the pilot IQR.</span> `IQR = Q3 - Q1 = 0.7631 - 0.2404 = 0.5227`, against a theoretical 0.5000 — the sample\'s middle half is 0.0227 wider than the model predicts.</p>
-      <p><span class="term-label">Part (b) &mdash; the Q1 gap.</span> The pilot\'s `Q1 = 0.2404` against a theoretical 0.2500, so the sample\'s first quartile is `0.25 - 0.2404 = 0.0096` lower than expected.</p>
-      <p><span class="term-label">Part (c) &mdash; the Q3 gap.</span> The pilot\'s `Q3 = 0.7631` against a theoretical 0.7500, so the sample\'s third quartile is `0.7631 - 0.75 = 0.0131` higher than expected.</p>
+      <p><span class="term-label">Part (a): the pilot IQR.</span> `IQR = Q3 - Q1 = 0.7631 - 0.2404 = 0.5227`, against a theoretical 0.5000: the sample\'s middle half is 0.0227 wider than the model predicts.</p>
+      <p><span class="term-label">Part (b): the Q1 gap.</span> The pilot\'s `Q1 = 0.2404` against a theoretical 0.2500, so the sample\'s first quartile is `0.25 - 0.2404 = 0.0096` lower than expected.</p>
+      <p><span class="term-label">Part (c): the Q3 gap.</span> The pilot\'s `Q3 = 0.7631` against a theoretical 0.7500, so the sample\'s third quartile is `0.7631 - 0.75 = 0.0131` higher than expected.</p>
       <p>Read those together and the picture is coherent: both quartiles drifted outward, so of course the distance between them grew. Reporting the IQR gap as a separate surprise, when it is just the sum of the two quartile gaps you already reported, is the most common way this part of the lab gets written up wrong.</p>
     </div>
   </details>

@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: R-squared Interpretation — select correct meaning in context ===
+// === NAME - DESCRIPTION: R-squared Interpretation: select correct meaning in context ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -48,9 +48,9 @@ $solutionguide = '
         <b>Template:</b> `r^2`% of the variation in <em>[response]</em> is explained by the linear relationship with <em>[explanatory]</em>.
       </div>
       <p><b>Why the others are wrong:</b><br>
-      &bull; Correlation of ' . $r2dec . ' — that would be `r`, not `r^2`.<br>
-      &bull; "Changes by ' . $r2 . '%&quot; — that is the slope interpretation.<br>
-      &bull; "' . $r2 . '% fall exactly on the line" — `r^2` is about explained variation, not point location.</p>
+      &bull; Correlation of ' . $r2dec . ': that would be `r`, not `r^2`.<br>
+      &bull; "Changes by ' . $r2 . '%&quot;: that is the slope interpretation.<br>
+      &bull; "' . $r2 . '% fall exactly on the line": `r^2` is about explained variation, not point location.</p>
     </div>
   </details>
 </div>'

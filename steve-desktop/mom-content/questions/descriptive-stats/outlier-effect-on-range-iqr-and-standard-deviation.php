@@ -10,7 +10,7 @@
 //
 // The IQR is UNCHANGED by construction. Adding a 12th value above the maximum shifts the quartile
 // positions of an 11-value set by exactly the right amount that Q1 and Q3 land on the same two values
-// as before -- checked against the split-at-the-median convention the course uses.
+// as before: checked against the split-at-the-median convention the course uses.
 $anstypes = array("number", "number", "number", "number", "choices")
 
 $ci = rand(0, 1)
@@ -88,13 +88,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Before &mdash; eleven values.</span></p>
+      <p><span class="term-label">Before: eleven values.</span></p>
       <span class="srt">' . $g0 . ', ' . $g1 . ', <b>' . $g2 . '</b>, ' . $g3 . ', ' . $g4 . ', ' . $g5 . ', ' . $g6 . ', ' . $g7 . ', <b>' . $g8 . '</b>, ' . $g9 . ', ' . $g10 . '</span>
       <p>Range = `' . $g10 . ' - ' . $g0 . ' = ` <b>' . $rangeA . '</b>. With 11 values the median is the 6th, so `Q_1` is the 3rd &#40;' . $q1a . '&#41; and `Q_3` the 9th &#40;' . $q3a . '&#41;, giving `"IQR" = ' . $q3a . ' - ' . $q1a . ' = ` <b>' . $iqrA . '</b>.</p>
-      <p><span class="term-label">After &mdash; one value added, far out.</span> The set now has 12 values, ending ' . $g10 . ', ' . $outlier . '.</p>
-      <p>Range = `' . $outlier . ' - ' . $g0 . ' = ` <b>' . $rangeB . '</b> &mdash; up by ' . $rangeJump . '. With 12 values the lower half is the first six and the upper half the last six, so `Q_1` is the average of the 3rd and 4th and `Q_3` the average of the 9th and 10th: `"IQR" = ' . $q3b . ' - ' . $q1b . ' = ` <b>' . $iqrB . '</b>, a change of only ' . $iqrJump . '.</p>
-      <p><span class="term-label">What separates them.</span> The range is LITERALLY built from the two most extreme values, so one new extreme rewrites it completely. The IQR is built from quartile positions, and adding one value at the top end shifts those positions by half a place &mdash; it does not care how far away the new value is. Put the outlier ten times further out and the range would grow tenfold while the IQR would not move at all.</p>
-      <p><span class="term-label">Where the standard deviation sits.</span> With the range, not with the IQR. It squares each value&rsquo;s distance from the mean, so a distant value contributes an enormous term and the mean it is measured from has moved as well. That is why a skewed data set is normally reported as median with IQR, and a symmetric one as mean with standard deviation &mdash; the two summaries in each pair are resistant, or not, together.</p>
+      <p><span class="term-label">After: one value added, far out.</span> The set now has 12 values, ending ' . $g10 . ', ' . $outlier . '.</p>
+      <p>Range = `' . $outlier . ' - ' . $g0 . ' = ` <b>' . $rangeB . '</b>: up by ' . $rangeJump . '. With 12 values the lower half is the first six and the upper half the last six, so `Q_1` is the average of the 3rd and 4th and `Q_3` the average of the 9th and 10th: `"IQR" = ' . $q3b . ' - ' . $q1b . ' = ` <b>' . $iqrB . '</b>, a change of only ' . $iqrJump . '.</p>
+      <p><span class="term-label">What separates them.</span> The range is LITERALLY built from the two most extreme values, so one new extreme rewrites it completely. The IQR is built from quartile positions, and adding one value at the top end shifts those positions by half a place: it does not care how far away the new value is. Put the outlier ten times further out and the range would grow tenfold while the IQR would not move at all.</p>
+      <p><span class="term-label">Where the standard deviation sits.</span> With the range, not with the IQR. It squares each value&rsquo;s distance from the mean, so a distant value contributes an enormous term and the mean it is measured from has moved as well. That is why a skewed data set is normally reported as median with IQR, and a symmetric one as mean with standard deviation: the two summaries in each pair are resistant, or not, together.</p>
     </div>
   </details>
 </div>'

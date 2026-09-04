@@ -33,12 +33,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample mean.</span> The 30 amounts total $21.00, so</p>
+      <p><span class="term-label">Part (a): the sample mean.</span> The 30 amounts total $21.00, so</p>
       <p>`x-bar = 21.00/30 = 0.70`</p>
-      <p><span class="term-label">Part (b) &mdash; the sample standard deviation.</span> The squares total 22.3092, so</p>
+      <p><span class="term-label">Part (b): the sample standard deviation.</span> The squares total 22.3092, so</p>
       <p>`s^2 = (sum x^2 - n*x-bar^2)/(n - 1) = (22.3092 - 30(0.70)^2)/29 = 7.6092/29 ~= 0.26238`</p>
       <p>`s = sqrt(0.26238) ~= 0.5122`</p>
-      <p>Divide by `n - 1` rather than `n` &mdash; these 30 are a sample of a much larger population of pockets, not the whole of it.</p>
+      <p>Divide by `n - 1` rather than `n`: these 30 are a sample of a much larger population of pockets, not the whole of it.</p>
     </div>
   </details>
 </div>'

@@ -3,13 +3,13 @@
 // Question: Given y = A*sin(Bx), identify amplitude and period
 // Amplitude = |A|, Period = 2pi/B
 
-// Randomize A (amplitude) — pick from small integers, including negative
+// Randomize A (amplitude): pick from small integers, including negative
 $A_vals = array(2, 3, 4, 5, -2, -3)
 $a_i = rand(0, 5)
 $A = $A_vals[$a_i]
 $amp = abs($A)
 
-// Randomize B — pick from small integers > 0
+// Randomize B: pick from small integers > 0
 $B_vals = array(1, 2, 3, 4, 1/2, 1/3)
 $B_disps = array("1", "2", "3", "4", "1/2", "1/3")
 $B_periods = array("(2pi)/1", "pi", "(2pi)/3", "pi/2", "4pi", "6pi")

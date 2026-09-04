@@ -12,8 +12,8 @@
 // right second factor rather than the overall rate. It is the whole content of 3.3 and it is the
 // step that looks like restating the arithmetic.
 //
-// CATEGORY PURITY: the scenario deliberately supplies THREE percentages -- P(A), P(B given A) and
-// P(B) overall -- so the arithmetic sentence can quote the right one as a bare number without
+// CATEGORY PURITY: the scenario deliberately supplies THREE percentages: P(A), P(B given A) and
+// P(B) overall: so the arithmetic sentence can quote the right one as a bare number without
 // explaining the choice. The justification is the only sentence that says which and why.
 $anstypes = array("choices", "multans", "choices")
 
@@ -53,7 +53,7 @@ $bDec = $b / 100
 $jointDec = $jointPct / 100
 
 // One sentence per rubric category. $sApply quotes the conditional rate as a bare number and never
-// says why it is the right one -- that is $sJustify's job alone.
+// says why it is the right one: that is $sJustify's job alone.
 $sRule = 'Finding the chance that one of the ' . $who . ' did both calls for the multiplication rule, because it asks for an AND rather than an OR.'
 $sApply = 'That works out as ' . $aDec . ' x ' . $bDec . ' = ' . $jointDec . ', or ' . $jointPct . '% of all ' . $who . '.'
 $sJustify = 'The second factor has to be the ' . $b . '% measured among those who ' . $eventA . ', not the ' . $bOverall . '% measured across everyone, because the two events are not independent: knowing that a ' . $whoOne . ' ' . $eventA . ' changes the chance they also ' . $eventB . '.'
@@ -184,15 +184,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the rule, does the arithmetic, and says which of the two rates belongs in the product and why. Each of the other three drops a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> names the rule, does the arithmetic, and says which of the two rates belongs in the product and why. Each of the other three drops a whole category.</p>
       <p><span class="term-label">The numbers.</span> `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, so ' . $jointPct . '% of all ' . $who . ' did both. The ' . $bOverall . '% is there to be rejected, not used.</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noJustifyLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noJustifyLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Choose the Right Rule &mdash; earned.</b> It identifies this as an AND and reaches for the multiplication rule.</li>
-        <li><b>Apply It Correctly &mdash; earned.</b> The product and the final percentage are right.</li>
-        <li><b>Justify the Second Factor &mdash; NOT earned.</b> It uses the ' . $b . '% and never says why that one rather than the ' . $bOverall . '%. This is the only category it misses.</li>
+        <li><b>Choose the Right Rule: earned.</b> It identifies this as an AND and reaches for the multiplication rule.</li>
+        <li><b>Apply It Correctly: earned.</b> The product and the final percentage are right.</li>
+        <li><b>Justify the Second Factor: NOT earned.</b> It uses the ' . $b . '% and never says why that one rather than the ' . $bOverall . '%. This is the only category it misses.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the justification is its own category.</span> The scenario hands over two different rates for the same event, and only one of them belongs in the product. Picking the right one silently is indistinguishable from picking it by luck &mdash; and a student who cannot say why would take the ' . $bOverall . '% the moment the question is worded the other way round. That choice, not the multiplication, is what 3.3 teaches.</p>
+      <p><span class="term-label">Part (c): why the justification is its own category.</span> The scenario hands over two different rates for the same event, and only one of them belongs in the product. Picking the right one silently is indistinguishable from picking it by luck: and a student who cannot say why would take the ' . $bOverall . '% the moment the question is worded the other way round. That choice, not the multiplication, is what 3.3 teaches.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab and on the test this scenario comes with a blank box and this same checklist. The justification is the category most often missing, because once the two numbers are multiplied the work looks finished.</p>
     </div>
   </details>

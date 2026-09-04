@@ -33,11 +33,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the sample mean.</span> Add the twelve values and divide by twelve:</p>
+      <p><span class="term-label">Part (a): the sample mean.</span> Add the twelve values and divide by twelve:</p>
       <p>`x-bar = 1553.0/12 = 129.4167 ~= 129.42`</p>
-      <p><span class="term-label">Part (b) &mdash; the sample standard deviation.</span> Find how far each value sits from the mean, square each distance, add the squares, divide by `n - 1 = 11` (this is a sample, not a population), and take the square root:</p>
+      <p><span class="term-label">Part (b): the sample standard deviation.</span> Find how far each value sits from the mean, square each distance, add the squares, divide by `n - 1 = 11` (this is a sample, not a population), and take the square root:</p>
       <p>`s = sqrt(69.896/11) ~= 2.5207 ~= 2.52`</p>
-      <p>Notice how small the standard deviation is next to the mean &mdash; a spread of barely over two seconds around a lap that takes more than two minutes. A racer that consistent is exactly the kind of process a normal model has a chance of describing well.</p>
+      <p>Notice how small the standard deviation is next to the mean: a spread of barely over two seconds around a lap that takes more than two minutes. A racer that consistent is exactly the kind of process a normal model has a chance of describing well.</p>
     </div>
   </details>
 </div>'

@@ -15,7 +15,7 @@ $anstypes = array("numfunc", "numfunc", "numfunc", "numfunc")
 $i = rand(0, 2)
 
 // "$total $context" opens the stem, so each string has to survive being read as a whole sentence.
-// "100 customers who ordered a drink and who ordered dessert" says all 100 did both -- the exact
+// "100 customers who ordered a drink and who ordered dessert" says all 100 did both: the exact
 // claim the Venn then contradicts. "sorted by whether" is what keeps the count neutral.
 $contexts = array(
   "students in a class, sorted by whether they play an instrument and whether they play a sport",
@@ -36,7 +36,7 @@ $bS = $bShort[$i]
 
 $both = 4 * rand(3, 8)
 $aOnly = 4 * rand(6, 10)      // 24, 28, 32, 36, 40
-$bOnly = 4 * rand(3, 4)       // 12, 16 -- disjoint from $aOnly, so totals never tie
+$bOnly = 4 * rand(3, 4)       // 12, 16: disjoint from $aOnly, so totals never tie
 $neither = 4 * rand(4, 9)
 $total = $aOnly + $both + $bOnly + $neither
 $aTotal = $aOnly + $both
@@ -81,11 +81,11 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">A conditional shrinks the space to ONE circle.</span> &ldquo;Given ' . $bName . '&rdquo; means we only care about people who did, and that is the whole ' . $bName . ' circle &mdash; ' . $bTotal . ' people, the overlap plus the ' . $bName . '-only crescent. The grand total ' . $total . ' is no longer the denominator.</p>
+      <p><span class="term-label">A conditional shrinks the space to ONE circle.</span> &ldquo;Given ' . $bName . '&rdquo; means we only care about people who did, and that is the whole ' . $bName . ' circle: ' . $bTotal . ' people, the overlap plus the ' . $bName . '-only crescent. The grand total ' . $total . ' is no longer the denominator.</p>
       <ul>
         <li><b>(a) P(' . $bS . ' | ' . $aS . ').</b> Restrict to the ' . $aName . ' circle, which holds ' . $aTotal . ' = ' . $aOnly . ' + ' . $both . '. Of those, ' . $both . ' also ' . $bName . ': `' . $both . ' -: ' . $aTotal . ' = ' . $pBGivenA . '`.</li>
         <li><b>(b) P(' . $aS . ' | ' . $bS . ').</b> Restrict to the OTHER circle, ' . $bTotal . ' = ' . $bOnly . ' + ' . $both . '. The same ' . $both . ' are in the overlap: `' . $both . ' -: ' . $bTotal . ' = ' . $pAGivenB . '`. Same top, different bottom.</li>
-        <li><b>(c) and (d) are the denominators.</b> ' . $aTotal . ' for the first, ' . $bTotal . ' for the second. The circle totals differ, so the two conditionals differ &mdash; that asymmetry is the whole lesson.</li>
+        <li><b>(c) and (d) are the denominators.</b> ' . $aTotal . ' for the first, ' . $bTotal . ' for the second. The circle totals differ, so the two conditionals differ: that asymmetry is the whole lesson.</li>
       </ul>
       <p><span class="term-label">The trap this question exists for.</span> Using the grand total ' . $total . ' for both would give identical numbers and answer neither question. A conditional is only meaningful once you have committed to which circle you are standing inside.</p>
     </div>
@@ -98,7 +98,7 @@ $sol = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 4px 0;">$total $context. The Venn shows how many fall in each region.</p>
     $svg
-    <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">One person is chosen at random. For each conditional, the denominator is a circle total &mdash; not the grand total. Enter probabilities as fractions or decimals rounded to 4 places, and the totals as whole numbers.</p>
+    <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">One person is chosen at random. For each conditional, the denominator is a circle total: not the grand total. Enter probabilities as fractions or decimals rounded to 4 places, and the totals as whole numbers.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> <b>P($bS | $aS)</b>, given $aName. $answerbox[0]

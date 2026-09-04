@@ -147,10 +147,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; how many wide bars.</span> The values run 0 to 7, which is eight values. Two values to a bar gives 8 / 2 = <b>4</b> bars.</p>
-      <p><span class="term-label">Part (b) &mdash; the height of one wide bar.</span> A wide bar holds everyone from both of its values, so add the two narrow bars it replaced: ' . $f[$askLo] . ' + ' . $f[$askHi] . ' = <b>' . $askHeight . '</b>. Heights add; they are never averaged. Averaging is the usual mistake and it makes the totals stop working.</p>
-      <p><span class="term-label">Part (c) &mdash; the sample size.</span> <b>' . $n . '</b>, and it is the same on both graphs. Adding the four wide bars gives the same total as adding the eight narrow ones, because rebinning only regroups the observations already there.</p>
-      <p><span class="term-label">Part (d) &mdash; what changed.</span> Not the data &mdash; the resolution. Wider bars average out the bumpiness, so the shape reads more smoothly, and any gap or spike narrower than a bar disappears inside one. Neither picture is the true one: bin width is a choice, and the honest habit is to look at more than one before saying what shape the data has.</p>
+      <p><span class="term-label">Part (a): how many wide bars.</span> The values run 0 to 7, which is eight values. Two values to a bar gives 8 / 2 = <b>4</b> bars.</p>
+      <p><span class="term-label">Part (b): the height of one wide bar.</span> A wide bar holds everyone from both of its values, so add the two narrow bars it replaced: ' . $f[$askLo] . ' + ' . $f[$askHi] . ' = <b>' . $askHeight . '</b>. Heights add; they are never averaged. Averaging is the usual mistake and it makes the totals stop working.</p>
+      <p><span class="term-label">Part (c): the sample size.</span> <b>' . $n . '</b>, and it is the same on both graphs. Adding the four wide bars gives the same total as adding the eight narrow ones, because rebinning only regroups the observations already there.</p>
+      <p><span class="term-label">Part (d): what changed.</span> Not the data: the resolution. Wider bars average out the bumpiness, so the shape reads more smoothly, and any gap or spike narrower than a bar disappears inside one. Neither picture is the true one: bin width is a choice, and the honest habit is to look at more than one before saying what shape the data has.</p>
       <p><b>Answer:</b> (a) 4 &nbsp;&nbsp; (b) ' . $askHeight . ' &nbsp;&nbsp; (c) ' . $n . '</p>
     </div>
   </details>
@@ -174,11 +174,11 @@ $solutionguide = '
     </table>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px; margin:10px 0;">
-    <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Histogram A &mdash; bars one unit wide</p>
+    <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Histogram A: bars one unit wide</p>
     $narrowHist
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px; margin:10px 0;">
-    <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Histogram B &mdash; the same data, bars two units wide</p>
+    <p style="margin:0 0 4px 0; font-weight:700; color:#1865f2;">Histogram B: the same data, bars two units wide</p>
     $wideHist
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">

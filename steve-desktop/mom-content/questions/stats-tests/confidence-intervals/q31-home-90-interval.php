@@ -35,11 +35,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the error bound.</span> With `t_(0.05) = 1.6909` at 34 degrees of freedom:</p>
+      <p><span class="term-label">Part (a): the error bound.</span> With `t_(0.05) = 1.6909` at 34 degrees of freedom:</p>
       <p>`EBM = t_(alpha/2) * s_x/sqrt(n) = 1.6909 x 19,101 ~= 32,298`</p>
-      <p><span class="term-label">Parts (b) and (c) &mdash; the interval.</span> Lay that distance off in both directions from the sample mean:</p>
+      <p><span class="term-label">Parts (b) and (c): the interval.</span> Lay that distance off in both directions from the sample mean:</p>
       <p>`410,000 - 32,298 = 377,702` and `410,000 + 32,298 = 442,298`</p>
-      <p>Notice how wide that is &mdash; roughly $65,000 from end to end &mdash; and notice where the width came from. It is not sloppiness in the sample. It is the $113,006 standard deviation divided by the square root of only 35 homes. To halve the width the class would need four times as many listings, because the `sqrt(n)` in the denominator means precision improves with the square root of effort, not with effort itself.</p>
+      <p>Notice how wide that is, roughly $65,000 from end to end, and notice where the width came from. It is not sloppiness in the sample. It is the $113,006 standard deviation divided by the square root of only 35 homes. To halve the width the class would need four times as many listings, because the `sqrt(n)` in the denominator means precision improves with the square root of effort, not with effort itself.</p>
     </div>
   </details>
 </div>'

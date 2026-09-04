@@ -7,7 +7,7 @@
 // Categories: Z-Score Calculation (4) / Z-Score Interpretation (3) / Unusual or Typical (3) = 10.
 //
 // The dropped category is UNUSUAL OR TYPICAL. A student can compute the z-score and interpret
-// its position without ever judging whether the score is unusual — the section's own Context
+// its position without ever judging whether the score is unusual: the section's own Context
 // Pause ("the 1 in 20 rule of thumb") is exactly the step a plausible answer skips.
 //
 // CATEGORY PURITY: $sCalc states the arithmetic and nothing else; $sInterp states the position
@@ -154,15 +154,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> computes the z-score, interprets its position, and judges whether it is unusual. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> computes the z-score, interprets its position, and judges whether it is unusual. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sCalc . ' ' . $sInterp . ' ' . $sUnusual . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noUnusualLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noUnusualLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Z-Score Calculation &mdash; earned.</b> The formula is written, the values are identified, and the z-score is stated.</li>
-        <li><b>Z-Score Interpretation &mdash; earned.</b> The position of the score relative to the mean is explained in context.</li>
-        <li><b>Unusual or Typical &mdash; NOT earned.</b> The response never says whether the score is unusual, so the judgement is missing.</li>
+        <li><b>Z-Score Calculation: earned.</b> The formula is written, the values are identified, and the z-score is stated.</li>
+        <li><b>Z-Score Interpretation: earned.</b> The position of the score relative to the mean is explained in context.</li>
+        <li><b>Unusual or Typical: NOT earned.</b> The response never says whether the score is unusual, so the judgement is missing.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the judgement is its own category.</span> Computing a z-score and reading its position answers "how far from the mean", not "is this surprising". The unusual-or-typical call is a separate judgement against a threshold, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the judgement is its own category.</span> Computing a z-score and reading its position answers "how far from the mean", not "is this surprising". The unusual-or-typical call is a separate judgement against a threshold, and a response that skips it has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The unusual-or-typical sentence is the category most often skipped, because once the arithmetic is done the judgement feels like commentary.</p>
     </div>
   </details>

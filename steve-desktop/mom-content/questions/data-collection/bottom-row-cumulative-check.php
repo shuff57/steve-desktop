@@ -72,9 +72,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the not-1 rule.</span> The lab&rsquo;s own check: the cumulative column adds up from the top row down, so the bottom row should come out to exactly 1. This bottom reads ' . $badBottomd . ', so a value has been miscounted or dropped somewhere.</p>
-      <p><span class="term-label">Step 2 &mdash; find the gap.</span> The bottom is 1 &minus; ' . $badBottomd . ' = ' . $d . '/60 short of 1, and the only row whose count does not fit the rest is the ' . $mL . ' row. Its count is listed as ' . $short . ', where the table and the total imply ' . $f[$m] . '.</p>
-      <p><span class="term-label">Step 3 &mdash; fix the bottom.</span> Once the true count is restored, the frequencies add to 60 and the cumulative column finishes at exactly <b>1</b>.</p>
+      <p><span class="term-label">Step 1: the not-1 rule.</span> The lab&rsquo;s own check: the cumulative column adds up from the top row down, so the bottom row should come out to exactly 1. This bottom reads ' . $badBottomd . ', so a value has been miscounted or dropped somewhere.</p>
+      <p><span class="term-label">Step 2: find the gap.</span> The bottom is 1 &minus; ' . $badBottomd . ' = ' . $d . '/60 short of 1, and the only row whose count does not fit the rest is the ' . $mL . ' row. Its count is listed as ' . $short . ', where the table and the total imply ' . $f[$m] . '.</p>
+      <p><span class="term-label">Step 3: fix the bottom.</span> Once the true count is restored, the frequencies add to 60 and the cumulative column finishes at exactly <b>1</b>.</p>
     </div>
   </details>
 </div>'

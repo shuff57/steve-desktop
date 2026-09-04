@@ -86,14 +86,14 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the mean.</span> Add the six values and divide by 6: `bar x = ' . $mean . '` ' . $unitWord . '. Every later step measures distance from this number, so an error here carries all the way through.</p>
-      <p><span class="term-label">Step 2 &mdash; deviations, then square them.</span> Subtract the mean from each value, then square. Squaring is what stops the positive and negative deviations cancelling &mdash; their plain sum is always exactly zero, which is why the deviations cannot simply be averaged.</p>
+      <p><span class="term-label">Step 1: the mean.</span> Add the six values and divide by 6: `bar x = ' . $mean . '` ' . $unitWord . '. Every later step measures distance from this number, so an error here carries all the way through.</p>
+      <p><span class="term-label">Step 2: deviations, then square them.</span> Subtract the mean from each value, then square. Squaring is what stops the positive and negative deviations cancelling: their plain sum is always exactly zero, which is why the deviations cannot simply be averaged.</p>
       <table class="sol-tbl" style="border-collapse:collapse; margin:8px 0;">
         <tr style="background:#f0f4ff;"><th>Value</th><th>`x - bar x`</th><th>`(x - bar x)^2`</th></tr>
         ' . $devRows . '
       </table>
       <p>The squared deviations total <b>' . $sumSq . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; divide by `n - 1`, then take the square root.</span> This is a SAMPLE, so divide by ' . $nMinus . ' rather than 6: `s^2 = ' . $sumSq . '/' . $nMinus . ' = ' . $varShown . '`. That is the variance, and it is in squared ' . $unitWord . '. Taking the square root brings it back to the units of the data: `s = ' . $sd . '` ' . $unitWord . '.</p>
+      <p><span class="term-label">Step 3: divide by `n - 1`, then take the square root.</span> This is a SAMPLE, so divide by ' . $nMinus . ' rather than 6: `s^2 = ' . $sumSq . '/' . $nMinus . ' = ' . $varShown . '`. That is the variance, and it is in squared ' . $unitWord . '. Taking the square root brings it back to the units of the data: `s = ' . $sd . '` ' . $unitWord . '.</p>
       <p><span class="term-label">Why `n - 1`.</span> A sample tends to sit a little closer to its own mean than the wider population does, so dividing by `n` would understate the spread. Dividing by one less nudges it back up. Dividing by `n` is the standard slip and it always gives an answer slightly too small.</p>
       <p><b>Answer:</b> (a) ' . $mean . ' &nbsp;&nbsp; (b) ' . $sumSq . ' &nbsp;&nbsp; (c) ' . $sd . '</p>
     </div>

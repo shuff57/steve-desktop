@@ -28,7 +28,7 @@ $lowMedian = rand(28, 33)
 $highMedian = $lowMedian + rand(9, 14)
 
 $questions[0] = array(
-  $lowTown . "'s population includes proportionally more young residents than " . $highTown . "'s &mdash; for example, from a higher birth rate or an influx of young adults &mdash; which pulls its median age down.",
+  $lowTown . "'s population includes proportionally more young residents than " . $highTown . "'s, for example, from a higher birth rate or an influx of young adults, which pulls its median age down.",
   "On average, people in " . $lowTown . " die younger than people in " . $highTown . ".",
   $lowTown . " was founded more recently, so its median age carries no real meaning.",
   "The two reported medians are close enough that the difference is just measurement error."
@@ -36,7 +36,7 @@ $questions[0] = array(
 $answer[0] = 0
 
 $questions[1] = array(
-  "No. Median age describes the age structure of the population currently living there &mdash; how many young residents there are relative to old &mdash; not how long any individual is expected to live.",
+  "No. Median age describes the age structure of the population currently living there, how many young residents there are relative to old, not how long any individual is expected to live.",
   "Yes. A lower median age is direct evidence that people there live shorter lives.",
   "Yes, because median age and life expectancy are calculated from the same data.",
   "It cannot be determined without also knowing each town's average income."
@@ -45,7 +45,7 @@ $answer[1] = 0
 
 $questions[2] = array(
   "If " . $lowTown . " has a higher birth rate (or more young residents moving in), a larger share of its population is young, which lowers its median age even though people in both towns live equally long on average.",
-  "It isn't possible &mdash; equal life expectancy always produces equal median ages.",
+  "It isn't possible: equal life expectancy always produces equal median ages.",
   $highTown . " must have both a lower birth rate and a shorter life expectancy, and the two effects cancel out.",
   "The median age formula counts older residents twice in towns with more retirees."
 )
@@ -69,10 +69,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Median age measures a snapshot, not a lifetime.</span> The median age of a living population is the age that splits today\'s residents in half &mdash; it is set by how many people of each age are alive right now, which is mostly a matter of birth rates and migration. It says nothing directly about how long any of those people will go on to live.</p>
-      <p><span class="term-label">Part (a) &mdash; why ' . $lowTown . '\'s median age (' . $lowMedian . ') is lower than ' . $highTown . '\'s (' . $highMedian . ').</span> A younger population age structure &mdash; more births per year, or more young adults arriving &mdash; adds people at the bottom of the age distribution. That shifts the halfway point down. "People there die younger" explains a lower <i>life expectancy</i>, not a lower median age, and the two are easy to mix up but measure different things.</p>
-      <p><span class="term-label">Part (b) &mdash; does the lower median age prove a shorter lifespan?</span> No. A population can be young because it is growing quickly, not because it is dying early. You would need actual mortality or life-expectancy data to say anything about lifespan &mdash; the median age alone does not supply it.</p>
-      <p><span class="term-label">Part (c) &mdash; same life expectancy, different median age.</span> Suppose everyone in both towns lives, on average, to the same age. ' . $lowTown . ' can still have the lower median age simply by having more young residents relative to its older ones &mdash; a higher birth rate stretches the bottom of the age distribution without touching how long anyone actually lives. Age structure and longevity are different quantities, and one can move while the other stays fixed.</p>
+      <p><span class="term-label">Median age measures a snapshot, not a lifetime.</span> The median age of a living population is the age that splits today\'s residents in half: it is set by how many people of each age are alive right now, which is mostly a matter of birth rates and migration. It says nothing directly about how long any of those people will go on to live.</p>
+      <p><span class="term-label">Part (a): why ' . $lowTown . '\'s median age (' . $lowMedian . ') is lower than ' . $highTown . '\'s (' . $highMedian . ').</span> A younger population age structure, more births per year, or more young adults arriving, adds people at the bottom of the age distribution. That shifts the halfway point down. "People there die younger" explains a lower <i>life expectancy</i>, not a lower median age, and the two are easy to mix up but measure different things.</p>
+      <p><span class="term-label">Part (b): does the lower median age prove a shorter lifespan?</span> No. A population can be young because it is growing quickly, not because it is dying early. You would need actual mortality or life-expectancy data to say anything about lifespan: the median age alone does not supply it.</p>
+      <p><span class="term-label">Part (c): same life expectancy, different median age.</span> Suppose everyone in both towns lives, on average, to the same age. ' . $lowTown . ' can still have the lower median age simply by having more young residents relative to its older ones: a higher birth rate stretches the bottom of the age distribution without touching how long anyone actually lives. Age structure and longevity are different quantities, and one can move while the other stays fixed.</p>
       <p><b>Answer:</b> (a) younger age structure / higher birth rate &nbsp;&nbsp; (b) no, median age is not lifespan &nbsp;&nbsp; (c) a higher birth rate lowers the median age even at equal life expectancy</p>
     </div>
   </details>

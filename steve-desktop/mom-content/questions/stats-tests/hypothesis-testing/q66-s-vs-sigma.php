@@ -11,14 +11,14 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A study of 26 first-time convicted burglars finds a mean time spent in jail of 3 years with a sample standard deviation of 1.8 years. It is somehow known that the population standard deviation is 1.5 years.",
-        "`sigma` &mdash; it is the actual spread of the whole population, not an estimate built from the sample.",
-        "Estimating the spread when `sigma` is unknown &mdash; the situation that calls for the t distribution."),
+        "`sigma`: it is the actual spread of the whole population, not an estimate built from the sample.",
+        "Estimating the spread when `sigma` is unknown: the situation that calls for the t distribution."),
   array("A study of 30 students finds a mean study time of 13.2 hours per week with a sample standard deviation of 4.1 hours. The population standard deviation is known to be 3.8 hours.",
-        "`sigma` &mdash; it is the actual spread of the whole population, not an estimate built from the sample.",
-        "Estimating the spread when `sigma` is unknown &mdash; the situation that calls for the t distribution."),
+        "`sigma`: it is the actual spread of the whole population, not an estimate built from the sample.",
+        "Estimating the spread when `sigma` is unknown: the situation that calls for the t distribution."),
   array("A survey of 40 adults finds a mean daily screen time of 5.6 hours with a sample standard deviation of 1.9 hours. The population standard deviation is known to be 2.0 hours.",
-        "`sigma` &mdash; it is the actual spread of the whole population, not an estimate built from the sample.",
-        "Estimating the spread when `sigma` is unknown &mdash; the situation that calls for the t distribution.")
+        "`sigma`: it is the actual spread of the whole population, not an estimate built from the sample.",
+        "Estimating the spread when `sigma` is unknown: the situation that calls for the t distribution.")
 )
 
 $i = rand(0, count($cases)-1)
@@ -28,8 +28,8 @@ $sFor = $cases[$i][2]
 
 $questions[0] = array(
   $which,
-  "`s` &mdash; it is the spread of the sample, which is always the right one.",
-  "Neither &mdash; the test statistic does not use a spread at all."
+  "`s`: it is the spread of the sample, which is always the right one.",
+  "Neither: the test statistic does not use a spread at all."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -37,7 +37,7 @@ $noshuffle[0] = "all"
 $questions[1] = array(
   $sFor,
   "Describing the shape of the histogram.",
-  "Nothing &mdash; `s` is never used in a hypothesis test."
+  "Nothing: `s` is never used in a hypothesis test."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; which spread.</span> ' . $which . '</p>
-      <p><span class="term-label">Part (b) &mdash; what s is for.</span> ' . $sFor . '</p>
-      <p>`s_x` is an estimate of the spread built from just the sample, while `sigma` is the actual spread of the whole population &mdash; when the problem hands you `sigma`, the better one is the real one.</p>
+      <p><span class="term-label">Part (a): which spread.</span> ' . $which . '</p>
+      <p><span class="term-label">Part (b): what s is for.</span> ' . $sFor . '</p>
+      <p>`s_x` is an estimate of the spread built from just the sample, while `sigma` is the actual spread of the whole population: when the problem hands you `sigma`, the better one is the real one.</p>
     </div>
   </details>
 </div>'

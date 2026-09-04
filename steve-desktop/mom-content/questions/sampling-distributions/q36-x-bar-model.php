@@ -11,7 +11,7 @@
 $anstypes = array("choices", "numfunc")
 
 $questions[0] = array(
-  "Right-skewed with mean 0.70 and standard deviation 0.51 &mdash; no named family (not normal, not uniform, not exponential)",
+  "Right-skewed with mean 0.70 and standard deviation 0.51: no named family (not normal, not uniform, not exponential)",
   "Approximately normal with mean 0.70 and standard deviation 0.51",
   "Uniform with mean 0.70 and standard deviation 0.51"
 )
@@ -39,10 +39,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the population.</span> The mean is $0.70, the standard deviation is about $0.51, and the mean sits above the median, so the distribution leans right. There is no named family here &mdash; it is not normal, not uniform, not exponential. Saying plainly that the population does not belong to any distribution you have a name for is a correct and complete answer.</p>
-      <p><span class="term-label">Part (b) &mdash; the averages.</span> The central limit theorem supplies the family, and the two parameters come from the population with `n = 5`:</p>
+      <p><span class="term-label">Part (a): the population.</span> The mean is $0.70, the standard deviation is about $0.51, and the mean sits above the median, so the distribution leans right. There is no named family here: it is not normal, not uniform, not exponential. Saying plainly that the population does not belong to any distribution you have a name for is a correct and complete answer.</p>
+      <p><span class="term-label">Part (b): the averages.</span> The central limit theorem supplies the family, and the two parameters come from the population with `n = 5`:</p>
       <p>`bar(X) ~ N(0.70, 0.5122/sqrt(5)) = N(0.70, 0.23)`</p>
-      <p><span class="term-label">The finding.</span> Same center, different family, and a spread cut by a factor of `sqrt(5)` &mdash; averaging changed the shape and the spread without moving the middle, which is the finding the lab was built to produce. One caution belongs in your write-up: `n = 5` is a small sample to lean the central limit theorem on when the population is this lopsided, so expect your third histogram to be more bell-shaped than the first two without being convincingly bell-shaped on its own.</p>
+      <p><span class="term-label">The finding.</span> Same center, different family, and a spread cut by a factor of `sqrt(5)`: averaging changed the shape and the spread without moving the middle, which is the finding the lab was built to produce. One caution belongs in your write-up: `n = 5` is a small sample to lean the central limit theorem on when the population is this lopsided, so expect your third histogram to be more bell-shaped than the first two without being convincingly bell-shaped on its own.</p>
     </div>
   </details>
 </div>'

@@ -11,11 +11,11 @@
 // Compare and Explain the Gap (4) = 10.
 //
 // The dropped category is COMPARE AND EXPLAIN THE GAP. A student can report the empirical value
-// and the theoretical prediction without ever putting them side by side — the lab's own
+// and the theoretical prediction without ever putting them side by side: the lab's own
 // Discussion Questions say to point at your own three histograms rather than at what the
 // theorem says ought to have happened, so the comparison is exactly the step a plausible answer
 // skips. (This drop is distinct from 4.4/4.6's State the Theoretical Value and 5.3's State the
-// Empirical Value — the 6.4 lab teaches the CLT mechanism, not the empirical-vs-theoretical
+// Empirical Value: the 6.4 lab teaches the CLT mechanism, not the empirical-vs-theoretical
 // pair.)
 //
 // CATEGORY PURITY: $sEmp states the counted value and nothing else; $sTheory states the
@@ -64,7 +64,7 @@ $answer[1] = "0,1"
 $scoremethod[1] = "allornothing"
 
 $questions[2] = array(
-  "No. The empirical value and the theoretical prediction can both be reported without ever putting them side by side, so the comparison has to be stated on its own — the gap between the two is the finding of the lab.",
+  "No. The empirical value and the theoretical prediction can both be reported without ever putting them side by side, so the comparison has to be stated on its own: the gap between the two is the finding of the lab.",
   "Yes. Once the two values are reported, the comparison follows automatically, so there is nothing separate to award.",
   "No, but only because the arithmetic is the hard part.",
   "Yes, as long as the two numbers are close, the setup does not matter."
@@ -139,15 +139,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the empirical value, the theoretical prediction, and the comparison with its explanation. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> states the empirical value, the theoretical prediction, and the comparison with its explanation. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sEmp . ' ' . $sTheory . ' ' . $sCompare . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noCompareLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noCompareLabel . ' line by line.</span></p>
       <ul>
-        <li><b>State the Empirical Value &mdash; earned.</b> The statistic from the class data is present.</li>
-        <li><b>State the Theoretical Value &mdash; earned.</b> The central limit theorem prediction is present.</li>
-        <li><b>Compare and Explain the Gap &mdash; NOT earned.</b> The response never puts the two side by side, so the comparison is missing.</li>
+        <li><b>State the Empirical Value: earned.</b> The statistic from the class data is present.</li>
+        <li><b>State the Theoretical Value: earned.</b> The central limit theorem prediction is present.</li>
+        <li><b>Compare and Explain the Gap: NOT earned.</b> The response never puts the two side by side, so the comparison is missing.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the comparison is its own category.</span> The lab\'s Discussion Questions say to point at your own three histograms rather than at what the theorem says ought to have happened. The gap between the empirical and the theoretical is the finding &mdash; when the two land close together the normal model is doing honest work, and when they land far apart the model does not fit. Reporting both values without the comparison answers half the question.</p>
+      <p><span class="term-label">Part (c): why the comparison is its own category.</span> The lab\'s Discussion Questions say to point at your own three histograms rather than at what the theorem says ought to have happened. The gap between the empirical and the theoretical is the finding: when the two land close together the normal model is doing honest work, and when they land far apart the model does not fit. Reporting both values without the comparison answers half the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the lab this comparison comes with a blank box and this same checklist. The comparison is the category most often skipped, because once both numbers are written down the side-by-side feels like repetition.</p>
     </div>
   </details>

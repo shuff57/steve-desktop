@@ -82,16 +82,16 @@ $solutionguide = '
       <p><b>Formula (monthly loan payment):</b></p>
       <p>`PMT = P cdot (r/n) / (1 - (1 + r/n)^{-nt})`</p>
       <p>Given: `P = $' . $P . '`, `r = ' . $r_pct . '% = ' . $r . '`, `n = 12`, `t = ' . $t . '` years</p>
-      <p><b>Part (a) -- Monthly Payment</b></p>
+      <p><b>Part (a): Monthly Payment</b></p>
       <p>`r/n = ' . $r . '/12 = ' . $rn_disp . '`</p>
       <p>`nt = 12 times ' . $t . ' = ' . $exp . '`</p>
       <p>`(1 + r/n)^{-nt} = (1 + ' . $rn_disp . ')^{-' . $exp . '} = ' . $factor_neg . '`</p>
       <p>`PMT = ' . $P . ' times ' . $rn_disp . ' / (1 - ' . $factor_neg . ')`</p>
       <div class="sol-ans"><b>Monthly payment `PMT = $' . $PMT . '`</b></div>
-      <p><b>Part (b) -- Total Amount Paid</b></p>
+      <p><b>Part (b): Total Amount Paid</b></p>
       <p>`PMT times n times t = ' . $PMT . ' times 12 times ' . $t . ' = $' . $total_paid . '`</p>
       <div class="sol-ans"><b>Total paid = `$' . $total_paid . '`</b></div>
-      <p><b>Part (c) -- Total Interest</b></p>
+      <p><b>Part (c): Total Interest</b></p>
       <p>`Total paid - Principal = $' . $total_paid . ' - $' . $P . ' = $' . $total_interest . '`</p>
       <div class="sol-ans"><b>Total interest = `$' . $total_interest . '`</b></div>
     </div>

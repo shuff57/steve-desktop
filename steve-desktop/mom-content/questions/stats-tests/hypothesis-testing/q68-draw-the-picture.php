@@ -11,13 +11,13 @@ $anstypes = array("choices", "choices")
 
 $cases = array(
   array("A left-tailed test of whether the mean hours of sleep for adults is less than 7 hours per night.",
-        "At the value the null hypothesis claims &mdash; `mu_0 = 7`.",
+        "At the value the null hypothesis claims: `mu_0 = 7`.",
         "The single tail beyond the observed test statistic, on the left side the alternative names."),
   array("A right-tailed test of whether the mean number of pairs of jeans owned is greater than 3.",
-        "At the value the null hypothesis claims &mdash; `mu_0 = 3`.",
+        "At the value the null hypothesis claims: `mu_0 = 3`.",
         "The single tail beyond the observed test statistic, on the right side the alternative names."),
   array("A left-tailed test of whether the mean lifespan of a brand of tires is less than 50,000 miles.",
-        "At the value the null hypothesis claims &mdash; `mu_0 = 50000`.",
+        "At the value the null hypothesis claims: `mu_0 = 50000`.",
         "The single tail beyond the observed test statistic, on the left side the alternative names.")
 )
 
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the center.</span> ' . $center . '</p>
-      <p><span class="term-label">Part (b) &mdash; the shading.</span> ' . $shade . '</p>
-      <p>Draw one bell-shaped curve over a horizontal axis, centered at the value the null claims, then mark the observed sample statistic and shade the tail beyond it &mdash; the picture is the p-value made visible.</p>
+      <p><span class="term-label">Part (a): the center.</span> ' . $center . '</p>
+      <p><span class="term-label">Part (b): the shading.</span> ' . $shade . '</p>
+      <p>Draw one bell-shaped curve over a horizontal axis, centered at the value the null claims, then mark the observed sample statistic and shade the tail beyond it: the picture is the p-value made visible.</p>
     </div>
   </details>
 </div>'

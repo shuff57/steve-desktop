@@ -156,11 +156,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p>Two events are <b>mutually exclusive</b> when they share <b>no</b> outcomes (E &cap; F = &empty;).</p>
-      <p><b>(a) King and Heart</b> &mdash; the King of Hearts belongs to both events:</p>
+      <p><b>(a) King and Heart</b>: the King of Hearts belongs to both events:</p>
       '.$deck_sol_a.'
       '.$legend_a.'
       <p>The green-highlighted card is the overlap. Since the overlap is non-empty, the events are <b>not mutually exclusive</b>.</p>
-      <p><b>(b) Income $25,000+</b> vs <b>income less than $20,000</b> &mdash; the two income ranges share no values (no number is both &ge; 25,000 and &lt; 20,000), so the events are <b>mutually exclusive</b>.</p>
+      <p><b>(b) Income $25,000+</b> vs <b>income less than $20,000</b>: the two income ranges share no values (no number is both &ge; 25,000 and &lt; 20,000), so the events are <b>mutually exclusive</b>.</p>
       <p><b>(c) Even die roll</b> = {2, 4, 6} and <b>greater than 3</b> = {4, 5, 6}:</p>
       '.$dice_sol_c.'
       '.$legend_c.'

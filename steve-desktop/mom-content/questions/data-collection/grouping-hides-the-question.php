@@ -42,7 +42,7 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Why the grouped table stalls.</span> &quot;More than two&quot; needs the count of 2 separated from the count of 3, because 2 is inside and 3 is outside. In the grouped table, 2 and 3 are locked together in one 2-3 row, so the separation is impossible without going back to the raw data.</p>
-      <p><span class="term-label">What the answer actually needs.</span> The share of the data at or below 2 &mdash; the at-most-2 cumulative &mdash; which only the ungrouped table displays. Then &quot;more than two&quot; is 1 minus that share.</p>
+      <p><span class="term-label">What the answer actually needs.</span> The share of the data at or below 2, the at-most-2 cumulative, which only the ungrouped table displays. Then &quot;more than two&quot; is 1 minus that share.</p>
       <p><span class="term-label">The lesson of the lab.</span> Grouping never changes the data, but it can hide the very question you wanted to ask.</p>
     </div>
   </details>

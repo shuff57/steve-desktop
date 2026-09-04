@@ -29,7 +29,7 @@ else {
 $minV = 0
 $maxV = 20
 
-// Data 1's box is wide -- its width (Q3 - Q1) is always at least 10, more than double Data 2's
+// Data 1's box is wide: its width (Q3 - Q1) is always at least 10, more than double Data 2's
 // fixed width of 4. $q1_1 and $med1 vary independently but always keep $minV < $q1_1 < $med1 <
 // $q3_1 < $maxV, and every value stays EVEN so it lands on a labeled tick.
 $q1_1 = 2 + 2 * rand(0, 1)
@@ -105,8 +105,8 @@ $svg = $svg . '<text x="302" y="204" font-size="13" fill="#374151" text-anchor="
 $svg = $svg . '</svg>'
 
 $questions[0] = array(
-  "True -- Data 1 clearly has more values above " . $statedX . " " . $unitWord . ".",
-  "False -- Data 2 clearly has more values above " . $statedX . " " . $unitWord . ".",
+  "True: Data 1 clearly has more values above " . $statedX . " " . $unitWord . ".",
+  "False: Data 2 clearly has more values above " . $statedX . " " . $unitWord . ".",
   "Impossible to tell from the box plots alone."
 )
 $answer[0] = 2
@@ -120,9 +120,9 @@ $questions[1] = array(
 $answer[1] = 0
 
 $questions[2] = array(
-  "Yes -- the five-number summary could match exactly, since a box plot shows position only, not how many values were sampled.",
-  "No -- the shape of a box plot must change whenever the sample sizes differ.",
-  "No -- the group with more values would always draw a wider box.",
+  "Yes: the five-number summary could match exactly, since a box plot shows position only, not how many values were sampled.",
+  "No: the shape of a box plot must change whenever the sample sizes differ.",
+  "No: the group with more values would always draw a wider box.",
   "Yes, but only if the two sample sizes happen to be equal."
 )
 $answer[2] = 0
@@ -145,10 +145,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The two five-number summaries.</span> Data 1: min ' . $minV . ', `Q_1` ' . $q1_1 . ', median ' . $med1 . ', `Q_3` ' . $q3_1 . ', max ' . $maxV . '. Data 2: min ' . $minV . ', `Q_1` ' . $q1_2 . ', median ' . $med2 . ', `Q_3` ' . $q3_2 . ', max ' . $maxV . '. Both share the same min and max &mdash; only the boxes differ.</p>
-      <p><span class="term-label">Part (a).</span> A box plot marks five positions and shows nothing about how many values sit near any of them. ' . $statedX . ' ' . $unitWord . ' falls inside both boxes here, and Data 1 (' . $n1 . ' values) and Data 2 (' . $n2 . ' values) are different sizes besides. There is no way to tell which group has more values above ' . $statedX . ' from the plots alone &mdash; the answer is <b>impossible to tell</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; what a wider box means.</span> Every section of a box plot, including the box itself, holds the same quarter of the data no matter how wide or narrow it is drawn. A wider box does not mean more values landed there &mdash; it means that middle half is <b>spread out over more of the scale</b>. Data 1\'s box runs from ' . $q1_1 . ' to ' . $q3_1 . ' (width ' . ($q3_1 - $q1_1) . '), while Data 2\'s box runs only from ' . $q1_2 . ' to ' . $q3_2 . ' (width ' . ($q3_2 - $q1_2) . '), even though Data 2 has the larger sample.</p>
-      <p><span class="term-label">Part (c) &mdash; counts are invisible on a box plot.</span> A box plot is built entirely from five positions in the data, never from how many values were collected. Two groups of very different sizes &mdash; here ' . $n1 . ' values against ' . $n2 . ' &mdash; can produce the exact same five-number summary and therefore the exact same box plot. The answer is <b>yes</b>.</p>
+      <p><span class="term-label">The two five-number summaries.</span> Data 1: min ' . $minV . ', `Q_1` ' . $q1_1 . ', median ' . $med1 . ', `Q_3` ' . $q3_1 . ', max ' . $maxV . '. Data 2: min ' . $minV . ', `Q_1` ' . $q1_2 . ', median ' . $med2 . ', `Q_3` ' . $q3_2 . ', max ' . $maxV . '. Both share the same min and max: only the boxes differ.</p>
+      <p><span class="term-label">Part (a).</span> A box plot marks five positions and shows nothing about how many values sit near any of them. ' . $statedX . ' ' . $unitWord . ' falls inside both boxes here, and Data 1 (' . $n1 . ' values) and Data 2 (' . $n2 . ' values) are different sizes besides. There is no way to tell which group has more values above ' . $statedX . ' from the plots alone: the answer is <b>impossible to tell</b>.</p>
+      <p><span class="term-label">Part (b): what a wider box means.</span> Every section of a box plot, including the box itself, holds the same quarter of the data no matter how wide or narrow it is drawn. A wider box does not mean more values landed there: it means that middle half is <b>spread out over more of the scale</b>. Data 1\'s box runs from ' . $q1_1 . ' to ' . $q3_1 . ' (width ' . ($q3_1 - $q1_1) . '), while Data 2\'s box runs only from ' . $q1_2 . ' to ' . $q3_2 . ' (width ' . ($q3_2 - $q1_2) . '), even though Data 2 has the larger sample.</p>
+      <p><span class="term-label">Part (c): counts are invisible on a box plot.</span> A box plot is built entirely from five positions in the data, never from how many values were collected. Two groups of very different sizes: here ' . $n1 . ' values against ' . $n2 . ': can produce the exact same five-number summary and therefore the exact same box plot. The answer is <b>yes</b>.</p>
       <p><b>Answer:</b> (a) impossible to tell &nbsp;&nbsp; (b) spread over more of the scale &nbsp;&nbsp; (c) yes, sample size is invisible on the plot</p>
     </div>
   </details>

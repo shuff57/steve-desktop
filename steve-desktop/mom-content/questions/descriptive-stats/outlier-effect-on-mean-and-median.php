@@ -9,7 +9,7 @@
 // one and it is only made larger, so its position in the sorted order never moves, and with an odd
 // count the middle value cannot shift.
 //
-// n = 7 so the median is a single value, not an average of two -- with an even count the median can
+// n = 7 so the median is a single value, not an average of two: with an even count the median can
 // creep even when the ordering holds, which would blunt the whole point.
 $anstypes = array("number", "number", "number", "number", "choices")
 
@@ -95,10 +95,10 @@ $solutionguide = '
       <p>They total ' . $sum1 . ', so the mean is `' . $sum1 . ' -: 7 = ` <b>' . $mean1 . '</b>. With seven values the median is the 4th, <b>' . $med1 . '</b>.</p>
       <p><span class="term-label">After.</span> The largest value becomes ' . $big . ':</p>
       <span class="srt">' . $a0 . ', ' . $a1 . ', ' . $a2 . ', <b>' . $a3 . '</b>, ' . $a4 . ', ' . $a5 . ', ' . $big . '</span>
-      <p>The new total is ' . $sum2 . ', so the mean is `' . $sum2 . ' -: 7 = ` <b>' . $mean2 . '</b> &mdash; up by ' . $meanJump . '. The median is still the 4th value, <b>' . $med2 . '</b>: unchanged.</p>
-      <p><span class="term-label">Why they behave so differently.</span> The mean adds every value, so a number far from the rest carries its full distance into the total. The median only asks WHICH value is in the middle. Making the largest value larger still leaves it largest, so the ordering &mdash; and therefore the middle &mdash; is untouched.</p>
+      <p>The new total is ' . $sum2 . ', so the mean is `' . $sum2 . ' -: 7 = ` <b>' . $mean2 . '</b>: up by ' . $meanJump . '. The median is still the 4th value, <b>' . $med2 . '</b>: unchanged.</p>
+      <p><span class="term-label">Why they behave so differently.</span> The mean adds every value, so a number far from the rest carries its full distance into the total. The median only asks WHICH value is in the middle. Making the largest value larger still leaves it largest, so the ordering, and therefore the middle, is untouched.</p>
       <p><span class="term-label">What that means when you report a number.</span> For ' . $thing . ' with a few extreme values, the mean describes no one: it sits above almost everybody. The median is the value with half the data on each side, which is why it is the one usually quoted for skewed data like ' . $thing . '.</p>
-      <p><span class="term-label">A caution.</span> The median is resistant, not immovable. Change a value so much that it crosses the middle position &mdash; or change several &mdash; and the median moves too.</p>
+      <p><span class="term-label">A caution.</span> The median is resistant, not immovable. Change a value so much that it crosses the middle position, or change several, and the median moves too.</p>
     </div>
   </details>
 </div>'

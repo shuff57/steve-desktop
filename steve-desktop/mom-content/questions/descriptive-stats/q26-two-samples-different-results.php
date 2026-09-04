@@ -71,8 +71,8 @@ $classmateAll = array("Sam Whitlock", "Dana Reyes", "Kofi Mensah", "Leila Haddad
 $mi = rand(0, 3)
 $classmate = $classmateAll[$mi]
 
-// (a) and (b) are both recognition tasks &mdash; the student has to pick the right explanation,
-// not phrase one &mdash; so both parts are multiple choice.
+// (a) and (b) are both recognition tasks: the student has to pick the right explanation,
+// not phrase one: so both parts are multiple choice.
 $choices[0] = array(
   "<b>Neither of them made a mistake.</b> Two different samples from the same population give different results, and a gap this small is ordinary sampling variability, not an error.",
   "<b>The one with the larger sample is correct and the other is wrong.</b> A larger sample gives the right answer, so the smaller sample&rsquo;s mean should be discarded.",
@@ -107,12 +107,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">a. Name what causes the gap:</span> ' . $nameA . ' and ' . $nameB . ' surveyed <i>different students</i>. Two different random samples from the same population almost never produce the same average &mdash; that is <b>sampling variability</b>, and it is the normal behavior of sampling, not a sign that someone miscounted. Both results are correct results; they are just results about two different sets of students.</p>
-      <p><b>Check the size of the gap:</b> ' . $meanA . ' and ' . $meanB . ' differ by ' . $gap . ' hours, about ' . $gapMin . ' minutes. On a quantity that varies by hours from one student to the next, that is a small gap &mdash; exactly the size of disagreement two honest samples are expected to produce.</p>
-      <p><b>Why not the other three:</b> the <i>larger sample</i> (' . $nameBiggerSample . '&rsquo;s ' . $nBigger . ' students) is expected to sit closer to the population average, but &ldquo;closer on average&rdquo; is not &ldquo;correct,&rdquo; and it does not make the other sample wrong. A <i>counting error</i> would be one explanation for a difference, but it is not needed here &mdash; the difference is fully explained by the samples containing different people. And <i>averaging the two</i> treats them as two attempts at one number; combining samples is reasonable, but it produces another estimate with its own variability, not &ldquo;the correct value.&rdquo;</p>
-      <p><span class="term-label">b. What ten times as many students does:</span> larger samples pin down the population average more tightly, so each sample mean would sit closer to the true value &mdash; and therefore the two would typically sit closer to <i>each other</i>. With ' . $nA10 . ' and ' . $nB10 . ' students, the gap would very likely be smaller than ' . $gap . ' hours.</p>
+      <p><span class="term-label">a. Name what causes the gap:</span> ' . $nameA . ' and ' . $nameB . ' surveyed <i>different students</i>. Two different random samples from the same population almost never produce the same average: that is <b>sampling variability</b>, and it is the normal behavior of sampling, not a sign that someone miscounted. Both results are correct results; they are just results about two different sets of students.</p>
+      <p><b>Check the size of the gap:</b> ' . $meanA . ' and ' . $meanB . ' differ by ' . $gap . ' hours, about ' . $gapMin . ' minutes. On a quantity that varies by hours from one student to the next, that is a small gap: exactly the size of disagreement two honest samples are expected to produce.</p>
+      <p><b>Why not the other three:</b> the <i>larger sample</i> (' . $nameBiggerSample . '&rsquo;s ' . $nBigger . ' students) is expected to sit closer to the population average, but &ldquo;closer on average&rdquo; is not &ldquo;correct,&rdquo; and it does not make the other sample wrong. A <i>counting error</i> would be one explanation for a difference, but it is not needed here: the difference is fully explained by the samples containing different people. And <i>averaging the two</i> treats them as two attempts at one number; combining samples is reasonable, but it produces another estimate with its own variability, not &ldquo;the correct value.&rdquo;</p>
+      <p><span class="term-label">b. What ten times as many students does:</span> larger samples pin down the population average more tightly, so each sample mean would sit closer to the true value: and therefore the two would typically sit closer to <i>each other</i>. With ' . $nA10 . ' and ' . $nB10 . ' students, the gap would very likely be smaller than ' . $gap . ' hours.</p>
       <p><b>But it would not close.</b> Two different samples are still two different samples. Sampling variability gets smaller as the sample grows; it never reaches zero. If two researchers ever reported <i>identical</i> means to the decimal place, that would be the surprising outcome, not the expected one.</p>
-      <p><b>The distinction worth keeping:</b> a bigger sample fixes <i>sampling variability</i> &mdash; the random wobble from surveying one group of students instead of another. It does not fix <i>bias</i>. If ' . $nameA . ' had surveyed only students leaving the library at midnight, ten times as many of them would give a very precise measurement of the wrong population. Size shrinks the wobble; only good sampling design fixes the aim.</p>
+      <p><b>The distinction worth keeping:</b> a bigger sample fixes <i>sampling variability</i>: the random wobble from surveying one group of students instead of another. It does not fix <i>bias</i>. If ' . $nameA . ' had surveyed only students leaving the library at midnight, ten times as many of them would give a very precise measurement of the wrong population. Size shrinks the wobble; only good sampling design fixes the aim.</p>
     </div>
   </details>
 </div>'
@@ -123,13 +123,13 @@ $solutionguide = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">$nameA and $nameB each decide to study $quantityText. Working separately, they each take a random sample of students from the same student body.</p>
     <p style="margin:0.75em 0 0 0;">$nameA samples <b>$nA students</b> and reports a mean of <b>$meanA hours</b>. $nameB samples <b>$nB students</b> and reports a mean of <b>$meanB hours</b>.</p>
-    <p style="margin:0.75em 0 0 0;">A classmate, $classmate, says one of them must have made a mistake &mdash; the population is the same, so the two averages should have come out the same, and somebody must have miscounted.</p>
+    <p style="margin:0.75em 0 0 0;">A classmate, $classmate, says one of them must have made a mistake: the population is the same, so the two averages should have come out the same, and somebody must have miscounted.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Which response to $classmate is <b>correct</b>? $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Suppose each researcher repeated the study with <b>ten times as many students</b> &mdash; $nA10 students and $nB10 students. What would happen to the gap of <b>$gap hours</b> between their two reported means for $shortText? $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Suppose each researcher repeated the study with <b>ten times as many students</b>: $nA10 students and $nB10 students. What would happen to the gap of <b>$gap hours</b> between their two reported means for $shortText? $answerbox[1]
   </div>
 </div>
 

@@ -151,15 +151,15 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> makes the decision, writes the conclusion in context, and interprets the evidence. Each of the other three misses a whole category.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> makes the decision, writes the conclusion in context, and interprets the evidence. Each of the other three misses a whole category.</p>
       <p><span class="term-label">The setup, and the answer.</span> ' . $sDecision . ' ' . $sConclusion . ' ' . $sEvidence . '</p>
-      <p><span class="term-label">Part (b) &mdash; grading Response ' . $noEvidenceLabel . ' line by line.</span></p>
+      <p><span class="term-label">Part (b): grading Response ' . $noEvidenceLabel . ' line by line.</span></p>
       <ul>
-        <li><b>Statistical Decision &mdash; earned.</b> The p-value is compared to alpha and the correct decision is made.</li>
-        <li><b>Conclusion in Context &mdash; earned.</b> The conclusion is written in plain sentences about the population and the claim.</li>
-        <li><b>Interpretation of Evidence &mdash; NOT earned.</b> The response never explains what the p-value measures in repeated sampling.</li>
+        <li><b>Statistical Decision: earned.</b> The p-value is compared to alpha and the correct decision is made.</li>
+        <li><b>Conclusion in Context: earned.</b> The conclusion is written in plain sentences about the population and the claim.</li>
+        <li><b>Interpretation of Evidence: NOT earned.</b> The response never explains what the p-value measures in repeated sampling.</li>
       </ul>
-      <p><span class="term-label">Part (c) &mdash; why the interpretation is its own category.</span> The decision and the conclusion are both possible without ever explaining what the p-value measures &mdash; the interpretation is the step that says what the number means, and a response that skips it has not answered the question.</p>
+      <p><span class="term-label">Part (c): why the interpretation is its own category.</span> The decision and the conclusion are both possible without ever explaining what the p-value measures: the interpretation is the step that says what the number means, and a response that skips it has not answered the question.</p>
       <p><span class="term-label">Why you are grading instead of writing.</span> On the FRQ this scenario comes with a blank box and this same checklist. The interpretation of evidence is the category most often skipped, because once the decision is made the p-value feels like a number that speaks for itself.</p>
     </div>
   </details>

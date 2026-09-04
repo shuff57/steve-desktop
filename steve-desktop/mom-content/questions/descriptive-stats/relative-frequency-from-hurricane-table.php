@@ -6,8 +6,8 @@
 $c1 = rand(90, 120)
 $c2 = rand(55, 85)
 $c5 = rand(1, 8)
-// The where must sit on the LAST free draw, and on one with room to move. It was on $c5 — eight
-// possible values — so when $c1..$c3 already summed outside 215-264 NO $c5 could satisfy it and the
+// The where must sit on the LAST free draw, and on one with room to move. It was on $c5: eight
+// possible values: so when $c1..$c3 already summed outside 215-264 NO $c5 could satisfy it and the
 // student got "not met in 200 iterations". $c3 is now drawn last over a range wide enough that a
 // legal value always exists for any $c1 + $c2 + $c5.
 $c3 = rand(30, 90) where (273 - $c1 - $c2 - $c3 - $c5 >= 8 && 273 - $c1 - $c2 - $c3 - $c5 <= 50)
@@ -53,9 +53,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; Find the count for category 4 and the total.</span> The table lists ' . $c4 . ' direct hits for category 4, out of 273 direct hits in all.</p>
-      <p><span class="term-label">Step 2 &mdash; Divide to get the relative frequency:</span> ' . $c4 . ' &divide; 273 &approx; <b>' . $rel4disp . '</b>.</p>
-      <p>Note that the table gives you every count you need &mdash; the total is right there in the Total row. The "Not enough information" option is a distractor; all the data required are present.</p>
+      <p><span class="term-label">Step 1: Find the count for category 4 and the total.</span> The table lists ' . $c4 . ' direct hits for category 4, out of 273 direct hits in all.</p>
+      <p><span class="term-label">Step 2: Divide to get the relative frequency:</span> ' . $c4 . ' &divide; 273 &approx; <b>' . $rel4disp . '</b>.</p>
+      <p>Note that the table gives you every count you need: the total is right there in the Total row. The "Not enough information" option is a distractor; all the data required are present.</p>
       <p><b>Answer:</b> ' . $rel4disp . '</p>
     </div>
   </details>

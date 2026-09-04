@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 6.4 — Loan Amortization: monthly payment + total interest paid
+// Section 6.4: Loan Amortization: monthly payment + total interest paid
 
 loadlibrary("finance")
 

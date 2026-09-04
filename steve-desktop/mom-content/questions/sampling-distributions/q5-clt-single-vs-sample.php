@@ -11,7 +11,7 @@ $answerboxsize = 14
 
 // Each scenario gives mu, sigma, sample size n, and a cutoff a offset from mu.
 // Part (a) is the single-observation probability; part (b) is the sample-mean probability;
-// part (c) is the "why" — the sample mean is always more extreme because SE = sigma/sqrt(n) < sigma.
+// part (c) is the "why": the sample mean is always more extreme because SE = sigma/sqrt(n) < sigma.
 // Direction (< vs >) is randomized for parts (a) and (b).
 
 // Scenario 0: SAT scores, mu=510, sigma=110, n=36, a=540

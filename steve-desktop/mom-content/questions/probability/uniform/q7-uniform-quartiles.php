@@ -49,10 +49,10 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">Percentiles on the uniform distribution.</span> For `X ~ U(' . $a . ', ' . $b . ')`, the `p`-th percentile is the value `x` with `P(X <= x) = p`, and because the area is a rectangle you can solve it directly: `x = a + p(b - a)`.</p>
-      <p><span class="term-label">Part (a) &mdash; the first quartile.</span> `p = 0.25`: `Q1 = ' . $a . ' + 0.25(' . $b . ' - ' . $a . ') = ` <b>' . $answer[0] . '</b></p>
-      <p><span class="term-label">Part (b) &mdash; the median.</span> `p = 0.5`: `median = ' . $a . ' + 0.5(' . $b . ' - ' . $a . ') = ` <b>' . $answer[1] . '</b></p>
-      <p><span class="term-label">Part (c) &mdash; the third quartile.</span> `p = 0.75`: `Q3 = ' . $a . ' + 0.75(' . $b . ' - ' . $a . ') = ` <b>' . $answer[2] . '</b></p>
-      <p>Notice the quartiles split the interval into four equal pieces: for the uniform distribution the value and the percentile line up exactly, so each quartile is one quarter of the way across. That is a coincidence of the flat shape, not a general rule &mdash; on a bell-shaped curve the 25th percentile sits well to the left of a quarter of the range.</p>
+      <p><span class="term-label">Part (a): the first quartile.</span> `p = 0.25`: `Q1 = ' . $a . ' + 0.25(' . $b . ' - ' . $a . ') = ` <b>' . $answer[0] . '</b></p>
+      <p><span class="term-label">Part (b): the median.</span> `p = 0.5`: `median = ' . $a . ' + 0.5(' . $b . ' - ' . $a . ') = ` <b>' . $answer[1] . '</b></p>
+      <p><span class="term-label">Part (c): the third quartile.</span> `p = 0.75`: `Q3 = ' . $a . ' + 0.75(' . $b . ' - ' . $a . ') = ` <b>' . $answer[2] . '</b></p>
+      <p>Notice the quartiles split the interval into four equal pieces: for the uniform distribution the value and the percentile line up exactly, so each quartile is one quarter of the way across. That is a coincidence of the flat shape, not a general rule: on a bell-shaped curve the 25th percentile sits well to the left of a quarter of the range.</p>
     </div>
   </details>
 </div>'
@@ -61,7 +61,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0;">Suppose `X ~ U($a, $b)` — a continuous uniform distribution over the interval `[$a, $b]`.</p>
+    <p style="margin:0;">Suppose `X ~ U($a, $b)`: a continuous uniform distribution over the interval `[$a, $b]`.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find the first quartile `Q1`.

@@ -66,9 +66,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; which spread.</span> ' . $spread . '</p>
-      <p><span class="term-label">Part (b) &mdash; the distribution.</span> ' . $dist . '</p>
-      <p>When you estimate the spread from the same numbers you used to estimate the center, you have introduced a second source of uncertainty that a normal curve does not account for &mdash; that substitution is exactly what the t distribution exists for. The fewer degrees of freedom, the fatter its tails.</p>
+      <p><span class="term-label">Part (a): which spread.</span> ' . $spread . '</p>
+      <p><span class="term-label">Part (b): the distribution.</span> ' . $dist . '</p>
+      <p>When you estimate the spread from the same numbers you used to estimate the center, you have introduced a second source of uncertainty that a normal curve does not account for: that substitution is exactly what the t distribution exists for. The fewer degrees of freedom, the fatter its tails.</p>
     </div>
   </details>
 </div>'

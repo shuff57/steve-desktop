@@ -16,9 +16,9 @@ $answer = 0
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>This is the mirror image of the reliability questions before it.</b></p>
-  <p>As a <i>fraction</i>, 2 of ' . $pop . ' looks generous &mdash; about ' . $pct . '%, far higher than the tiny share a national poll takes. So the fraction cannot be what matters.</p>
+  <p>As a <i>fraction</i>, 2 of ' . $pop . ' looks generous: about ' . $pct . '%, far higher than the tiny share a national poll takes. So the fraction cannot be what matters.</p>
   <p>What matters is the <b>count</b>. Two responses cannot show a pattern: one unusual person moves the result by half. There is no way to separate signal from noise with two observations, whatever share of the population they are.</p>
-  <p><b>And there is a better option here.</b> Because the population is only ' . $pop . ', you do not need to sample at all &mdash; survey everyone and you have the exact answer instead of an estimate. Sampling exists to avoid the cost of a census; at this size there is no cost to avoid.</p>
+  <p><b>And there is a better option here.</b> Because the population is only ' . $pop . ', you do not need to sample at all: survey everyone and you have the exact answer instead of an estimate. Sampling exists to avoid the cost of a census; at this size there is no cost to avoid.</p>
   <p><b>Answer:</b> no, a sample of two is not representative of a population of ' . $pop . '.</p>
 </div>'
 

@@ -13,7 +13,7 @@ $contexts = array(
     array(
         "scenario"    => "business resource allocation",
         "desc"        => "A small company produces three products. Each product requires a certain number of labor hours, machine hours, and pounds of raw material. The company has a fixed supply of each resource available per week.",
-        "system_desc" => "the three equations represent the resource constraints: one for labor hours, one for machine hours, and one for raw materials -- each product appears in all three equations",
+        "system_desc" => "the three equations represent the resource constraints: one for labor hours, one for machine hours, and one for raw materials: each product appears in all three equations",
         "vars"        => "x, y, and z (units produced of each product)",
         "matrix_fit"  => "the system has three equations and three unknowns with consistent structure, which is exactly the situation matrix methods handle efficiently",
         "det_context" => "if one product's resource usage is a linear combination of the others, the rows of the coefficient matrix become dependent and the determinant equals zero"

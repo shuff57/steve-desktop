@@ -16,9 +16,9 @@ $answer = 0
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Match the sample against the population it is meant to describe.</b></p>
-  <p>The population here is the students <i>at this school</i> &mdash; about ' . $school . ' people. A random sample of ' . $n . ' is a substantial share of that, and it was drawn from exactly the group the conclusion is about.</p>
+  <p>The population here is the students <i>at this school</i>: about ' . $school . ' people. A random sample of ' . $n . ' is a substantial share of that, and it was drawn from exactly the group the conclusion is about.</p>
   <p>That second point is the one that matters. A sample is large enough only relative to a stated population; the same ' . $n . ' students are ample for one question and hopeless for another. The next problem asks the same thing about a far wider population and gets the opposite answer with the identical sample.</p>
-  <p><b>Answer:</b> yes &mdash; large enough for a conclusion about the students in this school.</p>
+  <p><b>Answer:</b> yes: large enough for a conclusion about the students in this school.</p>
 </div>'
 
 // === QUESTION TEXT ===

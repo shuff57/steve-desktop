@@ -4,11 +4,11 @@
 // === COMMON CONTROL ===
 
 // Built for 3.5. The screening-test shape: a RARE first stage and two very different second stages,
-// so the tree is doing real work -- the two "positive" paths are not equally likely and only the
+// so the tree is doing real work: the two "positive" paths are not equally likely and only the
 // picture keeps that visible. Every branch is already drawn; the student multiplies along a path
 // and adds across paths, then uses the one check a tree gives for free: the four leaves sum to 1.
 //
-// Drawn as inline SVG -- MyOpenMath has no tree primitive.
+// Drawn as inline SVG: MyOpenMath has no tree primitive.
 $anstypes = array("numfunc", "numfunc", "numfunc", "numfunc")
 
 $i = rand(0, 2)
@@ -26,7 +26,7 @@ $hasName = $hasNames[$i]
 $posNames = array("test positive", "test positive", "screen positive")
 $posName = $posNames[$i]
 
-// The negative leaf label has to match the verb the positive one uses -- hard-coding "test negative"
+// The negative leaf label has to match the verb the positive one uses: hard-coding "test negative"
 // paired "screen positive" with "test negative" on the third context.
 $negNames = array("test negative", "test negative", "screen negative")
 $negName = $negNames[$i]
@@ -62,7 +62,7 @@ $answer[3] = $sum
 
 // --- the tree ---
 // Leaf text starts at x=340 and the longest label ("not carry the marker and screen negative", 40
-// chars of Arial 13) runs ~260px, so a 470-wide viewBox CLIPPED it -- and clipped the two bottom
+// chars of Arial 13) runs ~260px, so a 470-wide viewBox CLIPPED it: and clipped the two bottom
 // leaves to the same visible string, which made them impossible to tell apart. The card's content
 // box is 648px, so 640 is the widest this can be and still fit.
 $tw = 640
@@ -106,14 +106,14 @@ $sol = '
   <details>
     <summary><span class="sol-arrow-closed">&#9656;</span><span class="sol-arrow-open">&#9662;</span> Step-by-Step Solution</summary>
     <div class="sol-body">
-      <p><span class="term-label">The tree is read, not drawn.</span> Every branch is labelled, so each part is a matter of picking a path and multiplying. The two stages are deliberately not alike &mdash; the first is rare (' . $p . '/100) and the second depends hugely on which branch you are on.</p>
+      <p><span class="term-label">The tree is read, not drawn.</span> Every branch is labelled, so each part is a matter of picking a path and multiplying. The two stages are deliberately not alike: the first is rare (' . $p . '/100) and the second depends hugely on which branch you are on.</p>
       <ul>
-        <li><b>(a) The top path.</b> ' . $hasName . ' then ' . $posName . ': `' . $p . '/100 xx ' . $s1 . '/100 = ' . $l1 . '`. That product is the whole point of a tree &mdash; one leaf, one multiplication.</li>
+        <li><b>(a) The top path.</b> ' . $hasName . ' then ' . $posName . ': `' . $p . '/100 xx ' . $s1 . '/100 = ' . $l1 . '`. That product is the whole point of a tree: one leaf, one multiplication.</li>
         <li><b>(b) The bottom path.</b> not ' . $hasName . ' then ' . $posName . ': `' . $q . '/100 xx ' . $s2 . '/100 = ' . $l3 . '`. Notice the second fraction is tiny, because people who do not ' . $hasName . ' rarely ' . $posName . '.</li>
-        <li><b>(c) Total P(' . $posName . ').</b> Add the two paths that end in a positive: `' . $l1 . ' + ' . $l3 . ' = ' . $pPositive . '`. The event has no single path &mdash; it crosses both first-stage branches, so the tree answers it by adding across paths.</li>
+        <li><b>(c) Total P(' . $posName . ').</b> Add the two paths that end in a positive: `' . $l1 . ' + ' . $l3 . ' = ' . $pPositive . '`. The event has no single path: it crosses both first-stage branches, so the tree answers it by adding across paths.</li>
         <li><b>(d) The free check.</b> Add all four leaves: `' . $l1 . ' + ' . $l2 . ' + ' . $l3 . ' + ' . $l4 . ' = ' . $sum . '`. They must total exactly 1, because every ' . $who . ' is somewhere on the tree. If yours do not, a branch still has the wrong denominator.</li>
       </ul>
-      <p><span class="term-label">Why this is worth a tree.</span> The two positive paths are NOT equally likely &mdash; one is large and one is tiny. A formula like &ldquo;add the positives&rdquo; is exactly right but impossible to apply until the tree shows you which products to add.</p>
+      <p><span class="term-label">Why this is worth a tree.</span> The two positive paths are NOT equally likely: one is large and one is tiny. A formula like &ldquo;add the positives&rdquo; is exactly right but impossible to apply until the tree shows you which products to add.</p>
     </div>
   </details>
 </div>'
@@ -122,7 +122,7 @@ $sol = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 4px 0;">$context. The tree is complete &mdash; every branch is labelled.</p>
+    <p style="margin:0 0 4px 0;">$context. The tree is complete: every branch is labelled.</p>
     $svg
     <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">One $who is chosen at random. Enter answers as fractions or decimals rounded to 4 places.</p>
   </div>

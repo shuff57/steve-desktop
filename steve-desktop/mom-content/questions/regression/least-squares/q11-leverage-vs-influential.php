@@ -45,7 +45,7 @@ $solutionguide = '
         <li><b>High-leverage point:</b> has an extreme `x`-value relative to the rest of the data. It has the <b>potential</b> to pull the regression line strongly.</li>
         <li><b>Influential point:</b> a point whose removal noticeably changes the regression line (slope and/or intercept).</li>
       </ul>
-      <p>Every influential point tends to be high leverage, but <b>not every high-leverage point is influential</b>. If an extreme-`x` point falls close to the trend of the rest of the data, removing it barely changes the line — it is high leverage but not influential.</p>
+      <p>Every influential point tends to be high leverage, but <b>not every high-leverage point is influential</b>. If an extreme-`x` point falls close to the trend of the rest of the data, removing it barely changes the line: it is high leverage but not influential.</p>
       <p><b>Part a:</b> Extreme `x`, but the line barely changes when removed &rArr; <b>high leverage but not influential</b>.</p>
       <p><b>Part b:</b> Extreme `x`, and the slope changes substantially when removed &rArr; <b>high leverage and influential</b>.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#fff4e5; border-left:4px solid #f59e0b; border-radius:0 8px 8px 0;">

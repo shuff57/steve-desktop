@@ -129,13 +129,13 @@ $solutionguide = '
       Solution Guide
     </summary>
     <div class="sol-body">
-      <p><b>Step 1 — Define variables:</b><br>
+      <p><b>Step 1: Define variables:</b><br>
       Let x = number of ' . $prodX . ' produced per week.<br>
       Let y = number of ' . $prodY . ' produced per week.</p>
-      <p><b>Step 2 — Objective function:</b><br>
+      <p><b>Step 2: Objective function:</b><br>
       Each ' . $prodX . ' earns $' . $px . ' profit; each ' . $prodY . ' earns $' . $py . ' profit.<br>
       Maximize Z = ' . $px . 'x + ' . $py . 'y</p>
-      <p><b>Step 3 — Resource constraints:</b></p>
+      <p><b>Step 3: Resource constraints:</b></p>
       <table class="lp-table">
         <tr>
           <th>Resource</th>
@@ -159,7 +159,7 @@ $solutionguide = '
           <td>' . $a2 . 'x + ' . $b2 . 'y &le; ' . $R2 . '</td>
         </tr>
       </table>
-      <p><b>Step 4 — Non-negativity:</b><br>
+      <p><b>Step 4: Non-negativity:</b><br>
       You cannot produce a negative quantity: x &ge; 0 and y &ge; 0.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         <b>Complete LP formulation:</b><br>

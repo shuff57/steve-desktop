@@ -56,10 +56,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the mean of the sampling distribution.</span> Averaging does not push the answer up or down; it just makes the answer more reliable. So `mu_bar(x) = mu = ' . $mu . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the standard error.</span> The standard deviation of the sampling distribution is the population standard deviation divided by the square root of the sample size:</p>
+      <p><span class="term-label">Part (a): the mean of the sampling distribution.</span> Averaging does not push the answer up or down; it just makes the answer more reliable. So `mu_bar(x) = mu = ' . $mu . '`.</p>
+      <p><span class="term-label">Part (b): the standard error.</span> The standard deviation of the sampling distribution is the population standard deviation divided by the square root of the sample size:</p>
       <p>`SE = sigma/sqrt(n) = ' . $sigma . '/sqrt(' . $n . ') = ' . round($se, 4) . '`</p>
-      <p><span class="term-label">Part (c) &mdash; what it measures.</span> The standard error describes how far, on average, a sample mean will fall from the population mean in repeated random samples of size ' . $n . '. Sample means cluster tighter around the center than individual values do, and the bigger the sample, the tighter they cluster.</p>
+      <p><span class="term-label">Part (c): what it measures.</span> The standard error describes how far, on average, a sample mean will fall from the population mean in repeated random samples of size ' . $n . '. Sample means cluster tighter around the center than individual values do, and the bigger the sample, the tighter they cluster.</p>
     </div>
   </details>
 </div>'

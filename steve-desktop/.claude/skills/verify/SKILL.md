@@ -52,6 +52,17 @@ Note there is no `window.__TAURI__.sql` — go through `core.invoke`.
 
 ## Gotchas that cost time
 
+- **A headless/background launch starts the window minimized**, and the Rust
+  backend refuses to create any embedded browser tab while minimized
+  (`window.is_minimized()` guard, "nowhere to render"). Fix is NOT
+  `window.__TAURI__.window.getCurrentWindow().unminimize()` from the page
+  (blocked by capabilities — `core:window:allow-unminimize` not granted), and
+  NOT a raw `ShowWindow` on `Get-Process -Id <pid> | MainWindowHandle` (that
+  handle is a different, wrong top-level window — it reports restored but
+  nothing changes). The real fix: enumerate every top-level window for the
+  PID and restore the one titled `S.T.E.V.E - Smart Task Execution &
+  Verification Engine` — full PowerShell snippet in
+  `.claude/skills/open-period/SKILL.md` step 2. Confirmed live 2026-09-04.
 - **Setup gate.** `App.svelte` blocks everything behind
   `getSetting('setup_complete') === 'true'`. Complete the wizard through the UI
   (pick Ollama — local, needs no credentials, and the agent ignores the provider

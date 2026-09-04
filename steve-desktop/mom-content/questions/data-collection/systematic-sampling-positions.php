@@ -43,12 +43,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; set up the rule.</span> Mark position ' . $s . ', then add ' . $step . ' each time. The only random decision you ever make is that first start; everything after it is arithmetic.</p>
-      <p><span class="term-label">Step 2 &mdash; count forward, wrapping at ' . $N . '.</span> Each time a position would run past ' . $N . ', subtract ' . $N . ' to wrap back to the top. This particular set wraps ' . $wraps . ' times.</p>
+      <p><span class="term-label">Step 1: set up the rule.</span> Mark position ' . $s . ', then add ' . $step . ' each time. The only random decision you ever make is that first start; everything after it is arithmetic.</p>
+      <p><span class="term-label">Step 2: count forward, wrapping at ' . $N . '.</span> Each time a position would run past ' . $N . ', subtract ' . $N . ' to wrap back to the top. This particular set wraps ' . $wraps . ' times.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Positions: ' . $seq . '
       </div>
-      <p><span class="term-label">Step 3 &mdash; check that nobody got marked twice.</span> All 12 positions are different, which is what you want &mdash; 12 different classmates giving 5 values each is the 60 data values the lab asks for. It works because ' . $N . ' and 4 share no common factor, so stepping by 4 walks through the whole list before it ever returns to the start.</p>
+      <p><span class="term-label">Step 3: check that nobody got marked twice.</span> All 12 positions are different, which is what you want: 12 different classmates giving 5 values each is the 60 data values the lab asks for. It works because ' . $N . ' and 4 share no common factor, so stepping by 4 walks through the whole list before it ever returns to the start.</p>
     </div>
   </details>
 </div>'

@@ -1,5 +1,5 @@
 // === NAME - DESCRIPTION: Sampling Design Critique - Students critique a flawed sampling plan, identify bias, predict the direction of skew, and propose a better randomized design ===
-// === SET QUESTION TYPE TO: essay ===
+// === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
 
@@ -83,7 +83,7 @@ $rubricbutton = $css_block . '
               <li><label><input type="checkbox"> State whether the result will be too high or too low.</label></li>
               <li><label><input type="checkbox"> Explain why, using a feature of the sampled vs. missed groups.</label></li>
             </ul></td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Improved Design<br>(3 pts)</b></td>
+          <tr class="row-colored"><td style="text-align:center;"><b>Improved Design<br>(2 pts)</b></td>
             <td><ul style="list-style:none;margin:0;padding-left:0;">
               <li><label><input type="checkbox"> Propose a randomized sampling method.</label></li>
               <li><label><input type="checkbox"> Name the sampling frame (the full population list).</label></li>
@@ -111,7 +111,7 @@ $rubricanswerbutton = $css_block . '
             <td><ul style="list-style:none;margin:0;padding-left:0;">
               <li>State direction.<span class="ideal-ans">Target: "will likely '.$ans_skew.'"</span></li>
             </ul></td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Improved Design<br>(3 pts)</b></td>
+          <tr class="row-colored"><td style="text-align:center;"><b>Improved Design<br>(2 pts)</b></td>
             <td><ul style="list-style:none;margin:0;padding-left:0;">
               <li>Propose better sampling.<span class="ideal-ans">Target: "'.$ans_fix.'"</span></li>
             </ul></td></tr>

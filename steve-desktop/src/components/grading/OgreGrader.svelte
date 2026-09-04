@@ -28,7 +28,7 @@
     validateWeights,
     weightFieldsFor,
   } from '../../integrations/ogre/weights';
-  import { evalScript, isConnected } from '../../lib/cdp-actions';
+  import { connectCDP, evalScript } from '../../lib/cdp-actions';
   import type { ExtractedStudent, ExtractionProfile } from '../../integrations/ogre/load-students';
   import type { RubricChecklistItem } from '../../integrations/ogre/grading';
   import type { BatchResult } from '../../integrations/ogre/batch';
@@ -145,9 +145,18 @@
   let gradedRoster = $state<ExtractedStudent[]>([]);
   const nameFor = (i: number) => gradedRoster[i]?.name ?? `Student ${i}`;
 
-  /** One evaluator for both reads — throws rather than returning a silent undefined. */
+  /**
+   * One evaluator for both reads — throws rather than returning a silent undefined.
+   *
+   * Connects rather than merely asserting a connection. Checking `isConnected()` alone made
+   * this panel depend on some OTHER panel (SiteMapper, SkillRunner) having dialled first in
+   * the same session: on a fresh launch every read failed with "open the page in a tab first"
+   * while the page was sitting right there in the embedded browser. `connectCDP()` also
+   * re-targets to the ACTIVE tab, so a connection left pointing at another panel's tab can no
+   * longer scrape the wrong page under a right-looking name — the sibling call sites all do this.
+   */
   async function readPage(expression: string): Promise<unknown> {
-    if (!isConnected()) throw new Error('Not connected to the browser. Open the page in a tab first.');
+    if (!(await connectCDP())) throw new Error('Not connected to the browser. Open the page in a tab first.');
     const res = await evalScript(expression);
     if (!res.success) throw new Error(res.error ?? 'Page evaluation failed');
     return res.data;

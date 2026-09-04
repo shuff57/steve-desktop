@@ -111,10 +111,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The point.</span> Both distributions have mean <b>' . $muDisp . '</b> &mdash; the expected value says where the distribution balances. It says nothing about how spread out it is.</p>
-      <p><span class="term-label">Part (a) &mdash; Distribution A.</span> Computing the deviation column and taking the square root gives <b>sigma = ' . $answer[0] . '</b>.</p>
-      <p><span class="term-label">Part (b) &mdash; Distribution B.</span> Same recipe, different spread: <b>sigma = ' . $answer[1] . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; which is tighter.</span> The smaller standard deviation belongs to the distribution whose outcomes cluster more tightly around the mean. Here that is Distribution ' . $tighterLabel . '.</p>
+      <p><span class="term-label">The point.</span> Both distributions have mean <b>' . $muDisp . '</b>: the expected value says where the distribution balances. It says nothing about how spread out it is.</p>
+      <p><span class="term-label">Part (a): Distribution A.</span> Computing the deviation column and taking the square root gives <b>sigma = ' . $answer[0] . '</b>.</p>
+      <p><span class="term-label">Part (b): Distribution B.</span> Same recipe, different spread: <b>sigma = ' . $answer[1] . '</b>.</p>
+      <p><span class="term-label">Part (c): which is tighter.</span> The smaller standard deviation belongs to the distribution whose outcomes cluster more tightly around the mean. Here that is Distribution ' . $tighterLabel . '.</p>
       <p>Two distributions can share a mean and behave completely differently: one clustered tightly around it, one throwing outcomes far to either side. The standard deviation is the number that measures the spread.</p>
     </div>
   </details>

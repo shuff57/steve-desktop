@@ -27,7 +27,7 @@ $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe
   <p><b>Read the two halves of the question against each other.</b></p>
   <p style="margin-left:1em;">' . $bX . ' gets "the <b>' . $adj . '</b>". ' . $bY . ' gets only "the ' . $plain . '".</p>
   <p>The two options are not described in the same words, and the extra praise attaches to one of them. That is a <b>leading question</b>: it signals which answer is expected before the respondent answers.</p>
-  <p><b>The neutral version</b> treats both identically &mdash; "Do you prefer the ' . $plain . ' of ' . $bX . ' or the ' . $plain . ' of ' . $bY . '?" &mdash; and does not steer the response.</p>
+  <p><b>The neutral version</b> treats both identically: "Do you prefer the ' . $plain . ' of ' . $bX . ' or the ' . $plain . ' of ' . $bY . '?": and does not steer the response.</p>
   <p>Note this is a <b>nonsampling</b> problem. Nothing is wrong with who was asked, so a larger sample would only collect more of the same skewed answers.</p>
   <p><b>Answer:</b> no, it is not a fair question.</p>
 </div>'

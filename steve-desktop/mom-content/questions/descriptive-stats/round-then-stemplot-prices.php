@@ -92,10 +92,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; round to the nearest ten.</span> Look at the ones digit of $' . $askPrice . '. Five or more rounds up, four or less rounds down, and the ones digit becomes 0. That gives <b>$' . $askRounded . '</b>.</p>
-      <p><span class="term-label">Step 2 &mdash; split the rounded price.</span> With prices in the hundreds the stem is the hundreds digit and the leaf is the tens digit, so $' . $askRounded . ' becomes stem ' . $askStem . ' and leaf <b>' . $askLeaf . '</b>. The ones digit is gone &mdash; that is the price of rounding, and it is why a stemplot of rounded data no longer holds the original values exactly.</p>
-      <p><span class="term-label">Step 3 &mdash; count one row.</span> Rounded prices from $' . $cLow . ' to $' . $cHigh . ' all sit on stem ' . $cStem . '. Counting them gives <b>' . $cCount . '</b>. Round first, then count: a price like $299 rounds to $300 and moves up a row, so counting the unrounded list gives the wrong answer.</p>
-      <p><span class="term-label">Step 4 &mdash; why round at all.</span> A stem-and-leaf plot needs a one-digit leaf. Left unrounded, $' . $askPrice . ' would need the two-digit leaf ' . ($askPrice % 100) . ', and a row reading 49 62 85 could just as easily be read as 4 9 6 2 8 5. Rounding buys a readable plot at the cost of the last digit.</p>
+      <p><span class="term-label">Step 1: round to the nearest ten.</span> Look at the ones digit of $' . $askPrice . '. Five or more rounds up, four or less rounds down, and the ones digit becomes 0. That gives <b>$' . $askRounded . '</b>.</p>
+      <p><span class="term-label">Step 2: split the rounded price.</span> With prices in the hundreds the stem is the hundreds digit and the leaf is the tens digit, so $' . $askRounded . ' becomes stem ' . $askStem . ' and leaf <b>' . $askLeaf . '</b>. The ones digit is gone: that is the price of rounding, and it is why a stemplot of rounded data no longer holds the original values exactly.</p>
+      <p><span class="term-label">Step 3: count one row.</span> Rounded prices from $' . $cLow . ' to $' . $cHigh . ' all sit on stem ' . $cStem . '. Counting them gives <b>' . $cCount . '</b>. Round first, then count: a price like $299 rounds to $300 and moves up a row, so counting the unrounded list gives the wrong answer.</p>
+      <p><span class="term-label">Step 4: why round at all.</span> A stem-and-leaf plot needs a one-digit leaf. Left unrounded, $' . $askPrice . ' would need the two-digit leaf ' . ($askPrice % 100) . ', and a row reading 49 62 85 could just as easily be read as 4 9 6 2 8 5. Rounding buys a readable plot at the cost of the last digit.</p>
       <p><b>Answer:</b> (a) $' . $askRounded . ' &nbsp;&nbsp; (b) ' . $askLeaf . ' &nbsp;&nbsp; (c) ' . $cCount . '</p>
     </div>
   </details>

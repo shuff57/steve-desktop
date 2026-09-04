@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: 6.4 Amortization — Remaining Balance After N Payments ===
+// === NAME - DESCRIPTION: 6.4 Amortization: Remaining Balance After N Payments ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -89,20 +89,20 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Part (a) — Monthly Payment</b></p>
+      <p><b>Part (a): Monthly Payment</b></p>
       <p>`PMT = P cdot (r/n) / (1 - (1 + r/n)^{-nt})`</p>
       <p>Given: `P = $' . $P . '`, `r = ' . $r_pct . '% = ' . $r . '`, `n = 12`, `t = ' . $t . '` yr</p>
       <p>`r/n = ' . $rn_disp . '`, &nbsp; `nt = ' . $nt . '`</p>
       <p>`(1 + r/n)^{-nt} = (1 + ' . $rn_disp . ')^{-' . $nt . '} = ' . $factor_neg_disp . '`</p>
       <p>`PMT = ' . $P . ' times ' . $rn_disp . ' / (1 - ' . $factor_neg_disp . ')`</p>
       <div class="sol-ans"><b>Monthly payment `PMT = $' . $PMT . '`</b></div>
-      <p><b>Part (b) — Remaining Balance After ' . $N_paid . ' Payments</b></p>
+      <p><b>Part (b): Remaining Balance After ' . $N_paid . ' Payments</b></p>
       <p>The remaining balance equals the present value of the <b>' . $remaining . ' payments still owed</b>:</p>
       <p>`B = PMT cdot (1 - (1 + r/n)^{-k}) / (r/n)` &nbsp; where `k = nt - N = ' . $remaining . '`</p>
       <p>`(1 + r/n)^{-k} = (1 + ' . $rn_disp . ')^{-' . $remaining . '} = ' . $factor_rem_disp . '`</p>
       <p>`B = ' . $PMT . ' times (1 - ' . $factor_rem_disp . ') / ' . $rn_disp . '`</p>
       <div class="sol-ans"><b>Remaining balance `B = $' . $balance . '`</b></div>
-      <p><b>Part (c) — Total Interest Paid So Far</b></p>
+      <p><b>Part (c): Total Interest Paid So Far</b></p>
       <p>Total paid: `PMT times N = ' . $PMT . ' times ' . $N_paid . ' = $' . $total_paid_so_far . '`</p>
       <p>Principal paid: `P - B = $' . $P . ' - $' . $balance . ' = $' . $principal_paid . '`</p>
       <p>Interest paid: `$' . $total_paid_so_far . ' - $' . $principal_paid . ' = $' . $interest_paid . '`</p>

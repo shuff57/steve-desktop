@@ -51,7 +51,7 @@ $reltolerance[1] = 0.02
 $abstolerance[1] = 0.003
 
 $questions[2] = array(
-  "A binomial bar has real width on the number line, so the boundary slides half a unit to cover it — without the correction the answer is wrong by about half a bar's worth of probability every time",
+  "A binomial bar has real width on the number line, so the boundary slides half a unit to cover it: without the correction the answer is wrong by about half a bar's worth of probability every time",
   "The correction makes the normal curve taller",
   "The correction changes which bars belong in the event",
   "The correction is only needed when n is smaller than 30"
@@ -78,11 +78,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The setup.</span> `X ~ B(' . $n . ', ' . $p . ')` with `mu = np = ' . $mu . '` and `sigma = sqrt(npq) = ' . round($sigma, 4) . '`.</p>
-      <p><span class="term-label">Part (a) &mdash; the strict between.</span> "Between ' . $a . ' and ' . $b . '" excludes both endpoints, so the lower boundary moves IN by 0.5 and the upper boundary moves IN by 0.5:</p>
+      <p><span class="term-label">Part (a): the strict between.</span> "Between ' . $a . ' and ' . $b . '" excludes both endpoints, so the lower boundary moves IN by 0.5 and the upper boundary moves IN by 0.5:</p>
       <p>`P(' . $a . ' < X < ' . $b . ')` becomes `P(' . $loBound . ' < Y < ' . $hiBound . ')`, giving `z_lo ~= ' . round($zlo, 3) . '` and `z_hi ~= ' . round($zhi, 3) . '`, so the probability is `~= ' . round($probBetween, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the exact value.</span> An exact value becomes the strip half a unit wide on each side:</p>
-      <p>`P(X = ' . $c . ')` becomes `P(' . ($c - 0.5) . ' < Y < ' . ($c + 0.5) . ')`, giving `~= ' . round($probExact, 4) . '` — the only reason a continuous distribution can answer an "exactly" question at all.</p>
-      <p><span class="term-label">Part (c) &mdash; why the correction matters.</span> The bar sitting over the whole number ' . $c . ' stretches from ' . ($c - 0.5) . ' to ' . ($c + 0.5) . ', so if that outcome belongs in your event, the shaded region under the curve has to cover that whole bar. The error without the correction is never dramatic, which is exactly what makes it worth guarding against: the answer still looks reasonable, still lands in the right decimal place, and is simply wrong by about half a bar\'s worth of probability every time.</p>
+      <p><span class="term-label">Part (b): the exact value.</span> An exact value becomes the strip half a unit wide on each side:</p>
+      <p>`P(X = ' . $c . ')` becomes `P(' . ($c - 0.5) . ' < Y < ' . ($c + 0.5) . ')`, giving `~= ' . round($probExact, 4) . '`: the only reason a continuous distribution can answer an "exactly" question at all.</p>
+      <p><span class="term-label">Part (c): why the correction matters.</span> The bar sitting over the whole number ' . $c . ' stretches from ' . ($c - 0.5) . ' to ' . ($c + 0.5) . ', so if that outcome belongs in your event, the shaded region under the curve has to cover that whole bar. The error without the correction is never dramatic, which is exactly what makes it worth guarding against: the answer still looks reasonable, still lands in the right decimal place, and is simply wrong by about half a bar\'s worth of probability every time.</p>
     </div>
   </details>
 </div>'

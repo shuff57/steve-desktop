@@ -58,11 +58,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The setup.</span> `X ~ B(' . $n . ', ' . $p . ')` with `mu = np = ' . $mu . '` and `sigma = sqrt(npq) = ' . round($sigma, 4) . '`. Both `np` and `nq` are greater than 5, so the normal approximation is allowed.</p>
-      <p><span class="term-label">Part (a) &mdash; the continuity correction.</span> "At most ' . $a . '" includes ' . $a . ', so the bar over ' . $a . ' has to be inside the shaded region and the boundary moves outward by 0.5:</p>
+      <p><span class="term-label">Part (a): the continuity correction.</span> "At most ' . $a . '" includes ' . $a . ', so the bar over ' . $a . ' has to be inside the shaded region and the boundary moves outward by 0.5:</p>
       <p>`P(X <= ' . $a . ')` becomes `P(Y <= ' . $boundary . ')`.</p>
-      <p><span class="term-label">Part (b) &mdash; the probability.</span> Standardize: `z = (' . $boundary . ' - ' . $mu . ')/' . round($sigma, 4) . ' ~= ' . round($z, 3) . '`, so</p>
+      <p><span class="term-label">Part (b): the probability.</span> Standardize: `z = (' . $boundary . ' - ' . $mu . ')/' . round($sigma, 4) . ' ~= ' . round($z, 3) . '`, so</p>
       <p>`P(X <= ' . $a . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($prob, 4) . '`.</p>
-      <p>The left tail is a direct normalcdf &mdash; no complement needed. Getting the direction of the half-unit backwards shifts the answer by roughly one bar\'s worth of probability, which is small but consistently wrong, so it is worth reading the inequality out loud before typing.</p>
+      <p>The left tail is a direct normalcdf: no complement needed. Getting the direction of the half-unit backwards shifts the answer by roughly one bar\'s worth of probability, which is small but consistently wrong, so it is worth reading the inequality out loud before typing.</p>
     </div>
   </details>
 </div>'

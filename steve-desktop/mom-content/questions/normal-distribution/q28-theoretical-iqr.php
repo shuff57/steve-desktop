@@ -32,7 +32,7 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">The quartiles are the 25th and 75th percentiles.</span> From the model, `Q1 ~= 127.72` and `Q3 ~= 131.12`, so:</p>
       <p>`IQR = Q3 - Q1 = 131.12 - 127.72 = 3.40`</p>
-      <p><span class="term-label">The model fixes the spacing.</span> The theoretical IQR is exactly `1.349 sigma` &mdash; the same multiple of sigma for every normal distribution there has ever been. Once you commit to the normal model, the spacing between the quartiles is no longer something your data gets to decide; it is fixed by the model, and your data only gets a vote on sigma.</p>
+      <p><span class="term-label">The model fixes the spacing.</span> The theoretical IQR is exactly `1.349 sigma`: the same multiple of sigma for every normal distribution there has ever been. Once you commit to the normal model, the spacing between the quartiles is no longer something your data gets to decide; it is fixed by the model, and your data only gets a vote on sigma.</p>
     </div>
   </details>
 </div>'

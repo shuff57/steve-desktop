@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Two-Proportion Test — Full Interpretation (vaccine/program efficacy scenarios) ===
+// === NAME - DESCRIPTION: Two-Proportion Test: Full Interpretation (vaccine/program efficacy scenarios) ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -69,7 +69,7 @@ $rubric = '
     <ul>
       <li><span class="badge">a</span><b>P-value meaning (2 pts):</b> The p-value (' . $pval . ') is the probability of observing a difference in sample proportions as extreme as the one seen, <em>assuming H<sub>0</sub> is true</em> (i.e., assuming the true proportions are equal). Must reference "assuming H<sub>0</sub> true" or "assuming no difference in population."</li>
       <li><span class="badge">b</span><b>Decision (1 pt):</b> Since p-value (' . $pval . ') &lt; &alpha; = 0.05, <em>Reject H<sub>0</sub></em>.</li>
-      <li><span class="badge">c</span><b>Conclusion in context (2 pts):</b> There is sufficient statistical evidence that the ' . $param . ' differs between the ' . $p1_label . ' and the ' . $p2_label . '. Must name both groups and the parameter in context. Must NOT say "proves" — say "evidence that" or "suggests."</li>
+      <li><span class="badge">c</span><b>Conclusion in context (2 pts):</b> There is sufficient statistical evidence that the ' . $param . ' differs between the ' . $p1_label . ' and the ' . $p2_label . '. Must name both groups and the parameter in context. Must NOT say "proves": say "evidence that" or "suggests."</li>
     </ul>
   </div>
 </div>';

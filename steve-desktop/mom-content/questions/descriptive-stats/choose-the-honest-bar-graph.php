@@ -95,7 +95,7 @@ for ($i=0..2) {
 }
 
 // Axis furniture. Graph B is drawn with its own baseline label so the truncation is honest
-// to spot rather than hidden -- the student is meant to catch it by reading the axis.
+// to spot rather than hidden: the student is meant to catch it by reading the axis.
 // A bar graph with no name on its vertical axis is unreadable: the student can see a height but
 // not what is being counted. $countLabel already exists for the prose; draw it on the chart too.
 $midY = ($plotTop + $plotBottom) / 2

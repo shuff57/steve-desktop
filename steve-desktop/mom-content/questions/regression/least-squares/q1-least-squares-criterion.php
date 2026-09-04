@@ -33,10 +33,10 @@ $solutionguide = '
       <p>Squaring matters for two reasons:</p>
       <ul>
         <li>Squaring turns every error positive, so errors above and below the line do not cancel the way they would if we just added residuals.</li>
-        <li>Squaring penalizes large misses much more than small ones — being off by 4 contributes 16 to the total, while being off by 2 only contributes 4. Big errors hurt.</li>
+        <li>Squaring penalizes large misses much more than small ones: being off by 4 contributes 16 to the total, while being off by 2 only contributes 4. Big errors hurt.</li>
       </ul>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        <b>Key idea:</b> "Least squares" literally means the criterion it optimizes — the smallest possible sum of squared residuals.
+        <b>Key idea:</b> "Least squares" literally means the criterion it optimizes: the smallest possible sum of squared residuals.
       </div>
     </div>
   </details>

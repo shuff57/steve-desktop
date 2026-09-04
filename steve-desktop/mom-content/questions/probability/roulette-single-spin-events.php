@@ -81,37 +81,37 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Every part here is the same move: count the pockets the event covers, divide by 38.</b> The pockets are equally likely, so an event covering `k` of them has probability `k/38`.</p>
 
-  <p><b>a &mdash; list the sample space.</b> All 38 pockets: the two green ones, 0 and 00, plus the numbers 1 through 36. So `n(S) = 38`. Dropping 0 and 00 (36 outcomes) or keeping only a single zero (37, the European wheel) are the two usual miscounts.</p>
+  <p><b>a: list the sample space.</b> All 38 pockets: the two green ones, 0 and 00, plus the numbers 1 through 36. So `n(S) = 38`. Dropping 0 and 00 (36 outcomes) or keeping only a single zero (37, the European wheel) are the two usual miscounts.</p>
 
-  <p><b>b &mdash; count the ' . $color . ' pockets.</b> Eighteen of the 38 pockets are ' . $color . ':</p>
+  <p><b>b: count the ' . $color . ' pockets.</b> Eighteen of the 38 pockets are ' . $color . ':</p>
   <p style="margin-left:1em;"><b>`P(' . $color . ') = 18/38 = 9/19 ~~ ' . $pColor . '`</b></p>
 
-  <p><b>c &mdash; count the ' . $rangeName . ' pockets.</b> That range holds the numbers ' . $rangeSpan . ', which is ' . $rangeCount . ' pockets:</p>
+  <p><b>c: count the ' . $rangeName . ' pockets.</b> That range holds the numbers ' . $rangeSpan . ', which is ' . $rangeCount . ' pockets:</p>
   <p style="margin-left:1em;"><b>`P(R) = ' . $rangeCount . '/38 ~~ ' . $pRange . '`</b></p>
 
-  <p><b>d &mdash; count the even numbers.</b> Among 1 through 36 the even numbers are 2, 4, 6, &hellip;, 36, which is 18 pockets:</p>
+  <p><b>d: count the even numbers.</b> Among 1 through 36 the even numbers are 2, 4, 6, &hellip;, 36, which is 18 pockets:</p>
   <p style="margin-left:1em;"><b>`P(even) = 18/38 = 9/19 ~~ ' . $pEven . '`</b></p>
 
-  <p><b>e &mdash; check whether odd and even fill the whole sample space.</b> There are 18 odd pockets and 18 even pockets, but 0 and 00 are <i>neither</i>, so</p>
+  <p><b>e: check whether odd and even fill the whole sample space.</b> There are 18 odd pockets and 18 even pockets, but 0 and 00 are <i>neither</i>, so</p>
   <p style="margin-left:1em;"><b>`P(odd) + P(even) = 18/38 + 18/38 = 36/38 ~~ ' . $oddPlusEven . ' != 1`</b></p>
   <p style="margin-left:1em;">Complements must add to exactly 1, so odd is <b>not</b> the complement of even. The complement of "even" is "odd or green".</p>
 
-  <p><b>f &mdash; a mutually exclusive pair cannot co-occur.</b> ' . $color . ' and green work: a pocket has exactly one color, so `P(' . $color . ' and green) = 0`. The other three pairings all overlap &mdash; there are even ' . $color . ' pockets, ' . $color . ' pockets inside ' . $rangeName . ', and even pockets inside ' . $rangeName . '.</p>
+  <p><b>f: a mutually exclusive pair cannot co-occur.</b> ' . $color . ' and green work: a pocket has exactly one color, so `P(' . $color . ' and green) = 0`. The other three pairings all overlap: there are even ' . $color . ' pockets, ' . $color . ' pockets inside ' . $rangeName . ', and even pockets inside ' . $rangeName . '.</p>
 
-  <p><b>g &mdash; run the independence test.</b> The even numbers inside ' . $rangeName . ' number ' . $evenInRange . ', so</p>
+  <p><b>g: run the independence test.</b> The even numbers inside ' . $rangeName . ' number ' . $evenInRange . ', so</p>
   <p style="margin-left:1em;">`P(even and R) = ' . $evenInRange . '/38 ~~ ' . $pEvenAndRange . '`</p>
   <p style="margin-left:1em;">If the events were independent this would equal the product of the separate probabilities:</p>
   <p style="margin-left:1em;">`P(even)P(R) = (18/38)(' . $rangeCount . '/38) ~~ ' . $pEvenTimesRange . '`</p>
   <p style="margin-left:1em;">These are not equal, so the two events are <b>not independent</b>. The two green pockets are the culprit: they sit outside both events and tilt the totals just enough to break the product rule.</p>
 
-  <p><b>Answer:</b> a. 38 outcomes; b. ' . $pColor . '; c. ' . $pRange . '; d. ' . $pEven . '; e. no &mdash; 0 and 00 are neither odd nor even; f. ' . $color . ' and green; g. no &mdash; ' . $pEvenAndRange . ' is not ' . $pEvenTimesRange . '.</p>
+  <p><b>Answer:</b> a. 38 outcomes; b. ' . $pColor . '; c. ' . $pRange . '; d. ' . $pEven . '; e. no: 0 and 00 are neither odd nor even; f. ' . $color . ' and green; g. no: ' . $pEvenAndRange . ' is not ' . $pEvenTimesRange . '.</p>
 </div>'
 
 // === QUESTION TEXT ===
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <p style="margin:0;">The casino game roulette allows a gambler to bet on a ball landing on a particular color, number, or range of numbers. The wheel has <b>38</b> pockets: 0 and 00, which are <b>green</b>, together with 1 through 36, of which eighteen are <b>red</b> and eighteen are <b>black</b>. The numbered pockets are also grouped into three ranges of twelve &mdash; 1st 12 (1 through 12), 2nd 12 (13 through 24) and 3rd 12 (25 through 36) &mdash; and into Low (1 through 18) and High (19 through 36).</p>
+    <p style="margin:0;">The casino game roulette allows a gambler to bet on a ball landing on a particular color, number, or range of numbers. The wheel has <b>38</b> pockets: 0 and 00, which are <b>green</b>, together with 1 through 36, of which eighteen are <b>red</b> and eighteen are <b>black</b>. The numbered pockets are also grouped into three ranges of twelve, 1st 12 (1 through 12), 2nd 12 (13 through 24) and 3rd 12 (25 through 36), and into Low (1 through 18) and High (19 through 36).</p>
     <p style="margin:12px 0 0 0;">Let `R` be the event that the ball lands in <b>$rangeName</b>. Answer the following about a <b>single spin</b> of the wheel.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">

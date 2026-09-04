@@ -5,8 +5,8 @@
 
 $anstypes = array("number", "number", "choices", "choices")
 
-// Both contexts are SMALL-MAGNITUDE on purpose. A context whose natural unit is large -- monthly
-// rent in dollars was the original first option, at $scaleUp = 10 -- forces the tick step up with
+// Both contexts are SMALL-MAGNITUDE on purpose. A context whose natural unit is large: monthly
+// rent in dollars was the original first option, at $scaleUp = 10: forces the tick step up with
 // it ($tickStep = 2 * $scaleUp), and a box plot the student reads five values off must keep a tick
 // every 2. When a context and a readable axis conflict, the context is what gives: there is nothing
 // about this question that needs to be about rent. Steve's rule, 2026-08-09.
@@ -149,10 +149,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; read the line, not the box.</span> The median is the heavy line drawn <i>inside</i> the box: <b>' . $med . '</b> ' . $unitWord . '. The middle of the box is a different point &mdash; `(Q_1 + Q_3)/2 = (' . $q1 . ' + ' . $q3 . ')/2 = ' . $boxMiddle . '`, which misses the median by ' . $missBy . '. On a symmetric plot the two coincide and the shortcut goes unpunished; here it does not.</p>
-      <p><span class="term-label">Part (b) &mdash; the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">Part (c) &mdash; what the off-center line means.</span> The box splits at the median into two quarters of the data. Here they are ' . $lowerHalf . ' wide below the median and ' . $upperHalf . ' wide above it &mdash; the same quarter of the data each, over very different amounts of ground. So ' . $widerName . ' of the middle fifty percent is the more spread out. It does <b>not</b> mean more values lie on that side: both sides hold exactly 25%, always.</p>
-      <p><span class="term-label">Part (d) &mdash; the habit to keep.</span> Always read the drawn line. The center of the box equals the median only when the two halves happen to be equally wide, which is precisely the case that teaches the wrong lesson.</p>
+      <p><span class="term-label">Part (a): read the line, not the box.</span> The median is the heavy line drawn <i>inside</i> the box: <b>' . $med . '</b> ' . $unitWord . '. The middle of the box is a different point: `(Q_1 + Q_3)/2 = (' . $q1 . ' + ' . $q3 . ')/2 = ' . $boxMiddle . '`, which misses the median by ' . $missBy . '. On a symmetric plot the two coincide and the shortcut goes unpunished; here it does not.</p>
+      <p><span class="term-label">Part (b): the interquartile range.</span> `"IQR" = Q_3 - Q_1 = ' . $q3 . ' - ' . $q1 . ' = ` <b>' . $iqr . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Part (c): what the off-center line means.</span> The box splits at the median into two quarters of the data. Here they are ' . $lowerHalf . ' wide below the median and ' . $upperHalf . ' wide above it: the same quarter of the data each, over very different amounts of ground. So ' . $widerName . ' of the middle fifty percent is the more spread out. It does <b>not</b> mean more values lie on that side: both sides hold exactly 25%, always.</p>
+      <p><span class="term-label">Part (d): the habit to keep.</span> Always read the drawn line. The center of the box equals the median only when the two halves happen to be equally wide, which is precisely the case that teaches the wrong lesson.</p>
       <p><b>Answer:</b> (a) ' . $med . ' &nbsp;&nbsp; (b) ' . $iqr . '</p>
     </div>
   </details>

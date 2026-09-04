@@ -64,9 +64,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The rule.</span> For a normal distribution, about 68% of the values lie within one standard deviation of the mean, 95% within two, and 99.7% within three. Each band is centered at the mean.</p>
-      <p><span class="term-label">Part (a) &mdash; the 68% band.</span> `mu - sigma = ' . $mu . ' - ' . $sigma . ' = ' . $lo1 . '` and `mu + sigma = ' . $mu . ' + ' . $sigma . ' = ' . $hi1 . '`</p>
-      <p><span class="term-label">Part (b) &mdash; the 95% band.</span> `mu - 2sigma = ' . $mu . ' - ' . (2*$sigma) . ' = ' . $lo2 . '` and `mu + 2sigma = ' . $mu . ' + ' . (2*$sigma) . ' = ' . $hi2 . '`</p>
-      <p><span class="term-label">Part (c) &mdash; the 99.7% band.</span> `mu - 3sigma = ' . $mu . ' - ' . (3*$sigma) . ' = ' . $lo3 . '` and `mu + 3sigma = ' . $mu . ' + ' . (3*$sigma) . ' = ' . $hi3 . '`</p>
+      <p><span class="term-label">Part (a): the 68% band.</span> `mu - sigma = ' . $mu . ' - ' . $sigma . ' = ' . $lo1 . '` and `mu + sigma = ' . $mu . ' + ' . $sigma . ' = ' . $hi1 . '`</p>
+      <p><span class="term-label">Part (b): the 95% band.</span> `mu - 2sigma = ' . $mu . ' - ' . (2*$sigma) . ' = ' . $lo2 . '` and `mu + 2sigma = ' . $mu . ' + ' . (2*$sigma) . ' = ' . $hi2 . '`</p>
+      <p><span class="term-label">Part (c): the 99.7% band.</span> `mu - 3sigma = ' . $mu . ' - ' . (3*$sigma) . ' = ' . $lo3 . '` and `mu + 3sigma = ' . $mu . ' + ' . (3*$sigma) . ' = ' . $hi3 . '`</p>
       <p>The percentages are not evenly spaced: the curve is tallest in the middle, so most of the area is already accounted for before you get far from the mean.</p>
     </div>
   </details>

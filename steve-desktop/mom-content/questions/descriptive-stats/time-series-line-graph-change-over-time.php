@@ -129,10 +129,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; read one point.</span> Find ' . $askMonth . ' along the bottom, go up to the dot, then across to the axis: <b>' . $askValue . '</b> ' . $unitWord . '.</p>
-      <p><span class="term-label">Step 2 &mdash; the largest rise.</span> A month-to-month change is the gap between two neighbouring dots, so look for the steepest upward segment rather than the highest dot. The biggest single-month rise is <b>' . $bestRise . '</b>. The highest point on the graph is usually not where the biggest rise happens &mdash; that is the trap in this part.</p>
-      <p><span class="term-label">Step 3 &mdash; the net change.</span> Compare the two ends and ignore everything between: ' . $lastV . ' &minus; ' . $firstV . ' = <b>' . $netChange . '</b>. August finished ' . $dirWord . ' January by that much, however much the line wandered on the way.</p>
-      <p><span class="term-label">Step 4 &mdash; why a line graph.</span> The months have a fixed order and real time passes between them, so a segment means the change from one month to the next and its steepness is a rate. This is the one place the connecting lines carry meaning: joining up categories such as bus routes would be nonsense, because nothing lies between two bus routes.</p>
+      <p><span class="term-label">Step 1: read one point.</span> Find ' . $askMonth . ' along the bottom, go up to the dot, then across to the axis: <b>' . $askValue . '</b> ' . $unitWord . '.</p>
+      <p><span class="term-label">Step 2: the largest rise.</span> A month-to-month change is the gap between two neighbouring dots, so look for the steepest upward segment rather than the highest dot. The biggest single-month rise is <b>' . $bestRise . '</b>. The highest point on the graph is usually not where the biggest rise happens: that is the trap in this part.</p>
+      <p><span class="term-label">Step 3: the net change.</span> Compare the two ends and ignore everything between: ' . $lastV . ' &minus; ' . $firstV . ' = <b>' . $netChange . '</b>. August finished ' . $dirWord . ' January by that much, however much the line wandered on the way.</p>
+      <p><span class="term-label">Step 4: why a line graph.</span> The months have a fixed order and real time passes between them, so a segment means the change from one month to the next and its steepness is a rate. This is the one place the connecting lines carry meaning: joining up categories such as bus routes would be nonsense, because nothing lies between two bus routes.</p>
       <p><b>Answer:</b> (a) ' . $askValue . ' &nbsp;&nbsp; (b) ' . $bestRise . ' &nbsp;&nbsp; (c) ' . $netChange . '</p>
     </div>
   </details>

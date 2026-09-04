@@ -25,10 +25,10 @@ $c = $cs[$i]
 $d = $ds[$i]
 
 $questions[0] = array(
-  "No — the height is a density, a rate of probability per unit of x, not a probability itself",
-  "Yes — the height of the curve at a point is the probability of that point",
-  "Yes — the height is the total probability of the interval it sits over",
-  "No — the height is the probability of landing outside the interval"
+  "No: the height is a density, a rate of probability per unit of x, not a probability itself",
+  "Yes: the height of the curve at a point is the probability of that point",
+  "Yes: the height is the total probability of the interval it sits over",
+  "No: the height is the probability of landing outside the interval"
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
@@ -37,7 +37,7 @@ $questions[1] = array(
   "The width of the strip",
   "The total area under the whole curve",
   "The number of points in the interval",
-  "Nothing — the height alone is the probability"
+  "Nothing: the height alone is the probability"
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -66,8 +66,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">The height is a density.</span> The curve sits at `f(x) = 1/(' . $b . ') = ' . $height . '`. That number is not a probability &mdash; it is a density, a rate of probability per unit of `x`. Left alone it says nothing about any region; it only becomes a probability once you multiply it by a width.</p>
-      <p><span class="term-label">Part (c) &mdash; multiply by the width.</span> The strip runs from `x = ' . $c . '` to `x = ' . $d . '`, so it is a rectangle with base `' . $d . ' - ' . $c . ' = ' . $base . '` and height `' . $height . '`:</p>
+      <p><span class="term-label">The height is a density.</span> The curve sits at `f(x) = 1/(' . $b . ') = ' . $height . '`. That number is not a probability: it is a density, a rate of probability per unit of `x`. Left alone it says nothing about any region; it only becomes a probability once you multiply it by a width.</p>
+      <p><span class="term-label">Part (c): multiply by the width.</span> The strip runs from `x = ' . $c . '` to `x = ' . $d . '`, so it is a rectangle with base `' . $d . ' - ' . $c . ' = ' . $base . '` and height `' . $height . '`:</p>
       <p>`P(' . $c . ' < x < ' . $d . ') = (base)(height) = ' . $base . ' * ' . $height . ' = ` <b>' . $answer[2] . '</b></p>
       <p>That is the whole lesson of the section in one sentence: for a continuous random variable, probability is area, and area needs both a height and a width.</p>
     </div>

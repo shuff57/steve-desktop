@@ -50,7 +50,7 @@ while ($i <= 6) {
 }
 
 // Build the 6x6 sum table: first die down the left, second die across the top, sum in each cell.
-// Plain (no highlighting) — students identify which cells sum to $k themselves.
+// Plain (no highlighting): students identify which cells sum to $k themselves.
 $cell_base = "border:1px solid #cbd5e1; padding:6px 10px; text-align:center; min-width:34px;"
 $head_cell = "border:1px solid #cbd5e1; padding:6px 10px; text-align:center; background:#f3f4f6; font-size:22px; line-height:1; min-width:34px;"
 $corner    = "border:1px solid #cbd5e1; padding:6px 10px; text-align:center; background:#e5e7eb; font-weight:700; min-width:34px;"
@@ -98,7 +98,7 @@ $solutionguide = '
       <p style="margin-left:1em;"><b>'.$pairs.'</b></p>
       <p style="margin-left:1em; font-size:26px; letter-spacing:4px;">'.$glyph_pairs.'</p>
       <p><b>(a) Size of the reduced sample space.</b> Count the ordered pairs above: <b>'.$n.'</b>.</p>
-      <p><b>(b) P(first die = '.$v.' | sum = '.$k.').</b> Of the '.$n.' outcomes in the reduced sample space, exactly one &mdash; ('.$v.','.$w.') &mdash; has first die = '.$v.'. So the conditional probability is '.$pb_show.' = <b>'.$pb_dec_show.'</b>.</p>
+      <p><b>(b) P(first die = '.$v.' | sum = '.$k.').</b> Of the '.$n.' outcomes in the reduced sample space, exactly one: ('.$v.','.$w.'): has first die = '.$v.'. So the conditional probability is '.$pb_show.' = <b>'.$pb_dec_show.'</b>.</p>
       <p><b>(c) P(first die is odd | sum = '.$k.').</b> Count outcomes in the reduced sample space whose first die is odd: '.$pc_show.' = <b>'.$pc_dec_show.'</b>.</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         Answers: reduced sample space size = '.$n.', P(first='.$v.' | sum='.$k.') = '.$pb_dec_show.', P(first odd | sum='.$k.') = '.$pc_dec_show.'.
@@ -112,7 +112,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 0.6em 0;"><span style="font-size:28px; letter-spacing:6px; vertical-align:middle;">⚂ ⚄</span>&nbsp; Two fair six-sided dice are rolled and the outcomes (first die, second die) are observed. You are told that the <b>sum equals $k</b>.</p>
-    <p style="margin:0;">All questions below are computed on the <b>reduced sample space</b> &mdash; the set of outcomes consistent with sum = $k.</p>
+    <p style="margin:0;">All questions below are computed on the <b>reduced sample space</b>: the set of outcomes consistent with sum = $k.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     $grid

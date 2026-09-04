@@ -15,10 +15,10 @@ $answer = 0
 
 $solutionguide = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
   <p><b>Same sample, wider population, opposite answer.</b></p>
-  <p>Every one of the ' . $n . ' students attends a single school. School-aged children and young adults across the country differ by region, income, school type and home internet access &mdash; and none of that variation can appear in a sample drawn from one building.</p>
-  <p><b>This is a coverage failure, not a size failure.</b> Surveying ' . $n . ' more students at the same school would not help; the extra responses come from the same narrow slice. What is needed is a sample drawn from the whole population &mdash; many schools, many places &mdash; and that is a different study, not a bigger one.</p>
+  <p>Every one of the ' . $n . ' students attends a single school. School-aged children and young adults across the country differ by region, income, school type and home internet access: and none of that variation can appear in a sample drawn from one building.</p>
+  <p><b>This is a coverage failure, not a size failure.</b> Surveying ' . $n . ' more students at the same school would not help; the extra responses come from the same narrow slice. What is needed is a sample drawn from the whole population, many schools, many places, and that is a different study, not a bigger one.</p>
   <p>Randomness within the school does not rescue it either. A perfectly random sample <i>of the wrong population</i> describes that wrong population perfectly.</p>
-  <p><b>Answer:</b> no &mdash; not large enough, and more importantly not drawn from the right population.</p>
+  <p><b>Answer:</b> no: not large enough, and more importantly not drawn from the right population.</p>
 </div>'
 
 // === QUESTION TEXT ===

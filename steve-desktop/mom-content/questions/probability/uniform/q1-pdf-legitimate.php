@@ -45,10 +45,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Property 1 &mdash; never negative.</span> On `' . $a . ' <= x <= ' . $b . '` the function is the constant `1/(' . $b . ' - ' . $a . ') = 1/' . ($b - $a) . '`, which is positive; everywhere else it is 0. So `f(x) >= 0` for every `x`.</p>
-      <p><span class="term-label">Property 2 &mdash; total area is 1.</span> The graph is a horizontal segment at height `1/' . ($b - $a) . '` running from `x = ' . $a . '` to `x = ' . $b . '`, so the region under it is a rectangle with base ' . ($b - $a) . ' and height `1/' . ($b - $a) . '`:</p>
+      <p><span class="term-label">Property 1: never negative.</span> On `' . $a . ' <= x <= ' . $b . '` the function is the constant `1/(' . $b . ' - ' . $a . ') = 1/' . ($b - $a) . '`, which is positive; everywhere else it is 0. So `f(x) >= 0` for every `x`.</p>
+      <p><span class="term-label">Property 2: total area is 1.</span> The graph is a horizontal segment at height `1/' . ($b - $a) . '` running from `x = ' . $a . '` to `x = ' . $b . '`, so the region under it is a rectangle with base ' . ($b - $a) . ' and height `1/' . ($b - $a) . '`:</p>
       <p>Area = ' . ($b - $a) . ' * (1/' . ($b - $a) . ') = <b>1</b></p>
-      <p>Both properties hold, so `f(x)` is a probability density function. The height is not itself a probability &mdash; it is a density, a rate of probability per unit of `x`, and it only becomes a probability once you multiply it by a width.</p>
+      <p>Both properties hold, so `f(x)` is a probability density function. The height is not itself a probability: it is a density, a rate of probability per unit of `x`, and it only becomes a probability once you multiply it by a width.</p>
     </div>
   </details>
 </div>'

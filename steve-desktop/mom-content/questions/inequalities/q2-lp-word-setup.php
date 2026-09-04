@@ -74,7 +74,7 @@ $resourcetbl = '
     <td style="padding:10px 14px; border:1px solid #dee1e3;"><b>Profit per unit ($)</b></td>
     <td style="padding:10px 14px; border:1px solid #dee1e3; text-align:center;"><b>' . $p1 . '</b></td>
     <td style="padding:10px 14px; border:1px solid #dee1e3; text-align:center;"><b>' . $p2 . '</b></td>
-    <td style="padding:10px 14px; border:1px solid #dee1e3; text-align:center;">—</td>
+    <td style="padding:10px 14px; border:1px solid #dee1e3; text-align:center;">: </td>
   </tr>
 </table>'
 

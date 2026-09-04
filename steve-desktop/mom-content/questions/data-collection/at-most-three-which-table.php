@@ -76,9 +76,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; translate the question.</span> &quot;At most three&quot; means 0, 1, 2, or 3 movies.</p>
-      <p><span class="term-label">Step 2 &mdash; read the cumulative column.</span> The ungrouped cumulative entry on the 3 row is <b>' . $vald . '</b>.</p>
-      <p><span class="term-label">Step 3 &mdash; the boundary.</span> The 4-5 group starts with 4, so the 0-3 material fills exactly the first two grouped rows &mdash; the grouped cumulative on the 2-3 row is also <b>' . $vald . '</b>. The cut at 3 lands exactly on the boundary between the 2-3 and 4-5 groups, so both tables show the same answer.</p>
+      <p><span class="term-label">Step 1: translate the question.</span> &quot;At most three&quot; means 0, 1, 2, or 3 movies.</p>
+      <p><span class="term-label">Step 2: read the cumulative column.</span> The ungrouped cumulative entry on the 3 row is <b>' . $vald . '</b>.</p>
+      <p><span class="term-label">Step 3: the boundary.</span> The 4-5 group starts with 4, so the 0-3 material fills exactly the first two grouped rows: the grouped cumulative on the 2-3 row is also <b>' . $vald . '</b>. The cut at 3 lands exactly on the boundary between the 2-3 and 4-5 groups, so both tables show the same answer.</p>
     </div>
   </details>
 </div>'

@@ -44,7 +44,7 @@ $reltolerance[1] = 0.02
 $abstolerance[0] = 0.5
 $abstolerance[1] = 0.5
 
-// Part c — pick correct interpretation
+// Part c: pick correct interpretation
 $confPct = $conf * 100
 
 $choices[2] = array(
@@ -55,7 +55,7 @@ $choices[2] = array(
 )
 $answer[2] = 0  // The standard "we are X% confident that mu lies in this interval" wording IS correct; the others are common misinterpretations
 $noshuffle[2] = "all"
-// However: rubric note — "We are X% confident that <population mean of the variable> falls in this interval" is the canonical correct phrasing.
+// However: rubric note: "We are X% confident that <population mean of the variable> falls in this interval" is the canonical correct phrasing.
 
 $solutionguide = '
 <style>

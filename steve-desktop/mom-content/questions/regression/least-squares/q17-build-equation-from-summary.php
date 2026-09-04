@@ -54,13 +54,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><b>Part a — Slope:</b> Use `b_1 = r cdot s_y/s_x`.</p>
+      <p><b>Part a: Slope:</b> Use `b_1 = r cdot s_y/s_x`.</p>
       <p>`b_1 = (' . $r . ')(' . $sy . ' -: ' . $sx . ') = ' . $b1 . '`</p>
-      <p><b>Part b — Intercept:</b> Use `b_0 = bar{y} - b_1 cdot bar{x}`.</p>
+      <p><b>Part b: Intercept:</b> Use `b_0 = bar{y} - b_1 cdot bar{x}`.</p>
       <p>`b_0 = ' . $ybar . ' - (' . $b1 . ')(' . $xbar . ') = ' . $b0 . '`</p>
       <p>The full regression equation is:</p>
       <p style="text-align:center;">`hat{y} = ' . $b0 . ' + ' . $b1 . 'x`</p>
-      <p><b>Part c — Prediction at x = ' . $xpred . ':</b></p>
+      <p><b>Part c: Prediction at x = ' . $xpred . ':</b></p>
       <p>`hat{y} = ' . $b0 . ' + (' . $b1 . ')(' . $xpred . ') = ' . $ypred . '`</p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
         <b>Workflow:</b> summary stats &rarr; slope `b_1 = r(s_y/s_x)` &rarr; intercept `b_0 = bar{y} - b_1 bar{x}` &rarr; equation &rarr; prediction.

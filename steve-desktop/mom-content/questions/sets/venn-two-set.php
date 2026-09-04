@@ -1,5 +1,5 @@
 // === COMMON CONTROL ===
-// Section 7.1 — 2-Set Venn Diagram Cardinalities (3 number answers)
+// Section 7.1: 2-Set Venn Diagram Cardinalities (3 number answers)
 
 // Survey contexts: (survey topic, Set A label, Set B label, population noun)
 $contexts = array(
@@ -34,8 +34,8 @@ $n_u = $only_a + $ab + $only_b + $neither
 
 // Answers
 // Part A: n(A ∪ B)
-// Part B: n(A ∩ B')  — in A but not B
-// Part C: n(A' ∩ B') — in neither A nor B (complement of union)
+// Part B: n(A ∩ B'): in A but not B
+// Part C: n(A' ∩ B'): in neither A nor B (complement of union)
 $ans_a = $only_a + $ab + $only_b   // n(A ∪ B)
 $ans_b = $only_a                    // n(A ∩ B') = only in A
 $ans_c = $neither                   // n((A ∪ B)') = neither

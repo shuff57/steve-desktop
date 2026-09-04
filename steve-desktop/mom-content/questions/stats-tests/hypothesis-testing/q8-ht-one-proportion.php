@@ -64,7 +64,7 @@ $answer[3] = min(2*$areatoleft,2*(1-$areatoleft)) if ($dir==2)
 $answer[4] = 1
 $answer[4] = 0 if ($answer[3] < $alpha)
 
-// Precompute scalars used in QT and Solution — IMathAS text interpolation cannot resolve $arr[$varIndex].
+// Precompute scalars used in QT and Solution: IMathAS text interpolation cannot resolve $arr[$varIndex].
 $dirtext_picked = $dirtext[$dir]
 $tail_picked = $questions[1][$dir]
 $decision_picked = $questions[4][$answer[4]]

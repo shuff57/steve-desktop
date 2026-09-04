@@ -17,10 +17,10 @@ $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Yes &mdash; every pair lands within a few tenths of a second, and the empirical P(X > 130) = 0.4167 sits within 0.01 of the theoretical 0.4085, so the normal model is describing the process honestly",
-  "No &mdash; the empirical median is below the theoretical one, so the model does not fit",
-  "No &mdash; the empirical IQR is wider than the theoretical one, so the data is not normal",
-  "Yes &mdash; the empirical and theoretical values are exactly equal, so the model is perfect"
+  "Yes: every pair lands within a few tenths of a second, and the empirical P(X > 130) = 0.4167 sits within 0.01 of the theoretical 0.4085, so the normal model is describing the process honestly",
+  "No: the empirical median is below the theoretical one, so the model does not fit",
+  "No: the empirical IQR is wider than the theoretical one, so the data is not normal",
+  "Yes: the empirical and theoretical values are exactly equal, so the model is perfect"
 )
 $answer[2] = 0
 $noshuffle[2] = "all"
@@ -45,9 +45,9 @@ $solutionguide = '
     <div class="sol-body">
       <p><span class="term-label">Line the two sets of numbers up side by side.</span></p>
       <p>Empirical median 129.15 vs theoretical median 129.42: gap of 0.27 seconds. Empirical IQR 3.70 vs theoretical IQR 3.40: gap of 0.30 seconds. Empirical P(X > 130) = 0.4167 vs theoretical 0.4085: gap of 0.008.</p>
-      <p><span class="term-label">Part (a) &mdash; the median gap.</span> `129.42 - 129.15 = 0.27`</p>
-      <p><span class="term-label">Part (b) &mdash; the IQR gap.</span> `3.70 - 3.40 = 0.30`</p>
-      <p><span class="term-label">Part (c) &mdash; the verdict.</span> A gap of a tenth of a second is agreement; a gap of three seconds is not. Every pair here lands within a few tenths of a second, and the probability pair agrees to within a hundredth &mdash; so the pilot data gives a close approximation to the theoretical model. The specific comparison that convinces is the one you name, not a general impression.</p>
+      <p><span class="term-label">Part (a): the median gap.</span> `129.42 - 129.15 = 0.27`</p>
+      <p><span class="term-label">Part (b): the IQR gap.</span> `3.70 - 3.40 = 0.30`</p>
+      <p><span class="term-label">Part (c): the verdict.</span> A gap of a tenth of a second is agreement; a gap of three seconds is not. Every pair here lands within a few tenths of a second, and the probability pair agrees to within a hundredth: so the pilot data gives a close approximation to the theoretical model. The specific comparison that convinces is the one you name, not a general impression.</p>
     </div>
   </details>
 </div>'

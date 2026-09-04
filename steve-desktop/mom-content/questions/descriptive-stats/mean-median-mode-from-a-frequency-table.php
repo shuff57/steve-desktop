@@ -44,7 +44,7 @@ for ($c=0..4) {
 $mean = round($sumVF / $n, 2)
 
 // A frequency table is an ordered list written short, so i = (50/100)(n+1) still
-// locates the median -- walk the cumulative frequencies to see which value it lands on.
+// locates the median: walk the cumulative frequencies to see which value it lands on.
 $nPlus = $n + 1
 $prod = 50 * $nPlus
 $rem = $prod % 100
@@ -101,11 +101,11 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on, for `n = ' . $n . '` ' . $unitWord . ' in all. Do not average the five table rows &mdash; each value must be weighted by how many ' . $unitWord . ' actually gave that answer.</p>
-      <p><span class="term-label">Part (a) &mdash; the mean.</span> Multiply each value by its frequency, add the products, and divide by `n`: `bar x = (sum x*f)/n = ' . $sumVF . '/' . $n . ' = ` <b>' . $mean . '</b> (rounded to two decimal places). This is not the average of the five values ' . $vals[0] . ' through ' . $vals[4] . ', and it is not the average of the frequencies &mdash; both of those skip the weighting entirely.</p>
-      <p><span class="term-label">Part (b) &mdash; the median.</span> `i = (50/100)(n+1) = (50/100)(' . $nPlus . ') = ' . $iMed . '`. Counting down the frequency column to position ' . $posLo . ' (and position ' . $posHi . ' when `i` is not a whole number) gives <b>' . $median . '</b>.</p>
-      <p><span class="term-label">Part (c) &mdash; the mode.</span> The mode is the value with the highest frequency, not the value in the middle row. That is ' . $mode . ', reported ' . $f[$modeIdx] . ' times &mdash; more than any other value in the table.</p>
-      <p><span class="term-label">Part (d) &mdash; resistance to an added extreme value.</span> Suppose one more reply came in, far larger than anything already in the table. The mean would be pulled toward it, because every value in the sum counts toward the total. The mode would not change unless the new value happened to repeat enough to out-count ' . $mode . '. But the median is decided purely by <i>where</i> the middle position falls once the data is sorted &mdash; one extra value shifts that position by at most one spot, and the size of the new value never enters the calculation at all. That is why the median is the measure that resists an extreme value.</p>
+      <p><span class="term-label">A frequency table is an ordered list, written short.</span> The first ' . $f[0] . ' positions all hold the value ' . $vals[0] . ', the next ' . $f[1] . ' hold ' . $vals[1] . ', and so on, for `n = ' . $n . '` ' . $unitWord . ' in all. Do not average the five table rows: each value must be weighted by how many ' . $unitWord . ' actually gave that answer.</p>
+      <p><span class="term-label">Part (a): the mean.</span> Multiply each value by its frequency, add the products, and divide by `n`: `bar x = (sum x*f)/n = ' . $sumVF . '/' . $n . ' = ` <b>' . $mean . '</b> (rounded to two decimal places). This is not the average of the five values ' . $vals[0] . ' through ' . $vals[4] . ', and it is not the average of the frequencies: both of those skip the weighting entirely.</p>
+      <p><span class="term-label">Part (b): the median.</span> `i = (50/100)(n+1) = (50/100)(' . $nPlus . ') = ' . $iMed . '`. Counting down the frequency column to position ' . $posLo . ' (and position ' . $posHi . ' when `i` is not a whole number) gives <b>' . $median . '</b>.</p>
+      <p><span class="term-label">Part (c): the mode.</span> The mode is the value with the highest frequency, not the value in the middle row. That is ' . $mode . ', reported ' . $f[$modeIdx] . ' times: more than any other value in the table.</p>
+      <p><span class="term-label">Part (d): resistance to an added extreme value.</span> Suppose one more reply came in, far larger than anything already in the table. The mean would be pulled toward it, because every value in the sum counts toward the total. The mode would not change unless the new value happened to repeat enough to out-count ' . $mode . '. But the median is decided purely by <i>where</i> the middle position falls once the data is sorted: one extra value shifts that position by at most one spot, and the size of the new value never enters the calculation at all. That is why the median is the measure that resists an extreme value.</p>
       <p><b>Answer:</b> `bar x` = ' . $mean . ' &nbsp;&nbsp; median = ' . $median . ' &nbsp;&nbsp; mode = ' . $mode . ' &nbsp;&nbsp; resistant measure = the median</p>
     </div>
   </details>

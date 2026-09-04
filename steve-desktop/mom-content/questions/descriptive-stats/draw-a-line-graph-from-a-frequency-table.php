@@ -17,7 +17,7 @@ $intro = $contexts[$ci]
 $xName = $xNames[$ci]
 
 // Frequencies are kept between 2 and 12 so every point sits inside the grid with room above the
-// tallest one, and no category is empty -- a zero would put a point on the axis where the student
+// tallest one, and no category is empty: a zero would put a point on the axis where the student
 // cannot tell a plotted dot from the axis itself.
 // Even frequencies only, so with a gridline every 2 each plotted point lands ON a labeled line
 // rather than between two of them.
@@ -33,7 +33,7 @@ $answers = array("1,$f1", "2,$f2", "3,$f3", "4,$f4", "5,$f5")
 $answerformat = "polygon"
 $snaptogrid = 1
 // xmin/ymin are NEGATIVE on purpose. With the window starting at 0 the axes sit flush against
-// the canvas edge and MyOpenMath clips the tick NUMBERS off both axes -- verified live: the
+// the canvas edge and MyOpenMath clips the tick NUMBERS off both axes: verified live: the
 // student saw a bare grid with no values to read against. The margin gives the labels room.
 $grid = "-1,6,-2,14,1,2,470,380"
 $readerlabel = "Grid for plotting the line graph, horizontal axis 0 to 6, vertical axis 0 to 14, gridlines every 2"
@@ -63,9 +63,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; one point per row of the table.</span> The value goes across, the frequency goes up. So the five points are (1,&nbsp;' . $f1 . '), (2,&nbsp;' . $f2 . '), (3,&nbsp;' . $f3 . '), (4,&nbsp;' . $f4 . ') and (5,&nbsp;' . $f5 . ').</p>
-      <p><span class="term-label">Step 2 &mdash; plot, then join in order.</span> Work left to right and join each point to the next. The height of a point is the frequency; the segment between two points is only there to lead the eye from one value to the next. Nothing on the line between them is real data &mdash; there is no such thing as ' . '2.5 of these.</p>
-      <p><span class="term-label">Step 3 &mdash; check the total.</span> The frequencies add to ' . $total . ', which is the number of people surveyed. If the heights you plotted do not add to that, one point is at the wrong height.</p>
+      <p><span class="term-label">Step 1: one point per row of the table.</span> The value goes across, the frequency goes up. So the five points are (1,&nbsp;' . $f1 . '), (2,&nbsp;' . $f2 . '), (3,&nbsp;' . $f3 . '), (4,&nbsp;' . $f4 . ') and (5,&nbsp;' . $f5 . ').</p>
+      <p><span class="term-label">Step 2: plot, then join in order.</span> Work left to right and join each point to the next. The height of a point is the frequency; the segment between two points is only there to lead the eye from one value to the next. Nothing on the line between them is real data: there is no such thing as ' . '2.5 of these.</p>
+      <p><span class="term-label">Step 3: check the total.</span> The frequencies add to ' . $total . ', which is the number of people surveyed. If the heights you plotted do not add to that, one point is at the wrong height.</p>
       <p><span class="term-label">The usual slip.</span> Plotting a running total instead of the frequency, which makes the line climb and never fall. Each point is that row\'s own count, not the count so far.</p>
     </div>
   </details>

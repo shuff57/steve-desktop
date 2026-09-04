@@ -37,13 +37,13 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Step 1 &mdash; the median.</span> There are twelve values, so the median sits between the 6th and 7th:</p>
+      <p><span class="term-label">Step 1: the median.</span> There are twelve values, so the median sits between the 6th and 7th:</p>
       <p>`median = (0.4508 + 0.5624)/2 = 1.0132/2 = 0.5066`</p>
-      <p><span class="term-label">Step 2 &mdash; the first quartile.</span> The lowest six values are 0.0412 through 0.4508, and their median is the average of the 3rd and 4th:</p>
+      <p><span class="term-label">Step 2: the first quartile.</span> The lowest six values are 0.0412 through 0.4508, and their median is the average of the 3rd and 4th:</p>
       <p>`Q1 = (0.2043 + 0.2765)/2 = 0.4808/2 = 0.2404`</p>
-      <p><span class="term-label">Step 3 &mdash; the third quartile.</span> The highest six values are 0.5624 through 0.9564, and their median is the average of the 9th and 10th values overall:</p>
+      <p><span class="term-label">Step 3: the third quartile.</span> The highest six values are 0.5624 through 0.9564, and their median is the average of the 9th and 10th values overall:</p>
       <p>`Q3 = (0.7042 + 0.8219)/2 = 1.5261/2 ~= 0.7631`</p>
-      <p>Hold those against the theoretical 0.5000, 0.2500, and 0.7500 — each one is off by less than 0.015, from a sample of only twelve. That is a preview of the whole lab: the sample does not land on the theoretical value, it lands near it.</p>
+      <p>Hold those against the theoretical 0.5000, 0.2500, and 0.7500: each one is off by less than 0.015, from a sample of only twelve. That is a preview of the whole lab: the sample does not land on the theoretical value, it lands near it.</p>
     </div>
   </details>
 </div>'

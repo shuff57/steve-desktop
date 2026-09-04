@@ -15,17 +15,17 @@ $intros = array(
 )
 
 $explanatoryDefs = array(
-  "the type of fertilizer applied to a plant &mdash; the variable the researcher deliberately sets",
-  "the homework-help format a student is given &mdash; the variable the researcher deliberately sets",
-  "the type of charging cable used &mdash; the variable the researcher deliberately sets",
-  "the amount of caffeine a participant consumes &mdash; the variable the researcher deliberately sets"
+  "the type of fertilizer applied to a plant: the variable the researcher deliberately sets",
+  "the homework-help format a student is given: the variable the researcher deliberately sets",
+  "the type of charging cable used: the variable the researcher deliberately sets",
+  "the amount of caffeine a participant consumes: the variable the researcher deliberately sets"
 )
 
 $responseDefs = array(
-  "the plant's height after eight weeks &mdash; what actually gets measured",
-  "the student's score on the unit quiz &mdash; what actually gets measured",
-  "the number of hours the phone runs before the battery dies &mdash; what actually gets measured",
-  "the participant's reaction time on the task &mdash; what actually gets measured"
+  "the plant's height after eight weeks: what actually gets measured",
+  "the student's score on the unit quiz: what actually gets measured",
+  "the number of hours the phone runs before the battery dies: what actually gets measured",
+  "the participant's reaction time on the task: what actually gets measured"
 )
 
 // Deliberately worded as ONE specific value, not the variable, since that is the distinction
@@ -120,7 +120,7 @@ $solutionguide = '
       <div class="term-row"><span class="term-label">Experimental unit:</span> ' . $unitDef . '.</div>
       <div class="term-row"><span class="term-label">Lurking variable:</span> ' . $lurkingDef . '.</div>
       <div class="sol-warn"><b>Treatment versus explanatory variable.</b> The explanatory variable is the general thing being varied. A treatment is just one of its specific values, handed to one group. &ldquo;Which variable did the researcher manipulate&rdquo; and &ldquo;which exact value did this group get&rdquo; are two different questions.</div>
-      <div class="sol-note">Two of the descriptions are not used. <b>The no-treatment baseline group</b> is a control group, not a treatment &mdash; it is defined by receiving none of the explanatory variable. And <b>the full population</b> is far wider than a single experimental unit, which is only ever one measured individual.</div>
+      <div class="sol-note">Two of the descriptions are not used. <b>The no-treatment baseline group</b> is a control group, not a treatment: it is defined by receiving none of the explanatory variable. And <b>the full population</b> is far wider than a single experimental unit, which is only ever one measured individual.</div>
     </div>
   </details>
 </div>'

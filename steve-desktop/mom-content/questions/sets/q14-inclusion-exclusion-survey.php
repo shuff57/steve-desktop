@@ -20,7 +20,7 @@ $answer[0] = $union
 $answer[1] = $both
 $answer[2] = $only_a
 
-// Randomize a context (scene strings use $total — must be after the count block above)
+// Randomize a context (scene strings use $total: must be after the count block above)
 $ctx_label_a = array("Math", "Python", "Fiction")
 $ctx_label_b = array("Art", "SQL", "Mystery")
 $ctx_subj   = array("students", "employees", "library books")

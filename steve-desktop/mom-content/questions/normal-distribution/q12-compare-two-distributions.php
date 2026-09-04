@@ -51,9 +51,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; standardize x against its own distribution.</span> `z = (x - mu1)/sigma1 = (' . $x . ' - ' . $mu1 . ')/' . $sigma1 . ' = ' . $z . '`</p>
-      <p><span class="term-label">Part (b) &mdash; standardize y against its own distribution.</span> `z = (y - mu2)/sigma2 = (' . $y . ' - ' . $mu2 . ')/' . $sigma2 . ' = ' . $z . '`</p>
-      <p><span class="term-label">The point.</span> The raw values `' . $x . '` and `' . $y . '` are not comparable &mdash; the two distributions have different centers and different spreads. But once standardized, both come out to `z = ' . $z . '`: relative to the population each was drawn from, the two values sit at the same place. That is the whole reason z-scores exist.</p>
+      <p><span class="term-label">Part (a): standardize x against its own distribution.</span> `z = (x - mu1)/sigma1 = (' . $x . ' - ' . $mu1 . ')/' . $sigma1 . ' = ' . $z . '`</p>
+      <p><span class="term-label">Part (b): standardize y against its own distribution.</span> `z = (y - mu2)/sigma2 = (' . $y . ' - ' . $mu2 . ')/' . $sigma2 . ' = ' . $z . '`</p>
+      <p><span class="term-label">The point.</span> The raw values `' . $x . '` and `' . $y . '` are not comparable: the two distributions have different centers and different spreads. But once standardized, both come out to `z = ' . $z . '`: relative to the population each was drawn from, the two values sit at the same place. That is the whole reason z-scores exist.</p>
     </div>
   </details>
 </div>'

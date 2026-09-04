@@ -19,17 +19,17 @@ $i = rand(0, count($contexts)-1)
 $ctx = $contexts[$i]
 
 $questions[0] = array(
-  "A binomial distribution &mdash; each observation is a single success-or-failure trial, and the count across n independent trials is binomial.",
-  "A normal distribution &mdash; the count is a measurement like any other.",
-  "A t distribution &mdash; the count is an average."
+  "A binomial distribution: each observation is a single success-or-failure trial, and the count across n independent trials is binomial.",
+  "A normal distribution: the count is a measurement like any other.",
+  "A t distribution: the count is an average."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "When the condition passes &mdash; both np and nq are above 5, so the binomial has enough mass on both sides of its center for the normal curve to be a fair stand-in.",
+  "When the condition passes: both np and nq are above 5, so the binomial has enough mass on both sides of its center for the normal curve to be a fair stand-in.",
   "Whenever the sample size is at least 30.",
-  "Never &mdash; a count can never be treated as normal."
+  "Never: a count can never be treated as normal."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
@@ -52,8 +52,8 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; what the count follows.</span> Each observation is a single success-or-failure trial, and the count of successes across n independent trials is binomial.</p>
-      <p><span class="term-label">Part (b) &mdash; when the normal curve may stand in.</span> The normal curve is only a stand-in when the binomial has enough mass on both sides of its center &mdash; both np and nq above 5. That is the condition that makes the approximation legal.</p>
+      <p><span class="term-label">Part (a): what the count follows.</span> Each observation is a single success-or-failure trial, and the count of successes across n independent trials is binomial.</p>
+      <p><span class="term-label">Part (b): when the normal curve may stand in.</span> The normal curve is only a stand-in when the binomial has enough mass on both sides of its center: both np and nq above 5. That is the condition that makes the approximation legal.</p>
     </div>
   </details>
 </div>'

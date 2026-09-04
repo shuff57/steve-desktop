@@ -19,23 +19,23 @@ $i = rand(0, count($contexts)-1)
 $ctx = $contexts[$i]
 
 $questions[0] = array(
-  "The probability of a Type I error &mdash; rejecting `H_0` when it is in fact true.",
-  "The probability of a Type II error &mdash; failing to reject `H_0` when it is false.",
+  "The probability of a Type I error: rejecting `H_0` when it is in fact true.",
+  "The probability of a Type II error: failing to reject `H_0` when it is false.",
   "The probability that `H_0` is true."
 )
 $answer[0] = 0
 $noshuffle[0] = "all"
 
 $questions[1] = array(
-  "The probability of a Type II error &mdash; failing to reject `H_0` when it is false.",
-  "The probability of a Type I error &mdash; rejecting `H_0` when it is in fact true.",
+  "The probability of a Type II error: failing to reject `H_0` when it is false.",
+  "The probability of a Type I error: rejecting `H_0` when it is in fact true.",
   "The probability that `H_a` is true."
 )
 $answer[1] = 0
 $noshuffle[1] = "all"
 
 $questions[2] = array(
-  "The probability of rejecting `H_0` when it is false &mdash; the chance the test catches a real effect.",
+  "The probability of rejecting `H_0` when it is false: the chance the test catches a real effect.",
   "The probability of rejecting `H_0` when it is true.",
   "The probability that the sample is representative."
 )
@@ -60,9 +60,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; alpha.</span> `alpha` is the probability of a Type I error: rejecting `H_0` when it is in fact true. It is preset &mdash; chosen before the data are collected.</p>
-      <p><span class="term-label">Part (b) &mdash; beta.</span> `beta` is the probability of a Type II error: failing to reject `H_0` when it is false.</p>
-      <p><span class="term-label">Part (c) &mdash; power.</span> The power of the test is `1 - beta`: the probability of rejecting `H_0` when it is false. It is the chance the test catches a real effect &mdash; at power 0.40, twelve of twenty real effects are missed.</p>
+      <p><span class="term-label">Part (a): alpha.</span> `alpha` is the probability of a Type I error: rejecting `H_0` when it is in fact true. It is preset: chosen before the data are collected.</p>
+      <p><span class="term-label">Part (b): beta.</span> `beta` is the probability of a Type II error: failing to reject `H_0` when it is false.</p>
+      <p><span class="term-label">Part (c): power.</span> The power of the test is `1 - beta`: the probability of rejecting `H_0` when it is false. It is the chance the test catches a real effect: at power 0.40, twelve of twenty real effects are missed.</p>
       <p>`alpha` and `beta` are the two ways a test can be wrong, and power is the complement of the second one.</p>
     </div>
   </details>

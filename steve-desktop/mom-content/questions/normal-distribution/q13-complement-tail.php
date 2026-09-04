@@ -53,9 +53,9 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the left tail.</span> Standardize: `z = (x - mu)/sigma = (' . $x . ' - ' . $mu . ')/' . $sigma . ' ~= ' . round($z, 3) . '`. Then `P(X < ' . $x . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($probA, 4) . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the right tail is whatever is left over.</span> The two areas fill the curve, so `P(X > ' . $x . ') = 1 - P(X < ' . $x . ') = 1 - ' . round($probA, 4) . ' = ' . round($probB, 4) . '`.</p>
-      <p>You never have to compute a right tail directly &mdash; drawing the line through `x` slices the curve into exactly two pieces, and whichever piece the calculator hands you, subtracting from 1 gets you the other.</p>
+      <p><span class="term-label">Part (a): the left tail.</span> Standardize: `z = (x - mu)/sigma = (' . $x . ' - ' . $mu . ')/' . $sigma . ' ~= ' . round($z, 3) . '`. Then `P(X < ' . $x . ') = P(Z < ' . round($z, 3) . ') ~= ' . round($probA, 4) . '`.</p>
+      <p><span class="term-label">Part (b): the right tail is whatever is left over.</span> The two areas fill the curve, so `P(X > ' . $x . ') = 1 - P(X < ' . $x . ') = 1 - ' . round($probA, 4) . ' = ' . round($probB, 4) . '`.</p>
+      <p>You never have to compute a right tail directly: drawing the line through `x` slices the curve into exactly two pieces, and whichever piece the calculator hands you, subtracting from 1 gets you the other.</p>
     </div>
   </details>
 </div>'

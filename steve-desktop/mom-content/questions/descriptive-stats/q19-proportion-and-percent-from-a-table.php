@@ -113,7 +113,7 @@ $showanswer[1] = round($pct, 2)
 $choices[2] = array("Qualitative (categorical)", "Quantitative discrete", "Quantitative continuous")
 $answer[2] = 1
 
-// Scalars for the question text and the solution guide &mdash; neither can index an array.
+// Scalars for the question text and the solution guide: neither can index an array.
 $aLoLabel = $labels[$aLo]
 $aHiLabel = $labels[$aHi]
 $bLoLabel = $labels[$bLo]
@@ -151,11 +151,11 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><b>The rule for both (a) and (b):</b> a proportion is the part divided by the whole. Add only the rows the question names, then divide by the grand total ' . $total . '. A percent is that same quotient multiplied by 100.</p>
-      <p><span class="term-label">a. Proportion, ' . $aLoLabel . ' through ' . $aHiLabel . ' inclusive:</span> "inclusive" means the two named ' . $spanUnit . ' are part of the span, so ' . $aRows . ' rows get added: ' . $aStr . ' = ' . $aSum . '. Then ' . $aSum . ' &divide; ' . $total . ' &approx; <b>' . $propRounded . '</b>. A proportion stays between 0 and 1 &mdash; it is never a count and never a percent.</p>
+      <p><span class="term-label">a. Proportion, ' . $aLoLabel . ' through ' . $aHiLabel . ' inclusive:</span> "inclusive" means the two named ' . $spanUnit . ' are part of the span, so ' . $aRows . ' rows get added: ' . $aStr . ' = ' . $aSum . '. Then ' . $aSum . ' &divide; ' . $total . ' &approx; <b>' . $propRounded . '</b>. A proportion stays between 0 and 1: it is never a count and never a percent.</p>
       <p><span class="term-label">b. Percent, strictly between ' . $bLoLabel . ' and ' . $bHiLabel . ':</span> "strictly between" excludes both named endpoints, so only ' . $bRowStr . ' get added: ' . $bStr . ' = ' . $bSum . '. Then ' . $bSum . ' &divide; ' . $total . ' &times; 100 &approx; <b>' . $pctRounded . '%</b>. Adding the endpoint rows in as well would have given ' . $wrongPct . '%, which answers a different question.</p>
-      <p><span class="term-label">c. The type of data in the ' . $countColName . ' column:</span> each entry is a count of how many ' . $nounText . ' there were, and counting gives whole things only &mdash; there is no such thing as a fraction of one. Counts are <b>quantitative discrete</b>.</p>
-      <p><b>Why not the other two:</b> the column is not qualitative, because the entries are numbers that measure how many rather than names of a category &mdash; the ' . $catColName . ' column is the qualitative-looking one. It is not quantitative continuous either, because continuous data come from measuring on a scale that can always be read more finely, the way a weight or a time can.</p>
-      <p><b>The trap worth naming:</b> "between ' . $bLoLabel . ' and ' . $bHiLabel . '" in everyday speech often gets read as including both ends. In this exercise it does not &mdash; read the wording of every span before you start adding, and check whether the endpoints are in or out.</p>
+      <p><span class="term-label">c. The type of data in the ' . $countColName . ' column:</span> each entry is a count of how many ' . $nounText . ' there were, and counting gives whole things only: there is no such thing as a fraction of one. Counts are <b>quantitative discrete</b>.</p>
+      <p><b>Why not the other two:</b> the column is not qualitative, because the entries are numbers that measure how many rather than names of a category: the ' . $catColName . ' column is the qualitative-looking one. It is not quantitative continuous either, because continuous data come from measuring on a scale that can always be read more finely, the way a weight or a time can.</p>
+      <p><b>The trap worth naming:</b> "between ' . $bLoLabel . ' and ' . $bHiLabel . '" in everyday speech often gets read as including both ends. In this exercise it does not: read the wording of every span before you start adding, and check whether the endpoints are in or out.</p>
     </div>
   </details>
 </div>'
@@ -172,7 +172,7 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> What <b>proportion</b> of the $total $nounText fell in the $spanUnit from <b>$aLoLabel</b> through <b>$aHiLabel</b>, <b>counting both $aLoLabel and $aHiLabel</b>? Enter a decimal rounded to <b>four decimal places</b>. $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What <b>percent</b> of the $total $nounText fell <b>strictly between $bLoLabel and $bHiLabel</b> &mdash; that is, in the $innerN $spanUnit that lie after $bLoLabel and before $bHiLabel, <b>not counting $bLoLabel or $bHiLabel themselves</b>? Enter the percent rounded to <b>two decimal places</b>, without the % sign. $answerbox[1]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> What <b>percent</b> of the $total $nounText fell <b>strictly between $bLoLabel and $bHiLabel</b>: that is, in the $innerN $spanUnit that lie after $bLoLabel and before $bHiLabel, <b>not counting $bLoLabel or $bHiLabel themselves</b>? Enter the percent rounded to <b>two decimal places</b>, without the % sign. $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> What type of data are the entries in the <b>$countColName</b> column of the table? $answerbox[2]

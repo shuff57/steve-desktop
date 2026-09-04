@@ -45,7 +45,7 @@ $choices[0] = array(
 $answer[0] = 0
 $noshuffle[0] = "all"
 
-// Part c: decision at alpha = 0.05 — 4 options: 2 real decisions (context) + 2 misdirects
+// Part c: decision at alpha = 0.05: 4 options: 2 real decisions (context) + 2 misdirects
 $choices[2] = array(
   "Reject `H_0`: the observed counts differ significantly from the expected counts, so " . $claim . " is not supported.",
   "Fail to reject `H_0`: the observed counts are consistent with the expected counts, so " . $claim . " is not contradicted.",

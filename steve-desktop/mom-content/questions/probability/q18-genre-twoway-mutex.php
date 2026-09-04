@@ -38,7 +38,7 @@ $tbl_inter = $tbl_inter . '<tr><th style="' . $head_style . '">Prefers Drama</th
 $tbl_inter = $tbl_inter . '<tr><th style="' . $head_style . '">Total</th><td style="' . $cell_plain . '">' . $watched . '</td><td style="' . $cell_plain . '">' . $notwatched . '</td><td style="' . $cell_plain . '">' . $total . '</td></tr>'
 $tbl_inter = $tbl_inter . '</table>'
 
-$choices[2] = array("Yes &mdash; A and W cannot occur together (A &cap; W = &empty;)", "No &mdash; A and W CAN occur together (A &cap; W &ne; &empty;)")
+$choices[2] = array("Yes: A and W cannot occur together (A &cap; W = &empty;)", "No: A and W CAN occur together (A &cap; W &ne; &empty;)")
 $labels = array("Yes - mutually exclusive", "No - not mutually exclusive")
 
 $solutionguide = '
@@ -64,7 +64,7 @@ $solutionguide = '
       <p><b>(b) P(A &cup; W).</b> Addition Rule: P(A) + P(W) &minus; P(A &cap; W) = '.$action.'/'.$total.' + '.$watched.'/'.$total.' &minus; '.$a.'/'.$total.' = '.($action+$watched-$a).'/'.$total.' = <b>'.$pAuB_show.'</b>.</p>
       <p><b>(c) Mutually exclusive?</b> Two events are mutually exclusive when they cannot both happen, i.e. A &cap; W = &empty;. Here '.$a.' fans satisfy both, so A &cap; W &ne; &empty;. <b>Not mutually exclusive.</b></p>
       <div style="margin:10px 0; padding:0.6em 1em; background:#e8f5e9; border-left:4px solid #4CAF50; border-radius:0 8px 8px 0;">
-        Answers: '.$pAB_show.', '.$pAuB_show.', No &mdash; not mutually exclusive.
+        Answers: '.$pAB_show.', '.$pAuB_show.', No: not mutually exclusive.
       </div>
     </div>
   </details>

@@ -32,10 +32,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Read the inequalities carefully.</span> `1 < x < 4` is a strict inequality on both ends, so it covers `x = 2` and `x = 3` only — 1 and 4 are outside it. `x >= 8` does include 8, so it covers 8, 9, and 10.</p>
+      <p><span class="term-label">Read the inequalities carefully.</span> `1 < x < 4` is a strict inequality on both ends, so it covers `x = 2` and `x = 3` only: 1 and 4 are outside it. `x >= 8` does include 8, so it covers 8, 9, and 10.</p>
       <p><span class="term-label">Part (a).</span> `P(1 < x < 4) = P(2) + P(3) = 0.2816 + 0.2503 = 0.5319`</p>
       <p><span class="term-label">Part (b).</span> `P(x >= 8) = P(8) + P(9) + P(10) = 0.0004 + 0.0000 + 0.0000 = 0.0004`</p>
-      <p>Those two numbers say something worth pausing on: more than half of all classes will land on 2 or 3 diamonds, while fewer than 1 class in 2,000 will land on 8 or more. If your class did get 8 or more, you have not broken statistics — you have met the tail, and that is a better lab result than the boring one.</p>
+      <p>Those two numbers say something worth pausing on: more than half of all classes will land on 2 or 3 diamonds, while fewer than 1 class in 2,000 will land on 8 or more. If your class did get 8 or more, you have not broken statistics: you have met the tail, and that is a better lab result than the boring one.</p>
     </div>
   </details>
 </div>'

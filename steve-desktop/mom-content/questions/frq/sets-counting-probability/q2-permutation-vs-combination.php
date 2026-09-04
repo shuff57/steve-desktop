@@ -16,7 +16,7 @@ $scenarios = array(
         "n" => 12,
         "r" => 3,
         "answer" => 1320,
-        "reason" => "the three positions are distinct from each other -- electing A as President is different from electing A as Treasurer, so order matters"
+        "reason" => "the three positions are distinct from each other: electing A as President is different from electing A as Treasurer, so order matters"
     ),
     array(
         "text" => "From a group of 15 volunteers, a 4-person cleanup crew must be chosen. The crew members will all do the same job. How many different crews are possible?",
@@ -24,7 +24,7 @@ $scenarios = array(
         "n" => 15,
         "r" => 4,
         "answer" => 1365,
-        "reason" => "the crew members are not assigned to distinct roles -- the group is just a set of 4 people, so order does not matter"
+        "reason" => "the crew members are not assigned to distinct roles: the group is just a set of 4 people, so order does not matter"
     ),
     array(
         "text" => "You have 7 different books and want to arrange them on a shelf. How many different arrangements are possible?",
@@ -32,7 +32,7 @@ $scenarios = array(
         "n" => 7,
         "r" => 7,
         "answer" => 5040,
-        "reason" => "each spot on the shelf is a distinct position -- arranging the books in a different order produces a different shelf, so order matters"
+        "reason" => "each spot on the shelf is a distinct position: arranging the books in a different order produces a different shelf, so order matters"
     )
 );
 $i = rand(0, 2);

@@ -105,9 +105,9 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The rule.</span> To find a percentile in an ordered list, work out the <i>position</i> first: `i = (k/100)(n+1)`. The data is already ordered and `n = ' . $n . '`, so `n + 1 = ' . $nPlus . '`.</p>
-      <p><span class="term-label">Part (a) &mdash; the position is a whole number.</span> `i = (' . $k1 . '/100)(' . $nPlus . ') = ' . $i1 . '`. Because ' . $i1 . ' is a whole number, take the ' . $i1 . 'th value in the ordered list: <b>' . $ans1 . ' ' . $unitWord . '</b>. Count positions from the smallest value, not from the largest.</p>
-      <p><span class="term-label">Part (b) &mdash; the position falls between two values.</span> `i = (' . $k2 . '/100)(' . $nPlus . ') = ' . $i2 . '`. That is not a whole number, so round down to ' . $lo2 . ' and up to ' . $hi2 . ', then average those two values. The ' . $lo2 . 'th value is ' . $loVal . ' and the ' . $hi2 . 'th is ' . $hiVal . ', so `P_' . $k2 . ' = (' . $loVal . ' + ' . $hiVal . ')/2 = ' . $ans2 . '` ' . $unitWord . '.</p>
-      <p><span class="term-label">Part (c) &mdash; what it means.</span> A percentile is a position in the data, not a score and not a share of the largest value. The ' . $k1Label . ' percentile is the value with about ' . $k1 . '% of the data at or below it.</p>
+      <p><span class="term-label">Part (a): the position is a whole number.</span> `i = (' . $k1 . '/100)(' . $nPlus . ') = ' . $i1 . '`. Because ' . $i1 . ' is a whole number, take the ' . $i1 . 'th value in the ordered list: <b>' . $ans1 . ' ' . $unitWord . '</b>. Count positions from the smallest value, not from the largest.</p>
+      <p><span class="term-label">Part (b): the position falls between two values.</span> `i = (' . $k2 . '/100)(' . $nPlus . ') = ' . $i2 . '`. That is not a whole number, so round down to ' . $lo2 . ' and up to ' . $hi2 . ', then average those two values. The ' . $lo2 . 'th value is ' . $loVal . ' and the ' . $hi2 . 'th is ' . $hiVal . ', so `P_' . $k2 . ' = (' . $loVal . ' + ' . $hiVal . ')/2 = ' . $ans2 . '` ' . $unitWord . '.</p>
+      <p><span class="term-label">Part (c): what it means.</span> A percentile is a position in the data, not a score and not a share of the largest value. The ' . $k1Label . ' percentile is the value with about ' . $k1 . '% of the data at or below it.</p>
       <p><b>Answer:</b> (a) ' . $ans1 . ' &nbsp;&nbsp; (b) ' . $ans2 . '</p>
     </div>
   </details>

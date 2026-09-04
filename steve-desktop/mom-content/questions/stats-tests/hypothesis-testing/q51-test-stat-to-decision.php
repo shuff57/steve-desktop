@@ -48,8 +48,8 @@ $abstolerance[0] = 0.02
 $abstolerance[1] = 0.005
 
 $questions[2] = array(
-  "Reject `H_0` &mdash; the p-value is below alpha.",
-  "Fail to reject `H_0` &mdash; the p-value is not below alpha."
+  "Reject `H_0`: the p-value is below alpha.",
+  "Fail to reject `H_0`: the p-value is not below alpha."
 )
 $answer[2] = $reject
 $noshuffle[2] = "all"
@@ -72,10 +72,10 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a) &mdash; the test statistic.</span> `t = (bar(x) - mu_0)/(s/sqrt(n)) = (' . $xbar . ' - ' . $mu0 . ')/(' . $s . '/sqrt(' . $n . ')) = ' . round($t, 3) . '` with `df = ' . $df . '`.</p>
-      <p><span class="term-label">Part (b) &mdash; the p-value.</span> ' . ($tail == "left" ? "Left-tailed: P(T_" . $df . " < " . round($t, 3) . ") = " . round($p, 4) : ($tail == "right" ? "Right-tailed: P(T_" . $df . " > " . round($t, 3) . ") = " . round($p, 4) : "Two-tailed: 2 * P(T_" . $df . " > |" . round($t, 3) . "|) = " . round($p, 4))) . '</p>
-      <p><span class="term-label">Part (c) &mdash; the decision.</span> ' . ($reject == 1 ? "The p-value " . round($p, 4) . " is below alpha = " . $alpha . ", so we reject `H_0`." : "The p-value " . round($p, 4) . " is not below alpha = " . $alpha . ", so we fail to reject `H_0`.") . '</p>
-      <p>The t distribution accounts for estimating sigma with s &mdash; with few degrees of freedom its fatter tails mean a bigger p-value for the same test statistic, and reading the t-score against a normal table only ever fails in the direction that manufactures findings.</p>
+      <p><span class="term-label">Part (a): the test statistic.</span> `t = (bar(x) - mu_0)/(s/sqrt(n)) = (' . $xbar . ' - ' . $mu0 . ')/(' . $s . '/sqrt(' . $n . ')) = ' . round($t, 3) . '` with `df = ' . $df . '`.</p>
+      <p><span class="term-label">Part (b): the p-value.</span> ' . ($tail == "left" ? "Left-tailed: P(T_" . $df . " < " . round($t, 3) . ") = " . round($p, 4) : ($tail == "right" ? "Right-tailed: P(T_" . $df . " > " . round($t, 3) . ") = " . round($p, 4) : "Two-tailed: 2 * P(T_" . $df . " > |" . round($t, 3) . "|) = " . round($p, 4))) . '</p>
+      <p><span class="term-label">Part (c): the decision.</span> ' . ($reject == 1 ? "The p-value " . round($p, 4) . " is below alpha = " . $alpha . ", so we reject `H_0`." : "The p-value " . round($p, 4) . " is not below alpha = " . $alpha . ", so we fail to reject `H_0`.") . '</p>
+      <p>The t distribution accounts for estimating sigma with s: with few degrees of freedom its fatter tails mean a bigger p-value for the same test statistic, and reading the t-score against a normal table only ever fails in the direction that manufactures findings.</p>
     </div>
   </details>
 </div>'

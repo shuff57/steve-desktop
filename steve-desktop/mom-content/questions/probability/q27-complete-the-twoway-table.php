@@ -40,7 +40,7 @@ $d = $r2 - $c
 $c2 = $grand - $c1
 
 // The answer key lives in COMMON CONTROL. The final marker section is the SOLUTION field, not the
-// key -- putting $answer[] down there leaves the question with no key and it still saves cleanly.
+// key: putting $answer[] down there leaves the question with no key and it still saves cleanly.
 // (Do not write the marker text itself in a comment: the splitter matches it and cuts here.)
 $answer[0] = $b
 $answer[1] = $c
@@ -70,7 +70,7 @@ $sol = '
         <li><b>(c)</b> The ' . $rN . ' row totals `' . $grand . ' - ' . $r1 . ' = ' . $r2 . '`, so its last cell is `' . $r2 . ' - ' . $c . ' = ' . $d . '`.</li>
         <li><b>(d)</b> The ' . $cN . ' column totals `' . $grand . ' - ' . $c1 . ' = ' . $c2 . '`. Check it against the two cells above it: `' . $b . ' + ' . $d . ' = ' . $c2 . '`.</li>
       </ul>
-      <p><span class="term-label">Part (e).</span> The joint probability uses the GRAND total underneath, because nothing has been restricted: `' . $a . ' -: ' . $grand . '`. Dividing by the row total instead would answer a different question &mdash; that is the conditional, and it comes later in this section.</p>
+      <p><span class="term-label">Part (e).</span> The joint probability uses the GRAND total underneath, because nothing has been restricted: `' . $a . ' -: ' . $grand . '`. Dividing by the row total instead would answer a different question: that is the conditional, and it comes later in this section.</p>
       <p><span class="term-label">Why the check in (d) matters.</span> A two-way table is over-determined: the margins have to agree down the columns AND across the rows. If your last cell does not satisfy both, an earlier subtraction went wrong, and the table tells you so before any probability is computed.</p>
     </div>
   </details>
