@@ -1,0 +1,46 @@
+{
+  "mom": {
+    "3": {
+      "cid": "339304",
+      "name": "3 Intro to Stats - 2627"
+    },
+    "4": {
+      "cid": "334243",
+      "name": "4 Intro to Stats - 2627"
+    },
+    "6": {
+      "cid": "340140",
+      "name": "6 Integrated Math 1 -2627"
+    },
+    "7": {
+      "cid": "339625",
+      "name": "7 Intro to Stats - 2627"
+    }
+  },
+  "aeries": {
+    "3": {
+      "gradebook": "5419229",
+      "name": "Int Statistics"
+    },
+    "4": {
+      "gradebook": "1578350",
+      "name": "Int Statistics"
+    },
+    "5": {
+      "gradebook": "7930074",
+      "name": "Int to Prog, Concept & Method"
+    },
+    "6": {
+      "gradebook": "2589239",
+      "name": "Integ Math 1-P"
+    },
+    "7": {
+      "gradebook": "8902418",
+      "name": "Int Statistics"
+    },
+    "8": {
+      "gradebook": "665211",
+      "name": "Intro Comp Sci"
+    }
+  }
+}
