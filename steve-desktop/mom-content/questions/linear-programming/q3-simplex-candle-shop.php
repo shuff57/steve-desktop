@@ -95,7 +95,8 @@ $solutionguide = '
 
 /* ---------- 3. Question Text ---------- */
 
-//question text// === QUESTION TEXT ===
+//question text
+// === QUESTION TEXT ===
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
 

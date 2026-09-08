@@ -27,7 +27,7 @@ $displayformat[0]="select"
 $answer[0] = 2
 
 //Test Statistics
-$answer[1] = round(($p1-$p2)/sqrt($phat*$qhat(1/$n1+1/$n2)),4)
+$answer[1] = round(($p1-$p2)/sqrt($phat*$qhat*(1/$n1+1/$n2)),4)
 
 //p-value
 $answer[2]= round(1-normalcdf($answer[1],8),4)

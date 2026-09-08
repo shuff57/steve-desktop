@@ -17,6 +17,25 @@ import path from 'node:path';
 const root = process.argv[2] || '.';
 const findings = [];
 
+/**
+ * Parse an `$anstypes = ...` line into its type tokens. IMathAS accepts four forms
+ * (question-types/special.md: "Array or list"): array("a","b"), ["a","b"],
+ * listtoarray("a,b") and the bare string "a,b" — where "b" continues to the end of the
+ * line, so a bare string with no closer spans every remaining part.
+ */
+function parseAnstypes(line) {
+  const rhs = line.replace(/^\s*\$anstypes\s*=\s*/, '');
+  if (/^(array\s*\(|\[)/i.test(rhs)) {
+    const m = /\(([^)]*)\)|\[([^\]]*)\]/.exec(rhs);
+    if (!m) return [];
+    return (m[1] ?? m[2]).split(',').map((s) => s.trim().replace(/^["']|["']$/g, ''));
+  }
+  // listtoarray("a,b") and the bare string "a,b": the quoted payload is the list. An unquoted
+  // payload has no delimiter to trust, so treat it as unknown rather than guessing.
+  const m = /(["'])([^"']*)\1/.exec(rhs);
+  return m ? m[2].split(',').map((s) => s.trim()).filter(Boolean) : [];
+}
+
 function walk(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
@@ -40,16 +59,31 @@ function check(file) {
   // Flagging those was noise: 5 of 11 hits on questions pulled live from MOM in Aug 2026 were draw
   // questions that score correctly in front of students. The original bug (1.2, 2.1) was a
   // single-answer question, so the rule is kept for everything else.
+  //
+  // The PART-level anstypes matter here, not the file-level qtype: a multipart qtype with a draw
+  // part keys that part through $answers. And $anstypes itself comes in four documented forms
+  // (special.md: "Array or list") — array("a","b"), ["a","b"], listtoarray("a,b") and the bare
+  // string "a,b" — so the parser accepts all four. Missing string-form anstypes was the whole of
+  // the bank's remaining answers-plural noise: every string-form file is a draw-containing
+  // multipart that scores correctly.
   const qtypeLine = lines.find((l) => l.includes('=== SET QUESTION TYPE TO:')) || '';
   const qtype = (qtypeLine.split('SET QUESTION TYPE TO:')[1] || '').replace(/=+/g, '').trim();
-  const answersIsValid = ['draw', 'essay', 'file', 'choices', 'multans', 'matching'].includes(qtype);
+  const anstypesLine = lines.find((l) => /^\s*\$anstypes\s*=/.test(l)) || '';
+  const anstypes = parseAnstypes(anstypesLine);
+  const answersIsValid =
+    ['draw', 'essay', 'file', 'choices', 'multans', 'matching'].includes(qtype) ||
+    anstypes.some((a) => ['draw', 'essay', 'file', 'choices', 'multans', 'matching'].includes(a));
 
   // 4. The splitter matches the marker text anywhere, including inside a comment, so a comment that
   // QUOTES a marker cuts the file in the wrong place. (Marker COUNT is deliberately not checked:
   // essay FRQs and older questions legitimately carry three or four, and a rule that fires on fifty
   // valid files is noise that gets ignored.)
+  // Lines are split on \n with a possible lone \r left at the start of the next line: three bank
+  // files carry a stray CR after "//question text", which glued the marker to the line above and
+  // turned a clean file into a false marker hit. Trim before matching so a stray CR cannot hide
+  // the "//" that makes a line a marker.
   lines.forEach((line, i) => {
-    if (/^\s*\/\/ === [A-Z]/.test(line)) return;
+    if (/^\s*\/\/ === [A-Z]/.test(line.trim())) return;
     if (/=== (ANSWER|QUESTION TEXT|COMMON CONTROL|NAME - DESCRIPTION|SET QUESTION TYPE TO) ===/.test(line)) {
       findings.push({ kind: 'marker-count', file: rel, n: i + 1, detail: 'marker text inside a non-marker line' });
     }
@@ -61,11 +95,13 @@ function check(file) {
   // Hand-graded part types legitimately have no key, so they are exempt. Without this the check
   // fires on every essay FRQ in the bank and becomes noise.
   const HAND_GRADED = new Set(['essay', 'file', 'draw']);
-  const atMatch = /\$anstypes\s*=\s*array\(([^)]*)\)/.exec(txt);
-  const anstypes = atMatch ? atMatch[1].split(',').map((s) => s.trim().replace(/^["']|["']$/g, '')) : [];
 
   const boxes = new Set([...txt.matchAll(/\$answerbox\[(\d+)\]/g)].map((m) => m[1]));
-  const keys = new Set([...txt.matchAll(/^\s*\$answer\[(\d+)\]\s*=/gm)].map((m) => m[1]));
+  // Keys are assignments, and an assignment is not always the whole line: q15-perm-or-comb writes
+  // "$prompt_a = $picked_a[0]; $answer[0] = $picked_a[1]" and the two-proportion questions put
+  // keys inside if(){...}else{...}. Search the text for every $answer[N] = and let the line-anchored
+  // key-after-qtext rule below keep its own stricter match, which is what its bug class needs.
+  const keys = new Set([...txt.matchAll(/\$answer\[(\d+)\]\s*=/g)].map((m) => m[1]));
   // A one-part question keys with a SCALAR `$answer = ...` and IMathAS accepts it against
   // $answerbox[0]. Verified live: q2-probability-card-draw grades correctly on 3.1 with this form.
   if (/^\s*\$answer\s*=/m.test(txt)) keys.add('0');

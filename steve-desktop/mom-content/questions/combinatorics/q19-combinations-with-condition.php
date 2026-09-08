@@ -90,7 +90,8 @@ $solutionguide = '
 $__qt1 = $ilab . "s"
 $__qt2 = $ilab . "s"
 
-//question text// === QUESTION TEXT ===
+//question text
+// === QUESTION TEXT ===
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
