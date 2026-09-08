@@ -1383,3 +1383,124 @@ the rubric wording whenever an FRQ rubric changes.**
   that targets one whole group, these are unambiguous and cannot half-apply. Prefer them over
   `removeSelected()` with hand-ticked boxes -- which is where the id-vs-index trap above bites.
 
+## Chapter 2 hw into P3/P4/P7, and a new `updatePts()` trap (2026-09-08)
+
+Filling 2.1, 2.2, 2.7 (the three chapter-2 manifests with a clean 1:1 section stub) in all three
+live sections. Master 334437 was already correctly filed for all seven chapter-2 manifests
+(2.1-2.7), verified against every manifest's qid/points list before touching any section --
+zero pushes needed this run.
+
+- **Dispatching a `change` event on `#pts-N` while looping fires `updatePts()` PREMATURELY, once
+  per field, and only the first one lands.** The documented recipe ("set every `#pts-N` first,
+  then call `updatePts()` once") is right about the call count but does not mention events --
+  and adding `input`+`change` dispatch per field (reflexively, the same way Vue fields need it)
+  broke it: the first field's `change` event triggers a listener that calls `updatePts()`
+  immediately, mid-loop, submitting field 0's new value alongside every other field's stale 9999.
+  That AJAX call sets `inTransit`, so every subsequent per-field `change` dispatch -- and the
+  explicit end-of-loop call -- gets silently dropped by `submitChanges()`'s `if (inTransit)
+  return`. Result: item 0 saves correctly, items 1-N stay at 9999, and nothing errors. Measured
+  on P3 2.1: read-back after the first attempt showed `[6, 9999, 9999, ...]`, total 159990. Fix:
+  set `.value` via the native setter with **no event dispatch at all** (`#pts-N` has no `name`
+  and isn't Vue -- the events aren't needed for `updatePts()` to see the values), then call
+  `updatePts()` exactly once. Re-ran clean on all 9 assessments after the fix.
+
+- **The chapter-2 section stubs are not 1:1 with the chapter-2 manifests.** All three sections
+  hold only 5 chapter-2 stub rows, not 7: `2.3 Measures of the Location of the Data + 2.4 Box
+  Plots` and `2.5 Measures of the Center + 2.6 Skewness and the Mean, Median, Mode` are each ONE
+  combined stub (confirmed identical in P3 339304/23440100+23440101, P4 334243/23114383+23114384,
+  P7 339625/23464607+23464608), while the master course still holds 2.3, 2.4, 2.5, 2.6 as four
+  separate assessments. This is the same shape as the "stub for 2-N seems missing" case the skill
+  says to stop on, one step removed -- nothing is MISSING, but no stub maps 1:1 to a manifest, so
+  guessing (attach both masters' questions into one stub? at what point totals? which dates?)
+  would be inventing structure rather than filling it. Left both combined stubs untouched in all
+  three sections pending a decision. The other 5 combined-topic pairs found the same day
+  elsewhere in the same course structure (`12.1 + 12.2`, `12.5 + 12.6`, etc.) suggest this is a
+  deliberate pacing choice across the whole course, not a one-off -- worth checking before
+  assuming any future "manifest count != stub count" mismatch is an error.
+
+- **Two more pre-existing bell-schedule mismatches found on P4** (not caused by this push, not
+  fixed by it -- reported to Steve, not silently corrected): P4 2.1 (aid 23114381) had `sdate`
+  09/09/2026 (Wed) with `stime` 10:11am (should be 10:33am) and `edate` 09/11/2026 (Fri) with
+  `etime` 10:33am (should be 10:11am) -- the regular and Wednesday times read as swapped between
+  the two ends of the same assessment. P4 2.2 (aid 23114382) had `sdate` 09/11/2026 (Fri) with
+  `stime` 10:33am (should be 10:11am); its `edate`/`etime` were correct. P4 2.7 (aid 23114385)
+  had `edate` 09/23/2026 (Wed) with `etime` 10:11am (should be 10:33am); its `sdate`/`stime` were
+  correct. P3 and P7's touched assessments were all correct. Same defect class as the 44 found
+  2026-08-21 -- Wednesday keeps being the one that gets missed.
+
+## Splitting a combined section stub into two, on Steve's explicit authorization (2026-09-08)
+
+Sections had one stub covering two book topics ("2.3 ... + 2.4 ...") while master held them as
+four separate assessments (2.3/2.4/2.5/2.6). Steve authorized creating 2 new stubs per combined
+pair, per section (6 total) -- this is the "stop and ask before creating a stub" case from
+earlier in this file, and the authorization is for this specific case only, not a standing
+permission. First time this repo has created a NEW assessment rather than filling an existing
+stub; the mechanics were undocumented until now.
+
+- **Enter via the block's own `additem(blk,tb)` URL, never a guessed one.** The bottom
+  "Add An Item..." select on a block has `onchange="additem('<blockaddr>','b')"`; reading that
+  function's source gives the exact URL it would navigate to:
+  `addassessment2.php?block=<addr>&tb=b&cid=<cid>`. Landing there directly (skipping the click)
+  works and is far cheaper than driving the dropdown. The submit button reads **"Create
+  Assessment"**, confirming it's the real create form and not the `?aid=`-without-`?id=` trap
+  documented elsewhere in this file.
+- **`copyfrom` (a `<select>` of every assessment in the course, by name) is a SERVER-SIDE
+  directive, not a live-preview field.** Setting it and dispatching `change` (even via
+  `jQuery(...).val().trigger('change')`) does nothing visible on the page -- gbcategory,
+  allowlate etc. all stay at blank-form defaults. The copy only happens when the form is
+  actually submitted. Don't chase a live update that isn't coming; just submit and verify the
+  RESULT.
+- **Best `copyfrom` source is the combined stub itself**, not a same-chapter sibling like 2.2 --
+  it already carries the right `gbcategory` and `allowlate` for this exact slot in the outline,
+  confirmed by reading its settings first. Verified after creation: `gbcategory` and `allowlate`
+  matched the source exactly on every one of the 6 new assessments.
+- **The external-resource Book link is NOT topic-specific after copyfrom** -- the new assessment
+  inherits whichever link the combined stub happened to carry (2.3's, since it was never updated
+  when 2.4 got folded in). The FIRST-created half of a pair (e.g. 2.3) can come through correct
+  by coincidence; the second (2.4) needs its `extreflinks[0]` value corrected and saved via
+  "Save Changes" before it's right. Always verify both, not just one.
+- **`toggleblock(event, bnum, folder)` toggles -- it does not "ensure open".** Calling it twice
+  in one pass (once for an unrelated bulk-expand-everything loop, then again explicitly for the
+  block you actually want) leaves it CLOSED, and a bulk "expand every blockh on the page in a
+  loop of 6 passes" pattern reused from elsewhere in this file corrupted the DOM outright --
+  Chapter blocks 7-13 rendered 3-4 times each, and a `moveDialog` scrape inside the intended
+  Chapter 2 container returned Chapter 5's item ids. Recognise it by: chapter headers appearing
+  more than once in a `blockh` dump, or a `moveDialog` scrape returning block addresses that
+  don't match the container you scraped. Fix: never bulk-toggle; check
+  `document.getElementById('block'+n).className !== 'blockitems'` before toggling each specific
+  ancestor block by name, in order from outermost to innermost (Textbook -> Semester -> Chapter),
+  and expect the innermost one to still say "Fetching data..." for close to a second after
+  toggling -- wait before reading its content or scraping `moveDialog`.
+- **A newly created assessment via `tb=b` always lands at the very BOTTOM of the block**,
+  confirming the documented rule, and submitting the create form navigates straight to
+  `addquestions2.php?...&aid=<newaid>` for it -- convenient, since questions get attached next
+  anyway. Read the new `aid` off `location.href` immediately after submit; nothing else surfaces
+  it.
+- **Repositioning after creation is `moveitem.php?cid=<cid>&item=<itemid>&block=<addr>`, driven
+  the same way as everywhere else in this file: set `#blockselect` and `#itemselect`, call
+  `moveitem()`, don't replay its POST by hand.** The item id for a JUST-created assessment is
+  found by re-scraping the block's `moveDialog` pairs after creation -- it's the new one at the
+  end of the list, in creation order. Moving item A to sit after item B, then B's *new* neighbor
+  C to sit after A, chains cleanly: each `moveitem()` call is independent and the target
+  `moveafter` value is just an item id, not a live position that needs recalculating between
+  calls, `window.parent.location.reload()` in `moveitem()`'s `.done()` handler is a same-URL
+  reload when driven outside an iframe (as here) -- expect the moveitem.php form itself to
+  reappear unchanged, not a navigation to the course page. Verify the actual move by
+  re-navigating to `course.php` and re-expanding, not by reading `moveitem.php`'s own post-call
+  state.
+- **The attach GET can fail with `net::ERR_NETWORK_CHANGED` mid-run with no other symptom** --
+  one qsetid of 11 silently missing from `itemarray`, everything else fine. A single retry of
+  that one GET fixed it, but it landed at the END of the item list (per the documented "filed
+  after neighbours attaches at the end" rule) rather than back in its manifest slot. Fixed by the
+  documented `itemarray` splice + one `submitChanges()` -- find the row by qsetid, splice it out,
+  splice it back in at the right index, save once. Always re-verify order AND count after any
+  retried attach, not just count.
+- Full result, all fresh-nav verified: P3 2.3=24071949(15q/100), 2.4=24072022(12q/100),
+  2.5=24072382(13q/100), 2.6=24072515(11q/100); P4 2.3=24072524, 2.4=24072683, 2.5=24072775,
+  2.6=24072785 (same counts/points); P7 2.3=24072969, 2.4=24073053, 2.5=24073129, 2.6=24073170
+  (same counts/points). Outline order in all three now reads 2.1, 2.2, 2.3(new), 2.4(new),
+  2.5(new), 2.6(new), [old combined 2.3+2.4 stub, untouched], [old combined 2.5+2.6 stub,
+  untouched], 2.7, 2.8, tests. The two old combined stubs were deliberately left in place per
+  Steve's instructions -- they are now orphaned duplicates in the outline and their disposal
+  (delete / hide / repurpose) is an open question, not yet decided.
+
