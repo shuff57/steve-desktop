@@ -3,6 +3,7 @@
   "book": "integrated-math-1",
   "kind": "hw",
   "slug": "hw-functions",
+  "_merged": "MERGED 2026-09-09: absorbed hw-function-machines.json's 9 qsets (1432147, 1432162, 1432155, 342753, 1271, 43324, 99384, 1175184, 1175191). Live aid 23498448 renamed '1.3 Inputs, Outputs, and What Makes a Function', 18 questions, defpts=1. The absorbed assessment 23498447 was deleted from course 340140.",
   "target": {
     "cid": "334437",
     "aid": "23993520"

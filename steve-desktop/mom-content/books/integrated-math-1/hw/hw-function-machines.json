@@ -3,6 +3,7 @@
   "book": "integrated-math-1",
   "kind": "hw",
   "slug": "hw-function-machines",
+  "_merged": "MERGED 2026-09-09 into hw-functions.json (live aid 23498448, '1.3 Inputs, Outputs, and What Makes a Function'). All 9 qsets attached to the survivor; this assessment (live aid 23498447) was DELETED from course 340140. The book has one 1.3 section; the CPM split was legacy.",
   "target": {
     "cid": "334437",
     "aid": "23993519"

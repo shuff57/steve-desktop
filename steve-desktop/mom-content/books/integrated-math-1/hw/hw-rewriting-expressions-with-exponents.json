@@ -3,6 +3,7 @@
   "book": "integrated-math-1",
   "kind": "hw",
   "slug": "hw-rewriting-expressions-with-exponents",
+  "_merged": "MERGED 2026-09-09: absorbed hw-zero-and-negative-exponents.json's 8 qsets (3646, 3861, 3860, 1890, 1889, 1885, 1884, 1303). Live aid 23498450 renamed '1.5 Working with Exponents', 20 questions, defpts=1. The absorbed assessment 23498451 was deleted from course 340140.",
   "target": {
     "cid": "334437",
     "aid": "23993522"

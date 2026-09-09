@@ -1504,3 +1504,89 @@ stub; the mechanics were undocumented until now.
   Steve's instructions -- they are now orphaned duplicates in the outline and their disposal
   (delete / hide / repurpose) is an open question, not yet decided.
 
+## IM1 chapter 1 sync into the live course 340140 (2026-09-09)
+
+The first `mom-section-sync`-style run against the IM1 taught course (period 6, cid 340140) --
+and it is NOT the stats shape. IM1 has no master/live split: 340140 is both filing home and
+taught course, and chapter 1 was a half-rebuilt mess (book-named blocks existed, but the six
+HWs still carried 2024 dates, `1.2` did not exist, and the three tests were retimed to the
+wrong 10:00 am slot). The sync was: rename the six HWs onto book names, create `1.2` (15
+questions, aid 24087978), retime all ten to the 5-or-6 slot (12:27 pm regular / 12:41 pm Wed
+start, tests close same-day at period-end+7 = 2:03 pm), keep test content (verified identical
+to master qsets).
+
+- **The settings form's own post-save DOM lies; the fresh navigation is the only truth.** After
+  clicking Save Changes, the form re-renders with the values you typed -- so a read-back in the
+  same page load reports success even when the save never landed. The first attempt at this run
+  "saved" all nine items this way and a fresh navigation showed every one unchanged. The
+  reliable recipe is the sync-XHR POST (`xhr.open('POST', form.action, false)` +
+  `xhr.send(new FormData(form))`), which redirects to the course page on success -- then verify
+  from a fresh navigation. The redirect itself is the success signal; the response body is the
+  course page, not the form.
+- **`assmpassword` survives a settings save here, contradicting the rule above.** The two tests
+  (23498453 `Ethereal`, 23498454 `sparklingWater`) kept their passcodes through the retime
+  POSTs. The rule was measured on a different form state; do not assume the wipe, but still
+  re-check the passcode after any settings write -- it is one field read.
+- **The 5-or-6 slot is the IM1 clock** (12:27 regular / 12:41 Wed / 10:49 minimum day; tests
+  close at period-end+7 = 2:03 pm). The three tests had been retimed to 10:00 am -- the 3-or-4
+  slot -- by an earlier partial pass. IM1's own schedule is `im1_course_schedule.md` in
+  bookSHelf; period 6 meets even rotation days only.
+- **Create still lands at the course root even with `block=0-6-2` in the URL** (re-confirmed on
+  aid 24087978; the `addassessment2.php?block=` param is not honoured on create). Move with
+  `moveitem.php?cid=340140&item=<itemid>&block=0-6-2` + the page's `moveitem()`, exactly as
+  documented above. The item id for the new assessment is scraped from the course page's
+  `moveDialog` pairs after creation.
+- **The live HWs already carried the master's qsets** (verified itemarray-by-itemarray before
+  any write), so the sync was rename+retime, not re-attach. The 1.2 create attached the 15
+  manifest qsets (1525282, 1893443, 1530194, 1532434, 1530796, 1526257, 1893402-1893405,
+  1530163, 1530792, 1530819, 1468902, 1535534) at 1 point each, `beentaken: 0`, fast-path
+  `submitChanges()` points pass worked.
+- **Left alone, flagged only:** the ch0 Group Test (24020244) still has inverted dates (due
+  09/02 before open 09/09); the ch1 Review/Group/Individual still share the same 30 questions;
+  the 1.2 sequence-vocabulary defect (MAP-IM1-GLOBAL.md item 4) is unchanged. All ten ch1 items
+  verified from fresh navigation: names, dates, block placement, 1.2 content/points.
+
+## IM1 chapter 1 flattened onto the book spine (2026-09-09, second pass)
+
+Steve's call after the first pass: the live course must MIRROR the bookSHelf layout, and the
+book has FIVE chapter-1 sections, not seven. The two 1.3s and two 1.5s were legacy CPM splits
+of one book section each, so the second pass merged them, deleted the absorbed assessments,
+and flattened the CPM-named sub-blocks.
+
+- **Merging two assessments = attach the absorbed one's qsets into the survivor, then delete
+  the absorbed one.** 1.3: 23498447 (9q) absorbed into 23498448 (9q) -> 18q, renamed "1.3
+  Inputs, Outputs, and What Makes a Function". 1.5: 23498451 (8q) absorbed into 23498450
+  (12q) -> 20q, renamed "1.5 Working with Exponents". Both survivors keep `defpts=1` with all
+  rows 9999 (= use default = 1), so NO points pass was needed -- the 9999-is-default rule
+  from the ch0 push applied exactly. The absorbed assessments were deleted with the
+  assessment-delete recipe (guard on the name on the confirm screen, POST with
+  `remove=really`).
+- **`beentaken: 1` on an absorbed assessment is not a blocker when it was in practice mode.**
+  23498447 read `beentaken: 1` (a student opened it), but it had been past-due since 2024 and
+  was in practice mode ("no scores will be saved"), so no student work existed to lose. Check
+  the gradebook for actual attempts before treating `beentaken` as a reason to stop a merge.
+- **`deleteblock.php` needs `delcontents=0` ("Move all items out of block") or it answers
+  "Invalid ID".** The form defaults to `delcontents=1` ("Also Delete all items in block").
+  For an empty block either works, but the XHR POST with the default radio set answered
+  "Invalid ID" twice; setting `delcontents=0` explicitly made the same POST redirect to the
+  course page (success). The `bid` is stable; the folder id renumbers after every delete, so
+  re-scrape the delete links between deletes and delete last-first.
+- **`moveitem.php`'s `block` URL param is the item's CURRENT block, not the destination.**
+  The POST sends `block` (current) + `newblock` (from `#blockselect`). Passing the
+  destination as `block` answers "Item to move could not be found". The current block
+  address also renumbers after every move, so re-read `#blockselect`'s options before each
+  move. `moveafter` is an item id or `top`; moving everything to `top` reverses the order,
+  so reorder by moving each item after its predecessor.
+- **The delete-assessment XHR needs the CSRF token from the form** (`input[name="csrfp-token"]`)
+  plus `remove=really` in the POST body; the page's own button click and `requestSubmit()`
+  both failed to submit in this run (the CSRFP hook signs at send time, and the button's
+  click handler was not firing). The working recipe: `new FormData(form)`, `data.set('remove',
+  'really')`, sync XHR POST to `form.action` with `X-Requested-With: XMLHttpRequest` -- the
+  redirect to the course page is the success signal.
+- **Final state, all fresh-nav verified:** Chapter 1 Functions (0-6-2) holds exactly the
+  book's five sections in order (1.1 Working Problems as a Team, 1.2 Representing a Growing
+  Pattern, 1.3 Inputs/Outputs/What Makes a Function, 1.4 Domain and Range, 1.5 Working with
+  Exponents) plus Chapter 1 Practice/Group/Individual Tests, all flat (no sub-blocks except
+  the three content blocks Chapter 1 Slides / Learning Objectives / Videos). Deleted: the
+  seven CPM-named sub-blocks and the two absorbed assessments (23498447, 23498451).
+
