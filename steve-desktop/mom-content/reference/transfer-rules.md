@@ -1428,6 +1428,39 @@ zero pushes needed this run.
   correct. P3 and P7's touched assessments were all correct. Same defect class as the 44 found
   2026-08-21 -- Wednesday keeps being the one that gets missed.
 
+## 2.2 section-sync into P4 and P7, and an ollama-cloud quota mid-run failure (2026-09-10)
+
+Master `334437`/`23262795`'s 2.2 was rewritten same-day (discrete-class swap, box-plot-free
+pre-FRQ, class-width/bin-labeling additions, trim to 15 questions/100 points -- see the
+manifest's own `_note`). P4 and P7's 2.2 stubs still held the OLD 17-question/2026-09-08 version
+and needed syncing to match. P3 was explicitly out of scope (Steve doing that one himself).
+
+- **P4**: `334243`/`23114382`. **P7**: `339625`/`23464606` -- found by reading
+  `chgassessments2.php?cid=339625`'s checkbox `value` off the `<label>` whose text starts "2.2"
+  (the mass-change page, not a normal listing -- see the `input[type=checkbox]` rule elsewhere in
+  this file for why a naive `tr`-based scrape finds nothing on this page shape).
+- Both stubs' `beentaken` read `0` before any write -- no student attempt in progress, safe to
+  proceed per the STOP-condition guard written into the spec for exactly this shape of live edit.
+- Detached 5 superseded qids (`1873371`, `1873378`, `1873383`, `1873376`, `1873353`), attached 3
+  new ones (`1901512`, `1901515`, `1901517`), reordered `itemarray` and repointed to the master's
+  current 15-slot/100-point table in one `submitChanges()` pass each -- both read back fresh,
+  matching exactly. Both Teacher-Previewed clean: **P4 102/100, 15/15**; **P7 102/100, 15/15**,
+  zero `.ansred` markers on any of the 30 total question-parts checked.
+- **The ollama-cloud dispatch (`deepseek-v4-flash:0731`) hit a weekly usage quota mid-run**,
+  immediately after P7's question-list rewrite completed but before its Teacher Preview began:
+  `you (shuff57) have reached your weekly usage limit ... (ref: ...)`. The run had done real,
+  correct, live-course work (P4 fully done and verified, P7's content fully corrected and
+  read-back verified) but sent no reply, so `handoff.mjs` correctly flagged it as a failure --
+  worth noting because the underlying work was NOT wasted, just unreported. The Claude session
+  picked up the still-open `playwright-cli -s=mom` browser and finished P7's Teacher Preview by
+  hand, using the same reveal-via-`button.keybtn`-then-map-by-label-text procedure. A quota
+  failure is recoverable via the same live session; it does not require restarting the section
+  sync from scratch, since the live course state itself was already correct.
+- **`chgassessments2.php`'s checkboxes are not inside `<tr>` elements** -- they're bare `<label>`s
+  in a flat list, so `c.closest('tr')` finds nothing on this page (unlike the roster/gradebook
+  pages elsewhere in this file). Read `c.value` off the `<label>` whose `innerText` matches, not
+  a table-row scrape.
+
 ## Splitting a combined section stub into two, on Steve's explicit authorization (2026-09-08)
 
 Sections had one stub covering two book topics ("2.3 ... + 2.4 ...") while master held them as

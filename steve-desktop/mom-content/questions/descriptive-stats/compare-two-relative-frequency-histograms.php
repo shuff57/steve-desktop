@@ -72,38 +72,57 @@ $questions[2] = array(
 $answer[2] = 0
 
 // Both histograms share one vertical scale, so the two shapes really are comparable by eye.
-$topR = round($maxR * 100 / 5 + 0.5, 0) * 5
-$gN = $topR / 5
+// Step is 2 percentage points, not 5. ca[k]/nA is an arbitrary ratio: both bases add to 36 and
+// each of the 5 categories gets its own independent rand(0,3), so nA itself varies seed to seed.
+// No fixed step lands every possible bar EXACTLY on a line without pinning nA to one constant,
+// and pinning nA would erase the different-sample-sizes point this question exists to teach. So
+// the fix is the finest step that keeps the axis legible: checked against all 4^5 rand(0,3)
+// combinations for both base arrays, maxR never exceeds ~0.385 (topR tops out at 40), so a step of
+// 2 never needs more than 20 labeled lines. The part (a) answer is still graded from the exact
+// count and total stated in the question text, not from reading the bar by eye: the grid is for
+// visual honesty (the drawn bar should sit close to where its true height belongs), not the source
+// of the key: the plot area is taller than before (400 instead of 268) so 20 lines have room
+// without the labels crowding into each other the way they would have at the old height.
+$topR = 2 * round($maxR * 100 / 2 + 0.5, 0)
+$gN = $topR / 2
+$axisY = 335
+$plotTop = 25
+$plotH = $axisY - $plotTop
 $sv = array("", "")
 for ($vv=0..1) {
   $grid = ""
   for ($g=0..$gN) {
-    $val = 5 * $g
-    $gy = round(215 - $val * 180 / $topR, 2)
+    $val = 2 * $g
+    $gy = round($axisY - $val * $plotH / $topR, 2)
     $grid = $grid . '<line x1="58" y1="' . $gy . '" x2="438" y2="' . $gy . '" stroke="#e5e7eb" stroke-width="1"/>'
-    $grid = $grid . '<text x="52" y="' . ($gy + 4) . '" font-size="11" fill="#6b7280" text-anchor="end">' . $val . '</text>'
+    $grid = $grid . '<text x="52" y="' . ($gy + 4) . '" font-size="10" fill="#6b7280" text-anchor="end">' . $val . '</text>'
   }
   $bars = ""
   $ticks = ""
   for ($k=0..4) {
     $pct = 100 * $ra[$k]
     if ($vv == 1) { $pct = 100 * $rb[$k] }
+    $pctLabel = round($pct, 1)
     $bx = 58 + $k * 76
-    $bh = round($pct * 180 / $topR, 2)
-    $by = round(215 - $bh, 2)
+    $bh = round($pct * $plotH / $topR, 2)
+    $by = round($axisY - $bh, 2)
+    $labelY = $by - 6
+    // The label sits just above the bar top, not on the gridline: the gridline is the honest read,
+    // the label is a convenience so a student is not stuck squinting between two lines to interpolate.
     $bars = $bars . '<rect x="' . $bx . '" y="' . $by . '" width="76" height="' . $bh . '" fill="#93c5fd" stroke="#1e40af" stroke-width="1.5"/>'
+    $bars = $bars . '<text x="' . ($bx + 38) . '" y="' . $labelY . '" font-size="11" fill="#1e40af" text-anchor="middle">' . $pctLabel . '%</text>'
   }
   for ($k=0..5) {
     $tx = 58 + $k * 76
-    $ticks = $ticks . '<line x1="' . $tx . '" y1="215" x2="' . $tx . '" y2="220" stroke="#374151" stroke-width="1"/>'
-    $ticks = $ticks . '<text x="' . $tx . '" y="235" font-size="11" fill="#374151" text-anchor="middle">' . ($lo0 + $width * $k) . '</text>'
+    $ticks = $ticks . '<line x1="' . $tx . '" y1="' . $axisY . '" x2="' . $tx . '" y2="' . ($axisY + 5) . '" stroke="#374151" stroke-width="1"/>'
+    $ticks = $ticks . '<text x="' . $tx . '" y="' . ($axisY + 20) . '" font-size="11" fill="#374151" text-anchor="middle">' . ($lo0 + $width * $k) . '</text>'
   }
-  $one = '<svg viewBox="0 0 455 268" width="100%" style="max-width:455px; display:block; background:#fff;" xmlns="http://www.w3.org/2000/svg" role="img">'
+  $one = '<svg viewBox="0 0 455 400" width="100%" style="max-width:455px; display:block; background:#fff;" xmlns="http://www.w3.org/2000/svg" role="img">'
   $one = $one . $grid . $bars
-  $one = $one . '<line x1="58" y1="25" x2="58" y2="215" stroke="#374151" stroke-width="2"/><line x1="58" y1="215" x2="438" y2="215" stroke="#374151" stroke-width="2"/>'
+  $one = $one . '<line x1="58" y1="' . $plotTop . '" x2="58" y2="' . $axisY . '" stroke="#374151" stroke-width="2"/><line x1="58" y1="' . $axisY . '" x2="438" y2="' . $axisY . '" stroke="#374151" stroke-width="2"/>'
   $one = $one . $ticks
-  $one = $one . '<text x="248" y="258" font-size="12" fill="#374151" text-anchor="middle">' . $xLabel . '</text>'
-  $one = $one . '<text x="16" y="120" font-size="12" fill="#374151" text-anchor="middle" transform="rotate(-90 16 120)">Percent of group</text>'
+  $one = $one . '<text x="248" y="' . ($axisY + 43) . '" font-size="12" fill="#374151" text-anchor="middle">' . $xLabel . '</text>'
+  $one = $one . '<text x="16" y="180" font-size="12" fill="#374151" text-anchor="middle" transform="rotate(-90 16 180)">Percent of group</text>'
   $one = $one . '</svg>'
   $sv[$vv] = $one
 }

@@ -172,6 +172,24 @@
     "filed": "2026-08-08",
     "qtype": "multipart"
   },
+  "questions/descriptive-stats/complete-grouped-frequency-table-discrete.php": {
+    "qsetid": "1901512",
+    "cid": "334437",
+    "filed": "2026-09-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/find-the-class-width.php": {
+    "qsetid": "1901515",
+    "cid": "334437",
+    "filed": "2026-09-10",
+    "qtype": "multipart"
+  },
+  "questions/descriptive-stats/label-the-bins-from-a-class-width.php": {
+    "qsetid": "1901517",
+    "cid": "334437",
+    "filed": "2026-09-10",
+    "qtype": "multipart"
+  },
   "questions/descriptive-stats/identify-what-data-refers-to.php": {
     "qsetid": "1873354",
     "cid": "334437",

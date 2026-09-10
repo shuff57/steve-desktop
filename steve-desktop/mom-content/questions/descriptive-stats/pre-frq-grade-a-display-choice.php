@@ -3,8 +3,13 @@
 
 // === COMMON CONTROL ===
 
-// The pre-FRQ for 2.2, built like the chapter 1 ones: the SAME scenario and the SAME grading checklist
-// as frq/descriptive-statistics/q4-choosing-the-right-display, with the writing replaced by grading.
+// The pre-FRQ for 2.2. It used to mirror frq/descriptive-statistics/q4-choosing-the-right-display,
+// but that FRQ is a histogram-vs-BOX-PLOT choice, and box plots are not taught until 2.4, so a 2.2
+// homework cannot ask a student to reason about a display they have not seen yet. Rewritten
+// 2026-09-10 as a histogram-vs-BAR-GRAPH choice instead, which stays inside what 2.1 and 2.2 both
+// already cover. Nothing in questions/frq/ covers this comparison, so this pre-FRQ has no FRQ to
+// mirror; per the template, it gets authored anyway and stands as the scenario and rubric a future
+// FRQ on the same topic should match.
 // The category students drop here is the RECOMMENDATION: having described both displays fairly, they
 // stop without ever answering the question that was asked, which is which one to use.
 //
@@ -16,42 +21,42 @@ $si = rand(0, 2)
 if ($si == 0) {
   $goal = "find out whether the delivery times have one peak or two"
   $best = "histogram"
-  $whyBest = "only a histogram shows the actual shape, and a second peak is a feature of the shape"
-  $blindSpot = "a box plot would draw the same five numbers whether the data had one hump or two"
+  $whyBest = "delivery time is a number, and the goal is about how the values bunch, not about naming a category"
+  $blindSpot = "a bar graph has no numeric classes to bunch anything into, so a second peak would not show up at all"
 }
 elseif ($si == 1) {
-  $goal = "compare the spread of exam scores across four different sections at a glance"
-  $best = "box plot"
-  $whyBest = "several box plots sit side by side on one axis, so the boxes and whiskers can be compared directly"
-  $blindSpot = "four separate histograms are hard to line up and compare"
+  $goal = "compare how many students are enrolled in each of five majors"
+  $best = "bar graph"
+  $whyBest = "the five majors are separate categories, not points on a number line, and the goal is which one has the most, not what shape a range of numbers makes"
+  $blindSpot = "a major name is not a quantity, so there is nothing to sort into numeric classes"
 }
 else {
-  $goal = "check whether any of the recorded repair costs is an outlier"
-  $best = "box plot"
-  $whyBest = "a box plot is built from the quartiles, so the 1.5 IQR fences and any outlier are shown directly"
-  $blindSpot = "a histogram only shows a short bar out at the end, which is not the same as flagging an outlier"
+  $goal = "check whether the recorded repair costs cluster at the low end or spread out evenly across the price range"
+  $best = "histogram"
+  $whyBest = "repair cost is a number, and the goal is about where the values sit along that range, not about naming a category"
+  $blindSpot = "a bar graph would need one bar per distinct dollar amount, and lining up that many single-value bars answers a different question than where the costs cluster"
 }
 
 $sHist = "A histogram groups the data into classes and draws a bar for each, so it shows the SHAPE of the distribution: where the values pile up, whether there is one peak or several, and which way any tail runs."
-$sBox = "A box plot draws the five-number summary, so it shows the median, the quartiles and the range at a glance. Its strength over a histogram is that several groups can be placed on one axis and compared directly, and that outliers are flagged by the 1.5 IQR rule rather than left to the eye."
+$sBar = "A bar graph draws one bar per category, with length equal to the count in that category, so it shows how the categories compare on the same scale. Its strength over a histogram is that the categories can be anything at all, majors, colleges, survey answers, since nothing has to be grouped into a numeric interval to draw it."
 $sRec = "For this goal the " . $best . " is the better choice, because " . $whyBest . ": " . $blindSpot . "."
 
-$rFull = $sHist . " " . $sBox . " " . $sRec
-$rNoRec = $sHist . " " . $sBox . " Both displays are useful and each has its own advantages."
-$rNoBox = $sHist . " " . $sRec
-$rDescOnly = $sHist . " " . $sBox
+$rFull = $sHist . " " . $sBar . " " . $sRec
+$rNoRec = $sHist . " " . $sBar . " Both displays are useful and each has its own advantages."
+$rNoBar = $sHist . " " . $sRec
+$rDescOnly = $sHist . " " . $sBar
 
 $pos = rand(0, 3)
 $rA = $rFull
 $rB = $rNoRec
-$rC = $rNoBox
+$rC = $rNoBar
 $rD = $rDescOnly
 if ($pos == 1) {
   $rA = $rNoRec
   $rB = $rFull
 }
 if ($pos == 2) {
-  $rA = $rNoBox
+  $rA = $rNoBar
   $rC = $rFull
 }
 if ($pos == 3) {
@@ -67,7 +72,7 @@ if ($pos == 1) { $noRecLabel = "A" }
 
 $questions[1] = array(
   "Histogram (4 pts)",
-  "Boxplot (3 pts)",
+  "Bar Graph (3 pts)",
   "Recommendation (3 pts)"
 )
 $answer[1] = "0,1"
@@ -77,7 +82,7 @@ $questions[2] = array(
   "No. Describing both displays fairly is not the same as answering the question that was asked, which is which one to use for THIS goal. The rubric awards the recommendation separately because it is the decision the whole answer exists to reach.",
   "Yes. Once both displays have been described accurately the better choice is obvious and need not be stated.",
   "No, but only because the response was too short. Describing the histogram in more detail would have earned it.",
-  "Yes, provided the strength of box plots over histograms was mentioned."
+  "Yes, provided the strength of bar graphs over histograms was mentioned."
 )
 $answer[2] = 0
 
@@ -107,8 +112,8 @@ $rubric = $css . '
           <tr><th>Category</th><th>Requirement</th></tr>
           <tr class="row-colored"><td style="text-align:center;"><b>Histogram<br>(4 pts)</b></td>
             <td>Describe what a histogram displays, and what aspect of the distribution it is especially good at showing.</td></tr>
-          <tr><td style="text-align:center;"><b>Boxplot<br>(3 pts)</b></td>
-            <td>Describe what a box plot displays, and identify a strength it has that a histogram does not.</td></tr>
+          <tr><td style="text-align:center;"><b>Bar Graph<br>(3 pts)</b></td>
+            <td>Describe what a bar graph displays, and identify a strength it has that a histogram does not.</td></tr>
           <tr class="row-colored"><td style="text-align:center;"><b>Recommendation<br>(3 pts)</b></td>
             <td>State which display is more appropriate for the stated goal, and justify the choice.</td></tr>
         </tbody>
@@ -149,12 +154,12 @@ $solutionguide = '
       Step-by-Step Solution
     </summary>
     <div class="sol-body">
-      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> describes what a histogram shows, describes what a box plot shows AND names a strength it has over a histogram, and then makes a recommendation with a reason tied to the goal. Each of the other three drops a whole category, and a dropped category scores zero however well the rest reads.</p>
+      <p><span class="term-label">Part (a): only one response earns all three.</span> <b>Response ' . $fullLabel . '</b> describes what a histogram shows, describes what a bar graph shows AND names a strength it has over a histogram, and then makes a recommendation with a reason tied to the goal. Each of the other three drops a whole category, and a dropped category scores zero however well the rest reads.</p>
       <p><span class="term-label">The right recommendation here.</span> The goal was to ' . $goal . ', so the <b>' . $best . '</b> is the better display: ' . $whyBest . '. The other one falls short because ' . $blindSpot . '.</p>
       <p><span class="term-label">Part (b): grading Response ' . $noRecLabel . ' line by line.</span></p>
       <ul>
         <li><b>Histogram: earned.</b> It says what a histogram displays and that shape is what it shows best.</li>
-        <li><b>Boxplot: earned.</b> It says what a box plot displays and names a strength over a histogram.</li>
+        <li><b>Bar Graph: earned.</b> It says what a bar graph displays and names a strength over a histogram.</li>
         <li><b>Recommendation: NOT earned.</b> It closes with "both are useful and each has its own advantages". That is a refusal to choose, and choosing was the question. This is the only category it misses.</li>
       </ul>
       <p><span class="term-label">Part (c): why the recommendation is its own category.</span> Two accurate descriptions do not answer "which should I use". A reader with a decision to make gets nothing from an even-handed summary; the rubric pays for the decision AND the reason, because a choice without a reason is a guess and a reason without a choice is an essay. Note that neither display is better in general: the answer depends entirely on the goal, which is why the goal is stated in the prompt and why the justification has to refer to it.</p>
@@ -167,7 +172,7 @@ $solutionguide = '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 12px 0;"><b>The scenario.</b> An analyst has a data set and wants to $goal. She is deciding between a histogram and a box plot.</p>
+    <p style="margin:0 0 12px 0;"><b>The scenario.</b> An analyst has a data set and wants to $goal. She is deciding between a histogram and a bar graph.</p>
     <p style="margin:0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;"><b>The task students were given:</b> Explain what each display shows, and recommend which one she should use for this goal.</p>
   </div>
   $rubric
