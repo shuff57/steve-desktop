@@ -1,22 +1,5 @@
 {
-  "mom": {
-    "3": {
-      "cid": "339304",
-      "name": "3 Intro to Stats - 2627"
-    },
-    "4": {
-      "cid": "334243",
-      "name": "4 Intro to Stats - 2627"
-    },
-    "6": {
-      "cid": "340140",
-      "name": "6 Integrated Math 1 -2627"
-    },
-    "7": {
-      "cid": "339625",
-      "name": "7 Intro to Stats - 2627"
-    }
-  },
+  "mom": {},
   "aeries": {
     "3": {
       "gradebook": "5419229",
