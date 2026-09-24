@@ -99,3 +99,15 @@ steve-desktop/scratch-*.mjs
 # tracked deliberately; the raw event stream is append-only runtime noise).
 .omo/
 .msgbox/events.jsonl
+
+# Audit output and run screenshots that land at the REPO ROOT, not under steve-desktop/.
+# The patterns at lines 72-75 only cover the nested paths, so a script run from the root
+# (anstypes-audit.mjs writes to its own cwd) left the file untracked-but-visible here.
+# Screenshots of a Teacher Preview are run evidence, not source -- the repo tracks none.
+/anstypes-audit.json
+/qtext-audit.json
+/*-fullpage.png
+/*-teacher-preview.png
+# tracked deliberately; the raw event stream is append-only runtime noise).
+.omo/
+.msgbox/events.jsonl
