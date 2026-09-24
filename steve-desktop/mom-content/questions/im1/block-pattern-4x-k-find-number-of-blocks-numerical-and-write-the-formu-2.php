@@ -11,7 +11,9 @@ $color = randfrom("transgreen,transred,transpurple,transpink")
 $a,$b = diffrands(2,6,2)
 $aplus2 = $a + 2
 $bplus2 = $b + 2
-$n = diffrands(40,100,2,'inc') where ($n[1]-$n[0] > 10)
+$n0 = rand(40,80)
+$ndiff = rand(11,20)
+$n = [$n0,$n0+$ndiff]
 
 for ($i=0..2) {
   $snum[$i] = $i+1
@@ -33,12 +35,14 @@ for ($i=0..2) {
       $code[$i] .= "rect([0,$j-1],[1,$j]); rect([$endhoriz-1,$j-1],[$endhoriz,$j]);"
     }
   }
-  [$horizdim,$vertdim] = [$aplus2+2,$bplus2+2]
+  $horizdim = $aplus2+2
+  $vertdim = $bplus2+2
   if (($a==2 || $b==2) && $i==0) {
     $description[$i] = "A shaded rectangular grid containing $rowword rows of squares and $colword columns of squares."
   } else {
     $description[$i] = "A figure made of shaded squares that forms the boundary of an empty, rectangular space. The empty space could fit $rowwordinside $rowsplural of squares and $colwordinside $columnsplural of squares. Image is labeled 'Structure number $snum[$i]'."
-  }  $im[$i] = showasciisvg("setBorder(10); initPicture(-1,$aplus2+1,-1,$bplus2+1); $code[$i]; text([$endhoriz/2,0],'Structure \#$snum[$i]','below');",160,160*($vertdim/$horizdim),$description[$i])
+  }
+  $im[$i] = showasciisvg("setBorder(10); initPicture(-1,$aplus2+1,-1,$bplus2+1); $code[$i]; text([$endhoriz/2,0],'Structure \#$snum[$i]','below');",160,160*($vertdim/$horizdim),$description[$i])
   $answer[$i] = 2*($a+$n[$i]-1) + 2*($b+$n[$i]-1) - 4 if ($i < 2)
   $const = 2*$a+(2*$b-8)
   $answer[$i] = "4 x + $const" if ($i == 2)

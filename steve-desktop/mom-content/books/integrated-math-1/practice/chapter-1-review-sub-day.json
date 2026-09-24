@@ -1,0 +1,43 @@
+{
+  "name": "Chapter 1 Review (Sub Day)",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "chapter-1-review-sub-day",
+  "target": {
+    "cid": "334437",
+    "aid": "24210686"
+  },
+  "filing": {
+    "cid": "334437",
+    "aid": "24210686"
+  },
+  "created_at": "2026-09-23",
+  "_note": "25 brand-new questions, one per slot, 4 points each = 100. Written under SPEC-CH1-REVIEW.md, none reuse a qid from chapter-1-review.json (aid 23995944) or elsewhere in the bank. Not yet pushed: target.aid/filing.aid and every question's qid are null until SPEC-CH1-REVIEW-PUSH.md runs. Pushed UNDATED into the master course per house convention (assessment-presets.json: every push into 334437 stays undated, nothing is taught out of the master). Steve wants this live Fri 2026-09-25, open and due the same day -- that date gets set when he copies this assignment from the master course into his own teaching section inside MyOpenMath, which is his manual step outside this repo's automation, same as every other assignment here.",
+  "questions": [
+    { "slot": 1,  "file_path": "questions/im1/order-of-operations-mixed-parentheses.php",         "qid": "1913711", "title": "Order of Operations with Parentheses",   "qtype": "number",   "points": 4, "instance": "357594568" },
+    { "slot": 2,  "file_path": "questions/im1/order-of-operations-with-exponents.php",             "qid": "1913712", "title": "Order of Operations with Exponents",     "qtype": "number",   "points": 4, "instance": "357594600" },
+    { "slot": 3,  "file_path": "questions/im1/order-of-operations-negative-integers.php",          "qid": "1913713", "title": "Order of Operations with Negative Integers", "qtype": "number", "points": 4, "instance": "357594601" },
+    { "slot": 4,  "file_path": "questions/im1/order-of-operations-nested-groups.php",              "qid": "1913714", "title": "Order of Operations with Nested Groups", "qtype": "number",   "points": 4, "instance": "357594614" },
+    { "slot": 5,  "file_path": "questions/im1/order-of-operations-absolute-value.php",             "qid": "1913715", "title": "Order of Operations with Absolute Value", "qtype": "number",  "points": 4, "instance": "357594615" },
+    { "slot": 6,  "file_path": "questions/im1/function-machine-single-operation.php",              "qid": "1913716", "title": "Function Machine, Multiply Then Add",     "qtype": "multipart", "points": 4, "instance": "357594616" },
+    { "slot": 7,  "file_path": "questions/im1/growing-pattern-write-the-rule.php",                 "qid": "1913727", "title": "Growing Pattern, Find a Figure and Write the Rule", "qtype": "multipart", "points": 4, "instance": "357594618" },
+    { "slot": 8,  "file_path": "questions/im1/growing-pattern-find-next-figure.php",                "qid": "1913729", "title": "Growing Pattern, Find the Next Two Figures", "qtype": "multipart", "points": 4, "instance": "357594619" },
+    { "slot": 9,  "file_path": "questions/im1/function-machine-two-step-inverse.php",              "qid": "1913732", "title": "Function Machine, Double Then Subtract (Inverse)", "qtype": "multipart", "points": 4, "instance": "357594620" },
+    { "slot": 10, "file_path": "questions/im1/identify-linear-vs-nonlinear-pattern.php",           "qid": "1913735", "title": "Identify the Pattern That Grows by a Constant Amount", "qtype": "choices", "points": 4, "instance": "357594621" },
+    { "slot": 11, "file_path": "questions/im1/evaluate-function-given-rule.php",                   "qid": "1913737", "title": "Evaluate a Linear Function Given Its Rule", "qtype": "multipart", "points": 4, "instance": "357594622" },
+    { "slot": 12, "file_path": "questions/im1/is-it-a-function-from-table.php",                    "qid": "1913740", "title": "Is It a Function, From a Table",          "qtype": "choices", "points": 4, "instance": "357594631" },
+    { "slot": 13, "file_path": "questions/im1/is-it-a-function-from-ordered-pairs.php",            "qid": "1913742", "title": "Is It a Function, From Ordered Pairs",    "qtype": "choices", "points": 4, "instance": "357594632" },
+    { "slot": 14, "file_path": "questions/im1/vertical-line-test-concept.php",                     "qid": "1913743", "title": "Vertical Line Test Concept",              "qtype": "choices", "points": 4, "instance": "357594633" },
+    { "slot": 15, "file_path": "questions/im1/function-notation-evaluate-and-solve.php",           "qid": "1913745", "title": "Function Notation, Evaluate and Solve",   "qtype": "multipart", "points": 4, "instance": "357594642" },
+    { "slot": 16, "file_path": "questions/im1/domain-and-range-from-a-table.php",                  "qid": "1913746", "title": "Domain and Range From a Table",           "qtype": "multipart", "points": 4, "instance": "357594643" },
+    { "slot": 17, "file_path": "questions/im1/domain-and-range-interval-from-description.php",     "qid": "1913747", "title": "Domain and Range as Inequalities From a Description", "qtype": "multipart", "points": 4, "instance": "357594644" },
+    { "slot": 18, "file_path": "questions/im1/domain-and-range-discrete-points.php",               "qid": "1913748", "title": "Domain and Range From Discrete Points",   "qtype": "multipart", "points": 4, "instance": "357594650" },
+    { "slot": 19, "file_path": "questions/im1/identify-restricted-domain-real-world.php",          "qid": "1913749", "title": "Identify the Correct Domain, Real World",  "qtype": "choices", "points": 4, "instance": "357594651" },
+    { "slot": 20, "file_path": "questions/im1/range-from-a-function-and-a-domain-set.php",         "qid": "1913750", "title": "Find the Range From a Function and a Domain Set", "qtype": "multipart", "points": 4, "instance": "357594652" },
+    { "slot": 21, "file_path": "questions/im1/zero-and-negative-exponent-rules.php",               "qid": "1913751", "title": "Zero and Negative Exponent Rules",        "qtype": "multipart", "points": 4, "instance": "357594654" },
+    { "slot": 22, "file_path": "questions/im1/simplify-product-of-powers.php",                     "qid": "1913752", "title": "Simplify a Product of Powers",            "qtype": "number",   "points": 4, "instance": "357594655" },
+    { "slot": 23, "file_path": "questions/im1/simplify-power-of-a-power.php",                      "qid": "1913753", "title": "Simplify a Power of a Power",              "qtype": "number",   "points": 4, "instance": "357594656" },
+    { "slot": 24, "file_path": "questions/im1/simplify-quotient-of-powers.php",                    "qid": "1913754", "title": "Simplify a Quotient of Powers",            "qtype": "number",   "points": 4, "instance": "357594657" },
+    { "slot": 25, "file_path": "questions/im1/evaluate-expression-with-negative-exponents.php",    "qid": "1913755", "title": "Evaluate an Expression With Negative Exponents", "qtype": "numfunc", "points": 4, "instance": "357594658" }
+  ]
+}

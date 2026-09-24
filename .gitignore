@@ -83,3 +83,19 @@ scripts/_profile/
 # scripts/ or mom-content/_push/ with a name that says what they do; anything still prefixed
 # scratch- when the session ends was throwaway.
 steve-desktop/scratch-*.mjs
+
+# Playwright MCP run artifacts (accessibility snapshots, console logs). A snapshot of a
+# login page carries the form fields' VALUES, so this directory can hold a plaintext
+# password verbatim -- measured 2026-09-24: one page-*.yml held a real credential.
+# Regenerable, and never source.
+.playwright-mcp/
+
+# Ad-hoc MCP probe scripts and login snapshots dropped at the repo root while wiring
+# a browser session. Same category as scratch-*.mjs above.
+/mcp-probe-*.mjs
+/mom-after-login.yml
+
+# omo session state and message-centre events (the cursor/log files beside it are
+# tracked deliberately; the raw event stream is append-only runtime noise).
+.omo/
+.msgbox/events.jsonl

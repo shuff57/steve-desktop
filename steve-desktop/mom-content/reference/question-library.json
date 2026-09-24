@@ -2454,11 +2454,11 @@
     "pulled": true
   },
   "questions/im1/x-a-b-one-step-includes-inverse-operation.php": {
-    "qsetid": "1450802",
-    "cid": "340140",
-    "filed": "2026-08-16",
+    "qsetid": "1911370",
+    "cid": "334437",
+    "filed": "2026-09-21",
     "qtype": "multipart",
-    "pulled": true
+    "replaces": "1450802"
   },
   "questions/im1/x-a-b-one-step-includes-inverse-operation-2.php": {
     "qsetid": "1450807",
@@ -3527,5 +3527,155 @@
     "qsetid": "1895085",
     "cid": "334437",
     "filed": "2026-09-02"
+  },
+  "questions/im1/order-of-operations-mixed-parentheses.php": {
+    "qsetid": "1913711",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-with-exponents.php": {
+    "qsetid": "1913712",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-negative-integers.php": {
+    "qsetid": "1913713",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-nested-groups.php": {
+    "qsetid": "1913714",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/order-of-operations-absolute-value.php": {
+    "qsetid": "1913715",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/function-machine-single-operation.php": {
+    "qsetid": "1913716",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/growing-pattern-write-the-rule.php": {
+    "qsetid": "1913727",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/growing-pattern-find-next-figure.php": {
+    "qsetid": "1913729",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/function-machine-two-step-inverse.php": {
+    "qsetid": "1913732",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/identify-linear-vs-nonlinear-pattern.php": {
+    "qsetid": "1913735",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "choices"
+  },
+  "questions/im1/evaluate-function-given-rule.php": {
+    "qsetid": "1913737",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/is-it-a-function-from-table.php": {
+    "qsetid": "1913740",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "choices"
+  },
+  "questions/im1/is-it-a-function-from-ordered-pairs.php": {
+    "qsetid": "1913742",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "choices"
+  },
+  "questions/im1/vertical-line-test-concept.php": {
+    "qsetid": "1913743",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "choices"
+  },
+  "questions/im1/function-notation-evaluate-and-solve.php": {
+    "qsetid": "1913745",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/domain-and-range-from-a-table.php": {
+    "qsetid": "1913746",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/domain-and-range-interval-from-description.php": {
+    "qsetid": "1913747",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/domain-and-range-discrete-points.php": {
+    "qsetid": "1913748",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/identify-restricted-domain-real-world.php": {
+    "qsetid": "1913749",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "choices"
+  },
+  "questions/im1/range-from-a-function-and-a-domain-set.php": {
+    "qsetid": "1913750",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/zero-and-negative-exponent-rules.php": {
+    "qsetid": "1913751",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "multipart"
+  },
+  "questions/im1/simplify-product-of-powers.php": {
+    "qsetid": "1913752",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/simplify-power-of-a-power.php": {
+    "qsetid": "1913753",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/simplify-quotient-of-powers.php": {
+    "qsetid": "1913754",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "number"
+  },
+  "questions/im1/evaluate-expression-with-negative-exponents.php": {
+    "qsetid": "1913755",
+    "cid": "334437",
+    "filed": "2026-09-23",
+    "qtype": "numfunc"
   }
 }

@@ -3215,9 +3215,7 @@
   "path": "questions/im1/algebra-problem-raising-integers-to-powers-one-neg-exponent-pg.php",
   "desc": "Algebra problem: raising integers to powers (one neg exponent) (.pg) (local for Steven Huff)",
   "qtype": "multipart",
-  "used_by": [
-   "practice-test"
-  ],
+  "used_by": [],
   "qsetid": "1450816",
   "health": "unchecked"
  },
@@ -3611,6 +3609,36 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/domain-and-range-discrete-points.php",
+  "desc": "Domain and range as sets from a list of discrete points",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913748",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/domain-and-range-from-a-table.php",
+  "desc": "Domain and range from a table of input and output values",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913746",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/domain-and-range-interval-from-description.php",
+  "desc": "Domain and range as inequalities read off a graphed line segment with both endpoints included",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913747",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/equation-of-line-between-two-points-point-slope-form.php",
   "desc": "Equation of line between two points (point-slope form) (local for Steven Huff)",
   "qtype": "numfunc",
@@ -3653,6 +3681,26 @@
   "qtype": "number",
   "used_by": [],
   "qsetid": "1455933",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluate-expression-with-negative-exponents.php",
+  "desc": "Evaluate a numeric expression that combines a negative exponent with a zero power",
+  "qtype": "numfunc",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913755",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/evaluate-function-given-rule.php",
+  "desc": "Evaluate a linear function given its rule - substitute two different inputs into f(x) = ax + b",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913737",
   "health": "unchecked"
  },
  {
@@ -3923,6 +3971,36 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/function-machine-single-operation.php",
+  "desc": "Function machine, multiply then add, find three outputs",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913716",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/function-machine-two-step-inverse.php",
+  "desc": "Function machine, double then subtract, evaluate and find the input",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913732",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/function-notation-evaluate-and-solve.php",
+  "desc": "Function notation, evaluate and solve - find f(c) and find the input that gives a stated output",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913745",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/geometric-increasing-sequence-from-table-missing-2-values-decimal-mult-2.php",
   "desc": "Geometric Increasing Sequence from  table missing 2 values. decimal multiplier (copy by Steve Lang) (copy by Steve Lang) (local for Steven Huff)",
   "qtype": "multipart",
@@ -4141,6 +4219,26 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/growing-pattern-find-next-figure.php",
+  "desc": "Growing block pattern, find the next two figures",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913729",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/growing-pattern-write-the-rule.php",
+  "desc": "Growing block pattern, find a later figure and write the rule",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913727",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/i-hw-unit-4-review-solve-and-graph-inequalities-in-one-variable-2.php",
   "desc": "I HW Unit 4 Review Solve and Graph inequalities in one variable.   (local for Steven Huff)",
   "qtype": "multipart",
@@ -4212,6 +4310,26 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/identify-linear-vs-nonlinear-pattern.php",
+  "desc": "Identify which pattern grows by adding the same amount each time",
+  "qtype": "choices",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913735",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/identify-restricted-domain-real-world.php",
+  "desc": "Identify the correct domain for a real world ticket sales scenario",
+  "qtype": "choices",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913749",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/ii-hw-2-8h-writing-an-area-model-as-a-quadratic-expressions-2.php",
   "desc": "II HW 2.8H Writing an area model as a quadratic expressions  (local for Steven Huff)",
   "qtype": "multipart",
@@ -4239,6 +4357,26 @@
    "3-2-1-3-2-2-exploring-the-area-model"
   ],
   "qsetid": "1486416",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/is-it-a-function-from-ordered-pairs.php",
+  "desc": "Is it a function from ordered pairs - decide whether a set of ordered pairs represents a function",
+  "qtype": "choices",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913742",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/is-it-a-function-from-table.php",
+  "desc": "Is it a function from a table - decide whether a table of inputs and outputs represents a function",
+  "qtype": "choices",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913740",
   "health": "unchecked"
  },
  {
@@ -4392,6 +4530,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/order-of-operations-absolute-value.php",
+  "desc": "Order of Operations with Absolute Value - evaluate a sum of two absolute values, one of which flips a negative",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913715",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/order-of-operations-grouping-and-translation.php",
   "desc": "Order of Operations, Grouping and Translation - evaluate an expression, evaluate it again with grouping symbols added, then translate the grouped form into algebra",
   "qtype": "multipart",
@@ -4399,6 +4547,46 @@
    "chapter-0-individual-test"
   ],
   "qsetid": "1894925",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/order-of-operations-mixed-parentheses.php",
+  "desc": "Order of Operations with Parentheses - evaluate a product of a sum and then subtract, following the order of operations",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913711",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/order-of-operations-negative-integers.php",
+  "desc": "Order of Operations with Negative Integers - evaluate a negative product added to a negative and then reduced",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913713",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/order-of-operations-nested-groups.php",
+  "desc": "Order of Operations with Nested Groups - evaluate an inner difference inside an outer sum, then multiply and subtract",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913714",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/order-of-operations-with-exponents.php",
+  "desc": "Order of Operations with Exponents - evaluate a sum, a square, and a product in the correct order",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913712",
   "health": "unchecked"
  },
  {
@@ -4526,6 +4714,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/range-from-a-function-and-a-domain-set.php",
+  "desc": "Find the range of a linear function given an explicit domain set",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913750",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/reflections-perform-a-reflection-given-line-of-reflection-v2-line-show.php",
   "desc": "Reflections - perform a reflection given line of reflection (v2) line shown (local for Steven Huff)",
   "qtype": "draw",
@@ -4613,9 +4811,7 @@
   "path": "questions/im1/rewrite-x-1-n-as-root-n-x.php",
   "desc": "Rewrite `x^(1/n)` as `root(n)(x)`. (local for Steven Huff)",
   "qtype": "numfunc",
-  "used_by": [
-   "practice-test"
-  ],
+  "used_by": [],
   "qsetid": "1450575",
   "health": "unchecked"
  },
@@ -4737,6 +4933,36 @@
    "chapter-1-review"
   ],
   "qsetid": "1455845",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplify-power-of-a-power.php",
+  "desc": "Simplify a power raised to a power by multiplying the exponents",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913753",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplify-product-of-powers.php",
+  "desc": "Simplify a product of powers with the same base by adding the exponents",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913752",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/simplify-quotient-of-powers.php",
+  "desc": "Simplify a quotient of powers with the same base by subtracting the exponents",
+  "qtype": "number",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913754",
   "health": "unchecked"
  },
  {
@@ -5079,6 +5305,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/vertical-line-test-concept.php",
+  "desc": "Vertical line test - choose which crossing description means the graph is a function",
+  "qtype": "choices",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913743",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/video-lesson-basics-of-sequences.php",
   "desc": "Video Lesson - basics of sequences",
   "qtype": "multans",
@@ -5098,9 +5334,7 @@
   "path": "questions/im1/which-graphs-are-functions-copy-by-tyler-wallace.php",
   "desc": "Which graphs are functions? (copy by Tyler Wallace) (local for Steven Huff)",
   "qtype": "multans",
-  "used_by": [
-   "practice-test"
-  ],
+  "used_by": [],
   "qsetid": "1450801",
   "health": "unchecked"
  },
@@ -5132,8 +5366,7 @@
   "used_by": [
    "chapter-1-group-test",
    "chapter-1-individual-test",
-   "chapter-1-review",
-   "practice-test"
+   "chapter-1-review"
   ],
   "qsetid": "1450807",
   "health": "unchecked"
@@ -5145,8 +5378,7 @@
   "used_by": [
    "chapter-1-group-test",
    "chapter-1-individual-test",
-   "chapter-1-review",
-   "practice-test"
+   "chapter-1-review"
   ],
   "qsetid": "1450808",
   "health": "unchecked"
@@ -5161,7 +5393,17 @@
    "chapter-1-review",
    "practice-test"
   ],
-  "qsetid": "1450802",
+  "qsetid": "1911370",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/zero-and-negative-exponent-rules.php",
+  "desc": "Zero and negative exponent rules: evaluate a coefficient times a zero power, and a base raised to a negative exponent",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-1-review-sub-day"
+  ],
+  "qsetid": "1913751",
   "health": "unchecked"
  },
  {

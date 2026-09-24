@@ -357,3 +357,37 @@ which means the question silently awards at most a third of its marks.
 **Not used in 1.2.** Replaced by `questions/im1/adding-pattern-figure-to-table.php` (qsetid
 `1893443`), authored on the template that does work. Both block-pattern copies are still attached to
 whatever used them before — check `2.1.1` and anything else before assuming this is harmless.
+
+## IM1 Chapter 1 Practice Test trim — live defects found 2026-09-21
+
+Trimmed `books/integrated-math-1/practice/practice-test.json` (aid 23995949) 124 → 31, detached live, repointed to total 100 (24x3 + 7x4 on multipart), order verified slot-for-slot. Teacher Preview reached 9/31 graded correct (31.62/100); the rest is blocked on the three source defects below plus image-rendered values this run could not read (no image input). Screenshot for eyeballing: `/tmp/opencode/pt23995949-teacher-preview.png`.
+
+### `block-pattern-...-formu-2.php` (qsetid 1440396) renders an engine error, unanswerable
+
+367#MX|Live Teacher Preview shows: `syntax error, unexpected token "}" on line 29 of Common Control` + `missing $anstypes for multipart or conditional question`. Prime suspect is `for ($j=1..$endvert)` (Raku range needs `for 1..$endvert` / `for ($j in 1..$endvert)`). Related to the one-answer-box entry above but a harder failure — zero parts answerable. Fix = repair source, re-file (new qsetid), re-attach, re-verify.
+
+**Follow-up 2026-09-21 (same day, later pass):** live re-attached to slot 19 with all 31 qsetids now matching the manifest order exactly. Rendering the current live control block (read fresh via `moddataset.php?id=1440396` CodeMirror) shows `for ($i=0..2)` range syntax throughout — NOT the C-style `for(;;)` present in the repo's local copy of `-2.php` at the time (that repo file was stale/out of sync with the live source and has been corrected to match). So the specific "syntax error on line 29" this note names could not be reproduced against the current live control block; whatever caused it may already be gone, or it only surfaces through a different preview path (`testquestion2.php` direct question preview) than the whole-assessment Teacher Preview used here.
+
+What IS still reproducible right now: Part 2 and Part 3 render zero `<input>` elements (only `qn19000` exists), and `$n[0]`/`$n[1]` substitute to empty in all parts (confirmed via `data-asciimath="#"` on the rendered math, not just missing from `innerText`). Two targeted fixes were tried live and saved (both persisted on reload, neither changed the render):
+1. Precomputed `$structA = $n[0]` / `$structB = $n[1]` in Common Control and swapped the question-text refs — no change (matches this note's own earlier finding that scalar-precompute isn't the whole story).
+2. Wrapped the refs in backticks per the working sibling's pattern (`` `#$structA` ``) — no change; `data-asciimath` still resolves to bare `#`.
+
+375#PH|Both point at `$n = diffrands(40,100,2,'inc') where ($n[1]-$n[0] > 10)` itself silently failing to assign, exactly as this note already suspected. Not chased further — repair-and-refile with a new qsetid (as this note recommends) is the right next step, not more in-place edits.
+
+**RESOLVED 2026-09-21, same day, third pass — via Oracle consultation after the two failed attempts above.** Root cause was neither `$n`/`diffrands` nor the range syntax: line `}  $im[$i] = showasciisvg(...)` combined the closing brace of the `if/else` block and the next assignment on ONE line, violating the dialect's one-statement-per-line rule. A line-based parser reads `}` then unexpected trailing content -> whole CONTROL BLOCK fails to parse -> `$anstypes` (line 1) never takes effect -> MOM falls back to a single default answerbox. That is why only `qn19000` ever existed and every value derived anywhere in the block (`$n`, `$structA`, `$structB`, `$answer[1]`, `$answer[2]`) came back empty regardless of what was tried — the block never ran at all, so the two in-place edits above could not have worked no matter what they changed.
+
+Fix: split that one line into two (`}` / `$im[$i] = showasciisvg(...)` on its own line). Same qsetid, no re-file needed. Re-attached, reset, fresh Teacher Preview: all 3 inputs present (`qn19000/1/2`), `data-asciimath` resolves to real values (`#48`, `#91`, `x`), 12 SVGs render. Submitted the View-Key values (204, 376, `4x+12`) — all three parts graded Correct.
+
+**Not yet fixed: `1439793`, the sibling copy of this same file, carries the identical bug** (confirmed same `}  $im[...]` line shape when read earlier). Still attached wherever it was before Steve's 2026-08-31 note said to check `2.1.1` and elsewhere — out of scope for this pass since it isn't in the Chapter 1 Practice Test, flagging so it isn't assumed fixed.
+
+### `x-a-b-one-step-includes-inverse-operation.php` (qsetid 1450802) grades a right answer 0
+
+Marker says `multipart`, `$anstypes` is single `"numfunc"` — the exact defect class the 2026-09-01 slot-14 repair fixed elsewhere. Live renders one textarea, `s + 37 = 39` with `2` entered scores 0/4 twice. Same fix shape: align marker/anstypes/answerboxes, re-file, re-attach.
+
+### `266929` subtraction-variations key does not grade
+
+Shared-library, no source in repo. View Key values `[1, -13, 13, -1]` submitted fast and slow both score 0/4. Either the key belongs to another seed or part mapping is off. Needs a human read of the rendered parts against the key; do not blind-retry (Teacher Preview retries are being consumed).
+
+### Table domain/range list format rejected three ways (IM1 practice-test Q27, `73184`)
+
+Table reads x: -13 -20 -6 -6 9 -4, y: -9 -14 -11 10 17 21. The Yes/No part grades (`No` correct — x = -6 repeats). Domain/range text rejected as `-20,-13,-6,-4,9`, with spaces, and braced `{-20,...}`. Correct values are certain (sorted unique); correct SYNTAX is unknown — check the source's expected-format handling before further retries.
