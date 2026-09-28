@@ -220,7 +220,7 @@ $rubricanswerbutton = $css_block . '
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li>Recommend a specific next step that would confirm or rule out your explanation, and say what you expect to see if you are right.
-                    <span class="ideal-ans">Target: "'.'.$investigation_rec.'. Each group should then form its own tight cluster and the empty middle should disappear; if it does not, the gap points at the data collection rather than at two kinds of '.$subject_label.'."</span></li>
+                    <span class="ideal-ans">Target: "'.$investigation_rec.'. Each group should then form its own tight cluster and the empty middle should disappear; if it does not, the gap points at the data collection rather than at two kinds of '.$subject_label.'."</span></li>
               </ul>
             </td>
           </tr>
