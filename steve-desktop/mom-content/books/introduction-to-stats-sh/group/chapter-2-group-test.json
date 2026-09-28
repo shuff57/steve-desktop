@@ -198,7 +198,8 @@
       "points": 14,
       "reused": true,
       "slot": 13,
-      "qid": "1917855"
+      "qid": "1917855",
+      "attempts": 1
     },
     {
       "sub_topic": "FRQ 2.3-2.4 five-number summary and outliers",
@@ -210,10 +211,12 @@
       "points": 14,
       "reused": true,
       "slot": 14,
-      "qid": "1917860"
+      "qid": "1917860",
+      "attempts": 1
     }
   ],
   "_open_questions": [
+    "FRQs SET TO ONE ATTEMPT 2026-09-28: the six FRQ slots now carry attempts=1 at the question level (practice 13/14, group 13/14, individual 9/10). Set per question rather than by dropping the assessment defattempts to 1, because defattempts also governs the auto-graded slots, which need their 3 tries (individual is 2). Verified by read-back per slot: attempts empty -> 1, points unchanged at 14. CONSEQUENCE: any student who has already used up their attempts on an FRQ slot may now be locked out of resubmitting it at all, so clear their attempt record before expecting a redo.",
     "FRQ q5 REWRITTEN AGAIN 2026-09-28 (third version). The two-cluster version was wrong: chapter 2 teaches symmetric, skewed left and skewed right (book 2.5.5-2.5.7), not a split set, and two equal clusters put the mean and median a fraction of a unit apart so the comparison could not be graded. Now 20 real values per context, one shape each: exam scores right-skewed (mean 69.5 > median 65.5), commute times left-skewed (mean 26.85 < median 29), reaction times symmetric (mean 403.65 ~ median 403.5). Every mean and median was computed from the printed list and the direction checked, and no set yields an outlier under 1.5 x IQR. Rubric awards the mean-to-median COMPARISON rather than the word skew, so a student who describes the thin end of the range earns full credit. Same qid 1917855, same 14 points, same slot; group total still 100. VERIFIED BY RENDERING, twice, on two different randomised contexts: no PHP errors. This version also fixes two defects the v2 push shipped with, an unquoted-string PHP error in the instructor rubric and an undefined $scenario variable.",
     "FRQ q5 REWRITTEN 2026-09-28 after a 0/14 with 3 retries on the group test: the old version described a histogram in words and the rubric awarded points for naming the distribution type, so a student who reasoned correctly still scored zero. New q5-reading-a-data-set-with-a-gap.php hands over 20 real recorded values in 3 context variants (10 low / 10 high with an empty middle; band bounds verified offline) and the rubric scores observations of the data instead. Same qid 1917855, same 14 points, same slot. The distribution-type word appears nowhere in prompt, checklist, or model response.",
     "SCRUBBED 2026-09-28 (disk only, NOT pushed to MOM): student-facing supporting text and formulas removed from every question on the three ch2 tests. Removed: 'Using the 1.5(IQR) rule' from the q8 FRQ prompt; 'Use i = (k/100)(n+1) ... whole number / round down and up and average' from quartiles-from-a-frequency-table AND quartiles-and-outlier-check-from-a-list; 'Using z = (x - bar x)/s' from compare-across-groups-with-z-scores part a; 'A value counts as an outlier if it falls more than 1.5 x IQR' plus the parenthetical in part b from outlier-check-from-a-box-plot; 'Is it an outlier by the 1.5 x IQR rule?' from quartiles-and-outlier part d; the shape choice labels '(long tail on the left, mean < median)' from q2-histogram-relative-frequency and histogram-classes-and-shape (shuffle enabled on both so the answer is not always option A); and from the new 1918224, 'Divide the range by 5 and round UP' plus 'Classes run from the smallest value upward, and each one is the same width'. KEPT DELIBERATELY: 'each class covers whole <unit> only' in 1918224 (without it a student using class boundaries gets different limits and is marked wrong for a valid answer), and the explanatory prose in every solution block, which still teaches each method on reveal. Verified: a pattern sweep for formulas and giveaway phrases over the student-facing text of all 21 questions returns nothing, and question-lint over all 1104 files reports 0 defects.",
