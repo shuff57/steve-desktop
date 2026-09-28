@@ -27,9 +27,10 @@
     },
     "5": {
       "status": "completed",
-      "file": "q5-interpreting-bimodal-data.php",
-      "title": "Interpreting Bimodal Data",
-      "prompt": "A histogram of reaction times for a computer task shows a clear bimodal distribution with two distinct peaks -- one around 300 milliseconds and another around 600 milliseconds. Write a conclusion statement about what this pattern might suggest about the participants or the task itself, and explain what further investigation you would recommend."
+      "file": "q5-reading-a-data-set-with-a-gap.php",
+      "title": "Reading a Data Set With a Gap",
+      "prompt": "A histogram of reaction times for a computer task shows a clear bimodal distribution with two distinct peaks -- one around 300 milliseconds and another around 600 milliseconds. Write a conclusion statement about what this pattern might suggest about the participants or the task itself, and explain what further investigation you would recommend.",
+      "rewritten_2026-09-28": "Replaced the histogram-in-words version. A student scored 0/14 over three retries because the rubric required naming the distribution type; the rewrite gives 20 real recorded values and scores observations of the data instead. The original last-year prompt is kept below for reference."
     },
     "6": {
       "status": "completed",
