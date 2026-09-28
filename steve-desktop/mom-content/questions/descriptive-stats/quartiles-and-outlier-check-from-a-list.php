@@ -128,7 +128,6 @@ $solutionguide = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 12px 0;">$intro The $n readings, in $unitWord, are listed below <b>already sorted from smallest to largest</b>.</p>
     <p style="margin:0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:15px; line-height:1.8;">$valueList</p>
-    <p style="margin:12px 0 0 0; font-size:15px; color:#444;">Use `i = (k/100)(n+1)` to locate each quartile. If `i` is a whole number, take the value at that position; otherwise round down and up and average the two values there.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> First quartile, `Q_1` = $answerbox[0]
@@ -140,7 +139,7 @@ $solutionguide = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> Interquartile range, `"IQR"` = `Q_3 - Q_1` = $answerbox[2]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> A new reading of <b>$extra</b> $unitWord comes in. Is it an outlier by the `1.5 xx "IQR"` rule? $answerbox[3]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> A new reading of <b>$extra</b> $unitWord comes in. Is it an outlier? $answerbox[3]
   </div>
 </div>
 

@@ -519,7 +519,8 @@
   "desc": "Build a Stem-and-Leaf Plot from Raw Data - From an ordered list of two-digit measurements, work out how many stem rows the plot needs, how many leaves land on one stem, and how many values clear a cutoff, then say what a single leaf stands for",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874040",
   "health": "ok"
@@ -529,7 +530,8 @@
   "desc": "Build the Five-Number Summary from Raw Data - From an unsorted list of eleven measurements, enter the minimum, first quartile, median, third quartile and maximum, then give the interquartile range and say what the box of a box plot spans",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874151",
   "health": "unchecked"
@@ -569,7 +571,8 @@
   "desc": "Choose the Honest Bar Graph - Pick the one bar graph that displays a randomized category table fairly from four versions, three of which commit a classic display error, then name the error in a specified version",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874039",
   "health": "ok"
@@ -611,7 +614,8 @@
   "desc": "Compare Across Groups with z-Scores - Convert two players' raw stats from different teams into z-scores to see who did better relative to his own team, then find a value a set number of standard deviations from a team mean",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874308",
   "health": "unchecked"
@@ -621,7 +625,8 @@
   "desc": "Compare Three Box Plots - Read three box plots on a shared axis to find the largest median, find one group's IQR, and say what comparing medians does and does not tell you",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874146",
   "health": "unchecked"
@@ -631,7 +636,8 @@
   "desc": "Compare Two Groups of Different Sizes - Two relative frequency histograms drawn from surveys with different sample sizes; read one class's share, decide which group spends more, and say why raw counts cannot be compared here",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874134",
   "health": "ok"
@@ -788,7 +794,8 @@
   "desc": "Find a Percentile from an Ordered List - Locate two percentiles in a sorted data set using i = (k/100)(n+1), once where the position lands on a whole number and once where it falls between two values, then say what the percentile means",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874158",
   "health": "ok"
@@ -830,7 +837,8 @@
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
    "2-4-box-plots",
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874150",
   "health": "ok"
@@ -840,7 +848,8 @@
   "desc": "What the Frequency Columns Sum To - State the totals of the frequency and relative frequency columns of a survey table, then separate what frequency, relative frequency and cumulative relative frequency each measure",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874131",
   "health": "ok"
@@ -872,7 +881,8 @@
   "desc": "Bin Width Changes the Picture - One data set is drawn as a histogram twice, with bars one unit wide and then two units wide; count the wider bars, work out the height of one of them, and say what the change of bin width does and does not alter",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874133",
   "health": "ok"
@@ -882,7 +892,8 @@
   "desc": "Classes and Shape from a Raw Data Set - Group a randomized data set into classes of a stated width, then report a class count, where the tallest class starts, a relative frequency and the shape of the distribution",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874135",
   "health": "ok"
@@ -1015,7 +1026,8 @@
   "desc": "Read a Line Graph Built from a Frequency Table - Recover the sample size, a relative frequency and the most common value from a line graph of a randomized frequency table, then say what the connecting segments do and do not mean",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874044",
   "health": "ok"
@@ -1046,7 +1058,8 @@
   "desc": "Mean, Median and Mode from a Dot Plot - Read the counts off a drawn dot plot, then produce all three measures of center from the same picture and say which one the tallest stack gives you",
   "qtype": "multipart",
   "used_by": [
-   "2-5-measures-of-the-center-of-the-data"
+   "2-5-measures-of-the-center-of-the-data",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874285",
   "health": "unchecked"
@@ -1127,7 +1140,8 @@
   "desc": "Name the Skew from a Box Plot - Use the median's position in the box and the two whisker lengths to name the shape, then predict where the mean sits relative to the median",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode"
+   "2-6-skewness-and-the-mean-median-and-mode",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874300",
   "health": "unchecked"
@@ -1147,7 +1161,8 @@
   "desc": "Outlier Check from a Box Plot - Take the quartiles off a drawn box plot, build the 1.5 times IQR fences from them, decide whether a newly measured value is an outlier, and separate a long whisker from an outlier",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874144",
   "health": "unchecked"
@@ -1218,7 +1233,8 @@
   "desc": "Find the Percentile of a Given Value - Work the percentile formula in reverse with (x + 0.5y)/n times 100, counting the values below and the values equal to the one named, including a value that appears more than once",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874159",
   "health": "ok"
@@ -1459,7 +1475,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
-   "2-5-measures-of-the-center-of-the-data"
+   "2-5-measures-of-the-center-of-the-data",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874169",
   "health": "ok"
@@ -1573,7 +1590,8 @@
   "desc": "Compare Two Distributions - Given summary statistics for two groups, identify which has the larger center and which has the larger spread, and pick the correct verbal comparison",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode"
+   "2-6-skewness-and-the-mean-median-and-mode",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874303",
   "health": "ok"
@@ -1665,7 +1683,8 @@
   "desc": "Choose a Resistant Measure for a Skewed Distribution - Decide whether to report the mean+SD or median+IQR based on shape, then explain why",
   "qtype": "multipart",
   "used_by": [
-   "2-5-measures-of-the-center-of-the-data"
+   "2-5-measures-of-the-center-of-the-data",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874284",
   "health": "ok"
@@ -1675,7 +1694,8 @@
   "desc": "Quartiles and Outlier Check from a Sorted List - Use the (n+1) position rule to find Q1 and Q3 in a list already given in sorted order, compute the IQR, then apply the 1.5xIQR fences to judge whether a new value is an outlier",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874166",
   "health": "unchecked"
@@ -1685,7 +1705,8 @@
   "desc": "Quartiles from a Frequency Table - Find the first quartile, the median and the third quartile of data given as a frequency table rather than a list, then compute the interquartile range from them",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874164",
   "health": "ok"
@@ -1745,7 +1766,8 @@
   "desc": "Read a Stem-and-Leaf Plot - Recover the count in one stem row, the largest value in another, and the total sample size from a stemplot built from randomized data",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874036",
   "health": "ok"
@@ -1878,7 +1900,8 @@
   "desc": "Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, and name a two-peaked distribution",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode"
+   "2-6-skewness-and-the-mean-median-and-mode",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874296",
   "health": "unchecked"
@@ -1898,7 +1921,8 @@
   "desc": "Standard Deviation from a Frequency Table - Build the xf and squared-deviation columns a grouped calculation needs, total them, and finish with the sample standard deviation",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874311",
   "health": "unchecked"
@@ -1908,7 +1932,8 @@
   "desc": "Standard Deviation Step by Step - Work a sample standard deviation through its three stages, the mean, the sum of squared deviations and the divide by n minus 1, then say what the finished number measures",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874307",
   "health": "unchecked"
@@ -1938,7 +1963,8 @@
   "desc": "Read a Time Series Line Graph - From a line graph of eight months of data, read one month's value, find the largest month-to-month rise, work out the net change across the whole period, and say why a line graph suits data collected over time",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874051",
   "health": "ok"
@@ -1978,7 +2004,8 @@
   "desc": "Find the Value a Given Number of Standard Deviations from the Mean - Convert between a z-score and a raw value in both directions, and read what a negative z-score says about a measurement",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data"
+   "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874314",
   "health": "unchecked"
@@ -2036,7 +2063,8 @@
   "desc": "Histogram - Relative Frequency and Shape - Read a class count off a drawn histogram, turn it into a relative frequency, and identify the shape of the distribution",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874132",
   "health": "ok"
@@ -2046,7 +2074,8 @@
   "desc": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874170",
   "health": "ok"
@@ -2056,7 +2085,8 @@
   "desc": "Boxplot - IQR, Fences, and Outlier Check (Context) - From a five-number summary in context, compute IQR and the 1.5*IQR fences, then decide whether a new observation is an outlier",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874149",
   "health": "ok"
@@ -2335,8 +2365,10 @@
   "path": "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php",
   "desc": "Compare Two Distributions in Context - Students compare two groups using shape, center, spread, and outliers, write a context-anchored verbal comparison",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-individual-test"
+  ],
+  "qsetid": "1917886",
   "health": "ok"
  },
  {
@@ -2393,16 +2425,20 @@
   "path": "questions/frq/descriptive-statistics/q4-choosing-the-right-display.php",
   "desc": "Choosing the Right Display - Students explain which graphical display (histogram or boxplot) is more appropriate for identifying the shape of a distribution, and describe what unique information each display provides.",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-practice-test"
+  ],
+  "qsetid": "1917673",
   "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php",
   "desc": "Interpreting Bimodal Data - Students interpret a bimodal distribution, explain what the two peaks suggest about subgroups in the data, and recommend further investigation to confirm their hypothesis.",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-group-test"
+  ],
+  "qsetid": "1917855",
   "health": "ok"
  },
  {
@@ -2419,24 +2455,30 @@
   "path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
   "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency, variability, and reliability across two groups.",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-individual-test"
+  ],
+  "qsetid": "1917885",
   "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php",
   "desc": "Five-Number Summary and Outliers - Students use the 1.5(IQR) rule to determine whether a maximum value is an outlier, show their calculations, and interpret the result in context.",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-group-test"
+  ],
+  "qsetid": "1917860",
   "health": "ok"
  },
  {
   "path": "questions/frq/descriptive-statistics/q9-choosing-the-right-measure-of-center.php",
   "desc": "Choosing the Right Measure of Center - Given a skewed dataset with one extreme outlier, recommend whether to use mean or median to describe a typical value and explain why.",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-2-practice-test"
+  ],
+  "qsetid": "1917675",
   "health": "ok"
  },
  {
@@ -6037,7 +6079,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution"
+   "5-1-the-standard-normal-distribution",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874315",
   "health": "ok"
@@ -6248,7 +6291,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution"
+   "5-1-the-standard-normal-distribution",
+   "chapter-2-group-test"
   ],
   "qsetid": "1874316",
   "health": "ok"

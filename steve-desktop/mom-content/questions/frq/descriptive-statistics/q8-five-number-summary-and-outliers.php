@@ -210,7 +210,7 @@ $questiontext = '
     <b>Min</b> = '.$min_val.' &nbsp;&nbsp;&nbsp; <b>Q1</b> = '.$q1.' &nbsp;&nbsp;&nbsp; <b>Median</b> = '.$med.' &nbsp;&nbsp;&nbsp; <b>Q3</b> = '.$q3.' &nbsp;&nbsp;&nbsp; <b>Max</b> = '.$max_val.'
   </p>
   <p><b>Essay Prompt:</b><br>
-  Using the 1.5(IQR) rule, determine whether the maximum value ('.$max_val.') is an outlier. Show your calculations and explain what this outlier might suggest about the data.</p>
+  Determine whether the maximum value ('.$max_val.') is an outlier. Show your calculations and explain what this outlier might suggest about the data.</p>
   <p>In your explanation, be sure to cover:</p>
   <ul>
     <li>The IQR and upper fence calculations, showing your work.</li>

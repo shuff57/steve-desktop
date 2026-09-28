@@ -3677,5 +3677,47 @@
     "cid": "334437",
     "filed": "2026-09-23",
     "qtype": "numfunc"
+  },
+  "questions/descriptive-stats/set-up-a-histogram-from-a-data-set.php": {
+    "qsetid": "1918224",
+    "cid": "334437",
+    "filed": "2026-09-28",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php": {
+    "qsetid": "1917886",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q4-choosing-the-right-display.php": {
+    "qsetid": "1917673",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php": {
+    "qsetid": "1917855",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php": {
+    "qsetid": "1917885",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q8-five-number-summary-and-outliers.php": {
+    "qsetid": "1917860",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
+  },
+  "questions/frq/descriptive-statistics/q9-choosing-the-right-measure-of-center.php": {
+    "qsetid": "1917675",
+    "cid": "334437",
+    "filed": "2026-09-27",
+    "qtype": "multipart"
   }
 }

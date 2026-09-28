@@ -1,9 +1,9 @@
-// === NAME - DESCRIPTION: Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, and name a two-peaked distribution ===
+// === NAME - DESCRIPTION: Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, name a two-peaked distribution, and choose the pair of measures that a few extreme values cannot distort ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
 
-$anstypes = array("choices", "choices", "choices")
+$anstypes = array("choices", "choices", "choices", "choices")
 
 // The shape is drawn fresh every render: 0 skewed left, 1 skewed right, 2 roughly symmetric.
 // Whichever shape wins the draw controls both the bar heights below AND the correct answer
@@ -85,6 +85,18 @@ $answer[1] = $shapeIdx
 $questions[2] = array("Bimodal", "Symmetric", "Skewed", "Uniform")
 $answer[2] = 0
 
+// --- Part (d): which pair of measures a few extreme values cannot distort. Deliberately NOT
+// keyed to $shapeIdx: resistance is a property of the measures themselves, so it holds whether
+// or not this particular draw came out skewed. Asking it only on a skewed draw would make the
+// answer a coin flip on the two symmetric cases.
+$questions[3] = array(
+  "The median and the IQR, because a few extreme values can move neither one very far",
+  "The mean and the standard deviation, because they are built from every value in the data set",
+  "The mean and the IQR, because the mean is the more precise of the two measures of center",
+  "The median and the standard deviation, because the median is the more precise of the two measures of center"
+)
+$answer[3] = 0
+
 // Bar geometry. 8 classes, width $binWidth each, bars touch because the horizontal axis is a
 // number line. Counts are always even, so every bar top lands exactly on a gridline.
 $plotL = 55
@@ -141,6 +153,8 @@ $meanMedWhy = "the distribution balances evenly on both sides, so the balancing 
 if ($shapeIdx == 0) { $meanMedWhy = "the tail of small values pulls the mean down toward it, while the median only counts positions and barely moves: so the mean ends up below the median" }
 if ($shapeIdx == 1) { $meanMedWhy = "the tail of large values pulls the mean up toward it, while the median only counts positions and barely moves: so the mean ends up above the median" }
 
+$resistantText = "the median and the IQR"
+$resistantWhy = "the median counts positions rather than adding up every value, so a handful of readings far out on their own barely shift it, and the IQR is built only from the middle half of the data, so whatever sits out in the tail is left out of it completely"
 $solutionguide = '
 <style>
   .sol-wrap details { width:100%; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; background:#fff; }
@@ -163,7 +177,8 @@ $solutionguide = '
       ' . $hist . '
       <p><span class="term-label">Step 2: follow the tail to the mean.</span> The mean is dragged toward the tail because it is an average of every value, including the extreme ones out in the tail; the median only counts how many values are above and below it, so a stretched-out tail barely moves it. Here, ' . $meanMedWhy . ', so ' . $meanMedText . '.</p>
       <p><span class="term-label">Step 3: bimodal is a different question entirely.</span> A distribution with two separate, clearly-separated peaks, not one peak with a tail, is called <b>bimodal</b>. It usually means the data actually come from two different groups mixed together.</p>
-      <p><b>Answer:</b> (a) ' . $shapeName . ' &nbsp;&nbsp; (b) ' . $meanMedText . ' &nbsp;&nbsp; (c) bimodal</p>
+      <p><span class="term-label">Step 4: which pair holds still when a value goes far out.</span> The mean and the standard deviation both add up every value, so one extreme reading drags the mean across and inflates the spread. The other pair does not: ' . $resistantWhy . '. So a report on a skewed data set should give <b>' . $resistantText . '</b>.</p>
+      <p><b>Answer:</b> (a) ' . $shapeName . ' &nbsp;&nbsp; (b) ' . $meanMedText . ' &nbsp;&nbsp; (c) bimodal &nbsp;&nbsp; (d) ' . $resistantText . '</p>
     </div>
   </details>
 </div>'
@@ -183,6 +198,9 @@ $solutionguide = '
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> A different data set produced a histogram with <b>two clear, separate peaks</b> instead of one. What word describes that kind of distribution? $answerbox[2]
+  </div>
+  <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> The same researcher has to report both a typical value and how spread out the data are, and a few of the commute times came in far longer than the rest. Which pair of measures should go in the report? $answerbox[3]
   </div>
 </div>
 

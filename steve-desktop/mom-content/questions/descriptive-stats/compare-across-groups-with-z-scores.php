@@ -130,7 +130,7 @@ $solutionguide = '
     <p style="margin:8px 0 0 0;">$playerB plays for the $teamNameB, a different league entirely. That team's $statWord has a mean of $teamMeanB and a standard deviation of $teamSdB. $playerB's own $statWord is $rawB.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Using `z = (x - bar x)/s`, find $playerA's z-score relative to his own team. (Round to 2 decimal places.) $answerbox[0]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> Find $playerA's z-score relative to his own team. (Round to 2 decimal places.) $answerbox[0]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Find $playerB's z-score relative to his own team. (Round to 2 decimal places.) $answerbox[1]

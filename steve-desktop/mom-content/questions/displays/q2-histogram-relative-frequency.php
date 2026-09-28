@@ -30,11 +30,13 @@ $abstolerance[0] = 0.005
 $answer[1] = $shapeIdx
 
 $choices[1] = array(
-  "Left-skewed (long tail on the left, mean &lt; median)",
-  "Right-skewed (long tail on the right, mean > median)",
+  "Left-skewed",
+  "Right-skewed",
   "Roughly symmetric"
 )
-$noshuffle[1] = "all"
+// The shape options used to carry a parenthetical that handed the student the reasoning before they
+// looked at the histogram. Bare labels now; the explanation lives in the feedback. Shuffled so the
+// answer is not always the same option.
 
 $binLo = 10 * $binIdx
 $binHi = $binLo + 10

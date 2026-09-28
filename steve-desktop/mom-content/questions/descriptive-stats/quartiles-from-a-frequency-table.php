@@ -131,7 +131,6 @@ $solutionguide = '
         $cumRows
       </tbody>
     </table>
-    <p style="margin:12px 0 0 0; font-size:15px; color:#444;">Use `i = (k/100)(n+1)` to locate each percentile. If `i` is a whole number, take the value at that position; otherwise round down and up and average the two values there.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> First quartile, `Q_1` = $answerbox[0]

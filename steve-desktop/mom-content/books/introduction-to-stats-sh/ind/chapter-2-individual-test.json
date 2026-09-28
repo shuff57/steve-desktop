@@ -1,0 +1,188 @@
+{
+  "name": "Chapter 2 Individual Test",
+  "book": "introduction-to-stats-sh",
+  "kind": "ind",
+  "slug": "chapter-2-individual-test",
+  "status": "draft",
+  "_note": "REBALANCED 2026-09-28 to a teacher-set 12-topic ch2 list. PUSHED 2026-09-27 into the pre-existing Chapter 2 Individual Test stub aid 23444246 in block 0-2-8-2 (the stub already existed with the right name and Individual Test settings, so it was filled rather than a duplicate created). ASSEMBLED, not authored: all eight auto-graded slots are existing library questions already filed from the 2.1-2.7 pushes, attached by qsetid (reused: true, real qid). The two FRQs are existing sources in questions/frq/descriptive-statistics/ filed on 2026-09-27 (qids 1917885 and 1917886). Points 8x9 + 14 + 14 = 100. Chapter 1's trio used 3 FRQs at 10+9+9; this trio uses 2 FRQs at 14+14 per Steve's call (2 FRQs per test drawn from the six-FRQ Chapter 2 pool), which keeps the total at exactly 100. ZERO file_path/qid overlap with chapter-2-practice-test.json and chapter-2-group-test.json - deliberate, because the practice test's window spans the group test, so a shared question is a leaked answer key. Coverage: every testable section 2.1-2.7 carries at least one auto item; 2.8 is the hands-on lab and is not testable content, so it has no slot (same as chapter 1, which had no 1.6 slot). Settings per reference/intro-stats-assessment-settings.md Individual Test column: 2 attempts x 1 version, 50% per-attempt penalty after the first, no early-finish bonus, IND gradebook category (798370 in course 334437), no late passes, 89-min time limit (81 on a Wednesday), allowovertime, access passcode, due same day at period-end +7. Dates and passcode are COPY-TIME settings - the master stays undated. Health flags: quartiles-and-outlier-check-from-a-list.php (slot 3), build-the-five-number-summary.php (slot 4), mean-median-mode-from-a-dot-plot.php (slot 5), name-the-skew-from-a-box-plot.php (slot 6), standard-deviation-from-a-frequency-table.php (slot 7) and value-a-number-of-deviations-from-the-mean.php (slot 8) read 'unchecked' in reference/question-index.json - all six rendered and graded correctly in Teacher Preview on 2026-09-27 (9/9 each), so the flag is stale, not a defect.",
+  "_open_questions": [
+    "SLOT 6 EXTENDED 2026-09-28: the 2.6 resistant-measure topic is now a part of qid 1874296 (skewness-and-the-mean-median-relationship) rather than a missing slot, so the individual test now covers all 12 topics across 8 auto slots. New part (d) asks which pair of measures a few extreme commute times cannot distort; options are median+IQR (correct), mean+SD, mean+IQR, median+SD. It is deliberately NOT keyed to $shapeIdx: resistance is a property of the measures, so it holds whether or not the drawn histogram came out skewed, and keying it would have made the answer a coin flip on the two symmetric draws. $anstypes went from 3 to 4 entries, $answer[3]=0, and Step 4 was added to the solution guide. Points unchanged (individual slot 6 = 9), no slot added, total still 100. Pushed to the MOM library, which means the same fourth part now also appears on practice slot 10 and group slot 10, since 1874296 is shared by all three. NOTE: those two tests therefore assess resistance twice (slot 10 part d and slot 11 q3-resistant-measure-choice). Dropping slot 11 from practice and group is a one-line manifest change if you want it gone. BUG I INTRODUCED AND FIXED WHILE DOING THIS: my first edit consumed part (c)'s closing </div>, so part (c) wrapped part (d); div COUNTS stayed balanced which is why a count-only check passed it. Caught it by walking the nesting depth instead. A repair edit then duplicated part (d) and left two stray </div>, also caught and removed by the same depth walk. Final state verified server-side: 4 questions arrays, answerbox 0-3, div depth 0 with 0 stray closers, part (d) present exactly once, $answer[3]=0.",
+    "SCRUBBED 2026-09-28 (disk only, NOT pushed to MOM): student-facing supporting text and formulas removed from every question on the three ch2 tests. Removed: 'Using the 1.5(IQR) rule' from the q8 FRQ prompt; 'Use i = (k/100)(n+1) ... whole number / round down and up and average' from quartiles-from-a-frequency-table AND quartiles-and-outlier-check-from-a-list; 'Using z = (x - bar x)/s' from compare-across-groups-with-z-scores part a; 'A value counts as an outlier if it falls more than 1.5 x IQR' plus the parenthetical in part b from outlier-check-from-a-box-plot; 'Is it an outlier by the 1.5 x IQR rule?' from quartiles-and-outlier part d; the shape choice labels '(long tail on the left, mean < median)' from q2-histogram-relative-frequency and histogram-classes-and-shape (shuffle enabled on both so the answer is not always option A); and from the new 1918224, 'Divide the range by 5 and round UP' plus 'Classes run from the smallest value upward, and each one is the same width'. KEPT DELIBERATELY: 'each class covers whole <unit> only' in 1918224 (without it a student using class boundaries gets different limits and is marked wrong for a valid answer), and the explanatory prose in every solution block, which still teaches each method on reveal. Verified: a pattern sweep for formulas and giveaway phrases over the student-facing text of all 21 questions returns nothing, and question-lint over all 1104 files reports 0 defects.",
+    "SLOT 3 SWAPPED 2026-09-28: classify-then-build-frequency-table.php (1873383) removed - it asks for the LEVEL OF MEASUREMENT, which is chapter 1 section 1.3, not chapter 2. Replaced with build-the-grouped-frequency-table.php (1874136), which covers book section 2.2.2 choosing bars, boundaries, and widths. Live practice and group tests updated to match; points unchanged, total still 100.",
+    "SECTION NUMBERS CORRECTED 2026-09-28 against the textbook itself (bookSHelf/docs/introduction-to-stats/chapter-2-descriptive-statistics), not against the hw manifests, which have 2.6 and 2.7 swapped relative to the book. Book: 2.3 location (quartiles, percentiles, 2.3.2 IQR and outliers), 2.4 box plots, 2.5 center (2.5.2 mean vs median, 2.5.6-2.5.8 skewness), 2.6 spread (SD, 2.6.4 comparing values), 2.7 stats lab. So z-scores are 2.6 not 2.3, outliers are 2.3 not 2.4, skewness is 2.5 not 2.6, standard deviation is 2.6 not 2.7.",
+    "STILL TRUE: the local reword of the answer-choice labels in q2-histogram-relative-frequency.php (1874132) and histogram-classes-and-shape-from-data.php (1874135), and the removal of the i=(k/100)(n+1) instruction from quartiles-and-outlier-check-from-a-list.php (1874166), are ON DISK ONLY. MOM serves its own filed copies, so students still see the giveaway labels and the handed-over formula until a code push.",
+    "REBALANCED 2026-09-28 topic weight per teacher instruction; NOT YET PUSHED to MOM. Points still total 100 (was 100); every slot keeps its point value, no slot was added or removed.",
+    "Section numbers now follow the textbook (2.3 = location/relative standing, 2.4 = box plots, 2.5 = center, 2.6 = skewness, 2.7 = spread). The old manifests filed z-scores under 2.7 and box plots under both 2.3 and 2.4.",
+    "Dropped from this assessment (files stay in the library, unattached here): build-the-five-number-summary.php, name-the-skew-from-a-box-plot.php, standard-deviation-from-a-frequency-table.php, time-series-line-graph-change-over-time.php, value-a-number-of-deviations-from-the-mean.php.",
+    "NOT DONE: the 12-item topic list does not fit the individual test's 8 auto slots, so 'choose the resistant measure' (2.6) has no individual slot. The two individual FRQs are the natural home for it, but their rubrics were not edited without asking."
+  ],
+  "coverage_spec": [
+    "2.1 build a stem-and-leaf plot from raw data",
+    "2.2 / 2.5 build the classes from a data set and name the shape",
+    "2.3 quartiles, then the 1.5 x IQR outlier check",
+    "2.4 read a box plot and its five-number summary",
+    "2.5 mean, median, and mode from a dot plot",
+    "2.5 skewness, what the shape tells you about the center, and which measures resist a skewed distribution",
+    "2.6 compare values from two data sets with z-scores",
+    "2.6 standard deviation step by step"
+  ],
+  "mom_settings": {
+    "subtype": "Test",
+    "defattempts": 2,
+    "versions_per_question": 1,
+    "penalty": {
+      "per_attempt": 50,
+      "after_attempt": 1
+    },
+    "earlybonus": 0,
+    "gbcategory": "IND",
+    "gbcategory_id_334437": "798370",
+    "late_passes": 0,
+    "timelimit_min": 89,
+    "timelimit_wednesday_min": 81,
+    "allowovertime": true,
+    "passcode": "required - see ~/Documents/mom-test-passcodes-2026-27.md",
+    "displaymethod": "All questions on one page",
+    "show_scores": "on each question immediately",
+    "show_answers": "after the last try on a question"
+  },
+  "target": {
+    "cid": "334437",
+    "aid": "23444246"
+  },
+  "created_at": "2026-09-27",
+  "questions": [
+    {
+      "sub_topic": "2.1 build a stem-and-leaf plot from raw data",
+      "file_path": "questions/descriptive-stats/build-a-stemplot-from-raw-data.php",
+      "title": "Build a Stem-and-Leaf Plot from Raw Data",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 1,
+      "qid": "1874040"
+    },
+    {
+      "sub_topic": "2.2 / 2.5 build the classes from a data set and name the shape",
+      "file_path": "questions/descriptive-stats/histogram-classes-and-shape-from-data.php",
+      "title": "Classes and Shape from a Raw Data Set",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 2,
+      "qid": "1874135"
+    },
+    {
+      "sub_topic": "2.3 quartiles, then the 1.5 x IQR outlier check",
+      "file_path": "questions/descriptive-stats/quartiles-and-outlier-check-from-a-list.php",
+      "title": "Quartiles and Outlier Check from a List",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 3,
+      "qid": "1874166"
+    },
+    {
+      "sub_topic": "2.4 read a box plot and its five-number summary",
+      "file_path": "questions/descriptive-stats/read-a-box-plot.php",
+      "title": "Read a Box Plot",
+      "role": "multipart",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 4,
+      "qid": "1874141"
+    },
+    {
+      "sub_topic": "2.5 mean, median, and mode from a dot plot",
+      "file_path": "questions/descriptive-stats/mean-median-mode-from-a-dot-plot.php",
+      "title": "Mean, Median and Mode from a Dot Plot",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 5,
+      "qid": "1874285"
+    },
+    {
+      "sub_topic": "2.5 skewness, what the shape tells you about the center, and which measures resist a skewed distribution",
+      "file_path": "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php",
+      "title": "Skewness and the Mean-Median Relationship",
+      "role": "multipart",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 6,
+      "qid": "1874296"
+    },
+    {
+      "sub_topic": "2.6 compare values from two data sets with z-scores",
+      "file_path": "questions/descriptive-stats/compare-across-groups-with-z-scores.php",
+      "title": "Compare Across Groups with z-Scores",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 7,
+      "qid": "1874308"
+    },
+    {
+      "sub_topic": "2.6 standard deviation step by step",
+      "file_path": "questions/descriptive-stats/standard-deviation-step-by-step.php",
+      "title": "Standard Deviation Step by Step",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 8,
+      "qid": "1874307"
+    },
+    {
+      "sub_topic": "FRQ 2.5-2.7 comparing means and standard deviations",
+      "file_path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
+      "title": "FRQ: Comparing Means and Standard Deviations",
+      "role": "essay",
+      "difficulty": "medium",
+      "is_frq": true,
+      "points": 14,
+      "reused": true,
+      "slot": 9,
+      "qid": "1917885"
+    },
+    {
+      "sub_topic": "FRQ 2.1-2.6 compare two distributions in context",
+      "file_path": "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php",
+      "title": "FRQ: Compare Two Distributions in Context",
+      "role": "essay",
+      "difficulty": "medium",
+      "is_frq": true,
+      "points": 14,
+      "reused": true,
+      "slot": 10,
+      "qid": "1917886"
+    }
+  ],
+  "_settings": {
+    "defattempts": 2,
+    "defregens": 1,
+    "defattemptpenalty": 50,
+    "earlybonus": 0
+  },
+  "global_block": "0-2-8-2",
+  "filing": {
+    "cid": "334437",
+    "aid": "23444246",
+    "_what": "filed 2026-09-27 - the two FRQs (slots 9-10) were filed as qsetids 1917885 and 1917886, then all 10 attached to aid 23444246"
+  }
+}

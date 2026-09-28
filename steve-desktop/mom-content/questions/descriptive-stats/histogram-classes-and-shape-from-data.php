@@ -110,12 +110,13 @@ $reltolerance[2] = 0.02
 $abstolerance[2] = 0.005
 
 $questions[3] = array(
-  "Left-skewed (the long tail points toward the smaller values)",
-  "Right-skewed (the long tail points toward the larger values)",
+  "Left-skewed",
+  "Right-skewed",
   "Roughly symmetric"
 )
+// Bare shape labels: the parentheticals gave the reasoning away. Shuffled so the answer is not
+// always the first option.
 $answer[3] = $shape
-$noshuffle[3] = "all"
 
 $shapeName = "roughly symmetric"
 if ($shape == 0) { $shapeName = "left-skewed" }
