@@ -27,10 +27,10 @@
     },
     "5": {
       "status": "completed",
-      "file": "q5-reading-a-data-set-with-a-gap.php",
-      "title": "Reading a Data Set With a Gap",
+      "file": "q5-reading-shape-from-a-data-set.php",
+      "title": "Reading Shape From a Data Set",
       "prompt": "A histogram of reaction times for a computer task shows a clear bimodal distribution with two distinct peaks -- one around 300 milliseconds and another around 600 milliseconds. Write a conclusion statement about what this pattern might suggest about the participants or the task itself, and explain what further investigation you would recommend.",
-      "rewritten_2026-09-28": "Replaced the histogram-in-words version. A student scored 0/14 over three retries because the rubric required naming the distribution type; the rewrite gives 20 real recorded values and scores observations of the data instead. The original last-year prompt is kept below for reference."
+      "rewritten_2026-09-28": "Rewritten twice on 2026-08-28. v1 described a histogram in words and the rubric required naming the shape; a student scored 0/14 over three retries. v2 handed over 20 real values but built them as two equal clusters with a gap, which is not a shape chapter 2 teaches and leaves the mean and median a fraction of a unit apart. v3 gives 20 real values built to the three shapes the book does teach: symmetric, skewed left, skewed right. The original last-year prompt is kept below for reference."
     },
     "6": {
       "status": "completed",
