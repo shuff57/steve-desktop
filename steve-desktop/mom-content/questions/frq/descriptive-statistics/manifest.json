@@ -26,14 +26,16 @@
       "status": "completed",
       "file": "q4-choosing-the-right-display.php",
       "title": "Choosing the Right Display",
-      "prompt": "A teacher has test score data for 50 students ranging from 45 to 98. She is trying to decide between creating a histogram or a boxplot to display the data. Write a conclusion statement explaining which graphical display would be more appropriate for identifying the shape of the distribution and describing the center and spread, and explain what information each display provides differently."
+      "prompt": "A teacher has test score data for 50 students ranging from 45 to 98. She is trying to decide between creating a histogram or a boxplot to display the data. Write a conclusion statement explaining which graphical display would be more appropriate for identifying the shape of the distribution and describing the center and spread, and explain what information each display provides differently.",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
     },
     "5": {
       "status": "completed",
       "file": "q5-reading-shape-from-a-data-set.php",
       "title": "Reading Shape From a Data Set",
       "prompt": "A histogram of reaction times for a computer task shows a clear bimodal distribution with two distinct peaks -- one around 300 milliseconds and another around 600 milliseconds. Write a conclusion statement about what this pattern might suggest about the participants or the task itself, and explain what further investigation you would recommend.",
-      "rewritten_2026-09-28": "Rewritten twice on 2026-08-28. v1 described a histogram in words and the rubric required naming the shape; a student scored 0/14 over three retries. v2 handed over 20 real values but built them as two equal clusters with a gap, which is not a shape chapter 2 teaches and leaves the mean and median a fraction of a unit apart. v3 gives 20 real values built to the three shapes the book does teach: symmetric, skewed left, skewed right. The original last-year prompt is kept below for reference."
+      "rewritten_2026-09-28": "Rewritten twice on 2026-08-28. v1 described a histogram in words and the rubric required naming the shape; a student scored 0/14 over three retries. v2 handed over 20 real values but built them as two equal clusters with a gap, which is not a shape chapter 2 teaches and leaves the mean and median a fraction of a unit apart. v3 gives 20 real values built to the three shapes the book does teach: symmetric, skewed left, skewed right. The original last-year prompt is kept below for reference.",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
     },
     "6": {
       "status": "completed",
@@ -46,19 +48,54 @@
       "status": "completed",
       "file": "q7-comparing-means-and-standard-deviations.php",
       "title": "Comparing Means and Standard Deviations",
-      "prompt": "Two fitness instructors compare their class attendance over 10 weeks. Instructor A's classes averaged 32 students (SD = 3), while Instructor B's classes averaged 32 students (SD = 8). Write a conclusion statement explaining what these statistics tell us about the consistency and reliability of attendance in each instructor's classes, even though the means are identical."
+      "prompt": "Two fitness instructors compare their class attendance over 10 weeks. Instructor A's classes averaged 32 students (SD = 3), while Instructor B's classes averaged 32 students (SD = 8). Write a conclusion statement explaining what these statistics tell us about the consistency and reliability of attendance in each instructor's classes, even though the means are identical.",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
     },
     "8": {
       "status": "completed",
       "file": "q8-five-number-summary-and-outliers.php",
       "title": "Five-Number Summary and Outliers",
-      "prompt": "A dataset has the following five-number summary: Min = 8, Q1 = 18, Median = 25, Q3 = 35, Max = 92. Using the 1.5(IQR) rule, write a conclusion statement determining whether the maximum value (92) is an outlier, showing your calculations and explaining what this outlier might suggest about the data."
+      "prompt": "A dataset has the following five-number summary: Min = 8, Q1 = 18, Median = 25, Q3 = 35, Max = 92. Using the 1.5(IQR) rule, write a conclusion statement determining whether the maximum value (92) is an outlier, showing your calculations and explaining what this outlier might suggest about the data.",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
     },
     "9": {
       "status": "completed",
       "file": "q9-choosing-the-right-measure-of-center.php",
       "title": "Choosing the Right Measure of Center",
-      "prompt": "A real estate agent is describing home prices in a neighborhood. The prices are: $250,000, $265,000, $270,000, $275,000, $280,000, $290,000, and $1,200,000. Write a conclusion statement recommending whether the agent should use the mean or median to describe a 'typical' home price in this neighborhood, and explain why your chosen measure better represents the data."
+      "prompt": "A real estate agent is describing home prices in a neighborhood. The prices are: $250,000, $265,000, $270,000, $275,000, $280,000, $290,000, and $1,200,000. Write a conclusion statement recommending whether the agent should use the mean or median to describe a 'typical' home price in this neighborhood, and explain why your chosen measure better represents the data.",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
+    },
+    "10": {
+      "status": "completed",
+      "file": "q10-sampling-design-critique.php",
+      "title": "Sampling Design Critique",
+      "prompt": "Students critique a flawed sampling plan, identify bias, predict the direction of skew, and propose a better randomized design",
+      "qsetid": "1893150",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
+    },
+    "12": {
+      "status": "completed",
+      "file": "q12-reading-a-study-frq.php",
+      "title": "Reading a Study",
+      "prompt": "Students classify a study as observational or experimental, name a plausible source of bias or confounding, and state what conclusion is and is not justified",
+      "qsetid": "1893151",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
+    },
+    "13": {
+      "status": "completed",
+      "file": "q13-what-the-sample-can-and-cannot-tell-you.php",
+      "title": "What the Sample Can and Cannot Tell You",
+      "prompt": "Students name the population and sample of a well-run study, say which population value the sample number estimates, explain why the two differ under good sampling, and connect a named flaw to the estimate",
+      "qsetid": "1895083",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
+    },
+    "14": {
+      "status": "completed",
+      "file": "q14-designing-a-randomized-comparative-experiment.php",
+      "title": "Designing a Randomized Comparative Experiment",
+      "prompt": "Students build an experiment rather than critique one: treatment and control groups, explanatory and response variables, the random assignment and what it protects against, blinding, and one ethical rule",
+      "qsetid": "1895085",
+      "checklist_rewritten_2026-09-29": "checklist_rewritten_2026-09-29: student grading criteria rebuilt to the ch2 standard. Points now shown on every category and matching the instructor rubric; column heading is 'What to include'. Changes: q2 and q3 previously hid their point values from students entirely; q1 and q10 asked students to NAME the type of sampling bias with no way to earn the point by describing it, so each now offers 'or describe what the people who were sampled have in common'; q13 and q14 stated what does NOT earn credit, now rewritten to say what does. q6 also brought in line."
     }
   }
 }
