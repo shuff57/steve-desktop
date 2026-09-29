@@ -115,36 +115,36 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Variable Classification</b></td>
+            <td style="text-align:center;"><b>Variable Classification<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> Classify each of the three variables as categorical or quantitative.</label></li>
-                <li><label><input type="checkbox"> For any quantitative variables, identify whether each is discrete or continuous.</label></li>
+                <li><label><input type="checkbox"> For each quantitative variable, say whether it is discrete or continuous.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Justification</b></td>
+            <td style="text-align:center;"><b>Justification<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain the reasoning behind each classification.</label></li>
+                <li><label><input type="checkbox"> Explain the reasoning behind each classification you made.</label></li>
+                <li><label><input type="checkbox"> Point to what was actually recorded for that variable.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Why Classification Matters</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Why Classification Matters<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain why correctly classifying variables is important when choosing statistical methods.</label></li>
-                <li><label><input type="checkbox"> Give at least one example of how the method differs for categorical vs. quantitative data.</label></li>
+                <li><label><input type="checkbox"> Explain why classifying the variables correctly matters when choosing a statistical method.</label></li>
+                <li><label><input type="checkbox"> Give one concrete example of a method that suits categorical data but not quantitative data, or the other way round.</label></li>
               </ul>
             </td>
           </tr>

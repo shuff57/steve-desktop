@@ -111,19 +111,18 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
             <td style="text-align:center;"><b>Identify the Bias<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Name or describe the type of sampling bias present in this study.</label></li>
-                <li><label><input type="checkbox"> Explain why the choice of location and timing creates a non-representative sample.</label></li>
+                <li><label><input type="checkbox"> Name the type of sampling bias in this study, or describe what the people who were sampled have in common.</label></li>
+                <li><label><input type="checkbox"> Explain why the location and the timing of the survey produce a sample that does not represent the students it is meant to represent.</label></li>
               </ul>
             </td>
           </tr>
@@ -131,16 +130,16 @@ $rubricbutton = $css_block . '
             <td style="text-align:center;"><b>Impact on Results<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Describe how this bias could push the study\'s findings in a particular direction.</label></li>
-                <li><label><input type="checkbox"> Identify which types of students are left out of this sample.</label></li>
+                <li><label><input type="checkbox"> Say which direction this pushes the result, and whether that makes the finding too high or too low.</label></li>
+                <li><label><input type="checkbox"> Say which kinds of students this sampling plan leaves out.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;" class="col-cat-bot"><b>Validity &amp; Improvement<br>(3 pts)</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Validity and Improvement<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Discuss whether these results can be generalized to all college students.</label></li>
+                <li><label><input type="checkbox"> Say whether these results can be applied to all college students, and why or why not.</label></li>
                 <li><label><input type="checkbox"> Suggest a better sampling method for this study.</label></li>
               </ul>
             </td>

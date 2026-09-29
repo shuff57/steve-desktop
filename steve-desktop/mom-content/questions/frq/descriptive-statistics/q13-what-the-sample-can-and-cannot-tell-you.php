@@ -156,12 +156,11 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your response covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
             <td style="text-align:center;"><b>Population and Sample<br>(5 pts)</b></td>
@@ -177,16 +176,16 @@ $rubricbutton = $css_block . '
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> Name the population value that this sample number is an estimate of.</label></li>
-                <li><label><input type="checkbox"> Explain why the sample number is not exactly that population value, even though the sampling was done well.</label></li>
+                <li><label><input type="checkbox"> Explain why the sample number is not exactly that population value, even though the sampling itself was done well.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;" class="col-cat-bot"><b>What Would Make It Untrustworthy<br>(4 pts)</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>What Would Make It Untrustworthy<br>(4 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> Name one specific thing that would make this estimate untrustworthy.</label></li>
-                <li><label><input type="checkbox"> Say which way it would push the estimate, or whose value the estimate would then describe instead. Naming the problem alone does not earn this point.</label></li>
+                <li><label><input type="checkbox"> Say which way it would push the estimate, or whose value the estimate would then describe instead.</label></li>
               </ul>
             </td>
           </tr>

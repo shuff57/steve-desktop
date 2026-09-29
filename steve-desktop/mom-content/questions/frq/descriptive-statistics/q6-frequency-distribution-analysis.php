@@ -145,36 +145,35 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your response covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
             <td style="text-align:center;"><b>Frequency Table<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> List each of the four classes with its frequency.</label></li>
-                <li><label><input type="checkbox"> Check that your four frequencies add up to ' . $n . '.</label></li>
+                <li><label><input type="checkbox"> Check that your four frequencies add up to ' . $n . '.'</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Relative &amp; Cumulative<br>(4 pts)</b></td>
+            <td style="text-align:center;"><b>Relative and Cumulative<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> Give the relative frequency of each class, rounded to three decimal places.</label></li>
-                <li><label><input type="checkbox"> Give the cumulative relative frequency through the third class, and show the sum you used.</label></li>
+                <li><label><input type="checkbox"> Give the cumulative relative frequency through the third class, showing the sum you used to get it.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Reading the Table<br>(2 pts)</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Reading the Table<br>(2 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> State what percent of the students scored ' . $cut_val . ' or lower, and name the classes you added to get it.</label></li>
+                <li><label><input type="checkbox"> State what percent of the students scored ' . $cut_val . ' or lower, and name the classes you added to reach it.</label></li>
               </ul>
             </td>
           </tr>

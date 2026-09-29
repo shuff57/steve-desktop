@@ -67,27 +67,44 @@ $css_block = '
 $rubricbutton = $css_block . '
 <div class="rubric-container">
   <details>
-    <summary>Click to View Grading Checklist</summary>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Click to View Grading Checklist
+    </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
-          <tr><th>Category</th><th>Requirement</th></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Identify the Bias<br>(4 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Name the type of sampling bias.</label></li>
-              <li><label><input type="checkbox"> Explain why the sampling plan creates that bias.</label></li>
-            </ul></td></tr>
-          <tr><td style="text-align:center;"><b>Predict the Direction<br>(3 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> State whether the result will be too high or too low.</label></li>
-              <li><label><input type="checkbox"> Explain why, using a feature of the sampled vs. missed groups.</label></li>
-            </ul></td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Improved Design<br>(2 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Propose a randomized sampling method.</label></li>
-              <li><label><input type="checkbox"> Name the sampling frame (the full population list).</label></li>
-            </ul></td></tr>
+          <tr>
+            <th class="col-header">Category</th>
+            <th class="col-check">What to include</th>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Identify the Bias<br>(4 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Name the type of sampling bias, or describe what the people who were sampled have in common.</label></li>
+                <li><label><input type="checkbox"> Explain why the sampling plan produces that bias.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><b>Predict the Direction<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> State whether the result will come out too high or too low.</label></li>
+                <li><label><input type="checkbox"> Explain why, by comparing something about the people who were sampled with the people who were missed.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Improved Design<br>(2 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Propose a method that would draw a genuinely random sample.</label></li>
+                <li><label><input type="checkbox"> Name the sampling frame, which is the full list the sample is drawn from.</label></li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

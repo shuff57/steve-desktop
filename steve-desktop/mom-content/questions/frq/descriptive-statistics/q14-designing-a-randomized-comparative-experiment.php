@@ -148,12 +148,11 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your design covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
             <td style="text-align:center;"><b>Groups and Variables<br>(5 pts)</b></td>
@@ -168,16 +167,16 @@ $rubricbutton = $css_block . '
             <td style="text-align:center;"><b>Random Assignment<br>(5 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Describe a specific procedure for assigning the volunteers to the two groups at random.</label></li>
-                <li><label><input type="checkbox"> Say what the randomization protects the study against. Saying only "assign them randomly" does not earn this point.</label></li>
+                <li><label><input type="checkbox"> Describe a specific procedure for putting the volunteers into the two groups at random, such as drawing names from a hat.</label></li>
+                <li><label><input type="checkbox"> Say what the randomization protects the study against, naming the bias that would otherwise creep in.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;" class="col-cat-bot"><b>Blinding and Ethics<br>(4 pts)</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Blinding and Ethics<br>(4 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain what blinding is here and what it protects against. Say who is blinded in a single-blind design and who else is blinded in a double-blind design.</label></li>
+                <li><label><input type="checkbox"> Explain what blinding means here and what it protects against, saying who is blinded in a single-blind design and who is blinded in a double-blind design.</label></li>
                 <li><label><input type="checkbox"> Name one ethical requirement this study has to meet, and say why it matters.</label></li>
               </ul>
             </td>

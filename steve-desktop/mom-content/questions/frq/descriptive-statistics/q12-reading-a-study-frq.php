@@ -62,26 +62,43 @@ $css_block = '
 $rubricbutton = $css_block . '
 <div class="rubric-container">
   <details>
-    <summary>Click to View Grading Checklist</summary>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Click to View Grading Checklist
+    </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- your answer should address:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
-          <tr><th>Category</th><th>Requirement</th></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Study Type<br>(3 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Classify the study as observational or experimental.</label></li>
-              <li><label><input type="checkbox"> Justify it by whether a treatment was randomly assigned.</label></li>
-            </ul></td></tr>
-          <tr><td style="text-align:center;"><b>Bias or Confounding<br>(4 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Name one specific, plausible source of bias or a confounding variable.</label></li>
-              <li><label><input type="checkbox"> Explain briefly why it is a problem here.</label></li>
-            </ul></td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Justified Conclusion<br>(3 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> State what can and cannot be concluded (association vs causation, or limits on generalizing).</label></li>
-            </ul></td></tr>
+          <tr>
+            <th class="col-header">Category</th>
+            <th class="col-check">What to include</th>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Study Type<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Classify the study as observational or experimental.</label></li>
+                <li><label><input type="checkbox"> Justify that by saying whether a treatment was randomly assigned.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><b>Bias or Confounding<br>(4 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Name one specific, plausible source of bias or confounding variable.</label></li>
+                <li><label><input type="checkbox"> Explain briefly why it is a problem in this study.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Justified Conclusion<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> State what can and cannot be concluded, whether that is about cause and effect or about generalising to other people.</label></li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

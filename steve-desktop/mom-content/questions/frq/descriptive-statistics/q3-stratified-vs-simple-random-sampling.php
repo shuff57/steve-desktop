@@ -146,37 +146,36 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
-      <table class="rubric-table">
+            <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Sampling Recommendation</b></td>
+            <td style="text-align:center;"><b>Sampling Recommendation<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> State which sampling method is more appropriate for this situation.</label></li>
-                <li><label><input type="checkbox"> Briefly describe how that sampling method works in this context.</label></li>
+                <li><label><input type="checkbox"> State which sampling method is more appropriate here.</label></li>
+                <li><label><input type="checkbox"> Describe how that method would be carried out for this group.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Group Composition</b></td>
+            <td style="text-align:center;"><b>Group Composition<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Reference the specific subgroups and their sizes from the scenario.</label></li>
-                <li><label><input type="checkbox"> Explain how proportional representation would be achieved in the sample.</label></li>
+                <li><label><input type="checkbox"> Use the specific subgroups and their sizes given in the scenario.</label></li>
+                <li><label><input type="checkbox"> Explain how the sample would end up with the same proportions as the population.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Why Not Simple Random Sampling</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Why Not Simple Random Sampling<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain what could go wrong if simple random sampling were used instead.</label></li>
-                <li><label><input type="checkbox"> Connect this risk to the specific group composition in the scenario.</label></li>
+                <li><label><input type="checkbox"> Say what could go wrong if simple random sampling were used instead.</label></li>
+                <li><label><input type="checkbox"> Tie that risk to the actual group sizes in this scenario.</label></li>
               </ul>
             </td>
           </tr>
