@@ -158,36 +158,36 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Shape of the Data</b></td>
+            <td style="text-align:center;"><b>Shape of the Data<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Say which way the values are spread, or that they are spread evenly both ways, and point to the values that show it.</label></li>
-                <li><label><input type="checkbox"> Give the smallest and largest values, and describe which end of the range is thinner.</label></li>
+                <li><label><input type="checkbox"> Say which way the values are spread, or that they are spread evenly at both ends, and point to the values that show it.</label></li>
+                <li><label><input type="checkbox"> Give the smallest and largest values, and say which end of the range is thinner.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Mean and Median</b></td>
+            <td style="text-align:center;"><b>Mean and Median<br>(5 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Work out the mean and the median of the data set.</label></li>
-                <li><label><input type="checkbox"> Say which of the two is larger, and explain what about the spread produces that.</label></li>
+                <li><label><input type="checkbox"> Work out the mean of the data set and the median of the data set.</label></li>
+                <li><label><input type="checkbox"> Say which of the two is larger and explain what about the spread produces that.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>What It Means</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>What It Means<br>(4 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain why one typical value is a poor summary of this set.</label></li>
+                <li><label><input type="checkbox"> Say why one typical value on its own is a poor summary of this set.</label></li>
                 <li><label><input type="checkbox"> Recommend one specific thing to check next, tied to this scenario.</label></li>
               </ul>
             </td>

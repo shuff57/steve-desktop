@@ -138,35 +138,37 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Outlier Impact</b></td>
+            <td style="text-align:center;"><b>Outlier Impact<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain how the extreme value in the dataset affects the mean.</label></li>
+                <li><label><input type="checkbox"> Say how the extreme value affects the mean. The mean is an average of every value, so one very large or very small value drags it noticeably.</label></li>
+                <li><label><input type="checkbox"> Say what the same extreme value does to the median, which is a middle value in the list and so barely moves.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Recommendation</b></td>
+            <td style="text-align:center;"><b>Recommendation<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> State whether mean or median is the better measure of center for this dataset.</label></li>
-                <li><label><input type="checkbox"> Explain why the chosen measure is resistant to outliers.</label></li>
+                <li><label><input type="checkbox"> State which measure you recommend for this data, the mean or the median.</label></li>
+                <li><label><input type="checkbox"> Justify it by pointing at the extreme value and at how differently the two measures respond to it.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Practical Interpretation</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Practical Interpretation<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Interpret what the recommended measure tells the audience in context.</label></li>
+                <li><label><input type="checkbox"> Say what your recommended measure tells the audience about a typical value here.</label></li>
+                <li><label><input type="checkbox"> Give one consequence of reporting the mean instead, in this particular context.</label></li>
               </ul>
             </td>
           </tr>

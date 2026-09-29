@@ -69,31 +69,50 @@ $css_block = '
 $rubricbutton = $css_block . '
 <div class="rubric-container">
   <details>
-    <summary>Click to View Grading Checklist</summary>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Click to View Grading Checklist
+    </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- your comparison should address:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
-          <tr><th>Category</th><th>Requirement</th></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Shape<br>(2 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Describe the shape of each distribution.</label></li>
-              <li><label><input type="checkbox"> Note any obvious outliers.</label></li>
-            </ul></td></tr>
-          <tr><td style="text-align:center;"><b>Center<br>(3 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Compare the typical value (mean OR median, justified by shape).</label></li>
-              <li><label><input type="checkbox"> State which group has a higher center, in context.</label></li>
-            </ul></td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Spread<br>(3 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Compare the spread (SD or `"IQR"`).</label></li>
-              <li><label><input type="checkbox"> State which group is more variable, in context.</label></li>
-            </ul></td></tr>
-          <tr><td style="text-align:center;"><b>In-Context Verdict<br>(2 pts)</b></td>
-            <td><ul style="list-style:none;margin:0;padding-left:0;">
-              <li><label><input type="checkbox"> Write a concluding sentence using the real-world variable, not just numbers.</label></li>
-            </ul></td></tr>
+          <tr>
+            <th class="col-header">Category</th>
+            <th class="col-check">What to include</th>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Shape<br>(2 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Describe the shape of each distribution, using the summary table given.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><b>Center<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Compare the typical value of the two groups. Using the mean or the median is fine, as long as you say which and why it suits the shape you described.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>Spread<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Compare how spread out the two groups are. Using the standard deviation or the IQR is fine, as long as you say which.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><b>In-Context Verdict<br>(2 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Finish with one sentence naming the variable from the scenario, saying which group stands out and why.</label></li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

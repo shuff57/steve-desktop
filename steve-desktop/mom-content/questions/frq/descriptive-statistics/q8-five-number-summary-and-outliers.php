@@ -104,37 +104,38 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>IQR &amp; Upper Fence</b></td>
+            <td style="text-align:center;"><b>IQR and Upper Fence<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Calculate the IQR from the given Q1 and Q3 values.</label></li>
-                <li><label><input type="checkbox"> Calculate the upper fence using the 1.5(IQR) rule.</label></li>
+                <li><label><input type="checkbox"> Work out the IQR as Q3 minus Q1, showing the subtraction.</label></li>
+                <li><label><input type="checkbox"> Work out the upper fence as Q3 plus 1.5 times the IQR, showing that multiplication.</label></li>
+                <li><label><input type="checkbox"> Show both calculations rather than only the answers.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Outlier Classification</b></td>
+            <td style="text-align:center;"><b>Outlier Classification<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Compare the maximum value to the upper fence.</label></li>
-                <li><label><input type="checkbox"> State whether the maximum qualifies as an outlier.</label></li>
+                <li><label><input type="checkbox"> Compare the maximum value against the upper fence you calculated.</label></li>
+                <li><label><input type="checkbox"> State clearly whether the maximum is an outlier, and quote the two numbers you compared.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Contextual Interpretation</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Contextual Interpretation<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain what the outlier might suggest about the data in context.</label></li>
-                <li><label><input type="checkbox"> Discuss whether this extreme value should be investigated further.</label></li>
+                <li><label><input type="checkbox"> Say what an outlier like this might suggest about the data in this particular context.</label></li>
+                <li><label><input type="checkbox"> Say whether it should be investigated further and what you would check.</label></li>
               </ul>
             </td>
           </tr>

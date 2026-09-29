@@ -105,35 +105,38 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
             <td style="text-align:center;"><b>Interpreting the Mean<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Explain what the identical means tell us about both groups\' average performance.</label></li>
+                <li><label><input type="checkbox"> Say what it means that both groups averaged the same number.</label></li>
+                <li><label><input type="checkbox"> Say what that does not tell you, which is how the values are spread within each group.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Standard Deviation &amp; Consistency<br>(4 pts)</b></td>
+            <td style="text-align:center;"><b>Standard Deviation and Consistency<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Describe what a smaller standard deviation tells us about one group\'s consistency.</label></li>
-                <li><label><input type="checkbox"> Describe what a larger standard deviation tells us about the other group\'s variability.</label></li>
+                <li><label><input type="checkbox"> Say what a smaller standard deviation means: those values sit close to their mean, so they are consistent.</label></li>
+                <li><label><input type="checkbox"> Say what a larger standard deviation means: those values are more spread out, with some further from the mean.</label></li>
+                <li><label><input type="checkbox"> Say which of the two people is the more consistent one and which is more spread out.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;" class="col-cat-bot"><b>Practical Conclusion<br>(3 pts)</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Practical Conclusion<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Draw a conclusion about which group is more reliable and explain why.</label></li>
+                <li><label><input type="checkbox"> Say which of the two you would describe as steadier or more predictable, and tie that to the standard deviation rather than the mean.</label></li>
+                <li><label><input type="checkbox"> Write a sentence of what this means for each person in this situation.</label></li>
               </ul>
             </td>
           </tr>

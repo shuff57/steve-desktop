@@ -107,36 +107,39 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <p style="margin:0 0 0.5em 0;"><b>How your answer is graded</b> &mdash; these are the categories and how many points each one is worth. You do not have to use any of the words below: if what you wrote says the same thing in your own words, you get the points.</p>
       <table class="rubric-table">
         <tbody>
           <tr>
             <th class="col-header">Category</th>
-            <th class="col-check">Requirement</th>
+            <th class="col-check">What to include</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Histogram</b></td>
+            <td style="text-align:center;"><b>Histogram<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Describe what a histogram displays about the data.</label></li>
-                <li><label><input type="checkbox"> Explain what aspect of the distribution a histogram is especially good at showing.</label></li>
+                <li><label><input type="checkbox"> Say what a histogram shows: the values grouped into intervals, with the height of each bar counting how many values fall in that interval.</label></li>
+                <li><label><input type="checkbox"> Say what a histogram is especially good at: seeing the overall shape of the data, including which tail is longer and whether the values bunch up or spread out.</label></li>
+                <li><label><input type="checkbox"> Support that with a detail from this data set rather than a general statement.</label></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Boxplot</b></td>
+            <td style="text-align:center;"><b>Boxplot<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Describe what a boxplot displays about the data.</label></li>
-                <li><label><input type="checkbox"> Identify a strength of boxplots that histograms do not provide.</label></li>
+                <li><label><input type="checkbox"> Say what a boxplot shows: the five-number summary, with the box spanning the middle half of the data and whiskers reaching out to the extremes.</label></li>
+                <li><label><input type="checkbox"> Give a strength a boxplot has that a histogram does not, such as comparing two groups on the same number line, or unusual values standing out clearly.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td class="col-cat-bot" style="text-align:center;"><b>Recommendation</b></td>
-            <td class="col-check-bot">
+            <td style="text-align:center;"><b>Recommendation<br>(3 pts)</b></td>
+            <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> State which display is more appropriate for the given goal and justify your choice.</label></li>
+                <li><label><input type="checkbox"> Say which display you recommend for the goal stated in the prompt, which is identifying the shape of the distribution and describing its center and spread.</label></li>
+                <li><label><input type="checkbox"> Justify that choice by referring to what each display actually shows.</label></li>
+                <li><label><input type="checkbox"> Say what the display you did not choose would still be useful for.</label></li>
               </ul>
             </td>
           </tr>
