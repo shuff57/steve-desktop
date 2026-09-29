@@ -86,7 +86,40 @@ $rubricbutton = $css_block . '
       Click to View Grading Checklist
     </summary>
     <div class="rubric-content">
-      <p style="margin:0 0 0.5em 0;"><b>Grading Criteria</b> -- ensure your explanation covers these points:</p>
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <th class="col-header">Category</th>
+            <th class="col-check">What to include</th>
+          </tr>
+
+          <tr class="row-colored">
+            <td style="text-align:center;"><b>The Procedure<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Describe the action taken regarding the population, which is the sampling method used.</label></li>
+                <li><label><input type="checkbox"> Name the statistic that was then calculated for each sample.</label></li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="text-align:center;"><b>The Transformation<br>(4 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Explain why the shape of the data changes, referring to the calculation you named above.</label></li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr class="row-colored">
+            <td class="col-cat-bot" style="text-align:center;"><b>The Outcome<br>(3 pts)</b></td>
+            <td class="col-check-bot">
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Describe the final shape of the distribution of these statistics.</label></li>
+              </ul>
+            </td>
+          </tr>
       
       <table class="rubric-table">
         <tbody>
