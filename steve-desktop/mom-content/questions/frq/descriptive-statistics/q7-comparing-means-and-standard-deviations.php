@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency, variability, and reliability across two groups. ===
+// === NAME - DESCRIPTION: Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency and spread across two groups. ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL (paste into Common Control) ===
@@ -20,7 +20,8 @@ $topic = $contexts[$i];
 $group_a_names = array("Instructor A", "Barista A", "Driver A");
 $group_b_names = array("Instructor B", "Barista B", "Driver B");
 $units = array("students per class", "drinks sold per day", "packages delivered per day");
-$measured_things = array("class attendance", "daily sales numbers", "daily delivery counts");
+// Singular noun phrases: these drop into "X's <thing> averaged", "the <thing> stays close" and "their <thing> varies".
+$measured_things = array("class attendance", "sales count", "delivery count");
 $time_units = array("week", "day", "day");
 $time_periods = array("10-week period", "month", "month");
 
@@ -41,11 +42,18 @@ if ($sd_large <= 2*$sd_small) {
 }
 
 // Narrative variables for the model answer
-$r_mean = "Both $person_a and $person_b have the same mean of $shared_mean $unit, which tells us they perform at the same level on average over the $time_period";
+$r_mean = "Both $person_a and $person_b have the same mean of $shared_mean $unit, so on average they perform at the same level over the $time_period";
 
 $r_sd = "$person_a has a standard deviation of only $sd_small, meaning their $measured_thing stays tightly clustered around the average. $person_b has a standard deviation of $sd_large, so their numbers vary much more widely from $time_unit to $time_unit";
 
-$r_conclusion = "$person_a is the more consistent and reliable of the two because their smaller standard deviation means you can expect results close to $shared_mean on any given $time_unit. $person_b, despite the same average, is much less predictable";
+$r_conclusion = "$person_a is the more consistent of the two because the smaller standard deviation means you can expect results close to $shared_mean from $time_unit to $time_unit. $person_b has the same average but is much less predictable";
+
+// Targets shown to the grader (double-quoted so apostrophes need no escaping)
+$t_mean = "Both have the same average of $shared_mean $unit, so on average $person_a and $person_b come out the same over the $time_period.";
+$t_sd_each = "$person_a has a small SD of $sd_small, so the $measured_thing stays close to the average of $shared_mean. $person_b has a large SD of $sd_large, so the $measured_thing is spread widely around $shared_mean.";
+$t_sd_compare = "$person_a is the more consistent of the two (SD of $sd_small compared with $sd_large for $person_b). The smaller the standard deviation, the more consistent the values.";
+$t_concl = "$person_a is the one to plan around: the smaller standard deviation keeps the $measured_thing close to the average from $time_unit to $time_unit, while $person_b's results can land far from it.";
+$t_context = "From $time_unit to $time_unit, expect $person_a to land near $shared_mean $unit, while $person_b could come in well above or well below that.";
 
 $sample_narrative = "<b>$r_mean</b>. However, <b>$r_sd</b>. In practical terms, <b>$r_conclusion</b>.";
 
@@ -115,8 +123,7 @@ $rubricbutton = $css_block . '
             <td style="text-align:center;"><b>Interpreting the Mean<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Say what it means that both groups averaged the same number.</label></li>
-                <li><label><input type="checkbox"> Say what that does not tell you, which is how the values are spread within each group.</label></li>
+                <li><label><input type="checkbox"> Compare the two means and say what they tell you about a typical '.$time_unit.' for each person.</label></li>
               </ul>
             </td>
           </tr>
@@ -124,18 +131,17 @@ $rubricbutton = $css_block . '
             <td style="text-align:center;"><b>Standard Deviation and Consistency<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Say what a smaller standard deviation means: those values sit close to their mean, so they are consistent.</label></li>
-                <li><label><input type="checkbox"> Say what a larger standard deviation means: those values are more spread out, with some further from the mean.</label></li>
-                <li><label><input type="checkbox"> Say which of the two people is the more consistent one and which is more spread out.</label></li>
+                <li><label><input type="checkbox"> For each person, explain what their standard deviation tells you about their '.$measured_thing.'.</label></li>
+                <li><label><input type="checkbox"> Say which person is more consistent and which is less consistent, and point to the numbers that show it.</label></li>
               </ul>
             </td>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Practical Conclusion<br>(3 pts)</b></td>
-            <td>
+            <td style="text-align:center;" class="col-cat-bot"><b>Practical Conclusion<br>(3 pts)</b></td>
+            <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> Say which of the two you would describe as steadier or more predictable, and tie that to the standard deviation rather than the mean.</label></li>
-                <li><label><input type="checkbox"> Write a sentence of what this means for each person in this situation.</label></li>
+                <li><label><input type="checkbox"> Write a conclusion comparing the two people, and say which statistic you based it on.</label></li>
+                <li><label><input type="checkbox"> Say what your conclusion means in this situation: what would someone expect from each person from '.$time_unit.' to '.$time_unit.'?</label></li>
               </ul>
             </td>
           </tr>
@@ -165,19 +171,19 @@ $rubricanswerbutton = $css_block . '
             <td style="text-align:center;"><b>Interpreting the Mean<br>(3 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Explain what the identical means tell us about both groups\' average performance.
-                    <span class="ideal-ans">Target: "Both groups have the same average of '.$shared_mean.' '.$unit.', so on average they perform at the same level over the '.$time_period.'."</span></li>
+                <li>Compare the two means and explain what they say about a typical '.$time_unit.' for each person.
+                    <span class="ideal-ans">Target: "'.$t_mean.'"</span></li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td style="text-align:center;"><b>Standard Deviation &amp; Consistency<br>(4 pts)</b></td>
+            <td style="text-align:center;"><b>Standard Deviation and Consistency<br>(4 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Describe what a smaller standard deviation tells us about one group\'s consistency.
-                    <span class="ideal-ans">Target: "'.$person_a.'\'s SD of '.$sd_small.' means their '.$measured_thing.' stays closely clustered around the average, showing high consistency."</span></li>
-                <li>Describe what a larger standard deviation tells us about the other group\'s variability.
-                    <span class="ideal-ans">Target: "'.$person_b.'\'s SD of '.$sd_large.' means their '.$measured_thing.' varies much more widely, indicating far less consistency."</span></li>
+                <li>Explain what each standard deviation says about the '.$measured_thing.'.
+                    <span class="ideal-ans">Target: "'.$t_sd_each.'"</span></li>
+                <li>Identify which person is more consistent and which is less, citing the standard deviations.
+                    <span class="ideal-ans">Target: "'.$t_sd_compare.'"</span></li>
               </ul>
             </td>
           </tr>
@@ -185,8 +191,10 @@ $rubricanswerbutton = $css_block . '
             <td style="text-align:center;" class="col-cat-bot"><b>Practical Conclusion<br>(3 pts)</b></td>
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>Draw a conclusion about which group is more reliable and explain why.
-                    <span class="ideal-ans">Target: "'.$person_a.' is more reliable because the smaller standard deviation means their '.$measured_thing.' is more predictable from '.$time_unit.' to '.$time_unit.'."</span></li>
+                <li>State a conclusion comparing the two people and name the statistic your conclusion rests on.
+                    <span class="ideal-ans">Target: "'.$t_concl.'"</span></li>
+                <li>Explain what the conclusion means for what to expect in this situation.
+                    <span class="ideal-ans">Target: "'.$t_context.'"</span></li>
               </ul>
             </td>
           </tr>
@@ -205,12 +213,14 @@ $questiontext = '
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
   <p>'.$topic.'. '.$person_a.'\'s '.$measured_thing.' averaged '.$shared_mean.' '.$unit.' (SD = '.$sd_small.'), while '.$person_b.'\'s '.$measured_thing.' also averaged '.$shared_mean.' '.$unit.' (SD = '.$sd_large.').</p>
   <p><b>Essay Prompt:</b><br>
-  Write a conclusion statement explaining what these statistics tell us about the consistency and reliability of '.$person_a.' and '.$person_b.', even though their means are identical.</p>
+  Use the means and standard deviations to write a conclusion comparing '.$person_a.' and '.$person_b.'.</p>
   <p>In your response, be sure to address:</p>
   <ul>
-    <li>What the identical means tell us about both groups.</li>
-    <li>What the difference in standard deviations reveals about consistency and variability.</li>
-    <li>Which group is more reliable, and why.</li>
+    <li>How the two means compare, and what that says about a typical '.$time_unit.'.</li>
+    <li>How the two standard deviations compare, what each one says about the '.$measured_thing.', and which person is more consistent.</li>
+    <li>What your conclusion means for what to expect from each person from '.$time_unit.' to '.$time_unit.'.</li>
+    <li>How the two standard deviations compare, and what each one says about the '.$measured_thing.'.</li>
+    <li>Which person is more consistent, and why.</li>
   </ul>
   '.$rubricbutton.'
 </div>';

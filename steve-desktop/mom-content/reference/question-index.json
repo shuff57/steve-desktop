@@ -2363,7 +2363,7 @@
  },
  {
   "path": "questions/frq/descriptive-statistics/q11-compare-distributions-essay.php",
-  "desc": "Compare Two Distributions in Context - Students compare two groups using shape, center, spread, and outliers, write a context-anchored verbal comparison",
+  "desc": "Compare Two Distributions in Context - Students compare two groups on shape, center, spread, and unusual values, then write a verdict in the context of what was measured",
   "qtype": "multipart",
   "used_by": [
    "chapter-2-individual-test"
@@ -2453,7 +2453,7 @@
  },
  {
   "path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
-  "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency, variability, and reliability across two groups.",
+  "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency and variability across two groups.",
   "qtype": "multipart",
   "used_by": [
    "chapter-2-individual-test"
