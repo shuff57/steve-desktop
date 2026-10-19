@@ -2808,6 +2808,26 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/frq/probability/q5-conditional-reading-from-a-table.php",
+  "desc": "Conditional Reading from a Table - Read two counts off a two-way table, compute a conditional probability, and say which direction it is",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-practice-test"
+  ],
+  "qsetid": "1939911",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/frq/probability/q6-diagram-setup-for-two-draws.php",
+  "desc": "Diagram Setup for Two Draws - Draw a tree for two draws without replacement, fill in its probabilities, and answer an at-least-one question from it",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-practice-test"
+  ],
+  "qsetid": "1939912",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
   "desc": "Explanatory vs Response Variable - Justify the Choice - Students identify which variable is the explanatory (predictor) and which is the response (outcome) in a randomized real-world scenario, justify the role assignment in context, and explain why this choice matters for a regression analysis.",
   "qtype": "multipart",
@@ -6374,7 +6394,8 @@
   "desc": "Addition Rule for a Union Probability - compute P(A OR B) by subtracting the overlap, and recognize why adding the two rates alone overcounts",
   "qtype": "number",
   "used_by": [
-   "3-3-two-basic-rules-of-probability"
+   "3-3-two-basic-rules-of-probability",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874184",
   "health": "ok"
@@ -6821,6 +6842,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/independent-or-dependent-joint-probability.php",
+  "desc": "Independent or Dependent Joint Probability - Multiply two plain probabilities when the events are independent, use the conditional when they are dependent, then decide mutual exclusivity from the product",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-practice-test"
+  ],
+  "qsetid": "1939938",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/interpret-conditional-event-in-words.php",
   "desc": "Interpret a Conditional Event in Words - translate the notation B|A back into a sentence, against distractors that reverse the condition or swap it for AND or OR",
   "qtype": "choices",
@@ -6994,6 +7025,7 @@
    "3-4-contingency-tables",
    "ch7-8-sets-counting-probability-group",
    "ch8-probability-mixed",
+   "chapter-3-practice-test",
    "cumulative-w1-13-ind",
    "test-b-w6-13-group"
   ],
@@ -7039,7 +7071,8 @@
   "qtype": "multipart",
   "used_by": [
    "3-2-independent-and-mutually-exclusive-events",
-   "ch7-8-sets-counting-probability-ind"
+   "ch7-8-sets-counting-probability-ind",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874569",
   "health": "ok"
@@ -7061,7 +7094,8 @@
   "qtype": "multipart",
   "used_by": [
    "3-1-terminology",
-   "ch8-probability-mixed"
+   "ch8-probability-mixed",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874487",
   "health": "ok"
@@ -7083,6 +7117,7 @@
   "qtype": "multipart",
   "used_by": [
    "3-2-independent-and-mutually-exclusive-events",
+   "chapter-3-practice-test",
    "test-b-w6-10-group",
    "test-b-w6-10-group-with-frq"
   ],
@@ -7170,10 +7205,11 @@
  },
  {
   "path": "questions/probability/q29-build-the-table-from-a-word-problem.php",
-  "desc": "Build a Two-Way Table from a Word Problem - Turn four sentences of counts into a complete 2x2 with margins, then read a conditional probability off what you built",
+  "desc": "Build a Contingency Table from a Word Problem - Turn four sentences of counts into a complete contingency table with margins, then read a conditional probability off what you built",
   "qtype": "multipart",
   "used_by": [
-   "3-4-contingency-tables"
+   "3-4-contingency-tables",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874715",
   "health": "unchecked"
@@ -7194,7 +7230,8 @@
   "desc": "Union and Neither from a Two-Way Table - Count the union directly off the table, check it against the addition rule, and find the probability of neither event",
   "qtype": "multipart",
   "used_by": [
-   "3-4-contingency-tables"
+   "3-4-contingency-tables",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874716",
   "health": "unchecked"
@@ -7204,7 +7241,8 @@
   "desc": "Read Four Probabilities off a Venn Diagram - Take the four region counts from a two-circle Venn and produce a marginal, a joint, a union and a neither",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874862",
   "health": "unchecked"
@@ -7214,7 +7252,8 @@
   "desc": "Two Draws Without Replacement on a Tree - Fill the second-stage branch probabilities, multiply along a path, and add the paths that satisfy the event",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874868",
   "health": "unchecked"
@@ -7286,7 +7325,8 @@
   "desc": "At Least One, Two Ways - Add every path that satisfies \"at least one\", then recompute it as 1 minus none, and see why the complement is the route worth learning",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874872",
   "health": "unchecked"
@@ -7355,7 +7395,8 @@
   "qtype": "multipart",
   "used_by": [
    "3-1-terminology",
-   "ch8-probability-mixed"
+   "ch8-probability-mixed",
+   "chapter-3-practice-test"
   ],
   "qsetid": "1874495",
   "health": "ok"

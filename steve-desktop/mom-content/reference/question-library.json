@@ -3761,5 +3761,23 @@
     "cid": "334437",
     "filed": "2026-10-19",
     "qtype": "multipart"
+  },
+  "questions/frq/probability/q5-conditional-reading-from-a-table.php": {
+    "qsetid": "1939911",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q6-diagram-setup-for-two-draws.php": {
+    "qsetid": "1939912",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/independent-or-dependent-joint-probability.php": {
+    "qsetid": "1939938",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
   }
 }

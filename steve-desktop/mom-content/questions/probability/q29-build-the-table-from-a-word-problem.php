@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Build a Two-Way Table from a Word Problem - Turn four sentences of counts into a complete 2x2 with margins, then read a conditional probability off what you built ===
+// === NAME - DESCRIPTION: Build a Contingency Table from a Word Problem - Turn four sentences of counts into a complete contingency table with margins, then read a conditional probability off what you built ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -100,7 +100,7 @@ $sol = '
       <li><b>$a</b> were <b>$rY</b> <i>and</i> <b>$cY</b>.</li>
       <li>Altogether <b>$c1</b> were <b>$cY</b>.</li>
     </ul>
-    <p style="margin:10px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;">Build the two-way table. There is no grid printed here on purpose: sketch one, place the four numbers above, and subtract to fill the rest.</p>
+    <p style="margin:10px 0 0 0; padding:12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px;">Build the contingency table. There is no grid printed here on purpose: sketch one, place the four numbers above, and subtract to fill the rest.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> How many were <b>$rY</b> and <b>$cN</b>? $answerbox[0]
