@@ -520,7 +520,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
-   "chapter-2-group-test"
+   "chapter-2-group-test",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1874040",
   "health": "ok"
@@ -531,7 +532,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-4-box-plots",
-   "chapter-2-individual-test"
+   "chapter-2-group-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874151",
   "health": "unchecked"
@@ -571,8 +573,7 @@
   "desc": "Choose the Honest Bar Graph - Pick the one bar graph that displays a randomized category table fairly from four versions, three of which commit a classic display error, then name the error in a specified version",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
-   "chapter-2-practice-test"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874039",
   "health": "ok"
@@ -615,7 +616,9 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "chapter-2-group-test"
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874308",
   "health": "unchecked"
@@ -625,8 +628,7 @@
   "desc": "Compare Three Box Plots - Read three box plots on a shared axis to find the largest median, find one group's IQR, and say what comparing medians does and does not tell you",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots",
-   "chapter-2-group-test"
+   "2-4-box-plots"
   ],
   "qsetid": "1874146",
   "health": "unchecked"
@@ -636,8 +638,7 @@
   "desc": "Compare Two Groups of Different Sizes - Two relative frequency histograms drawn from surveys with different sample sizes; read one class's share, decide which group spends more, and say why raw counts cannot be compared here",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs",
-   "chapter-2-group-test"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874134",
   "health": "ok"
@@ -794,8 +795,7 @@
   "desc": "Find a Percentile from an Ordered List - Locate two percentiles in a sorted data set using i = (k/100)(n+1), once where the position lands on a whole number and once where it falls between two values, then say what the percentile means",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data",
-   "chapter-2-practice-test"
+   "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": "1874158",
   "health": "ok"
@@ -837,8 +837,7 @@
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
    "2-4-box-plots",
-   "2-7-measures-of-the-spread-of-the-data",
-   "chapter-2-practice-test"
+   "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874150",
   "health": "ok"
@@ -848,8 +847,7 @@
   "desc": "What the Frequency Columns Sum To - State the totals of the frequency and relative frequency columns of a survey table, then separate what frequency, relative frequency and cumulative relative frequency each measure",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs",
-   "chapter-2-group-test"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874131",
   "health": "ok"
@@ -881,8 +879,7 @@
   "desc": "Bin Width Changes the Picture - One data set is drawn as a histogram twice, with bars one unit wide and then two units wide; count the wider bars, work out the height of one of them, and say what the change of bin width does and does not alter",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs",
-   "chapter-2-practice-test"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874133",
   "health": "ok"
@@ -892,8 +889,7 @@
   "desc": "Classes and Shape from a Raw Data Set - Group a randomized data set into classes of a stated width, then report a class count, where the tallest class starts, a relative frequency and the shape of the distribution",
   "qtype": "multipart",
   "used_by": [
-   "2-2-histograms-frequency-polygons-and-time-series-graphs",
-   "chapter-2-individual-test"
+   "2-2-histograms-frequency-polygons-and-time-series-graphs"
   ],
   "qsetid": "1874135",
   "health": "ok"
@@ -1026,8 +1022,7 @@
   "desc": "Read a Line Graph Built from a Frequency Table - Recover the sample size, a relative frequency and the most common value from a line graph of a randomized frequency table, then say what the connecting segments do and do not mean",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
-   "chapter-2-group-test"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874044",
   "health": "ok"
@@ -1059,7 +1054,9 @@
   "qtype": "multipart",
   "used_by": [
    "2-5-measures-of-the-center-of-the-data",
-   "chapter-2-individual-test"
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874285",
   "health": "unchecked"
@@ -1140,8 +1137,7 @@
   "desc": "Name the Skew from a Box Plot - Use the median's position in the box and the two whisker lengths to name the shape, then predict where the mean sits relative to the median",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode",
-   "chapter-2-individual-test"
+   "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874300",
   "health": "unchecked"
@@ -1162,7 +1158,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-4-box-plots",
-   "chapter-2-group-test"
+   "chapter-2-group-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874144",
   "health": "unchecked"
@@ -1233,8 +1230,7 @@
   "desc": "Find the Percentile of a Given Value - Work the percentile formula in reverse with (x + 0.5y)/n times 100, counting the values below and the values equal to the one named, including a value that appears more than once",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data",
-   "chapter-2-group-test"
+   "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": "1874159",
   "health": "ok"
@@ -1475,8 +1471,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
-   "2-5-measures-of-the-center-of-the-data",
-   "chapter-2-group-test"
+   "2-5-measures-of-the-center-of-the-data"
   ],
   "qsetid": "1874169",
   "health": "ok"
@@ -1590,8 +1585,7 @@
   "desc": "Compare Two Distributions - Given summary statistics for two groups, identify which has the larger center and which has the larger spread, and pick the correct verbal comparison",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode",
-   "chapter-2-practice-test"
+   "2-6-skewness-and-the-mean-median-and-mode"
   ],
   "qsetid": "1874303",
   "health": "ok"
@@ -1684,6 +1678,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-5-measures-of-the-center-of-the-data",
+   "chapter-2-group-test",
    "chapter-2-practice-test"
   ],
   "qsetid": "1874284",
@@ -1706,6 +1701,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
+   "chapter-2-group-test",
    "chapter-2-practice-test"
   ],
   "qsetid": "1874164",
@@ -1756,7 +1752,10 @@
   "desc": "Read a Box Plot - Take the median and the quartiles off a drawn box plot, compute the interquartile range, and identify which quarter of the data is the most spread out",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874141",
   "health": "unchecked"
@@ -1876,6 +1875,17 @@
   "health": "ok"
  },
  {
+  "path": "questions/descriptive-stats/set-up-a-histogram-from-a-data-set.php",
+  "desc": "Set Up a Histogram from a Data Set - From twenty unsorted whole-number measurements work out the range, choose a class width, place a stated value in its class, count that class, name the next class boundary, and say why histogram bars touch",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-2-group-test",
+   "chapter-2-practice-test"
+  ],
+  "qsetid": "1918224",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/descriptive-stats/skew-from-summary-statistics.php",
   "desc": "Infer the Skew from the Mean and Median Alone - With no picture available, use the gap between the mean and the median to name the shape, then say which measure of center to report",
   "qtype": "multipart",
@@ -1897,11 +1907,13 @@
  },
  {
   "path": "questions/descriptive-stats/skewness-and-the-mean-median-relationship.php",
-  "desc": "Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, and name a two-peaked distribution",
+  "desc": "Skewness and the Mean-Median Relationship - From a drawn histogram, identify skewed-left, skewed-right or symmetric, connect that shape to whether the mean is less than, greater than, or about equal to the median, name a two-peaked distribution, and choose the pair of measures that a few extreme values cannot distort",
   "qtype": "multipart",
   "used_by": [
    "2-6-skewness-and-the-mean-median-and-mode",
-   "chapter-2-group-test"
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
+   "chapter-2-practice-test"
   ],
   "qsetid": "1874296",
   "health": "unchecked"
@@ -1921,8 +1933,7 @@
   "desc": "Standard Deviation from a Frequency Table - Build the xf and squared-deviation columns a grouped calculation needs, total them, and finish with the sample standard deviation",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data",
-   "chapter-2-individual-test"
+   "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874311",
   "health": "unchecked"
@@ -1933,6 +1944,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
+   "chapter-2-group-test",
+   "chapter-2-individual-test",
    "chapter-2-practice-test"
   ],
   "qsetid": "1874307",
@@ -1963,8 +1976,7 @@
   "desc": "Read a Time Series Line Graph - From a line graph of eight months of data, read one month's value, find the largest month-to-month rise, work out the net change across the whole period, and say why a line graph suits data collected over time",
   "qtype": "multipart",
   "used_by": [
-   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs",
-   "chapter-2-individual-test"
+   "2-1-stem-and-leaf-graphs-line-graphs-and-bar-graphs"
   ],
   "qsetid": "1874051",
   "health": "ok"
@@ -2004,8 +2016,7 @@
   "desc": "Find the Value a Given Number of Standard Deviations from the Mean - Convert between a z-score and a raw value in both directions, and read what a negative z-score says about a measurement",
   "qtype": "multipart",
   "used_by": [
-   "2-7-measures-of-the-spread-of-the-data",
-   "chapter-2-individual-test"
+   "2-7-measures-of-the-spread-of-the-data"
   ],
   "qsetid": "1874314",
   "health": "unchecked"
@@ -2064,6 +2075,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs",
+   "chapter-2-group-test",
    "chapter-2-practice-test"
   ],
   "qsetid": "1874132",
@@ -2074,8 +2086,7 @@
   "desc": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data",
-   "chapter-2-group-test"
+   "2-3-measures-of-the-location-of-the-data"
   ],
   "qsetid": "1874170",
   "health": "ok"
@@ -2085,8 +2096,7 @@
   "desc": "Boxplot - IQR, Fences, and Outlier Check (Context) - From a five-number summary in context, compute IQR and the 1.5*IQR fences, then decide whether a new observation is an outlier",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots",
-   "chapter-2-practice-test"
+   "2-4-box-plots"
   ],
   "qsetid": "1874149",
   "health": "ok"
@@ -2432,14 +2442,14 @@
   "health": "ok"
  },
  {
-  "path": "questions/frq/descriptive-statistics/q5-interpreting-bimodal-data.php",
-  "desc": "Interpreting Bimodal Data - Students interpret a bimodal distribution, explain what the two peaks suggest about subgroups in the data, and recommend further investigation to confirm their hypothesis.",
+  "path": "questions/frq/descriptive-statistics/q5-reading-shape-from-a-data-set.php",
+  "desc": "Reading Shape From a Data Set - Students work from twenty recorded values, decide whether the set is skewed left, skewed right, or roughly symmetric, say what that implies for the mean against the median, and recommend one thing to check next",
   "qtype": "multipart",
   "used_by": [
    "chapter-2-group-test"
   ],
-  "qsetid": "1917855",
-  "health": "ok"
+  "qsetid": null,
+  "health": "unchecked"
  },
  {
   "path": "questions/frq/descriptive-statistics/q6-frequency-distribution-analysis.php",
@@ -2453,7 +2463,7 @@
  },
  {
   "path": "questions/frq/descriptive-statistics/q7-comparing-means-and-standard-deviations.php",
-  "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency and variability across two groups.",
+  "desc": "Comparing Means and Standard Deviations - Students interpret identical means with different standard deviations to draw conclusions about consistency and spread across two groups.",
   "qtype": "multipart",
   "used_by": [
    "chapter-2-individual-test"
@@ -2781,16 +2791,20 @@
   "path": "questions/frq/probability/q3-mutually-exclusive-versus-independent.php",
   "desc": "Mutually Exclusive or Independent - Given three probabilities, run both tests, state both verdicts, and explain why they are different questions",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939705",
   "health": "unchecked"
  },
  {
   "path": "questions/frq/probability/q4-which-rule-and-why.php",
   "desc": "Which Rule, and Why That Factor - Choose between the addition and multiplication rules, carry it out, and justify which of two competing rates belongs in the product",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939707",
   "health": "unchecked"
  },
  {
@@ -6079,8 +6093,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution",
-   "chapter-2-practice-test"
+   "5-1-the-standard-normal-distribution"
   ],
   "qsetid": "1874315",
   "health": "ok"
@@ -6291,8 +6304,7 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution",
-   "chapter-2-group-test"
+   "5-1-the-standard-normal-distribution"
   ],
   "qsetid": "1874316",
   "health": "ok"
@@ -6345,6 +6357,16 @@
    "5-1-the-standard-normal-distribution"
   ],
   "qsetid": "1878496",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/add-then-subtract-the-overlap.php",
+  "desc": "Addition Rule with an Overlap - Find P(A), P(B) and P(both) in a group, then P(A or B) by adding and subtracting the overlap",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939738",
   "health": "unchecked"
  },
  {
@@ -6594,6 +6616,14 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/probability/compare-rates-to-test-independence.php",
+  "desc": "Independence from Two Rates - Find the rate in each of two groups and decide from the rates whether the group and the outcome are independent",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": "1939739",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/conditional-probability.php",
   "desc": "",
   "qtype": "?",
@@ -6819,6 +6849,16 @@
   ],
   "qsetid": "1874185",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/joint-probabilities-from-a-two-way-table.php",
+  "desc": "Joint Probabilities from a Two-Way Table - Divide cell counts by the grand total to get three joint probabilities, P(A and B) for chosen cells",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939751",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/multiplication-rule-joint-probability.php",
@@ -7089,7 +7129,8 @@
   "desc": "Probability of Set Ops on Dice Events - Find P(A union B), P(A intersect B), P(A complement) for two events on a single die",
   "qtype": "multipart",
   "used_by": [
-   "3-1-terminology"
+   "3-1-terminology",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874494",
   "health": "ok"
@@ -7099,7 +7140,8 @@
   "desc": "Independence Multiplication Rule - P(A and B), P(A or B), P(neither) for two independent events",
   "qtype": "multipart",
   "used_by": [
-   "3-2-independent-and-mutually-exclusive-events"
+   "3-2-independent-and-mutually-exclusive-events",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874570",
   "health": "ok"
@@ -7109,7 +7151,8 @@
   "desc": "Complete a Two-Way Table - Fill the missing cells and margins of a 2x2 from the counts that are given, then read one probability off the finished table",
   "qtype": "multipart",
   "used_by": [
-   "3-4-contingency-tables"
+   "3-4-contingency-tables",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874711",
   "health": "unchecked"
@@ -7119,7 +7162,8 @@
   "desc": "Three Denominators from One Table - Compute a marginal, a joint and a conditional probability off the same 2x2 and identify which total each one divides by",
   "qtype": "multipart",
   "used_by": [
-   "3-4-contingency-tables"
+   "3-4-contingency-tables",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874713",
   "health": "unchecked"
@@ -7180,7 +7224,8 @@
   "desc": "With Replacement or Without - Compute the same two-draw probability both ways and say which assumption makes the draws independent",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874869",
   "health": "unchecked"
@@ -7190,7 +7235,8 @@
   "desc": "Fill a Venn from Three Probabilities - Given P(A), P(B) and P(A and B), work out all four region probabilities and confirm they account for everyone",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874865",
   "health": "unchecked"
@@ -7286,7 +7332,8 @@
   "used_by": [
    "3-2-independent-and-mutually-exclusive-events",
    "ch7-8-sets-counting-probability-group",
-   "ch8-probability-mixed"
+   "ch8-probability-mixed",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874568",
   "health": "ok"
@@ -7334,6 +7381,16 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/sample-space-and-complement-of-a-colour.php",
+  "desc": "Sample Space and Complement of a Colour - Count the outcomes in a bag of coloured objects, find the probability of one colour, and find the probability of not that colour",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939737",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/survey-two-conditionals-full-workup.php",
   "desc": "Full Workup of a Survey with Two Conditionals - sort four survey figures into two unconditional and two conditional probabilities, interpret each conditional in words, then apply the multiplication and addition rules and test for mutual exclusivity",
   "qtype": "multipart",
@@ -7348,7 +7405,8 @@
   "desc": "Test Two Events for Independence - compute the product of the two unconditional probabilities, compare it with the joint probability, and state the conclusion",
   "qtype": "multipart",
   "used_by": [
-   "3-3-two-basic-rules-of-probability"
+   "3-3-two-basic-rules-of-probability",
+   "chapter-3-group-test"
   ],
   "qsetid": "1874183",
   "health": "ok"
@@ -7362,6 +7420,16 @@
   ],
   "qsetid": "1874186",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/two-draws-one-kind-without-replacement.php",
+  "desc": "Two Draws Without Replacement - Use a tree to find one path, exactly one of a kind by adding two paths, and at least one of a kind by the complement",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-group-test"
+  ],
+  "qsetid": "1939771",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/unconditional-probability-first-event.php",

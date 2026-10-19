@@ -7,16 +7,16 @@
 // two numbers side by side is what makes "independent" mean something concrete: with replacement the
 // second draw forgets the first, without replacement it does not.
 //
-// Part (d) is the one that matters: a student can produce both numbers and still not know which
+// Part (c) is the one that matters: a student can produce both numbers and still not know which
 // scenario the multiplication rule for INDEPENDENT events applies to.
-$anstypes = array("numfunc", "numfunc", "numfunc", "choices")
+$anstypes = array("numfunc", "numfunc", "choices")
 
 $i = rand(0, 2)
 
 $contexts = array("A bag of marbles", "A drawer of socks", "A box of pens")
 $context = $contexts[$i]
 
-// The container noun on its own. Part (d)'s CORRECT option names the container, so hard-coding
+// The container noun on its own. Part (c)'s CORRECT option names the container, so hard-coding
 // "bag" there put the wrong word on the right answer for two seeds out of three.
 $containers = array("bag", "drawer", "box")
 $container = $containers[$i]
@@ -35,9 +35,8 @@ $rem = $total - 1
 
 $pWith = ($r / $total) * ($r / $total)
 $pWithout = ($r / $total) * (($r - 1) / $rem)
-$diff = round($pWith - $pWithout, 4)
 
-$questions[3] = array(
+$questions[2] = array(
   "With replacement, because the " . $container . " is restored to its starting state and the second draw is unaffected by the first",
   "Without replacement, because removing one " . $c1 . " makes the remaining " . $item . " a smaller and more predictable group",
   "Both, because the two draws are separate physical actions either way",
@@ -46,8 +45,7 @@ $questions[3] = array(
 
 $answer[0] = $pWith
 $answer[1] = $pWithout
-$answer[2] = $diff
-$answer[3] = 0
+$answer[2] = 0
 
 $sol = '
 <style>
@@ -66,8 +64,7 @@ $sol = '
     <div class="sol-body">
       <p><span class="term-label">(a) With replacement.</span> The ' . $c1 . ' goes back, so the ' . $container . ' is identical for the second draw: `' . $r . '/' . $total . ' xx ' . $r . '/' . $total . ' = ' . $pWith . '`. Same fraction twice.</p>
       <p><span class="term-label">(b) Without replacement.</span> One ' . $c1 . ' is gone and so is one ' . $item . ' overall: `' . $r . '/' . $total . ' xx ' . ($r - 1) . '/' . $rem . ' = ' . $pWithout . '`. BOTH numbers change: dropping only the numerator is the usual slip.</p>
-      <p><span class="term-label">(c) The gap.</span> `' . $pWith . ' - ' . $pWithout . ' = ' . $diff . '`. Without replacement is always the smaller of the two here, because removing one ' . $c1 . ' leaves proportionally fewer behind.</p>
-      <p><span class="term-label">(d) Which one is independent.</span> With replacement. Independence means the second draw does not care what the first was, and putting the ' . $c1 . ' back is literally what makes that true. Without replacement the second probability depends on the first branch: which is why q32 needed a tree and this half does not.</p>
+      <p><span class="term-label">(c) Which one is independent.</span> With replacement. Independence means the second draw does not care what the first was, and putting the ' . $c1 . ' back is literally what makes that true. Without replacement the second probability depends on the first branch: which is why q32 needed a tree and this half does not.</p>
       <p><span class="term-label">Worth carrying.</span> "Independent" is not a property of the objects; it is a property of the PROCEDURE. Same ' . $container . ', same colours, one word changed, and the answer changes with it.</p>
     </div>
   </details>
@@ -87,10 +84,7 @@ $sol = '
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Drawn <b>without replacement</b>: P(both $c1). $answerbox[1]
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> How much larger is (a) than (b)? $answerbox[2]
-  </div>
-  <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">d.</span> In which scenario are the two draws <b>independent</b>, and why? $answerbox[3]
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">c.</span> In which scenario are the two draws <b>independent</b>, and why? $answerbox[2]
   </div>
 </div>
 

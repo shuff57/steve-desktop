@@ -37,6 +37,8 @@ $r_indep = "They are independent, because P(A) x P(B) = " . $aDec . " x " . $bDe
 $r_distinguish = "These are two different questions settled by two different comparisons: one against zero, the other against the product of the two probabilities. Answering one leaves the other open."
 
 $model = $r_mutex . " " . $r_indep . " " . $r_distinguish
+$t_zero = "P(A and B) = " . $jointDec . ", which is not zero."
+$t_product = $aDec . " x " . $bDec . " = " . $jointDec . ", which equals P(A and B)."
 
 $css = '
 <style>
@@ -44,6 +46,12 @@ $css = '
   .frq3 .rubric-container details { width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; background:#fff; }
   .frq3 .rubric-container summary { cursor:pointer; display:block; width:100%; background:#f8f8f8; color:#333; padding:0.35em 0.6em; font-weight:bold; border-bottom:1px solid #ccc; list-style:none; }
   .frq3 .rubric-container summary::-webkit-details-marker { display:none; }
+  .frq3 .rubric-container .arrow-open { display:none; }
+  .frq3 .rubric-container details[open] .arrow-closed { display:none; }
+  .frq3 .rubric-container details[open] .arrow-open { display:inline; }
+  .frq3 .rubric-table ul { margin:0; padding-left:1.1em; list-style:none; }
+  .frq3 .ideal-ans { display:block; background:#e8f5e9; font-style:italic; font-weight:bold; font-size:0.95em; margin:5px 0 10px 0; border-left:3px solid #4CAF50; padding-left:8px; }
+  .frq3 .full-response-box { margin-top:15px; border:2px solid #4CAF50; background:#e8f5e9; padding:15px; border-radius:5px; }
   .frq3 .rubric-content { padding:0.75em; background:#fafafa; }
   .frq3 .rubric-table { border-collapse:separate; border-spacing:0; width:100%; border:1px solid #ccc; border-radius:8px; overflow:hidden; font-family:Arial; font-size:small; margin-top:10px; }
   .frq3 .rubric-table th { background:#f2f2f2; padding:8px; text-align:center; border:1px solid #ccc; }
@@ -57,18 +65,44 @@ $css = '
 $rubric = $css . '
 <div class="frq3">
 <div class="rubric-container">
-  <details open>
-    <summary>Grading Checklist: 10 points</summary>
+  <details>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Click to View Grading Checklist
+    </summary>
     <div class="rubric-content">
       <table class="rubric-table">
         <tbody>
-          <tr><th>Category</th><th>Requirement</th></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Test for Mutual Exclusivity<br>(3 pts)</b></td>
-            <td>Compare the joint probability against zero and state the verdict.</td></tr>
-          <tr><td style="text-align:center;"><b>Test for Independence<br>(4 pts)</b></td>
-            <td>Compare the product of the two probabilities against the joint probability and state the verdict.</td></tr>
-          <tr class="row-colored"><td style="text-align:center;"><b>Distinguish the Two<br>(3 pts)</b></td>
-            <td>Say why these are separate questions, so neither verdict is read as settling the other.</td></tr>
+          <tr>
+            <th>Category</th>
+            <th>What to include</th>
+          </tr>
+          <tr class="row-colored">
+            <td><b>Test for Mutual Exclusivity<br>(3 pts)</b></td>
+            <td>
+              <ul>
+                <li><label><input type="checkbox"> Compare P(A and B) with zero.</label></li>
+                <li><label><input type="checkbox"> Say whether A and B are mutually exclusive.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Test for Independence<br>(4 pts)</b></td>
+            <td>
+              <ul>
+                <li><label><input type="checkbox"> Multiply P(A) and P(B) and compare the result with P(A and B).</label></li>
+                <li><label><input type="checkbox"> Say whether A and B are independent, and show the numbers.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td><b>Distinguish the Two<br>(3 pts)</b></td>
+            <td>
+              <ul>
+                <li><label><input type="checkbox"> Explain why knowing one answer does not tell you the other.</label></li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -86,28 +120,63 @@ $factBlock = '
   </table>
 </div>'
 
-$solutionguide = '
-<style>
-  .sol-wrap details { width:100%; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; background:#fff; }
-  .sol-wrap summary { cursor:pointer; display:block; width:100%; background:#f0f4ff; color:#21242c; padding:0.5em 0.75em; font-weight:700; font-size:15px; border-bottom:1px solid #e5e7eb; list-style:none; }
-  .sol-wrap summary::-webkit-details-marker { display:none; }
-  .sol-body { padding:0.75em; background:#fafafa; }
-  .term-label { font-weight:700; color:#1865f2; }
-  .ideal { display:block; background:#eef4ff; border-left:3px solid #1865f2; padding:8px 12px; margin:6px 0; }
-</style>
-<div class="sol-wrap" style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px; margin:1em 0;">
+$rubricanswerbutton = $css . '
+<div class="frq3">
+<div class="rubric-container">
   <details>
-    <summary>Model Response and Marking Notes</summary>
-    <div class="sol-body">
-      <p><span class="term-label">A full-credit answer.</span></p>
-      <span class="ideal">' . $model . '</span>
-      <p><span class="term-label">Why these numbers.</span> `' . $aDec . ' xx ' . $bDec . ' = ' . $jointDec . '`, exactly the joint. So the honest answers are NOT mutually exclusive and IS independent: opposite directions. A student who thinks the two tests are the same question will give the same verdict twice and lose both the second and third categories.</p>
-      <p><span class="term-label">Test for Mutual Exclusivity (3).</span> Needs the comparison against zero, not just the word. "They overlap" with no reference to P(A and B) earns 1.</p>
-      <p><span class="term-label">Test for Independence (4).</span> Needs the product computed and compared. A verdict with no arithmetic earns 1. Accept P(A given B) = P(A) as an equivalent route, fully credited.</p>
-      <p><span class="term-label">Distinguish the Two (3).</span> Award only for a statement about the two TESTS, not a restatement of the two verdicts. This is the category most often missing, and it is the one the section is about.</p>
-      <p><span class="term-label">Common wrong answer worth recognising.</span> "They are not mutually exclusive, so they must be dependent." That sentence is the exact confusion this question is built to expose: it earns the first category and nothing after it.</p>
+    <summary>
+      <span class="arrow-closed">&#9656;</span><span class="arrow-open">&#9662;</span>
+      Rubric &amp; Model Response
+    </summary>
+    <div class="rubric-content">
+      <table class="rubric-table">
+        <tbody>
+          <tr>
+            <th>Category</th>
+            <th>Checklist &amp; Ideal Targets</th>
+          </tr>
+          <tr class="row-colored">
+            <td><b>Test for Mutual Exclusivity<br>(3 pts)</b></td>
+            <td>
+              <ul>
+                <li>Compare P(A and B) with zero.
+                    <span class="ideal-ans">Target: "' . $t_zero . '"</span></li>
+                <li>Say whether A and B are mutually exclusive.
+                    <span class="ideal-ans">Target: "' . $r_mutex . '"</span></li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td><b>Test for Independence<br>(4 pts)</b></td>
+            <td>
+              <ul>
+                <li>Multiply P(A) and P(B) and compare the result with P(A and B).
+                    <span class="ideal-ans">Target: "' . $t_product . '"</span></li>
+                <li>Say whether A and B are independent, and show the numbers.
+                    <span class="ideal-ans">Target: "' . $r_indep . '"</span></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td><b>Distinguish the Two<br>(3 pts)</b></td>
+            <td>
+              <ul>
+                <li>Explain why knowing one answer does not tell you the other.
+                    <span class="ideal-ans">Target: "' . $r_distinguish . '"</span></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="full-response-box">
+        <span>Model Narrative Response:</span><br><br>
+        ' . $model . '
+      </div>
+      <p><b>Common wrong answer.</b> "They are not mutually exclusive, so they must be dependent." That is the confusion this question is built to expose. It earns the first category and nothing after it.</p>
+      <p><b>Marking note.</b> Accept P(A given B) = P(A) as an equivalent route to the independence verdict, with full credit.</p>
     </div>
   </details>
+</div>
 </div>'
 
 // === QUESTION TEXT ===
@@ -126,4 +195,4 @@ $solutionguide = '
 
 // === ANSWER ===
 
-$solutionguide
+$rubricanswerbutton

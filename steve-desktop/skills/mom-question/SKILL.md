@@ -335,6 +335,18 @@ of them predate the rule and a hard failure would make the lint unusable. **A fi
 come back with zero.** Scope the run to your own path so a pre-existing backlog elsewhere cannot
 hide a tell you just added.
 
+## Voice: direct and plain (Steve, 2026-10-19)
+
+Questions, FRQ prompts and student checklists are **direct and in plain language.** Say what is
+asked, with no setup padding, no cleverness and no vocabulary the course has not taught. That is not
+a reason to strip the word problems: a short, concrete context (a survey, a deck of cards, a commute)
+stays, because applying the rule to a situation is the skill being tested. Cut the wordiness, keep
+the scenario.
+
+- Building an assessment from existing questions: do not rewrite a filed question for voice during
+  the push, since that changes the text under the homework that uses it. Flag it in the report.
+- New questions and FRQs follow this voice from the first draft.
+
 ## Filing it into an assignment
 
 Only file a question that renders clean — a broken question must never enter a book. Append to the

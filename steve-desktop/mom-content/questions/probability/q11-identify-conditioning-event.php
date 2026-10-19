@@ -55,7 +55,7 @@ $solutionguide = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">$prompt</p>
-    <p style="margin:0.5em 0 0 0;">If we want to write this percentage as a conditional probability, <b>which event is the conditioning event</b> (the event we are conditioning on)?</p>
+    <p style="margin:0.5em 0 0 0;">Write this percentage as a conditional probability. <b>Which event is the condition</b>, the one we are told has already happened?</p>
     <div style="margin-top:12px;text-align:center;">$answerbox[0]</div>
   </div>
 </div>

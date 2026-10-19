@@ -3719,5 +3719,47 @@
     "cid": "334437",
     "filed": "2026-09-27",
     "qtype": "multipart"
+  },
+  "questions/frq/probability/q3-mutually-exclusive-versus-independent.php": {
+    "qsetid": "1939705",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q4-which-rule-and-why.php": {
+    "qsetid": "1939707",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/sample-space-and-complement-of-a-colour.php": {
+    "qsetid": "1939737",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/add-then-subtract-the-overlap.php": {
+    "qsetid": "1939738",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/compare-rates-to-test-independence.php": {
+    "qsetid": "1939739",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/joint-probabilities-from-a-two-way-table.php": {
+    "qsetid": "1939751",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/two-draws-one-kind-without-replacement.php": {
+    "qsetid": "1939771",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
   }
 }
