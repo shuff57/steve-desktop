@@ -3779,5 +3779,41 @@
     "cid": "334437",
     "filed": "2026-10-19",
     "qtype": "multipart"
+  },
+  "questions/probability/classify-mutually-exclusive-or-independent.php": {
+    "qsetid": "1940346",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/add-exclusive-events-then-complement.php": {
+    "qsetid": "1940347",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/read-a-table-of-probabilities.php": {
+    "qsetid": "1940348",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/probability/add-the-paths-of-a-tree.php": {
+    "qsetid": "1940349",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q2-sample-space-and-event-setup.php": {
+    "qsetid": "1940351",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q7-addition-rule-overlap-explained.php": {
+    "qsetid": "1940352",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
   }
 }

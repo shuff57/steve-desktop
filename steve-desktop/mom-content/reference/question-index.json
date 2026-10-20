@@ -2783,8 +2783,10 @@
   "path": "questions/frq/probability/q2-sample-space-and-event-setup.php",
   "desc": "Set Up a Probability from Scratch - Given a compound experiment, define the sample space, identify the event, and find its probability, showing why the denominator is what it is",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940351",
   "health": "unchecked"
  },
  {
@@ -2825,6 +2827,16 @@
    "chapter-3-practice-test"
   ],
   "qsetid": "1939912",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/frq/probability/q7-addition-rule-overlap-explained.php",
+  "desc": "Addition Rule and the Overlap - Find P(A or B) from counts, name the overlap, and explain why it is subtracted",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940352",
   "health": "unchecked"
  },
  {
@@ -6380,6 +6392,26 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/probability/add-exclusive-events-then-complement.php",
+  "desc": "Add Mutually Exclusive Probabilities, Then Take the Complement - Find P(A or B) with no overlap to subtract, then P(neither), and say why nothing is subtracted",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940347",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/add-the-paths-of-a-tree.php",
+  "desc": "Add the Paths of a Tree - Multiply along two paths that end in the same outcome, then add them to get the overall probability",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940349",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/add-then-subtract-the-overlap.php",
   "desc": "Addition Rule with an Overlap - Find P(A), P(B) and P(both) in a group, then P(A or B) by adding and subtracting the overlap",
   "qtype": "multipart",
@@ -6634,6 +6666,16 @@
    "4-3-binomial-distribution"
   ],
   "qsetid": "1877082",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/classify-mutually-exclusive-or-independent.php",
+  "desc": "Mutually Exclusive, Independent or Neither - Use P(A), P(B) and P(A and B) to classify three pairs of events",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940346",
   "health": "unchecked"
  },
  {
@@ -6896,7 +6938,8 @@
   "desc": "Multiplication Rule for a Joint Probability - compute P(A AND B) from an unconditional rate and the conditional rate given in the same setup",
   "qtype": "number",
   "used_by": [
-   "3-3-two-basic-rules-of-probability"
+   "3-3-two-basic-rules-of-probability",
+   "chapter-3-individual-test"
   ],
   "qsetid": "1874181",
   "health": "ok"
@@ -7106,7 +7149,8 @@
   "qtype": "multipart",
   "used_by": [
    "3-4-contingency-tables",
-   "ch7-8-sets-counting-probability-ind"
+   "ch7-8-sets-counting-probability-ind",
+   "chapter-3-individual-test"
   ],
   "qsetid": "1874605",
   "health": "ok"
@@ -7154,7 +7198,8 @@
   "qtype": "multipart",
   "used_by": [
    "3-1-terminology",
-   "ch7-8-sets-counting-probability-group"
+   "ch7-8-sets-counting-probability-group",
+   "chapter-3-individual-test"
   ],
   "qsetid": "1874497",
   "health": "ok"
@@ -7295,7 +7340,8 @@
   "desc": "Conditional from a Venn - Compute a conditional both directions, where the denominator is a circle total rather than the grand total",
   "qtype": "multipart",
   "used_by": [
-   "3-5-tree-and-venn-diagrams"
+   "3-5-tree-and-venn-diagrams",
+   "chapter-3-individual-test"
   ],
   "qsetid": "1874867",
   "health": "unchecked"
@@ -7400,6 +7446,16 @@
   ],
   "qsetid": "1874495",
   "health": "ok"
+ },
+ {
+  "path": "questions/probability/read-a-table-of-probabilities.php",
+  "desc": "Read a Table of Probabilities - From four joint probabilities find P(A), P(A or B) and P(B given A), then test for independence",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-3-individual-test"
+  ],
+  "qsetid": "1940348",
+  "health": "unchecked"
  },
  {
   "path": "questions/probability/roulette-bet-types-probabilities.php",

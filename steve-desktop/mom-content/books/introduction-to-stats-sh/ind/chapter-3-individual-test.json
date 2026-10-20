@@ -1,0 +1,169 @@
+{
+  "name": "Chapter 3 Individual Test",
+  "book": "introduction-to-stats-sh",
+  "kind": "ind",
+  "slug": "chapter-3-individual-test",
+  "status": "draft",
+  "_note": "PUSHED 2026-10-19 into the pre-existing Chapter 3 Individual Test stub aid 23444250 (master 334437, block 0-2-8-3); filled, not duplicated. Slots 1, 3, 5 and 7 are existing library questions attached by qsetid (reused: true). Slots 2, 4, 6 and 8 are new questions drafted 2026-10-19 and filed as 1940346, 1940347, 1940348 and 1940349. Slot 9 is the existing 3.1 FRQ q2, never filed before, with its instructor rubric rebuilt to the q3 to q7 pattern (collapsed student checklist, Rubric & Model Response with green Target lines) and its 'not just counted' tell recast; filed as 1940351. Slot 10 is the new 3.3 addition-rule FRQ q7 (no pre-FRQ, so students have not seen its checklist on a homework), filed as 1940352. Points 8x9 + 14 + 14 = 100; FRQs attempts=1. 3.6 is dropped as in the other two tests. Zero overlap with the group and practice manifests. q36 (1874867) is attached as live, which matches the working-tree file. The stub was dated (10/19 10:11 to 11:47) and is now undated; its passcode was already set and was left as found because the passcode file ~/Documents/mom-test-passcodes-2026-27.md is absent on this machine. Dates are copy-time settings.",
+  "coverage_spec": [
+    "3.1 conditional probability via the reduced sample space, two dice",
+    "3.2 classify three pairs: mutually exclusive, independent or neither",
+    "3.3 multiplication rule, joint probability",
+    "3.3 add mutually exclusive probabilities, then the complement",
+    "3.4 both conditional directions, the asymmetry",
+    "3.4 read a table of probabilities and test independence",
+    "3.5 conditional probability from a Venn diagram",
+    "3.5 multiply along two tree paths, then add them",
+    "FRQ 3.1 sample space and event setup: define the sample space, identify the event, state the probability",
+    "FRQ 3.3 addition rule and the overlap: name the overlap, apply the rule, explain the subtraction"
+  ],
+  "mom_settings": {
+    "subtype": "Test",
+    "defattempts": 2,
+    "versions_per_question": 1,
+    "penalty": {
+      "per_attempt": 50,
+      "after_attempt": 1
+    },
+    "earlybonus": 0,
+    "gbcategory": "IND",
+    "gbcategory_id_334437": "798370",
+    "late_passes": 0,
+    "timelimit_min": 89,
+    "timelimit_wednesday_min": 81,
+    "allowovertime": true,
+    "passcode": "required - see ~/Documents/mom-test-passcodes-2026-27.md",
+    "displaymethod": "All questions on one page",
+    "show_scores": "on each question immediately",
+    "show_answers": "after the last try on a question"
+  },
+  "target": {
+    "cid": "334437",
+    "aid": "23444250"
+  },
+  "created_at": "2026-10-19",
+  "questions": [
+    {
+      "sub_topic": "3.1 conditional probability via the reduced sample space, two dice",
+      "file_path": "questions/probability/q24-conditional-dice-reduced-sample-space.php",
+      "title": "Conditional via Reduced Sample Space",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 1,
+      "qid": "1874497"
+    },
+    {
+      "sub_topic": "3.2 classify three pairs: mutually exclusive, independent or neither",
+      "file_path": "questions/probability/classify-mutually-exclusive-or-independent.php",
+      "title": "Mutually Exclusive, Independent or Neither",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": false,
+      "slot": 2,
+      "qid": "1940346"
+    },
+    {
+      "sub_topic": "3.3 multiplication rule, joint probability",
+      "file_path": "questions/probability/multiplication-rule-joint-probability.php",
+      "title": "Multiplication Rule for a Joint Probability",
+      "role": "multipart",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 3,
+      "qid": "1874181"
+    },
+    {
+      "sub_topic": "3.3 add mutually exclusive probabilities, then the complement",
+      "file_path": "questions/probability/add-exclusive-events-then-complement.php",
+      "title": "Add Mutually Exclusive Probabilities, Then Take the Complement",
+      "role": "multipart",
+      "difficulty": "easy",
+      "is_frq": false,
+      "points": 9,
+      "reused": false,
+      "slot": 4,
+      "qid": "1940347"
+    },
+    {
+      "sub_topic": "3.4 both conditional directions, the asymmetry",
+      "file_path": "questions/probability/q20-class-twoway-asymmetry.php",
+      "title": "P(A|B) vs P(B|A) Asymmetry Walkthrough",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 5,
+      "qid": "1874605"
+    },
+    {
+      "sub_topic": "3.4 read a table of probabilities and test independence",
+      "file_path": "questions/probability/read-a-table-of-probabilities.php",
+      "title": "Read a Table of Probabilities",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": false,
+      "slot": 6,
+      "qid": "1940348"
+    },
+    {
+      "sub_topic": "3.5 conditional probability from a Venn diagram",
+      "file_path": "questions/probability/q36-conditional-from-a-venn.php",
+      "title": "Conditional from a Venn",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": true,
+      "slot": 7,
+      "qid": "1874867"
+    },
+    {
+      "sub_topic": "3.5 multiply along two tree paths, then add them",
+      "file_path": "questions/probability/add-the-paths-of-a-tree.php",
+      "title": "Add the Paths of a Tree",
+      "role": "multipart",
+      "difficulty": "medium",
+      "is_frq": false,
+      "points": 9,
+      "reused": false,
+      "slot": 8,
+      "qid": "1940349"
+    },
+    {
+      "sub_topic": "FRQ 3.1 sample space and event setup: define the sample space, identify the event, state the probability",
+      "file_path": "questions/frq/probability/q2-sample-space-and-event-setup.php",
+      "title": "FRQ: Set Up a Probability from Scratch",
+      "role": "essay",
+      "difficulty": "medium",
+      "is_frq": true,
+      "points": 14,
+      "reused": false,
+      "slot": 9,
+      "qid": "1940351",
+      "attempts": 1
+    },
+    {
+      "sub_topic": "FRQ 3.3 addition rule and the overlap: name the overlap, apply the rule, explain the subtraction",
+      "file_path": "questions/frq/probability/q7-addition-rule-overlap-explained.php",
+      "title": "FRQ: Addition Rule and the Overlap",
+      "role": "essay",
+      "difficulty": "medium",
+      "is_frq": true,
+      "points": 14,
+      "reused": false,
+      "slot": 10,
+      "qid": "1940352",
+      "attempts": 1
+    }
+  ]
+}
