@@ -3815,5 +3815,233 @@
     "cid": "334437",
     "filed": "2026-10-19",
     "qtype": "multipart"
+  },
+  "questions/im1/compare-two-patterns-and-find-the-figure-where-they-match.php": {
+    "qsetid": "1940482",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-the-slope-and-equation-of-a-flat-or-vertical-line.php": {
+    "qsetid": "1940483",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/write-the-equation-from-a-situation.php": {
+    "qsetid": "1940485",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/how-far-a-model-goes-extrapolation.php": {
+    "qsetid": "1940486",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/convert-a-rate-with-one-unit-factor.php": {
+    "qsetid": "1940487",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/direct-variation-find-k-then-use-it.php": {
+    "qsetid": "1940488",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/equation-from-a-slope-and-a-point.php": {
+    "qsetid": "1940489",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/equation-from-a-table-of-readings.php": {
+    "qsetid": "1940490",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/test-a-table-for-constant-growth.php": {
+    "qsetid": "1940491",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/find-a-slope-from-two-points-without-a-graph.php": {
+    "qsetid": "1940493",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/what-the-intercept-means-in-a-situation.php": {
+    "qsetid": "1940494",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/average-rate-of-change-from-a-table.php": {
+    "qsetid": "1940495",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/read-the-slope-and-a-value-from-a-graph.php": {
+    "qsetid": "1940496",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/unit-chain-with-two-conversion-factors.php": {
+    "qsetid": "1940497",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/write-an-equation-with-units-from-a-description.php": {
+    "qsetid": "1940498",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/is-it-direct-variation-from-a-table.php": {
+    "qsetid": "1940499",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/standard-form-from-a-budget-and-point-slope.php": {
+    "qsetid": "1940500",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/one-relationship-four-descriptions.php": {
+    "qsetid": "1940501",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/read-growth-and-starting-value-from-an-equation-or-a-table.php": {
+    "qsetid": "1940502",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/read-slope-and-intercept-from-equations-then-compare-lines.php": {
+    "qsetid": "1940503",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/what-the-slope-means-in-a-situation.php": {
+    "qsetid": "1940504",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/same-slope-three-names-speed-pitch-grade.php": {
+    "qsetid": "1940505",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/keep-the-right-digits-after-a-calculation.php": {
+    "qsetid": "1940506",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/which-table-is-direct-variation.php": {
+    "qsetid": "1940507",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/choose-a-method-for-each-line.php": {
+    "qsetid": "1940508",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/table-and-graph-from-an-equation.php": {
+    "qsetid": "1940509",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-slope-intercept-form.php": {
+    "qsetid": "1940524",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-situation-from-a-start-and-a-rate.php": {
+    "qsetid": "1940525",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-a-point-and-an-integer-slope.php": {
+    "qsetid": "1940526",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/plot-a-table-and-write-the-equation-of-the-line.php": {
+    "qsetid": "1940527",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-horizontal-or-vertical-line.php": {
+    "qsetid": "1940528",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-the-line-through-two-points.php": {
+    "qsetid": "1940529",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-two-readings.php": {
+    "qsetid": "1940530",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-a-point-and-a-fraction-slope.php": {
+    "qsetid": "1940531",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/plot-a-table-with-uneven-steps-and-find-the-value-at-zero.php": {
+    "qsetid": "1940532",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-a-table-and-state-the-rate.php": {
+    "qsetid": "1940533",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/graph-a-line-from-a-rate-and-one-reading.php": {
+    "qsetid": "1940534",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
+  },
+  "questions/im1/complete-a-table-from-an-equation-and-graph-the-line.php": {
+    "qsetid": "1940536",
+    "cid": "334437",
+    "filed": "2026-10-19",
+    "qtype": "multipart"
   }
 }

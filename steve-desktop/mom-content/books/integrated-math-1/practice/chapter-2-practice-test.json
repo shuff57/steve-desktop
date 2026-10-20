@@ -1,0 +1,315 @@
+{
+  "name": "Chapter 2 Practice Test",
+  "book": "integrated-math-1",
+  "kind": "practice",
+  "slug": "chapter-2-practice-test",
+  "status": "pushed",
+  "_note": "Rebuilt 2026-10-19 from the live bookSHelf Chapter 2 pages. 100 points: five blocks of 20 points (2.1+2.2, 2.3, 2.4+2.5, 2.6, 2.7), every item in a test worth the same, no FRQs. Replaces the legacy CPM pull in place.",
+  "blocks": {
+    "A": "2.1 and 2.2",
+    "B": "2.3",
+    "C": "2.4 and 2.5",
+    "D": "2.6",
+    "E": "2.7"
+  },
+  "target": {
+    "cid": "334437",
+    "aid": "23996071"
+  },
+  "created_at": "2026-10-19",
+  "questions": [
+    {
+      "slot": 1,
+      "group": true,
+      "label": "Q1",
+      "size": 2,
+      "points": 4,
+      "block": "A"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-3.php",
+      "qid": "1471377",
+      "title": "Tile Pattern - fill in table, find equation #3 (local for Steven Huff)",
+      "block": "A",
+      "reused": true,
+      "in_group": "Q1"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/im1/tile-pattern-fill-in-table-find-equation-5.php",
+      "qid": "1471409",
+      "title": "Tile Pattern - fill in table, find equation #5 (local for Steven Huff)",
+      "block": "A",
+      "reused": true,
+      "in_group": "Q1"
+    },
+    {
+      "slot": 4,
+      "file_path": null,
+      "qid": "342752",
+      "title": "Linear tile pattern - find equation from info",
+      "block": "A",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/im1/test-a-table-for-constant-growth.php",
+      "qid": "1940491",
+      "title": "2.1.2/2.1.3: pick the linear pattern from two tables by testing for constant growth, then find growth, starting value and a far figure",
+      "block": "A",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 6,
+      "file_path": null,
+      "qid": "1178846",
+      "title": "Calculate Slope - From Graph with Helper Dots - negative slope",
+      "block": "A",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 7,
+      "file_path": null,
+      "qid": "1177421",
+      "title": "Calculate Slope - From Graph without Helper Dots - positive slope",
+      "block": "A",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 8,
+      "file_path": null,
+      "qid": "1470062",
+      "title": "graph mx+b #3 (slope=m/3)",
+      "block": "B",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 9,
+      "group": true,
+      "label": "Q7",
+      "size": 2,
+      "points": 4,
+      "block": "B"
+    },
+    {
+      "slot": 10,
+      "file_path": null,
+      "qid": "741965",
+      "title": "6.4 (10) Use the slope formula to find the slope of the line between two points ",
+      "block": "B",
+      "reused": true,
+      "in_group": "Q7"
+    },
+    {
+      "slot": 11,
+      "file_path": null,
+      "qid": "76733",
+      "title": "Find slope between two points. Fractional coordinates",
+      "block": "B",
+      "reused": true,
+      "in_group": "Q7"
+    },
+    {
+      "slot": 12,
+      "file_path": "questions/im1/find-a-slope-from-two-points-without-a-graph.php",
+      "qid": "1940493",
+      "title": "2.3.3: slope formula from two coordinate points in a fixed order, reduced fraction, rises/falls/flat",
+      "block": "B",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 13,
+      "file_path": "questions/im1/graph-a-horizontal-or-vertical-line.php",
+      "qid": "1940528",
+      "title": "Graph y = c or x = c and say the slope (0 or undefined)",
+      "block": "B",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 14,
+      "file_path": "questions/im1/graph-the-line-through-two-points.php",
+      "qid": "1940529",
+      "title": "Find the slope from two points and graph the line through them",
+      "block": "B",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 15,
+      "file_path": "questions/im1/what-the-intercept-means-in-a-situation.php",
+      "qid": "1940494",
+      "title": "Run a table back to input 0 for the y-intercept, say what it means, decide whether the value is possible",
+      "block": "C",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 16,
+      "file_path": "questions/im1/read-the-slope-and-a-value-from-a-graph.php",
+      "qid": "1940496",
+      "title": "Context line graph (SVG, labeled axes): slope from two marked points, slope units, value at a given input",
+      "block": "C",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 17,
+      "file_path": "questions/im1/graph-a-line-from-two-readings.php",
+      "qid": "1940530",
+      "title": "Find the rate and starting value from two readings and graph the line",
+      "block": "C",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 18,
+      "file_path": "questions/im1/unit-chain-with-two-conversion-factors.php",
+      "qid": "1940497",
+      "title": "Unit chain: change both units of a rate with two conversion factors",
+      "block": "C",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 19,
+      "file_path": "questions/im1/write-an-equation-with-units-from-a-description.php",
+      "qid": "1940498",
+      "title": "Equation with units from a description: starting value and signed rate",
+      "block": "C",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 20,
+      "file_path": "questions/im1/standard-form-from-a-budget-and-point-slope.php",
+      "qid": "1940500",
+      "title": "Standard form Ax + By = C from a two-item budget with both intercepts, and point-slope to standard form with integer coefficients",
+      "block": "D",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 21,
+      "file_path": null,
+      "qid": "51441",
+      "title": "Point Slope-5 Given a point and a slope (integer) put into the point slope form ",
+      "block": "D",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 22,
+      "file_path": null,
+      "qid": "173602",
+      "title": "Equation of line between two points (point-slope form)",
+      "block": "D",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 23,
+      "file_path": null,
+      "qid": "111404",
+      "title": "D6 Write Linear Equation in Standard form given graph",
+      "block": "D",
+      "reused": true,
+      "points": 4
+    },
+    {
+      "slot": 24,
+      "file_path": "questions/im1/graph-a-line-from-a-point-and-a-fraction-slope.php",
+      "qid": "1940531",
+      "title": "Graph a line through a given point using a fraction slope (rise over run) and find its y-intercept",
+      "block": "D",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 25,
+      "file_path": "questions/im1/one-relationship-four-descriptions.php",
+      "qid": "1940501",
+      "title": "Four descriptions of one relationship (situation, table, equation, SVG graph): find the odd one, the shared rate and start, and what differs",
+      "block": "E",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 26,
+      "group": true,
+      "label": "Q22",
+      "size": 2,
+      "points": 4,
+      "block": "E"
+    },
+    {
+      "slot": 27,
+      "file_path": null,
+      "qid": "825308",
+      "title": "Graph . Give table of values, graph at least 3 points, and graph line.",
+      "block": "E",
+      "reused": true,
+      "in_group": "Q22"
+    },
+    {
+      "slot": 28,
+      "file_path": "questions/im1/graph-y-2x-b-give-table-of-values-graph-at-least-3-points-and-graph-li.php",
+      "qid": "1468909",
+      "title": "Graph . Give table of values, graph at least 3 points, and graph line. (local fo",
+      "block": "E",
+      "reused": true,
+      "in_group": "Q22"
+    },
+    {
+      "slot": 29,
+      "group": true,
+      "label": "Q23",
+      "size": 2,
+      "points": 4,
+      "block": "E"
+    },
+    {
+      "slot": 30,
+      "file_path": null,
+      "qid": "86333",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on t",
+      "block": "E",
+      "reused": true,
+      "in_group": "Q23"
+    },
+    {
+      "slot": 31,
+      "file_path": null,
+      "qid": "86337",
+      "title": "Find slope, y-intercept, and slope-intercept form from a table (y-int given on t",
+      "block": "E",
+      "reused": true,
+      "in_group": "Q23"
+    },
+    {
+      "slot": 32,
+      "file_path": "questions/im1/plot-a-table-with-uneven-steps-and-find-the-value-at-zero.php",
+      "qid": "1940532",
+      "title": "Plot a table with uneven x steps, draw the line, and find the value at x = 0",
+      "block": "E",
+      "points": 4,
+      "fresh": true
+    },
+    {
+      "slot": 33,
+      "file_path": "questions/im1/determining-the-linear-equation-from-a-graph-0-slope.php",
+      "qid": "1468906",
+      "title": "Determining the Linear Equation from a graph - 0 slope (local for Steven Huff)",
+      "block": "E",
+      "reused": true,
+      "points": 4
+    }
+  ]
+}
