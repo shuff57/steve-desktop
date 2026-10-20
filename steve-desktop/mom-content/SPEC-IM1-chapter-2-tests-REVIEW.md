@@ -38,9 +38,8 @@ bonus. Practice: renamed only. Intros rewritten from the settings read back.
 ## Left for Steve
 
 - Passcodes on group and individual (empty; the passcode file is not on this machine).
-- Practice test: 56 resource links added (14 explainers + 42 supports, no checks, all live on oerbookshelf.app), 2026-10-20.
 - 45 editable questions in the three tests carry 1 to 3 non-interactive Papermorph Video help buttons (oerbookshelf.app). About 19 legacy questions owned by others keep their YouTube links (read-only in MOM).
-- Book link still points at the stats 2.1 page.
+- Group and practice have no assessment-level resource links (the stale stats 2.1 link was removed from group, 2026-10-20). Individual still has it.
 - Time limit empty, as on the Chapter 0 tests.
 - Not tested: student view, timer, passcode entry, phone width, wrong-answer grading on the fresh
   multi-part questions.
