@@ -6,7 +6,7 @@
 // Built for 3.5. The point of a conditional on a Venn is WHICH circle you are restricted to: the
 // denominator is the total of that circle only, never the grand total. Asking both directions forces
 // the student to notice the denominator changes, and the two numbers are deliberately different so
-// the asymmetry is visible, not just asserted.
+// the asymmetry can be seen in the numbers.
 //
 // $aOnly and $bOnly are drawn from disjoint ranges, so the two circle totals always differ and the
 // two conditionals can never come out the same. The diagram is inline SVG.
@@ -28,6 +28,11 @@ $aNames = array("play an instrument", "ordered a drink", "go mornings")
 $bNames = array("play a sport", "ordered dessert", "take classes")
 $aName = $aNames[$i]
 $bName = $bNames[$i]
+
+$aNots = array("do not play an instrument", "did not order a drink", "do not go mornings")
+$bNots = array("do not play a sport", "did not order dessert", "do not take classes")
+$aNot = $aNots[$i]
+$bNot = $bNots[$i]
 
 $aShort = array("instrument", "drink", "morning")
 $bShort = array("sport", "dessert", "class")
@@ -52,19 +57,44 @@ $answer[3] = $bTotal
 
 // --- the Venn ---
 $vw = 440
-$vh = 250
+$vh = 262
 $svg = '<svg width="' . $vw . '" height="' . $vh . '" viewBox="0 0 ' . $vw . ' ' . $vh . '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Venn diagram of ' . $aName . ' and ' . $bName . ' with four region counts" style="display:block;margin:12px auto;background:#fff">'
 $svg = $svg . '<rect x="6" y="6" width="' . ($vw - 12) . '" height="' . ($vh - 12) . '" fill="none" stroke="#9ca3af" stroke-width="2" rx="8"/>'
-$svg = $svg . '<circle cx="175" cy="120" r="88" fill="#1865f2" fill-opacity="0.10" stroke="#1865f2" stroke-width="2"/>'
-$svg = $svg . '<circle cx="265" cy="120" r="88" fill="#059669" fill-opacity="0.10" stroke="#059669" stroke-width="2"/>'
-$svg = $svg . '<text x="112" y="42" font-family="Arial" font-size="15" font-weight="bold" fill="#1865f2" text-anchor="middle">' . $aName . '</text>'
-$svg = $svg . '<text x="328" y="42" font-family="Arial" font-size="15" font-weight="bold" fill="#059669" text-anchor="middle">' . $bName . '</text>'
-$svg = $svg . '<text x="128" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $aOnly . '</text>'
-$svg = $svg . '<text x="220" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $both . '</text>'
-$svg = $svg . '<text x="312" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $bOnly . '</text>'
+$svg = $svg . '<circle cx="175" cy="132" r="88" fill="#1865f2" fill-opacity="0.10" stroke="#1865f2" stroke-width="2"/>'
+$svg = $svg . '<circle cx="265" cy="132" r="88" fill="#059669" fill-opacity="0.10" stroke="#059669" stroke-width="2"/>'
+$svg = $svg . '<text x="112" y="34" font-family="Arial" font-size="15" font-weight="bold" fill="#1865f2" text-anchor="middle">' . $aName . '</text>'
+$svg = $svg . '<text x="328" y="34" font-family="Arial" font-size="15" font-weight="bold" fill="#059669" text-anchor="middle">' . $bName . '</text>'
+$svg = $svg . '<text x="128" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $aOnly . '</text>'
+$svg = $svg . '<text x="220" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $both . '</text>'
+$svg = $svg . '<text x="312" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $bOnly . '</text>'
 $svg = $svg . '<text x="' . ($vw - 30) . '" y="' . ($vh - 22) . '" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $neither . '</text>'
 $svg = $svg . '<text x="' . ($vw - 30) . '" y="' . ($vh - 44) . '" font-family="Arial" font-size="12" text-anchor="middle" fill="#6b7280">neither</text>'
 $svg = $svg . '</svg>'
+
+// --- the same people as a tree, counts at the leaves ---
+// Only the four leaf counts are shown. No branch carries a circle total, so the tree does not hand over
+// the denominators in parts c and d: the student still has to add the right two leaves.
+$tw = 640
+$th = 240
+$tr = '<svg width="' . $tw . '" height="' . $th . '" viewBox="0 0 ' . $tw . ' ' . $th . '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tree diagram of the same people, split first by ' . $aName . ' and then by ' . $bName . '" style="display:block;margin:12px auto;background:#fff">'
+$tr = $tr . '<circle cx="30" cy="120" r="5" fill="#21242c"/>'
+$tr = $tr . '<line x1="35" y1="120" x2="165" y2="60" stroke="#1865f2" stroke-width="2"/>'
+$tr = $tr . '<line x1="35" y1="120" x2="165" y2="180" stroke="#6b7280" stroke-width="2"/>'
+$tr = $tr . '<text x="208" y="47" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#1865f2">' . $aName . '</text>'
+$tr = $tr . '<text x="208" y="199" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#6b7280">' . $aNot . '</text>'
+$tr = $tr . '<line x1="215" y1="57" x2="460" y2="28" stroke="#059669" stroke-width="2"/>'
+$tr = $tr . '<line x1="215" y1="65" x2="460" y2="98" stroke="#d97706" stroke-width="2"/>'
+$tr = $tr . '<line x1="215" y1="177" x2="460" y2="148" stroke="#059669" stroke-width="2"/>'
+$tr = $tr . '<line x1="215" y1="185" x2="460" y2="218" stroke="#d97706" stroke-width="2"/>'
+$tr = $tr . '<text x="330" y="26" text-anchor="middle" font-family="Arial" font-size="13" fill="#059669" stroke="#fff" stroke-width="4" paint-order="stroke">' . $bName . '</text>'
+$tr = $tr . '<text x="330" y="116" text-anchor="middle" font-family="Arial" font-size="13" fill="#d97706" stroke="#fff" stroke-width="4" paint-order="stroke">' . $bNot . '</text>'
+$tr = $tr . '<text x="330" y="146" text-anchor="middle" font-family="Arial" font-size="13" fill="#059669" stroke="#fff" stroke-width="4" paint-order="stroke">' . $bName . '</text>'
+$tr = $tr . '<text x="330" y="236" text-anchor="middle" font-family="Arial" font-size="13" fill="#d97706" stroke="#fff" stroke-width="4" paint-order="stroke">' . $bNot . '</text>'
+$tr = $tr . '<text x="472" y="33" font-family="Arial" font-size="20" fill="#21242c">' . $both . '</text>'
+$tr = $tr . '<text x="472" y="103" font-family="Arial" font-size="20" fill="#21242c">' . $aOnly . '</text>'
+$tr = $tr . '<text x="472" y="153" font-family="Arial" font-size="20" fill="#21242c">' . $bOnly . '</text>'
+$tr = $tr . '<text x="472" y="223" font-family="Arial" font-size="20" fill="#21242c">' . $neither . '</text>'
+$tr = $tr . '</svg>'
 
 $sol = '
 <style>
@@ -98,6 +128,8 @@ $sol = '
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0 0 4px 0;">$total $context. The Venn shows how many fall in each region.</p>
     $svg
+    <p style="margin:6px 0 0 0;">The same people, drawn as a tree. Each count is the number of people on that path.</p>
+    $tr
     <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">One person is chosen at random. For each conditional, the denominator is a circle total: not the grand total. Enter probabilities as fractions or decimals rounded to 4 places, and the totals as whole numbers.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">

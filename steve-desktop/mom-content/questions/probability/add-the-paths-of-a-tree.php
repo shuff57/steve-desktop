@@ -17,6 +17,8 @@ $g1 = $names1[$i]
 $notnames = array("not a student", "not an app user", "no garden", "not a dorm student")
 $n1 = $notnames[$i]
 $o1 = $names2[$i]
+$negs = array("does not renew", "does not buy", "does not compost", "does not own a bike")
+$o1n = $negs[$i]
 
 $x = 10 * rand(3, 7)
 $y = 10 * rand(4, 9)
@@ -41,6 +43,34 @@ $answer[1] = $path2
 $answer[2] = $total
 $answer[3] = 0
 $displayformat[3] = "select"
+
+// The tree, drawn as inline SVG (MyOpenMath has no tree primitive). Every branch carries its percent;
+// the leaves are named but their probabilities are left for the student to find in parts a to c.
+$tw = 640
+$th = 250
+$svg = '<svg width="' . $tw . '" height="' . $th . '" viewBox="0 0 ' . $tw . ' ' . $th . '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tree diagram of the two stages" style="display:block;margin:12px auto;background:#fff">'
+$svg = $svg . '<circle cx="30" cy="125" r="5" fill="#21242c"/>'
+$svg = $svg . '<line x1="35" y1="125" x2="165" y2="62" stroke="#1865f2" stroke-width="2"/>'
+$svg = $svg . '<line x1="35" y1="125" x2="165" y2="188" stroke="#059669" stroke-width="2"/>'
+$svg = $svg . '<text x="92" y="80" text-anchor="end" font-family="Arial" font-size="13" fill="#1865f2">' . $x . '%</text>'
+$svg = $svg . '<text x="92" y="182" text-anchor="end" font-family="Arial" font-size="13" fill="#059669">' . (100 - $x) . '%</text>'
+$svg = $svg . '<text x="208" y="49" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#1865f2">' . $g1 . '</text>'
+$svg = $svg . '<text x="208" y="207" text-anchor="end" font-family="Arial" font-size="14" font-weight="bold" fill="#059669">' . $n1 . '</text>'
+$svg = $svg . '<line x1="215" y1="59" x2="330" y2="28" stroke="#1865f2" stroke-width="2"/>'
+$svg = $svg . '<line x1="215" y1="67" x2="330" y2="100" stroke="#1865f2" stroke-width="2"/>'
+$svg = $svg . '<line x1="215" y1="183" x2="330" y2="150" stroke="#059669" stroke-width="2"/>'
+$svg = $svg . '<line x1="215" y1="191" x2="330" y2="222" stroke="#059669" stroke-width="2"/>'
+$svg = $svg . '<text x="262" y="30" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">' . $y . '%</text>'
+$svg = $svg . '<text x="262" y="107" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">' . (100 - $y) . '%</text>'
+$svg = $svg . '<text x="262" y="157" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">' . $z . '%</text>'
+$svg = $svg . '<text x="262" y="236" text-anchor="middle" font-family="Arial" font-size="13" fill="#374151">' . (100 - $z) . '%</text>'
+$svg = $svg . '<text x="337" y="33" font-family="Arial" font-size="12" fill="#21242c">' . $g1 . ' and ' . $o1 . '</text>'
+$svg = $svg . '<text x="337" y="105" font-family="Arial" font-size="12" fill="#21242c">' . $g1 . ' and ' . $o1n . '</text>'
+$svg = $svg . '<text x="337" y="155" font-family="Arial" font-size="12" fill="#21242c">' . $n1 . ' and ' . $o1 . '</text>'
+$svg = $svg . '<text x="337" y="227" font-family="Arial" font-size="12" fill="#21242c">' . $n1 . ' and ' . $o1n . '</text>'
+$svg = $svg . '<text x="30" y="12" font-family="Arial" font-size="12" fill="#6b7280">first stage</text>'
+$svg = $svg . '<text x="228" y="12" font-family="Arial" font-size="12" fill="#6b7280">second stage</text>'
+$svg = $svg . '</svg>'
 
 $sol = '
 <style>
@@ -71,7 +101,8 @@ $sol = '
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
     <p style="margin:0;">$text One is picked at random.</p>
-    <p style="margin:10px 0 0 0; color:#374151; font-size:14px;">Think of a tree with two stages. Enter each probability as a decimal.</p>
+    $svg
+    <p style="margin:6px 0 0 0; color:#374151; font-size:14px;">Enter each probability as a decimal.</p>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0;">
     <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a.</span> <b>P($g1 and $o1)</b> $answerbox[0]
