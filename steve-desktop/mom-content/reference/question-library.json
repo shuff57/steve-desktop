@@ -4043,5 +4043,29 @@
     "cid": "334437",
     "filed": "2026-10-19",
     "qtype": "multipart"
+  },
+  "questions/probability/discrete-pdf/q1-complete-the-table.php": {
+    "qsetid": "1952481",
+    "cid": "334437",
+    "filed": "2026-10-26",
+    "qtype": "multipart"
+  },
+  "questions/probability/discrete-pdf/q2-counts-to-pdf.php": {
+    "qsetid": "1952482",
+    "cid": "334437",
+    "filed": "2026-10-26",
+    "qtype": "multipart"
+  },
+  "questions/probability/discrete-pdf/q3-which-rows-to-add.php": {
+    "qsetid": "1952483",
+    "cid": "334437",
+    "filed": "2026-10-26",
+    "qtype": "multipart"
+  },
+  "questions/probability/discrete-pdf/pre-frq-grade-a-built-distribution.php": {
+    "qsetid": "1952484",
+    "cid": "334437",
+    "filed": "2026-10-26",
+    "qtype": "multipart"
   }
 }

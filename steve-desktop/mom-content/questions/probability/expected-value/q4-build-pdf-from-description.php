@@ -1,4 +1,4 @@
-// === NAME - DESCRIPTION: Build a PDF Table from a Description - recover the buried probability, then compute E(X) ===
+// === NAME - DESCRIPTION: Build a PDF Table from a Description - recover the buried probability, then read P(X <= 1) off the table ===
 // === SET QUESTION TYPE TO: multipart ===
 
 // === COMMON CONTROL ===
@@ -7,10 +7,10 @@
 // values, attach the probabilities). Each buries the smallest case in the last clause, so part (a)
 // = 1 - sum(others). Parts:
 //   (a) number  - the buried probability
-//   (b) numfunc - E(X) of the completed table (precomputed)
+//   (b) numfunc - P(X <= 1) of the completed table (precomputed; it includes the buried row)
 //   (c) choices - what the P(x) column must sum to (always 1)
 // Invariant: on every seed, the given percentages plus the buried one sum to exactly 1, and (b)
-// is the precomputed E(X) of the completed table.
+// is the precomputed P(X <= 1) of the completed table. No expected value: that is section 4.2.
 
 $anstypes = array("numfunc", "numfunc", "choices")
 
@@ -36,7 +36,8 @@ $knowns = array(
 
 $knownSums = array("0.97", "0.99", "0.94")
 $burieds = array(0.03, 0.01, 0.06)
-$evs     = array(2.55, 3.29, 2.38)
+$lows    = array(0.12, 0.05, 0.18)
+$lowSums = array("0.03 + 0.09", "0.01 + 0.04", "0.06 + 0.12")
 $maxXs   = array(3, 4, 3)
 
 $i = rand(0, 2)
@@ -46,7 +47,8 @@ $known = $knowns[$i]
 $knownSum = $knownSums[$i]
 $buried = $burieds[$i]
 $answer[0] = $buried
-$answer[1] = $evs[$i]
+$answer[1] = $lows[$i]
+$lowSum = $lowSums[$i]
 $maxX = $maxXs[$i]
 $abstolerance[0] = 0.005
 $abstolerance[1] = 0.005
@@ -82,7 +84,7 @@ $solutionguide = '
       <p><span class="term-label">Step 2: list the values.</span> The description covers every case from `x = 0` up to `x = ' . $maxX . '`, including the smallest one in the last clause. A value you forget to list is probability you will fail to account for.</p>
       <p><span class="term-label">Step 3: attach the probabilities.</span> Convert each percentage to a decimal. The known probabilities are ' . $known . '; the one buried in the last clause is found by the check in part (a).</p>
       <p><span class="term-label">Part (a): the buried probability.</span> The column must sum to 1, so the missing entry is <b>1 &minus; (' . $known . ') = 1 &minus; ' . $knownSum . ' = ' . $answer[0] . '</b>.</p>
-      <p><span class="term-label">Part (b): E(X).</span> With the completed table, `E(X) = sum x cdot P(X = x) = ` <b>' . $answer[1] . '</b>.</p>
+      <p><span class="term-label">Part (b): P(X &le; 1).</span> At most one means the rows x = 0 and x = 1, added: ' . $lowSum . ' = <b>' . $answer[1] . '</b>. The row x = 0 is the buried one from part (a), so a wrong part (a) carries into part (b).</p>
       <p><span class="term-label">Part (c): the column sum.</span> It must sum to exactly 1. If your built table does not, you dropped a value in step 2.</p>
     </div>
   </details>
@@ -100,7 +102,7 @@ $solutionguide = '
     <span style="margin-left:8px;">$answerbox[0]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Compute `E(X)` for the completed table.
+    <span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">b.</span> Using the completed table, find `P(X <= 1)`.
     <span style="margin-left:8px;">$answerbox[1]</span>
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:14px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
