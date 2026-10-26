@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 608.2 148.0" width="608" height="148" role="img" aria-label="Tile Pattern to Equation #7">
+  <title>Tile Pattern to Equation #7</title>
+  <rect width="608.2" height="148.0" fill="#ffffff"/>
+  <g stroke-linejoin="miter">
+    <rect x="10.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="44.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="78.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="112.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="78.00" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="112.00" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="78.00" y="78.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <text x="78.00" y="130.72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="18.7" fill="#1a1a1a">Fig. 1</text>
+    <rect x="185.10" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="219.10" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="253.10" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="287.10" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="321.10" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="253.10" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="287.10" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="321.10" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="253.10" y="78.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <text x="270.10" y="130.72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="18.7" fill="#1a1a1a">Fig. 2</text>
+    <rect x="394.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="428.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="462.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="496.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="530.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="564.20" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="462.20" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="496.20" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="530.20" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="564.20" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="462.20" y="78.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <text x="496.20" y="130.72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="18.7" fill="#1a1a1a">Fig. 3</text>
+  </g>
+</svg>

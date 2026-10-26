@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156.0 114.0" width="156" height="114" role="img" aria-label="Tile pattern, given f2 and f5, find table and equation.">
+  <title>Tile pattern, given f2 and f5, find table and equation.</title>
+  <rect width="156.0" height="114.0" fill="#ffffff"/>
+  <g stroke-linejoin="miter">
+    <rect x="10.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="44.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="78.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="112.00" y="10.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="44.00" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <rect x="78.00" y="44.00" width="34.00" height="34.00" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+    <text x="78.00" y="96.72" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="18.7" fill="#1a1a1a">Figure 2</text>
+  </g>
+</svg>

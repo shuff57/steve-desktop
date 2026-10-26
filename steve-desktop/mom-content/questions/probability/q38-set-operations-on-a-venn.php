@@ -40,16 +40,16 @@ $answer[3] = $notUnion / $total
 
 // --- the Venn ---
 $vw = 440
-$vh = 250
+$vh = 262
 $svg = '<svg width="' . $vw . '" height="' . $vh . '" viewBox="0 0 ' . $vw . ' ' . $vh . '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Venn diagram of ' . $aName . ' and ' . $bName . ' with four region counts" style="display:block;margin:12px auto;background:#fff">'
 $svg = $svg . '<rect x="6" y="6" width="' . ($vw - 12) . '" height="' . ($vh - 12) . '" fill="none" stroke="#9ca3af" stroke-width="2" rx="8"/>'
-$svg = $svg . '<circle cx="175" cy="120" r="88" fill="#1865f2" fill-opacity="0.10" stroke="#1865f2" stroke-width="2"/>'
-$svg = $svg . '<circle cx="265" cy="120" r="88" fill="#059669" fill-opacity="0.10" stroke="#059669" stroke-width="2"/>'
-$svg = $svg . '<text x="112" y="42" font-family="Arial" font-size="16" font-weight="bold" fill="#1865f2" text-anchor="middle">' . $aName . '</text>'
-$svg = $svg . '<text x="328" y="42" font-family="Arial" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">' . $bName . '</text>'
-$svg = $svg . '<text x="128" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $aOnly . '</text>'
-$svg = $svg . '<text x="220" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $both . '</text>'
-$svg = $svg . '<text x="312" y="128" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $bOnly . '</text>'
+$svg = $svg . '<circle cx="175" cy="132" r="88" fill="#1865f2" fill-opacity="0.10" stroke="#1865f2" stroke-width="2"/>'
+$svg = $svg . '<circle cx="265" cy="132" r="88" fill="#059669" fill-opacity="0.10" stroke="#059669" stroke-width="2"/>'
+$svg = $svg . '<text x="112" y="34" font-family="Arial" font-size="16" font-weight="bold" fill="#1865f2" text-anchor="middle">' . $aName . '</text>'
+$svg = $svg . '<text x="328" y="34" font-family="Arial" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">' . $bName . '</text>'
+$svg = $svg . '<text x="128" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $aOnly . '</text>'
+$svg = $svg . '<text x="220" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $both . '</text>'
+$svg = $svg . '<text x="312" y="140" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $bOnly . '</text>'
 $svg = $svg . '<text x="' . ($vw - 30) . '" y="' . ($vh - 22) . '" font-family="Arial" font-size="20" text-anchor="middle" fill="#21242c">' . $neither . '</text>'
 $svg = $svg . '<text x="' . ($vw - 30) . '" y="' . ($vh - 44) . '" font-family="Arial" font-size="12" text-anchor="middle" fill="#6b7280">neither</text>'
 $svg = $svg . '</svg>'
