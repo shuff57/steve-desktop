@@ -6,18 +6,23 @@
 // Four expected-value tables, each with EXACTLY ONE wrong cell. Two shapes:
 //   sum-fail  - the printed P(x) column does not sum to 1 (one probability wrong)
 //   prod-fail - P(x) sums to 1, but one x*P(x) product is misfilled
+// The product column is ALWAYS the TRUE x*P(x), so it identifies a wrong probability:
+// dividing each product by its outcome recovers the true P(x) for that row.
 // Scenarios (verified):
-//   S0 sum-fail: x=1,2,3,4 P=0.10,0.20,0.35,0.30 (sums 0.95) wrong row 3 P -> 0.35
-//               products match printed P: 0.10,0.40,1.05,1.20
-//   S1 prod-fail: x=1,2,3,4 P=0.10,0.20,0.40,0.30 (sums 1.00) wrong row 2 product -> 1.20
+//   S0 sum-fail: x=1,2,3,4 printed P=0.10,0.20,0.35,0.30 (sums 0.95) wrong x=4 P -> 0.35
+//               products from TRUE P: 0.10,0.40,1.05,1.40  (1.40/4 = 0.35 identifies x=4)
+//   S1 prod-fail: x=1,2,3,4 P=0.10,0.20,0.40,0.30 (sums 1.00) wrong x=3 product -> 1.20
 //               printed products: 0.10,0.40,1.60,1.20
-//   S2 sum-fail: x=2,4,6,8 P=0.20,0.30,0.35,0.25 (sums 1.10) wrong row 2 P -> 0.25
-//               products match printed P: 0.40,1.20,2.10,2.00
-//   S3 prod-fail: x=2,4,6,8 P=0.20,0.30,0.25,0.25 (sums 1.00) wrong row 2 product -> 1.50
+//   S2 sum-fail: x=2,4,6,8 printed P=0.20,0.30,0.35,0.25 (sums 1.10) wrong x=6 P -> 0.25
+//               products from TRUE P: 0.40,1.20,1.50,2.00  (1.50/6 = 0.25 identifies x=6)
+//   S3 prod-fail: x=2,4,6,8 P=0.20,0.30,0.25,0.25 (sums 1.00) wrong x=6 product -> 1.50
 //               printed products: 0.40,1.20,2.60,2.00
 // Parts: (a) choices - which column holds the mistake; (b) number - printed P sum;
 //        (c) number - the correct value for the wrong cell.
-// Invariant: exactly one cell is wrong; (b) is the printed P sum; (c) is the corrected value.
+// Invariant: exactly one cell is wrong; every other cell is the true value. (b) is the
+// printed P sum; (c) is the corrected value. In a sum-fail scenario the products are all
+// correct, so product/outcome locates the bad probability; in a prod-fail scenario the
+// probabilities are all correct, so x*P(x) locates the bad product.
 
 $anstypes = array("choices", "numfunc", "numfunc")
 
@@ -34,8 +39,8 @@ $pSum = array(0.95, 1.00, 1.10, 1.00)
 
 $pr0s = array("0.10", "0.10", "0.40", "0.40")
 $pr1s = array("0.40", "0.40", "1.20", "1.20")
-$pr2s = array("1.05", "1.60", "2.10", "2.60")
-$pr3s = array("1.20", "1.20", "2.00", "2.00")
+$pr2s = array("1.05", "1.60", "1.50", "2.60")
+$pr3s = array("1.40", "1.20", "2.00", "2.00")
 
 // shape: 0 = P-column wrong, 1 = product-column wrong
 $shapes = array(0, 1, 0, 1)
@@ -83,7 +88,6 @@ $noshuffle[0] = "all"
 $xs = array($x0, $x1, $x2, $x3)
 $ps = array($pd0, $pd1, $pd2, $pd3)
 $prs = array($pr0, $pr1, $pr2, $pr3)
-$wrongRowOne = $wRow + 1
 
 $solutionguide = '
 <style>
@@ -106,11 +110,11 @@ $solutionguide = '
 
 $sg = '<p><span class="term-label">Part (b): the P(x) column sum.</span> Adding the printed probabilities gives <b>' . $sumP . '</b>.</p>'
 if ($shape == 0) {
-  $sg = $sg . '<p><span class="term-label">The mistake is in the P(X = x) column.</span> A valid distribution must sum to exactly 1, and this one sums to ' . $sumP . '. The wrong cell is row ' . $wrongRowOne . ' (x = ' . $xs[$wRow] . '), which prints ' . $ps[$wRow] . ' but should be <b>' . $correctVal . '</b>. With that correction the column sums to 1.00.</p>'
+  $sg = $sg . '<p><span class="term-label">The mistake is in the P(X = x) column.</span> A valid distribution must sum to exactly 1, and this one sums to ' . $sumP . ', so one probability is wrong. The x*P(x) column is correct, so it tells you which one: dividing each product by its outcome recovers the true probability. Every entry agrees with the printed P(x) except x = ' . $xs[$wRow] . ', where ' . $prs[$wRow] . ' &divide; ' . $xs[$wRow] . ' = <b>' . $correctVal . '</b>, not the printed ' . $ps[$wRow] . '. With that correction the column sums to 1.00.</p>'
 } else {
-  $sg = $sg . '<p><span class="term-label">The mistake is in the x*P(x) column.</span> The P(X = x) column sums to exactly 1.00, so the probabilities are fine: but row ' . $wrongRowOne . ' (x = ' . $xs[$wRow] . ') prints ' . $prs[$wRow] . ' for the product, and ' . $xs[$wRow] . ' * ' . $ps[$wRow] . ' is <b>' . $correctVal . '</b>, not ' . $prs[$wRow] . '.</p>'
+  $sg = $sg . '<p><span class="term-label">The mistake is in the x*P(x) column.</span> The P(X = x) column sums to exactly 1.00, so the probabilities are fine. But the entry for x = ' . $xs[$wRow] . ' prints ' . $prs[$wRow] . ' for the product, and ' . $xs[$wRow] . ' * ' . $ps[$wRow] . ' = <b>' . $correctVal . '</b>, not ' . $prs[$wRow] . '.</p>'
 }
-$sg = $sg . '<p><span class="term-label">The two habits.</span> First, always check that the P(x) column sums to 1; if it does not, either a probability is missing or one is wrong. Second, keep the arithmetic honest: each product is x * P(x), and a single misfilled product flips the whole expected value.</p>'
+$sg = $sg . '<p><span class="term-label">The two habits.</span> First, always check that the P(x) column sums to 1; if it does not, one probability is wrong. Second, keep the arithmetic honest: each product must equal x * P(x), and a single misfilled product flips the whole expected value. The two columns check each other, so when one looks wrong, the other tells you which cell it is.</p>'
 
 $solutionguide = $solutionguide . $sg . '
     </div>
@@ -121,7 +125,7 @@ $solutionguide = $solutionguide . $sg . '
 
 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:16px; line-height:1.6; color:#21242c; max-width:688px;">
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; margin:10px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;">$ctx Exactly one cell of the table below is filled in incorrectly.</p>
+    <p style="margin:0 0 10px 0;">$ctx Exactly one cell of the table below is filled in incorrectly; every other cell is correct.</p>
     <table style="border-collapse:collapse; margin:0 auto; font-size:16px;">
       <tr>
         <th style="border:1px solid #21242c; padding:6px 16px; background:#f0f4ff;">Outcome</th>

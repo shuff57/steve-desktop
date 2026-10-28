@@ -1312,6 +1312,12 @@
     "filed": "2026-08-14",
     "qtype": "multipart"
   },
+  "questions/probability/expected-value/q11-ev-sum-check-and-compute-ex.php": {
+    "qsetid": "1953514",
+    "cid": "334437",
+    "filed": "2026-10-27",
+    "qtype": "multipart"
+  },
   "questions/probability/expected-value/q3-ev-fill-missing-prob.php": {
     "qsetid": "1877031",
     "cid": "334437",
