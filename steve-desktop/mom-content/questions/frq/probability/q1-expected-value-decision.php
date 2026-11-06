@@ -20,7 +20,7 @@ $topic = $scenarios[$i];
 $ev_strings   = array("approximately -$0.26", "-$1.50", "-$0.25");
 $ev_computes  = array(
   "(+5)(18/38) + (-5)(20/38) = 90/38 - 100/38 = -10/38 &asymp; -$0.26",
-  "(500000 - 2)(1/1000000) + (-2)(999999/1000000) = 0.5 - 1.999998 = -$1.50",
+  "(500000 - 2)(1/1000000) + (-2)(999999/1000000) = 0.499998 - 1.999998 = -$1.50",
   "(15 - 1)(0.05) + (-1)(0.95) = 0.70 - 0.95 = -$0.25"
 );
 $decisions    = array(
@@ -29,9 +29,9 @@ $decisions    = array(
   "the game has negative expected value, so you should not plan to play it repeatedly. For a single try at a carnival it can still be fun, but expecting to come out ahead in the long run is unrealistic"
 );
 $longrun_phrases = array(
-  "over many spins the average net result approaches -$0.26 per spin",
-  "if you bought a million tickets, you would expect roughly one win and a total net loss of about $1.5 million",
-  "across hundreds of tries the average net result approaches -$0.25 per play"
+  "over 100 spins the average net result approaches -$0.26 per spin, so the expected total is about -$26",
+  "over 100 tickets the average net result approaches -$1.50 per ticket, so the expected total is about -$150",
+  "over 100 tries the average net result approaches -$0.25 per try, so the expected total is about -$25"
 );
 
 $topic_one_line = $scenarios[$i];
@@ -106,7 +106,7 @@ $rubricbutton = $css_block . '
             <th class="col-check">Requirement</th>
           </tr>
           <tr class="row-colored">
-            <td style="text-align:center;"><b>Compute Expected Value</b></td>
+            <td style="text-align:center;"><b>Compute Expected Value<br>(6 pts)</b></td>
             <td>
               <ul style="list-style:none; margin:0; padding-left:0;">
                 <li><label><input type="checkbox"> Identify the values of `X` (net outcomes) and the probabilities for each.</label></li>
@@ -116,11 +116,21 @@ $rubricbutton = $css_block . '
             </td>
           </tr>
           <tr>
-            <td class="col-cat-bot" style="text-align:center;"><b>Decision and Interpretation</b></td>
+            <td style="text-align:center;"><b>Decision<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li><label><input type="checkbox"> Say whether the person should play or pass.</label></li>
+                <li><label><input type="checkbox"> Tie that choice to the sign of `E(X)`.</label></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td class="col-cat-bot" style="text-align:center;"><b>Long-Run Meaning<br>(5 pts)</b></td>
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li><label><input type="checkbox"> State whether the player should play or pass, based on `E(X)`.</label></li>
-                <li><label><input type="checkbox"> Explain `E(X)` as a long-run average per play, not a guaranteed outcome of one play.</label></li>
+                <li><label><input type="checkbox"> Say what `E(X)` means as an average over many plays.</label></li>
+                <li><label><input type="checkbox"> Say what it does not promise about one single play.</label></li>
+                <li><label><input type="checkbox"> Give the expected total after 100 plays.</label></li>
               </ul>
             </td>
           </tr>
@@ -159,12 +169,19 @@ $rubricanswerbutton = $css_block . '
             </td>
           </tr>
           <tr>
-            <td class="col-cat-bot" style="text-align:center;"><b>Decision and Interpretation<br>(4 pts)</b></td>
+            <td style="text-align:center;"><b>Decision<br>(3 pts)</b></td>
+            <td>
+              <ul style="list-style:none; margin:0; padding-left:0;">
+                <li>Say play or pass, tied to the sign of `E(X)`.
+                    <span class="ideal-ans">Target: "'.$decision_text.'"</span></li>
+              </ul>
+            </td>
+          </tr>
+          <tr class="row-colored">
+            <td class="col-cat-bot" style="text-align:center;"><b>Long-Run Meaning<br>(5 pts)</b></td>
             <td class="col-check-bot">
               <ul style="list-style:none; margin:0; padding-left:0;">
-                <li>State the decision tied to the sign of `E(X)`.
-                    <span class="ideal-ans">Target: "'.$decision_text.'"</span></li>
-                <li>Explain the long-run interpretation.
+                <li>Explain `E(X)` as a long-run average per play, with no promise for one play, and give the expected total over 100 plays.
                     <span class="ideal-ans">Target: "'.$longrun_text.'"</span></li>
               </ul>
             </td>
@@ -182,14 +199,15 @@ $rubricanswerbutton = $css_block . '
 /* ---------- 5. Question Text ---------- */
 $questiontext = '
 <div style="font-family:Arial; font-size:medium; line-height:1.6;">
-  <p>Suppose '.$topic.'.</p>
+  <p>Suppose '.$topic.'</p>
   <p><b>Essay Prompt:</b><br>
   Should the person in this scenario play, bet, or buy in the long run? Use expected value to support your reasoning.</p>
   <p>In your response, be sure to:</p>
   <ul>
     <li>Identify the net outcomes for `X` and the probability of each.</li>
     <li>Compute `E(X) = sum x cdot P(X = x)` and report the result with the correct sign.</li>
-    <li>State your decision (play or pass) and explain how `E(X)` supports it as a long-run average.</li>
+    <li>State your decision (play or pass) and tie it to the sign of `E(X)`.</li>
+    <li>Explain what `E(X)` means as a long-run average, and give the expected total over 100 plays.</li>
   </ul>
   '.$rubricbutton.'
 </div>';

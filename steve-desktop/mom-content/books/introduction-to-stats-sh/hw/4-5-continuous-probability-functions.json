@@ -1,22 +1,92 @@
 {
-  "name": "4.5 Continuous Probability Functions",
+  "name": "4.5 Cumulative Probability Functions",
   "book": "introduction-to-stats-sh",
   "kind": "hw",
   "slug": "4-5-continuous-probability-functions",
-  "_note": "Built 2026-08-11. All ten authored fresh (the bank had zero uniform questions): q1-pdf-legitimate, q2-probability-is-area, q3-single-value-zero, q4-complement-tail, q5-cdf-left-area, q6-uniform-mean-sd, q7-uniform-quartiles, q8-sanity-checks, q9-height-vs-probability, pre-frq-grade-a-uniform-reasoning. Points 10+10+10+10+10+9+9+10+10+12 = 100. BookSHelf 4.5 is continuous probability functions: uniform density f(x)=1/(b-a), the two properties, probability as area, P(x=c)=0, the CDF, the complement rule, and U(a,b) mean/quartiles. Kept on general U(a,b) with varied endpoints so this homework does not overlap the 4.6 lab's U(0,1). Pre-FRQ is authored-first (no continuous FRQ to mirror): categories State the Two Properties (2) / Compute the Probability (5) / Interpret in Context (5), dropped category STATE THE TWO PROPERTIES.",
-  "target": { "cid": "334437", "aid": "23444255" },
+  "_note": "Rebuilt 2026-11-02 for the rewritten bookSHelf 4.5 (discrete cumulative tables, cut-offs, median and quartiles). Replaces the 2026-08-11 continuous-uniform set (qids 1878126-1878136, detached, still on disk under questions/probability/uniform). Ten autograded slots plus one pre-FRQ, points 8+9+9+9+9+9+9+8+9+9+12 = 100. See SPEC-4-5-CUMULATIVE.md. Slug kept as 4-5-continuous-probability-functions so existing references still resolve.",
+  "target": {
+    "cid": "334437",
+    "aid": "23444255"
+  },
   "created_at": "2026-08-11",
-  "_pushed": "PUSHED 2026-08-16 as aid 23444255 in the master 334437. All ten answered in Teacher Preview: header read 102/100, Answered 10/10. Every question graded correct on first submit — no correct answer was marked wrong. Seeds verified live: Q1 a=0,b=8; Q2 a=5,b=15,c=6,d=12; Q3 a=0,b=15,c=7; Q4 a=2,b=10,x=5; Q5 a=0,b=20,x1=5,x2=12; Q6 U(2,14); Q7 U(4,12); Q8 c=3,d=7; Q9 b=20,c=4,d=12; Q10 b=20,c=4,d=12.",
+  "_pushed": "REBUILT IN PLACE 2026-11-02 in aid 23444255 (cid 334437). Old ten removed with the app's Remove control, eleven attached in slot order, points 8,9,9,9,9,9,9,8,9,9,12 read back total 100. Byte-exact read-back of control/qtext/solution/description/qtype matches the source for all eleven; the only difference is MOM storing < and > as &lt; and &gt; in qtext (renders identically). Zero leftover === markers. Teacher Preview, every part answered in one session: Score 102/100, Answered 11/11, every question correct. Assessment renamed 4.5 Cumulative Probability Functions and Book link set to chapter-4-random-variables/4.5_continuous_probability_functions (was a stale stats 5.1 link). Dates untouched. NOT checked: visual layout of the rendered questions (no image review done). MEDIAN REMOVED 2026-11-02 at the teacher's request: slot 6 now Q1 and Q3 only, slot 9 mean plus the largest-chance claim, slot 10 missing value plus F(2); median distractors in slots 8 and 9 replaced. Same qsetids re-saved (1961710, 1961713, 1961714, 1961715), so the P3 copy (cid 339304 aid 24401482) picks them up for new attempts; attempts already started keep the version they were given. Re-verified: byte-exact read-back of all 11, every variant of the four changed questions answered correctly in the question tester, one wrong answer per question graded Incorrect.",
   "questions": [
-    { "slot": 1, "file_path": "questions/probability/uniform/q1-pdf-legitimate.php", "title": "Is f(x) a Legitimate Density - the two properties of a probability density function", "points": 10, "qid": "1878126" },
-    { "slot": 2, "file_path": "questions/probability/uniform/q2-probability-is-area.php", "title": "Probability Is Area - P(c < x < d) as base times height under a flat density", "points": 10, "qid": "1878127" },
-    { "slot": 3, "file_path": "questions/probability/uniform/q3-single-value-zero.php", "title": "P(x = c) Is Zero - a single point has no width, so no area", "points": 10, "qid": "1878128" },
-    { "slot": 4, "file_path": "questions/probability/uniform/q4-complement-tail.php", "title": "The Complement Rule - P(X > x) = 1 - P(X < x)", "points": 10, "qid": "1878129" },
-    { "slot": 5, "file_path": "questions/probability/uniform/q5-cdf-left-area.php", "title": "The Cumulative Distribution Function - P(X <= x) = (x - a) / (b - a)", "points": 10, "qid": "1878131" },
-    { "slot": 6, "file_path": "questions/probability/uniform/q6-uniform-mean-sd.php", "title": "Uniform Mean and Standard Deviation - mu = (a+b)/2 and sigma = sqrt((b-a)^2/12)", "points": 9, "qid": "1878132" },
-    { "slot": 7, "file_path": "questions/probability/uniform/q7-uniform-quartiles.php", "title": "Uniform Quartiles and Median - the percentiles of X ~ U(a, b)", "points": 9, "qid": "1878133" },
-    { "slot": 8, "file_path": "questions/probability/uniform/q8-sanity-checks.php", "title": "The Two Sanity Checks - catch a probability bigger than 1 or negative", "points": 10, "qid": "1878134" },
-    { "slot": 9, "file_path": "questions/probability/uniform/q9-height-vs-probability.php", "title": "Height Is a Density, Not a Probability - multiply by the width", "points": 10, "qid": "1878135" },
-    { "slot": 10, "file_path": "questions/probability/uniform/pre-frq-grade-a-uniform-reasoning.php", "title": "Pre-FRQ Grade a Uniform Reasoning - a flat-density scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one", "points": 12, "qid": "1878136" }
+    {
+      "slot": 1,
+      "file_path": "questions/probability/cumulative/review-complement-and-cumulative-total.php",
+      "title": "Review of Complements and the Cumulative Column - Find a complement, test whether a table is a probability distribution, and state what the cumulative column must do",
+      "points": 8,
+      "qid": "1961704"
+    },
+    {
+      "slot": 2,
+      "file_path": "questions/probability/cumulative/build-the-cumulative-column.php",
+      "title": "Build the Cumulative Column - Add the chances in order and give the running total at x = 1, 2 and 3",
+      "points": 9,
+      "qid": "1961706"
+    },
+    {
+      "slot": 3,
+      "file_path": "questions/probability/cumulative/read-three-probabilities-from-cumulative.php",
+      "title": "Read Three Probabilities from a Cumulative Table - Convert more than, between and fewer than to inequalities, then subtract cumulative entries",
+      "points": 9,
+      "qid": "1961707"
+    },
+    {
+      "slot": 4,
+      "file_path": "questions/probability/cumulative/phrase-to-inequality-to-probability.php",
+      "title": "Phrase to Inequality to Probability - Turn at most, at least, more than, fewer than, no more than and no fewer than into an inequality, then read the cumulative table",
+      "points": 9,
+      "qid": "1961708"
+    },
+    {
+      "slot": 5,
+      "file_path": "questions/probability/cumulative/quiz-cumulative-tail-and-interval.php",
+      "title": "Quiz Cumulative Tail and Interval - Build F(2) from a five-row quiz table, then read at least 3 and between 2 and 3 inclusive",
+      "points": 9,
+      "qid": "1961709"
+    },
+    {
+      "slot": 6,
+      "file_path": "questions/probability/cumulative/median-and-quartiles-from-cumulative.php",
+      "title": "Quartiles from a Cumulative Table - Use the cut-off rule to find the first quartile and the third quartile",
+      "points": 9,
+      "qid": "1961710"
+    },
+    {
+      "slot": 7,
+      "file_path": "questions/probability/cumulative/cutoffs-from-cumulative.php",
+      "title": "Cut-Offs from a Cumulative Table - Find the smallest value whose running total reaches 0.6 and 0.9",
+      "points": 9,
+      "qid": "1961711"
+    },
+    {
+      "slot": 8,
+      "file_path": "questions/probability/cumulative/row-versus-running-total.php",
+      "title": "Row Versus Running Total - Diagnose a student who reads P(X = 2) as P(X <= 2), then give both values and the jump at x = 2",
+      "points": 8,
+      "qid": "1961713"
+    },
+    {
+      "slot": 9,
+      "file_path": "questions/probability/cumulative/median-and-mean-compare.php",
+      "title": "Mean and the Largest Chance - Compute the mean from a three-row table, then test the claim that the mean is the value with the largest chance",
+      "points": 9,
+      "qid": "1961714"
+    },
+    {
+      "slot": 10,
+      "file_path": "questions/probability/cumulative/missing-value-cumulative-median.php",
+      "title": "Missing Value to Cumulative Table - Fill the missing chance from sum-to-1, then read F(2)",
+      "points": 9,
+      "qid": "1961715"
+    },
+    {
+      "slot": 11,
+      "file_path": "questions/probability/cumulative/pre-frq-grade-a-cumulative-reasoning.php",
+      "title": "Pre-FRQ Grade a Cumulative Reasoning - The scenario and grading checklist of the cumulative-table FRQ, but the student grades four sample responses against the rubric instead of writing one",
+      "points": 12,
+      "qid": "1961716"
+    }
   ]
 }

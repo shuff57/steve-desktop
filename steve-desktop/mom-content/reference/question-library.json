@@ -4073,5 +4073,166 @@
     "cid": "334437",
     "filed": "2026-10-26",
     "qtype": "multipart"
+  },
+  "questions/im1/two-reflections-over-parallel-lines-find-the-translation.php": {
+    "qsetid": "1955920",
+    "cid": "334437",
+    "filed": "2026-10-29",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/two-reflections-over-crossing-lines-find-the-rotation.php": {
+    "qsetid": "1955921",
+    "cid": "334437",
+    "filed": "2026-10-29",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/rotate-a-point-about-a-center-that-is-not-the-origin.php": {
+    "qsetid": "1955922",
+    "cid": "334437",
+    "filed": "2026-10-29",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/find-the-pre-image-of-a-slide-and-a-quarter-turn.php": {
+    "qsetid": "1955923",
+    "cid": "334437",
+    "filed": "2026-10-29",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/im1/is-this-change-a-rigid-motion.php": {
+    "qsetid": "1955924",
+    "cid": "334437",
+    "filed": "2026-10-29",
+    "qtype": "multipart",
+    "authored": true
+  },
+  "questions/probability/cumulative/review-complement-and-cumulative-total.php": {
+    "qsetid": "1961704",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/build-the-cumulative-column.php": {
+    "qsetid": "1961706",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/read-three-probabilities-from-cumulative.php": {
+    "qsetid": "1961707",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/phrase-to-inequality-to-probability.php": {
+    "qsetid": "1961708",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/quiz-cumulative-tail-and-interval.php": {
+    "qsetid": "1961709",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/median-and-quartiles-from-cumulative.php": {
+    "qsetid": "1961710",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/cutoffs-from-cumulative.php": {
+    "qsetid": "1961711",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/row-versus-running-total.php": {
+    "qsetid": "1961713",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/median-and-mean-compare.php": {
+    "qsetid": "1961714",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/missing-value-cumulative-median.php": {
+    "qsetid": "1961715",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/pre-frq-grade-a-cumulative-reasoning.php": {
+    "qsetid": "1961716",
+    "cid": "334437",
+    "filed": "2026-11-02",
+    "qtype": "multipart"
+  },
+  "questions/im1/parallel-and-perpendicular-line-equations-from-a-point.php": {
+    "qsetid": "1964041",
+    "cid": "340140",
+    "filed": "2026-11-03",
+    "qtype": "multipart"
+  },
+  "questions/probability/discrete-pdf/build-the-pdf-from-two-spins.php": {
+    "qsetid": "1967592",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/counts-to-mean-and-standard-deviation.php": {
+    "qsetid": "1967593",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/find-the-missing-x-from-the-expected-value.php": {
+    "qsetid": "1967594",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/none-and-at-least-one.php": {
+    "qsetid": "1967595",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/binomial/find-p-from-the-mean.php": {
+    "qsetid": "1967596",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/cumulative/rebuild-the-chances-from-the-cumulative-table.php": {
+    "qsetid": "1967597",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q1-expected-value-decision.php": {
+    "qsetid": "1967601",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/frq/probability/q8-binomial-setup-and-interpretation.php": {
+    "qsetid": "1967598",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
+  },
+  "questions/probability/expected-value/build-the-ev-table-for-a-game.php": {
+    "qsetid": "1967701",
+    "cid": "334437",
+    "filed": "2026-11-06",
+    "qtype": "multipart"
   }
 }

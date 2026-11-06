@@ -1,0 +1,206 @@
+{
+  "name": "Chapter 4 Group Test",
+  "book": "introduction-to-stats-sh",
+  "kind": "group",
+  "slug": "chapter-4-group-test",
+  "status": "pushed",
+  "_note": "DRAFTED AND PUSHED 2026-11-06 to cid 334437 aid 23444253; verified live in Teacher Preview with every question answered: 72/100, 14/14 (auto-graded 12x6=72, the two FRQs show 0 until hand graded). Built from the four Chapter 4 homeworks only (4.1, 4.2, 4.3, 4.5); 4.4 and 4.6 are labs and are out of scope (Steve, 2026-11-06). HALF NEW, HALF REUSED among the 12 auto-graded slots (Steve, 2026-11-06): was 6 reused, 6 new; slot 4 was then swapped (Steve, 2026-11-06) from the reused q11 (1953514) to the NEW build-the-ev-table-for-a-game (1967701), so now 5 reused, 7 new. The two FRQs are kept as originally drafted and are not counted in the split. REUSED, attached by qsetid, already on their homework: slots 1 (1952481), 2 (1877036), 7 (1877075), 10 (1961706), 11 (1961707). NEW, written 2026-11-06, rendered clean in the sandbox, not yet filed (qid null): slots 3, 5, 6, 8, 9, 12, all numfunc with 3 parts and answers precomputed by a generator. FRQs, not yet filed: slot 13 q1-expected-value-decision (existed; its student rubric was reworked 2026-11-06 to show points and total 14: Compute 6 / Decision 3 / Long-Run Meaning 5, with a 100-play total) and slot 14 q8-binomial-setup-and-interpretation (written 2026-11-06: Check the Conditions 4 / Name the Parameters 2 / State and Compute 4 / Interpret 4). Per section: 4.1 two reused and one new, 4.2 one reused (slot 4) and two new, 4.3 one reused and two new, 4.5 two reused and one new. Points 12x6 + 14 + 14 = 100, same shape as Chapter 3. Pre-FRQ items are excluded on purpose. Replaced out of the first draft (never filed by this test, still in the library): discrete-pdf q3-which-rows-to-add 1952483, expected-value q6-sd-of-distribution 1877063, q9-sd-compare-two-distributions 1877066, binomial q5-binomial-at-least 1877077, q6-binomial-mean-sd 1877078, cumulative median-and-quartiles-from-cumulative 1961710; they are free for the Chapter 4 practice and individual tests, together with the rest of each homework. The FRQ pool is empty after this test. aid is unknown: attach into the Chapter 4 Group Test stub if one exists, read it off the live course tree. Slot 3 rewritten 2026-11-06 so X is the SUM of the two numbers and the figure is a sum table (was larger or smaller). Slot 4 is the new fill-the-table game question: the student enters x (net profit, loss negative) and P(x) for a big win, a small win and a loss, then E(X); weights 1,1,1,1,1,1,2.",
+  "coverage_spec": [
+    "4.1 complete a PDF table: missing probability, then P(X >= k)",
+    "4.1 test a table for the two PDF conditions",
+    "4.1 build the PDF from two spins: count equally likely pairs, then P(X = k) and P(X >= m)",
+    "4.2 confirm the sum is 1, then compute E(X)",
+    "4.2 counts to chances, then the mean and standard deviation of a token draw",
+    "4.2 find the missing x value from a given mean, then the expected total of 50 plays",
+    "4.3 binomial exact probability P(X = k)",
+    "4.3 none and at least one: P(X = 0) = q^n, its complement, and the mean np",
+    "4.3 find p from n and the mean, then sigma and P(X = 1)",
+    "4.5 build the cumulative column",
+    "4.5 read more than, between and fewer than from a cumulative table",
+    "4.5 rebuild the chances from a cumulative table: P(X = 3) as a jump, P(X > 3), and the median",
+    "FRQ 4.2 expected value decision: compute E(X), decide play or pass, explain the long-run meaning",
+    "FRQ 4.3 binomial setup and interpretation: check the three conditions, name n and p, state and compute, interpret against np"
+  ],
+  "mom_settings": {
+    "subtype": "Test",
+    "defattempts": 3,
+    "versions_per_question": 1,
+    "penalty": {
+      "per_attempt": 0,
+      "after_attempt": 1
+    },
+    "earlybonus": 0,
+    "gbcategory": "GROUP",
+    "late_passes": 0,
+    "timelimit_min": 89,
+    "timelimit_wednesday_min": 81,
+    "allowovertime": true,
+    "passcode": "required - see ~/Documents/mom-test-passcodes-2026-27.md",
+    "displaymethod": "All questions on one page",
+    "show_scores": "on each question immediately",
+    "show_answers": "after the last try on a question"
+  },
+  "target": {
+    "cid": "334437",
+    "aid": "23444253"
+  },
+  "created_at": "2026-11-06",
+  "questions": [
+    {
+      "slot": 1,
+      "sub_topic": "4.1 complete a PDF table: missing probability, then P(X >= k)",
+      "file_path": "questions/probability/discrete-pdf/q1-complete-the-table.php",
+      "title": "Complete the PDF Table",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": true,
+      "qid": "1952481"
+    },
+    {
+      "slot": 2,
+      "sub_topic": "4.1 test a table for the two PDF conditions",
+      "file_path": "questions/probability/expected-value/q2-legitimacy-check.php",
+      "title": "Legitimate Distribution Check",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": true,
+      "qid": "1877036"
+    },
+    {
+      "slot": 3,
+      "sub_topic": "4.1 build the PDF from a sum table: count equally likely pairs, then P(X = k) and P(X >= m)",
+      "file_path": "questions/probability/discrete-pdf/build-the-pdf-from-two-spins.php",
+      "title": "Build the PDF from a Sum Table",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967592"
+    },
+    {
+      "slot": 4,
+      "sub_topic": "4.2 build the expected value table for a game: net profit x (wins and a loss), P(x), then E(X)",
+      "file_path": "questions/probability/expected-value/build-the-ev-table-for-a-game.php",
+      "title": "Build the Expected Value Table for a Game",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967701"
+    },
+    {
+      "slot": 5,
+      "sub_topic": "4.2 counts to chances, then the mean and standard deviation of a token draw",
+      "file_path": "questions/probability/expected-value/counts-to-mean-and-standard-deviation.php",
+      "title": "Counts to Mean and Standard Deviation",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967593"
+    },
+    {
+      "slot": 6,
+      "sub_topic": "4.2 find the missing x value from a given mean, then the expected total of 50 plays",
+      "file_path": "questions/probability/expected-value/find-the-missing-x-from-the-expected-value.php",
+      "title": "Find the Missing x from the Expected Value",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967594"
+    },
+    {
+      "slot": 7,
+      "sub_topic": "4.3 binomial exact probability P(X = k)",
+      "file_path": "questions/probability/binomial/q3-binomial-exact-prob.php",
+      "title": "Binomial Exact Probability",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": true,
+      "qid": "1877075"
+    },
+    {
+      "slot": 8,
+      "sub_topic": "4.3 none and at least one: P(X = 0) = q^n, its complement, and the mean np",
+      "file_path": "questions/probability/binomial/none-and-at-least-one.php",
+      "title": "None and At Least One in a Binomial",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967595"
+    },
+    {
+      "slot": 9,
+      "sub_topic": "4.3 find p from n and the mean, then sigma and P(X = 1)",
+      "file_path": "questions/probability/binomial/find-p-from-the-mean.php",
+      "title": "Find p from the Mean",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967596"
+    },
+    {
+      "slot": 10,
+      "sub_topic": "4.5 build the cumulative column",
+      "file_path": "questions/probability/cumulative/build-the-cumulative-column.php",
+      "title": "Build the Cumulative Column",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": true,
+      "qid": "1961706"
+    },
+    {
+      "slot": 11,
+      "sub_topic": "4.5 read more than, between and fewer than from a cumulative table",
+      "file_path": "questions/probability/cumulative/read-three-probabilities-from-cumulative.php",
+      "title": "Read Three Probabilities from a Cumulative Table",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": true,
+      "qid": "1961707"
+    },
+    {
+      "slot": 12,
+      "sub_topic": "4.5 rebuild the chances from a cumulative table: P(X = 3) as a jump, P(X > 3), and the median",
+      "file_path": "questions/probability/cumulative/rebuild-the-chances-from-the-cumulative-table.php",
+      "title": "Rebuild the Chances from the Cumulative Table",
+      "role": "multipart",
+      "is_frq": false,
+      "points": 6,
+      "reused": false,
+      "qid": "1967597"
+    },
+    {
+      "slot": 13,
+      "sub_topic": "FRQ 4.2 expected value decision: compute E(X), decide play or pass, explain the long-run meaning",
+      "file_path": "questions/frq/probability/q1-expected-value-decision.php",
+      "title": "FRQ: Expected Value Decision",
+      "role": "essay",
+      "is_frq": true,
+      "points": 14,
+      "reused": false,
+      "qid": "1967601",
+      "attempts": 1
+    },
+    {
+      "slot": 14,
+      "sub_topic": "FRQ 4.3 binomial setup and interpretation: check the three conditions, name n and p, state and compute, interpret against np",
+      "file_path": "questions/frq/probability/q8-binomial-setup-and-interpretation.php",
+      "title": "FRQ: Binomial Setup and Interpretation",
+      "role": "essay",
+      "is_frq": true,
+      "points": 14,
+      "reused": false,
+      "qid": "1967598",
+      "attempts": 1
+    }
+  ]
+}

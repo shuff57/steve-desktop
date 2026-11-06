@@ -8,15 +8,16 @@
 //   S1: n=10, p=0.25, k=2   P = 45*0.0625*0.100113 = 0.2816
 //   S2: n=12, p=0.6,  k=7   P = 792*0.027994*0.01024 = 0.2270
 //   S3: n=5,  p=0.8,  k=4   P = 5*0.4096*0.2 = 0.4096
+// Wording gives the probability of a FAILURE (q), so the student must find p = 1 - q before using the formula or the calculator.
 // Invariant: answer = C(n,k) p^k q^(n-k) to 4dp on every seed.
 
 $anstypes = array("numfunc")
 
 $ctxs = array(
-  "A fair coin is flipped 8 times. Let `X` be the number of heads.",
-  "A biased coin lands heads with probability 0.25. It is flipped 10 times. Let `X` be the number of heads.",
-  "A basketball player makes 60% of her free throws, independently. She shoots 12 free throws. Let `X` be the number she makes.",
-  "A student answers 5 true-false questions by guessing. She has probability 0.8 of getting each question right, independently. Let `X` be the number correct."
+  "A coin lands tails with probability 0.5. It is flipped 8 times. Let `X` be the number of heads.",
+  "A biased coin lands tails with probability 0.75. It is flipped 10 times. Let `X` be the number of heads.",
+  "A basketball player misses 40% of her free throws, independently. She shoots 12 free throws. Let `X` be the number she makes.",
+  "A student answers 5 true-false questions by guessing. She has probability 0.2 of getting each question wrong, independently. Let `X` be the number correct."
 )
 
 $ns = array(8, 10, 12, 5)
@@ -55,6 +56,7 @@ $solutionguide = '
     </summary>
     <div class="sol-body">
       <p><span class="term-label">The formula.</span> `P(X = x) = C(n,x) p^x q^(n-x)`, where `C(n,x)` counts the ways the successes can be arranged and `p^x q^(n-x)` is the probability of any one such arrangement.</p>
+      <p><span class="term-label">Find p first.</span> The question gives the probability of a failure, `q = ' . $qdisp . '`. The probability of a success is `p = 1 - q = 1 - ' . $qdisp . ' = ' . $p . '`.</p>
       <p><span class="term-label">This question.</span> `X ~ B(' . $n . ', ' . $p . ')` and we want `P(X = ' . $k . ')`:</p>
       <p>`P(X = ' . $k . ') = C(' . $n . ', ' . $k . ') (' . $p . ')^' . $k . ' (' . $qdisp . ')^(' . $n . ' - ' . $k . ') = ` <b>' . $prob . '</b></p>
       <p>The coefficient stops you from counting one pattern when several would do: getting ' . $k . ' successes in ' . $n . ' trials can happen in `C(' . $n . ', ' . $k . ')` different orders, and each order carries the same probability.</p>

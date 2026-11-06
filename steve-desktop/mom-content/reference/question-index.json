@@ -112,7 +112,8 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro possible"
  },
  {
   "path": "questions/combinatorics/q2-word-restricted-slot.php",
@@ -218,7 +219,8 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro nPr"
  },
  {
   "path": "questions/data-collection/at-most-three-which-table.php",
@@ -401,7 +403,8 @@
   "desc": "Variable Type Identification - Classify a variable as qualitative or quantitative",
   "qtype": "multipart",
   "used_by": [
-   "t1-verify-question-home"
+   "t1-verify-question-home",
+   "wk1-5-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -410,7 +413,9 @@
   "path": "questions/data-sampling/q2-observational-vs-experiment.php",
   "desc": "Observational Study vs Experiment - Classify a study, identify treatment vs control group, and decide whether causal conclusions are supported",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk1-5-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -418,7 +423,9 @@
   "path": "questions/data-sampling/q3-sampling-method-identify.php",
   "desc": "Identify Sampling Method - Match a study description to the correct sampling method (simple random, stratified, cluster, systematic, convenience)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk1-5-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -426,7 +433,10 @@
   "path": "questions/data-sampling/q4-population-parameter-statistic.php",
   "desc": "Population vs Sample, Parameter vs Statistic - Read a study description; identify the population, the sample, and whether a given numeric summary is a parameter or a statistic",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "cumulative-w1-14-ind",
+   "wk1-5-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -1463,7 +1473,8 @@
   "qtype": "choices",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Array to string conversion on line 174 in ChoicesAnswerBox.php"
  },
  {
   "path": "questions/descriptive-stats/q1-mean-median-iqr-from-data.php",
@@ -1471,7 +1482,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-3-measures-of-the-location-of-the-data",
-   "2-5-measures-of-the-center-of-the-data"
+   "2-5-measures-of-the-center-of-the-data",
+   "wk1-5-group"
   ],
   "qsetid": "1874169",
   "health": "ok"
@@ -1585,7 +1597,8 @@
   "desc": "Compare Two Distributions - Given summary statistics for two groups, identify which has the larger center and which has the larger spread, and pick the correct verbal comparison",
   "qtype": "multipart",
   "used_by": [
-   "2-6-skewness-and-the-mean-median-and-mode"
+   "2-6-skewness-and-the-mean-median-and-mode",
+   "wk1-5-group"
   ],
   "qsetid": "1874303",
   "health": "ok"
@@ -1679,7 +1692,8 @@
   "used_by": [
    "2-5-measures-of-the-center-of-the-data",
    "chapter-2-group-test",
-   "chapter-2-practice-test"
+   "chapter-2-practice-test",
+   "wk1-5-group"
   ],
   "qsetid": "1874284",
   "health": "ok"
@@ -2065,7 +2079,9 @@
   "path": "questions/displays/q1-choose-display.php",
   "desc": "Choose the Appropriate Display - Given a data scenario, choose the best graphical display from a fixed list (bar chart, histogram, pie chart, boxplot, scatterplot, time series)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk1-5-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2076,7 +2092,8 @@
   "used_by": [
    "2-2-histograms-frequency-polygons-and-time-series-graphs",
    "chapter-2-group-test",
-   "chapter-2-practice-test"
+   "chapter-2-practice-test",
+   "wk1-5-group"
   ],
   "qsetid": "1874132",
   "health": "ok"
@@ -2086,7 +2103,8 @@
   "desc": "Boxplot - Five-Number Summary, IQR, and Outlier Check - Read Min, Q1, Median, Q3, Max from a boxplot description; compute IQR and the 1.5*IQR outlier fences",
   "qtype": "multipart",
   "used_by": [
-   "2-3-measures-of-the-location-of-the-data"
+   "2-3-measures-of-the-location-of-the-data",
+   "wk1-5-group"
   ],
   "qsetid": "1874170",
   "health": "ok"
@@ -2096,7 +2114,8 @@
   "desc": "Boxplot - IQR, Fences, and Outlier Check (Context) - From a five-number summary in context, compute IQR and the 1.5*IQR fences, then decide whether a new observation is an outlier",
   "qtype": "multipart",
   "used_by": [
-   "2-4-box-plots"
+   "2-4-box-plots",
+   "cumulative-w1-14-ind"
   ],
   "qsetid": "1874149",
   "health": "ok"
@@ -2264,7 +2283,7 @@
  },
  {
   "path": "questions/finance/compound-interest/q11-compound-interest-multipart.php",
-  "desc": "6.1 Compound Interest - Comprehensive Multipart (r/n → FV → Interest → EAY)",
+  "desc": "6.1 Compound Interest - Comprehensive Multipart (r/n \u2192 FV \u2192 Interest \u2192 EAY)",
   "qtype": "multipart",
   "used_by": [
    "cumulative-w1-13-ind"
@@ -2366,7 +2385,8 @@
   "desc": "Sampling Design Critique - Students critique a flawed sampling plan, identify bias, predict the direction of skew, and propose a better randomized design",
   "qtype": "multipart",
   "used_by": [
-   "chapter-1-practice-test"
+   "chapter-1-practice-test",
+   "wk1-5-group"
   ],
   "qsetid": "1893150",
   "health": "ok"
@@ -2376,7 +2396,8 @@
   "desc": "Compare Two Distributions in Context - Students compare two groups on shape, center, spread, and unusual values, then write a verdict in the context of what was measured",
   "qtype": "multipart",
   "used_by": [
-   "chapter-2-individual-test"
+   "chapter-2-individual-test",
+   "wk1-5-group"
   ],
   "qsetid": "1917886",
   "health": "ok"
@@ -2386,7 +2407,8 @@
   "desc": "Reading a Study - Students classify a study as observational or experimental, name a plausible source of bias or confounding, and state what conclusion is and is not justified",
   "qtype": "multipart",
   "used_by": [
-   "chapter-1-group-test"
+   "chapter-1-group-test",
+   "cumulative-w1-14-ind"
   ],
   "qsetid": "1893151",
   "health": "ok"
@@ -2511,7 +2533,9 @@
   "path": "questions/frq/inference-for-means/q11-two-sample-means-screen-time-ci.php",
   "desc": "Two-Sample Means: CI Interpretation, Decision, and Error Type (new scenarios)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2519,7 +2543,9 @@
   "path": "questions/frq/inference-for-means/q12-ci-mean-context-critique.php",
   "desc": "CI for a Mean - Interpret + Critique Conditions - Students interpret a one-mean t-CI in context, then critique whether the conditions for the t-procedure are reasonable",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2527,7 +2553,9 @@
   "path": "questions/frq/inference-for-means/q13-interpreting-inference-frq.php",
   "desc": "What Inference Really Says - Students interpret a confidence interval or significance result in plain context and name a common misinterpretation to avoid",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2535,7 +2563,9 @@
   "path": "questions/frq/inference-for-means/q2-single-mean-interpreting-p-value.php",
   "desc": "Single Mean Inference - Interpreting P-Value - Students interpret a completed one-sample mean hypothesis test by comparing p-value to significance level, making a decision on H&#8320;, and writing a context-based conclusion about the evidence.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2559,7 +2589,9 @@
   "path": "questions/frq/inference-for-means/q5-paired-means-interpreting-results.php",
   "desc": "Paired Means - Interpreting Results - Students interpret a completed paired t-test by comparing p-value to alpha, making the statistical decision, and writing a practical conclusion about intervention effects in context.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2591,7 +2623,9 @@
   "path": "questions/frq/inference-for-means/q9-anova-interpreting-results.php",
   "desc": "ANOVA - Interpreting Results - Students explain why ANOVA is appropriate for comparing three group means, interpret the F-test output by comparing p to alpha, and write a contextual conclusion about whether at least one group mean differs.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2607,7 +2641,9 @@
   "path": "questions/frq/inference-for-proportions/q10-difference-of-proportions-interpreting-results.php",
   "desc": "Difference of Proportions - Interpreting Results - Students write a conclusion statement for a two-proportion hypothesis test, stating whether to reject or fail to reject the null hypothesis and explaining what the result means about the difference between two groups.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2615,7 +2651,9 @@
   "path": "questions/frq/inference-for-proportions/q11-chi-square-gof-interpreting-results.php",
   "desc": "Chi-Square Goodness of Fit - Interpreting Results - Students write a conclusion statement for a chi-square goodness of fit test by comparing the p-value to the significance level, stating whether the null hypothesis is rejected, and explaining what the results suggest about the observed distribution.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2623,7 +2661,9 @@
   "path": "questions/frq/inference-for-proportions/q12-chi-square-independence-interpreting-results.php",
   "desc": "Chi-Square Independence - Interpreting Results - Students write a conclusion statement for a chi-square test of independence, deciding whether to reject or fail to reject H0, explaining the result in context, and recognizing that association does not prove causation.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2639,7 +2679,9 @@
   "path": "questions/frq/inference-for-proportions/q14-full-ht-workflow-context.php",
   "desc": "Full Hypothesis Test Workflow in Context - Students set up hypotheses, verify conditions, compute the test statistic and p-value, make a decision at a stated significance level, and write a conclusion that connects the result back to the original claim.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2647,7 +2689,9 @@
   "path": "questions/frq/inference-for-proportions/q15-two-prop-vaccine-full-interpretation.php",
   "desc": "Two-Proportion Test: Full Interpretation (vaccine/program efficacy scenarios)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2655,7 +2699,9 @@
   "path": "questions/frq/inference-for-proportions/q16-two-prop-full-workflow.php",
   "desc": "Two-Proportion HT - Full Workflow in Context - Students write H0/Ha, compute z + p-value, and write a context-anchored conclusion for a two-proportion comparison",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2671,7 +2717,9 @@
   "path": "questions/frq/inference-for-proportions/q3-chi-square-goodness-of-fit.php",
   "desc": "Chi-Square Goodness of Fit - Students evaluate whether observed data matches an expected distribution, explain their reasoning without calculations, and describe what a chi-square goodness of fit test measures.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2719,7 +2767,10 @@
   "path": "questions/frq/inference-for-proportions/q9-single-proportion-interpreting-results.php",
   "desc": "Single Proportion Inference - Interpreting Results - Students write a conclusion statement for a single-proportion hypothesis test given the sample data, p-value, and significance level, stating whether the null hypothesis is rejected and explaining what the result means in context.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2767,7 +2818,9 @@
   "path": "questions/frq/normal-distribution/q15-normal-model-in-context.php",
   "desc": "Normal Model in Context - Students apply a normal model to a real-world scenario: compute a probability, interpret it in context, address the bell-shape assumption",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk1-5-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2775,8 +2828,11 @@
   "path": "questions/frq/probability/q1-expected-value-decision.php",
   "desc": "Expected Value Decision - Compute E(X) for a real-world game/policy and explain whether to play or buy",
   "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
+  "used_by": [
+   "chapter-4-group-test",
+   "wk12-14-group"
+  ],
+  "qsetid": "1967601",
   "health": "ok"
  },
  {
@@ -2840,10 +2896,23 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/frq/probability/q8-binomial-setup-and-interpretation.php",
+  "desc": "Binomial Setup and Interpretation - Check the three conditions, name n and p, write and compute a binomial probability, and say what it means in context",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967598",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/frq/regression/q1-explanatory-vs-response-variable.php",
   "desc": "Explanatory vs Response Variable - Justify the Choice - Students identify which variable is the explanatory (predictor) and which is the response (outcome) in a randomized real-world scenario, justify the role assignment in context, and explain why this choice matters for a regression analysis.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2852,7 +2921,8 @@
   "desc": "Inference for the Slope - Interpret a P-Value for the Slope Test - Students interpret a p-value from a regression slope hypothesis test, compare it to alpha, decide on H&#8320;, and write a contextual conclusion about the linear relationship.",
   "qtype": "multipart",
   "used_by": [
-   "ch8-regression-practice"
+   "ch8-regression-practice",
+   "wk12-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -2861,7 +2931,9 @@
   "path": "questions/frq/regression/q11-slope-inference-frq-2.php",
   "desc": "Inference for the Slope - Concept and Hypotheses (Variant 2) - Students explain what a hypothesis test for the slope of a regression line is trying to determine, apply the idea to a randomized real-world bivariate scenario, and state the null and alternative hypotheses using &#946;&#8321; notation.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2869,7 +2941,9 @@
   "path": "questions/frq/regression/q12-regression-output-full-interpretation.php",
   "desc": "Regression Output: Interpret slope, r-squared, and slope test p-value (new scenarios)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2877,7 +2951,9 @@
   "path": "questions/frq/regression/q13-slope-inference-full-interpret.php",
   "desc": "Slope-Inference Full Interpretation - From a regression output, students interpret the slope, the slope test (t, p-value), and discuss linearity assumption",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -2896,6 +2972,8 @@
   "desc": "Interpret a Correlation Coefficient - Students describe the strength and direction of a linear relationship from a randomized r value, explain what r does and does not measure, and explain why correlation alone does not establish causation.",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-test"
   ],
   "qsetid": null,
@@ -2948,6 +3026,8 @@
   "desc": "Inference for the Slope - Concept and Hypotheses - Students explain what a hypothesis test for the slope of a regression line is trying to determine, apply the idea to a randomized real-world bivariate scenario, and state the null and alternative hypotheses using &#946;&#8321; notation.",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-test"
   ],
   "qsetid": null,
@@ -2957,7 +3037,9 @@
   "path": "questions/frq/sampling-distributions/q1-sampling-distribution-reasoning.php",
   "desc": "Sampling Distribution Reasoning - Students identify the population parameter and the sample statistic, verify CLT conditions for the sample mean, compute and interpret the standard error in context.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -3464,9 +3546,7 @@
   "path": "questions/im1/choose-a-method-for-each-line.php",
   "desc": "Choose a Method for Each Line - Pick the first step for four packets (a slope and a point, two points, two grid corners, a table), then write the equation and use it",
   "qtype": "multipart",
-  "used_by": [
-   "chapter-2-individual-test"
-  ],
+  "used_by": [],
   "qsetid": "1940508",
   "health": "unchecked"
  },
@@ -3484,9 +3564,7 @@
   "path": "questions/im1/complete-a-table-from-an-equation-and-graph-the-line.php",
   "desc": "Complete a Table from an Equation and Graph the Line - Fill in four y-values for a slope-intercept equation, then draw its graph",
   "qtype": "multipart",
-  "used_by": [
-   "chapter-2-individual-test"
-  ],
+  "used_by": [],
   "qsetid": "1940536",
   "health": "unchecked"
  },
@@ -3525,7 +3603,9 @@
   "path": "questions/im1/determine-rigid-transformation-reflection.php",
   "desc": "Determine rigid transformation (reflection)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
   "qsetid": "1475099",
   "health": "unchecked"
  },
@@ -3533,7 +3613,9 @@
   "path": "questions/im1/determine-rigid-transformation-rotation.php",
   "desc": "Determine rigid transformation (rotation)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
   "qsetid": "1475116",
   "health": "unchecked"
  },
@@ -3557,7 +3639,9 @@
   "path": "questions/im1/determine-the-rigid-transformation-reflection.php",
   "desc": "Determine the rigid transformation (reflection)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
   "qsetid": "1475095",
   "health": "unchecked"
  },
@@ -3565,7 +3649,9 @@
   "path": "questions/im1/determine-the-rigid-transformation-transformation.php",
   "desc": "Determine the rigid transformation (transformation)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
   "qsetid": "1475098",
   "health": "unchecked"
  },
@@ -3597,7 +3683,9 @@
   "path": "questions/im1/determine-the-transformation-translation.php",
   "desc": "Determine the transformation (translation)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
   "qsetid": "1476569",
   "health": "unchecked"
  },
@@ -3640,7 +3728,6 @@
   "qtype": "multipart",
   "used_by": [
    "chapter-2-group-test",
-   "chapter-2-individual-test",
    "practice-test-2"
   ],
   "qsetid": "1468905",
@@ -3663,7 +3750,6 @@
   "qtype": "multipart",
   "used_by": [
    "chapter-2-group-test",
-   "chapter-2-individual-test",
    "practice-test-2"
   ],
   "qsetid": "1468907",
@@ -3802,7 +3888,8 @@
   "desc": "Equation from a Table of Readings - Find the rate of change from equal steps in a table, find the value at x = 0 that the table leaves out, write y = mx + b and predict a later value",
   "qtype": "multipart",
   "used_by": [
-   "chapter-2-group-test"
+   "chapter-2-group-test",
+   "chapter-2-individual-test"
   ],
   "qsetid": "1940490",
   "health": "unchecked"
@@ -4089,7 +4176,7 @@
  },
  {
   "path": "questions/im1/find-the-next-three-terms-arithmetic-increasing-identify-if-a-sequence-h.php",
-  "desc": "",
+  "desc": "Find the Next Three Terms - Arithmetic Increasing  Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
   "qtype": "multipart",
   "used_by": [],
   "qsetid": "1526222",
@@ -4097,7 +4184,7 @@
  },
  {
   "path": "questions/im1/find-the-next-three-terms-in-a-sequence-geometric-decrease-identify-if-a.php",
-  "desc": "",
+  "desc": "Find the Next Three Terms in a Sequence - GEOMETRIC DECREASE Identify if a Sequence has a Common Ratio, Common Difference, or Neither (copy by Steven Huff)",
   "qtype": "multipart",
   "used_by": [],
   "qsetid": "1526223",
@@ -4117,6 +4204,16 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": "1525283",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/find-the-pre-image-of-a-slide-and-a-quarter-turn.php",
+  "desc": "Find the Pre-Image - Work backward from the image of a slide and a quarter turn",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
+  "qsetid": "1955923",
   "health": "unchecked"
  },
  {
@@ -4457,6 +4554,7 @@
   "desc": "Graph the Line Through Two Points - Find the slope from two points with the slope formula, then plot both points and draw the line",
   "qtype": "multipart",
   "used_by": [
+   "chapter-2-individual-test",
    "chapter-2-practice-test"
   ],
   "qsetid": "1940529",
@@ -4669,19 +4767,29 @@
  },
  {
   "path": "questions/im1/is-it-direct-variation-from-a-table.php",
-  "desc": "Is It Direct Variation? Test a Table - Divide y by x in two columns, decide yes or no, then give k or the starting value",
+  "desc": "Is It Direct Variation? Test a Table - Decide whether a table is direct variation, write its equation y = mx + b, and find y at a new x",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "chapter-2-individual-test"
+  ],
   "qsetid": "1940499",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/is-this-change-a-rigid-motion.php",
+  "desc": "Is This Change a Rigid Motion - Decide whether a described change keeps distances, angles and area",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
+  "qsetid": "1955924",
   "health": "unchecked"
  },
  {
   "path": "questions/im1/keep-the-right-digits-after-a-calculation.php",
   "desc": "Keep the Right Digits - Decide which measurement limits a result, then give a rate and a converted amount to that many digits",
   "qtype": "multipart",
-  "used_by": [
-   "chapter-2-individual-test"
-  ],
+  "used_by": [],
   "qsetid": "1940506",
   "health": "unchecked"
  },
@@ -4906,6 +5014,14 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/parallel-and-perpendicular-line-equations-from-a-point.php",
+  "desc": "Given a point and slope, write the equations of the parallel and perpendicular lines in slope-intercept form (local for Steven Huff)",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": "1964041",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/plot-a-table-and-write-the-equation-of-the-line.php",
   "desc": "Plot a Table and Write the Equation of the Line - Plot four equally spaced rows, draw the line through them, then find the slope and y-intercept",
   "qtype": "multipart",
@@ -5108,6 +5224,7 @@
   "desc": "Reflections - perform a reflection given line of reflection (v2) (local for Steven Huff)",
   "qtype": "draw",
   "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations",
    "3-1-4-defining-rigid-transformations",
    "chapter-3-group-test",
    "chapter-3-individual-test",
@@ -5122,6 +5239,7 @@
   "desc": "Reflections - perform a reflection given line of reflection (local for Steven Huff)",
   "qtype": "draw",
   "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations",
    "3-1-4-defining-rigid-transformations",
    "chapter-3-group-test",
    "chapter-3-individual-test",
@@ -5182,6 +5300,16 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/rotate-a-point-about-a-center-that-is-not-the-origin.php",
+  "desc": "Rotate a Point a Quarter Turn About a Center That Is Not the Origin",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
+  "qsetid": "1955922",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/rotations-id-aor-in-90-deg-increments-cor-origin.php",
   "desc": "Rotations - ID AoR in 90 deg increments & CoR (origin) (local for Steven Huff)",
   "qtype": "multipart",
@@ -5198,6 +5326,7 @@
   "desc": "Rotations - perform a rotation about the origin given angle of rotation in 90 deg increments (v2) (local for Steven Huff)",
   "qtype": "draw",
   "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations",
    "3-1-4-defining-rigid-transformations",
    "chapter-3-group-test",
    "chapter-3-individual-test",
@@ -5652,6 +5781,26 @@
   "health": "unchecked"
  },
  {
+  "path": "questions/im1/two-reflections-over-crossing-lines-find-the-rotation.php",
+  "desc": "Two Reflections Over Crossing Lines - Find the image after each flip and the size of the single turn",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
+  "qsetid": "1955921",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/im1/two-reflections-over-parallel-lines-find-the-translation.php",
+  "desc": "Two Reflections Over Parallel Vertical Lines - Find the image after each flip, name the single move, and find how far it moved",
+  "qtype": "multipart",
+  "used_by": [
+   "3-1-1-3-1-2-transformations-reflections-and-rotations"
+  ],
+  "qsetid": "1955920",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/im1/unit-chain-with-two-conversion-factors.php",
   "desc": "Unit Chain with Two Conversion Factors - Change both units of a rate by multiplying by two ratios that equal one",
   "qtype": "multipart",
@@ -5738,7 +5887,7 @@
  },
  {
   "path": "questions/im1/video-lesson-triangle-congruence-copy-by-steven-huff.php",
-  "desc": "",
+  "desc": "Video Lesson - Triangle congruence (copy by Steven Huff)",
   "qtype": "multans",
   "used_by": [],
   "qsetid": "1576503",
@@ -5833,7 +5982,7 @@
  },
  {
   "path": "questions/im1/x-a-b-one-step-includes-inverse-operation-3.php",
-  "desc": "x÷a=b one step (includes inverse operation) (local for Steven Huff)",
+  "desc": "x\u00f7a=b one step (includes inverse operation) (local for Steven Huff)",
   "qtype": "multipart",
   "used_by": [
    "chapter-1-group-test",
@@ -6265,7 +6414,8 @@
   "qtype": "multipart",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro Jar"
  },
  {
   "path": "questions/linear-programming/q4-graphical-lp-corner-evaluation.php",
@@ -6328,7 +6478,8 @@
    "test-b-w6-10-group"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro column"
  },
  {
   "path": "questions/linear-programming/q9-lp-formulation-factory-mix.php",
@@ -6497,7 +6648,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution"
+   "5-1-the-standard-normal-distribution",
+   "wk1-5-group"
   ],
   "qsetid": "1874315",
   "health": "ok"
@@ -6597,7 +6749,8 @@
   "desc": "Normal Distribution Probabilities - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
   "qtype": "multipart",
   "used_by": [
-   "5-2-using-the-normal-distribution"
+   "5-2-using-the-normal-distribution",
+   "wk1-5-group"
   ],
   "qsetid": "1878580",
   "health": "ok"
@@ -6697,7 +6850,8 @@
   "desc": "Inverse Normal - Find the cutoff value x for a given percentile of N(mu, sigma), and find both endpoints of a centered middle-p% interval",
   "qtype": "multipart",
   "used_by": [
-   "5-2-using-the-normal-distribution"
+   "5-2-using-the-normal-distribution",
+   "wk1-5-group"
   ],
   "qsetid": "1878582",
   "health": "ok"
@@ -6708,7 +6862,8 @@
   "qtype": "multipart",
   "used_by": [
    "2-7-measures-of-the-spread-of-the-data",
-   "5-1-the-standard-normal-distribution"
+   "5-1-the-standard-normal-distribution",
+   "wk1-5-group"
   ],
   "qsetid": "1874316",
   "health": "ok"
@@ -6718,7 +6873,8 @@
   "desc": "Normal Distribution Probabilities (Context) - For a normal model N(mu, sigma), compute P(X<a), P(X>b), and P(a<X<b) using standardization and the standard-normal CDF",
   "qtype": "multipart",
   "used_by": [
-   "5-2-using-the-normal-distribution"
+   "5-2-using-the-normal-distribution",
+   "cumulative-w1-14-ind"
   ],
   "qsetid": "1878581",
   "health": "ok"
@@ -6821,226 +6977,6 @@
   "health": "ok"
  },
  {
-  "path": "questions/probability/binomial/pre-frq-grade-a-binomial-setup.php",
-  "desc": "Pre-FRQ Grade a Binomial Setup - A binomial scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877085",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/pre-frq-grade-a-lab-comparison.php",
-  "desc": "Pre-FRQ Grade a Lab Comparison - A theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878125",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q1-binomial-conditions.php",
-  "desc": "Binomial Conditions - Test a described experiment against the three conditions",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877073",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q10-binomial-greater-than.php",
-  "desc": "Binomial Greater Than - P(X > k) as the complement of P(X <= k)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877083",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q11-binomial-or-not.php",
-  "desc": "Binomial or Not - Classify each described experiment",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877084",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q12-theoretical-probability.php",
-  "desc": "The Theoretical Probability - P(diamond) = 13/52 and X ~ B(10, 0.25)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878114",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q13-with-vs-without-replacement.php",
-  "desc": "With Replacement or Without - The two-draw probability both ways",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878116",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q14-empirical-rf.php",
-  "desc": "Empirical Relative Frequencies - RF(x = 2) and RF(x = 3) from the class data",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878117",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q15-empirical-mean.php",
-  "desc": "The Empirical Mean - x-bar of the 30-group class data",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878118",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q16-empirical-sd.php",
-  "desc": "The Empirical Standard Deviation - s of the 30-group class data",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878119",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q17-theoretical-pdf.php",
-  "desc": "The Theoretical PDF - P(X = 2) and P(X = 0) from the binomial formula",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878120",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q18-theoretical-mean-sd.php",
-  "desc": "The Theoretical Mean and SD - mu = np and sigma = sqrt(npq)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878121",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q19-theoretical-probs.php",
-  "desc": "Theoretical Probabilities - P(1 < x < 4) and P(x >= 8)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878122",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q2-binomial-notation.php",
-  "desc": "Binomial Notation - Read n, p and q from a scenario and write X ~ B(n, p)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877074",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q20-expected-count.php",
-  "desc": "The Expected Count - 30 times P(X = 2) against the observed 9",
-  "qtype": "multipart",
-  "used_by": [
-   "4-4-discrete-distribution-playing-card-experiment"
-  ],
-  "qsetid": "1878123",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q3-binomial-exact-prob.php",
-  "desc": "Binomial Exact Probability - P(X = k) by the formula",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877075",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q4-binomial-at-most.php",
-  "desc": "Binomial At Most - P(X <= k) as a running total",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877076",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q5-binomial-at-least.php",
-  "desc": "Binomial At Least - P(X >= k) via the complement",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877077",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q6-binomial-mean-sd.php",
-  "desc": "Binomial Mean and Standard Deviation - mu = np and sigma = sqrt(npq)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877078",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q7-binomial-translate.php",
-  "desc": "Translate Binomial Phrases - Which inequality does the English ask for",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877080",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q8-not-binomial.php",
-  "desc": "When an Experiment Is Not Binomial - Without replacement breaks independence",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877081",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/binomial/q9-binomial-compare-outcomes.php",
-  "desc": "Which Outcome Is More Likely - The value nearer the mean wins",
-  "qtype": "multipart",
-  "used_by": [
-   "4-3-binomial-distribution"
-  ],
-  "qsetid": "1877082",
-  "health": "unchecked"
- },
- {
   "path": "questions/probability/classify-mutually-exclusive-or-independent.php",
   "desc": "Mutually Exclusive, Independent or Neither - Use P(A), P(B) and P(A and B) to classify three pairs of events",
   "qtype": "multipart",
@@ -7073,177 +7009,6 @@
   "used_by": [],
   "qsetid": null,
   "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/pre-frq-grade-a-long-run-interpretation.php",
-  "desc": "Pre-FRQ Grade a Long-Run Interpretation - The expected-value FRQ's scenario and checklist, where the student grades four sample responses against the rubric instead of writing one",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877068",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/pre-frq-grade-an-ev-decision.php",
-  "desc": "Pre-FRQ Grade an EV Decision - The scenario and grading checklist of the expected-value FRQ, but the student grades four sample responses against the rubric instead of writing one",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877040",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q1-define-random-variable.php",
-  "desc": "Define the Random Variable - Name X and list the values it can take in a described situation",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877035",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q1-ev-game-of-chance.php",
-  "desc": "Expected Value of a Game of Chance - Compute E(X) for the profit, predict 100-play total, decide if fair",
-  "qtype": "multipart",
-  "used_by": [],
-  "qsetid": null,
-  "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/q10-complete-the-ev-table.php",
-  "desc": "Complete the Expected Value Table - Fill the x*P(x) column and read off mu",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877067",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q2-ev-insurance.php",
-  "desc": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables",
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877034",
-  "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/q2-legitimacy-check.php",
-  "desc": "Legitimate Distribution Check - Apply the two characteristics to a candidate table",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877036",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php",
-  "desc": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables",
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877031",
-  "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/q3-read-probabilities-from-table.php",
-  "desc": "Read Probabilities off a Distribution Table - P(x = k), P(x > k) and P(x >= k) as row sums",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877037",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q4-build-pdf-from-description.php",
-  "desc": "Build a PDF Table from a Description - recover the buried probability, then compute E(X)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877038",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q4-ev-discrete-rv.php",
-  "desc": "Expected Value - Verify valid probability distribution, compute E(X)",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877032",
-  "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php",
-  "desc": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables",
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877033",
-  "health": "ok"
- },
- {
-  "path": "questions/probability/expected-value/q5-read-less-than-probabilities.php",
-  "desc": "Read Less-Than Probabilities off a Distribution Table - P(x < k) and P(x <= k) as row sums",
-  "qtype": "multipart",
-  "used_by": [
-   "4-1-discrete-random-variables"
-  ],
-  "qsetid": "1877039",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q6-sd-of-distribution.php",
-  "desc": "Standard Deviation of a Distribution - Compute mu, Var(X) and sigma from the deviation column",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877063",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q7-law-of-large-numbers.php",
-  "desc": "Law of Large Numbers - The long-run relative frequency approaches the theoretical probability",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877064",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q8-find-the-mistake-in-table.php",
-  "desc": "Find the Mistake in an EV Table - One wrong cell in the P(x) or x*P(x) column",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877065",
-  "health": "unchecked"
- },
- {
-  "path": "questions/probability/expected-value/q9-sd-compare-two-distributions.php",
-  "desc": "Same Mean, Different Spread - Two distributions with equal mu but different sigma",
-  "qtype": "multipart",
-  "used_by": [
-   "4-2-mean-expected-value-standard-deviation"
-  ],
-  "qsetid": "1877066",
-  "health": "unchecked"
  },
  {
   "path": "questions/probability/identify-conditional-probability-from-wording.php",
@@ -7545,17 +7310,16 @@
   "desc": "Expected Value - Confirm probabilities sum to 1, compute E(X) and E(X^2) for a discrete random variable",
   "qtype": "multipart",
   "used_by": [
-   "4-1-discrete-random-variables",
-   "4-2-mean-expected-value-standard-deviation",
    "test-b-w6-10-group",
-   "test-b-w6-10-group-with-frq"
+   "test-b-w6-10-group-with-frq",
+   "wk12-14-group"
   ],
   "qsetid": "1877030",
   "health": "ok"
  },
  {
   "path": "questions/probability/q23-addition-rule-formula.php",
-  "desc": "Addition Rule Formula - Given P(A), P(B), P(A∩B), find P(A∪B), P(A and not B), P(neither)",
+  "desc": "Addition Rule Formula - Given P(A), P(B), P(A\u2229B), find P(A\u222aB), P(A and not B), P(neither)",
   "qtype": "multipart",
   "used_by": [
    "3-2-independent-and-mutually-exclusive-events",
@@ -7921,6 +7685,460 @@
   "health": "ok"
  },
  {
+  "path": "questions/probability/binomial/find-p-from-the-mean.php",
+  "desc": "Find p from the Mean - Given n and the mean, work backward to p, then find sigma and P(X = 1)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967596",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/none-and-at-least-one.php",
+  "desc": "None and At Least One in a Binomial - Find P(X = 0) as q to the n, then P(X >= 1) as its complement, then the mean np",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967595",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/pre-frq-grade-a-binomial-setup.php",
+  "desc": "Pre-FRQ Grade a Binomial Setup - A binomial scenario with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877085",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/pre-frq-grade-a-lab-comparison.php",
+  "desc": "Pre-FRQ Grade a Lab Comparison - A theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878125",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q1-binomial-conditions.php",
+  "desc": "Binomial Conditions - Test a described experiment against the three conditions",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877073",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q10-binomial-greater-than.php",
+  "desc": "Binomial Greater Than - P(X > k) as the complement of P(X <= k)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877083",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q11-binomial-or-not.php",
+  "desc": "Binomial or Not - Classify each described experiment",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877084",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q12-theoretical-probability.php",
+  "desc": "The Theoretical Probability - P(diamond) = 13/52 and X ~ B(10, 0.25)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878114",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q13-with-vs-without-replacement.php",
+  "desc": "With Replacement or Without - The two-draw probability both ways",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878116",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q14-empirical-rf.php",
+  "desc": "Empirical Relative Frequencies - RF(x = 2) and RF(x = 3) from the class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878117",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q15-empirical-mean.php",
+  "desc": "The Empirical Mean - x-bar of the 30-group class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878118",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q16-empirical-sd.php",
+  "desc": "The Empirical Standard Deviation - s of the 30-group class data",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878119",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q17-theoretical-pdf.php",
+  "desc": "The Theoretical PDF - P(X = 2) and P(X = 0) from the binomial formula",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878120",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q18-theoretical-mean-sd.php",
+  "desc": "The Theoretical Mean and SD - mu = np and sigma = sqrt(npq)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878121",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q19-theoretical-probs.php",
+  "desc": "Theoretical Probabilities - P(1 < x < 4) and P(x >= 8)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878122",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q2-binomial-notation.php",
+  "desc": "Binomial Notation - Read n, p and q from a scenario and write X ~ B(n, p)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877074",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q20-expected-count.php",
+  "desc": "The Expected Count - 30 times P(X = 2) against the observed 9",
+  "qtype": "multipart",
+  "used_by": [
+   "4-4-discrete-distribution-playing-card-experiment"
+  ],
+  "qsetid": "1878123",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q3-binomial-exact-prob.php",
+  "desc": "Binomial Exact Probability - P(X = k) by the formula",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution",
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1877075",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q4-binomial-at-most.php",
+  "desc": "Binomial At Most - P(X <= k) as a running total",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877076",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q5-binomial-at-least.php",
+  "desc": "Binomial At Least - P(X >= k) via the complement",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877077",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q6-binomial-mean-sd.php",
+  "desc": "Binomial Mean and Standard Deviation - mu = np and sigma = sqrt(npq)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877078",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q7-binomial-translate.php",
+  "desc": "Translate Binomial Phrases - Which inequality does the English ask for",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877080",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q8-not-binomial.php",
+  "desc": "When an Experiment Is Not Binomial - Without replacement breaks independence",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877081",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/binomial/q9-binomial-compare-outcomes.php",
+  "desc": "Which Outcome Is More Likely - The value nearer the mean wins",
+  "qtype": "multipart",
+  "used_by": [
+   "4-3-binomial-distribution"
+  ],
+  "qsetid": "1877082",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/build-the-ev-table-for-a-game.php",
+  "desc": "Build the Expected Value Table for a Game - Enter the net profit for each outcome (two wins and a loss) and the probability of each, then compute E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967701",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/counts-to-mean-and-standard-deviation.php",
+  "desc": "Counts to Mean and Standard Deviation - Turn token counts into chances, read one chance, then find the mean and the standard deviation",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967593",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/find-the-missing-x-from-the-expected-value.php",
+  "desc": "Find the Missing x from the Expected Value - The expected value is given and one x value is hidden: add the known rows, solve for the missing x, then scale to 50 plays",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967594",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/pre-frq-grade-a-long-run-interpretation.php",
+  "desc": "Pre-FRQ Grade a Long-Run Interpretation - The expected-value FRQ's scenario and checklist, where the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877068",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/pre-frq-grade-an-ev-decision.php",
+  "desc": "Pre-FRQ Grade an EV Decision - The scenario and grading checklist of the expected-value FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [],
+  "qsetid": "1877040",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q1-define-random-variable.php",
+  "desc": "Define the Random Variable - Name X and list the values it can take in a described situation",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877035",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q1-ev-game-of-chance.php",
+  "desc": "Expected Value of a Game of Chance - Compute E(X) for the profit, predict 100-play total, decide if fair",
+  "qtype": "multipart",
+  "used_by": [
+   "wk12-14-group"
+  ],
+  "qsetid": null,
+  "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q10-complete-the-ev-table.php",
+  "desc": "Complete the Expected Value Table - Fill the x*P(x) column and read off mu",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877067",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q11-ev-sum-check-and-compute-ex.php",
+  "desc": "Expected Value - Confirm probabilities sum to 1, then compute E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1953514",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q2-ev-insurance.php",
+  "desc": "Expected Value of an Insurance Policy - Compute customer's net expected value of a one-year policy",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation",
+   "wk12-14-group"
+  ],
+  "qsetid": "1877034",
+  "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q2-legitimacy-check.php",
+  "desc": "Legitimate Distribution Check - Apply the two characteristics to a candidate table",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables",
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1877036",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q3-ev-fill-missing-prob.php",
+  "desc": "Find Missing Probability and Compute E(X) - Use sum-to-1 to fill the table, then evaluate E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation",
+   "wk12-14-group"
+  ],
+  "qsetid": "1877031",
+  "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q3-read-probabilities-from-table.php",
+  "desc": "Read Probabilities off a Distribution Table - P(x = k), P(x > k) and P(x >= k) as row sums",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877037",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q4-build-pdf-from-description.php",
+  "desc": "Build a PDF Table from a Description - recover the buried probability, then read P(X <= 1) off the table",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877038",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q4-ev-discrete-rv.php",
+  "desc": "Expected Value - Verify valid probability distribution, compute E(X)",
+  "qtype": "multipart",
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
+  "qsetid": "1877032",
+  "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q5-ev-game-of-chance-2.php",
+  "desc": "Expected Value of a Game of Chance - Compute E(X) for profit, predict expected total over many plays, decide if the game is fair",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation",
+   "unit3-ev-chisq-regression-ind",
+   "wk7-14-group"
+  ],
+  "qsetid": "1877033",
+  "health": "ok"
+ },
+ {
+  "path": "questions/probability/expected-value/q5-read-less-than-probabilities.php",
+  "desc": "Read Less-Than Probabilities off a Distribution Table - P(x < k) and P(x <= k) as row sums",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1877039",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q6-sd-of-distribution.php",
+  "desc": "Standard Deviation of a Distribution - Compute mu, Var(X) and sigma from the deviation column",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877063",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q7-law-of-large-numbers.php",
+  "desc": "Law of Large Numbers - The long-run relative frequency approaches the theoretical probability",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877064",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q8-find-the-mistake-in-table.php",
+  "desc": "Find the Mistake in an EV Table - One wrong cell in the P(x) or x*P(x) column",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877065",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/expected-value/q9-sd-compare-two-distributions.php",
+  "desc": "Same Mean, Different Spread - Two distributions with equal mu but different sigma",
+  "qtype": "multipart",
+  "used_by": [
+   "4-2-mean-expected-value-standard-deviation"
+  ],
+  "qsetid": "1877066",
+  "health": "unchecked"
+ },
+ {
   "path": "questions/probability/uniform/pre-frq-grade-a-uniform-lab-comparison.php",
   "desc": "Pre-FRQ Grade a Uniform Lab Comparison - A theoretical-vs-empirical comparison with a grading checklist, where the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
@@ -7934,9 +8152,7 @@
   "path": "questions/probability/uniform/pre-frq-grade-a-uniform-reasoning.php",
   "desc": "Pre-FRQ Grade a Uniform Reasoning - a flat-density scenario with its grading checklist, where the student grades four sample responses against the rubric instead of writing one",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878136",
   "health": "unchecked"
  },
@@ -7944,9 +8160,7 @@
   "path": "questions/probability/uniform/q1-pdf-legitimate.php",
   "desc": "Is f(x) a Legitimate Density - The two properties of a probability density function",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878126",
   "health": "unchecked"
  },
@@ -8044,9 +8258,7 @@
   "path": "questions/probability/uniform/q2-probability-is-area.php",
   "desc": "Probability Is Area - P(c < x < d) as base times height under a flat density",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878127",
   "health": "unchecked"
  },
@@ -8054,9 +8266,7 @@
   "path": "questions/probability/uniform/q3-single-value-zero.php",
   "desc": "P(x = c) Is Zero - A single point has no width, so no area",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878128",
   "health": "unchecked"
  },
@@ -8064,9 +8274,7 @@
   "path": "questions/probability/uniform/q4-complement-tail.php",
   "desc": "The Complement Rule - P(X > x) = 1 - P(X < x)",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878129",
   "health": "unchecked"
  },
@@ -8074,9 +8282,7 @@
   "path": "questions/probability/uniform/q5-cdf-left-area.php",
   "desc": "The Cumulative Distribution Function - P(X <= x) = (x - a) / (b - a)",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878131",
   "health": "unchecked"
  },
@@ -8084,9 +8290,7 @@
   "path": "questions/probability/uniform/q6-uniform-mean-sd.php",
   "desc": "Uniform Mean and Standard Deviation - mu = (a+b)/2 and sigma = sqrt((b-a)^2/12)",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878132",
   "health": "unchecked"
  },
@@ -8094,9 +8298,7 @@
   "path": "questions/probability/uniform/q7-uniform-quartiles.php",
   "desc": "Uniform Quartiles and Median - The percentiles of X ~ U(a, b)",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878133",
   "health": "unchecked"
  },
@@ -8104,9 +8306,7 @@
   "path": "questions/probability/uniform/q8-sanity-checks.php",
   "desc": "The Two Sanity Checks - catch a probability bigger than 1 or negative",
   "qtype": "multipart",
-  "used_by": [
-   "4-5-continuous-probability-functions"
-  ],
+  "used_by": [],
   "qsetid": "1878134",
   "health": "unchecked"
  },
@@ -8114,10 +8314,181 @@
   "path": "questions/probability/uniform/q9-height-vs-probability.php",
   "desc": "Height Is a Density, Not a Probability - multiply by the width",
   "qtype": "multipart",
+  "used_by": [],
+  "qsetid": "1878135",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/discrete-pdf/build-the-pdf-from-two-spins.php",
+  "desc": "Build the PDF from a Sum Table - Count the equally likely pairs from two spins or rolls, then use the table of sums to find P(X = k) and P(X >= m)",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967592",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/discrete-pdf/pre-frq-grade-a-built-distribution.php",
+  "desc": "Pre-FRQ Grade a Built Distribution - The scenario and grading checklist of the build-a-distribution FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1952484",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/discrete-pdf/q1-complete-the-table.php",
+  "desc": "Complete the PDF Table - Use sum-to-1 to find the missing probability, then read P(X >= k) off the finished table",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables",
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1952481",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/discrete-pdf/q2-counts-to-pdf.php",
+  "desc": "Turn Counts into a PDF - Convert a table of counts to probabilities, read P(X = k) and P(X <= k), name the most likely value",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1952482",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/discrete-pdf/q3-which-rows-to-add.php",
+  "desc": "Which Rows to Add - Range and at-least-one probabilities off a full distribution table, and which rows an inequality selects",
+  "qtype": "multipart",
+  "used_by": [
+   "4-1-discrete-random-variables"
+  ],
+  "qsetid": "1952483",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/build-the-cumulative-column.php",
+  "desc": "Build the Cumulative Column - Add the chances in order and give the running total at x = 1, 2 and 3",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions",
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1961706",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/cutoffs-from-cumulative.php",
+  "desc": "Cut-Offs from a Cumulative Table - Find the smallest value whose running total reaches 0.6 and 0.9",
+  "qtype": "multipart",
   "used_by": [
    "4-5-continuous-probability-functions"
   ],
-  "qsetid": "1878135",
+  "qsetid": "1961711",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/median-and-mean-compare.php",
+  "desc": "Mean and the Largest Chance - Compute the mean from a three-row table, then test the claim that the mean is the value with the largest chance",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961714",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/median-and-quartiles-from-cumulative.php",
+  "desc": "Quartiles from a Cumulative Table - Use the cut-off rule to find the first quartile and the third quartile",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961710",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/missing-value-cumulative-median.php",
+  "desc": "Missing Value to Cumulative Table - Fill the missing chance from sum-to-1, then read F(2)",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961715",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/phrase-to-inequality-to-probability.php",
+  "desc": "Phrase to Inequality to Probability - Turn at most, at least, more than, fewer than, no more than and no fewer than into an inequality, then read the cumulative table",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961708",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/pre-frq-grade-a-cumulative-reasoning.php",
+  "desc": "Pre-FRQ Grade a Cumulative Reasoning - The scenario and grading checklist of the cumulative-table FRQ, but the student grades four sample responses against the rubric instead of writing one",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961716",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/quiz-cumulative-tail-and-interval.php",
+  "desc": "Quiz Cumulative Tail and Interval - Build F(2) from a five-row quiz table, then read at least 3 and between 2 and 3 inclusive",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961709",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/read-three-probabilities-from-cumulative.php",
+  "desc": "Read Three Probabilities from a Cumulative Table - Convert more than, between and fewer than to inequalities, then subtract cumulative entries",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions",
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1961707",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/rebuild-the-chances-from-the-cumulative-table.php",
+  "desc": "Rebuild the Chances from the Cumulative Table - Work backward from F(x): find P(X = 3) as a jump, P(X > 3) as the leftover, and the median as the first total to reach 0.5",
+  "qtype": "multipart",
+  "used_by": [
+   "chapter-4-group-test"
+  ],
+  "qsetid": "1967597",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/review-complement-and-cumulative-total.php",
+  "desc": "Review of Complements and the Cumulative Column - Find a complement, test whether a table is a probability distribution, and state what the cumulative column must do",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961704",
+  "health": "unchecked"
+ },
+ {
+  "path": "questions/probability/cumulative/row-versus-running-total.php",
+  "desc": "Row Versus Running Total - Diagnose a student who reads P(X = 2) as P(X <= 2), then give both values and the jump at x = 2",
+  "qtype": "multipart",
+  "used_by": [
+   "4-5-continuous-probability-functions"
+  ],
+  "qsetid": "1961713",
   "health": "unchecked"
  },
  {
@@ -8155,6 +8526,8 @@
   "desc": "Explanatory/Response Variables - Possum body and head length",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8.1-day1"
   ],
@@ -8176,7 +8549,9 @@
   "path": "questions/regression/intro/q11-predict-new-context.php",
   "desc": "Predict from Equation: randomized context, above/below line",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8194,7 +8569,9 @@
   "path": "questions/regression/intro/q12-extrapolation-warning-new.php",
   "desc": "Extrapolation Warning: new context, predict outside range",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8203,9 +8580,11 @@
   "desc": "Slope and Intercept in Context - Plant growth over weeks",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
-   "ch8.1-day1"
+   "ch8.1-day1",
+   "wk12-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -8285,11 +8664,13 @@
   "desc": "Interpret Slope - Years of education and salary",
   "qtype": "multiple_choice",
   "used_by": [
+   "ch8-regression-final-review-practice",
    "ch8-regression-practice",
    "ch8.1-day1"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q4-interpret-intercept.php",
@@ -8299,7 +8680,8 @@
    "ch8.1-day1"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q5-positive-negative.php",
@@ -8309,7 +8691,8 @@
    "ch8.1-day1"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q6-linear-appropriate.php",
@@ -8319,16 +8702,19 @@
    "ch8.1-day1"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q7-prediction-and-interpret.php",
   "desc": "Prediction and Interpret - Used car price above or below the line",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
-   "ch8.1-day1"
+   "ch8.1-day1",
+   "wk12-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -8341,7 +8727,8 @@
    "ch8.1-day1"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/intro/q9-two-predictions.php",
@@ -8358,11 +8745,14 @@
   "desc": "Least Squares Criterion - Why minimize squared residuals",
   "qtype": "multiple_choice",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q10-conditions-for-regression.php",
@@ -8372,7 +8762,8 @@
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q11-leverage-vs-influential.php",
@@ -8389,11 +8780,14 @@
   "desc": "Association vs Causation - Correct conclusion from observational regression",
   "qtype": "multiple_choice",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q13-indicator-variable-interpret.php",
@@ -8410,6 +8804,8 @@
   "desc": "Read Regression Output - Pull slope estimate and p-value from a software table",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
    "ch8.2-fitting-line-least-squares"
@@ -8421,7 +8817,10 @@
   "path": "questions/regression/least-squares/q15-r-squared-interpretation.php",
   "desc": "R-squared Interpretation: select correct meaning in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8439,15 +8838,21 @@
   "path": "questions/regression/least-squares/q16-slope-intercept-interpret-context.php",
   "desc": "Interpret slope and intercept in context (TOP-MISS drill for HW 8.2 q6)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 24 in Common Control | Caught warning in the question code: Tryi"
  },
  {
   "path": "questions/regression/least-squares/q17-build-equation-from-summary.php",
   "desc": "Full Equation from Summary Statistics - Compute slope from r, s_x, s_y; compute intercept from means; make a prediction",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8455,7 +8860,9 @@
   "path": "questions/regression/least-squares/q18-read-regression-output-multipart.php",
   "desc": "Read a Regression Output Table - Pull slope, intercept, slope SE, t-stat, p-value from a software summary; decide whether the slope is significant",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8463,7 +8870,9 @@
   "path": "questions/regression/least-squares/q19-data-r-r2-pvalue.php",
   "desc": "Correlation and Determination from Data - From a small (x, y) data set compute r, r-squared, the two-tailed p-value for a linear relationship, and interpret r-squared",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8485,7 +8894,8 @@
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q4-intercept-from-means.php",
@@ -8495,16 +8905,20 @@
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"numerical\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q5-full-equation-from-summary.php",
   "desc": "Full Equation from Summary Statistics - Compute slope, intercept, make prediction",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
-   "ch8.2-fitting-line-least-squares"
+   "ch8.2-fitting-line-least-squares",
+   "wk7-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -8517,18 +8931,22 @@
    "ch8.2-fitting-line-least-squares"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q7-r-squared-interpretation.php",
   "desc": "R-squared Interpretation - Pick best interpretation in context",
   "qtype": "multiple_choice",
   "used_by": [
+   "ch8-regression-group",
    "ch8-regression-practice",
-   "ch8.2-fitting-line-least-squares"
+   "ch8.2-fitting-line-least-squares",
+   "wk12-14-group"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/least-squares/q8-compute-r-squared-from-r.php",
@@ -8545,6 +8963,7 @@
   "desc": "Extrapolation Warning - Judge whether a prediction is reliable",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
    "ch8.2-fitting-line-least-squares"
@@ -8557,9 +8976,12 @@
   "desc": "Compute a Residual - Use regression equation to find residual from observed point",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
-   "ch8.1-day2"
+   "ch8.1-day2",
+   "wk12-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -8582,7 +9004,8 @@
    "ch8.1-day2"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q4-residual-plot-nonlinear.php",
@@ -8592,13 +9015,15 @@
    "ch8.1-day2"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q5-residual-std-dev.php",
   "desc": "Estimate Residual Standard Deviation - Use 95% rule to estimate s from residual plot bounds",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
    "ch8-regression-practice",
    "ch8.1-day2"
   ],
@@ -8613,13 +9038,15 @@
    "ch8.1-day2"
   ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q7-interpret-r-value.php",
   "desc": "Interpret r Value - Direction, strength, and units of correlation",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
    "ch8-regression-practice"
   ],
   "qsetid": null,
@@ -8631,13 +9058,16 @@
   "qtype": "multiple_choice",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/regression/residuals-correlation/q9-correlation-properties.php",
   "desc": "Correlation Properties - Linear-transformation invariance, symmetry, linear-only",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8646,9 +9076,12 @@
   "desc": "CI for the Slope - SE, margin of error, lower and upper bounds",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
-   "ch8.4-inference-slope-regression"
+   "ch8.4-inference-slope-regression",
+   "wk12-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -8657,7 +9090,9 @@
   "path": "questions/regression/slope-inference/q10-full-regression-workflow-2.php",
   "desc": "Full Regression Workflow - Check LINE conditions, state hypotheses, compute t-statistic and CI lower bound, reach a conclusion",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8665,7 +9100,9 @@
   "path": "questions/regression/slope-inference/q10-hypothesis-test-slope-2.php",
   "desc": "Hypothesis Test for the Slope - State null and alternative hypotheses, interpret p-value at alpha=0.05",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8673,7 +9110,9 @@
   "path": "questions/regression/slope-inference/q10-role-of-inference-new.php",
   "desc": "Role of Inference for the Slope: what H0:beta1=0 tests",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8682,6 +9121,8 @@
   "desc": "Hypothesis Test for the Slope - State H0/Ha, compute t, interpret p-value",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8-regression-test",
    "ch8.4-inference-slope-regression"
@@ -8714,6 +9155,7 @@
   "desc": "LINE Conditions for Regression - Spot which condition (Linearity/Independence/Normality/Equal variance) is violated",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
@@ -8735,6 +9177,7 @@
   "desc": "Role of Inference for the Slope - Sample slope vs population slope, sampling variability, CI meaning",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
@@ -8746,6 +9189,8 @@
   "desc": "CI from Technology Output - Read software output, construct slope CI, decide significance",
   "qtype": "multipart",
   "used_by": [
+   "ch8-regression-final-review-practice",
+   "ch8-regression-group",
    "ch8-regression-practice",
    "ch8.4-inference-slope-regression"
   ],
@@ -8756,9 +9201,13 @@
   "path": "questions/regression/slope-inference/q9-slope-concept-decisions.php",
   "desc": "Slope inference - concept and decisions (TOP-MISS drill for IND q10 / group q14)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch8-regression-final-review-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught warning in the question code: Trying to access array offset on value of type int on line 19 in Common Control | Caught warning in the question code: Tryi"
  },
  {
   "path": "questions/regression/transformations/q1-log-transform-skew.php",
@@ -8828,7 +9277,9 @@
   "path": "questions/sampling-distributions/q1-p-hat-conditions.php",
   "desc": "Sampling distribution of p-hat - check the np>=10 and n(1-p)>=10 conditions and decide whether the sampling distribution is approximately normal",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -8938,7 +9389,8 @@
   "qtype": "multipart",
   "used_by": [
    "6-1-the-central-limit-theorem-for-sample-means",
-   "6-3-using-the-central-limit-theorem"
+   "6-3-using-the-central-limit-theorem",
+   "ch4-5-foundations-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9047,7 +9499,9 @@
   "path": "questions/sampling-distributions/q3-p-hat-probability.php",
   "desc": "Sampling distribution of p-hat - compute the mean, standard error, and a less-than or greater-than probability for a sample proportion",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9127,7 +9581,8 @@
   "qtype": "multipart",
   "used_by": [
    "6-1-the-central-limit-theorem-for-sample-means",
-   "6-3-using-the-central-limit-theorem"
+   "6-3-using-the-central-limit-theorem",
+   "ch4-5-foundations-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9138,7 +9593,9 @@
   "qtype": "multipart",
   "used_by": [
    "6-1-the-central-limit-theorem-for-sample-means",
-   "6-3-using-the-central-limit-theorem"
+   "6-3-using-the-central-limit-theorem",
+   "ch4-5-foundations-practice",
+   "final-s2-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9147,7 +9604,9 @@
   "path": "questions/sampling-distributions/q6-clt-when-applies.php",
   "desc": "Central Limit Theorem - select all true statements about when the CLT applies and what it says (and does not say) about sample means and proportions",
   "qtype": "multans",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9227,7 +9686,7 @@
  },
  {
   "path": "questions/sets/q14-inclusion-exclusion-survey.php",
-  "desc": "Inclusion-Exclusion Survey - Given |U|, |A|, |B|, |neither|, find |A∪B|, |A∩B|, |A only|",
+  "desc": "Inclusion-Exclusion Survey - Given |U|, |A|, |B|, |neither|, find |A\u222aB|, |A\u2229B|, |A only|",
   "qtype": "multipart",
   "used_by": [
    "ch7-8-sets-counting-probability-group"
@@ -9260,7 +9719,7 @@
  },
  {
   "path": "questions/sets/q16-venn-2circle-survey-counts.php",
-  "desc": "Venn 2-Circle Survey Counts - Given total, |A|, |B|, |A∩B|: find only-A, only-B, A∪B, and neither",
+  "desc": "Venn 2-Circle Survey Counts - Given total, |A|, |B|, |A\u2229B|: find only-A, only-B, A\u222aB, and neither",
   "qtype": "multipart",
   "used_by": [
    "test-b-w6-13-group"
@@ -9270,7 +9729,7 @@
  },
  {
   "path": "questions/sets/q17-venn-2circle-inclusion-exclusion.php",
-  "desc": "Venn 2-Circle Inclusion-Exclusion - Given total, |A|, |B|, |A∩B|: find |A∪B| via formula, only-A, only-B, neither, and P(A)",
+  "desc": "Venn 2-Circle Inclusion-Exclusion - Given total, |A|, |B|, |A\u2229B|: find |A\u222aB| via formula, only-A, only-B, neither, and P(A)",
   "qtype": "multipart",
   "used_by": [
    "cumulative-w1-13-ind"
@@ -9368,7 +9827,10 @@
   "path": "questions/stats-tests/chi-square/q1-when-gof-vs-independence.php",
   "desc": "When to use Goodness-of-Fit vs Test of Independence - Pick the right chi-square test for a scenario",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9376,7 +9838,10 @@
   "path": "questions/stats-tests/chi-square/q2-gof-expected-counts.php",
   "desc": "Goodness-of-Fit Expected Counts - Compute E_i = n*p_i for three categories under a claimed distribution",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9384,7 +9849,10 @@
   "path": "questions/stats-tests/chi-square/q3-gof-test-statistic.php",
   "desc": "Goodness-of-Fit Test Statistic and Decision - Compute chi-square statistic, identify df, decide at alpha=0.05",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9392,7 +9860,10 @@
   "path": "questions/stats-tests/chi-square/q4-independence-expected.php",
   "desc": "Independence Expected Counts (2x2) - Compute three expected cells from row and column totals",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk12-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9400,7 +9871,9 @@
   "path": "questions/stats-tests/chi-square/q5-choose-which-test.php",
   "desc": "Choose the right Ch6 test - Pick single-prop, two-prop, GOF, or independence from a scenario",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9408,7 +9881,11 @@
   "path": "questions/stats-tests/chi-square/q6-gof-full-with-conclusion.php",
   "desc": "Chi-square Goodness of Fit - Full workflow with written conclusion in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "unit3-ev-chisq-regression-ind",
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9416,7 +9893,10 @@
   "path": "questions/stats-tests/chi-square/q7-independence-interpretation.php",
   "desc": "Chi-square Test of Independence - Interpret a completed test in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9424,7 +9904,9 @@
   "path": "questions/stats-tests/chi-square/q8-gof-test-statistic-2.php",
   "desc": "Goodness-of-Fit Test Statistic and Decision - Compute chi-square statistic, identify degrees of freedom, state conclusion at alpha=0.05",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "unit3-ev-chisq-regression-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9432,7 +9914,9 @@
   "path": "questions/stats-tests/chi-square/q8-independence-expected-and-interpret.php",
   "desc": "Chi-square Independence: compute two expected counts from a 2x2 table, then interpret the test result",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9440,7 +9924,9 @@
   "path": "questions/stats-tests/chi-square/q9-gof-full-with-conclusion-2.php",
   "desc": "Chi-square Goodness of Fit (Context 2) - Full workflow with written conclusion in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "cumulative-w1-14-ind"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9448,7 +9934,9 @@
   "path": "questions/stats-tests/ci-ht-connection/q10-ci-to-test-hypothesis.php",
   "desc": "Confidence interval to test hypothesis - interval given.",
   "qtype": "choices",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9456,7 +9944,9 @@
   "path": "questions/stats-tests/ci-ht-connection/q11-ci-to-ht-mean.php",
   "desc": "Use a CI to Test a Hypothesis About a Mean - Given a confidence interval for mu and a null value mu_0, decide whether to reject H_0",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9464,7 +9954,10 @@
   "path": "questions/stats-tests/ci-ht-connection/q9-ht-using-ci-proportion.php",
   "desc": "Hypothesis testing using confidence intervals for a proportion with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9512,7 +10005,10 @@
   "path": "questions/stats-tests/confidence-intervals/q1-ci-interpretation.php",
   "desc": "Confidence interval interpretation (p)",
   "qtype": "multans",
-  "used_by": [],
+  "used_by": [
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9621,7 +10117,9 @@
   "desc": "Construct a confidence interval for one proportion with randomized story contexts",
   "qtype": "multipart",
   "used_by": [
-   "7-3-a-population-proportion"
+   "7-3-a-population-proportion",
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9731,7 +10229,9 @@
   "desc": "Widest/Narrowest Confidence Interval / Given confidence and sample size - PG",
   "qtype": "choices",
   "used_by": [
-   "7-1-a-single-population-mean-using-the-normal-distribution"
+   "7-1-a-single-population-mean-using-the-normal-distribution",
+   "ch4-5-foundations-practice",
+   "wk7-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9812,7 +10312,9 @@
   "qtype": "multipart",
   "used_by": [
    "7-1-a-single-population-mean-using-the-normal-distribution",
-   "7-2-a-single-population-mean-using-the-student-t-distribution"
+   "7-2-a-single-population-mean-using-the-student-t-distribution",
+   "ch4-5-foundations-practice",
+   "ch7-numerical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9822,7 +10324,8 @@
   "desc": "CI for one proportion: compute lower and upper bounds, then select correct interpretation",
   "qtype": "multipart",
   "used_by": [
-   "7-3-a-population-proportion"
+   "7-3-a-population-proportion",
+   "final-s2-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9832,7 +10335,9 @@
   "desc": "CI for One Mean (t) with Story Context - Compute a t-interval from a story scenario, then interpret the interval and the meaning of confidence",
   "qtype": "multipart",
   "used_by": [
-   "7-2-a-single-population-mean-using-the-student-t-distribution"
+   "7-2-a-single-population-mean-using-the-student-t-distribution",
+   "cumulative-w1-14-ind",
+   "wk7-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9932,7 +10437,8 @@
   "desc": "Write the conclusion of a hypothesis test in context - pick the correct phrasing that links the statistical decision back to the original claim",
   "qtype": "choices",
   "used_by": [
-   "8-4-rare-events-the-sample-decision-and-conclusion"
+   "8-4-rare-events-the-sample-decision-and-conclusion",
+   "ch4-5-foundations-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9942,7 +10448,10 @@
   "desc": "Type I and Type II errors in context - given a scenario with a null hypothesis, identify which outcome corresponds to a Type I error and which corresponds to a Type II error",
   "qtype": "multipart",
   "used_by": [
-   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors",
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice",
+   "ch7-numerical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9951,7 +10460,11 @@
   "path": "questions/stats-tests/hypothesis-testing/q12-stat-significance-interpretation.php",
   "desc": "Statistical significance interpretation - Decide significance, identify wrong interpretations, distinguish from practical significance",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "final-s2-group",
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9959,7 +10472,10 @@
   "path": "questions/stats-tests/hypothesis-testing/q13-null-alt-mean-context.php",
   "desc": "State H0 and Ha for mean tests in context (one-mean, two-mean, paired)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9967,7 +10483,9 @@
   "path": "questions/stats-tests/hypothesis-testing/q14-pvalue-two-scenarios.php",
   "desc": "p-value interpretation: two scenarios, pick the correct statement",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -9976,7 +10494,8 @@
   "desc": "State H0 and Ha and Pick Test Direction - From a fresh story context, identify the parameter, write H0 and Ha, and pick left/right/two-tailed",
   "qtype": "multipart",
   "used_by": [
-   "8-1-null-and-alternative-hypotheses"
+   "8-1-null-and-alternative-hypotheses",
+   "wk7-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9986,7 +10505,8 @@
   "desc": "Full HT for One Mean (Fresh Context) - Compute t-statistic, df, p-value, decision at alpha for a one-mean test with a randomized story context",
   "qtype": "multipart",
   "used_by": [
-   "8-3-probability-distribution-needed-for-hypothesis-testing"
+   "8-3-probability-distribution-needed-for-hypothesis-testing",
+   "wk7-14-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -9996,7 +10516,8 @@
   "desc": "Full HT for One Mean (Fresh Context 2) - Compute t-statistic, p-value, decision at alpha for a one-mean test with a randomized story context",
   "qtype": "multipart",
   "used_by": [
-   "8-5-additional-information-and-full-hypothesis-test-examples"
+   "8-5-additional-information-and-full-hypothesis-test-examples",
+   "cumulative-w1-14-ind"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10326,7 +10847,10 @@
   "desc": "P-Value is low/high, identify conclusion (Carey Smith)",
   "qtype": "multipart",
   "used_by": [
-   "8-4-rare-events-the-sample-decision-and-conclusion"
+   "8-4-rare-events-the-sample-decision-and-conclusion",
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice",
+   "ch7-numerical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10436,7 +10960,9 @@
   "desc": "Identify the null and alternative hypotheses (`p`) and determine which type of test to use (e.g., right-tailed). Not Random. Scaffolded (local for Steven Huff)",
   "qtype": "multipart",
   "used_by": [
-   "8-1-null-and-alternative-hypotheses"
+   "8-1-null-and-alternative-hypotheses",
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10546,7 +11072,9 @@
   "desc": "Full hypothesis test for one population mean (p-value approach) with randomized story contexts",
   "qtype": "multipart",
   "used_by": [
-   "8-5-additional-information-and-full-hypothesis-test-examples"
+   "8-5-additional-information-and-full-hypothesis-test-examples",
+   "ch4-5-foundations-practice",
+   "ch7-numerical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10566,7 +11094,9 @@
   "desc": "Full hypothesis test for one population proportion (p-value approach) with randomized story contexts",
   "qtype": "multipart",
   "used_by": [
-   "8-3-probability-distribution-needed-for-hypothesis-testing"
+   "8-3-probability-distribution-needed-for-hypothesis-testing",
+   "ch4-5-foundations-practice",
+   "ch6-categorical-inference-practice"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10576,7 +11106,9 @@
   "desc": "Reject vs Fail to Reject - nuanced contexts where the p-value is close to the significance level alpha; students must apply the rule rigidly and avoid the \"accept the null\" misconception",
   "qtype": "multipart",
   "used_by": [
-   "8-2-outcomes-and-the-type-i-and-type-ii-errors"
+   "8-2-outcomes-and-the-type-i-and-type-ii-errors",
+   "ch4-5-foundations-practice",
+   "final-s2-group"
   ],
   "qsetid": null,
   "health": "ok"
@@ -10585,7 +11117,9 @@
   "path": "questions/stats-tests/inference-for-means/q1-sleep-hours.php",
   "desc": "Hypothesis Test - Sleep Hours - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10593,7 +11127,9 @@
   "path": "questions/stats-tests/inference-for-means/q10-anova-conclusion.php",
   "desc": "ANOVA conclusion - Interpret F result and write conclusion in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10601,7 +11137,9 @@
   "path": "questions/stats-tests/inference-for-means/q12-paired-t-from-summary.php",
   "desc": "Paired t-test: compute test statistic from summary data, decide, conclude",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10609,7 +11147,9 @@
   "path": "questions/stats-tests/inference-for-means/q13-anova-when-and-conclude.php",
   "desc": "ANOVA: when to apply (conceptual) + interpret conclusion from output",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10617,7 +11157,9 @@
   "path": "questions/stats-tests/inference-for-means/q2-reaction-times.php",
   "desc": "Hypothesis Test - Reaction Times - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10625,7 +11167,9 @@
   "path": "questions/stats-tests/inference-for-means/q3-daily-steps.php",
   "desc": "Hypothesis Test - Daily Steps - Students identify the correct test, build hypotheses from dropdowns, compute sample means, the test statistic, find the p-value, and state a conclusion.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10633,7 +11177,9 @@
   "path": "questions/stats-tests/inference-for-means/q4-test-statistic-abstract.php",
   "desc": "One-mean t test statistic (abstract) - Compute t and identify df",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10641,7 +11187,9 @@
   "path": "questions/stats-tests/inference-for-means/q5-ci-interpretation-mean.php",
   "desc": "CI for one mean interpretation - Pick correct wording in context",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10649,7 +11197,9 @@
   "path": "questions/stats-tests/inference-for-means/q6-paired-t-workflow.php",
   "desc": "Paired t-test full workflow from data table - mean diff, SE, t, conclusion",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10657,7 +11207,10 @@
   "path": "questions/stats-tests/inference-for-means/q7-paired-vs-two-sample-choice.php",
   "desc": "Paired vs independent two-sample - Choose the right test design from scenarios",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10665,7 +11218,9 @@
   "path": "questions/stats-tests/inference-for-means/q8-anova-when-to-use.php",
   "desc": "When to use ANOVA - TOP-MISS drill, pick ANOVA vs alternatives across scenarios",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10673,7 +11228,10 @@
   "path": "questions/stats-tests/inference-for-means/q9-anova-summary-table.php",
   "desc": "ANOVA summary table - Compute MS, F, and df from given SS",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10681,7 +11239,10 @@
   "path": "questions/stats-tests/two-sample-inference/q11-two-prop-test-cholesterol.php",
   "desc": "Full hypothesis test for difference of two proportions (successes given) with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10689,7 +11250,9 @@
   "path": "questions/stats-tests/two-sample-inference/q12-two-prop-test-health-field.php",
   "desc": "Full Test Difference of Proportions Proportions Given (local for Steven Huff)",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10697,7 +11260,9 @@
   "path": "questions/stats-tests/two-sample-inference/q13-two-sample-means-energy-drinks.php",
   "desc": "Full hypothesis test for difference of two population means with randomized story contexts",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10705,7 +11270,9 @@
   "path": "questions/stats-tests/two-sample-inference/q14-interpret-ci-two-means.php",
   "desc": "OpenIntro.org 5.2: Interpretation of CI for two means (weight and missed school)",
   "qtype": "choices",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10713,7 +11280,9 @@
   "path": "questions/stats-tests/two-sample-inference/q15-distracted-eating.php",
   "desc": "Distracted Eating CI - Students construct a 95% confidence interval for the difference in mean food intake between a distracted (solitaire) group and a control group, using conservative df and interpreting the result in context.",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10721,7 +11290,10 @@
   "path": "questions/stats-tests/two-sample-inference/q16-ci-diff-two-proportions.php",
   "desc": "Confidence Interval for Difference of Two Proportions - SE, ME, and bounds",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch6-categorical-inference-practice",
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10729,7 +11301,11 @@
   "path": "questions/stats-tests/two-sample-inference/q17-ci-two-means-compute.php",
   "desc": "CI for difference of two means (unequal variances) - SE, t*, ME, bounds. TOP-MISS drill",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice",
+   "cumulative-w1-14-ind",
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10737,7 +11313,9 @@
   "path": "questions/stats-tests/two-sample-inference/q18-two-mean-full-workflow.php",
   "desc": "Two-sample t - Full hypothesis-test workflow with Welch t and conclusion",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "ch7-numerical-inference-practice"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10745,7 +11323,9 @@
   "path": "questions/stats-tests/two-sample-inference/q19-two-prop-ci-compute-interpret.php",
   "desc": "Two-proportion CI: compute bounds, does it contain 0, and conclusion",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "final-s2-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -10753,7 +11333,9 @@
   "path": "questions/stats-tests/two-sample-inference/q20-two-prop-full-ht-fresh.php",
   "desc": "Two-Proportion HT (Fresh Context) - Compute pooled p, z-stat, p-value, and decision for a two-tailed two-proportion test",
   "qtype": "multipart",
-  "used_by": [],
+  "used_by": [
+   "wk7-14-group"
+  ],
   "qsetid": null,
   "health": "ok"
  },
@@ -11046,7 +11628,8 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Eeek.. unallowed macro arraypush"
  },
  {
   "path": "questions/trig/sine-graph-period-amplitude.php",
@@ -11110,7 +11693,8 @@
   "qtype": "?",
   "used_by": [],
   "qsetid": null,
-  "health": "BROKEN"
+  "health": "BROKEN",
+  "health_detail": "Caught error while generating this question: Unknown answer type (anstype) \"multiple_choice\". See question writing help for a list of valid types."
  },
  {
   "path": "questions/trig/sine-transformation-anchor-table.php",
