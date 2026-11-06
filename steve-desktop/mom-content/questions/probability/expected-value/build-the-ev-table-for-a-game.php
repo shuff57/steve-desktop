@@ -4,7 +4,9 @@
 // === COMMON CONTROL ===
 
 // Six games, each with three outcomes: a big win, a small win and a loss. The student fills BOTH rows of the table.
-// The table has no outcome labels (they led the student); the prompt fixes the order, largest net profit to smallest.
+// The table has no outcome labels (they led the student) and the columns can be filled in ANY order.
+// Order-free grading: each column's x answer is whichever of the three correct x values the student typed (no repeats),
+// and that column's P answer is the probability that belongs to THAT x. Reads the student's x entries with $stuanswers.
 // Parts: (a)-(c) numfunc - x for each outcome (net profit, the loss is negative); (d)-(f) numfunc - P(X = x) for each outcome; (g) numfunc - E(X).
 // Invariant: x = prize - cost; the three P values add to 1; E(X) = sum of x*P(x), precomputed, and may be positive, zero or negative.
 // The die game carries a figure of the six faces; the other games have none.
@@ -34,6 +36,35 @@ $answer[5] = $picked[6]
 $answer[6] = $picked[7]
 $how = $picked[8]
 $fig = $picked[9]
+
+$xs = array($answer[0], $answer[1], $answer[2])
+$ps = array($answer[3], $answer[4], $answer[5])
+$idx = array(-1, -1, -1)
+$taken = array(0, 0, 0)
+for ($j = 0; $j < 3; $j++) {
+  if (stuansready($stuanswers, $thisq, [$j])) {
+    $v = evalnumstr(getstuans($stuanswers, $thisq, $j))
+    for ($k = 0; $k < 3; $k++) {
+      if (abs($v - $xs[$k]) < 0.001 && $taken[$k] == 0 && $idx[$j] < 0) {
+        $idx[$j] = $k
+        $taken[$k] = 1
+      }
+    }
+  }
+}
+for ($j = 0; $j < 3; $j++) {
+  if ($idx[$j] < 0) {
+    for ($k = 0; $k < 3; $k++) {
+      if ($taken[$k] == 0 && $idx[$j] < 0) {
+        $idx[$j] = $k
+        $taken[$k] = 1
+      }
+    }
+  }
+  $kk = $idx[$j]
+  $answer[$j] = $xs[$kk]
+  $answer[$j + 3] = $ps[$kk]
+}
 
 $answeights = array(1, 1, 1, 1, 1, 1, 2)
 $answerboxsize = array(6, 6, 6, 7, 7, 7, 8)
@@ -72,7 +103,7 @@ $solutionguide = '
     $fig
   </div>
   <div style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px 20px; margin:6px 0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.04);">
-    <p style="margin:0 0 10px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a-f.</span> Complete the expected value table. List the three outcomes from the largest net profit `x` to the smallest. Enter each `x`, using a negative number for a loss, and the probability of each outcome as a decimal.</p>
+    <p style="margin:0 0 10px 0;"><span style="display:inline-block; background:#e8f0fe; color:#1865f2; border-radius:6px; padding:3px 10px; font-size:13px; font-weight:700; margin-right:10px; vertical-align:middle;">a-f.</span> Complete the expected value table. List the three outcomes in any order. Enter each `x`, using a negative number for a loss, and under it the probability of that same outcome as a decimal.</p>
     <table style="border-collapse:collapse; margin:0 auto; font-size:16px;">
       <tr>
         <th style="border:1px solid #21242c; padding:6px 14px; background:#f0f4ff;">`x` in dollars</th>
